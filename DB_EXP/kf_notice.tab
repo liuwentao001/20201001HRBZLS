@@ -1,0 +1,16 @@
+create table KF_NOTICE
+(
+  id              VARCHAR2(32),
+  notice_type     VARCHAR2(2),
+  notice_content  VARCHAR2(1000),
+  key_word        VARCHAR2(255),
+  publish_way     VARCHAR2(255),
+  publish_per     VARCHAR2(60),
+  publish_date    DATE,
+  effective_times DATE,
+  effective_timee DATE,
+  notice_status   VARCHAR2(2),
+  hire_code       VARCHAR2(32)
+)
+;
+

@@ -1,0 +1,15 @@
+create table BASE_JOBS
+(
+  id              VARCHAR2(32),
+  job_name        VARCHAR2(100),
+  job_group       VARCHAR2(100),
+  start_time      DATE,
+  cron_expression VARCHAR2(100),
+  invoke_param    VARCHAR2(500),
+  hire_code       VARCHAR2(32),
+  create_per      VARCHAR2(60),
+  create_date     DATE,
+  job_status      VARCHAR2(2)
+)
+;
+

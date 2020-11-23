@@ -1,0 +1,14 @@
+create table FLOW_AFFIX_CONFIG
+(
+  id                VARCHAR2(32),
+  hire_code         VARCHAR2(32),
+  flow_key          VARCHAR2(255),
+  flow_version      VARCHAR2(255),
+  step_name         VARCHAR2(255),
+  step_id           VARCHAR2(255),
+  upload_affix_id   VARCHAR2(255),
+  dowload_affix_id  VARCHAR2(255),
+  optional_affix_id VARCHAR2(255)
+)
+;
+

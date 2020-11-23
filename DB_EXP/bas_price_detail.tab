@@ -1,0 +1,16 @@
+create table BAS_PRICE_DETAIL
+(
+  id         VARCHAR2(32),
+  hire_code  VARCHAR2(32),
+  price_ver  VARCHAR2(6),
+  price_no   VARCHAR2(10),
+  price_item VARCHAR2(2),
+  method     VARCHAR2(3),
+  price      NUMBER(14,4),
+  water_qty  INTEGER,
+  money      NUMBER(14,4)
+)
+;
+comment on column BAS_PRICE_DETAIL.method
+  is '计费方式 dj/je/yjt/njt 单价/固定金额/月阶梯/年阶梯';
+

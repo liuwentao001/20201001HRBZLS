@@ -1,0 +1,14 @@
+create table BAS_TRADE
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  trade_no    VARCHAR2(10),
+  trade_name  VARCHAR2(100),
+  trade_pno   VARCHAR2(400),
+  trade_class INTEGER,
+  last_mark   CHAR(1),
+  status      CHAR(1),
+  memo        VARCHAR2(200)
+)
+;
+

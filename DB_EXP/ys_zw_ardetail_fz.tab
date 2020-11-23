@@ -1,0 +1,38 @@
+create table YS_ZW_ARDETAIL_FZ
+(
+  id            VARCHAR2(32) not null,
+  hire_code     VARCHAR2(20),
+  ardid         VARCHAR2(10) not null,
+  ardpmdid      NUMBER not null,
+  ardpiid       CHAR(2) not null,
+  ardpfid       VARCHAR2(10) not null,
+  ardpscid      NUMBER not null,
+  ardclass      NUMBER not null,
+  ardysdj       NUMBER(13,3),
+  ardyssl       NUMBER(12,2),
+  ardysje       NUMBER(13,3),
+  arddj         NUMBER(13,3),
+  ardsl         NUMBER(12,2),
+  ardje         NUMBER(13,3),
+  ardadjdj      NUMBER(13,3),
+  ardadjsl      NUMBER(12,2),
+  ardadjje      NUMBER(13,3),
+  ardmethod     CHAR(3),
+  ardpaidflag   CHAR(1),
+  ardpaiddate   DATE,
+  ardpaidmonth  VARCHAR2(7),
+  ardpaidper    VARCHAR2(20),
+  ardpmdscale   NUMBER(10,2),
+  ardilid       VARCHAR2(10),
+  ardznj        NUMBER(12,2),
+  ardmemo       VARCHAR2(200),
+  ardmsmfid     VARCHAR2(10),
+  ardmonth      VARCHAR2(7),
+  ardmid        VARCHAR2(10),
+  ardpmdtype    VARCHAR2(2),
+  ardpmdcolumn1 VARCHAR2(10),
+  ardpmdcolumn2 VARCHAR2(10),
+  ardpmdcolumn3 VARCHAR2(10)
+)
+;
+

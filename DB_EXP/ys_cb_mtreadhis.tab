@@ -1,0 +1,367 @@
+create table YS_CB_MTREADHIS
+(
+  id                VARCHAR2(32) not null,
+  cbmrmonth         VARCHAR2(7),
+  manage_no         VARCHAR2(10),
+  book_no           VARCHAR2(10),
+  cbmrbatch         NUMBER(20),
+  cbmrday           DATE,
+  cbmrrorder        NUMBER(10),
+  yhid              VARCHAR2(10),
+  sbid              VARCHAR2(10),
+  trade_no          VARCHAR2(10),
+  sbpid             VARCHAR2(10),
+  cbmrmclass        NUMBER,
+  cbmrmflag         CHAR(1),
+  cbmrcreadate      DATE,
+  cbmrinputdate     DATE,
+  cbmrreadok        CHAR(1),
+  cbmrrdate         DATE,
+  cbmrrper          VARCHAR2(15),
+  cbmrprdate        DATE,
+  cbmrscode         NUMBER(10),
+  cbmrecode         NUMBER(10),
+  cbmrsl            NUMBER(10),
+  cbmrface          VARCHAR2(2),
+  cbmrifsubmit      CHAR(1),
+  cbmrifhalt        CHAR(1),
+  cbmrdatasource    CHAR(1),
+  cbmrifignoreminsl CHAR(1),
+  cbmrpdardate      DATE,
+  cbmroutflag       CHAR(1) default 'N',
+  cbmroutid         VARCHAR2(10),
+  cbmroutdate       DATE,
+  cbmrinorder       NUMBER(4),
+  cbmrindate        DATE,
+  cbmrrpid          VARCHAR2(3),
+  cbmrmemo          VARCHAR2(120),
+  cbmrifgu          CHAR(1),
+  cbmrifrec         CHAR(1),
+  cbmrrecdate       DATE,
+  cbmrrecsl         NUMBER(10),
+  cbmraddsl         NUMBER(10),
+  cbmrcarrysl       NUMBER(10) default 0,
+  cbmrctrl1         VARCHAR2(10),
+  cbmrctrl2         VARCHAR2(10),
+  cbmrctrl3         VARCHAR2(10),
+  cbmrctrl4         VARCHAR2(10),
+  cbmrctrl5         VARCHAR2(10),
+  cbmrchkflag       CHAR(1) default 'N',
+  cbmrchkdate       DATE,
+  cbmrchkper        VARCHAR2(10),
+  cbmrchkscode      NUMBER(10),
+  cbmrchkecode      NUMBER(10),
+  cbmrchksl         NUMBER(10),
+  cbmrchkaddsl      NUMBER(10),
+  cbmrchkcarrysl    NUMBER(10),
+  cbmrchkrdate      DATE,
+  cbmrchkface       VARCHAR2(2),
+  cbmrchkresult     VARCHAR2(100),
+  cbmrchkresultmemo VARCHAR2(100),
+  cbmrprimid        VARCHAR2(200),
+  cbmrprimflag      CHAR(1),
+  cbmrlb            CHAR(1),
+  cbmrnewflag       CHAR(1),
+  cbmrface2         VARCHAR2(2),
+  cbmrface3         VARCHAR2(2),
+  cbmrface4         VARCHAR2(2),
+  cbmrscodechar     VARCHAR2(10),
+  cbmrecodechar     VARCHAR2(10),
+  cbmrprivilegeflag VARCHAR2(1),
+  cbmrprivilegeper  VARCHAR2(10),
+  cbmrprivilegememo VARCHAR2(200),
+  cbmrprivilegedate DATE,
+  area_no           VARCHAR2(10),
+  cbmriftrans       VARCHAR2(5),
+  cbmrrequisition   NUMBER(2),
+  cbmrifchk         CHAR(1),
+  cbmrinputper      VARCHAR2(10),
+  price_no          VARCHAR2(10),
+  cbmrcaliber       NUMBER(10),
+  cbmrside          VARCHAR2(100),
+  cbmrlastsl        NUMBER(10),
+  cbmrthreesl       NUMBER(10),
+  cbmryearsl        NUMBER(10),
+  cbmrrecje01       NUMBER(13,3),
+  cbmrrecje02       NUMBER(13,3),
+  cbmrrecje03       NUMBER(13,3),
+  cbmrrecje04       NUMBER(13,3),
+  cbmrmtype         VARCHAR2(10),
+  cbmrnullcont      NUMBER(10),
+  cbmrnulltotal     NUMBER(10),
+  cbmrplansl        NUMBER(18,8),
+  cbmrplanje01      NUMBER(18,8),
+  cbmrplanje02      NUMBER(18,8),
+  cbmrplanje03      NUMBER(18,8),
+  cbmrlastje01      NUMBER(13,3),
+  cbmrthreeje01     NUMBER(13,3),
+  cbmryearje01      NUMBER(13,3),
+  cbmrlastje02      NUMBER(13,3),
+  cbmrthreeje02     NUMBER(13,3),
+  cbmryearje02      NUMBER(13,3),
+  cbmrlastje03      NUMBER(13,3),
+  cbmrthreeje03     NUMBER(13,3),
+  cbmryearje03      NUMBER(13,3),
+  cbmrlastyearsl    NUMBER(10),
+  cbmrlastyearje01  NUMBER(13,3),
+  cbmrlastyearje02  NUMBER(13,3),
+  cbmrlastyearje03  NUMBER(13,3),
+  cbmrbfsdate       DATE,
+  cbmrbfedate       DATE,
+  cbmrbfday         NUMBER(10),
+  cbmrifmch         CHAR(1),
+  cbmrifzbsm        CHAR(1),
+  cbmrifyscz        CHAR(1),
+  cbmrdzsl          NUMBER(10),
+  cbmrdzflag        CHAR(1),
+  cbmrdzsyscode     NUMBER(10),
+  cbmrdzcurcode     NUMBER(10),
+  cbmrdztgl         NUMBER(10),
+  hire_code         VARCHAR2(20)
+)
+;
+comment on table YS_CB_MTREADHIS
+  is '抄表库【CBMR】';
+comment on column YS_CB_MTREADHIS.id
+  is '流水号';
+comment on column YS_CB_MTREADHIS.cbmrmonth
+  is '抄表月份';
+comment on column YS_CB_MTREADHIS.manage_no
+  is '营销公司';
+comment on column YS_CB_MTREADHIS.book_no
+  is '表册';
+comment on column YS_CB_MTREADHIS.cbmrbatch
+  is '抄表批次';
+comment on column YS_CB_MTREADHIS.cbmrday
+  is '计划抄表日';
+comment on column YS_CB_MTREADHIS.cbmrrorder
+  is '抄表次序';
+comment on column YS_CB_MTREADHIS.yhid
+  is '用户编号';
+comment on column YS_CB_MTREADHIS.sbid
+  is '水表编号';
+comment on column YS_CB_MTREADHIS.trade_no
+  is '行业分类';
+comment on column YS_CB_MTREADHIS.sbpid
+  is '上级水表';
+comment on column YS_CB_MTREADHIS.cbmrmclass
+  is '水表级次';
+comment on column YS_CB_MTREADHIS.cbmrmflag
+  is '末级标志';
+comment on column YS_CB_MTREADHIS.cbmrcreadate
+  is '创建日期';
+comment on column YS_CB_MTREADHIS.cbmrinputdate
+  is '编辑日期';
+comment on column YS_CB_MTREADHIS.cbmrreadok
+  is '抄见标志(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrrdate
+  is '抄表日期';
+comment on column YS_CB_MTREADHIS.cbmrrper
+  is '抄表员';
+comment on column YS_CB_MTREADHIS.cbmrprdate
+  is '上次抄见日期';
+comment on column YS_CB_MTREADHIS.cbmrscode
+  is '上期抄见';
+comment on column YS_CB_MTREADHIS.cbmrecode
+  is '本期抄见';
+comment on column YS_CB_MTREADHIS.cbmrsl
+  is '本期水量';
+comment on column YS_CB_MTREADHIS.cbmrface
+  is '水表故障（哈尔滨需求：查表表态）(01正常/02表异常/03零水量)';
+comment on column YS_CB_MTREADHIS.cbmrifsubmit
+  is '是否提交计费(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrifhalt
+  is '系统停算(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrdatasource
+  is '抄表结果来源(1-手工,5-抄表器,9-手机抄表,K-故障换表,L-周期换表,Z-追量  I-智能表接口)(新加：6-视频直读，7-集抄)';
+comment on column YS_CB_MTREADHIS.cbmrifignoreminsl
+  is '停算最低抄量';
+comment on column YS_CB_MTREADHIS.cbmrpdardate
+  is '抄表机抄表时间';
+comment on column YS_CB_MTREADHIS.cbmroutflag
+  is '发出到抄表机标志';
+comment on column YS_CB_MTREADHIS.cbmroutid
+  is '发出到抄表机流水号';
+comment on column YS_CB_MTREADHIS.cbmroutdate
+  is '发出到抄表机日期';
+comment on column YS_CB_MTREADHIS.cbmrinorder
+  is '抄表机接收次序';
+comment on column YS_CB_MTREADHIS.cbmrindate
+  is '抄表机接受日期';
+comment on column YS_CB_MTREADHIS.cbmrrpid
+  is '计件类型';
+comment on column YS_CB_MTREADHIS.cbmrmemo
+  is '抄表备注';
+comment on column YS_CB_MTREADHIS.cbmrifgu
+  is '估表标志(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrifrec
+  is '已计费(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrrecdate
+  is '计费日期';
+comment on column YS_CB_MTREADHIS.cbmrrecsl
+  is '应收水量';
+comment on column YS_CB_MTREADHIS.cbmraddsl
+  is '余量';
+comment on column YS_CB_MTREADHIS.cbmrcarrysl
+  is '校验水量';
+comment on column YS_CB_MTREADHIS.cbmrctrl1
+  is '抄表机控制位1';
+comment on column YS_CB_MTREADHIS.cbmrctrl2
+  is '抄表机控制位2';
+comment on column YS_CB_MTREADHIS.cbmrctrl3
+  is '抄表机控制位3';
+comment on column YS_CB_MTREADHIS.cbmrctrl4
+  is '抄表机控制位4';
+comment on column YS_CB_MTREADHIS.cbmrctrl5
+  is '抄表机控制位5(迁移前营业所)';
+comment on column YS_CB_MTREADHIS.cbmrchkflag
+  is '复核标志(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrchkdate
+  is '复核日期';
+comment on column YS_CB_MTREADHIS.cbmrchkper
+  is '复核人员';
+comment on column YS_CB_MTREADHIS.cbmrchkscode
+  is '原起数';
+comment on column YS_CB_MTREADHIS.cbmrchkecode
+  is '原止数';
+comment on column YS_CB_MTREADHIS.cbmrchksl
+  is '原水量';
+comment on column YS_CB_MTREADHIS.cbmrchkaddsl
+  is '原余量';
+comment on column YS_CB_MTREADHIS.cbmrchkcarrysl
+  is '原进位水量';
+comment on column YS_CB_MTREADHIS.cbmrchkrdate
+  is '原抄见日期';
+comment on column YS_CB_MTREADHIS.cbmrchkface
+  is '原表况';
+comment on column YS_CB_MTREADHIS.cbmrchkresult
+  is '检查结果类型(手机抄表退审原因)';
+comment on column YS_CB_MTREADHIS.cbmrchkresultmemo
+  is '检查结果说明(手机抄表待通过)';
+comment on column YS_CB_MTREADHIS.cbmrprimid
+  is '合收表主表';
+comment on column YS_CB_MTREADHIS.cbmrprimflag
+  is '合收表标志(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrlb
+  is '水表类别(D=总表,H=户表)';
+comment on column YS_CB_MTREADHIS.cbmrnewflag
+  is '新表标志';
+comment on column YS_CB_MTREADHIS.cbmrface2
+  is '抄见故障【sysfacelist2】(01正常/02本次同上次/03长期无人/04停业/05闭栓/06不用水/07表停/08无表计量/09倒表/10表锈/11表失灵/12水表自转/13非正常数据01/14无表/15非正常数据03)';
+comment on column YS_CB_MTREADHIS.cbmrface3
+  is '非常计量';
+comment on column YS_CB_MTREADHIS.cbmrface4
+  is '表井设施说明';
+comment on column YS_CB_MTREADHIS.cbmrscodechar
+  is '上期抄见';
+comment on column YS_CB_MTREADHIS.cbmrecodechar
+  is '本期抄见';
+comment on column YS_CB_MTREADHIS.cbmrprivilegeflag
+  is '特权标志(Y/N)(手机抄表用水性质、户名更改工单状态标志)';
+comment on column YS_CB_MTREADHIS.cbmrprivilegeper
+  is '特权操作人(手机抄表记录新用水性质)';
+comment on column YS_CB_MTREADHIS.cbmrprivilegememo
+  is '特权操作备注(手机抄表记录新户名)';
+comment on column YS_CB_MTREADHIS.cbmrprivilegedate
+  is '特权操作时间';
+comment on column YS_CB_MTREADHIS.area_no
+  is '管理区域';
+comment on column YS_CB_MTREADHIS.cbmriftrans
+  is '抄表事务';
+comment on column YS_CB_MTREADHIS.cbmrrequisition
+  is '通知单打印次数';
+comment on column YS_CB_MTREADHIS.cbmrifchk
+  is '考核表(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrinputper
+  is '入账人员';
+comment on column YS_CB_MTREADHIS.price_no
+  is '用水类别';
+comment on column YS_CB_MTREADHIS.cbmrcaliber
+  is '口径(METERCALIBER)';
+comment on column YS_CB_MTREADHIS.cbmrside
+  is '表位';
+comment on column YS_CB_MTREADHIS.cbmrlastsl
+  is '上次抄表水量';
+comment on column YS_CB_MTREADHIS.cbmrthreesl
+  is '前三月抄表水量';
+comment on column YS_CB_MTREADHIS.cbmryearsl
+  is '去年同期抄表水量';
+comment on column YS_CB_MTREADHIS.cbmrrecje01
+  is '应收金额费用项目01';
+comment on column YS_CB_MTREADHIS.cbmrrecje02
+  is '应收金额费用项目02';
+comment on column YS_CB_MTREADHIS.cbmrrecje03
+  is '应收金额费用项目03';
+comment on column YS_CB_MTREADHIS.cbmrrecje04
+  is '应收金额费用项目04';
+comment on column YS_CB_MTREADHIS.cbmrmtype
+  is '表型';
+comment on column YS_CB_MTREADHIS.cbmrnullcont
+  is '连续几月未抄见';
+comment on column YS_CB_MTREADHIS.cbmrnulltotal
+  is '累计几月未抄见';
+comment on column YS_CB_MTREADHIS.cbmrplansl
+  is '计划水量(手机抄表算费应收水量)';
+comment on column YS_CB_MTREADHIS.cbmrplanje01
+  is '计划水费(手机抄表算费应收合计)';
+comment on column YS_CB_MTREADHIS.cbmrplanje02
+  is '计划污水处理费(手机抄表算费上期预存)';
+comment on column YS_CB_MTREADHIS.cbmrplanje03
+  is '计划水资源费(手机抄表算费本期预存)';
+comment on column YS_CB_MTREADHIS.cbmrlastje01
+  is '上次水费';
+comment on column YS_CB_MTREADHIS.cbmrthreeje01
+  is '前n次均水费';
+comment on column YS_CB_MTREADHIS.cbmryearje01
+  is '去年同期水费(手机抄表算费水费)';
+comment on column YS_CB_MTREADHIS.cbmrlastje02
+  is '上次污水费';
+comment on column YS_CB_MTREADHIS.cbmrthreeje02
+  is '前n次均污水费';
+comment on column YS_CB_MTREADHIS.cbmryearje02
+  is '去年同期污水费(手机抄表算费污水费)';
+comment on column YS_CB_MTREADHIS.cbmrlastje03
+  is '上次水资源费';
+comment on column YS_CB_MTREADHIS.cbmrthreeje03
+  is '前n次均水资源费';
+comment on column YS_CB_MTREADHIS.cbmryearje03
+  is '去年同期水资源费(手机抄表算费附加费)';
+comment on column YS_CB_MTREADHIS.cbmrlastyearsl
+  is '去年度次均量';
+comment on column YS_CB_MTREADHIS.cbmrlastyearje01
+  is '去年度次均水费';
+comment on column YS_CB_MTREADHIS.cbmrlastyearje02
+  is '去年度次均污水费';
+comment on column YS_CB_MTREADHIS.cbmrlastyearje03
+  is '去年度次均水资源费';
+comment on column YS_CB_MTREADHIS.cbmrbfsdate
+  is '计划起始日期';
+comment on column YS_CB_MTREADHIS.cbmrbfedate
+  is '计划结束日期';
+comment on column YS_CB_MTREADHIS.cbmrbfday
+  is '偏移天数';
+comment on column YS_CB_MTREADHIS.cbmrifmch
+  is '是否免抄户(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrifzbsm
+  is '总表收免标志(0=普通表，1=总表收免，2=多级表)';
+comment on column YS_CB_MTREADHIS.cbmrifyscz
+  is '是否应收冲正(Y-是 N-否)';
+comment on column YS_CB_MTREADHIS.cbmrdzsl
+  is '等针用量';
+comment on column YS_CB_MTREADHIS.cbmrdzflag
+  is '等针标志';
+comment on column YS_CB_MTREADHIS.cbmrdzsyscode
+  is '等针';
+comment on column YS_CB_MTREADHIS.cbmrdzcurcode
+  is '等针读数';
+comment on column YS_CB_MTREADHIS.cbmrdztgl
+  is '推估量';
+create index IDX_CBMRHISBFID on YS_CB_MTREADHIS (BOOK_NO);
+create index IDX_CBMRHISMID_MD on YS_CB_MTREADHIS (SBID);
+create index IDX_CBMRHISMONTH_MD on YS_CB_MTREADHIS (CBMRMONTH);
+create index IDX_CBMRHISRDATE on YS_CB_MTREADHIS (CBMRRDATE);
+create index IDX_CBMRHISRPER on YS_CB_MTREADHIS (CBMRRPER);
+create index IDX_CBMRHISSMFID on YS_CB_MTREADHIS (MANAGE_NO);
+alter table YS_CB_MTREADHIS
+  add constraint PK_CB_MTREADHIS primary key (ID);
+

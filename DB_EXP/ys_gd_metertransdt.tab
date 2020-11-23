@@ -1,0 +1,178 @@
+create table YS_GD_METERTRANSDT
+(
+  id                 VARCHAR2(32),
+  hire_code          VARCHAR2(20),
+  bill_id            VARCHAR2(32),
+  sbid               VARCHAR2(20),
+  user_name          VARCHAR2(100),
+  user_adr           VARCHAR2(100),
+  connect_per        VARCHAR2(100),
+  connect_tel        VARCHAR2(32),
+  price_no           VARCHAR2(10),
+  sent_dept          VARCHAR2(32),
+  sent_time          DATE,
+  sent_per           VARCHAR2(32),
+  finish_date        DATE,
+  finish_per         VARCHAR2(32),
+  finish_flag        CHAR(1),
+  check_per          VARCHAR2(32),
+  check_date         DATE,
+  check_memo         VARCHAR2(1000),
+  meter_position     VARCHAR2(100),
+  water_code         VARCHAR2(40),
+  caliber            VARCHAR2(10),
+  brand              VARCHAR2(10),
+  model              VARCHAR2(30),
+  meter_position_old VARCHAR2(100),
+  water_code_old     VARCHAR2(40),
+  caliber_old        VARCHAR2(10),
+  brand_old          VARCHAR2(32),
+  model_old          VARCHAR2(30),
+  remove_per         VARCHAR2(32),
+  remove_time        DATE,
+  remove_type        VARCHAR2(32),
+  scode              NUMBER(10),
+  ecode              NUMBER(10),
+  add_water          NUMBER(10),
+  trans_per          VARCHAR2(32),
+  trans_time         DATE,
+  trans_type         VARCHAR2(4),
+  new_code           NUMBER(10),
+  status             VARCHAR2(10),
+  memo               VARCHAR2(1000),
+  process_situation  VARCHAR2(32),
+  meter_type         VARCHAR2(32),
+  meter_type_old     VARCHAR2(32),
+  book_no            VARCHAR2(10),
+  manage_no          VARCHAR2(10),
+  stop_per           VARCHAR2(32),
+  stop_date          DATE,
+  stop_mode          VARCHAR2(10),
+  stop_memo          VARCHAR2(1000),
+  recover_per        VARCHAR2(255),
+  recover_date       DATE,
+  recover_memo       VARCHAR2(4),
+  check_flag         VARCHAR2(2),
+  fail_reason        VARCHAR2(255),
+  mtdycchkdate       DATE,
+  yhid               VARCHAR2(32),
+  sbrtid             VARCHAR2(1)
+)
+;
+comment on table YS_GD_METERTRANSDT
+  is '换表工单';
+comment on column YS_GD_METERTRANSDT.id
+  is 'id';
+comment on column YS_GD_METERTRANSDT.hire_code
+  is '租户编号';
+comment on column YS_GD_METERTRANSDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_METERTRANSDT.sbid
+  is '水表编号';
+comment on column YS_GD_METERTRANSDT.user_name
+  is '业主名称';
+comment on column YS_GD_METERTRANSDT.user_adr
+  is '业主地址';
+comment on column YS_GD_METERTRANSDT.connect_per
+  is '联系人';
+comment on column YS_GD_METERTRANSDT.connect_tel
+  is '联系电话';
+comment on column YS_GD_METERTRANSDT.price_no
+  is '价格类别';
+comment on column YS_GD_METERTRANSDT.sent_dept
+  is '派工部门';
+comment on column YS_GD_METERTRANSDT.sent_time
+  is '派工时间';
+comment on column YS_GD_METERTRANSDT.sent_per
+  is '派工人员';
+comment on column YS_GD_METERTRANSDT.finish_date
+  is '完工时间';
+comment on column YS_GD_METERTRANSDT.finish_per
+  is '完工人员';
+comment on column YS_GD_METERTRANSDT.finish_flag
+  is '完工标志';
+comment on column YS_GD_METERTRANSDT.check_per
+  is '验收人员';
+comment on column YS_GD_METERTRANSDT.check_date
+  is '验收日期';
+comment on column YS_GD_METERTRANSDT.check_memo
+  is '验收说明';
+comment on column YS_GD_METERTRANSDT.meter_position
+  is '水表地址';
+comment on column YS_GD_METERTRANSDT.water_code
+  is '新表身码';
+comment on column YS_GD_METERTRANSDT.caliber
+  is '新表口径';
+comment on column YS_GD_METERTRANSDT.brand
+  is '新表厂家';
+comment on column YS_GD_METERTRANSDT.model
+  is '表型号';
+comment on column YS_GD_METERTRANSDT.meter_position_old
+  is '原水表地址';
+comment on column YS_GD_METERTRANSDT.water_code_old
+  is '原表身码';
+comment on column YS_GD_METERTRANSDT.caliber_old
+  is '原表口径';
+comment on column YS_GD_METERTRANSDT.brand_old
+  is '原表厂家';
+comment on column YS_GD_METERTRANSDT.model_old
+  is '原表型号';
+comment on column YS_GD_METERTRANSDT.remove_per
+  is '拆除人员';
+comment on column YS_GD_METERTRANSDT.remove_time
+  is '拆除时间';
+comment on column YS_GD_METERTRANSDT.remove_type
+  is '暂拆类别';
+comment on column YS_GD_METERTRANSDT.scode
+  is '上期读数';
+comment on column YS_GD_METERTRANSDT.ecode
+  is '拆表低度';
+comment on column YS_GD_METERTRANSDT.add_water
+  is '余量';
+comment on column YS_GD_METERTRANSDT.trans_per
+  is '换表人员';
+comment on column YS_GD_METERTRANSDT.trans_time
+  is '换表时间';
+comment on column YS_GD_METERTRANSDT.trans_type
+  is '换表类型';
+comment on column YS_GD_METERTRANSDT.new_code
+  is '新表起度';
+comment on column YS_GD_METERTRANSDT.status
+  is '水表状态';
+comment on column YS_GD_METERTRANSDT.memo
+  is '备注';
+comment on column YS_GD_METERTRANSDT.process_situation
+  is '处理情况';
+comment on column YS_GD_METERTRANSDT.meter_type
+  is '新表类型';
+comment on column YS_GD_METERTRANSDT.meter_type_old
+  is '原表类型';
+comment on column YS_GD_METERTRANSDT.book_no
+  is '表册编号';
+comment on column YS_GD_METERTRANSDT.manage_no
+  is '营销公司';
+comment on column YS_GD_METERTRANSDT.stop_per
+  is '停水人员';
+comment on column YS_GD_METERTRANSDT.stop_date
+  is '停水日期';
+comment on column YS_GD_METERTRANSDT.stop_mode
+  is '停水方式';
+comment on column YS_GD_METERTRANSDT.stop_memo
+  is '停水说明';
+comment on column YS_GD_METERTRANSDT.recover_per
+  is '恢复人员';
+comment on column YS_GD_METERTRANSDT.recover_date
+  is '恢复时间';
+comment on column YS_GD_METERTRANSDT.recover_memo
+  is '恢复原因';
+comment on column YS_GD_METERTRANSDT.check_flag
+  is '审核标志';
+comment on column YS_GD_METERTRANSDT.fail_reason
+  is '失败原因';
+comment on column YS_GD_METERTRANSDT.mtdycchkdate
+  is '周检起算日';
+comment on column YS_GD_METERTRANSDT.yhid
+  is '用户编号';
+comment on column YS_GD_METERTRANSDT.sbrtid
+  is ' 抄表方式';
+

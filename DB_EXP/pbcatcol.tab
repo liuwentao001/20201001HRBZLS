@@ -1,0 +1,26 @@
+create table PBCATCOL
+(
+  pbc_tnam VARCHAR2(60) not null,
+  pbc_tid  INTEGER,
+  pbc_ownr VARCHAR2(60) not null,
+  pbc_cnam VARCHAR2(60) not null,
+  pbc_cid  INTEGER,
+  pbc_labl VARCHAR2(254),
+  pbc_lpos INTEGER,
+  pbc_hdr  VARCHAR2(254),
+  pbc_hpos INTEGER,
+  pbc_jtfy INTEGER,
+  pbc_mask VARCHAR2(61),
+  pbc_case INTEGER,
+  pbc_hght INTEGER,
+  pbc_wdth INTEGER,
+  pbc_ptrn VARCHAR2(61),
+  pbc_bmap CHAR(1),
+  pbc_init VARCHAR2(254),
+  pbc_cmnt VARCHAR2(254),
+  pbc_edit VARCHAR2(61),
+  pbc_tag  VARCHAR2(254)
+)
+;
+create unique index PBSYSCATCOLDICT_IDX on PBCATCOL (PBC_TNAM, PBC_OWNR, PBC_CNAM);
+

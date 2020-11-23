@@ -1,0 +1,9 @@
+create table ACT_ID_GROUP
+(
+  id_   VARCHAR2(64),
+  rev_  NUMBER,
+  name_ VARCHAR2(255),
+  type_ VARCHAR2(255)
+)
+;
+

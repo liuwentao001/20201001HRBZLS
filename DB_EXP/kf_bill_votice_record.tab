@@ -1,0 +1,20 @@
+create table KF_BILL_VOTICE_RECORD
+(
+  id               VARCHAR2(32),
+  contact_id       VARCHAR2(64),
+  contact_type     VARCHAR2(255),
+  agent_id         VARCHAR2(64),
+  agent_name       VARCHAR2(255),
+  calling_number   VARCHAR2(32),
+  called_number    VARCHAR2(32),
+  start_time       DATE,
+  duration         INTEGER,
+  file_name        VARCHAR2(255),
+  file_description VARCHAR2(255),
+  channel          VARCHAR2(255),
+  instance_id      VARCHAR2(64),
+  hire_code        VARCHAR2(64),
+  bill_code        VARCHAR2(50)
+)
+;
+

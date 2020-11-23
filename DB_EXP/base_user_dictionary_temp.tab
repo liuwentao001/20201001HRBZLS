@@ -1,0 +1,14 @@
+create table BASE_USER_DICTIONARY_TEMP
+(
+  id           VARCHAR2(32),
+  dic_value    VARCHAR2(60),
+  dic_name     VARCHAR2(100),
+  parent_id    VARCHAR2(165),
+  relate_id    VARCHAR2(165),
+  show_order   INTEGER,
+  hire_code    VARCHAR2(32),
+  sys_code     VARCHAR2(32),
+  relate_value VARCHAR2(60)
+)
+;
+

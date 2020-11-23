@@ -1,0 +1,9 @@
+create table BASE_REPORT_CONDITION_COL
+(
+  id        VARCHAR2(64),
+  hire_code VARCHAR2(32),
+  parent_id VARCHAR2(64),
+  col_name  VARCHAR2(255)
+)
+;
+

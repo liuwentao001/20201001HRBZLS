@@ -1,0 +1,19 @@
+create table ACT_RE_PROCDEF
+(
+  id_                     VARCHAR2(64),
+  rev_                    NUMBER,
+  category_               VARCHAR2(255),
+  name_                   VARCHAR2(255),
+  key_                    VARCHAR2(255),
+  version_                NUMBER,
+  deployment_id_          VARCHAR2(64),
+  resource_name_          CLOB,
+  dgrm_resource_name_     CLOB,
+  description_            CLOB,
+  has_start_form_key_     NUMBER,
+  has_graphical_notation_ NUMBER,
+  suspension_state_       NUMBER,
+  tenant_id_              VARCHAR2(255)
+)
+;
+

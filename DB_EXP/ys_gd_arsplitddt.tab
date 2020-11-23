@@ -1,0 +1,58 @@
+create table YS_GD_ARSPLITDDT
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(20),
+  dt_id       VARCHAR2(32),
+  group_no    INTEGER,
+  price_no    VARCHAR2(10),
+  price_item  VARCHAR2(2),
+  step_class  INTEGER,
+  rec_price   NUMBER(13,3),
+  rec_water   NUMBER(12,2),
+  rec_amt     NUMBER(13,3),
+  price       NUMBER(13,3),
+  water       NUMBER(12,2),
+  charge_amt  NUMBER(13,3),
+  water1      NUMBER(13,3),
+  charge_amt1 NUMBER(12,2),
+  water2      NUMBER(13,3),
+  charge_amt2 NUMBER(13,2)
+)
+;
+comment on table YS_GD_ARSPLITDDT
+  is '拆分账单体明细';
+comment on column YS_GD_ARSPLITDDT.id
+  is 'ID';
+comment on column YS_GD_ARSPLITDDT.hire_code
+  is '租户编号';
+comment on column YS_GD_ARSPLITDDT.dt_id
+  is '单体流水号';
+comment on column YS_GD_ARSPLITDDT.group_no
+  is '混合用水分组';
+comment on column YS_GD_ARSPLITDDT.price_no
+  is '价格类别';
+comment on column YS_GD_ARSPLITDDT.price_item
+  is '费用项目';
+comment on column YS_GD_ARSPLITDDT.step_class
+  is '阶梯级别';
+comment on column YS_GD_ARSPLITDDT.rec_price
+  is '应收单价';
+comment on column YS_GD_ARSPLITDDT.rec_water
+  is '应收水量';
+comment on column YS_GD_ARSPLITDDT.rec_amt
+  is '应收金额';
+comment on column YS_GD_ARSPLITDDT.price
+  is '单价';
+comment on column YS_GD_ARSPLITDDT.water
+  is '水量';
+comment on column YS_GD_ARSPLITDDT.charge_amt
+  is '金额';
+comment on column YS_GD_ARSPLITDDT.water1
+  is '水量1';
+comment on column YS_GD_ARSPLITDDT.charge_amt1
+  is '金额1';
+comment on column YS_GD_ARSPLITDDT.water2
+  is '水量2';
+comment on column YS_GD_ARSPLITDDT.charge_amt2
+  is '水量2';
+

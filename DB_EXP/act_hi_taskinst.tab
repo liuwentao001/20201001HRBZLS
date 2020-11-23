@@ -1,0 +1,25 @@
+create table ACT_HI_TASKINST
+(
+  id_             VARCHAR2(64),
+  proc_def_id_    VARCHAR2(64),
+  task_def_key_   VARCHAR2(255),
+  proc_inst_id_   VARCHAR2(64),
+  execution_id_   VARCHAR2(64),
+  name_           VARCHAR2(255),
+  parent_task_id_ VARCHAR2(64),
+  description_    CLOB,
+  owner_          VARCHAR2(255),
+  assignee_       VARCHAR2(255),
+  start_time_     DATE,
+  claim_time_     DATE,
+  end_time_       DATE,
+  duration_       NUMBER,
+  delete_reason_  CLOB,
+  priority_       NUMBER,
+  due_date_       DATE,
+  form_key_       VARCHAR2(255),
+  category_       VARCHAR2(255),
+  tenant_id_      VARCHAR2(255)
+)
+;
+

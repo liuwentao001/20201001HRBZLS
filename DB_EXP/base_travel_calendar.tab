@@ -1,0 +1,13 @@
+create table BASE_TRAVEL_CALENDAR
+(
+  id             VARCHAR2(32),
+  hire_code      VARCHAR2(32),
+  travel_date    VARCHAR2(32),
+  travel_time    VARCHAR2(32),
+  travel_title   VARCHAR2(255),
+  travel_content VARCHAR2(2000),
+  user_name      VARCHAR2(32),
+  travel_status  VARCHAR2(2)
+)
+;
+

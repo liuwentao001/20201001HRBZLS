@@ -1,0 +1,17 @@
+create table BASE_PRINT_MODEL
+(
+  model_id              VARCHAR2(32),
+  model_code            VARCHAR2(255),
+  model_name            VARCHAR2(255),
+  model_create_per      VARCHAR2(255),
+  model_create_time     DATE,
+  model_current_version VARCHAR2(255),
+  model_current_note    VARCHAR2(255),
+  model_page_width      NUMBER,
+  model_page_height     NUMBER,
+  model_intorient       VARCHAR2(255),
+  model_strpagename     VARCHAR2(255),
+  hire_code             VARCHAR2(255)
+)
+;
+

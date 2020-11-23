@@ -1,0 +1,63 @@
+create table YS_YH_ZW_ADJUST
+(
+  id           VARCHAR2(32),
+  hire_code    VARCHAR2(32),
+  yzwid        VARCHAR2(10) not null,
+  yzwtactic    VARCHAR2(2) not null,
+  yzwmethod    CHAR(2) not null,
+  yhid         VARCHAR2(10),
+  sbid         VARCHAR2(10),
+  yzwpiid      VARCHAR2(2),
+  price_no     VARCHAR2(10),
+  yzwprice     NUMBER(13,3),
+  yzwway       NUMBER not null,
+  yzwvalue     NUMBER(13,3) not null,
+  yzwstartmon  VARCHAR2(7) not null,
+  yzwendmon    VARCHAR2(7),
+  yzwstatus    CHAR(1) not null,
+  yzwinitvalue NUMBER(13,3),
+  yzwper       VARCHAR2(10),
+  yzwdate      DATE
+)
+;
+comment on table YS_YH_ZW_ADJUST
+  is '计费调整列表【yzw】';
+comment on column YS_YH_ZW_ADJUST.yzwid
+  is '流水号';
+comment on column YS_YH_ZW_ADJUST.yzwtactic
+  is '策略';
+comment on column YS_YH_ZW_ADJUST.yzwmethod
+  is '调整方法';
+comment on column YS_YH_ZW_ADJUST.yhid
+  is '用户编号';
+comment on column YS_YH_ZW_ADJUST.sbid
+  is '水表编号';
+comment on column YS_YH_ZW_ADJUST.yzwpiid
+  is '费用项目';
+comment on column YS_YH_ZW_ADJUST.price_no
+  is '费率编码';
+comment on column YS_YH_ZW_ADJUST.yzwprice
+  is '例外单价';
+comment on column YS_YH_ZW_ADJUST.yzwway
+  is '调整方向(+/-)';
+comment on column YS_YH_ZW_ADJUST.yzwvalue
+  is '调整值';
+comment on column YS_YH_ZW_ADJUST.yzwstartmon
+  is '开始月份';
+comment on column YS_YH_ZW_ADJUST.yzwendmon
+  is '结束月份';
+comment on column YS_YH_ZW_ADJUST.yzwstatus
+  is '有效状态';
+comment on column YS_YH_ZW_ADJUST.yzwinitvalue
+  is '调整值初值';
+comment on column YS_YH_ZW_ADJUST.yzwper
+  is '调整人员';
+comment on column YS_YH_ZW_ADJUST.yzwdate
+  is '调整日期';
+create index IDX_YZWMETHOD on YS_YH_ZW_ADJUST (YZWMETHOD);
+create index IDX_YZWMID on YS_YH_ZW_ADJUST (SBID);
+create index IDX_YZWSTATUS on YS_YH_ZW_ADJUST (YZWSTATUS, YZWSTARTMON, YZWENDMON);
+create index IDX_YZWTACTIC on YS_YH_ZW_ADJUST (YZWTACTIC);
+alter table YS_YH_ZW_ADJUST
+  add constraint PK_YS_YH_ZW_ADJUST primary key (YZWID);
+

@@ -1,0 +1,97 @@
+create table YS_YH_CUSTINFO
+(
+  id            VARCHAR2(32) not null,
+  hire_code     VARCHAR2(20),
+  yhid          VARCHAR2(10) not null,
+  yhconid       VARCHAR2(20),
+  manage_no     VARCHAR2(10),
+  yhpid         VARCHAR2(10),
+  yhclass       NUMBER,
+  yhflag        CHAR(1),
+  yhname        VARCHAR2(64),
+  yhname2       VARCHAR2(64),
+  yhadr         VARCHAR2(100),
+  yhstatus      VARCHAR2(2),
+  yhstatusdate  DATE,
+  yhstatustrans VARCHAR2(3),
+  yhnewdate     DATE,
+  yhidentitylb  CHAR(1),
+  yhidentityno  VARCHAR2(60),
+  yhmtel        VARCHAR2(30),
+  yhtel1        VARCHAR2(30),
+  yhtel2        VARCHAR2(30),
+  yhtel3        VARCHAR2(30),
+  yhconnectper  VARCHAR2(60),
+  yhconnecttel  VARCHAR2(30),
+  yhifinv       CHAR(1),
+  yhifsms       CHAR(1),
+  yhifzn        CHAR(1),
+  yhprojno      VARCHAR2(25),
+  yhfileno      VARCHAR2(20),
+  yhmemo        VARCHAR2(120),
+  yhdeptid      VARCHAR2(10),
+  yhwxno        VARCHAR2(100)
+)
+;
+comment on table YS_YH_CUSTINFO
+  is '用户信息表【yh】';
+comment on column YS_YH_CUSTINFO.yhid
+  is '用户编号';
+comment on column YS_YH_CUSTINFO.yhconid
+  is '供水牌号';
+comment on column YS_YH_CUSTINFO.manage_no
+  is '营销公司';
+comment on column YS_YH_CUSTINFO.yhpid
+  is '上级用户编号';
+comment on column YS_YH_CUSTINFO.yhclass
+  is '用户级次';
+comment on column YS_YH_CUSTINFO.yhflag
+  is '末级标志';
+comment on column YS_YH_CUSTINFO.yhname
+  is '产权名';
+comment on column YS_YH_CUSTINFO.yhname2
+  is '曾用名';
+comment on column YS_YH_CUSTINFO.yhadr
+  is '用户地址';
+comment on column YS_YH_CUSTINFO.yhstatus
+  is '用户状态【syscuststatus】(1正常/7销户/2预立户)';
+comment on column YS_YH_CUSTINFO.yhstatusdate
+  is '状态日期';
+comment on column YS_YH_CUSTINFO.yhstatustrans
+  is '状态表务';
+comment on column YS_YH_CUSTINFO.yhnewdate
+  is '立户日期';
+comment on column YS_YH_CUSTINFO.yhidentitylb
+  is '证件类型(1-身份证 2-营业执照  0-无)';
+comment on column YS_YH_CUSTINFO.yhidentityno
+  is '证件号码';
+comment on column YS_YH_CUSTINFO.yhmtel
+  is '移动电话';
+comment on column YS_YH_CUSTINFO.yhtel1
+  is '固定电话1';
+comment on column YS_YH_CUSTINFO.yhtel2
+  is '固定电话2';
+comment on column YS_YH_CUSTINFO.yhtel3
+  is '固定电话3';
+comment on column YS_YH_CUSTINFO.yhconnectper
+  is '联系人';
+comment on column YS_YH_CUSTINFO.yhconnecttel
+  is '联系电话';
+comment on column YS_YH_CUSTINFO.yhifinv
+  is '是否普票（哈尔滨：借用做是否已打印增值税收据，reclist取值，置空）';
+comment on column YS_YH_CUSTINFO.yhifsms
+  is '是否提供短信服务';
+comment on column YS_YH_CUSTINFO.yhifzn
+  is '是否滞纳金';
+comment on column YS_YH_CUSTINFO.yhprojno
+  is '工程编号(水账标识号)';
+comment on column YS_YH_CUSTINFO.yhfileno
+  is '档案号(供水合同号)';
+comment on column YS_YH_CUSTINFO.yhmemo
+  is '备注信息';
+comment on column YS_YH_CUSTINFO.yhdeptid
+  is '立户部门';
+create index IDX_YHSMFID on YS_YH_CUSTINFO (MANAGE_NO);
+alter table YS_YH_CUSTINFO
+  add constraint PK_YS_YH_CUSTINFO primary key (YHID);
+

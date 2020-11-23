@@ -1,0 +1,9 @@
+create table ACT_PROCDEF_INFO
+(
+  id_           VARCHAR2(64),
+  proc_def_id_  VARCHAR2(64),
+  rev_          NUMBER,
+  info_json_id_ VARCHAR2(64)
+)
+;
+

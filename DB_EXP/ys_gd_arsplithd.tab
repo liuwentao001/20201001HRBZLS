@@ -1,0 +1,64 @@
+create table YS_GD_ARSPLITHD
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(20),
+  bill_id     VARCHAR2(32),
+  bill_no     VARCHAR2(32),
+  bill_type   VARCHAR2(32),
+  bill_source VARCHAR2(32),
+  manage_no   VARCHAR2(32),
+  new_dept    VARCHAR2(32),
+  add_date    DATE,
+  add_per     VARCHAR2(32),
+  check_date  DATE,
+  check_per   VARCHAR2(32),
+  check_flag  CHAR(1),
+  flow_id     VARCHAR2(32),
+  user_no     VARCHAR2(20),
+  user_name   VARCHAR2(100),
+  user_adr    VARCHAR2(100),
+  adj_type    CHAR(1),
+  adj_memo    VARCHAR2(100)
+)
+;
+comment on table YS_GD_ARSPLITHD
+  is '拆分账单头';
+comment on column YS_GD_ARSPLITHD.id
+  is 'id';
+comment on column YS_GD_ARSPLITHD.hire_code
+  is '租户编号';
+comment on column YS_GD_ARSPLITHD.bill_id
+  is '单头ID';
+comment on column YS_GD_ARSPLITHD.bill_no
+  is '单据编号';
+comment on column YS_GD_ARSPLITHD.bill_type
+  is '单据类别';
+comment on column YS_GD_ARSPLITHD.bill_source
+  is '单据来源';
+comment on column YS_GD_ARSPLITHD.manage_no
+  is '营销公司';
+comment on column YS_GD_ARSPLITHD.new_dept
+  is '申请部门';
+comment on column YS_GD_ARSPLITHD.add_date
+  is '申请日期';
+comment on column YS_GD_ARSPLITHD.add_per
+  is '申请人员';
+comment on column YS_GD_ARSPLITHD.check_date
+  is '审核日期';
+comment on column YS_GD_ARSPLITHD.check_per
+  is '审核人员';
+comment on column YS_GD_ARSPLITHD.check_flag
+  is '审核标志';
+comment on column YS_GD_ARSPLITHD.flow_id
+  is '流程ID';
+comment on column YS_GD_ARSPLITHD.user_no
+  is '用户编号';
+comment on column YS_GD_ARSPLITHD.user_name
+  is '业主名称';
+comment on column YS_GD_ARSPLITHD.user_adr
+  is '业主地址';
+comment on column YS_GD_ARSPLITHD.adj_type
+  is '拆分类别';
+comment on column YS_GD_ARSPLITHD.adj_memo
+  is '拆分说明';
+

@@ -1,0 +1,26 @@
+create table BASE_HIRE_INFO
+(
+  id                  VARCHAR2(32),
+  hire_code           VARCHAR2(32),
+  hire_name           VARCHAR2(60),
+  hire_status         VARCHAR2(2),
+  link_man            VARCHAR2(100),
+  hire_addr           VARCHAR2(255),
+  link_phone          VARCHAR2(255),
+  link_email          VARCHAR2(255),
+  domain_url          VARCHAR2(255),
+  instance_id         VARCHAR2(60),
+  client_id           VARCHAR2(60),
+  client_secret       VARCHAR2(255),
+  login_domain_suffix VARCHAR2(255),
+  callback_url        VARCHAR2(255),
+  longitude           VARCHAR2(255),
+  latitude            VARCHAR2(255),
+  city_code           VARCHAR2(10),
+  call_phonenumber    VARCHAR2(20),
+  is_super_hire       VARCHAR2(2),
+  hire_logo           VARCHAR2(255),
+  sso_login_url       VARCHAR2(255)
+)
+;
+

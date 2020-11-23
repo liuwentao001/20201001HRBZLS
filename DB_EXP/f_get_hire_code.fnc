@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION f_get_HIRE_CODE  RETURN char AS
+  v_HIRE_CODE varchar2(32);
+BEGIN
+
+   v_HIRE_CODE := 'kings';
+   return v_HIRE_CODE ;
+EXCEPTION
+  WHEN OTHERS THEN
+    RETURN 'kings';
+END;
+/
+

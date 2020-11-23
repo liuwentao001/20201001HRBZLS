@@ -1,0 +1,14 @@
+create table ACT_RU_LINE
+(
+  id               VARCHAR2(32),
+  flow_id          VARCHAR2(32),
+  from_activity_id VARCHAR2(255),
+  to_activity_id   VARCHAR2(255),
+  turn_flag        VARCHAR2(2),
+  turn_date        DATE,
+  turn_per         VARCHAR2(60),
+  from_task_id     VARCHAR2(32),
+  to_task_id       VARCHAR2(32)
+)
+;
+

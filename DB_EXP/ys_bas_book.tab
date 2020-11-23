@@ -1,0 +1,67 @@
+create table YS_BAS_BOOK
+(
+  id           VARCHAR2(32),
+  hire_code    VARCHAR2(20),
+  book_no      VARCHAR2(32),
+  manage_no    VARCHAR2(10),
+  read_batch   NUMBER(38),
+  book_name    VARCHAR2(60),
+  book_pno     VARCHAR2(50),
+  book_class   NUMBER(38),
+  last_mark    CHAR(1),
+  statuss      CHAR(1),
+  read_cycle   NUMBER(38),
+  read_nmonth  VARCHAR2(7),
+  book_type    VARCHAR2(4),
+  read_per     VARCHAR2(15),
+  plan_rearday NUMBER(38),
+  grace_days   NUMBER(38),
+  memo         VARCHAR2(60),
+  add_user     VARCHAR2(15),
+  add_date     DATE,
+  area_no      VARCHAR2(10),
+  bfsdate      DATE,
+  bfedate      DATE,
+  bfpper       VARCHAR2(15),
+  bfjtsny      VARCHAR2(15)
+)
+;
+comment on column YS_BAS_BOOK.book_no
+  is '编码';
+comment on column YS_BAS_BOOK.manage_no
+  is '营销公司';
+comment on column YS_BAS_BOOK.read_batch
+  is '抄表批次';
+comment on column YS_BAS_BOOK.book_name
+  is '名称';
+comment on column YS_BAS_BOOK.book_pno
+  is '上级编码';
+comment on column YS_BAS_BOOK.book_class
+  is '级次';
+comment on column YS_BAS_BOOK.last_mark
+  is '末级标志';
+comment on column YS_BAS_BOOK.statuss
+  is '有效状态';
+comment on column YS_BAS_BOOK.read_cycle
+  is '抄表周期';
+comment on column YS_BAS_BOOK.read_nmonth
+  is '下次抄表月份';
+comment on column YS_BAS_BOOK.book_type
+  is '表册类别';
+comment on column YS_BAS_BOOK.read_per
+  is '抄表员';
+comment on column YS_BAS_BOOK.plan_rearday
+  is '计划日期';
+comment on column YS_BAS_BOOK.grace_days
+  is '偏移天数';
+comment on column YS_BAS_BOOK.memo
+  is '备注';
+comment on column YS_BAS_BOOK.bfsdate
+  is '计划起始日期';
+comment on column YS_BAS_BOOK.bfedate
+  is '计划结束日期';
+comment on column YS_BAS_BOOK.bfpper
+  is '收费员';
+comment on column YS_BAS_BOOK.bfjtsny
+  is '阶梯开始月';
+

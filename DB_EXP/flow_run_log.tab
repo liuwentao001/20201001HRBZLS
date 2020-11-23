@@ -1,0 +1,16 @@
+create table FLOW_RUN_LOG
+(
+  id          VARCHAR2(32),
+  operator    VARCHAR2(60),
+  opdate      DATE,
+  op_type     VARCHAR2(2),
+  flow_id     VARCHAR2(32),
+  from_step   VARCHAR2(32),
+  to_step     VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  remark      VARCHAR2(255),
+  show_order  INTEGER,
+  flow_status VARCHAR2(32)
+)
+;
+

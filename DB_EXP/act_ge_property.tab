@@ -1,0 +1,8 @@
+create table ACT_GE_PROPERTY
+(
+  name_  VARCHAR2(64),
+  value_ VARCHAR2(300),
+  rev_   NUMBER
+)
+;
+

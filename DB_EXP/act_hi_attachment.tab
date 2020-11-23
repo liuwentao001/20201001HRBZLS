@@ -1,0 +1,16 @@
+create table ACT_HI_ATTACHMENT
+(
+  id_           VARCHAR2(64),
+  rev_          NUMBER,
+  user_id_      VARCHAR2(255),
+  name_         VARCHAR2(255),
+  description_  CLOB,
+  type_         VARCHAR2(255),
+  task_id_      VARCHAR2(64),
+  proc_inst_id_ VARCHAR2(64),
+  url_          CLOB,
+  content_id_   VARCHAR2(64),
+  time_         DATE
+)
+;
+

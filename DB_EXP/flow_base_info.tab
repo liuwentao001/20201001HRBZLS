@@ -1,0 +1,21 @@
+create table FLOW_BASE_INFO
+(
+  id               VARCHAR2(32),
+  flow_id          VARCHAR2(100),
+  flow_key         VARCHAR2(100),
+  project_no       VARCHAR2(100),
+  manage_no        VARCHAR2(100),
+  user_no          VARCHAR2(100),
+  state            VARCHAR2(10),
+  examine_state    VARCHAR2(100),
+  push_date        DATE,
+  create_per       VARCHAR2(100),
+  create_date      DATE,
+  hire_code        VARCHAR2(100),
+  bill_no          VARCHAR2(32),
+  affix_related_id VARCHAR2(32),
+  user_name        VARCHAR2(255),
+  mobile           VARCHAR2(255)
+)
+;
+

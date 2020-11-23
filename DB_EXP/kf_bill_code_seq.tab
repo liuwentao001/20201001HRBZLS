@@ -1,0 +1,10 @@
+create table KF_BILL_CODE_SEQ
+(
+  id          VARCHAR2(36),
+  create_date DATE,
+  seq_day_id  INTEGER,
+  prefix      VARCHAR2(20),
+  hire_code   VARCHAR2(32)
+)
+;
+

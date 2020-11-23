@@ -1,0 +1,17 @@
+create table BAS_PRICE_ITEM
+(
+  id            VARCHAR2(32),
+  hire_code     VARCHAR2(32),
+  price_item    VARCHAR2(2),
+  item_name     VARCHAR2(50),
+  item_type     VARCHAR2(2),
+  tax_code      VARCHAR2(50),
+  tax_rate      NUMBER(13,3),
+  tax_meas_unit VARCHAR2(20),
+  is_tax        VARCHAR2(2),
+  tax_specs     VARCHAR2(20),
+  tax_name      VARCHAR2(50),
+  if_latefee    VARCHAR2(2)
+)
+;
+

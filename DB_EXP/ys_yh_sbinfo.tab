@@ -1,0 +1,368 @@
+create table YS_YH_SBINFO
+(
+  id            VARCHAR2(32) not null,
+  hire_code     VARCHAR2(20),
+  yhid          VARCHAR2(10),
+  sbid          VARCHAR2(10) not null,
+  sbadr         VARCHAR2(100),
+  area_no       VARCHAR2(10),
+  manage_no     VARCHAR2(10),
+  sbprmon       VARCHAR2(7),
+  sbrmon        VARCHAR2(7),
+  book_no       VARCHAR2(10),
+  sbrorder      NUMBER,
+  sbpid         VARCHAR2(10),
+  sbclass       NUMBER,
+  sbflag        CHAR(1),
+  sbrtid        CHAR(1),
+  sbifmp        CHAR(1),
+  sbifsp        CHAR(1),
+  trade_no      VARCHAR2(10),
+  price_no      VARCHAR2(10),
+  sbstatus      VARCHAR2(2),
+  sbstatusdate  DATE,
+  sbstatustrans VARCHAR2(3),
+  sbface        VARCHAR2(2),
+  sbrpid        VARCHAR2(3),
+  sbside        VARCHAR2(100),
+  sbposition    VARCHAR2(100),
+  sbinscode     NUMBER(10),
+  sbinsdate     DATE,
+  sbinsper      VARCHAR2(64),
+  sbreinscode   NUMBER(10),
+  sbreinsdate   DATE,
+  sbreinsper    VARCHAR2(64),
+  sbtype        CHAR(1),
+  sbrcode       NUMBER(10),
+  sbrecdate     DATE,
+  sbrecsl       NUMBER(10),
+  sbifcharge    CHAR(1),
+  sbifsl        CHAR(1),
+  sbifchk       CHAR(1),
+  sbifwatch     CHAR(1),
+  sbicno        VARCHAR2(40),
+  sbmemo        VARCHAR2(120),
+  sbpriid       VARCHAR2(10),
+  sbpriflag     CHAR(1),
+  sbusenum      NUMBER(10),
+  sbchargetype  CHAR(1),
+  sbsaving      NUMBER(13,3),
+  sblb          CHAR(1),
+  sbnewflag     CHAR(1),
+  sbcper        VARCHAR2(10),
+  sbiftax       CHAR(1),
+  sbtaxno       VARCHAR2(20),
+  sbuninscode   NUMBER(10),
+  sbuninsdate   DATE,
+  sbuninsper    VARCHAR2(64),
+  sbface2       VARCHAR2(2),
+  sbface3       VARCHAR2(2),
+  sbface4       VARCHAR2(2),
+  sbrcodechar   VARCHAR2(10),
+  sbifckf       CHAR(10),
+  sbgps         VARCHAR2(60),
+  sbqfh         VARCHAR2(20),
+  sbbox         VARCHAR2(10),
+  sbjfkrow      NUMBER(10) default 0,
+  sbname        VARCHAR2(64),
+  sbname2       VARCHAR2(64),
+  sbseqno       VARCHAR2(50),
+  sbnewdate     DATE,
+  sbuiid        VARCHAR2(10),
+  sbcommunity   VARCHAR2(10),
+  sbremoteno    VARCHAR2(20),
+  sbremotehubno VARCHAR2(20),
+  sbemail       VARCHAR2(64),
+  sbemailflag   CHAR(1),
+  sbdbjmsl1     NUMBER(12,2),
+  sbdbyhbz2     VARCHAR2(10),
+  sbdbjzyf3     VARCHAR2(64),
+  sbyhxz4       VARCHAR2(10),
+  sbpaymentid   VARCHAR2(10),
+  sbgdsl5       NUMBER default 0,
+  sbftsl6       NUMBER(12,3),
+  sbxjdj7       NUMBER(12,3),
+  sbcolumn8     DATE,
+  sbyhlb9       VARCHAR2(10),
+  sbsfqdht10    VARCHAR2(10),
+  sblh          VARCHAR2(120),
+  sbdyh         VARCHAR2(120),
+  sbmph         VARCHAR2(120),
+  sbjd          VARCHAR2(120),
+  sbyhpj        VARCHAR2(10),
+  sbtax         NUMBER(12,3) default 0,
+  sbifzdh       NUMBER,
+  sbdbzjh       VARCHAR2(64),
+  sbdzbz1       VARCHAR2(2),
+  sbmsbz2       VARCHAR2(2),
+  sbxkzbz3      VARCHAR2(2),
+  sbsbmm4       VARCHAR2(40),
+  sbmmsz5       VARCHAR2(20),
+  sbxymm6       VARCHAR2(20),
+  sbmszdsl7     NUMBER,
+  sbyctf8       NUMBER,
+  sbzdzzs9      NUMBER,
+  sbcbshsj10    DATE,
+  sbjtkssj11    DATE,
+  sbyl12        DATE,
+  sbjdh13       VARCHAR2(50),
+  sbtkbz11      VARCHAR2(10),
+  sbtkzjh       VARCHAR2(64),
+  sbhtbh        VARCHAR2(50),
+  sbhtzq        VARCHAR2(50),
+  sbrqxz        VARCHAR2(50),
+  htdate        DATE,
+  zfdate        DATE,
+  jzdate        DATE,
+  signper       VARCHAR2(10),
+  signid        VARCHAR2(20),
+  pocid         VARCHAR2(50),
+  sbcode        VARCHAR2(10)
+)
+;
+comment on table YS_YH_SBINFO
+  is '户表信息【sb】';
+comment on column YS_YH_SBINFO.yhid
+  is '用户编号';
+comment on column YS_YH_SBINFO.sbid
+  is '水表编号';
+comment on column YS_YH_SBINFO.sbadr
+  is '表地址';
+comment on column YS_YH_SBINFO.area_no
+  is '区域';
+comment on column YS_YH_SBINFO.manage_no
+  is '营销公司(SYSMANAFRAME 0201道里营业一分公司/0208南岗营业二分公司/0206香坊营业二分公司/0204香坊营业一分公司/0205道外营业二分公司/0203南岗营业一分公司/0207平房营业分公司/0202道外营业一分公司/0209道里营业二分公司/0210嵩山营业分公司)
+';
+comment on column YS_YH_SBINFO.sbprmon
+  is '上期抄表月份';
+comment on column YS_YH_SBINFO.sbrmon
+  is '本期抄表月份';
+comment on column YS_YH_SBINFO.book_no
+  is '表册(bookframe)';
+comment on column YS_YH_SBINFO.sbrorder
+  is '抄表次序';
+comment on column YS_YH_SBINFO.sbpid
+  is '上级水表编号';
+comment on column YS_YH_SBINFO.sbclass
+  is '水表级次';
+comment on column YS_YH_SBINFO.sbflag
+  is '末级标志';
+comment on column YS_YH_SBINFO.sbrtid
+  is '抄表方式【sysreadtype】(5对话式抄表机/1人工抄表/2手持抄表机/3有线远传/4无线远传 6-视频直读表 7-集抄 )';
+comment on column YS_YH_SBINFO.sbifmp
+  is '混合用水标志(Y-是,N-否 )';
+comment on column YS_YH_SBINFO.sbifsp
+  is '例外单价标志(Y-是,N-否 )';
+comment on column YS_YH_SBINFO.trade_no
+  is '行业分类【metersortframe】(20政府/21视同/22区域用户/26集体户/1居民/2企业/3特困企业/4破产企业/5增值税企业/6银行/7市直行政事业/8区行政事业/10学校/11医院/12环卫公厕/13非环卫公厕/14绿  化/15暂不开票/16销  户/17表  拆/18分  户/19报  停/23农郊用户/24校核表/25消防表/30一户一表)
+';
+comment on column YS_YH_SBINFO.price_no
+  is '价格分类(priceframe)';
+comment on column YS_YH_SBINFO.sbstatus
+  is '有效状态【sysmeterstatus】(28基建临时用水/27移表中/19销户中/21欠费停水/24故障换表中/25周检中/7销户/1立户/2预立户/29无表/30故障表/31基建正式用水/32基建拆迁止水/34营销部收入用户/36预存冲正中/33补缴用户/35周期换表中)';
+comment on column YS_YH_SBINFO.sbstatusdate
+  is '状态日期';
+comment on column YS_YH_SBINFO.sbstatustrans
+  is '状态表务';
+comment on column YS_YH_SBINFO.sbface
+  is '水表故障(01正常/02表异常/03零水量)';
+comment on column YS_YH_SBINFO.sbrpid
+  is '计件类型';
+comment on column YS_YH_SBINFO.sbside
+  is '表位【syscharlist】(CF厨房/CS卫生间/GJ管井/QT其他/TJ天井)';
+comment on column YS_YH_SBINFO.sbposition
+  is '水表接水地址';
+comment on column YS_YH_SBINFO.sbinscode
+  is '新装起度';
+comment on column YS_YH_SBINFO.sbinsdate
+  is '装表日期';
+comment on column YS_YH_SBINFO.sbinsper
+  is '安装人';
+comment on column YS_YH_SBINFO.sbreinscode
+  is '换表起度';
+comment on column YS_YH_SBINFO.sbreinsdate
+  is '换表日期';
+comment on column YS_YH_SBINFO.sbreinsper
+  is '换表人';
+comment on column YS_YH_SBINFO.sbtype
+  is '类型(1=坐收,2=走收)不要了，哈尔滨用收费方式sbCHARGETYPE';
+comment on column YS_YH_SBINFO.sbrcode
+  is '本期读数';
+comment on column YS_YH_SBINFO.sbrecdate
+  is '本期抄见日期';
+comment on column YS_YH_SBINFO.sbrecsl
+  is '本期抄见水量';
+comment on column YS_YH_SBINFO.sbifcharge
+  is '是否计费(Y-是,N-否 )';
+comment on column YS_YH_SBINFO.sbifsl
+  is '是否计量(Y-是,N-否 )';
+comment on column YS_YH_SBINFO.sbifchk
+  is '是否考核表(Y-是,N-否 )';
+comment on column YS_YH_SBINFO.sbifwatch
+  is '是否节水(Y-是,N-否 )';
+comment on column YS_YH_SBINFO.sbicno
+  is 'IC卡号';
+comment on column YS_YH_SBINFO.sbmemo
+  is '备注信息';
+comment on column YS_YH_SBINFO.sbpriid
+  is '合收表主表号';
+comment on column YS_YH_SBINFO.sbpriflag
+  is '合收表标志(Y-合收表标志,N-非合收主表 )';
+comment on column YS_YH_SBINFO.sbusenum
+  is '户籍人数';
+comment on column YS_YH_SBINFO.sbchargetype
+  is '收费方式(X坐收M走收)';
+comment on column YS_YH_SBINFO.sbsaving
+  is '预存款余额';
+comment on column YS_YH_SBINFO.sblb
+  is '水表类别(D=总表,H=户表)';
+comment on column YS_YH_SBINFO.sbnewflag
+  is '新表标志';
+comment on column YS_YH_SBINFO.sbcper
+  is '收费员';
+comment on column YS_YH_SBINFO.sbiftax
+  is '是否税票';
+comment on column YS_YH_SBINFO.sbtaxno
+  is '税号';
+comment on column YS_YH_SBINFO.sbuninscode
+  is '拆表止度';
+comment on column YS_YH_SBINFO.sbuninsdate
+  is '拆表日期';
+comment on column YS_YH_SBINFO.sbuninsper
+  is '拆表人';
+comment on column YS_YH_SBINFO.sbface2
+  is '抄见故障【sysfacelist2】(01正常/02本次同上次/03长期无人/04停业/05闭栓/06不用水/07表停/08无表计量/09倒表/10表锈/11表失灵/12水表自转/13非正常数据01/14无表/15非正常数据03)';
+comment on column YS_YH_SBINFO.sbface3
+  is '非常计量';
+comment on column YS_YH_SBINFO.sbface4
+  is '表井设施说明';
+comment on column YS_YH_SBINFO.sbrcodechar
+  is '本期读数';
+comment on column YS_YH_SBINFO.sbifckf
+  is '垃圾费户数';
+comment on column YS_YH_SBINFO.sbgps
+  is '是否合票';
+comment on column YS_YH_SBINFO.sbqfh
+  is '铅封号';
+comment on column YS_YH_SBINFO.sbbox
+  is '消防水价（增值税水价，襄阳需求）';
+comment on column YS_YH_SBINFO.sbjfkrow
+  is '消防底度';
+comment on column YS_YH_SBINFO.sbname
+  is '票据名称';
+comment on column YS_YH_SBINFO.sbname2
+  is '招牌名称(小区名，襄阳需求）';
+comment on column YS_YH_SBINFO.sbseqno
+  is '户号（初始化时册号+序号）（哈尔滨：帐卡号）';
+comment on column YS_YH_SBINFO.sbnewdate
+  is '立户日期';
+comment on column YS_YH_SBINFO.sbuiid
+  is '合收单位编号';
+comment on column YS_YH_SBINFO.sbcommunity
+  is '远传表小区号';
+comment on column YS_YH_SBINFO.sbremoteno
+  is '远传表号|采集机（哈尔滨：借用建账存放合收主表表身码）';
+comment on column YS_YH_SBINFO.sbremotehubno
+  is '远传表HUB号|端口（哈尔滨：借用存放用户编号clt_id，坐收老号查询）';
+comment on column YS_YH_SBINFO.sbemail
+  is '电子邮件（哈尔滨：借用存放水帐号码clt_no）';
+comment on column YS_YH_SBINFO.sbemailflag
+  is '发账是否发邮件';
+comment on column YS_YH_SBINFO.sbdbjmsl1
+  is '备用字段1(低保减免水量)  SBCOLUMN1';
+comment on column YS_YH_SBINFO.sbdbyhbz2
+  is '备用字段2(低保用户标志)SBCOLUMN2';
+comment on column YS_YH_SBINFO.sbdbjzyf3
+  is '备用字段3(低保截止月份)SBCOLUMN3';
+comment on column YS_YH_SBINFO.sbyhxz4
+  is '用户性质(GQ 公企 SM收免 TK 特困 GD 定量 PT 普通)SBCOLUMN4';
+comment on column YS_YH_SBINFO.sbpaymentid
+  is '最近一次实收流水';
+comment on column YS_YH_SBINFO.sbgdsl5
+  is '无表户水量(免抄户指定水量)SBCOLUMN5';
+comment on column YS_YH_SBINFO.sbftsl6
+  is '备用字段6(一表多户分摊主表比例，连云港)SBCOLUMN6';
+comment on column YS_YH_SBINFO.sbxjdj7
+  is '星级等级SBCOLUMN7';
+comment on column YS_YH_SBINFO.sbcolumn8
+  is '备用字段8';
+comment on column YS_YH_SBINFO.sbyhlb9
+  is '用户类别2SBCOLUMN9';
+comment on column YS_YH_SBINFO.sbsfqdht10
+  is '备用字段10(是否签订供用水合同)SBCOLUMN10';
+comment on column YS_YH_SBINFO.sblh
+  is '楼号';
+comment on column YS_YH_SBINFO.sbdyh
+  is '单元号';
+comment on column YS_YH_SBINFO.sbmph
+  is '门牌号';
+comment on column YS_YH_SBINFO.sbjd
+  is '街道';
+comment on column YS_YH_SBINFO.sbyhpj
+  is '用户信用评级';
+comment on column YS_YH_SBINFO.sbtax
+  is '税额比例';
+comment on column YS_YH_SBINFO.sbifzdh
+  is '重点户编号';
+comment on column YS_YH_SBINFO.sbdbzjh
+  is '低保证件号';
+comment on column YS_YH_SBINFO.sbdzbz1
+  is '等针标志（Y=等针，N=非等针）SBYL1';
+comment on column YS_YH_SBINFO.sbmsbz2
+  is '总表收免标志(0=普通表，1=总表收免，2=多级表(或总表挂虚表))SBYL2';
+comment on column YS_YH_SBINFO.sbxkzbz3
+  is '预留字段3（基建临时用水许可标志）SBYL3';
+comment on column YS_YH_SBINFO.sbsbmm4
+  is '用户水表密码(限定6位,默为6个888888)SBYL4';
+comment on column YS_YH_SBINFO.sbmmsz5
+  is '预留字段5（用户密码设置：Y=设置密码，N=初始密码；预存冲正：保存sbstatus；手机抄表下载校验：工单申请标志）SBYL5';
+comment on column YS_YH_SBINFO.sbxymm6
+  is '预留字段6（校验密码）SBYL6';
+comment on column YS_YH_SBINFO.sbmszdsl7
+  is '总表收免水量最大值SBYL7';
+comment on column YS_YH_SBINFO.sbyctf8
+  is '预留字段8（预存退费）SBYL8';
+comment on column YS_YH_SBINFO.sbzdzzs9
+  is '预留字段9（水表最大指针数）SBYL9';
+comment on column YS_YH_SBINFO.sbcbshsj10
+  is '预留字段10（手机抄表审核：修改时间）SBYL10';
+comment on column YS_YH_SBINFO.sbjtkssj11
+  is '预留字段11（阶梯开始日期）SBYL11';
+comment on column YS_YH_SBINFO.sbyl12
+  is '预留字段12';
+comment on column YS_YH_SBINFO.sbjdh13
+  is '预留字段13(哈尔滨：街道号)SBYL13';
+comment on column YS_YH_SBINFO.sbtkbz11
+  is '特困标志SBCOLUMN11';
+comment on column YS_YH_SBINFO.sbtkzjh
+  is '特困证件号';
+comment on column YS_YH_SBINFO.sbhtbh
+  is '合同编号';
+comment on column YS_YH_SBINFO.sbhtzq
+  is '周期（合同用）';
+comment on column YS_YH_SBINFO.sbrqxz
+  is '日期限制（合同用）';
+comment on column YS_YH_SBINFO.htdate
+  is '合同签订日期（合同用）';
+comment on column YS_YH_SBINFO.zfdate
+  is '合同作废日期（合同用）';
+comment on column YS_YH_SBINFO.jzdate
+  is '合同签订截止日期（合同用）';
+comment on column YS_YH_SBINFO.signper
+  is '签订人（合同用）';
+comment on column YS_YH_SBINFO.signid
+  is '签订人身份证号（合同用）';
+comment on column YS_YH_SBINFO.pocid
+  is '房产证号（合同用）';
+comment on column YS_YH_SBINFO.sbcode
+  is '客户代码';
+create index IDX_SBBFID on YS_YH_SBINFO (BOOK_NO);
+create index IDX_SBCID on YS_YH_SBINFO (YHID);
+create index IDX_SBPFID on YS_YH_SBINFO (PRICE_NO);
+create index IDX_SBPID on YS_YH_SBINFO (SBPID);
+create index IDX_SBSMFID on YS_YH_SBINFO (MANAGE_NO);
+create index IDX_SBSTATUS on YS_YH_SBINFO (SBSTATUS);
+create index IDX_SB_SBPRIID on YS_YH_SBINFO (SBPRIID);
+alter table YS_YH_SBINFO
+  add constraint PK_YS_YH_SBINFO primary key (SBID);
+

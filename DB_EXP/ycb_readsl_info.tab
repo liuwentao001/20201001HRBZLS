@@ -1,0 +1,87 @@
+create table YCB_READSL_INFO
+(
+  id               VARCHAR2(32) not null,
+  user_code        VARCHAR2(20) not null,
+  scode            VARCHAR2(20),
+  ecode            VARCHAR2(20),
+  read_sl          NUMBER,
+  copy_date        DATE not null,
+  copy_per         VARCHAR2(60),
+  copy_waterstatus VARCHAR2(2),
+  read_date        DATE not null,
+  read_per         VARCHAR2(60),
+  copy_type        VARCHAR2(32),
+  water_vender     VARCHAR2(32) not null,
+  is_upload_ys     VARCHAR2(2) default 'N',
+  remark           VARCHAR2(200),
+  modify_date      DATE,
+  modify_per       VARCHAR2(60),
+  copy_month       VARCHAR2(20) not null,
+  house_code       VARCHAR2(32),
+  sl               NUMBER,
+  lastsl           NUMBER,
+  user_name        VARCHAR2(100),
+  water_addr       VARCHAR2(200),
+  upload_date      DATE,
+  upload_per       VARCHAR2(60),
+  upload_result    VARCHAR2(10),
+  data_source      VARCHAR2(2) default '01'
+)
+;
+comment on column YCB_READSL_INFO.id
+  is '流水号';
+comment on column YCB_READSL_INFO.user_code
+  is '用户编号';
+comment on column YCB_READSL_INFO.scode
+  is '起码';
+comment on column YCB_READSL_INFO.ecode
+  is '止码';
+comment on column YCB_READSL_INFO.read_sl
+  is '水量';
+comment on column YCB_READSL_INFO.copy_date
+  is '抄表时间';
+comment on column YCB_READSL_INFO.copy_per
+  is '抄表员';
+comment on column YCB_READSL_INFO.copy_waterstatus
+  is '抄表表况';
+comment on column YCB_READSL_INFO.read_date
+  is '读取时间';
+comment on column YCB_READSL_INFO.read_per
+  is '读取人';
+comment on column YCB_READSL_INFO.copy_type
+  is '抄表方式';
+comment on column YCB_READSL_INFO.water_vender
+  is '水表厂商';
+comment on column YCB_READSL_INFO.is_upload_ys
+  is '是否上传营收';
+comment on column YCB_READSL_INFO.remark
+  is '备注';
+comment on column YCB_READSL_INFO.modify_date
+  is '最后修改时间';
+comment on column YCB_READSL_INFO.modify_per
+  is '最后修改人';
+comment on column YCB_READSL_INFO.copy_month
+  is '抄表月份';
+comment on column YCB_READSL_INFO.house_code
+  is '小区编号';
+comment on column YCB_READSL_INFO.sl
+  is '水量';
+comment on column YCB_READSL_INFO.lastsl
+  is '上次抄表水量';
+comment on column YCB_READSL_INFO.user_name
+  is '用户名称';
+comment on column YCB_READSL_INFO.water_addr
+  is '水表地址';
+comment on column YCB_READSL_INFO.upload_date
+  is '上传时间';
+comment on column YCB_READSL_INFO.upload_per
+  is '上传人';
+comment on column YCB_READSL_INFO.upload_result
+  is '上传结果';
+comment on column YCB_READSL_INFO.data_source
+  is '数据来源';
+alter table YCB_READSL_INFO
+  add constraint PK_YCB_READSL_INFO primary key (ID);
+alter table YCB_READSL_INFO
+  add constraint UK_YCB_READSL_INFO_1 unique (USER_CODE, COPY_MONTH);
+

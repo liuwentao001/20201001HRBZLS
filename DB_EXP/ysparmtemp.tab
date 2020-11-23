@@ -1,0 +1,99 @@
+create global temporary table YSPARMTEMP
+(
+  c1  VARCHAR2(2000),
+  c2  VARCHAR2(400),
+  c3  VARCHAR2(400),
+  c4  VARCHAR2(400),
+  c5  VARCHAR2(400),
+  c6  VARCHAR2(400),
+  c7  VARCHAR2(400),
+  c8  VARCHAR2(400),
+  c9  VARCHAR2(400),
+  c10 VARCHAR2(400),
+  c11 VARCHAR2(400),
+  c12 VARCHAR2(400),
+  c13 VARCHAR2(400),
+  c14 VARCHAR2(400),
+  c15 VARCHAR2(400),
+  c16 VARCHAR2(400),
+  c17 VARCHAR2(400),
+  c18 VARCHAR2(400),
+  c19 VARCHAR2(400),
+  c20 VARCHAR2(400),
+  c21 VARCHAR2(400),
+  c22 VARCHAR2(400),
+  c23 VARCHAR2(400),
+  c24 VARCHAR2(400),
+  c25 VARCHAR2(400),
+  c26 VARCHAR2(400),
+  c27 VARCHAR2(400),
+  c28 VARCHAR2(400),
+  c29 VARCHAR2(400),
+  c30 CLOB
+)
+on commit delete rows;
+comment on table YSPARMTEMP
+  is 'PB²ÎÊý´«µÝÁÙÊ±±í';
+comment on column YSPARMTEMP.c1
+  is '×Ö·û´®1';
+comment on column YSPARMTEMP.c2
+  is '×Ö·û´®2';
+comment on column YSPARMTEMP.c3
+  is '×Ö·û´®3';
+comment on column YSPARMTEMP.c4
+  is '×Ö·û´®4';
+comment on column YSPARMTEMP.c5
+  is '×Ö·û´®5';
+comment on column YSPARMTEMP.c6
+  is '×Ö·û´®6';
+comment on column YSPARMTEMP.c7
+  is '×Ö·û´®7';
+comment on column YSPARMTEMP.c8
+  is '×Ö·û´®8';
+comment on column YSPARMTEMP.c9
+  is '×Ö·û´®9';
+comment on column YSPARMTEMP.c10
+  is '×Ö·û´®10';
+comment on column YSPARMTEMP.c11
+  is '×Ö·û´®11';
+comment on column YSPARMTEMP.c12
+  is '×Ö·û´®12';
+comment on column YSPARMTEMP.c13
+  is '×Ö·û´®13';
+comment on column YSPARMTEMP.c14
+  is '×Ö·û´®14';
+comment on column YSPARMTEMP.c15
+  is '×Ö·û´®15';
+comment on column YSPARMTEMP.c16
+  is '×Ö·û´®16';
+comment on column YSPARMTEMP.c17
+  is '×Ö·û´®17';
+comment on column YSPARMTEMP.c18
+  is '×Ö·û´®18';
+comment on column YSPARMTEMP.c19
+  is '×Ö·û´®19';
+comment on column YSPARMTEMP.c20
+  is '×Ö·û´®20';
+comment on column YSPARMTEMP.c21
+  is '×Ö·û´®21';
+comment on column YSPARMTEMP.c22
+  is '×Ö·û´®22';
+comment on column YSPARMTEMP.c23
+  is '×Ö·û´®23';
+comment on column YSPARMTEMP.c24
+  is '×Ö·û´®24';
+comment on column YSPARMTEMP.c25
+  is '×Ö·û´®25';
+comment on column YSPARMTEMP.c26
+  is '×Ö·û´®26';
+comment on column YSPARMTEMP.c27
+  is '×Ö·û´®27';
+comment on column YSPARMTEMP.c28
+  is '×Ö·û´®28';
+comment on column YSPARMTEMP.c29
+  is '×Ö·û´®29';
+comment on column YSPARMTEMP.c30
+  is '×Ö·û´®30';
+create index IDX_YSPARMTEMP_C1 on YSPARMTEMP (C1);
+create index IDX_YSPARMTEMP_C2 on YSPARMTEMP (C2);
+

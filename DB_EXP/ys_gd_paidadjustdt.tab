@@ -1,0 +1,64 @@
+create table YS_GD_PAIDADJUSTDT
+(
+  id            VARCHAR2(32),
+  hire_code     VARCHAR2(32),
+  bill_id       VARCHAR2(32),
+  user_no       VARCHAR2(20),
+  paid_memo     VARCHAR2(200),
+  balance_flag  VARCHAR2(2),
+  paid_id       VARCHAR2(24),
+  paid_batch    VARCHAR2(32),
+  paid_date     DATE,
+  paid_datetime DATE,
+  paid_month    VARCHAR2(7),
+  paid_position VARCHAR2(10),
+  paid_trans    VARCHAR2(2),
+  paid_per      VARCHAR2(20),
+  paid_way      VARCHAR2(6),
+  paid_amt      NUMBER(16,2),
+  pmemo         VARCHAR2(200),
+  check_flag    VARCHAR2(2),
+  fail_reason   VARCHAR2(60)
+)
+;
+comment on table YS_GD_PAIDADJUSTDT
+  is '实收冲正';
+comment on column YS_GD_PAIDADJUSTDT.id
+  is '主键ID';
+comment on column YS_GD_PAIDADJUSTDT.hire_code
+  is '租户编号';
+comment on column YS_GD_PAIDADJUSTDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_PAIDADJUSTDT.user_no
+  is '用户编号';
+comment on column YS_GD_PAIDADJUSTDT.paid_memo
+  is '冲正原因';
+comment on column YS_GD_PAIDADJUSTDT.balance_flag
+  is '转预存标志';
+comment on column YS_GD_PAIDADJUSTDT.paid_id
+  is '流水号';
+comment on column YS_GD_PAIDADJUSTDT.paid_batch
+  is '缴费交易批次';
+comment on column YS_GD_PAIDADJUSTDT.paid_date
+  is '账务日期';
+comment on column YS_GD_PAIDADJUSTDT.paid_datetime
+  is '发生时间';
+comment on column YS_GD_PAIDADJUSTDT.paid_month
+  is '账务月份';
+comment on column YS_GD_PAIDADJUSTDT.paid_position
+  is '缴费机构';
+comment on column YS_GD_PAIDADJUSTDT.paid_trans
+  is '缴费事务';
+comment on column YS_GD_PAIDADJUSTDT.paid_per
+  is '销帐人员';
+comment on column YS_GD_PAIDADJUSTDT.paid_way
+  is '付款方式';
+comment on column YS_GD_PAIDADJUSTDT.paid_amt
+  is '付款金额';
+comment on column YS_GD_PAIDADJUSTDT.pmemo
+  is '备注';
+comment on column YS_GD_PAIDADJUSTDT.check_flag
+  is '审核标志';
+comment on column YS_GD_PAIDADJUSTDT.fail_reason
+  is '失败原因';
+

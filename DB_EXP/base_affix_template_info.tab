@@ -1,0 +1,18 @@
+create table BASE_AFFIX_TEMPLATE_INFO
+(
+  id             VARCHAR2(32),
+  ywid           VARCHAR2(32),
+  file_name      VARCHAR2(255),
+  file_alis_name VARCHAR2(255),
+  file_size      NUMBER,
+  file_type      VARCHAR2(32),
+  affix_type     VARCHAR2(255),
+  upload_per     VARCHAR2(255),
+  upload_date    DATE,
+  dowload_path   VARCHAR2(255),
+  file_path      VARCHAR2(255),
+  dowload_nums   INTEGER,
+  hire_code      VARCHAR2(255)
+)
+;
+

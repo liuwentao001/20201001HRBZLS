@@ -1,0 +1,18 @@
+create table ACT_RE_MODEL
+(
+  id_                           VARCHAR2(64),
+  rev_                          NUMBER,
+  name_                         VARCHAR2(255),
+  key_                          VARCHAR2(255),
+  category_                     VARCHAR2(255),
+  create_time_                  DATE,
+  last_update_time_             DATE,
+  version_                      NUMBER,
+  meta_info_                    VARCHAR2(4000),
+  deployment_id_                VARCHAR2(64),
+  editor_source_value_id_       VARCHAR2(64),
+  editor_source_extra_value_id_ VARCHAR2(64),
+  tenant_id_                    VARCHAR2(255)
+)
+;
+

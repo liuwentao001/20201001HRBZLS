@@ -1,0 +1,28 @@
+create table SYS_SEQ_ID
+(
+  hire_code  VARCHAR2(20),
+  seqtblname VARCHAR2(60) not null,
+  seqseqname VARCHAR2(60) not null,
+  seqprefix  VARCHAR2(10),
+  seqwidth   NUMBER(2) not null,
+  seqcname   VARCHAR2(200),
+  seqstartno NUMBER(10)
+)
+;
+comment on table SYS_SEQ_ID
+  is '序列列表【SEQ】';
+comment on column SYS_SEQ_ID.seqtblname
+  is '表名';
+comment on column SYS_SEQ_ID.seqseqname
+  is '序列名';
+comment on column SYS_SEQ_ID.seqprefix
+  is '前缀';
+comment on column SYS_SEQ_ID.seqwidth
+  is '序列宽度';
+comment on column SYS_SEQ_ID.seqcname
+  is '中文名称';
+comment on column SYS_SEQ_ID.seqstartno
+  is '初始值';
+alter table SYS_SEQ_ID
+  add constraint PK_SYS_SEQ_ID primary key (SEQTBLNAME);
+

@@ -1,0 +1,9 @@
+create table A1
+(
+  a VARCHAR2(500),
+  b VARCHAR2(500),
+  c VARCHAR2(500),
+  d VARCHAR2(500)
+)
+;
+

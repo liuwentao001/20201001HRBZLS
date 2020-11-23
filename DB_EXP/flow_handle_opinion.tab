@@ -1,0 +1,12 @@
+create table FLOW_HANDLE_OPINION
+(
+  id             VARCHAR2(32),
+  flow_id        VARCHAR2(32),
+  step_id        VARCHAR2(100),
+  handle_opinion VARCHAR2(2000),
+  handle_man     VARCHAR2(32),
+  status         CHAR(1),
+  hire_code      VARCHAR2(32)
+)
+;
+

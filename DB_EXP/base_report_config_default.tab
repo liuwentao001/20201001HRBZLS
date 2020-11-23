@@ -1,0 +1,21 @@
+create table BASE_REPORT_CONFIG_DEFAULT
+(
+  id                 VARCHAR2(32),
+  hire_code          VARCHAR2(32),
+  report_id          VARCHAR2(255),
+  data_name          VARCHAR2(255),
+  data_key           VARCHAR2(255),
+  data_type          VARCHAR2(32),
+  min_width          VARCHAR2(32),
+  data_align         VARCHAR2(255),
+  is_query_condition VARCHAR2(32),
+  condition_prefix   VARCHAR2(32),
+  is_summation       VARCHAR2(32),
+  is_show            VARCHAR2(32),
+  parent_dic         VARCHAR2(255),
+  formatter          VARCHAR2(255),
+  order_old          VARCHAR2(255),
+  order_new          VARCHAR2(255)
+)
+;
+

@@ -1,0 +1,19 @@
+create table KF_BILL_HANDLE_RECORD
+(
+  id             VARCHAR2(32),
+  bill_code      VARCHAR2(32),
+  handle_per     VARCHAR2(32),
+  handle_date    DATE,
+  arrive_date    DATE,
+  finish_date    DATE,
+  handle_type    VARCHAR2(32),
+  handle_content VARCHAR2(32),
+  happen_reason  VARCHAR2(32),
+  solve_method   VARCHAR2(32),
+  finish_result  VARCHAR2(32),
+  handle_remark  VARCHAR2(1000),
+  hire_code      VARCHAR2(255),
+  repeat_id      VARCHAR2(255)
+)
+;
+

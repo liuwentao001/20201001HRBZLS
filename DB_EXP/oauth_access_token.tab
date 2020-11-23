@@ -1,0 +1,12 @@
+create table OAUTH_ACCESS_TOKEN
+(
+  token_id          VARCHAR2(256),
+  authentication_id VARCHAR2(250),
+  user_name         VARCHAR2(256),
+  client_id         VARCHAR2(256),
+  refresh_token     VARCHAR2(256),
+  token             BLOB,
+  authentication    BLOB
+)
+;
+

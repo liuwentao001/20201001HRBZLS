@@ -1,0 +1,11 @@
+create table ACT_GE_BYTEARRAY
+(
+  id_            VARCHAR2(64),
+  rev_           NUMBER,
+  name_          VARCHAR2(255),
+  deployment_id_ VARCHAR2(64),
+  bytes_         BLOB,
+  generated_     VARCHAR2(10)
+)
+;
+

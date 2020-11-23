@@ -1,0 +1,11 @@
+create table KF_IVR_QUEUING
+(
+  id          VARCHAR2(32),
+  caller      VARCHAR2(64),
+  status      VARCHAR2(32),
+  is_cancel   VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  create_time DATE
+)
+;
+

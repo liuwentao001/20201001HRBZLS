@@ -1,0 +1,54 @@
+create table YS_GD_SBADDSL
+(
+  id           VARCHAR2(32) not null,
+  hire_code    VARCHAR2(20),
+  yhid         VARCHAR2(10),
+  sbid         VARCHAR2(10),
+  addscodeo    NUMBER(10),
+  addecoden    NUMBER(10),
+  adduninsdate DATE,
+  adduninsper  VARCHAR2(15),
+  addsl        NUMBER(10),
+  addtrans     CHAR(1),
+  bill_id      VARCHAR2(10),
+  addscoden    NUMBER(10),
+  addinsdate   DATE,
+  addcredate   DATE,
+  addcreper    VARCHAR2(15),
+  ifrecmk      VARCHAR2(10),
+  addmrid      VARCHAR2(10)
+)
+;
+comment on table YS_GD_SBADDSL
+  is '余量信息 ';
+comment on column YS_GD_SBADDSL.yhid
+  is '用户编号';
+comment on column YS_GD_SBADDSL.sbid
+  is '水表编号';
+comment on column YS_GD_SBADDSL.addscodeo
+  is '旧表起度';
+comment on column YS_GD_SBADDSL.addecoden
+  is '旧表止度';
+comment on column YS_GD_SBADDSL.adduninsdate
+  is '拆表日期';
+comment on column YS_GD_SBADDSL.adduninsper
+  is '拆表人';
+comment on column YS_GD_SBADDSL.addsl
+  is '余量';
+comment on column YS_GD_SBADDSL.addtrans
+  is '加调事务';
+comment on column YS_GD_SBADDSL.bill_id
+  is '单据流水';
+comment on column YS_GD_SBADDSL.addscoden
+  is '新表起度';
+comment on column YS_GD_SBADDSL.addinsdate
+  is '装表日期';
+comment on column YS_GD_SBADDSL.addcredate
+  is '创建日期';
+comment on column YS_GD_SBADDSL.addcreper
+  is '创建人员';
+comment on column YS_GD_SBADDSL.ifrecmk
+  is '是否领用';
+comment on column YS_GD_SBADDSL.addmrid
+  is '抄表流水';
+

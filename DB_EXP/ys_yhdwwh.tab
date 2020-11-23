@@ -1,0 +1,77 @@
+create table YS_YHDWWH
+(
+  id              VARCHAR2(32) not null,
+  hire_code       VARCHAR2(20),
+  dwid            VARCHAR2(10) not null,
+  dwmname         VARCHAR2(60) not null,
+  dwremained      NUMBER(12,2) default 0.00 not null,
+  dwmifusered     CHAR(1) default 'Y' not null,
+  dwmdefvalue     CHAR(1) default 'N',
+  dwmfpcode       VARCHAR2(10),
+  dwmano          VARCHAR2(64),
+  dwmanoname      VARCHAR2(60),
+  dwmabankid      VARCHAR2(30),
+  dwmaaccountno   VARCHAR2(32),
+  dwmaaccountname VARCHAR2(64),
+  dwmatsbankid    VARCHAR2(30),
+  dwmatsbankname  VARCHAR2(64),
+  dwmaifxezf      CHAR(1),
+  dwmaregdate     DATE,
+  dwiftax         CHAR(1),
+  dwtaxno         VARCHAR2(32),
+  dwtxdz          VARCHAR2(200),
+  dwifhp          CHAR(1),
+  dwmemo          VARCHAR2(200),
+  dwonnectper     VARCHAR2(60),
+  dwconnecttel    VARCHAR2(30)
+)
+;
+comment on table YS_YHDWWH
+  is '单位代码';
+comment on column YS_YHDWWH.dwid
+  is '单位编号';
+comment on column YS_YHDWWH.dwmname
+  is '单位名称';
+comment on column YS_YHDWWH.dwremained
+  is '预存余额';
+comment on column YS_YHDWWH.dwmifusered
+  is '是否有效';
+comment on column YS_YHDWWH.dwmdefvalue
+  is '默认值';
+comment on column YS_YHDWWH.dwmfpcode
+  is '管辖公司';
+comment on column YS_YHDWWH.dwmano
+  is '委托授权号';
+comment on column YS_YHDWWH.dwmanoname
+  is '签约户名';
+comment on column YS_YHDWWH.dwmabankid
+  is '开户行（代托）';
+comment on column YS_YHDWWH.dwmaaccountno
+  is '开户帐号（代托）';
+comment on column YS_YHDWWH.dwmaaccountname
+  is '开户名（代托）';
+comment on column YS_YHDWWH.dwmatsbankid
+  is '接收行号（托）';
+comment on column YS_YHDWWH.dwmatsbankname
+  is '凭证银行（托）';
+comment on column YS_YHDWWH.dwmaifxezf
+  is '小额支付（托）';
+comment on column YS_YHDWWH.dwmaregdate
+  is '签约日期';
+comment on column YS_YHDWWH.dwiftax
+  is '是否税票';
+comment on column YS_YHDWWH.dwtaxno
+  is '税票号码';
+comment on column YS_YHDWWH.dwtxdz
+  is '注册地址';
+comment on column YS_YHDWWH.dwifhp
+  is '是否合票';
+comment on column YS_YHDWWH.dwmemo
+  is '备注';
+comment on column YS_YHDWWH.dwonnectper
+  is '联系人';
+comment on column YS_YHDWWH.dwconnecttel
+  is '联系电话';
+alter table YS_YHDWWH
+  add constraint AK_KEY_DWMID_YS_YHDWWH unique (DWID);
+

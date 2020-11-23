@@ -1,0 +1,55 @@
+create table YS_GD_BALANCEADJDT
+(
+  id               VARCHAR2(32),
+  hire_code        VARCHAR2(32),
+  bill_id          VARCHAR2(32),
+  yhid             VARCHAR2(20),
+  adjust_memo      VARCHAR2(200),
+  balance          NUMBER(13,3),
+  adjust_balance   NUMBER(13,3),
+  change_type      VARCHAR2(2),
+  toyhid           VARCHAR2(20),
+  early_balance    NUMBER(13,3),
+  end_balance      NUMBER(13,3),
+  early_balancechk NUMBER(13,3),
+  end_balancechk   NUMBER(13,3),
+  remarks          VARCHAR2(200),
+  check_flag       VARCHAR2(2),
+  fail_reason      VARCHAR2(60)
+)
+;
+comment on table YS_GD_BALANCEADJDT
+  is '余额调整单体';
+comment on column YS_GD_BALANCEADJDT.id
+  is '主键ID';
+comment on column YS_GD_BALANCEADJDT.hire_code
+  is '租户编号';
+comment on column YS_GD_BALANCEADJDT.bill_id
+  is '单据流水号(与单头表的bill_id关联)';
+comment on column YS_GD_BALANCEADJDT.yhid
+  is '用户编号';
+comment on column YS_GD_BALANCEADJDT.adjust_memo
+  is '调整原因';
+comment on column YS_GD_BALANCEADJDT.balance
+  is '余额';
+comment on column YS_GD_BALANCEADJDT.adjust_balance
+  is '调整金额';
+comment on column YS_GD_BALANCEADJDT.change_type
+  is '转存类别';
+comment on column YS_GD_BALANCEADJDT.toyhid
+  is '转入用户';
+comment on column YS_GD_BALANCEADJDT.early_balance
+  is '期初预存余额';
+comment on column YS_GD_BALANCEADJDT.end_balance
+  is '期末预存余额';
+comment on column YS_GD_BALANCEADJDT.early_balancechk
+  is '审核期初预存余额';
+comment on column YS_GD_BALANCEADJDT.end_balancechk
+  is '审核期末预存余额';
+comment on column YS_GD_BALANCEADJDT.remarks
+  is '备注';
+comment on column YS_GD_BALANCEADJDT.check_flag
+  is '审核标志';
+comment on column YS_GD_BALANCEADJDT.fail_reason
+  is '审核失败原因';
+

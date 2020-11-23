@@ -1,0 +1,20 @@
+create table FLOW_AFFIX
+(
+  id             VARCHAR2(32),
+  flow_id        VARCHAR2(32),
+  step_id        VARCHAR2(32),
+  file_name      VARCHAR2(500),
+  file_alis_name VARCHAR2(500),
+  file_size      VARCHAR2(100),
+  file_type      VARCHAR2(100),
+  upload_per     VARCHAR2(100),
+  upload_date    DATE,
+  down_path      VARCHAR2(500),
+  file_path      VARCHAR2(500),
+  down_times     VARCHAR2(100),
+  affix_type     VARCHAR2(10),
+  hire_code      VARCHAR2(50),
+  file_name_ktl  VARCHAR2(100)
+)
+;
+

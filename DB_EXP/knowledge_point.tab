@@ -1,0 +1,17 @@
+create table KNOWLEDGE_POINT
+(
+  id           VARCHAR2(32),
+  category_id  VARCHAR2(32),
+  title        VARCHAR2(128),
+  expand_title VARCHAR2(300),
+  content      CLOB,
+  file_url     VARCHAR2(128),
+  hire_code    VARCHAR2(32),
+  create_man   VARCHAR2(32),
+  create_date  DATE,
+  update_man   VARCHAR2(32),
+  update_date  DATE,
+  browse_num   INTEGER
+)
+;
+

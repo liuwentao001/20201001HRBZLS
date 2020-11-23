@@ -1,0 +1,20 @@
+create table BASE_MESSAGES
+(
+  id              VARCHAR2(32),
+  notice_title    VARCHAR2(255),
+  notice_type     VARCHAR2(2),
+  notice_content  CLOB,
+  key_word        VARCHAR2(255),
+  publish_way     VARCHAR2(255),
+  publish_per     VARCHAR2(60),
+  publish_date    DATE,
+  effective_times DATE,
+  effective_timee DATE,
+  notice_status   VARCHAR2(2),
+  hire_code       VARCHAR2(32),
+  msg_type        VARCHAR2(2),
+  msg_top         VARCHAR2(2),
+  top_date        DATE
+)
+;
+

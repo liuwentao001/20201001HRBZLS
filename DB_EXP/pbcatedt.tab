@@ -1,0 +1,13 @@
+create table PBCATEDT
+(
+  pbe_name VARCHAR2(60),
+  pbe_edit VARCHAR2(254),
+  pbe_type INTEGER,
+  pbe_cntr INTEGER,
+  pbe_seqn INTEGER,
+  pbe_flag INTEGER,
+  pbe_work VARCHAR2(32)
+)
+;
+create unique index PBSYSPBE_IDX on PBCATEDT (PBE_NAME, PBE_SEQN);
+

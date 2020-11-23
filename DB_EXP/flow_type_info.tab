@@ -1,0 +1,11 @@
+create table FLOW_TYPE_INFO
+(
+  id             VARCHAR2(32),
+  flow_type_code VARCHAR2(50),
+  flow_type_name VARCHAR2(100),
+  create_per     VARCHAR2(60),
+  create_date    DATE,
+  hire_code      VARCHAR2(32)
+)
+;
+

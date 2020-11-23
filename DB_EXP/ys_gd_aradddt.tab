@@ -1,0 +1,34 @@
+create table YS_GD_ARADDDT
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  bill_id     VARCHAR2(32),
+  group_no    INTEGER,
+  price_no    VARCHAR2(10),
+  price_item  VARCHAR2(2),
+  step_class  INTEGER,
+  rec_price   NUMBER(13,3),
+  rec_water   NUMBER(12,2),
+  rec_amt     NUMBER(13,3),
+  price       NUMBER(13,3),
+  water       NUMBER(12,2),
+  charge_amt  NUMBER(13,3),
+  check_flag  VARCHAR2(2),
+  fail_reason VARCHAR2(60)
+)
+;
+comment on column YS_GD_ARADDDT.rec_water
+  is '应收水量';
+comment on column YS_GD_ARADDDT.rec_amt
+  is '应收金额';
+comment on column YS_GD_ARADDDT.price
+  is '单价';
+comment on column YS_GD_ARADDDT.water
+  is '水量';
+comment on column YS_GD_ARADDDT.charge_amt
+  is '金额';
+comment on column YS_GD_ARADDDT.check_flag
+  is '审核状态';
+comment on column YS_GD_ARADDDT.fail_reason
+  is '失败原因';
+

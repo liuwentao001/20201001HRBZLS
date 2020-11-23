@@ -1,0 +1,12 @@
+create table BASE_ROLE_MENU
+(
+  id          VARCHAR2(32),
+  role_id     VARCHAR2(32),
+  menu_id     VARCHAR2(34),
+  create_per  VARCHAR2(100),
+  create_date DATE,
+  hire_code   VARCHAR2(32),
+  sys_code    VARCHAR2(32)
+)
+;
+

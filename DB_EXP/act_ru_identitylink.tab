@@ -1,0 +1,13 @@
+create table ACT_RU_IDENTITYLINK
+(
+  id_           VARCHAR2(64),
+  rev_          NUMBER,
+  group_id_     VARCHAR2(255),
+  type_         VARCHAR2(255),
+  user_id_      VARCHAR2(255),
+  task_id_      VARCHAR2(64),
+  proc_inst_id_ VARCHAR2(64),
+  proc_def_id_  VARCHAR2(64)
+)
+;
+

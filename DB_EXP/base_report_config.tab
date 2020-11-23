@@ -1,0 +1,11 @@
+create table BASE_REPORT_CONFIG
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  report_name VARCHAR2(255),
+  report_key  VARCHAR2(255),
+  report_sql  CLOB,
+  sys_code    VARCHAR2(32)
+)
+;
+

@@ -1,0 +1,13 @@
+create table BASE_LOG_LOGIN
+(
+  id             VARCHAR2(32),
+  login_ip       VARCHAR2(50),
+  login_username VARCHAR2(60),
+  login_mac      VARCHAR2(100),
+  login_date     DATE,
+  login_way      VARCHAR2(2),
+  validate_way   VARCHAR2(2),
+  hire_code      VARCHAR2(32)
+)
+;
+

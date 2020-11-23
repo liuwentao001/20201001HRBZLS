@@ -1,0 +1,19 @@
+create table ACT_HI_PROCINST
+(
+  id_                        VARCHAR2(64),
+  proc_inst_id_              VARCHAR2(64),
+  business_key_              VARCHAR2(255),
+  proc_def_id_               VARCHAR2(64),
+  start_time_                DATE,
+  end_time_                  DATE,
+  duration_                  NUMBER,
+  start_user_id_             VARCHAR2(255),
+  start_act_id_              VARCHAR2(255),
+  end_act_id_                VARCHAR2(255),
+  super_process_instance_id_ VARCHAR2(64),
+  delete_reason_             CLOB,
+  tenant_id_                 VARCHAR2(255),
+  name_                      VARCHAR2(255)
+)
+;
+

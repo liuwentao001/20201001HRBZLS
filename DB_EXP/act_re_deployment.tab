@@ -1,0 +1,10 @@
+create table ACT_RE_DEPLOYMENT
+(
+  id_          VARCHAR2(64),
+  name_        VARCHAR2(255),
+  category_    VARCHAR2(255),
+  tenant_id_   VARCHAR2(255),
+  deploy_time_ DATE
+)
+;
+

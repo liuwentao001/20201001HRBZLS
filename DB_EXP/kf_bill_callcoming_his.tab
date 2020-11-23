@@ -1,0 +1,17 @@
+create table KF_BILL_CALLCOMING_HIS
+(
+  id            VARCHAR2(32),
+  bill_code     VARCHAR2(32),
+  conn_id       VARCHAR2(32),
+  caller        VARCHAR2(64),
+  calee         VARCHAR2(64),
+  contact_id    VARCHAR2(32),
+  skillgroup_id VARCHAR2(320),
+  hire_code     VARCHAR2(32),
+  create_time   DATE,
+  is_readdata   VARCHAR2(255),
+  password      VARCHAR2(255),
+  username      VARCHAR2(255)
+)
+;
+

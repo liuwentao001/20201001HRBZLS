@@ -1,0 +1,13 @@
+create table BAS_SYSPM
+(
+  id         VARCHAR2(32),
+  pm_no      VARCHAR2(100),
+  pm_content VARCHAR2(80),
+  pm_value   VARCHAR2(2000),
+  data_type  VARCHAR2(16),
+  status     CHAR(1),
+  explains   VARCHAR2(1000),
+  hire_code  VARCHAR2(32)
+)
+;
+

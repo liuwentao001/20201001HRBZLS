@@ -1,0 +1,16 @@
+create table BAS_PRICE_NAME
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  price_ver   VARCHAR2(6),
+  price_no    VARCHAR2(10),
+  price_name  VARCHAR2(50),
+  price_pno   VARCHAR2(6),
+  price_class INTEGER,
+  last_mark   CHAR(1),
+  status      CHAR(1),
+  price       NUMBER(10,3),
+  memo        VARCHAR2(50)
+)
+;
+

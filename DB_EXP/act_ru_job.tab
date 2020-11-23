@@ -1,0 +1,22 @@
+create table ACT_RU_JOB
+(
+  id_                  VARCHAR2(64),
+  rev_                 NUMBER,
+  type_                VARCHAR2(255),
+  lock_exp_time_       DATE,
+  lock_owner_          VARCHAR2(255),
+  exclusive_           CHAR(1),
+  execution_id_        VARCHAR2(64),
+  process_instance_id_ VARCHAR2(64),
+  proc_def_id_         VARCHAR2(64),
+  retries_             NUMBER,
+  exception_stack_id_  VARCHAR2(64),
+  exception_msg_       CLOB,
+  duedate_             DATE,
+  repeat_              VARCHAR2(255),
+  handler_type_        VARCHAR2(255),
+  handler_cfg_         CLOB,
+  tenant_id_           VARCHAR2(255)
+)
+;
+

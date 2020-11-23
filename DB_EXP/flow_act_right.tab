@@ -1,0 +1,10 @@
+create table FLOW_ACT_RIGHT
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  model_id    VARCHAR2(255),
+  create_per  VARCHAR2(60),
+  create_date DATE
+)
+;
+

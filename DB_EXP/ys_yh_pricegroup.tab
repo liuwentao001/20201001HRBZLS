@@ -1,0 +1,38 @@
+create table YS_YH_PRICEGROUP
+(
+  id         VARCHAR2(32),
+  hire_code  VARCHAR2(32),
+  yhid       VARCHAR2(10) not null,
+  sbid       VARCHAR2(10) not null,
+  grpid      NUMBER not null,
+  price_no   VARCHAR2(10) not null,
+  grpscale   NUMBER(10,2) not null,
+  grptype    VARCHAR2(2) default '01',
+  grpcolumn1 VARCHAR2(10),
+  grpcolumn2 VARCHAR2(10),
+  grpcolumn3 VARCHAR2(10)
+)
+;
+comment on table YS_YH_PRICEGROUP
+  is '混合用水明细【grp】';
+comment on column YS_YH_PRICEGROUP.yhid
+  is '用户编号';
+comment on column YS_YH_PRICEGROUP.sbid
+  is '水表编号';
+comment on column YS_YH_PRICEGROUP.grpid
+  is '分组号';
+comment on column YS_YH_PRICEGROUP.price_no
+  is '价格类别';
+comment on column YS_YH_PRICEGROUP.grpscale
+  is '比例';
+comment on column YS_YH_PRICEGROUP.grptype
+  is '混合类别(00比例，01定量)';
+comment on column YS_YH_PRICEGROUP.grpcolumn1
+  is '备用字段1';
+comment on column YS_YH_PRICEGROUP.grpcolumn2
+  is '备用字段2';
+comment on column YS_YH_PRICEGROUP.grpcolumn3
+  is '备用字段3';
+alter table YS_YH_PRICEGROUP
+  add constraint PK_YHPRICEGROUP primary key (YHID, SBID, GRPID, PRICE_NO);
+

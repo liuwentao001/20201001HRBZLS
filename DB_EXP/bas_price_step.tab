@@ -1,0 +1,41 @@
+create table BAS_PRICE_STEP
+(
+  id           VARCHAR2(32),
+  hire_code    VARCHAR2(32),
+  price_ver    VARCHAR2(6),
+  price_no     VARCHAR2(10),
+  price_item   VARCHAR2(2),
+  step_class   INTEGER,
+  start_code   INTEGER,
+  end_code     INTEGER,
+  price        NUMBER(14,3),
+  peoples      INTEGER,
+  add_waterqty INTEGER,
+  add_price    NUMBER(14,3)
+)
+;
+comment on column BAS_PRICE_STEP.id
+  is '流水id';
+comment on column BAS_PRICE_STEP.hire_code
+  is '租户编号';
+comment on column BAS_PRICE_STEP.price_ver
+  is '水价版本号';
+comment on column BAS_PRICE_STEP.price_no
+  is '水价编号';
+comment on column BAS_PRICE_STEP.price_item
+  is '费用项目';
+comment on column BAS_PRICE_STEP.step_class
+  is '阶梯级别';
+comment on column BAS_PRICE_STEP.start_code
+  is '起码';
+comment on column BAS_PRICE_STEP.end_code
+  is '止码';
+comment on column BAS_PRICE_STEP.price
+  is '单价';
+comment on column BAS_PRICE_STEP.peoples
+  is '默认人口数';
+comment on column BAS_PRICE_STEP.add_waterqty
+  is '每户增补水量';
+comment on column BAS_PRICE_STEP.add_price
+  is '每户增补单价';
+

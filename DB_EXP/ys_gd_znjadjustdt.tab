@@ -1,0 +1,50 @@
+create table YS_GD_ZNJADJUSTDT
+(
+  id            VARCHAR2(32),
+  hire_code     VARCHAR2(32),
+  bill_id       VARCHAR2(32),
+  user_no       VARCHAR2(20),
+  adjust_memo   VARCHAR2(200),
+  rec_id        VARCHAR2(24),
+  method        VARCHAR2(10),
+  adjust_ratio  VARCHAR2(10),
+  adjust_value  NUMBER(12,3),
+  adjust_ndate  DATE,
+  late_fee_date DATE,
+  late_fee      NUMBER(13,3),
+  zmemo         VARCHAR2(200),
+  check_flag    VARCHAR2(2),
+  fail_reason   VARCHAR2(60)
+)
+;
+comment on column YS_GD_ZNJADJUSTDT.id
+  is 'id';
+comment on column YS_GD_ZNJADJUSTDT.hire_code
+  is '租户编号';
+comment on column YS_GD_ZNJADJUSTDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_ZNJADJUSTDT.user_no
+  is '用户编号';
+comment on column YS_GD_ZNJADJUSTDT.adjust_memo
+  is '减免原因';
+comment on column YS_GD_ZNJADJUSTDT.rec_id
+  is '账务id';
+comment on column YS_GD_ZNJADJUSTDT.method
+  is '减免方法（1、目标金额减免；2、比例金额减免；3、差额减免；4、调整起算日期）';
+comment on column YS_GD_ZNJADJUSTDT.adjust_ratio
+  is '比例值(%)';
+comment on column YS_GD_ZNJADJUSTDT.adjust_value
+  is '减免金额/比例值';
+comment on column YS_GD_ZNJADJUSTDT.adjust_ndate
+  is '减免目标起算日';
+comment on column YS_GD_ZNJADJUSTDT.late_fee_date
+  is '违约金起算日';
+comment on column YS_GD_ZNJADJUSTDT.late_fee
+  is '违约金';
+comment on column YS_GD_ZNJADJUSTDT.zmemo
+  is '备注';
+comment on column YS_GD_ZNJADJUSTDT.check_flag
+  is '审核状态';
+comment on column YS_GD_ZNJADJUSTDT.fail_reason
+  is '失败原因';
+

@@ -1,0 +1,13 @@
+create table BASE_REPORT_CONDITION
+(
+  id             VARCHAR2(32),
+  hire_code      VARCHAR2(32),
+  report_code    VARCHAR2(32),
+  condition_name VARCHAR2(255),
+  collection_per VARCHAR2(255),
+  create_date    DATE,
+  share_per      VARCHAR2(255),
+  share_date     DATE
+)
+;
+

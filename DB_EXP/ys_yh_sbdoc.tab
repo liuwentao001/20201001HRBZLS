@@ -1,0 +1,127 @@
+create table YS_YH_SBDOC
+(
+  id             VARCHAR2(32) not null,
+  sbid           VARCHAR2(10),
+  mdno           VARCHAR2(40),
+  mdcaliber      NUMBER(10),
+  mdbrand        VARCHAR2(30),
+  mdmodel        VARCHAR2(2),
+  mdstatus       VARCHAR2(2),
+  mdstatusdate   DATE,
+  mdcycchkdate   DATE,
+  mdstockdate    DATE,
+  mdstore        VARCHAR2(10),
+  sfh            VARCHAR2(40),
+  dqsfh          VARCHAR2(40),
+  dqgfh          VARCHAR2(40),
+  jcgfh          VARCHAR2(40),
+  qfh            VARCHAR2(40),
+  mdfq1          VARCHAR2(40),
+  mdfq2          VARCHAR2(40),
+  mdfq3          VARCHAR2(40),
+  mdfq4          VARCHAR2(40),
+  mdfq5          VARCHAR2(40),
+  barcode        VARCHAR2(20),
+  rfid           VARCHAR2(20),
+  ifdzsb         VARCHAR2(2),
+  concentratorid VARCHAR2(50),
+  readmetercode  VARCHAR2(50),
+  transferstype  VARCHAR2(50),
+  collenttype    VARCHAR2(20),
+  iscontrol      VARCHAR2(20),
+  readtype       VARCHAR2(20),
+  rkbatch        VARCHAR2(20),
+  rkdno          VARCHAR2(20),
+  storeroomid    VARCHAR2(10),
+  rkman          VARCHAR2(20),
+  mainman        VARCHAR2(20),
+  maindate       DATE,
+  sjdate         DATE,
+  mdmode         VARCHAR2(50),
+  portno         VARCHAR2(50),
+  hire_code      VARCHAR2(20)
+)
+;
+comment on table YS_YH_SBDOC
+  is '水表档案';
+comment on column YS_YH_SBDOC.id
+  is '序列号';
+comment on column YS_YH_SBDOC.sbid
+  is '水表档案编号(户号，入库时为空)';
+comment on column YS_YH_SBDOC.mdno
+  is '表身码';
+comment on column YS_YH_SBDOC.mdcaliber
+  is '表口径(METERCALIBER)';
+comment on column YS_YH_SBDOC.mdbrand
+  is '表厂家(meterbrand)';
+comment on column YS_YH_SBDOC.mdmodel
+  is '计量方式';
+comment on column YS_YH_SBDOC.mdstatus
+  is '表状态（0=未使用，1=已使用，2=作废）';
+comment on column YS_YH_SBDOC.mdstatusdate
+  is '表状态发生时间';
+comment on column YS_YH_SBDOC.mdcycchkdate
+  is '周检起算日';
+comment on column YS_YH_SBDOC.mdstockdate
+  is '新购入库日期';
+comment on column YS_YH_SBDOC.mdstore
+  is '库存位置';
+comment on column YS_YH_SBDOC.sfh
+  is '首封号';
+comment on column YS_YH_SBDOC.dqsfh
+  is '塑封号';
+comment on column YS_YH_SBDOC.dqgfh
+  is '钢封号';
+comment on column YS_YH_SBDOC.jcgfh
+  is '稽查刚封号';
+comment on column YS_YH_SBDOC.qfh
+  is '铅封号';
+comment on column YS_YH_SBDOC.mdfq1
+  is '备用封号1';
+comment on column YS_YH_SBDOC.mdfq2
+  is '备用封号2';
+comment on column YS_YH_SBDOC.mdfq3
+  is '备用封号3';
+comment on column YS_YH_SBDOC.mdfq4
+  is '备用封号4';
+comment on column YS_YH_SBDOC.mdfq5
+  is '备用封号5';
+comment on column YS_YH_SBDOC.barcode
+  is '条形码';
+comment on column YS_YH_SBDOC.rfid
+  is '电子标签';
+comment on column YS_YH_SBDOC.ifdzsb
+  is '是否倒表（倒表=Y 正常表=''N''）';
+comment on column YS_YH_SBDOC.concentratorid
+  is '集中器ID';
+comment on column YS_YH_SBDOC.readmetercode
+  is '抄表序号';
+comment on column YS_YH_SBDOC.transferstype
+  is '传输类型';
+comment on column YS_YH_SBDOC.collenttype
+  is '采集类型(弃用字段)';
+comment on column YS_YH_SBDOC.iscontrol
+  is '阀控否';
+comment on column YS_YH_SBDOC.readtype
+  is '读数方式';
+comment on column YS_YH_SBDOC.rkbatch
+  is '入库批次';
+comment on column YS_YH_SBDOC.rkdno
+  is '入库单号';
+comment on column YS_YH_SBDOC.storeroomid
+  is '库房编号';
+comment on column YS_YH_SBDOC.rkman
+  is '入库人员';
+comment on column YS_YH_SBDOC.mainman
+  is '维护人员';
+comment on column YS_YH_SBDOC.maindate
+  is '维护时间';
+comment on column YS_YH_SBDOC.sjdate
+  is '首检日期';
+comment on column YS_YH_SBDOC.mdmode
+  is '基电转换方式';
+comment on column YS_YH_SBDOC.portno
+  is '上传端口号';
+alter table YS_YH_SBDOC
+  add constraint PK_YH_METERDOC primary key (ID);
+

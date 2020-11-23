@@ -1,0 +1,10 @@
+create table BASE_DICTIONARY_PARAMETER
+(
+  id              VARCHAR2(32),
+  dic_id          VARCHAR2(32),
+  parameter_code  VARCHAR2(60),
+  parameter_value VARCHAR2(60),
+  dic_type        VARCHAR2(2)
+)
+;
+

@@ -1,0 +1,118 @@
+create table YS_GD_ARADDHD
+(
+  id            VARCHAR2(32),
+  hire_code     VARCHAR2(20),
+  bill_id       VARCHAR2(32),
+  bill_no       VARCHAR2(32),
+  bill_type     VARCHAR2(32),
+  bill_source   VARCHAR2(32),
+  manage_no     VARCHAR2(32),
+  new_dept      VARCHAR2(32),
+  add_date      DATE,
+  add_per       VARCHAR2(32),
+  check_date    DATE,
+  check_per     VARCHAR2(32),
+  check_flag    CHAR(1),
+  flow_id       VARCHAR2(32),
+  user_no       VARCHAR2(20),
+  user_name     VARCHAR2(100),
+  user_adr      VARCHAR2(100),
+  charge_per    VARCHAR2(15),
+  if_tax        CHAR(1),
+  book_no       VARCHAR2(10),
+  pread_date    DATE,
+  read_date     DATE,
+  read_scode    INTEGER,
+  read_ecode    INTEGER,
+  read_water    INTEGER,
+  late_fee_date DATE,
+  trans         VARCHAR2(10),
+  charge_type   CHAR(1),
+  water         INTEGER,
+  charge_amt    NUMBER(13,3),
+  price_no      VARCHAR2(10),
+  charge_no     VARCHAR2(200),
+  if_step       CHAR(1),
+  read_per      VARCHAR2(20),
+  if_rechis     CHAR(1),
+  price_ver     VARCHAR2(255),
+  ecode_flag    CHAR(1)
+)
+;
+comment on table YS_GD_ARADDHD
+  is '追量';
+comment on column YS_GD_ARADDHD.id
+  is 'id';
+comment on column YS_GD_ARADDHD.hire_code
+  is '租户编号';
+comment on column YS_GD_ARADDHD.bill_id
+  is '单据流水号';
+comment on column YS_GD_ARADDHD.bill_no
+  is '单据编号';
+comment on column YS_GD_ARADDHD.bill_type
+  is '单据类别';
+comment on column YS_GD_ARADDHD.bill_source
+  is '单据来源';
+comment on column YS_GD_ARADDHD.manage_no
+  is '营销公司';
+comment on column YS_GD_ARADDHD.new_dept
+  is '申请部门';
+comment on column YS_GD_ARADDHD.add_date
+  is '申请日期';
+comment on column YS_GD_ARADDHD.add_per
+  is '申请人员';
+comment on column YS_GD_ARADDHD.check_date
+  is '审核日期';
+comment on column YS_GD_ARADDHD.check_per
+  is '审核人员';
+comment on column YS_GD_ARADDHD.check_flag
+  is '审核标志';
+comment on column YS_GD_ARADDHD.flow_id
+  is '流程ID';
+comment on column YS_GD_ARADDHD.user_no
+  is '用户编号';
+comment on column YS_GD_ARADDHD.user_name
+  is '业主名称';
+comment on column YS_GD_ARADDHD.user_adr
+  is '业主地址';
+comment on column YS_GD_ARADDHD.charge_per
+  is '收费员';
+comment on column YS_GD_ARADDHD.if_tax
+  is '是否税票';
+comment on column YS_GD_ARADDHD.book_no
+  is '表册';
+comment on column YS_GD_ARADDHD.pread_date
+  is '上次抄表日期';
+comment on column YS_GD_ARADDHD.read_date
+  is '本次抄表日期';
+comment on column YS_GD_ARADDHD.read_scode
+  is '起数';
+comment on column YS_GD_ARADDHD.read_ecode
+  is '止数';
+comment on column YS_GD_ARADDHD.read_water
+  is '抄见水量';
+comment on column YS_GD_ARADDHD.late_fee_date
+  is '违约金起算日';
+comment on column YS_GD_ARADDHD.trans
+  is '应收事务';
+comment on column YS_GD_ARADDHD.charge_type
+  is '应收方式';
+comment on column YS_GD_ARADDHD.water
+  is '应收水量';
+comment on column YS_GD_ARADDHD.charge_amt
+  is '应收金额';
+comment on column YS_GD_ARADDHD.price_no
+  is '主价格类别';
+comment on column YS_GD_ARADDHD.charge_no
+  is '合收表主表号';
+comment on column YS_GD_ARADDHD.if_step
+  is '是否阶梯（1=是，0=否，为空为0）';
+comment on column YS_GD_ARADDHD.read_per
+  is '抄表员';
+comment on column YS_GD_ARADDHD.if_rechis
+  is '是否按历史水价算费(选择归档价格版本)';
+comment on column YS_GD_ARADDHD.price_ver
+  is '归档价格版本（和if_rechis字段结合使用）';
+comment on column YS_GD_ARADDHD.ecode_flag
+  is '置下次抄表起度';
+

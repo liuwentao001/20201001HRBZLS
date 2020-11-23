@@ -1,0 +1,12 @@
+create table FLOW_FORM_CONFIG
+(
+  id           VARCHAR2(32),
+  hire_code    VARCHAR2(32),
+  flow_key     VARCHAR2(255),
+  flow_version VARCHAR2(255),
+  step_name    VARCHAR2(255),
+  step_id      VARCHAR2(255),
+  form_step_id VARCHAR2(255)
+)
+;
+

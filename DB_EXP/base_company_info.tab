@@ -1,0 +1,20 @@
+create table BASE_COMPANY_INFO
+(
+  id                  VARCHAR2(32),
+  company_code        VARCHAR2(100),
+  company_name        VARCHAR2(100),
+  company_addr        VARCHAR2(255),
+  company_email       VARCHAR2(255),
+  company_phonenumber VARCHAR2(50),
+  company_logo        VARCHAR2(255),
+  title               VARCHAR2(255),
+  sub_title1          VARCHAR2(255),
+  sub_title2          VARCHAR2(255),
+  sub_title3          VARCHAR2(255),
+  sub_title4          VARCHAR2(255),
+  sys_describe        VARCHAR2(255),
+  background_image    VARCHAR2(255),
+  company_website_url VARCHAR2(255)
+)
+;
+

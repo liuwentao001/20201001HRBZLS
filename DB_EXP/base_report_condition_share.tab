@@ -1,0 +1,9 @@
+create table BASE_REPORT_CONDITION_SHARE
+(
+  id        VARCHAR2(32),
+  hire_code VARCHAR2(32),
+  report_id VARCHAR2(32),
+  by_share  VARCHAR2(255)
+)
+;
+

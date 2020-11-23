@@ -1,0 +1,47 @@
+create table YS_GD_ZNJADJUSTHD
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  bill_id     VARCHAR2(32),
+  bill_no     VARCHAR2(32),
+  bill_type   VARCHAR2(32),
+  bill_source VARCHAR2(32),
+  manage_no   VARCHAR2(32),
+  new_dept    VARCHAR2(32),
+  add_date    DATE,
+  add_per     VARCHAR2(32),
+  check_date  DATE,
+  check_per   VARCHAR2(32),
+  check_flag  CHAR(1),
+  flow_id     VARCHAR2(32)
+)
+;
+comment on column YS_GD_ZNJADJUSTHD.id
+  is 'id';
+comment on column YS_GD_ZNJADJUSTHD.hire_code
+  is '租户编号';
+comment on column YS_GD_ZNJADJUSTHD.bill_id
+  is '单据流水号';
+comment on column YS_GD_ZNJADJUSTHD.bill_no
+  is '单据编号';
+comment on column YS_GD_ZNJADJUSTHD.bill_type
+  is '单据类别';
+comment on column YS_GD_ZNJADJUSTHD.bill_source
+  is '单据来源';
+comment on column YS_GD_ZNJADJUSTHD.manage_no
+  is '营销公司';
+comment on column YS_GD_ZNJADJUSTHD.new_dept
+  is '申请部门';
+comment on column YS_GD_ZNJADJUSTHD.add_date
+  is '申请日期';
+comment on column YS_GD_ZNJADJUSTHD.add_per
+  is '申请人员';
+comment on column YS_GD_ZNJADJUSTHD.check_date
+  is '审核日期';
+comment on column YS_GD_ZNJADJUSTHD.check_per
+  is '审核人员';
+comment on column YS_GD_ZNJADJUSTHD.check_flag
+  is '审核标志';
+comment on column YS_GD_ZNJADJUSTHD.flow_id
+  is '流程ID';
+

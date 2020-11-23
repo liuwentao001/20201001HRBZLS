@@ -1,0 +1,105 @@
+create table YS_ZW_ARDETAIL
+(
+  id            VARCHAR2(32) not null,
+  hire_code     VARCHAR2(20),
+  ardid         VARCHAR2(10) not null,
+  ardpmdid      NUMBER not null,
+  ardpiid       CHAR(2) not null,
+  ardpfid       VARCHAR2(10) not null,
+  ardpscid      NUMBER not null,
+  ardclass      NUMBER not null,
+  ardysdj       NUMBER(13,3),
+  ardyssl       NUMBER(12,2),
+  ardysje       NUMBER(13,3),
+  arddj         NUMBER(13,3),
+  ardsl         NUMBER(12,2),
+  ardje         NUMBER(13,3),
+  ardadjdj      NUMBER(13,3),
+  ardadjsl      NUMBER(12,2),
+  ardadjje      NUMBER(13,3),
+  ardmethod     CHAR(3),
+  ardpaidflag   CHAR(1),
+  ardpaiddate   DATE,
+  ardpaidmonth  VARCHAR2(7),
+  ardpaidper    VARCHAR2(20),
+  ardpmdscale   NUMBER(10,2),
+  ardilid       VARCHAR2(10),
+  ardznj        NUMBER(12,2),
+  ardmemo       VARCHAR2(200),
+  ardmsmfid     VARCHAR2(10),
+  ardmonth      VARCHAR2(7),
+  ardmid        VARCHAR2(10),
+  ardpmdtype    VARCHAR2(2),
+  ardpmdcolumn1 VARCHAR2(10),
+  ardpmdcolumn2 VARCHAR2(10),
+  ardpmdcolumn3 VARCHAR2(10)
+)
+;
+comment on table YS_ZW_ARDETAIL
+  is '应收帐明细【ARD】';
+comment on column YS_ZW_ARDETAIL.ardid
+  is '流水号';
+comment on column YS_ZW_ARDETAIL.ardpmdid
+  is '混合用水分组';
+comment on column YS_ZW_ARDETAIL.ardpiid
+  is '费用项目';
+comment on column YS_ZW_ARDETAIL.ardpfid
+  is '费率';
+comment on column YS_ZW_ARDETAIL.ardpscid
+  is '费率明细方案';
+comment on column YS_ZW_ARDETAIL.ardclass
+  is '阶梯级别';
+comment on column YS_ZW_ARDETAIL.ardysdj
+  is '应收单价';
+comment on column YS_ZW_ARDETAIL.ardyssl
+  is '应收水量';
+comment on column YS_ZW_ARDETAIL.ardysje
+  is '应收金额';
+comment on column YS_ZW_ARDETAIL.arddj
+  is '实收单价';
+comment on column YS_ZW_ARDETAIL.ardsl
+  is '实收水量';
+comment on column YS_ZW_ARDETAIL.ardje
+  is '实收金额';
+comment on column YS_ZW_ARDETAIL.ardadjdj
+  is '调整单价';
+comment on column YS_ZW_ARDETAIL.ardadjsl
+  is '调整水量';
+comment on column YS_ZW_ARDETAIL.ardadjje
+  is '调整金额';
+comment on column YS_ZW_ARDETAIL.ardmethod
+  is '计费方法';
+comment on column YS_ZW_ARDETAIL.ardpaidflag
+  is '销帐标志';
+comment on column YS_ZW_ARDETAIL.ardpaiddate
+  is '销帐日期';
+comment on column YS_ZW_ARDETAIL.ardpaidmonth
+  is '销帐月份';
+comment on column YS_ZW_ARDETAIL.ardpaidper
+  is '销帐人员';
+comment on column YS_ZW_ARDETAIL.ardpmdscale
+  is '混合比例';
+comment on column YS_ZW_ARDETAIL.ardilid
+  is '票据流水';
+comment on column YS_ZW_ARDETAIL.ardznj
+  is '违约金';
+comment on column YS_ZW_ARDETAIL.ardmemo
+  is '备注';
+comment on column YS_ZW_ARDETAIL.ardmsmfid
+  is '营销公司';
+comment on column YS_ZW_ARDETAIL.ardmonth
+  is '帐务月份';
+comment on column YS_ZW_ARDETAIL.ardmid
+  is '水表编号';
+comment on column YS_ZW_ARDETAIL.ardpmdtype
+  is '混合类别';
+comment on column YS_ZW_ARDETAIL.ardpmdcolumn1
+  is '备用字段1';
+comment on column YS_ZW_ARDETAIL.ardpmdcolumn2
+  is '备用字段2';
+comment on column YS_ZW_ARDETAIL.ardpmdcolumn3
+  is '备用字段3';
+create index IDX_ARDID on YS_ZW_ARDETAIL (ARDID);
+alter table YS_ZW_ARDETAIL
+  add constraint PK_YS_ARDETAIL primary key (ARDID, ARDPMDID, ARDCLASS, ARDPIID, ARDPFID, ARDPSCID);
+

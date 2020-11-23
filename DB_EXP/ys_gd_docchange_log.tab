@@ -1,0 +1,17 @@
+create table YS_GD_DOCCHANGE_LOG
+(
+  id           VARCHAR2(32),
+  table_name   VARCHAR2(60),
+  column_name  VARCHAR2(100),
+  old_value    VARCHAR2(500),
+  new_value    VARCHAR2(500),
+  yh_id        VARCHAR2(20),
+  hire_code    VARCHAR2(32),
+  change_per   VARCHAR2(60),
+  change_date  DATE,
+  change_type  VARCHAR2(20),
+  examine_per  VARCHAR2(60),
+  examine_date DATE
+)
+;
+

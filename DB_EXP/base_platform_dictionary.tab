@@ -1,0 +1,12 @@
+create table BASE_PLATFORM_DICTIONARY
+(
+  id         VARCHAR2(32),
+  dic_value  VARCHAR2(60),
+  dic_name   VARCHAR2(100),
+  parent_id  VARCHAR2(165),
+  relate_id  VARCHAR2(165),
+  show_order INTEGER,
+  sys_code   VARCHAR2(255)
+)
+;
+

@@ -1,0 +1,2298 @@
+function
+	function fchkcbmk
+		create or replace function fchkcbmk(vmiid in varchar2) return char as lret       char(1);
+		begin
+		   return 'y';
+		exception
+		when others then
+		   return 'n';
+		end;		
+	function f_get_hire_code
+		create or replace function f_get_hire_code  return char as v_hire_code varchar2(32);
+		begin
+		  v_hire_code := 'kings';
+		  return v_hire_code ;
+		exception
+		  when others then
+		  return 'kings';
+		end;
+	function f_get_sbid
+		create or replace function f_get_sbid return varchar2 is
+		 -- --------------------------------------------------------------------------
+		  -- name         : f_get_sbid
+		  -- author       : tim
+		  -- description  : 取水表编号
+		  -- ammedments   : 水表编号前面9位是从序号取，后面一位是前面9位数据相加，取4的膜
+		  --   when         who       what
+		  --   ===========  ========  =================================================
+		  --   2020-12-01  tim      initial creation
+		  -- --------------------------------------------------------------------------
+		  v_num       number(10);
+		  v_newsbid   varchar2(10);
+		  v_modnum    number(10);
+		  v_sbid    varchar2(10);
+		begin
+		  v_sbid := f_get_seq_next('seq_sbid');
+		  v_num := 0 ;
+		  for i in 1 .. length(v_sbid) loop
+		    v_num := nvl(v_num,0) + to_number(substr(v_sbid, (i), 1));
+		  end loop;
+		  v_modnum    := mod(v_num, 4);
+		  v_newsbid := v_sbid || v_modnum;
+		  return(v_newsbid);
+		exception
+		  when others then
+		    return '';
+		end;		
+	function f_get_seq_next
+		create or replace function f_get_seq_next(as_tab_name in varchar2)
+		  return varchar2 is
+		  -- description  : 按照在sys_seq_id 表中定义的细节返回序列值
+		  ln_seq_num    number;
+		  ls_seq_num    varchar2(20);
+		  ls_prefix     varchar2(2);
+		  as_seq_name   varchar2(30);
+		  temp_id       varchar2(40);
+		  ls_cur_syntax varchar(200);
+		  li_cur_handle integer;
+		  li_rtn        integer;
+		  lr_seqlist    sys_seq_id%rowtype;
+		  prelen        number;
+		begin
+		  --获得当前的序列相关的定义
+		  select seqseqname, nvl(seqprefix, ' '), seqwidth, seqstartno
+		    into lr_seqlist.seqseqname,
+			 lr_seqlist.seqprefix,
+			 lr_seqlist.seqwidth,
+			 lr_seqlist.seqstartno
+		    from sys_seq_id
+		   where upper(seqtblname) = upper(as_tab_name);
+		  if trim(lr_seqlist.seqprefix) is null then
+		    prelen := 0;
+		  else
+		    prelen := length(trim(lr_seqlist.seqprefix));
+		  end if;
+		  --动态sql取序列的值
+		  as_seq_name   := lr_seqlist.seqseqname;
+		  ls_prefix     := lr_seqlist.seqprefix;
+		  li_cur_handle := dbms_sql.open_cursor;
+		  ls_cur_syntax := 'select ' || as_seq_name || '.nextval from dual';
+		  dbms_sql.parse(li_cur_handle, ls_cur_syntax, dbms_sql.native);
+		  dbms_sql.define_column(li_cur_handle, 1, ln_seq_num);
+		  li_rtn := dbms_sql.execute(li_cur_handle);
+		  if dbms_sql.fetch_rows(li_cur_handle) > 0 then
+		    dbms_sql.column_value(li_cur_handle, 1, ln_seq_num);
+		    dbms_sql.close_cursor(li_cur_handle);
+		  end if;
+		  -- 按照预定的格式返回序列值
+		  temp_id    := '000000000000000000000000000000' || to_char(ln_seq_num);
+		  ls_seq_num := trim(lr_seqlist.seqprefix ||
+				     substr(temp_id,
+					    length(temp_id) - lr_seqlist.seqwidth + prelen + 1,
+					    lr_seqlist.seqwidth - prelen));
+		  return(ls_seq_num);
+		exception
+		  when others then 
+		      return ' seq        error!';
+		end;
+	function md5
+		create or replace function md5(passwd in varchar2) return varchar2 is retval varchar2(32);
+		begin
+		  retval := utl_raw.cast_to_raw(dbms_obfuscation_toolkit.md5(input_string => passwd)) ;
+		  return retval;
+		end;
+	function uuid
+		create or replace function uuid  return char as v_method varchar2(32);
+		begin
+		   v_method := sys_guid();
+		   return v_method ; 
+		exception
+		  when others then
+		    return sys_guid();
+		end;
+	function find_in_set
+		--查询piv_str1是在piv_str2中的第几个元素
+		create or replace function find_in_set(piv_str1 varchar2, piv_str2 varchar2, p_sep varchar2 := ',')
+		--判断piv_str2是否为空
+		if piv_str2 is null then
+		  return res;
+		end if;
+		-- 如果piv_str中没有分割符，直接判断piv_str1和piv_str是否相等，相等 res_place=1
+		if instr(piv_str, p_sep, 1) = 0 then
+		   if piv_str = piv_str1 then
+		      res_place:=1;
+		      res:= res_place;
+		   end if;
+		else
+		--循环按分隔符截取piv_str
+		loop
+		    l_idx := instr(piv_str,p_sep);
+		    res_place := res_place + 1;
+		    -- 当piv_str中还有分隔符时
+		      if l_idx > 0 then
+		      -- 截取第一个分隔符前的字段str
+			 str:= substr(piv_str,1,l_idx-1);
+			 -- 判断 str 和piv_str1 是否相等，相等则结束循环判断
+			 if str = piv_str1 then
+			   res:= res_place;
+			   exit;
+			 end if;
+			piv_str := substr(piv_str,l_idx+length(p_sep));
+		      else
+		      -- 当截取后的piv_str 中不存在分割符时，判断piv_str和piv_str1是否相等，相等 res=res_path
+			if piv_str = piv_str1 then
+			   res:= res_place;
+			end if;
+			-- 无论最后是否相等，都跳出循环
+			exit;
+		      end if;
+		 end loop;
+		 -- 结束循环
+		 end if;
+		 -- 返回res
+		 return res;
+	function 是否年阶梯水价
+		--根据价格类型编码查询年阶梯账务表，是否阶年阶梯水价
+		create or replace function 是否年阶梯水价(p_pfno in varchar2) return varchar2 as
+		select count(*) into vcount from bas_price_detail where method in ('njt') and price_no = p_pfno;
+		if vcount > 0 then return 'y'; else return 'n'; end if;
+	function 实时计算年累计已用量
+		--根据水表编码，查询p_sdate之后的适用阶梯算费方式的水表的累计水量
+		create or replace function 实时计算年累计已用量(p_miid in varchar2, p_sdate in date)
+		select nvl(sum(ardsl), 0) into lret
+		from ys_zw_arlist, ys_zw_ardetail
+		   where arid = ardid
+		     and ardpiid = '01' --只计水费水量
+		     and ardmethod in( 'yjt','njt') --年阶梯月结 暂时只通过rlifyearclass标志判断
+		     and arscrarmonth >= to_char(p_sdate, 'yyyy.mm') --大于阶梯起算日
+		     and sbid = p_miid;
+		  return lret;
+	function 是否含年阶梯水价
+		--根据水表编码查询是否含年阶梯水价
+		create or replace function 是否含年阶梯水价(p_sbid in varchar2) return varchar2 as
+		  select count(*)
+		    into vcount
+		    from (select 1
+			    from ys_yh_sbinfo mi
+			   where mi.sbid = p_sbid
+			     and mi.sbifmp = 'n'
+			     and 是否年阶梯水价(mi.price_no) = 'y'
+			  union
+			  select 1
+			    from ys_yh_sbinfo mi, ys_yh_pricegroup pmd
+			   where mi.sbid = p_sbid
+			     and mi.sbid = pmd.sbid
+			     and mi.sbifmp = 'y'
+			     and 是否年阶梯水价(pmd.price_no) = 'y');
+		if vcount > 0 then return 'y'; else return 'n'; end if;
+
+package pg_addmodify_yh
+	errcode constant integer := -20012;
+	v_hire_code varchar2(10) := f_get_hire_code();
+	no_data_found exception;
+	--审核审核入口
+	procedure audit(p_billno in varchar2, p_person in varchar2, p_djlb   in varchar2);
+		begin
+			if p_djlb in ('r', '0') then
+				sp_register(p_djlb, p_billno, p_person, 'n');
+			else
+			sp_custchange(p_djlb, p_billno, p_person, 'n');
+				end if;
+			commit;
+		exception
+		  when others then
+		  raise_application_error(errcode, sqlerrm);
+		end audit;
+	--立户审核（一户一表）
+	procedure sp_yhadd(p_djlb   in varchar2,p_billno in varchar2,p_person in varchar2,p_commit in varchar2);
+		| 源表            |                          |      |
+		| --------------- | ------------------------ | ---- |
+		| ys_yh_custinfo  | 用户信息表【yh】         |      |
+		| ys_yh_sbinfo    | 户表信息【sb】           |      |
+		| ys_gd_yhsbreghd | 立户单头【h】            |      |
+		| ys_gd_yhsbregdt | 立户单体【cmrd】一户一表 |      |
+
+		| 目标表         |                     |      |
+		| -------------- | ------------------- | ---- |
+		| ys_yh_custinfo | 用户信息表【yh】    |      |
+		| ys_yh_sbinfo   | 户表信息【sb】      |      |
+		| ys_yh_sbdoc    | 水表档案            |      |
+		| ys_yh_account  | 户表银行信息【yha】 |      |
+		
+		| 变量                              |              |                                                              |
+		| --------------------------------- | ------------ | ------------------------------------------------------------ |
+		| v_crhshflag                       | 审核标志     |                                                              |
+		| v_yh                              | 用户信息     | ys_yh_custinfo%rowtype;                                      |
+		| v_sb                              | 水表信息     | ys_yh_sbinfo%rowtype;                                        |
+		| v_yhpid                           | 上级用户信息 | ys_yh_custinfo%rowtype;                                      |
+		| v_sbpid                           | 上级水表信息 | ys_yh_sbinfo%rowtype;                                        |
+		| v_sd                              | 水表档案信息 | ys_yh_sbdoc%rowtype;                                         |
+		| v_sa                              | 户表银行信息 | ys_yh_account%rowtype;                                       |
+		| cursor c_yhpid(vyhid in varchar2) |              | select * from ys_yh_custinfo where yhid = vyhid and hire_code = v_hire_code; |
+		| cursor c_sbpid(vsbid in varchar2) |              | select * from ys_yh_sbinfo where yhid = vsbid and hire_code = v_hire_code; |
+
+		--审核状态验证
+		select nvl(max(check_flag), '999') into v_crhshflag
+		from ys_gd_yhsbreghd
+		where bill_id = p_billno and hire_code = v_hire_code;
+
+		if v_crhshflag = '999' then raise_application_error(errcode, '立户单不存在!'); end if;
+		if v_crhshflag = 'y' then raise_application_error(errcode, '单据已审核');end if;
+		if v_crhshflag = 'q' then raise_application_error(errcode, '单据已取消');end if;
+
+		--逐条更新目标表信息
+		for i in (select * from ys_gd_yhsbregdt where bill_id = p_billno and hire_code = v_hire_code) loop
+			v_yh.id        := uuid();
+			v_yh.hire_code := v_hire_code;
+			v_yh.yhconid   := i.yhconid;
+			v_yh.manage_no := i.manage_no;
+			v_yh.yhpid     := i.yhpid;
+			--校验上级用户
+			if v_yh.yhpid is not null then
+			open c_yhpid(i.yhpid);
+				fetch c_yhpid into v_yhpid;
+				if c_yhpid%notfound then raise_application_error(errcode, p_billno || '无效的上级用户'); end if;
+				v_yh.yhclass := v_yhpid.yhclass + 1; 
+				close c_yhpid;
+			else
+				v_yh.yhclass := 1; 
+			end if;
+			v_yh.yhflag        := 'y';
+			v_yh.yhname        := i.yhname;
+			v_yh.yhname2       := i.yhname2;
+			v_yh.yhadr         := i.yhadr;
+			v_yh.yhstatus      := i.yhstatus;
+			v_yh.yhstatusdate  := null;
+			v_yh.yhstatustrans := null;
+			v_yh.yhnewdate     := i.yhnewdate;
+			v_yh.yhidentitylb  := i.yhidentitylb;
+			v_yh.yhidentityno  := i.yhidentityno;
+			v_yh.yhmtel        := i.yhmtel;
+			v_yh.yhtel1        := i.yhtel1;
+			v_yh.yhtel2        := i.yhtel2;
+			v_yh.yhtel3        := i.yhtel3;
+			v_yh.yhconnectper  := i.yhconnectper;
+			v_yh.yhconnecttel  := i.yhconnecttel;
+			v_yh.yhifinv       := i.yhifinv;
+			v_yh.yhifsms       := i.yhifsms;
+			v_yh.yhifzn        := i.yhifzn;
+			v_yh.yhprojno      := i.yhprojno;
+			v_yh.yhfileno      := i.yhfileno;
+			v_yh.yhmemo        := i.yhmemo;
+			v_yh.yhdeptid      := i.yhdeptid;
+			v_yh.yhwxno        := null;
+			v_sb.id		   := uuid();
+			v_sb.sbid          := nvl(i.sbid, f_get_sbid);
+			v_sb.id            := i.id;
+			v_sb.hire_code     := i.hire_code;
+			v_sb.yhid          := i.yhid;
+			v_sb.sbadr         := i.sbadr;
+			v_sb.area_no       := i.area_no;
+			v_sb.manage_no     := i.manage_no;
+			v_sb.sbprmon       := i.sbprmon;
+			v_sb.sbrmon        := i.sbrmon;
+			v_sb.book_no       := i.book_no;
+			v_sb.sbrorder      := i.sbrorder;
+			v_sb.sbpid         := i.sbpid;
+			if v_yh.yhpid is not null then
+				open c_sbpid(i.sbpid);
+				fetch c_sbpid into v_sbpid;
+				if c_sbpid%notfound then raise_application_error(errcode, p_billno || '无效的上级用户');end if;
+				v_sb.sbclass  := v_sbpid.sbclass + 1; 
+				close c_sbpid;
+			else
+				v_sbpid.sbclass := 1; 
+			end if;
+			v_sb.sbflag        := i.sbflag;
+			v_sb.sbrtid        := i.sbrtid;
+			v_sb.sbifmp        := i.sbifmp;
+			v_sb.sbifsp        := i.sbifsp;
+			v_sb.trade_no      := i.trade_no;
+			v_sb.price_no      := i.price_no;
+			v_sb.sbstatus      := i.sbstatus;
+			v_sb.sbstatusdate  := i.sbstatusdate;
+			v_sb.sbstatustrans := i.sbstatustrans;
+			v_sb.sbface        := i.sbface;
+			v_sb.sbrpid        := i.sbrpid;
+			v_sb.sbside        := i.sbside;
+			v_sb.sbposition    := i.sbposition;
+			v_sb.sbinscode     := i.sbinscode;
+			v_sb.sbinsdate     := i.sbinsdate;
+			v_sb.sbinsper      := i.sbinsper;
+			v_sb.sbreinscode   := i.sbreinscode;
+			v_sb.sbreinsdate   := i.sbreinsdate;
+			v_sb.sbreinsper    := i.sbreinsper;
+			v_sb.sbtype        := i.sbtype;
+			v_sb.sbrcode       := i.sbrcode;
+			v_sb.sbrecdate     := i.sbrecdate;
+			v_sb.sbrecsl       := i.sbrecsl;
+			v_sb.sbifcharge    := i.sbifcharge;
+			v_sb.sbifsl        := i.sbifsl;
+			v_sb.sbifchk       := i.sbifchk;
+			v_sb.sbifwatch     := i.sbifwatch;
+			v_sb.sbicno        := i.sbicno;
+			v_sb.sbmemo        := i.sbmemo;
+			v_sb.sbpriid       := i.sbpriid;
+			v_sb.sbpriflag     := i.sbpriflag;
+			v_sb.sbusenum      := i.sbusenum;
+			v_sb.sbchargetype  := i.sbchargetype;
+			v_sb.sbsaving      := i.sbsaving;
+			v_sb.sblb          := i.sblb;
+			v_sb.sbnewflag     := i.sbnewflag;
+			v_sb.sbcper        := i.sbcper;
+			v_sb.sbiftax       := i.sbiftax;
+			v_sb.sbtaxno       := i.sbtaxno;
+			v_sb.sbrcodechar   := i.sbrcodechar;
+			v_sb.sbifckf       := i.sbifckf;
+			v_sb.sbgps         := i.sbgps;
+			v_sb.sbqfh         := i.sbqfh;
+			v_sb.sbbox         := i.sbbox;
+			v_sb.sbname        := i.sbname;
+			v_sb.sbname2       := i.sbname2;
+			v_sb.sbnewdate     := i.yhnewdate;
+			v_sb.sbuiid        := i.sbuiid;
+			v_sb.sbcommunity   := i.sbcommunity;
+			v_sb.sbremoteno    := i.sbremoteno;
+			v_sb.sbremotehubno := i.sbremotehubno;
+			v_sb.sbemail       := i.sbemail;
+			v_sb.sbemailflag   := i.sbemailflag;
+			v_sb.sbdbjmsl1     := i.sbdbjmsl1;
+			v_sb.sbdbyhbz2     := i.sbdbyhbz2;
+			v_sb.sbdbjzyf3     := i.sbdbjzyf3;
+			v_sb.sbyhxz4       := i.sbyhxz4;
+			v_sb.sbgdsl5       := i.sbgdsl5;
+			v_sb.sbftsl6       := i.sbftsl6;
+			v_sb.sbxjdj7       := i.sbxjdj7;
+			v_sb.sbcolumn8     := i.sbcolumn8;
+			v_sb.sbyhlb9       := i.sbyhlb9;
+			v_sb.sbsfqdht10    := i.sbsfqdht10;
+			v_sb.sblh          := i.lh;
+			v_sb.sbdyh         := i.dyh;
+			v_sb.sbmph         := i.mph;
+			v_sb.sbjd          := i.sbjd;
+			v_sb.sbtax         := i.yhifinv;
+			v_sb.sbtkbz11      := i.sbtkbz11;
+			v_sd.mdno          := i.mdno; 
+			v_sd.sbid          := v_sb.sbid;
+			v_sd.id            := uuid();
+			v_sd.hire_code     := v_hire_code;
+			v_sd.mdcaliber     := i.mdcaliber; 
+			v_sd.mdbrand       := i.mdbrand; 
+			v_sd.mdmodel       := i.mdmodel; 
+			v_sd.mdstatus      := i.mdstatus; 
+			v_sd.mdstatusdate  := null; 
+			v_sd.mdstockdate   := sysdate;
+			v_sd.rfid   := i.rfid;
+			v_sd.ifdzsb := 'n'; --初装水表默认是正常水表，倒装走水表信息维护
+			--条形码自动生成=1位区号+8位年月日+10位客户代码。 
+			v_sd.barcode := substr(v_sb.manage_no, 4, 1) || to_char(sysdate, 'yyyymmdd') || v_sb.sbid;
+			v_sd.dqsfh   := i.dqsfh; --塑封号
+			v_sd.dqgfh   := i.dqgfh; --钢封号
+			v_sd.jcgfh   := i.jcgfh; --稽查封号
+			v_sd.qfh     := i.qhf; --铅封号
+			v_sa.id        := uuid();
+			v_sa.hire_code := v_hire_code;
+			v_sa.sbid := v_sb.sbid;
+			v_sa.yhano := i.yhano;
+			v_sa.yhanoname := i.yhanoname;
+			v_sa.yhabankid := i.yhabankid;
+			v_sa.yhaaccountno := i.yhaaccountno;
+			v_sa.yhaaccountname := i.yhaaccountname;
+			v_sa.yhatsbankid := i.yhatsbankid;
+			v_sa.yhatsbankname := i.yhatsbankname;
+			v_sa.yhaifxezf := i.yhaifxezf;
+			v_sa.yharegdate := trunc(sysdate);
+			insert into ys_yh_custinfo values v_yh;
+			insert into ys_yh_sbinfo values v_sb;
+			insert into ys_yh_sbdoc values v_sd;
+			insert into ys_yh_account values v_sa; 
+		end loop;
+	--用户修改审核（一户一表）
+	procedure sp_yhmodify(p_djlb   in varchar2,p_billno in varchar2,p_person in varchar2,p_commit in varchar2);
+		逻辑与pg_addmodify_yh.sp_yhadd相同
+
+package pg_add_yh
+	--用户审核
+	errcode constant integer := -20012;
+	v_hire_code varchar2(10) := f_get_hire_code();
+	no_data_found exception;
+	--审核审核入口
+	procedure audit(p_billno in varchar2,p_person in varchar2,p_djlb   in varchar2);
+	--立户审核（一户一表）
+	procedure sp_yhadd(p_djlb in varchar2,p_billno in varchar2,p_person in varchar2,p_commit in varchar2);
+
+package pg_dszbill_01
+	errcode constant integer := -20012;
+	procedure createhd(p_dshno in varchar2, p_dshlb in varchar2, p_dshsmfid in varchar2, p_dshdept in varchar2, p_dshcreper in varchar2 );
+		| 参数        | 备注       |
+		| ----------- | ---------- |
+		| p_dshno     | 单据流水号 |
+		| p_dshlb     | 单据类别   |
+		| p_dshsmfid  | 营销公司   |
+		| p_dshdept   | 受理部门   |
+		| p_dshcreper | 受理人员   |
+		用到的表：ys_gd_zwdhzd 呆死帐单头
+		初始化变量：dbh ys_gd_zwdhzd%rowtype;
+		| 变量            | 赋值        | 备注       |
+		| --------------- | ----------- | ---------- |
+		| dbh.bill_id     | p_dshno     | 单据流水号 |
+		| dbh.bill_no     | p_dshno     | 单据编号   |
+		| dbh.bill_type   | p_dshlb     | 单据类别   |
+		| dbh.bill_source | '1'         | 单据来源   |
+		| dbh.manage_no   | p_dshsmfid  | 营销公司   |
+		| dbh.new_dept    | p_dshdept   | 受理部门   |
+		| dbh.add_date    | sysdate     | 受理日期   |
+		| dbh.add_per     | p_dshcreper | 受理人员   |
+		| dbh.check_date  | null        | 审核日期   |
+		| dbh.check_per   | null        | 审核人员   |
+		| dbh.check_flag  | 'n'         | 审核标志   |
+		insert into ys_gd_zwdhzd values dbh;
+	procedure createdt(p_dsdno in varchar2, p_dsdrowno in varchar2, p_arid in varchar2);
+		用途：创建呆死账单体
+		参数：
+		p_dsdno    单据流水号
+		p_dsdrowno i行号
+		p_arid     应收流水
+		用到的表：
+		ys_zw_arlist  应收总帐明细【AR】
+		ys_gd_zwdhzdt  呆死帐单体
+		初始化变量：
+		dbt ys_gd_zwdhzdt%rowtype;
+		ar  ys_zw_arlist%rowtype;
+		查询账务信息
+		select * into ar from ys_zw_arlist where arid = p_arid;
+		赋值 单体
+		| 变量                | 赋值               | 备注                                                         |
+		| ------------------- | ------------------ | ------------------------------------------------------------ |
+		| dbt.bill_id         | p_dsdno            | 单据流水号                                                   |
+		| dbt.dhzrowno        | p_dsdrowno         | 行号                                                         |
+		| dbt.hire_code       | ar.hire_code       |                                                              |
+		| dbt.arid            | ar.arid            | 流水号                                                       |
+		| dbt.manage_no       | ar.manage_no       | 营销公司                                                     |
+		| dbt.armonth         | ar.armonth         | 帐务月份                                                     |
+		| dbt.ardate          | ar.ardate          | 帐务日期                                                     |
+		| dbt.yhid            | ar.yhid            | 用户编号                                                     |
+		| dbt.sbid            | ar.sbid            | 水表编号                                                     |
+		| dbt.archargeper     | ar.archargeper     | 收费员                                                       |
+		| dbt.arcpid          | ar.arcpid          | 上级用户编号                                                 |
+		| dbt.arcclass        | ar.arcclass        | 用户级次                                                     |
+		| dbt.arcflag         | ar.arcflag         | 末级标志                                                     |
+		| dbt.arusenum        | ar.arusenum        | 户用水人数                                                   |
+		| dbt.arcname         | ar.arcname         | 用户名称                                                     |
+		| dbt.arcadr          | ar.arcadr          | 用户地址                                                     |
+		| dbt.armadr          | ar.armadr          | 水表地址                                                     |
+		| dbt.arcstatus       | ar.arcstatus       | 用户状态                                                     |
+		| dbt.armtel          | ar.armtel          | 移动电话                                                     |
+		| dbt.artel           | ar.artel           | 固定电话                                                     |
+		| dbt.arbankid        | ar.arbankid        | 代扣银行                                                     |
+		| dbt.artsbankid      | ar.artsbankid      | 托收银行                                                     |
+		| dbt.araccountno     | ar.araccountno     | 开户帐号                                                     |
+		| dbt.araccountname   | ar.araccountname   | 开户名称                                                     |
+		| dbt.ariftax         | ar.ariftax         | 是否税票                                                     |
+		| dbt.artaxno         | ar.artaxno         | 增殖税号                                                     |
+		| dbt.arifinv         | ar.arifinv         | 是否普票                                                     |
+		| dbt.armcode         | ar.armcode         | 水表手工编号                                                 |
+		| dbt.armpid          | ar.armpid          | 上级水表                                                     |
+		| dbt.armclass        | ar.armclass        | 水表级次                                                     |
+		| dbt.armflag         | ar.armflag         | 末级标志                                                     |
+		| dbt.armsfid         | ar.armsfid         | 水表类别                                                     |
+		| dbt.arday           | ar.arday           | 抄表日                                                       |
+		| dbt.arbfid          | ar.arbfid          | 表册                                                         |
+		| dbt.arprdate        | ar.arprdate        | 上次抄表日期                                                 |
+		| dbt.arrdate         | ar.arrdate         | 本次抄表日期                                                 |
+		| dbt.arzndate        | ar.arzndate        | 违约金起算日                                                 |
+		| dbt.arcaliber       | ar.arcaliber       | 表口径                                                       |
+		| dbt.arrtid          | ar.arrtid          | 抄表方式                                                     |
+		| dbt.armstatus       | ar.armstatus       | 状态                                                         |
+		| dbt.armtype         | ar.armtype         | 类型                                                         |
+		| dbt.armno           | ar.armno           | 表身码                                                       |
+		| dbt.arscode         | ar.arscode         | 起数                                                         |
+		| dbt.arecode         | ar.arecode         | 止数                                                         |
+		| dbt.arreadsl        | ar.arreadsl        | 抄见水量                                                     |
+		| dbt.arinvmemo       | ar.arinvmemo       | 发票备注                                                     |
+		| dbt.arentrustbatch  | ar.arentrustbatch  | 托收代扣批号                                                 |
+		| dbt.arentrustseqno  | ar.arentrustseqno  | 托收代扣流水号                                               |
+		| dbt.aroutflag       | ar.aroutflag       | 发出标志                                                     |
+		| dbt.artrans         | ar.artrans         | 应收事务                                                     |
+		| dbt.arcd            | ar.arcd            | 借贷方向                                                     |
+		| dbt.aryschargetype  | ar.aryschargetype  | 应收方式                                                     |
+		| dbt.arsl            | ar.arsl            | 应收水量                                                     |
+		| dbt.arje            | ar.arje            | 应收金额                                                     |
+		| dbt.araddsl         | ar.araddsl         | 加调水量                                                     |
+		| dbt.arscrarid       | ar.arscrarid       | 原应收帐流水                                                 |
+		| dbt.arscrartrans    | ar.arscrartrans    | 原应收帐事务                                                 |
+		| dbt.arscrarmonth    | ar.arscrarmonth    | 原应收帐月份                                                 |
+		| dbt.arpaidje        | ar.arpaidje        | 销帐金额                                                     |
+		| dbt.arpaidflag      | ar.arpaidflag      | 销帐标志(y:y，n:n，x:x，v:y/n，t:y/x，k:n/x，w:y/n/x)        |
+		| dbt.arpaidper       | ar.arpaidper       | 销帐人员                                                     |
+		| dbt.arpaiddate      | ar.arpaiddate      | 销帐日期                                                     |
+		| dbt.armrid          | ar.armrid          | 抄表流水                                                     |
+		| dbt.armemo          | ar.armemo          | 备注                                                         |
+		| dbt.arznj           | ar.arznj           | 违约金                                                       |
+		| dbt.arlb            | ar.arlb            | 类别                                                         |
+		| dbt.arcname2        | ar.arcname2        | 曾用名                                                       |
+		| dbt.arpfid          | ar.arpfid          | 主价格类别                                                   |
+		| dbt.ardatetime      | ar.ardatetime      | 发生日期                                                     |
+		| dbt.arscrardate     | ar.arscrardate     | 原帐务日期                                                   |
+		| dbt.arprimcode      | ar.arprimcode      | 合收表主表号                                                 |
+		| dbt.arpriflag       | ar.arpriflag       | 合收表标志                                                   |
+		| dbt.arrper          | ar.arrper          | 抄表员                                                       |
+		| dbt.arsafid         | ar.arsafid         | 区域                                                         |
+		| dbt.arscodechar     | ar.arscodechar     | 上期抄表（带表位）                                           |
+		| dbt.arecodechar     | ar.arecodechar     | 本期抄表（带表位）                                           |
+		| dbt.arilid          | ar.arilid          | 发票流水号                                                   |
+		| dbt.armiuiid        | ar.armiuiid        | 合收单位编号                                                 |
+		| dbt.argroup         | ar.argroup         | 应收帐分组                                                   |
+		| dbt.arpid           | ar.arpid           | 实收流水（与payment.pid对应）                                |
+		| dbt.arpbatch        | ar.arpbatch        | 缴费交易批次（与payment.pbatch对应）                         |
+		| dbt.arsavingqc      | ar.arsavingqc      | 期初预存（销帐时产生）                                       |
+		| dbt.arsavingbq      | ar.arsavingbq      | 本期预存发生（销帐时产生）                                   |
+		| dbt.arsavingqm      | ar.arsavingqm      | 期末预存（销帐时产生）                                       |
+		| dbt.arreverseflag   | ar.arreverseflag   | 冲正标志（n为正常，y为冲正）                                 |
+		| dbt.arbadflag       | 'o'                | 呆帐标志（y:呆坏帐，o:呆坏帐审批中，n:正常帐）--发出时修改标志 |
+		| dbt.arznjreducflag  | ar.arznjreducflag  | 滞纳金减免标志,未减免时为n，销帐时滞纳金直接计算；减免后为y,销帐时滞纳金直接取arznj |
+		| dbt.armistid        | ar.armistid        | 行业分类                                                     |
+		| dbt.arminame        | ar.arminame        | 票据名称                                                     |
+		| dbt.arsxf           | ar.arsxf           | 手续费                                                       |
+		| dbt.armiface2       | ar.armiface2       | 抄见故障                                                     |
+		| dbt.armiface3       | ar.armiface3       | 非常计量                                                     |
+		| dbt.armiface4       | ar.armiface4       | 表井设施说明                                                 |
+		| dbt.armiifckf       | ar.armiifckf       | 垃圾费户数                                                   |
+		| dbt.armigps         | ar.armigps         | 是否合票                                                     |
+		| dbt.armiqfh         | ar.armiqfh         | 铅封号                                                       |
+		| dbt.armibox         | ar.armibox         | 消防水价（增值税水价，襄阳需求）                             |
+		| dbt.arminame2       | ar.arminame2       | 招牌名称(小区名，襄阳需求）                                  |
+		| dbt.armiseqno       | ar.armiseqno       | 户号（初始化时册号+序号）                                    |
+		| dbt.armisaving      | ar.armisaving      | 算费时预存                                                   |
+		| dbt.arpriorje       | ar.arpriorje       | 算费之前欠费                                                 |
+		| dbt.armicommunity   | ar.armicommunity   | 小区                                                         |
+		| dbt.armiremoteno    | ar.armiremoteno    | 远传表号                                                     |
+		| dbt.armiremotehubno | ar.armiremotehubno | 远传hub号                                                    |
+		| dbt.armiemail       | ar.armiemail       | 电子邮件                                                     |
+		| dbt.armiemailflag   | ar.armiemailflag   | 发票类别                                                     |
+		| dbt.armicolumn1     | ar.armicolumn1     | 备用字段1                                                    |
+		| dbt.armicolumn2     | ar.armicolumn2     | 备用字段2(预开票打印批次)                                    |
+		| dbt.armicolumn3     | ar.armicolumn3     | 备用字段3                                                    |
+		| dbt.armicolumn4     | ar.armicolumn4     | 备用字段3                                                    |
+		| dbt.arpaidmonth     | ar.arpaidmonth     | 销账月份                                                     |
+		| dbt.arcolumn5       | ar.arcolumn5       | 上次应帐帐日期                                               |
+		| dbt.arcolumn9       | ar.arcolumn9       | 上次应收帐流水                                               |
+		| dbt.arcolumn10      | ar.arcolumn10      | 上次应收帐月份                                               |
+		| dbt.arcolumn11      | ar.arcolumn11      | 上次应收帐事务                                               |
+		| dbt.arjtmk          | ar.arjtmk          | 不记阶梯注记                                                 |
+		| dbt.arjtsrq         | ar.arjtsrq         | 本周期阶梯开始日期                                           |
+		| dbt.arcolumn12      | ar.arcolumn12      | 年度累计量                                                   |
+		| dbt.dhzappnote      | ''                 | 申请说明                                                     |
+		| dbt.dhzfilashnote   | ''                 | 领导意见                                                     |
+		| dbt.dhzmemo         | ''                 | 备注                                                         |
+		| dbt.dhzshflag       | 'n'                | 行审核标志                                                   |
+		| dbt.dhzshdate       | ''                 | 行审核日期                                                   |
+		| dbt.dhzshper        | ''                 | 行审核人                                                     |
+		insert into ys_gd_zwdhzdt values dbt;
+	procedure createdszbill(p_dshno in varchar2, p_dshlb in varchar2, p_dshsmfid in varchar2, p_dshdept in varchar2,p_dshcreper in varchar2, p_arid in varchar2);
+		--构造呆死帐单据
+		--外部调用，将应收流水号ys_zw_aarist.arid在前台插入到临时表pbparmtemp.c1中	
+		参数
+		p_dshno     单据流水号
+		p_dshlb     单据类别
+		p_dshsmfid  营销公司
+		p_dshdept   受理部门
+		p_dshcreper 受理人员
+		p_arid      应收流水号
+		用到的表
+		ys_zw_arlist	应收总帐明细【AR】
+		初始化变量
+		ar      ys_zw_arlist%rowtype;
+		v_rowid number(10) := 0; --行号
+		依赖关系
+		pg_dszbill_01.createhd
+		pg_dszbill_01.createdt
+		--插入单头
+		createhd(p_dshno, p_dshlb, p_dshsmfid, p_dshdept, p_dshcreper);
+		--插入单体
+		open c_ar;
+			loop fetch c_ar into ar;
+			exit when c_ar%notfound or c_ar%notfound is null;
+				v_rowid := v_rowid + 1;
+				createdt(p_dshno, v_rowid, ar.arid );
+				--修改呆死帐标志
+				update ys_zw_arlist set ys_zw_arlist.arbadflag = 'o' where arid = ar.arid;
+			end loop;
+		close c_ar;
+	procedure cancelbill(p_billno in varchar2, p_person in varchar2, p_djlb in varchar2); 
+		--删除呆账死账单据
+		参数
+		p_billno in varchar2, --单据编号
+		p_person in varchar2, --操作员
+		p_djlb   in varchar2
+		初始化变量
+		cursor c_dbh is select * from ys_gd_zwdhzd where bill_id = p_billno for update;
+		dbh ys_gd_zwdhzd%rowtype
+
+		open c_dbh;
+		fetch c_dbh into dbh;
+		if c_dbh%notfound or c_dbh%notfound is null then
+		raise_application_error(errcode, '单据不存在' || p_billno);
+		end if;
+		if dbh.check_flag <> 'n' then
+		raise_application_error(errcode, '单据不能取消' || p_billno);
+		end if;
+		--修改呆死帐标志
+		update ys_zw_arlist set ys_zw_arlist.arbadflag = 'n' where arid in (select arid from ys_gd_zwdhzdt where bill_id = p_billno);
+		--删除单体
+		delete from ys_gd_zwdhzdt t where t.bill_id = p_billno;
+		--删除单头
+		delete from ys_gd_zwdhzd t where t.bill_id = p_billno;
+		close c_dbh;
+	procedure custbillmain(p_cchno in varchar2, p_per in varchar2,p_billid in varchar2,p_billtype in varchar2);
+		调用 pg_dszbill_01.custbill
+		custbill(p_cchno, p_per, p_billtype, 'n');
+	procedure custbill(p_cchno in varchar2, p_per in varchar2, p_billtype in varchar2, p_commit in varchar2);
+		参数
+		p_Cchno    批次流水
+		p_Per      操作员
+		p_Billtype '8'正常账变更为呆坏账,其他呆坏账变更为正常账
+		p_Commit   提交标志
+		用到的表
+		ys_gd_zwdhzdt	呆死帐单体
+		ys_zw_arlist	应收总帐明细【AR】
+		ys_gd_zwdhzd	呆死帐单头
+		初始化变量
+		dbh     ys_gd_zwdhzd%rowtype;
+		dbt     ys_gd_zwdhzdt%rowtype; 
+		cursor c_custdt is select * from ys_gd_zwdhzdt where bill_id = p_cchno for update
+		变更单验证
+		begin
+			select * into dbh from ys_gd_zwdhzd where bill_id = p_cchno;
+		exception when others then raise_application_error(errcode, '变更单头信息不存在!');
+		end;
+		if dbh.check_flag = 'y' then
+			raise_application_error(errcode, '变更单已审核,不需再审!');
+		end if;
+		if dbh.check_flag = 'c' then
+			raise_application_error(errcode, '变更单已取消,不能审!');
+		end if;
+		更新单体、应收总帐明细
+		open c_custdt;
+		loop fetch c_custdt into dbt;
+		exit when c_custdt%notfound or c_custdt%notfound is null;
+			--更新单体 dhzshflag 行审核标志，dhzshdate 行审核日期，dhzshper 行审核人
+			update ys_gd_zwdhzdt set dhzshflag = 'y',dhzshdate=sysdate ,dhzshper=p_per where bill_id=dbt.bill_id and dhzrowno=dbt.dhzrowno;
+			--更新账务呆死帐标志
+			if p_billtype = '8' then
+				--正常账变更为呆坏账
+				update ys_zw_arlist set arbadflag = 'y', artrans = 'd' where arid = dbt.arid;
+			else
+				--呆坏账变更为正常账
+				update ys_zw_arlist set arbadflag = 'n', artrans = 'd' where arid = dbt.arid;
+			end if;
+		end loop;
+		close c_custdt;
+		审核单头
+		update ys_gd_zwdhzd set check_date = sysdate, check_per = p_per, check_flag = 'y' where bill_id = p_cchno;
+		提交
+		if p_commit = 'y' then commit; end if;
+
+package pg_cbplan
+	抄表计划管理
+	procedure createcb(p_manage_no in varchar2,p_month in varchar2,p_book_no in varchar2);
+		处理：生成抄表资料
+		参数：
+		p_manage_no	临时表类型(PBPARMTEMP.c1)，存放调段后目标表册中所有水表编号c1,抄表次序c2
+		p_month		目标营业所
+		p_book_no	目标表册 
+		用到的表
+		ys_cb_mtread	抄表库【CBMR】
+		ys_yh_custinfo	用户信息表【yh】
+		ys_yh_sbinfo	户表信息【sb】
+		ys_yh_sbdoc	水表档案
+		ys_bas_book	表册
+		依赖关系
+		pg_cbplan.getmrhis
+		初始化变量
+		yh		ys_yh_custinfo%rowtype;
+		sb		ys_yh_sbinfo%rowtype;
+		md		ys_yh_sbdoc%rowtype;
+		bc		ys_bas_book%rowtype;
+		sbr		ys_cb_mtread%rowtype;
+		v_tempnum	number(10);
+		v_addsl		number(10);
+		v_tempstr	varchar2(10);
+		v_ret		varchar2(10);
+		v_date		date;
+		cursor c_cb(vsbid in varchar2) is select 1 from ys_cb_mtread where sbid = vsbid and cbmrmonth = p_month;
+		dummy		integer;
+		found		boolean;
+		cursor c_bksb is select a.yhid,b.sbid, b.manage_no,b.sbrorder, trade_no,sbpid,sbclass, sbflag,sbrecdate,sbrcode,sbrpid,sbpriid,sbpriflag,sblb,sbnewflag,read_batch,read_per,sbrcodechar,b.area_no,sbifchk,price_no,mdcaliber,sbside,sbtype 
+			from ys_yh_custinfo a , ys_yh_sbinfo b, ys_yh_sbdoc s , ys_bas_book d
+			where a.yhid = b.yhid and b.sbid = s.sbid and b.manage_no = d.manage_no and b.book_no = d.book_no and b.manage_no = p_manage_no and b.book_no = p_book_no and d.read_nmonth = p_month and fchkcbmk(b.sbid) = 'y';
+		判断是有抄表计划
+		fetch c_bksb into yh.yhid,sb.sbid, sb.manage_no,sb.sbrorder,sb.trade_no,sb.sbpid,sb.sbclass,sb.sbflag,sb.sbrecdate,sb.sbrcode,sb.sbrpid,sb.sbpriid,sb.sbpriflag,sb.sblb,sb.sbnewflag,bc.read_batch,bc.read_per,sb.sbrcodechar,sb.area_no,sb.sbifchk,sb.price_no,md.mdcaliber,sb.sbside,sb.sbtype;
+		exit when c_bksb%notfound or c_bksb%notfound is null;
+		判断是否抄过表
+		open c_cb(sb.sbid); fetch c_cb into dummy;found := c_cb%found; close c_cb;
+		赋值
+		if not found then
+		| 变量                  | 赋值           | 备注                             |
+		| --------------------- | -------------- | -------------------------------- |
+		| sbr.id                | sys_guid()     | 流水号                           |
+		| sbr.cbmrmonth         | p_month        | 抄表月份                         |
+		| sbr.manage_no         | sb.manage_no   | 管辖公司                         |
+		| sbr.book_no           | p_book_no      | 表册                             |
+		| sbr.cbmrbatch         | bc.read_batch  | 抄表批次                         |
+		| sbr.cbmrrper          | bc.read_per    | 抄表员                           |
+		| sbr.cbmrrorder        | sb.sbrorder    | 抄表次序号                       |
+		| sbr.yhid              | sb.yhid        | 用户编号                         |
+		| sbr.sbid              | sb.sbid        | 水表编号                         |
+		| sbr.trade_no          | sb.trade_no    | 行业分类                         |
+		| sbr.sbpid             | sb.sbpid       | 上级水表                         |
+		| sbr.cbmrmclass        | sb.sbclass     | 水表级次                         |
+		| sbr.cbmrmflag         | sb.sbflag      | 末级标志                         |
+		| sbr.cbmrcreadate      | sysdate        | 创建日期                         |
+		| sbr.cbmrinputdate     | null           | 编辑日期                         |
+		| sbr.cbmrreadok        | 'n'            | 抄见标志                         |
+		| sbr.cbmrrdate         | null           | 抄表日期                         |
+		| sbr.cbmrprdate        | sb.sbrecdate   | 上次抄见日期(取上次有效抄表日期) |
+		| sbr.cbmrscode         | sb.sbrcode     | 上期抄见                         |
+		| sbr.cbmrscodechar     | sb.sbrcodechar | 上期抄见char                     |
+		| sbr.cbmrecode         | null           | 本期抄见                         |
+		| sbr.cbmrsl            | null           | 本期水量                         |
+		| sbr.cbmrface          | null           | 表况                             |
+		| sbr.cbmrifsubmit      | 'y'            | 是否提交计费                     |
+		| sbr.cbmrifhalt        | 'n'            | 系统停算                         |
+		| sbr.cbmrdatasource    | 1              | 抄表结果来源                     |
+		| sbr.cbmrifignoreminsl | 'y'            | 停算最低抄量                     |
+		| sbr.cbmrpdardate      | null           | 抄表机抄表时间                   |
+		| sbr.cbmroutflag       | 'n'            | 发出到抄表机标志                 |
+		| sbr.cbmroutid         | null           | 发出到抄表机流水号               |
+		| sbr.cbmroutdate       | null           | 发出到抄表机日期                 |
+		| sbr.cbmrinorder       | null           | 抄表机接收次序                   |
+		| sbr.cbmrindate        | null           | 抄表机接受日期                   |
+		| sbr.cbmrrpid          | sb.sbrpid      | 计件类型                         |
+		| sbr.cbmrmemo          | null           | 抄表备注                         |
+		| sbr.cbmrifgu          | 'n'            | 估表标志                         |
+		| sbr.cbmrifrec         | 'n'            | 已计费                           |
+		| sbr.cbmrrecdate       | null           | 计费日期                         |
+		| sbr.cbmrrecsl         | null           | 应收水量                         |
+		| sbr.cbmraddsl         | 0              | 余量                             |
+		| sbr.cbmrcarrysl       | null           | 进位水量                         |
+		| sbr.cbmrctrl1         | null           | 抄表机控制位1                    |
+		| sbr.cbmrctrl2         | null           | 抄表机控制位2                    |
+		| sbr.cbmrctrl3         | null           | 抄表机控制位3                    |
+		| sbr.cbmrctrl4         | null           | 抄表机控制位4                    |
+		| sbr.cbmrctrl5         | null           | 抄表机控制位5                    |
+		| sbr.cbmrchkflag       | 'n'            | 复核标志                         |
+		| sbr.cbmrchkdate       | null           | 复核日期                         |
+		| sbr.cbmrchkper        | null           | 复核人员                         |
+		| sbr.cbmrchkscode      | null           | 原起数                           |
+		| sbr.cbmrchkecode      | null           | 原止数                           |
+		| sbr.cbmrchksl         | null           | 原水量                           |
+		| sbr.cbmrchkaddsl      | null           | 原余量                           |
+		| sbr.cbmrchkcarrysl    | null           | 原进位水量                       |
+		| sbr.cbmrchkrdate      | null           | 原抄见日期                       |
+		| sbr.cbmrchkface       | null           | 原表况                           |
+		| sbr.cbmrchkresult     | null           | 检查结果类型                     |
+		| sbr.cbmrchkresultmemo | null           | 检查结果说明                     |
+		| sbr.cbmrprimid        | sb.sbpriid     | 合收表主表                       |
+		| sbr.cbmrprimflag      | sb.sbpriflag   | 合收表标志                       |
+		| sbr.cbmrlb            | sb.sblb        | 水表类别                         |
+		| sbr.cbmrnewflag       | sb.sbnewflag   | 新表标志                         |
+		| sbr.cbmrface2         | null           | 抄见故障                         |
+		| sbr.cbmrface3         | null           | 非常计量                         |
+		| sbr.cbmrface4         | null           | 表井设施说明                     |
+		| sbr.cbmrprivilegeflag | 'n'            | 特权标志(y/n)                    |
+		| sbr.cbmrprivilegeper  | null           | 特权操作人                       |
+		| sbr.cbmrprivilegememo | null           | 特权操作备注                     |
+		| sbr.area_no           | sb.area_no     | 管理区域                         |
+		| sbr.cbmriftrans       | 'n'            | 转单标志                         |
+		| sbr.cbmrrequisition   | 0              | 通知单打印次数                   |
+		| sbr.cbmrifchk         | sb.sbifchk     | 考核表标志                       |
+		| sbr.cbmrinputper      | null           | 入账人员                         |
+		| sbr.price_no          | sb.price_no    | 用水类别                         |
+		| sbr.cbmrcaliber       | md.mdcaliber   | 口径                             |
+		| sbr.cbmrside          | sb.sbside      | 表位                             |
+		| sbr.cbmrmtype         | sb.sbtype      | 表型                             |
+		| sbr.cbmrplansl        | 0              | 计划水量                         |
+		| sbr.cbmrplanje01      | 0              | 计划水费                         |
+		| sbr.cbmrplanje02      | 0              | 计划污水处理费                   |
+		| sbr.cbmrplanje03      | 0              | 计划水资源费                     |
+		--上次水费至去年度次均量
+		getmrhis(sbr.id,
+			 sbr.cbmrmonth,
+			 sbr.cbmrthreesl,
+			 sbr.cbmrthreeje01,
+			 sbr.cbmrthreeje02,
+			 sbr.cbmrthreeje03,
+			 sbr.cbmrlastsl,
+			 sbr.cbmrlastje01,
+			 sbr.cbmrlastje02,
+			 sbr.cbmrlastje03,
+			 sbr.cbmryearsl, 
+			 sbr.cbmryearje01,
+			 sbr.cbmryearje02,
+			 sbr.cbmryearje03,
+			 sbr.cbmrlastyearsl,
+			 sbr.cbmrlastyearje01,
+			 sbr.cbmrlastyearje02,
+			 sbr.cbmrlastyearje03);
+		更新抄表库和户表信息
+		insert into ys_cb_mtread values sbr;
+		update ys_yh_sbinfo set sbprmon = sbrmon, sbrmon = p_month where sbid = sb.sbid;
+		update ys_bas_book set read_nmonth = to_char(add_months(to_date(read_nmonth, 'yyyy.mm'),read_cycle),'yyyy.mm') where manage_no = p_manage_no and book_no = p_book_no;
+
+	procedure getmrhis(p_sbid   in varchar2,
+		p_month  in varchar2,
+		o_sl_1   out number,
+		o_je01_1 out number,
+		o_je02_1 out number,
+		o_je03_1 out number,
+		o_sl_2   out number,
+		o_je01_2 out number,
+		o_je02_2 out number,
+		o_je03_2 out number,
+		o_sl_3   out number,
+		o_je01_3 out number,
+		o_je02_3 out number,
+		o_je03_3 out number,
+		o_sl_4   out number,
+		o_je01_4 out number,
+		o_je02_4 out number,
+		o_je03_4 out number);
+			均量（费）算法
+			1、前n次均量：     从最近抄表水量向历史方向递推12次抄表累计水量（0水量不计次）/递推次数
+			2、上次水量：      最近一次抄表水量（包括0水量）
+			3、去年同期水量：  去年同抄表月份的抄表水量（包括0水量）
+			4、去年度次均量：  去年度的抄表累计水量（0水量不计次）/递推次数
+			【meterread/meterreadhis】均量记录结构
+			mrthreesl   number(10)    前n次均量
+			mrthreeje01 number(13,3)  前n次均水费
+			mrthreeje02 number(13,3)  前n次均污水费
+			mrthreeje03 number(13,3)  前n次均水资源费
+			mrlastsl    number(10)    上次水量
+			mrlastje01  number(13,3)  上次水费
+			mrlastje02  number(13,3)  上次污水费
+			mrlastje03  number(13,3)  上次水资源费
+			mryearsl    number(10)    去年同期水量
+			mryearje01  number(13,3)  去年同期水费
+			mryearje02  number(13,3)  去年同期污水费
+			mryearje03  number(13,3)  去年同期水资源费
+			mrlastyearsl    number(10)    去年度次均量
+			mrlastyearje01  number(13,3)  去年度次均水费
+			mrlastyearje02  number(13,3)  去年度次均污水费
+			mrlastyearje03  number(13,3)  去年度次均水资源费
+			初始化变量
+			cursor c_mrh(v_sbid ys_cb_mtreadhis.sbid%type) is
+				select nvl(cbmrsl, 0),nvl(cbmrrecje01, 0),nvl(cbmrrecje02, 0),nvl(cbmrrecje03, 0),cbmrmonth
+				from ys_cb_mtreadhis
+				where sbid = v_sbid and (cbmrdatasource <> '9' or cbmrdatasource is null)
+				order by cbmrrdate desc;
+			mrh ys_cb_mtreadhis%rowtype;
+			n1  integer := 0;
+			n2  integer := 0;
+			n3  integer := 0;
+			n4  integer := 0;
+			判断抄表库
+			fetch c_mrh into mrh.cbmrsl,mrh.cbmrrecje01,mrh.cbmrrecje02,mrh.cbmrrecje03,mrh.cbmrmonth;
+			exit when c_mrh%notfound is null or c_mrh%notfound or(n1 > 12 and n2 > 1 and n3 > 1 and n4 > 12);
+			计算水量水费
+			if mrh.cbmrsl > 0 and n1 <= 12 then
+			n1 := n1 + 1;
+			mrh.cbmrthreesl   := nvl(mrh.cbmrthreesl, 0) + mrh.cbmrsl; --前n次均量
+			mrh.cbmrthreeje01 := nvl(mrh.cbmrthreeje01, 0) + mrh.cbmrrecje01; --前n次均水费
+			mrh.cbmrthreeje02 := nvl(mrh.cbmrthreeje02, 0) + mrh.cbmrrecje02; --前n次均污水费
+			mrh.cbmrthreeje03 := nvl(mrh.cbmrthreeje03, 0) + mrh.cbmrrecje03; --前n次均水资源费
+			end if;
+			if c_mrh%rowcount = 1 then
+			n2 := n2 + 1;
+			mrh.cbmrlastsl   := nvl(mrh.cbmrlastsl, 0) + mrh.cbmrsl; --上次水量
+			mrh.cbmrlastje01 := nvl(mrh.cbmrlastje01, 0) + mrh.cbmrrecje01; --上次水费
+			mrh.cbmrlastje02 := nvl(mrh.cbmrlastje02, 0) + mrh.cbmrrecje02; --上次污水费
+			mrh.cbmrlastje03 := nvl(mrh.cbmrlastje03, 0) + mrh.cbmrrecje03; --上次水资源费
+			end if;
+			if mrh.cbmrmonth = to_char(to_number(substr(p_month, 1, 4)) - 1) || '.' ||
+			substr(p_month, 6, 2) then
+			n3 := n3 + 1;
+			mrh.cbmryearsl   := nvl(mrh.cbmryearsl, 0) + mrh.cbmrsl; --去年同期水量
+			mrh.cbmryearje01 := nvl(mrh.cbmryearje01, 0) + mrh.cbmrrecje01; --去年同期水费
+			mrh.cbmryearje02 := nvl(mrh.cbmryearje02, 0) + mrh.cbmrrecje02; --去年同期污水费
+			mrh.cbmryearje03 := nvl(mrh.cbmryearje03, 0) + mrh.cbmrrecje03; --去年同期水资源费
+			end if;
+			if mrh.cbmrsl > 0 and to_number(substr(mrh.cbmrmonth, 1, 4)) =
+			to_number(substr(p_month, 1, 4)) - 1 then
+			n4 := n4 + 1;
+			mrh.cbmrlastyearsl   := nvl(mrh.cbmrlastyearsl, 0) + mrh.cbmrsl; --去年度次均量
+			mrh.cbmrlastyearje01 := nvl(mrh.cbmrlastyearje01, 0) + mrh.cbmrrecje01; --去年度次均水费
+			mrh.cbmrlastyearje02 := nvl(mrh.cbmrlastyearje02, 0) + mrh.cbmrrecje02; --去年度次均污水费
+			mrh.cbmrlastyearje03 := nvl(mrh.cbmrlastyearje03, 0) + mrh.cbmrrecje03; --去年度次均水资源费
+			end if;
+			o_sl_1 := (case when n1 = 0 then 0 else round(mrh.cbmrthreesl / n1, 0) end); 
+			o_je01_1 := (case when n1 = 0 then 0 else round(mrh.cbmrthreeje01 / n1, 3) end); 
+			o_je02_1 := (case when n1 = 0 then 0 else round(mrh.cbmrthreeje02 / n1, 3) end); 
+			o_je03_1 := (case when n1 = 0 then 0 else round(mrh.cbmrthreeje03 / n1, 3) end);  
+			o_sl_2 := (case when n2 = 0 then 0 else round(mrh.cbmrlastsl / n2, 0) end);
+			o_je01_2 := (case when n2 = 0 then 0 else round(mrh.cbmrlastje01 / n2, 3) end);
+			o_je02_2 := (case when n2 = 0 then 0 else round(mrh.cbmrlastje02 / n2, 3) end);
+			o_je03_2 := (case when n2 = 0 then 0 else round(mrh.cbmrlastje03 / n2, 3) end); 
+			o_sl_3 := (case when n3 = 0 then 0 else round(mrh.cbmryearsl / n3, 0) end); 
+			o_je01_3 := (case when n3 = 0 then 0 else round(mrh.cbmryearje01 / n3, 3) end);
+			o_je02_3 := (case when n3 = 0 then 0 else round(mrh.cbmryearje02 / n3, 3) end); 
+			o_je03_3 := (case when n3 = 0 then 0 else round(mrh.cbmryearje03 / n3, 3) end); 
+			o_sl_4 := (case when n4 = 0 then 0 else round(mrh.cbmrlastyearsl / n4, 0) end); 
+			o_je01_4 := (case when n4 = 0 then 0 else round(mrh.cbmrlastyearje01 / n4, 3) end);
+			o_je02_4 := (case when n4 = 0 then 0 else round(mrh.cbmrlastyearje02 / n4, 3) end);
+			o_je03_4 := (case when n4 = 0 then 0 else round(mrh.cbmrlastyearje03 / n4, 3) end);
+
+package pg_cb_cost
+	----过程提交控制
+	不提交 constant number := 0;
+	提交   constant number := 1;
+	调试   constant number := 2;
+	--计费事务
+	计划抄表   constant char(1) := '1';
+	余度       constant char(1) := 'q';
+	营业外收入 constant char(1) := 't';
+	追量       constant char(1) := 'o';
+	--应收总账包
+	subtype rl_type is ys_zw_arlist%rowtype;
+	type rl_table is table of rl_type;
+	--应收明细包
+	subtype rd_type is ys_zw_ardetail%rowtype;
+	type rd_table is table of rd_type;
+	--应收临时审批明细包
+	subtype rdt_type is ys_zw_ardetail_budget%rowtype;
+	type rdt_table is table of rdt_type;
+	--记账方向
+	debit  constant char(2) := 'de'; --借方
+	credit constant char(2) := 'cr'; --贷方
+	--错误代码
+	errcode constant integer := -20012;
+	总表截量     := 'Y';
+	最低算费水量 := 0;
+
+	procedure costbatch(p_bfid in varchar2);
+		--提供外部批量调用
+		--参数p_bfid 示例：表册编码1,营销公司编码1|表册编码2,营销公司编码2|表册编码3,营销公司编码3|。。。
+		
+	procedure costculate(p_mrid in ys_cb_mtread.id%type, p_commit in number); 
+		--计划内算费
+		--用到的表
+		ys_yh_sbinfo	户表信息【sb】
+		ys_cb_mtread	抄表库【CBMR】
+		--变量初始化
+		cursor c_mr is 
+		select * from ys_cb_mtread
+		where id = p_mrid
+			and cbmrifrec = 'n'
+			and cbmrreadok = 'y' --抄见
+			and cbmrsl >= 0
+		for update nowait;
+		--合收子表抄表记录
+		cursor c_mr_pri(p_primcode in varchar2) is
+		select cbmrsl, cbmrifrec, ycm.sbid
+		from ys_yh_sbinfo yys, ys_cb_mtread ycm
+		where yys.sbid = ycm.sbid
+			and sbpriflag = 'y'
+			and sbpriid = p_primcode
+			and yys.sbid <> p_primcode;
+		--取合收表信息
+		cursor c_mi(p_mid in varchar2) is
+		select sbpriflag,
+			sbpriid,
+			sbrpid,
+			sbclass,
+			sbifcharge,
+			sbifsl,
+			sblb,
+			sbstatus,
+			sbifchk
+		from ys_yh_sbinfo
+		where sbid = p_mid;
+
+		mr         ys_cb_mtread%rowtype;
+		mrchild    ys_cb_mtread%rowtype;
+		mrprichild ys_cb_mtread%rowtype;
+		mi         ys_yh_sbinfo%rowtype;
+		mrl        ys_cb_mtread%rowtype;
+		v_count  number;
+		v_count1 number;
+		v_mrsl   ys_cb_mtread.cbmrsl%type;
+		vpid     varchar2(10);
+		v_mmtype varchar2(10);
+		--判断是否抄表
+		open c_mr;
+		fetch c_mr into mr;
+		if c_mr%notfound or c_mr%notfound is null then raise_application_error(errcode,'抄表流水号:' || p_mrid || '无效的抄表计划流水号，或不符合计费条件');
+		--原水量=本期水量
+		mr.cbmrchksl := mr.cbmrsl;
+		--判断水表记录是否有效
+		open c_mi(mr.sbid);
+		fetch c_mi
+		into mi.sbpriflag,
+		   mi.sbpriid,		--合收表主表号
+		   mi.sbrpid,		--计件类型
+		   mi.sbclass,		--水表级次
+		   mi.sbifcharge,	--是否计费(Y-是,N-否 )
+		   mi.sbifsl,		--是否计量(Y-是,N-否 )
+		   mi.sblb,		--水表类别(D=总表,H=户表)
+		   mi.sbstatus,		--有效状态【sysmeterstatus】(28基建临时用水/27移表中/19销户中/21欠费停水/24故障换表中/25周检中/7销户/1立户/2预立户/29无表/30故障表/31基建正式用水/32基建拆迁止水/34营销部收入用户/36预存冲正中/33补缴用户/35周期换表中)
+		   mi.sbifchk;		--是否考核表(Y-是,N-否 )
+		if c_mi%notfound or c_mi%notfound is null then
+		raise_application_error(errcode, '无效的水表编号' || mr.sbid);
+		end if;
+		close c_mi;
+		
+		--mr.cbmrdatasource:抄表结果来源(1-手工,5-抄表器,9-手机抄表,K-故障换表,L-周期换表,Z-追量  I-智能表接口)(新加：6-视频直读，7-集抄)
+		if mr.cbmrsl > 0 and mr.cbmrsl < 最低算费水量 and mr.cbmrdatasource in ('1', '5', '9') then
+			mr.cbmrifrec   := 'y';		
+			mr.cbmrrecdate := trunc(sysdate);
+			mr.cbmrmemo    := mr.cbmrmemo || ',' || 最低算费水量 || '吨以下不计费';
+		elsif 总表截量 = 'y' then
+			--查找是否有多级表关系 预留
+			--计费核心----------mr.cbmrifrec:已计费(Y-是 N-否), mr.cbmrifsubmit:是否提交计费(Y-是 N-否)
+			if mr.cbmrifrec = 'n' and (mr.cbmrifsubmit = 'y' or p_commit = 调试) and mi.sbifcharge = 'y' then
+				costculatecore(mr, 计划抄表, '0', p_commit); --均已当前水价进行计费，水价版本号默认0，后续可扩展
+			end if;
+			--推止码------------------------------------------------------------
+			if p_commit != 调试 then
+				update ys_yh_sbinfo
+				   set sbrcode     = mr.cbmrecode,	--本期抄见
+				       sbrecdate   = mr.cbmrrdate,	--抄表日期
+				       sbrecsl     = mr.cbmrsl,		--取本期水量（抄量）
+				       sbface      = mr.cbmrface,	--水表故障（哈尔滨需求：查表表态）(01正常/02表异常/03零水量)
+				       sbnewflag   = 'n',		--新表标志
+				       sbrcodechar = mr.cbmrecodechar	--本期抄见
+				 where sbid = mr.sbid;
+			end if;
+		else
+			--计费核心----------------------------------------------------------
+			if mr.cbmrifrec = 'n' and (mr.cbmrifsubmit = 'y' or p_commit = 调试) and mi.sbifcharge = 'y' then
+				costculatecore(mr, 计划抄表, '0', p_commit); --均已当前水价进行计费，水价版本号默认0，后续可扩展
+			end if;
+			--推止码------------------------------------------------------------
+			if p_commit != 调试 and mr.cbmrifrec = 'y' then
+			update ys_yh_sbinfo
+			   set sbrcode     = mr.cbmrecode,
+			       sbrecdate   = mr.cbmrrdate,
+			       sbrecsl     = mr.cbmrsl, --取本期水量（抄量）
+			       sbface      = mr.cbmrface,
+			       sbnewflag   = 'n',
+			       sbrcodechar = mr.cbmrecodechar
+			 where sbid = mr.sbid;
+			end if;
+		end if;
+		--更新当前抄表记录、反馈最后计费信息
+		if p_commit != 调试 and mr.cbmrifrec = 'y' then
+			update ys_cb_mtread
+			 set cbmrifrec   = mr.cbmrifrec,	--已计费(Y-是 N-否)
+			     cbmrrecdate = mr.cbmrrecdate,
+			     cbmrrecsl   = mr.cbmrrecsl,
+			     cbmrrecje01 = mr.cbmrrecje01,
+			     cbmrrecje02 = mr.cbmrrecje02,
+			     cbmrrecje03 = mr.cbmrrecje03,
+			     cbmrrecje04 = mr.cbmrrecje04,
+			     cbmrmemo    = mr.cbmrmemo
+			where current of c_mr;
+		else
+			update ys_cb_mtread
+			 set cbmrrecje01 = mr.cbmrrecje01,
+			     cbmrrecje02 = mr.cbmrrecje02,
+			     cbmrrecje03 = mr.cbmrrecje03,
+			     cbmrrecje04 = mr.cbmrrecje04,
+			     cbmrmemo    = mr.cbmrmemo,
+			     cbmrrecdate = mr.cbmrrecdate,
+			     cbmrrecsl   = mr.cbmrrecsl
+			where current of c_mr;
+		end if;
+		--2、提交处理
+		begin 
+			close c_mr; 
+			if p_commit = 调试 then null;
+			else 
+				if p_commit = 提交 then commit;
+				elsif p_commit = 不提交 then null;
+				else raise_application_error(errcode, '是否提交参数不正确');
+				end if;
+			end if;
+		end;
+
+	procedure costculatecore(mr in out ys_cb_mtread%rowtype,p_trans  in char,p_pscid  in number,p_commit in number);
+		
+		--1.变量初始化
+		cursor c_mi(vmiid in ys_yh_sbinfo.sbid%type) is select * from ys_yh_sbinfo where sbid = vmiid;
+		cursor c_ci(vciid in ys_yh_custinfo.yhid%type) is select * from ys_yh_custinfo where yhid = vciid;
+		cursor c_md(vmiid in ys_yh_sbdoc.sbid%type) is select * from ys_yh_sbdoc where sbid = vmiid;
+		cursor c_ma(vmiid in ys_yh_account.sbid%type) is select * from ys_yh_account where sbid = vmiid;
+		cursor c_ver is select * from (select max(price_ver) id, to_date('99991231', 'yyyymmdd') from bas_price_name) order by id desc;
+		v_verid bas_price_version.id%type;
+		v_odate date;
+		v_rdate date;
+		v_sl    number;
+		--混合用水先定量再定比
+		cursor c_pmd(vpscid in number, vmid in ys_yh_pricegroup.sbid%type) is select * from (select * from ys_yh_pricegroup where sbid = vmid) order by grptype desc, grpid; --按维护先后顺序
+		pmd ys_yh_pricegroup%rowtype;
+		--价格体系
+		cursor c_pd(vpscid in number, vpfid in bas_price_detail.price_no%type) is select * from (select * from bas_price_detail t where price_ver = vpscid and price_no = vpfid) order by price_ver desc, price_item asc;
+		pd bas_price_detail%rowtype;
+		cursor c_picount is select distinct nvl(t.item_type, 1) from bas_price_item t;
+		cursor c_pi(vpigroup in number) is select * from bas_price_item t where t.item_type = vpigroup;
+		mi        ys_yh_sbinfo%rowtype;
+		ci        ys_yh_custinfo%rowtype;
+		md        ys_yh_sbdoc%rowtype;
+		ma        ys_yh_account%rowtype;
+		rl        ys_zw_arlist%rowtype;
+		bf        ys_bas_book%rowtype;
+		maxpmdid  number;
+		pmnum     number;
+		tempsl    number;
+		v_pmdsl   number;
+		v_pmddbsl number;
+		rlver     ys_zw_arlist%rowtype;
+		rltab     rl_table;
+		rdtab     rd_table;
+		n         number;
+		m         number;
+		classctl  char(1) := 'n'; --默认不取消阶梯计费方法
+		i   number;
+		vrd ys_zw_ardetail%rowtype;
+
+		--2.水表编号验证及变量准备
+		--锁定水表记录
+		open c_mi(mr.sbid);
+		fetch c_mi into mi;
+		if c_mi%notfound or c_mi%notfound is null then
+			raise_application_error(errcode, '无效的水表编号' || mr.sbid);
+		end if;
+		--锁定水表档案
+		open c_md(mr.sbid);
+		fetch c_md into md;
+		if c_md%notfound or c_md%notfound is null then
+			raise_application_error(errcode, '无效的水表编号' || mr.sbid);
+		end if;
+		--锁定水表银行
+		open c_ma(mr.sbid);
+		fetch c_ma into ma;
+		close c_ma;
+		--锁定用户记录
+		open c_ci(mi.sbid);
+		fetch c_ci into ci;
+		if c_ci%notfound or c_ci%notfound is null then
+			raise_application_error(errcode, '无效的用户编号' || mi.sbid);
+		end if;
+		--如果是计费调整按工单水价进行计费
+		if mr.id = '?' or p_trans = 'o' then mi.price_no := mr.price_no; end if;
+
+		--3.基本信息从mi、ci转入到rl
+		select sys_guid() into rl.id from dual;
+		rl.hire_code     := mi.hire_code;
+		rl.arid          := lpad(seq_arid.nextval,10,'0');
+		rl.manage_no     := mi.manage_no;
+		rl.armonth       := fobtmanapara(rl.manage_no, 'read_month');
+		rl.ardate        := trunc(sysdate);
+		rl.yhid          := mr.yhid;
+		rl.sbid          := mr.sbid;
+		rl.archargeper   := mi.sbcper;
+		rl.arcpid        := ci.yhpid;
+		rl.arcclass      := ci.yhclass;
+		rl.arcflag       := ci.yhflag;
+		rl.arusenum      := mi.sbusenum;
+		rl.arcname       := ci.yhname;
+		rl.arcname2      := ci.yhname2;
+		rl.arcadr        := ci.yhadr;
+		rl.arminame      := mi.sbname;
+		rl.armadr        := mi.sbadr;
+		rl.arcstatus     := ci.yhstatus;
+		rl.armtel        := ci.yhmtel;
+		rl.artel         := ci.yhtel1;
+		rl.arbankid      := ma.yhabankid;
+		rl.artsbankid    := ma.yhatsbankid;
+		rl.araccountno   := ma.yhaaccountno;
+		rl.araccountname := ma.yhaaccountname;
+		rl.ariftax       := mi.sbiftax;
+		rl.artaxno       := mi.sbtaxno;
+		rl.arifinv       := ci.yhifinv; --开票标志
+		rl.armcode       := mi.sbcode;
+		rl.armpid        := mi.sbpid;
+		rl.armclass      := mi.sbclass;
+		rl.armflag       := mi.sbflag;
+		rl.arday         := mr.cbmrday;
+		rl.arbfid        := mi.book_no; --
+		--分段算法要求上期抄表日期和本期抄表日期非空
+		rl.arprdate := nvl(nvl(nvl(mr.cbmrprdate, mi.sbinsdate), mi.sbnewdate),trunc(sysdate));
+		rl.arrdate  := nvl(nvl(mr.cbmrrdate, trunc(mr.cbmrinputdate)),trunc(sysdate));
+		--违约金起算日期（注意同步修改营业外收入审核）
+		rl.arzndate       := rl.ardate + 30;
+		rl.arcaliber      := md.mdcaliber;
+		rl.arrtid         := mi.sbrtid;
+		rl.armstatus      := mi.sbstatus;
+		rl.armtype        := mi.sbtype;
+		rl.armno          := md.mdno;
+		rl.arscode        := mr.cbmrscode;
+		rl.arecode        := mr.cbmrecode;
+		rl.arreadsl       := mr.cbmrsl; --变量暂存，最后恢复
+		rl.arinvmemo := case when not (p_pscid = '0000.00' or p_pscid is null) then '[' || p_pscid || ']历史单价' else '' end;
+		rl.arentrustbatch := null;
+		rl.arentrustseqno := null;
+		rl.aroutflag      := 'n';
+		rl.artrans        := p_trans;
+		rl.arcd           := debit;
+		rl.aryschargetype := mi.sbchargetype;
+		rl.arsl           := 0; --应收水费水量，【rlsl = rlreadsl + rladjsl】
+		rl.arje           := 0; --生成帐体后计算,先初始化
+		rl.araddsl        := nvl(mr.cbmraddsl, 0);
+		rl.arpaidje       := 0;
+		rl.arpaidflag     := 'n';
+		rl.arpaidper      := null;
+		rl.arpaiddate     := null;
+		rl.armrid         := mr.id;
+		rl.armemo         := mr.cbmrmemo;
+		rl.arznj          := 0;
+		rl.arlb           := mi.sblb;
+		rl.arpfid         := mi.price_no;
+		rl.ardatetime     := sysdate;
+		rl.arprimcode     := mi.sbpriid; --记录合收子表串
+		rl.arpriflag      := mi.sbpriflag;
+		rl.arrper         := mr.cbmrrper;
+		rl.arscodechar    := mr.cbmrscode;
+		rl.arecodechar    := mr.cbmrecode;
+		rl.argroup        := '1'; --应收帐分组
+		rl.arpid          := null; --实收流水（与payment.pid对应）
+		rl.arpbatch       := null; --缴费交易批次（与payment.pbatch对应）
+		rl.arsavingqc     := 0; --期初预存（销帐时产生）
+		rl.arsavingbq     := 0; --本期预存发生（销帐时产生）
+		rl.arsavingqm     := 0; --期末预存（销帐时产生）
+		rl.arreverseflag  := 'n'; --  冲正标志（n为正常，y为冲正）
+		rl.arbadflag      := 'n'; --呆帐标志（y :呆坏帐，o:呆坏帐审批中，n:正常帐）
+		rl.arznjreducflag := 'n'; --滞纳金减免标志,未减免时为n，销帐时滞纳金直接计算；减免后为y,销帐时滞纳金直接取rlznj
+		rl.arsxf          := 0; --手续费
+		rl.armiface2      := mi.sbface2; --抄见故障
+		rl.armiface3      := mi.sbface3; --非常计量
+		rl.armiface4      := mi.sbface4; --表井设施说明
+		rl.armiifckf      := mi.sbifchk; --垃圾费户数
+		rl.armigps        := mi.sbgps; --是否合票
+		rl.armiqfh        := mi.sbqfh; --铅封号
+		rl.armibox        := mi.sbbox; --消防水价（增值税水价）
+		rl.arminame2      := mi.sbname2; --招牌名称(小区名）
+		rl.armiseqno      := mi.sbseqno; --户号（初始化时册号+序号）
+		rl.arscrarid      := rl.arid; --原应收帐流水
+		rl.arscrartrans   := rl.artrans; --原应收帐事务
+		rl.arscrarmonth   := rl.armonth; --原应收帐月份
+		rl.arscrardate    := rl.ardate; --原应收帐日期
+		--应收追补勾选不计阶梯标志
+		if (mr.cbmrnewflag = 'y' and (mr.id = '?' or p_trans = 'o')) then
+			classctl := 'y';
+		else
+			classctl := 'n';
+		end if;
+		--算费之前欠费
+		begin
+		select nvl(sum(ardje), 0) into rl.arpriorje
+		  from ys_zw_arlist, ys_zw_ardetail
+		 where arid = ardid
+		   and arreverseflag = 'n'
+		   and arpaidflag = 'n'
+		   and arje > 0
+		   and sbid = mi.sbid;
+		exception
+		when others then
+		  rl.arpriorje := 0; 
+		end;
+		rl.armisaving := mi.sbsaving; --算费时预存
+		rl.armicommunity   := mi.sbcommunity;
+		rl.armiremoteno    := mi.sbremoteno;
+		rl.armiremotehubno := mi.sbremotehubno;
+		rl.armiemail       := mi.sbemail;
+		rl.armiemailflag   := mi.sbemailflag;
+		rl.armicolumn1     := p_pscid;
+		rl.armicolumn2     := null;
+		rl.armicolumn3     := null;
+		rl.armicolumn4     := null;
+		rl.arcolumn5       := null; --上次应帐帐日期
+		rl.arcolumn9       := null; --上次应收帐流水
+		rl.arcolumn10      := null; --上次应收帐月份
+		rl.arcolumn11      := null; --上次应收帐事务
+
+		--4.获取价格体系 ‘按归档价格系分段’或‘指定价格系’前置数据集准备
+		if p_pscid is not null then
+			--指定价格系
+			if p_pscid = 0 then
+				select max(price_ver) into rl.armicolumn1 from bas_price_name;
+			end if;
+			rltab := rl_table(rl);
+		else
+			--分段
+			open c_ver;
+			fetch c_ver
+			into v_verid, v_odate;
+			if c_ver%notfound or c_ver%notfound is null then
+				raise_application_error(errcode, '无法获取有效的价格系1');
+			end if;
+			while c_ver%found loop
+				if v_odate >= rl.arprdate and (rlver.arrdate is null or rlver.arrdate < rl.arrdate) then
+					rlver := rl;
+					--上次抄表日期
+					rlver.arprdate := case when v_rdate is null then rl.arprdate else v_rdate end;
+					--本次抄表日期
+					rlver.arrdate := case when rl.arrdate <= v_odate then rl.arrdate else v_odate end;
+					--抄见水量
+					rlver.arreadsl := round(rlver.arreadsl * case when (rl.arrdate - rl.arprdate) = 0 then 1 else (rlver.arrdate - rlver.arprdate) / (rl.arrdate - rl.arprdate) end, 0);
+					--加调水量
+					rlver.araddsl := round(rlver.araddsl * case when (rl.arrdate - rl.arprdate) = 0 then 1 else (rlver.arrdate - rlver.arprdate) / (rl.arrdate - rl.arprdate) end, 0);
+					--应收水量
+					rlver.arsl := round(rlver.arsl * case when (rl.arrdate - rl.arprdate) = 0 then 1 else (rlver.arrdate - rlver.arprdate) / (rl.arrdate - rl.arprdate) end, 0);
+					v_sl := nvl(v_sl, 0) + rlver.arreadsl;
+					rlver.armicolumn1 := v_verid;
+					v_rdate := rlver.arrdate;
+					--插入算费临时分段包
+					if rltab is null then
+						rltab := rl_table(rlver);
+					else
+						rltab.extend;
+						rltab(rltab.last) := rlver;
+					end if;
+				end if;
+				fetch c_ver into v_verid, v_odate;
+			end loop;
+			rltab(rltab.last).arreadsl := rltab(rltab.last).arreadsl + (rl.arreadsl - v_sl);
+			close c_ver;
+		end if;
+		if rltab is null then
+			raise_application_error(errcode, '无法获取有效的价格系2');
+		end if;
+
+		
+		--5.按价格体系（含归档价格）
+		for i in rltab.first .. rltab.last loop
+			rlver := rltab(i);
+			open c_pmd(rlver.armicolumn1, mi.sbid);
+			fetch c_pmd into pmd;
+			--1.1、单一用水
+			if c_pmd%notfound or c_pmd%notfound is null then
+				--1.1.1、非特别单价
+				open c_pd(rlver.armicolumn1, mi.price_no);
+				loop
+					fetch c_pd into pd;
+					exit when c_pd%notfound;
+					pmd := null;
+					costpiid(p_rl => rlver,
+						   p_mr => mr,
+						   p_sl => rlver.arreadsl,
+						   pd => pd,
+						   pmd => pmd,
+						   rdtab => rdtab,
+						   p_classctl => classctl,
+						   p_pscid => p_pscid,
+						   p_commit => p_commit);
+				end loop;
+				close c_pd;
+			--1.2、混合用水
+			else
+				select count(grpid) into maxpmdid from (select * from ys_yh_pricegroup where sbid = mi.sbid);
+				v_pmdsl   := 0; --组分配水量
+				pmnum     := 0;
+				v_pmddbsl := rlver.arreadsl; --定比元水量
+				tempsl    := rlver.arreadsl; --分配后剩余水量
+				while c_pmd%found and tempsl >= 0 loop
+					pmnum := pmnum + 1;
+					--拆分余量记入最后费上
+					if pmnum = maxpmdid then v_pmdsl := tempsl;
+					else 
+						--定比混合
+						if pmd.grptype = '00' then v_pmdsl := ceil(pmd.grpscale * v_pmddbsl);
+						--定量混合
+						else 
+							v_pmdsl := (case when tempsl >= trunc(pmd.grpscale) then trunc(pmd.grpscale) else tempsl end);
+							v_pmddbsl := v_pmddbsl - v_pmdsl;
+						end if;
+					end if;
+					--此处按基本价格类别正常计费--------------------------
+					open c_pd(rlver.armicolumn1, pmd.price_no);
+					loop
+						fetch c_pdinto pd;
+						exit when c_pd%notfound;
+						costpiid(rlver,mr,v_pmdsl,pd,pmd,rdtab,classctl,p_pscid,p_commit);
+					end loop;
+					close c_pd;
+					fetch c_pmd into pmd;
+					tempsl := tempsl - v_pmdsl;
+				end loop;
+			end if;
+			close c_pmd;
+		end loop;
+
+		--统一重算汇总应收水量、金额到总账上
+		rl.arreadsl := mr.cbmrsl; --还原
+		rl.arsl     := 0;
+		rl.arje     := 0;
+		if rdtab is not null then
+			for i in rdtab.first .. rdtab.last loop
+				if rdtab(i).ardpiid = '01' then rl.arsl := rl.arsl + rdtab(i).ardsl; end if;--应收水量
+				rl.arje := rl.arje + rdtab(i).ardje;--应收金额
+			end loop;
+		else
+			raise_application_error(errcode,'无法生成应收帐务明细，可能无用水性质');
+		end if;
+
+		--更新目标表
+		if p_commit != 调试 then
+			insert into ys_zw_arlist values rl;
+		else
+			insert into ys_zw_arlist_budget values rl;
+		end if;
+		insrd(rdtab, p_commit);
+		close c_mi;
+		close c_md;
+		close c_ci;
+
+		--反馈应收水量水费到原始抄表记录
+		mr.cbmrrecsl        := nvl(rl.arsl, 0);
+		mr.cbmrifrec        := 'y';
+		mr.cbmrrecdate      := rl.ardate;
+		mr.cbmrprivilegeper := rl.arid; --借字段记录rlid返回，供即时销帐20140507
+		--为适应抄表录入中的账本小结，这里先初始化为0
+		mr.cbmrrecje01 := 0;
+		mr.cbmrrecje02 := 0;
+		mr.cbmrrecje03 := 0;
+		mr.cbmrrecje04 := 0;
+		mr.cbmrrecsl   := 0;
+		if rdtab is not null then
+			for i in rdtab.first .. rdtab.last loop
+				vrd := rdtab(i);
+				--反馈总金额到
+				case vrd.ardpiid 
+					when '01' then mr.cbmrrecje01 := nvl(mr.cbmrrecje01, 0) + vrd.ardje;
+					when '02' then mr.cbmrrecje02 := nvl(mr.cbmrrecje02, 0) + vrd.ardje;
+					when '03' then mr.cbmrrecje03 := nvl(mr.cbmrrecje03, 0) + vrd.ardje;
+					when '04' then mr.cbmrrecje04 := nvl(mr.cbmrrecje04, 0) + vrd.ardje;
+					else null;
+				end case;
+			end loop;
+		end if;
+
+	procedure costpiid(p_rl in out ys_zw_arlist%rowtype,
+		     p_mr       in out ys_cb_mtread%rowtype,
+		     p_sl       in number,
+		     pd         in bas_price_detail%rowtype,
+		     pmd        in ys_yh_pricegroup%rowtype,
+		     rdtab      in out rd_table,
+		     p_classctl in char,
+		     p_pscid    in number,
+		     p_commit   in number);
+		--费率明细计算步骤
+		--p_classctl（y：强制不使用阶梯计费方法；n：计算阶梯，如果是的话）
+
+		参数初始化
+		rd        ys_zw_ardetail%rowtype;
+		i         integer;
+		v_months  number(10);
+		n         number;
+		m         number;
+		tempadjsl number(10);
+		vpdmethod bas_price_detail.method%type;
+		bf        ys_bas_book%rowtype;
+
+		--不计阶梯控制不进入阶梯子过程，不产生1阶金额
+		if p_classctl = 'y' and pd.method in ('yjt', 'njt') then
+			vpdmethod := 'dj';
+		else
+			vpdmethod := pd.method;
+		end if;
+
+		begin
+			select round(months_between(trunc(p_rl.arrdate, 'mm'),trunc(p_rl.arprdate, 'mm'))) into n --计费时段月数 from dual;
+			if n <= 0 or n is null then n := 1;end if;
+		exception
+			when others then n := 0;
+		end;
+
+		select sys_guid() into rd.id from dual;
+		rd.hire_code     := p_rl.hire_code;
+		rd.ardid         := p_rl.arid; --流水号
+		rd.ardpmdid      := nvl(pmd.grpid, 0); --混合用水分组
+		rd.ardpmdscale   := nvl(pmd.grpscale, 1);
+		rd.ardpiid       := pd.price_item; --费用项目
+		rd.ardpfid       := pd.price_no; --费率
+		rd.ardpscid      := pd.price_ver; --费率明细方案
+		rd.ardmethod     := vpdmethod;
+		rd.ardpaidflag   := 'n';
+		rd.ardysdj       := 0;
+		rd.ardyssl       := 0;
+		rd.ardysje       := 0;
+		rd.arddj         := 0;
+		rd.ardsl         := 0;
+		rd.ardje         := 0;
+		rd.ardadjdj      := 0;
+		rd.ardadjsl      := 0;
+		rd.ardadjje      := 0;
+		rd.ardmsmfid     := p_rl.manage_no; --营销公司
+		rd.ardmonth      := p_rl.armonth; --帐务月份
+		rd.ardmid        := p_rl.sbid; --水表编号
+		rd.ardpmdtype    := nvl(pmd.grptype, '01'); --混合类别
+		rd.ardpmdcolumn1 := pmd.grpcolumn1; --备用字段1
+
+		case vpdmethod when 'dj' then
+			--固定单价  默认方式，与抄量有关
+			begin
+				rd.ardclass := 0;
+				rd.ardysdj  := pd.price;
+				rd.ardyssl  := p_sl;
+				rd.ardysje  := round(rd.ardysdj * rd.ardyssl, 2);
+				rd.arddj    := pd.price;
+				rd.ardsl    := p_sl;
+				rd.ardje    := round(rd.arddj * rd.ardsl, 2);
+				rd.ardadjdj := 0;
+				rd.ardadjsl := 0;
+				rd.ardadjje := rd.ardje - rd.ardysje;
+				--插入明细包
+				if rdtab is null then rdtab := rd_table(rd);
+				else rdtab.extend; rdtab(rdtab.last) := rd;
+				end if;
+			end;
+		when 'je' then
+			--固定金额，与抄量无关
+			begin
+				rd.ardclass := 0;
+				rd.ardysdj  := 0;
+				rd.ardyssl  := 0;
+				rd.ardadjdj := 0;
+				rd.ardadjsl := 0;
+				rd.ardadjje := 0;
+				rd.ardysdj  := 0;
+				rd.ardsl    := 0;
+				if p_sl > 0 then
+					rd.ardysdj := round(nvl(pd.money, 0), 2);
+					rd.arddj   := round(nvl(pd.money, 0), 2);
+					rd.ardysje := round(nvl(pd.money, 0), 2) * n;
+					rd.ardje   := round(nvl(pd.money, 0), 2) * n;
+				else
+					rd.ardysje := 0;
+					rd.ardje   := 0;
+				end if;
+				--插入明细包
+				if rdtab is null then rdtab := rd_table(rd);
+				else rdtab.extend; rdtab(rdtab.last) := rd;
+				end if;
+			end;
+		when 'yjt' then
+			begin
+				coststep_mon(p_rl, p_mr, p_sl, 0, 0, pd, rdtab, p_classctl, pmd);
+			end;
+		when 'njt' then
+			begin
+				coststep_year(p_rl,p_sl,0,0,pd,rdtab,p_classctl,pmd,p_pscid);
+			end;
+		else
+			raise_application_error(errcode, '不支持的计费方法' || vpdmethod);
+		end case;
+
+	procedure coststep_mon(p_rl in out ys_zw_arlist%rowtype,
+			 p_mr       in out ys_cb_mtread%rowtype,
+			 p_sl       in number,
+			 p_adjsl    in number,
+			 p_adjdj    in number,
+			 pd         in bas_price_detail%rowtype,
+			 rdtab      in out rd_table,
+			 p_classctl in char,
+			 pmd        in ys_yh_pricegroup%rowtype);
+		--rd.rdpiid；rd.rdpfid；rd.rdpscid为必要参数
+		变量初始化
+		cursor c_ps is select * from (select * from bas_price_step where price_ver = pd.price_ver and price_no = pd.price_no and price_item = pd.price_item) order by step_class;
+		tmpyssl      number;
+		lastpsslpers number := 0;
+		tmpsl        number;
+		rd           ys_zw_ardetail%rowtype;
+		rd0          ys_zw_ardetail%rowtype;
+		ps           bas_price_step%rowtype;
+		ps0          bas_price_step%rowtype;
+		minfo        ys_yh_sbinfo%rowtype;
+		n            number(38, 12); --计费期数
+		tmpscode     number;
+		--基本信息赋值
+		select sys_guid() into rd.id from dual;
+		rd.hire_code   := p_rl.hire_code;
+		rd.ardid       := p_rl.arid;
+		rd.ardpmdid    := nvl(pmd.grpid, 0);
+		rd.ardpmdscale := nvl(pmd.grpscale, 1);
+		rd.ardpiid     := pd.price_item;
+		rd.ardpfid     := pd.price_no;
+		rd.ardpscid    := pd.price_ver;
+		rd.ardmethod   := pd.method;
+		rd.ardpaidflag := 'n';
+		rd.ardmsmfid  := p_rl.manage_no; --营销公司
+		rd.ardmonth   := p_rl.armonth; --帐务月份
+		rd.ardmid     := p_rl.sbid; --水表编号
+		rd.ardpmdtype := nvl(pmd.grptype, '01'); --混合类别
+		tmpyssl := p_sl; --阶梯累减应收水量余额
+		tmpsl   := p_sl + p_adjsl; --阶梯累减实收水量余额
+		--判断数据是否满足收取阶梯的条件
+		select mi.* into minfo from ys_yh_sbinfo mi where mi.sbid = p_rl.sbid;
+		--阶梯计费周期
+		--间隔月(即每次计费按实际间隔月数计费)
+		begin
+			select round(months_between(trunc(p_rl.arrdate, 'mm'),trunc(p_rl.arprdate, 'mm')))into n from dual;--计费时段月数
+			if n <= 0 or n is null then n := 1;  end if;--异常周期都算一个月阶梯
+		exception when others then n := 0;
+		end;
+		/*
+		┌───────────────────────────────────────────────────────────────────────────────────────────────┐
+		│阶梯规则（户/人均用水量以同一地址的所有水表用水量之和为基础计算）                      │
+		│1、家庭户籍人口在4人以下（含4人）的用水户，按户用水量划分阶梯式计量水价。                      │
+		│2、家庭户籍人口在5人（含5人）以上的用水户，按人均用水量划分阶梯式计量水价。                    │
+		└─────────┴───────────────────────┴───────────────────────────────────┴─────────────────────────┘
+		*/ --一阶止二阶起要求设置值相同，依此类推
+		p_rl.arusenum := (case when nvl(p_rl.arusenum, 0) < ps.peoples then ps.peoples else p_rl.arusenum end);
+		if ps.step_class > 1 then ps.start_code := tmpscode; end if;
+		ps.end_code  := ceil(n * (ps.end_code + getmax(p_rl.arusenum - ps.peoples, 0) * ps.add_waterqty + lastpsslpers)); --阶梯段止算量
+		tmpscode     := ps.end_code;
+		lastpsslpers := getmax(p_rl.arusenum - ps.peoples, 0) * ps.add_waterqty;
+		--以上ceil保持入，尽量拉款子阶梯段，让利与客户
+		rd.ardclass      := ps.step_class;
+		rd.ardysdj       := ps.price;
+		rd.ardyssl       := getmin(tmpyssl, ps.end_code - ps.start_code);
+		rd.ardysje       := round(rd.ardysdj * rd.ardyssl, 2);
+		rd.arddj         := getmax(ps.price + p_adjdj, 0);
+		rd.ardsl         := getmin(tmpsl, ps.end_code - ps.start_code);
+		rd.ardje         := round(rd.arddj * rd.ardsl, 2);
+		rd.ardadjdj      := rd.arddj - rd.ardysdj;
+		rd.ardadjsl      := rd.ardsl - rd.ardyssl;
+		rd.ardadjje      := rd.ardje - rd.ardysje;
+		rd.ardpmdcolumn1 := to_char(round(n, 2));
+		rd.ardpmdcolumn2 := ps.start_code;
+		rd.ardpmdcolumn3 := ps.end_code;
+		--插入明细包
+		if rdtab is null then rdtab := rd_table(rd);
+		else rdtab.extend; rdtab(rdtab.last) := rd;
+		end if;	
+
+	procedure coststep_year(p_rl in out ys_zw_arlist%rowtype,
+			  p_sl       in number,
+			  p_adjsl    in number,
+			  p_adjdj    in number,
+			  pd         in bas_price_detail%rowtype,
+			  rdtab      in out rd_table,
+			  p_classctl in char,
+			  pmd        ys_yh_pricegroup%rowtype,
+			  pmonth     in varchar2);
+		逻辑与coststep_mon相同
+		
+	procedure insrd(rd in rd_table, p_commit in number);
+		vrd ys_zw_ardetail%rowtype;
+		i   number;
+		begin
+			for i in rd.first .. rd.last loop
+				vrd := rd(i);
+				if p_commit != 调试 then insert into ys_zw_ardetail values vrd;
+				else insert into ys_zw_ardetail_budget values vrd;
+				end if;
+			end loop;
+		exception when others then raise_application_error(errcode, sqlerrm);
+		end;
+
+	function getmin
+		--返回小值
+		function getmin(n1 in number, n2 in number) return number; 
+			if nvl(n1, 0) <= nvl(n2, 0) then return nvl(n1, 0); else return nvl(n2, 0);end if;
+	function getmax
+		--返回大值
+		function getmax(n1 in number, n2 in number) return number;
+			if nvl(n1, 0) >= nvl(n2, 0) then return nvl(n1, 0); else return nvl(n2, 0);end if;
+	function fboundpara
+		--返回字符串中“|”的数量
+		function fboundpara(p_parastr in clob) return integer is
+		--一维数组规则：#####,####,####|
+		--二维数组规则：#####,####,####|#####,####,#######|##,####,####|
+		i     integer;
+		n     integer := 0;
+		vchar nchar(1);
+		begin
+		for i in 1 .. length(p_parastr) loop
+			vchar := substr(p_parastr, i, 1);
+			if vchar = '|' then n := n + 1; end if;
+		end loop;
+		return n;
+	function fgetpara
+		--返回字符串中指定元素位置的值
+		function fgetpara(p_parastr in varchar2,rown in integer,coln in integer) return varchar2;
+			vchar nchar(1);
+			v     varchar2(10000);
+			vstr  varchar2(10000) := '';
+			r     integer := 1;
+			c     integer := 0;
+			begin
+			v := trim(p_parastr);
+			if length(v) = 0 or substr(v, length(v)) != '|' then
+			raise_application_error(errcode, '数组字符串格式错误' || p_parastr);
+			end if;
+			for i in 1 .. length(v) loop
+			vchar := substr(v, i, 1);
+			case vchar
+			when '|' then
+			  --一行读完
+			  begin
+			    c := c + 1;
+			    if r = rown and c = coln then
+			      return vstr;
+			    end if;
+			    r    := r + 1;
+			    c    := 0;
+			    vstr := '';
+			  end;
+			when ',' then
+			  --一列读完
+			  begin
+			    c := c + 1;
+			    if r = rown and c = coln then
+			      return vstr;
+			    end if;
+			    vstr := '';
+			  end;
+			else
+			  begin
+			    vstr := vstr || vchar;
+			  end;
+			end case;
+			end loop;
+
+package pg_paid
+	-- public type declarations
+	subtype rd_type is ys_zw_ardetail%rowtype;
+	type rd_table is table of rd_type;
+	--存储临时变量
+	subtype pb_type is ysparmtemp%rowtype;
+	type arr_table is table of pb_type;
+	--错误返回码
+	errcode constant integer := -20012;
+	--【代码规则常量】（可转化为由系统参数初始化）
+	----过程提交控制
+	不提交 constant number := 0;
+	提交   constant number := 1;
+	调试   constant number := 2;
+	----可忽略的应实收计帐方向，现已由+/-值含义替代
+	借方 constant char(2) := 'de';
+	贷方 constant char(2) := 'cr';
+	--【缴费业务核心规则】
+	--  全局重要参数，允许各帐务流程中预存发生
+	--  例如：无预存业务的项目本控制位设为false
+	--  作用于：payreccore
+	--          remaincore
+	--          payreversecorebypid
+	允许预存发生 constant boolean := true;
+	--  全局重要参数，允许各帐务流程中期初可以是负预存、销帐后也可以是负预存，但不能发生更多的负预存
+	--  true时意味着无条件销帐成功，不足额部分无底线的转负预存余额
+	--  例如：某些项目中有向下取整找零的规则时此控制位为true，取整规则在调用前计算ok，本地后台不校验
+	--  作用于：payreccore
+	--          remaincore
+	--          payreversecorebypid
+	允许净减后负预存 constant boolean := true;
+	----净减为负预存余额时不销帐转预存
+	--  作用于：payreccore
+	净减为负预存不销帐 constant boolean := false;
+	代扣后是否发送短信 constant boolean := false;
+	--  调度作业方式下余额足额抵扣当前欠费时控制是否抵扣含违约金欠费记录
+	--  作用于：pg_pay.remainpaycorebycust
+	允许预存抵扣违约欠费 constant integer := 1;
+	允许重复销帐 constant integer := 1;
+	----实时代收单缴预存规则
+	--  作用于：bpay
+	允许实时代收单缴预存 constant boolean := false; --20140812 0:30 true->flase
+	--【一些可选的销帐方式】
+	----允许销帐拆帐
+	不允许拆帐 constant integer := 0; --0金额非0水量销帐
+	允许拆帐   constant integer := 1; --默认
+	----代收对帐方法
+	正常对帐 constant integer := 1; --自动化调用时可传此参数，若存在已对帐记录，且有平帐，则对帐失败；
+	重新对帐 constant integer := 2; --手工业务调用时传此参数，若存在已对帐记录，且有平帐，则还原平帐（对帐冲正进行对帐补销、对帐补销进行对帐冲正）后进行首次对帐；
+	----批扣本地处理方式
+	正常批扣处理 constant integer := 1; --自动化调用时可传此参数，对新已下账记录进行销帐，其余根据在途完结标志全部解锁；
+	重新批扣处理 constant integer := 2; --手工业务调用时传此参数，若存在已销帐记录，则还原销帐（代扣销帐进行代扣冲正）后进行正常处理；
+	----批次在途完结否
+	批扣未结束 constant integer := 0; --本次文档后银行还未结束扣费
+	批扣结束   constant integer := 1; --已结束
+	----批扣文本类型
+	成功批扣文本   constant integer := 0; --只有失败记录
+	失败批扣文本   constant integer := 1; --只有成功记录
+	全部批扣文本   constant integer := 2; --所有记录
+	无文本全部成功 constant integer := 3; --无文本返回，银行口头通知所有批扣成功
+	----抵减预存余额后代扣
+	抵减预存余额后代扣 constant integer := 1; --批扣发包时预存余额参与计算应缴，etlje = etlrlje +etlwyj +etlremaind
+	no抵减预存余额代扣 constant integer := 0; --批扣发包时预存余额不参与计算应缴，etlje = etlrlje +etlwyj
+	----缴费通知
+	全局屏蔽通知 constant boolean := false;
+	局部屏蔽通知 constant integer := 0; --（可能用于外部传参，故使用通用int类型）
+	局部允许通知 constant integer := 1; --（可能用于外部传参，故使用通用int类型）
+	----销帐违约金分帐，可通过参数控制销帐核心过程中对违约金和本金分帐处理，分帐条件内置
+	----独立违约金发票需求
+	允许销帐违约金分帐 constant boolean := true; --
+	--常量参数
+	ptrans_柜台缴费 constant char(1) := 'p'; --自来水柜台缴费
+	ptrans_代收销帐 constant char(1) := 'b'; --银行实时代收
+	ptrans_代收补销 constant char(1) := 'e'; --银行实时代收单边帐补销（对帐结果补销,隔日发起）
+	ptrans_代扣销帐 constant char(1) := 'd'; --代扣销帐
+	ptrans_托收销帐 constant char(1) := 't'; --托收票据销帐
+	ptrans_独立预存 constant char(1) := 's'; --自来水柜台独立预存
+	ptrans_票据销帐 constant char(1) := 'i'; --走收票据销帐
+	ptrans_预存抵扣 constant char(1) := 'u'; --算费过程即时预存抵扣
+	ptrans_预存调拨 constant char(1) := 'k'; --合收表创建时子表预存余额转到主表预存余额中
+	ptrans_冲正       constant char(1) := 'c'; --冲正
+	ptrans_退费       constant char(1) := 'v'; --退费
+	ptrans_代收冲正   constant char(1) := 'r'; --实时代收单边帐冲销
+	ptrans_预售       constant char(1) := 'q'; --预售水
+	ptrans_零量费销帐 constant char(1) := 'w'; --零量费销帐
+		
+	function obtwyj(p_sdate in date, p_edate in date, p_je in number) return number;
+		v_result := p_je * (trunc(p_edate) - trunc(p_sdate) + 1) * 0.003;
+
+	--违约金计算
+	function obtwyjadj(p_arid     in varchar2, --应收流水
+		     p_ardpiids in varchar2, --应收明细费项串'01|02|03'
+		     p_edate    in date --终算日'不计入'违约日,参数格式'yyyy-mm-dd'
+		     ) return number is
+		--初始化变量
+		vresult          number;
+		v_arzndate       ys_zw_arlist.arzndate%type;		--违约金起算日
+		v_arznj          ys_zw_arlist.arznj%type;		--违约金
+		v_outflag        ys_zw_arlist.aroutflag%type;		--发出标志(Y-发出 N-未发出)
+		v_sbid           ys_zw_arlist.sbid%type;		--水表编号
+		v_arje           ys_zw_arlist.arje%type;		--应收金额
+		v_yhifzn         ys_yh_custinfo.yhifzn%type;		--是否滞纳金
+		v_arznjreducflag ys_zw_arlist.arznjreducflag%type;	--滞纳金减免标志,未减免时为N，销帐时滞纳金直接计算；减免后为Y,销帐时滞纳金直接取ARznj
+		v_chargetype     varchar2(10);				--收费方式(X坐收M走收)
+		--变量赋值
+		select a.sbid,
+		     max(arzndate),
+		     max(arznj),
+		     max(aroutflag),
+		     sum(ardje),
+		     max(yhifzn),
+		     max(arznjreducflag),
+		     max(nvl(sbchargetype, 'x'))
+		into v_sbid,
+		     v_arzndate,
+		     v_arznj,
+		     v_outflag,
+		     v_arje,
+		     v_yhifzn,
+		     v_arznjreducflag,
+		     v_chargetype
+		from ys_zw_arlist   a,
+		     ys_yh_custinfo b,
+		     ys_zw_ardetail c,
+		     ys_yh_sbinfo   d
+		where a.sbid = d.sbid
+		 and b.yhid = d.yhid
+		 and a.arid = c.ardid
+		 and instr(p_ardpiids, ardpiid) > 0		--ardpiid费用项目
+		 and arid = p_arid
+		group by arid, a.sbid;
+
+		if v_yhifzn = 'n' or v_chargetype in ('d', 't') then return 0;end if;
+		if v_arje < 0 then v_arje := 0;end if;
+		if v_arznjreducflag = 'y' then return v_arznj; end if;
+		vresult := obtwyj(v_arzndate, p_edate, v_arje);
+		--不得超过本金
+		if vresult > v_arje then vresult := v_arje; end if;
+		return trunc(vresult, 2);
+		
+	procedure poscustforys(p_sbid     in varchar2,
+		 p_arstr    in varchar2,
+		 p_position in varchar2,
+		 p_oper     in varchar2,
+		 p_paypoint in varchar2,
+		 p_payway   in varchar2,
+		 p_payment  in number,
+		 p_batch    in varchar2,
+		 p_pid      out varchar2);
+		--处理p_arstr
+		--水司柜台缴费（一表）,参数简化版
+		--'123456789,Y*01!Y*02!Y*03!,0.10,0,0,0|123456789,Y*01!Y*02!Y*03!,0.10,0,0,0|'
+		v_parm_ar  parm_payar;
+		v_parm_ars parm_payar_tab;
+		v_parm_ar  := parm_payar(null, null, null, null, null, null);
+		v_parm_ars := parm_payar_tab();
+		for i in 1 .. fmid(p_arstr, '|') - 1 loop
+			--流水号
+			v_parm_ar.arid     := pg_cb_cost.fgetpara(p_arstr, i, 1);
+			--费用项目串
+			v_parm_ar.ardpiids := replace(replace(pg_cb_cost.fgetpara(p_arstr, i,2),'*',','),'!','|');
+			--违约金
+			v_parm_ar.arwyj    := pg_cb_cost.fgetpara(p_arstr, i, 3);
+			v_parm_ar.fee1     := pg_cb_cost.fgetpara(p_arstr, i, 4);
+			v_parm_ar.fee2     := pg_cb_cost.fgetpara(p_arstr, i, 5);
+			v_parm_ar.fee3     := pg_cb_cost.fgetpara(p_arstr, i, 6);
+			v_parm_ars.extend;
+			v_parm_ars(v_parm_ars.last) := v_parm_ar;
+		end loop;
+		poscust(p_sbid,
+		    v_parm_ars,
+		    p_position,
+		    p_oper,
+		    p_paypoint,
+		    p_payway,
+		    p_payment,
+		    p_batch,
+		    p_pid);
+	
+	procedure poscust(p_sbid in varchar2,
+		p_parm_ars in parm_payar_tab,
+		p_position in varchar2,
+		p_oper     in varchar2,
+		p_paypoint in varchar2,
+		p_payway   in varchar2,
+		p_payment  in number,
+		p_batch    in varchar2,
+		p_pid      out varchar2) is
+		水司柜台缴费（一表）
+		【输入参数说明】：
+		p_sbid		in varchar2 :单一水表编号
+		p_parm_ars	in out parm_payr_tab :单表待销应收包成员参数如下：
+				arid  in number :应收流水（依此成员次序销帐）
+				ardpiids in varchar2 :费用项目串（待销费用项目,由前台勾选否(Y/N)+费项ID组成的二维数组（基于PG_CB_COST.FGETPARA二维数组规范），例如：Y,01|Y,02|N,03|,次序很重要）
+				arznj in number :传入的违约金（本过程内不计算不校验），传多少销多少
+				fee1 in number  :其他非系统费项1
+		p_position      in varchar2 :缴费单位，营销架构中营业所编码，实收计帐单位
+		p_oper		in varchar2 :销帐员，柜台缴费时销帐人员与收款员统一
+		p_payway	in varchar2 :付款方式，每交易有且仅有一种付款方式
+		p_payment	in number   :实收，即为（付款-找零），付款与找零在前台计算和校验
+
+		--核心部分校验
+		for i in (select a.aroutflag
+			from ys_zw_arlist a, table(v_parm_ars) b
+		       where a.arid = b.arid) loop
+		if 允许重复销帐 = 0 and i.aroutflag = 'y' then
+		raise_application_error(errcode,
+					'当前系统规则不允许划扣中进行应收冲正');
+		end if;
+		end loop;
+		
+		select count(*) into v_parm_count from table(v_parm_ars) b;
+		if v_parm_count = 0 then
+			if p_payment > 0 then
+				--单缴预存核心
+				precust(p_sbid        => p_sbid,
+					p_position    => p_position,
+					p_oper        => p_oper,
+					p_payway      => p_payway,
+					p_payment     => p_payment,
+					p_memo        => null,
+					p_batch       => vbatch,
+					o_pid         => p_pid,
+					o_remainafter => vremainafter);
+			else
+				null;
+				--退预存核心
+				precustback(p_sbid        => p_sbid,
+					    p_position    => p_position,
+					    p_oper        => p_oper,
+					    p_payway      => p_payway,
+					    p_payment     => p_payment,
+					    p_memo        => null,
+					    p_batch       => vbatch,
+					    o_pid         => p_pid,
+					    o_remainafter => vremainafter);
+			end if;
+		else
+			paycust(p_sbid,
+			      v_parm_ars,
+			      ptrans_柜台缴费,
+			      p_position,
+			      p_paypoint,
+			      null,
+			      null,
+			      p_oper,
+			      p_payway,
+			      p_payment,
+			      null,
+			      不提交,
+			      局部屏蔽通知,
+			      允许拆帐,
+			      vbatch,
+			      vseqno,
+			      p_pid,
+			      vremainafter);
+		end if;
+
+	procedure paycust(p_sbid        in varchar2,
+		    p_parm_ars    in parm_payar_tab,
+		    p_trans       in varchar2,
+		    p_position    in varchar2,
+		    p_paypoint    in varchar2,
+		    p_bdate       in date,
+		    p_bseqno      in varchar2,
+		    p_oper        in varchar2,
+		    p_payway      in varchar2,
+		    p_payment     in number,
+		    p_pid_source  in varchar2,
+		    p_commit      in number,
+		    p_ctl_msg     in number,
+		    p_ctl_pre     in number,
+		    p_batch       in out varchar2,
+		    p_seqno       in out varchar2,
+		    p_pid         out varchar2,
+		    o_remainafter out number);
+		/*==========================================================================
+		一水表多应收销帐
+		paymeter
+		【输入参数说明】：
+		p_sbid        in varchar2 :单一水表编号
+		p_parm_ARs   in out parm_payAR_tab :可以为空（预存充值），待销应收包结构如下：
+				    ARid  in number :应收流水（依此成员次序销帐）
+				    Ardpiids in varchar2 :费用项目串，必须是YS_ZW_ARDETAIL的全集（待销费用项目,由前台勾选否(Y/N)+费项ID组成的二维数组（基于PG_CB_COST.FGETPARA二维数组规范），例如：Y,01|Y,02|N,03|,次序很重要）
+				    ARznj in number :传入的实收违约金（本过程内不计算不校验），传多少销多少
+				    fee1 in number  :其他非系统实收费项1
+		p_trans      in varchar2 :缴费事务
+		p_position      in varchar2 :缴费单位，营销架构中营业所编码，实收计帐单位
+		p_paypoint   in varchar2 :缴费点，缴费单位下级需要分收费网点点统计需要，可以为空
+		p_bdate      in date :前台日期，银行交易日期(yyyy-mm-dd hh24:mi:ss '2014-02-10 13:53:01')
+		p_bseqno     in varchar2 :前台流水，银行交易流水
+		p_oper       in varchar2 :销帐员，柜台缴费时销帐人员与收款员统一
+		p_payee      in varchar2 :收款员，柜台缴费时销帐人员与收款员统一
+		p_payway     in varchar2 :付款方式，每交易有且仅有一种付款方式
+		p_payment    in number   :实收，即为（付款-找零），付款与找零在前台计算和校验
+		p_pid_source in number   :可空，正常销帐时为空，也即实参为空赋值为新的实收流水号，部分退费追销时许传原实收流水用于实收行绑定
+		p_commit     in number   :提交方式（0:执行成功后不提交；
+					      1:执行成功后提交；
+					      2:调试，或执行成功后提交，到模拟表）
+		p_ctl_msg  in number   :全局控制参数“禁止所有通知”条件下，是否发送通知服务，组织统一缴费交易通知内容，通过sendmsg发送到外部接口（短信、微信等），
+				    外部调用时选择是否需要本缴费交易核心统一组织内容（退费时通知内容得在退费头过程中组织，调用时避免本过程重复发送需要屏蔽）
+				    通知客户  = 1
+				    不通知客户= 0
+		【输出参数说明】：
+		p_batch      in out number：传空值时本过程生成，非空时用此值绑定实收记录，返回销帐成功后的交易批次，供打印时二次查询
+		p_seqno      in out number：传空值时本过程生成，非空时用此值绑定实收记录，返回销帐成功后的交易批次，供打印时二次查询
+		p_pid        out number：返回销帐成功后的交易流水，供父过程调用
+		【过程说明】：
+		1、一水表任意多月销帐次核心过程，提供各缴费事务过程调用；
+		2、实收 = 销帐+实收违约金+预存（净增）+预存（净减）+其他非系统费项123；
+		3、支持预存、期末负预存（依赖全局包常量：是否预存、是否负预存）；
+		4、支持有且仅有违约金应收记录（无水费、追补违约金功能产生）；
+		5、最小销帐单元为应收明细行或仅应收违约金，销帐前p_parm_rls.rdpiids中成员如有N勾选状态时先执行【应收调整.部分销帐】，之后重构【待销应收包】
+		6、【重构待销应收包】基础上对其中目前是未销状态的全部销帐
+		7、最后判断整体实收溢出时（待销中存在其它实收事务已销、前台预存）
+		1）启用预存时，销帐后做期末预存，且记录在分解之销帐预存到最后销帐记录上（即待销应收包末尾销帐单元）；
+		2）未启用预存时，抛出异常；
+		8、整体实收不足时
+		1）启用负预存时，销帐后做期末负预存，且记录在分解之销帐预存到最后销帐记录上（即待销应收包末尾销帐单元）；
+		2）未启用负预存时，抛出异常；
+		9、关于部分勾选费项缴费时补充说明，违约金在前台重算，并且违约金只从属于应收帐头无须分解到应收明细
+		【更新日志】：
+		*/
+
+	procedure payzwarpre(p_parm_ars in out parm_payar_tab, p_commit in number default 不提交);
+		部分费用项目销帐前拆分应收（一应收帐）：重要规则：销帐包非空时拒绝0金额实销
+		【输入参数说明】：
+		p_parm_ars in out parm_payar_tab：可以为空（预存充值），待销应收包
+			arid  in number :应收流水（依此成员次序销帐）
+			ardpiids in varchar2 : 待销费用项目,由是否销帐(Y/N)+费项ID组成的二维数组（基于PG_CB_COST.FGETPARA二维数组规范），例如：Y,01|Y,02|N,03|,次序很重要）
+				为空时：忽略，不拆
+				非空时：1）必须是YS_ZW_ARDETAIL的全集费用项目串；
+					2）YN两集合必须均含有非0金额，否则忽略，不拆；
+			arznj in number :传入的违约金（本过程内不计算不校验），传多少销多少
+			fee1 in number  :其他非系统费项1
+		p_commit in number default 不提交
+		【输出参数说明】：
+		【过程说明】：
+		1、解析销帐包完成校验；
+		2、若存在部分费用销帐标志位（且费项额非0）则按应收调整方式拆分应收帐，否则原包返回；
+		3、重构待全额销帐包并返回否则原包返回；
+		【更新日志】：
+
+	procedure zwarreversecore(p_arid_source         in varchar2,
+		    p_artrans_reverse     in varchar2,
+		    p_pbatch_reverse      in varchar2,
+		    p_pid_reverse         in varchar2,
+		    p_ppayment_reverse    in number,
+		    p_memo                in varchar2,
+		    p_ctl_mircode         in varchar2,
+		    p_commit              in number default 不提交,
+		    o_arid_reverse        out varchar2,
+		    o_artrans_reverse     out varchar2,
+		    o_arje_reverse        out number,
+		    o_arznj_reverse       out number,
+		    o_arsxf_reverse       out number,
+		    o_arsavingbq_reverse  out number,
+		    io_arsavingqm_reverse in out number);
+		应收冲正核心
+		【输入参数说明】：
+		p_arid_source  in number ：被冲的原应收记录流水号；
+		p_pid_reverse  in number ：（可空参数），冲正、退费调用时需要传前置过程产生的冲正实收流水号；
+				      在此过程中依此与冲正应收记录绑定
+		p_ppayment_reverse in number ：（可空参数），同上参数冲正、退费调用时需要传前置过程产生的冲正实收金额（负），
+					  对已销帐应收的冲正时：
+					  1）依此保持的销帐记录和实收记录的帐务平衡；
+					  2）依此控制销帐预存发生（例如退费不需要发生预存增减、实收冲正时可能有）;
+		p_memo ：外部传入帐务备注信息
+		p_commit ： 是否过程内提交
+		【输出参数说明】：
+		o_arid_reverse out varchar2：冲正应收流水
+		o_artrans_reverse out varchar2：冲正应收事务
+		o_arje_reverse out number：冲正销帐金额
+		o_arznj_reverse out number：冲正销帐违约金
+		o_arsxf_reverse out number：冲正销帐其他费1
+		o_arsavingbq_reverse out number：冲正销帐预存发生
+		io_arsavingqm_reverse in out number：外部冲正'销帐应收'循环时的期末预存（累减器）
+		【过程说明】：
+		基于一条应收总帐记录全额冲正，如应收总账同时为销帐记录，还要更新本冲正帐记录的销帐信息；
+		提供销帐预处理、实收冲正、退费、应收调整等业务过程调用；
+
+	procedure paywyjpre(p_parm_ars in out parm_payar_tab, p_commit in number default 不提交);
+		销帐违约金分帐销帐包预处理
+		【输入参数说明】：
+		p_parm_ars in out parm_payar_tab：可以为空（预存充值），待销应收包
+			arid  in number :应收流水（依此成员次序销帐）
+			ardpiids in varchar2 : 待销费用项目,由是否销帐(Y/N)+费项ID组成的二维数组（基于PG_CB_COST.FGETPARA二维数组规范），例如：Y,01|Y,02|N,03|,次序很重要）
+				为空时：忽略，不拆
+				非空时：1）必须是ys_zw_ardetail的全集费用项目串；
+					2）YN两集合必须均含有非0金额，否则忽略，不拆；
+			arznj in number :传入的违约金（本过程内不计算不校验），传多少销多少
+			fee1 in number  :其他非系统费项1
+		p_commit in number default 不提交
+		【输出参数说明】：
+		【过程说明】：
+		1、解析销帐包完成校验；
+		3、重构待销帐包并返回否则原包返回；
+
+	procedure payzwarcore(p_pid          in varchar2,
+		p_batch        in varchar2,
+		p_payment      in number,
+		p_remainbefore in number,
+		p_paiddate     in date,
+		p_paidmonth    in varchar2,
+		p_parm_ars     in parm_payar_tab,
+		p_commit       in number default 不提交,
+		o_sum_arje     out number,
+		o_sum_arznj    out number,
+		o_sum_arsxf    out number);
+		实收销帐处理核心
+		【输入参数说明】：
+		p_pid in varchar2,
+		p_payment in number：实收金额
+		p_remainbefore in number：销帐包处理前的期初用户预存余额
+		p_paiddate in date,
+		p_paidmonth in varchar2,
+		p_parm_rls in parm_pay1rl_tab,可以为空（预存充值时），销帐包说明
+					本过程忽略其rdpiids成员值，默认‘整笔应收总账和关联应收明细全集’全部销帐
+					其它成员详见paymeter说明包构造
+		p_commit in number default 不提交：是否提交
+
+		【输出参数说明】：
+		o_sum_arje out number：累计销帐金额（只含待销应收明细中的金额）
+		o_sum_arsavingbq out number：累计预存发生
+
+		【过程说明】：
+		1、应收销帐包可以为空（预存充值时）；
+		2、非空时，也允许销帐包含不符合销帐条件的应收id，例如代扣隔日销帐本地已销情况下；
+		3、包内应收总账及其关联应收明细全部销帐；
+		4、允许应收总账0金额销帐；
+		5、更新应收帐头、明细表中的销帐信息
+		6、返回实收结果信息
+		7、预存销帐逻辑：按销帐包内应收次序销帐，资金先进先销，销帐后‘实收金额’余额记录（无论正负）到最后一笔销帐记录上
+	     
+	procedure precust(p_sbid        in varchar2,
+		    p_position    in varchar2,
+		    p_oper        in varchar2,
+		    p_payway      in varchar2,
+		    p_payment     in number,
+		    p_memo        in varchar2,
+		    p_batch       in out varchar2,
+		    o_pid         out varchar2,
+		    o_remainafter out number);
+		预存充值（一表）
+
+	procedure precustback(p_sbid        in varchar2,
+		p_position    in varchar2,
+		p_oper        in varchar2,
+		p_payway      in varchar2,
+		p_payment     in number,
+		p_memo        in varchar2,
+		p_batch       in out varchar2,
+		o_pid         out varchar2,
+		o_remainafter out number);
+		预存退费（一表）
+
+	procedure precore(p_sbid        in varchar2,
+		    p_trans       in varchar2,
+		    p_position    in varchar2,
+		    p_paypoint    in varchar2,
+		    p_bdate       in date,
+		    p_bseqno      in varchar2,
+		    p_oper        in varchar2,
+		    p_payway      in varchar2,
+		    p_payment     in number,
+		    p_commit      in number,
+		    p_memo        in varchar2,
+		    p_batch       in out varchar2,
+		    p_seqno       in out varchar2,
+		    o_pid         out varchar2,
+		    o_remainafter out number);
+		预存实收处理核心
+		【输入参数说明】：
+		p_sbid        in varchar2：指定预存发生的水表编号
+		p_trans      in varchar2：指定预存发生计帐实收事务
+		p_position      in varchar2：指定预存发生缴费单位
+		p_paypoint   in varchar2：指定预存发生缴费地点
+		p_bdate      in date：指定预存发生银行帐务日期
+		p_bseqno     in varchar2：指定预存发生银行交易流水
+		p_oper       in varchar2：预存收款人
+		p_payway     in varchar2：预存发生付款方式
+		p_payment    in number：预存发生金额（+/-）
+		p_commit     in number：是否提交
+		p_memo       in varchar2：备注信息
+		p_batch      in out number：可空，绑定批次
+		p_seqno      in out number：可空，绑定批次流水
+		【输出参数说明】：
+		p_pid        out number：预存发生记录计帐成功后返回的实收流水号
+
+	function fmid(p_str in varchar2, p_sep in varchar2) return integer;
+		返回p_str中p_sep的个数+1
+
+package pg_balanceadj_01
+
+	procedure approve(p_billno in varchar2,
+		p_person in varchar2,
+		p_billid in varchar2,
+		p_djlb   in varchar2);
+		--单据提交入口过程
+	
+	procedure sp_balanceadj(p_bill_id in varchar2, --批次流水
+		p_per     in varchar2, --操作员
+		p_commit  in varchar2 --提交标志;
+		);
+		--减免单体
+
+package pg_arsplit_01
+	--拆分账单过程包
+
+	--单据提交入口过程
+	procedure approve(p_billno in varchar2,
+		    p_person in varchar2,
+		    p_billid in varchar2,
+		    p_djlb   in varchar2);
+
+	--拆分账单单体
+	procedure sp_arsplit(p_bill_id in varchar2, --批次流水
+		       p_per     in varchar2, --操作员
+		       p_commit  in varchar2 --提交标志;
+		       );
+	--拆分账单单体
+	procedure sp_arsplit_change_one(p_arsplitdt   in ys_gd_arsplitdt%rowtype,  
+		       p_per     in varchar2, --操作员
+		       p_commit  in varchar2 --提交标志;
+		       ); 
+					   
+	--插入单负应收与应收冲正  --单条                     
+	procedure sp_reccz_one_01(p_arid   in ys_zw_arlist.arid%type, -- 行变量
+			    p_commit in varchar --是否提交标志
+			    );
+
+	--应收分账处理  
+	--输入应收流水，分帐金额，
+	--返回分帐水量
+	--1按水量乘单价分
+	--2分到不足一吨水为止
+	--3从高水量减起减到水量为1吨为止
+	function sf_recfzsl(p_arid in varchar2, --分帐流水
+		      p_arje in number --分帐金额
+		      ) return number;
+
+
+
+

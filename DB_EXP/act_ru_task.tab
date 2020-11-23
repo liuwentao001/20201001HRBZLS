@@ -1,0 +1,24 @@
+create table ACT_RU_TASK
+(
+  id_               VARCHAR2(64),
+  rev_              NUMBER,
+  execution_id_     VARCHAR2(64),
+  proc_inst_id_     VARCHAR2(64),
+  proc_def_id_      VARCHAR2(64),
+  name_             VARCHAR2(255),
+  parent_task_id_   VARCHAR2(64),
+  description_      VARCHAR2(4000),
+  task_def_key_     VARCHAR2(255),
+  owner_            VARCHAR2(255),
+  assignee_         VARCHAR2(255),
+  delegation_       VARCHAR2(64),
+  priority_         NUMBER,
+  create_time_      DATE,
+  due_date_         DATE,
+  category_         VARCHAR2(255),
+  suspension_state_ NUMBER,
+  tenant_id_        VARCHAR2(255),
+  form_key_         VARCHAR2(255)
+)
+;
+

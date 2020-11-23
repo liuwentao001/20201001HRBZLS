@@ -1,0 +1,8 @@
+create sequence SEQ_PAIDBATCH
+minvalue 1
+maxvalue 9999999999
+start with 1160947
+increment by 1
+cache 20
+order;
+

@@ -1,0 +1,16 @@
+create table OAUTH_CLIENT_DETAILS
+(
+  client_id               VARCHAR2(250),
+  resource_ids            VARCHAR2(256),
+  client_secret           VARCHAR2(256),
+  scope                   VARCHAR2(256),
+  authorized_grant_types  VARCHAR2(256),
+  web_server_redirect_uri VARCHAR2(256),
+  authorities             VARCHAR2(256),
+  access_token_validity   INTEGER,
+  refresh_token_validity  INTEGER,
+  additional_information  CLOB,
+  autoapprove             VARCHAR2(256)
+)
+;
+

@@ -1,0 +1,62 @@
+create table YS_GD_ARADJUSTDDT
+(
+  id           VARCHAR2(32),
+  hire_code    VARCHAR2(32),
+  rd_id        VARCHAR2(32),
+  group_no     INTEGER,
+  price_no     VARCHAR2(10),
+  price_item   VARCHAR2(2),
+  step_class   INTEGER,
+  rec_price    NUMBER(13,3),
+  rec_water    NUMBER(12,2),
+  rec_amt      NUMBER(13,3),
+  price        NUMBER(13,3),
+  water        NUMBER(12,2),
+  price_no_old VARCHAR2(255),
+  charge_amt   NUMBER(13,3),
+  adjust_price NUMBER(13,3),
+  adjust_water NUMBER(12,2),
+  adjust_amt   NUMBER(13,3),
+  method       VARCHAR2(10),
+  ardpscid     NUMBER
+)
+;
+comment on column YS_GD_ARADJUSTDDT.id
+  is 'ID';
+comment on column YS_GD_ARADJUSTDDT.hire_code
+  is '租户编号';
+comment on column YS_GD_ARADJUSTDDT.rd_id
+  is '单据流水号';
+comment on column YS_GD_ARADJUSTDDT.group_no
+  is '混合用水分组';
+comment on column YS_GD_ARADJUSTDDT.price_no
+  is '价格类别';
+comment on column YS_GD_ARADJUSTDDT.price_item
+  is '费用项目';
+comment on column YS_GD_ARADJUSTDDT.step_class
+  is '阶梯级别';
+comment on column YS_GD_ARADJUSTDDT.rec_price
+  is '应收单价';
+comment on column YS_GD_ARADJUSTDDT.rec_water
+  is '应收水量';
+comment on column YS_GD_ARADJUSTDDT.rec_amt
+  is '应收金额';
+comment on column YS_GD_ARADJUSTDDT.price
+  is '单价';
+comment on column YS_GD_ARADJUSTDDT.water
+  is '水量';
+comment on column YS_GD_ARADJUSTDDT.price_no_old
+  is '价格类别旧';
+comment on column YS_GD_ARADJUSTDDT.charge_amt
+  is '金额';
+comment on column YS_GD_ARADJUSTDDT.adjust_price
+  is '调整单价';
+comment on column YS_GD_ARADJUSTDDT.adjust_water
+  is '调整水量';
+comment on column YS_GD_ARADJUSTDDT.adjust_amt
+  is '调整金额';
+comment on column YS_GD_ARADJUSTDDT.method
+  is '计费方法';
+comment on column YS_GD_ARADJUSTDDT.ardpscid
+  is '费率明细方案';
+

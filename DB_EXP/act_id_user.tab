@@ -1,0 +1,12 @@
+create table ACT_ID_USER
+(
+  id_         VARCHAR2(64),
+  rev_        NUMBER,
+  first_      VARCHAR2(255),
+  last_       VARCHAR2(255),
+  email_      VARCHAR2(255),
+  pwd_        VARCHAR2(255),
+  picture_id_ VARCHAR2(64)
+)
+;
+

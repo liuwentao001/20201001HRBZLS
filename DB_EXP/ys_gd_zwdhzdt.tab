@@ -1,0 +1,381 @@
+create table YS_GD_ZWDHZDT
+(
+  id              VARCHAR2(32) not null,
+  hire_code       VARCHAR2(20),
+  bill_id         VARCHAR2(32) not null,
+  dhzrowno        NUMBER(6) not null,
+  dhzappnote      VARCHAR2(400),
+  dhzfilashnote   VARCHAR2(400),
+  dhzmemo         VARCHAR2(400),
+  dhzshflag       CHAR(1) default 'N' not null,
+  dhzshdate       DATE,
+  dhzshper        VARCHAR2(10),
+  arid            VARCHAR2(10) not null,
+  manage_no       VARCHAR2(10),
+  armonth         VARCHAR2(7),
+  ardate          DATE,
+  yhid            VARCHAR2(10),
+  sbid            VARCHAR2(10),
+  archargeper     VARCHAR2(15),
+  arcpid          VARCHAR2(10),
+  arcclass        NUMBER,
+  arcflag         CHAR(1),
+  arusenum        NUMBER,
+  arcname         VARCHAR2(64),
+  arcadr          VARCHAR2(100),
+  armadr          VARCHAR2(100),
+  arcstatus       VARCHAR2(2),
+  armtel          VARCHAR2(30),
+  artel           VARCHAR2(30),
+  arbankid        VARCHAR2(10),
+  artsbankid      VARCHAR2(10),
+  araccountno     VARCHAR2(32),
+  araccountname   VARCHAR2(64),
+  ariftax         CHAR(1),
+  artaxno         VARCHAR2(30),
+  arifinv         CHAR(1),
+  armcode         VARCHAR2(10),
+  armpid          VARCHAR2(10),
+  armclass        NUMBER,
+  armflag         CHAR(1),
+  armsfid         VARCHAR2(10),
+  arday           DATE,
+  arbfid          VARCHAR2(10),
+  arprdate        DATE,
+  arrdate         DATE,
+  arzndate        DATE,
+  arcaliber       NUMBER(10),
+  arrtid          CHAR(1),
+  armstatus       VARCHAR2(2),
+  armtype         CHAR(1),
+  armno           VARCHAR2(40),
+  arscode         NUMBER(10),
+  arecode         NUMBER(10),
+  arreadsl        NUMBER(10),
+  arinvmemo       VARCHAR2(256),
+  arentrustbatch  VARCHAR2(10),
+  arentrustseqno  VARCHAR2(10),
+  aroutflag       CHAR(1),
+  artrans         VARCHAR2(5),
+  arcd            CHAR(2),
+  aryschargetype  CHAR(1),
+  arsl            NUMBER(10),
+  arje            NUMBER(13,3),
+  araddsl         NUMBER(10),
+  arscrarid       VARCHAR2(10),
+  arscrartrans    VARCHAR2(5),
+  arscrarmonth    VARCHAR2(7),
+  arpaidje        NUMBER(13,3),
+  arpaidflag      CHAR(1),
+  arpaidper       VARCHAR2(20),
+  arpaiddate      DATE,
+  armrid          VARCHAR2(100),
+  armemo          VARCHAR2(200),
+  arznj           NUMBER(13,3),
+  arlb            CHAR(1),
+  arcname2        VARCHAR2(64),
+  arpfid          VARCHAR2(10),
+  ardatetime      DATE,
+  arscrardate     DATE,
+  arprimcode      VARCHAR2(200),
+  arpriflag       CHAR(1),
+  arrper          VARCHAR2(10),
+  arsafid         VARCHAR2(10),
+  arscodechar     VARCHAR2(10),
+  arecodechar     VARCHAR2(10),
+  arilid          VARCHAR2(40),
+  armiuiid        VARCHAR2(10),
+  argroup         NUMBER(2),
+  arpid           VARCHAR2(10),
+  arpbatch        VARCHAR2(10),
+  arsavingqc      NUMBER(12,2),
+  arsavingbq      NUMBER(12,2),
+  arsavingqm      NUMBER(12,2),
+  arreverseflag   VARCHAR2(1),
+  arbadflag       VARCHAR2(1),
+  arznjreducflag  VARCHAR2(1),
+  armistid        VARCHAR2(10),
+  arminame        VARCHAR2(64),
+  arsxf           NUMBER(12,2),
+  armiface2       VARCHAR2(2),
+  armiface3       VARCHAR2(2),
+  armiface4       VARCHAR2(2),
+  armiifckf       CHAR(1),
+  armigps         VARCHAR2(60),
+  armiqfh         VARCHAR2(20),
+  armibox         VARCHAR2(10),
+  arminame2       VARCHAR2(64),
+  armiseqno       VARCHAR2(50),
+  armisaving      NUMBER(13,3),
+  arpriorje       NUMBER(13,3),
+  armicommunity   VARCHAR2(10),
+  armiremoteno    VARCHAR2(20),
+  armiremotehubno VARCHAR2(20),
+  armiemail       VARCHAR2(64),
+  armiemailflag   CHAR(1),
+  armicolumn1     NUMBER(12,2),
+  armicolumn2     VARCHAR2(10),
+  armicolumn3     VARCHAR2(64),
+  armicolumn4     VARCHAR2(10),
+  arpaidmonth     VARCHAR2(7),
+  arcolumn5       DATE,
+  arcolumn9       VARCHAR2(10),
+  arcolumn10      VARCHAR2(7),
+  arcolumn11      VARCHAR2(7),
+  arjtmk          CHAR(1),
+  arjtsrq         VARCHAR2(20),
+  arcolumn12      VARCHAR2(20)
+)
+;
+comment on table YS_GD_ZWDHZDT
+  is '呆死帐单体';
+comment on column YS_GD_ZWDHZDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_ZWDHZDT.dhzrowno
+  is '行号';
+comment on column YS_GD_ZWDHZDT.dhzappnote
+  is '申请说明';
+comment on column YS_GD_ZWDHZDT.dhzfilashnote
+  is '领导意见';
+comment on column YS_GD_ZWDHZDT.dhzmemo
+  is '备注';
+comment on column YS_GD_ZWDHZDT.dhzshflag
+  is '行审核标志';
+comment on column YS_GD_ZWDHZDT.dhzshdate
+  is '行审核日期';
+comment on column YS_GD_ZWDHZDT.dhzshper
+  is '行审核人';
+comment on column YS_GD_ZWDHZDT.arid
+  is '流水号';
+comment on column YS_GD_ZWDHZDT.manage_no
+  is '"营销公司(SYSMANAFRAME 0201道里营业一分公司/0208南岗营业二分公司/0206香坊营业二分公司/0204香坊营业一分公司/0205道外营业二分公司/0203南岗营业一分公司/0207平房营业分公司/0202道外营业一分公司/0209道里营业二分公司/0210嵩山营业分公司)
+"';
+comment on column YS_GD_ZWDHZDT.armonth
+  is '帐务月份';
+comment on column YS_GD_ZWDHZDT.ardate
+  is '帐务日期';
+comment on column YS_GD_ZWDHZDT.yhid
+  is '用户编号';
+comment on column YS_GD_ZWDHZDT.sbid
+  is '水表编号';
+comment on column YS_GD_ZWDHZDT.archargeper
+  is '收费员';
+comment on column YS_GD_ZWDHZDT.arcpid
+  is '上级用户编号';
+comment on column YS_GD_ZWDHZDT.arcclass
+  is '用户级次';
+comment on column YS_GD_ZWDHZDT.arcflag
+  is '末级标志';
+comment on column YS_GD_ZWDHZDT.arusenum
+  is '户用水人数';
+comment on column YS_GD_ZWDHZDT.arcname
+  is '用户名称';
+comment on column YS_GD_ZWDHZDT.arcadr
+  is '用户地址';
+comment on column YS_GD_ZWDHZDT.armadr
+  is '水表地址';
+comment on column YS_GD_ZWDHZDT.arcstatus
+  is '用户状态【syscuststatus】(1正常/7销户/2预立户)';
+comment on column YS_GD_ZWDHZDT.armtel
+  is '移动电话';
+comment on column YS_GD_ZWDHZDT.artel
+  is '固定电话';
+comment on column YS_GD_ZWDHZDT.arbankid
+  is '代扣银行';
+comment on column YS_GD_ZWDHZDT.artsbankid
+  is '托收银行';
+comment on column YS_GD_ZWDHZDT.araccountno
+  is '开户帐号';
+comment on column YS_GD_ZWDHZDT.araccountname
+  is '开户名称';
+comment on column YS_GD_ZWDHZDT.ariftax
+  is '是否税票';
+comment on column YS_GD_ZWDHZDT.artaxno
+  is '增殖税号';
+comment on column YS_GD_ZWDHZDT.arifinv
+  is '是否普票（哈尔滨：借用做是否已打印收据标志，初始化为空）';
+comment on column YS_GD_ZWDHZDT.armcode
+  is '水表手工编号';
+comment on column YS_GD_ZWDHZDT.armpid
+  is '上级水表';
+comment on column YS_GD_ZWDHZDT.armclass
+  is '水表级次';
+comment on column YS_GD_ZWDHZDT.armflag
+  is '末级标志';
+comment on column YS_GD_ZWDHZDT.armsfid
+  is '水表类别';
+comment on column YS_GD_ZWDHZDT.arday
+  is '抄表日';
+comment on column YS_GD_ZWDHZDT.arbfid
+  is '表册(bookframe)';
+comment on column YS_GD_ZWDHZDT.arprdate
+  is '上次抄表日期';
+comment on column YS_GD_ZWDHZDT.arrdate
+  is '本次抄表日期';
+comment on column YS_GD_ZWDHZDT.arzndate
+  is '违约金起算日';
+comment on column YS_GD_ZWDHZDT.arcaliber
+  is '表口径[metercaliber]';
+comment on column YS_GD_ZWDHZDT.arrtid
+  is '抄表方式【sysreadtype】(5对话式抄表机/1人工抄表/2手持抄表机/3有线远传/4无线远传)';
+comment on column YS_GD_ZWDHZDT.armstatus
+  is '状态 【sysmeterstatus】(28基建临时用水/27移表中/19销户中/21欠费停水/24故障换表中/25周检中/7销户/1立户/2预立户/29无表/30故障表/31基建正式用水/32基建拆迁止水/34营销部收入用户/36预存冲正中/33补缴用户/35周期换表中)';
+comment on column YS_GD_ZWDHZDT.armtype
+  is '类型';
+comment on column YS_GD_ZWDHZDT.armno
+  is '表身码';
+comment on column YS_GD_ZWDHZDT.arscode
+  is '起数';
+comment on column YS_GD_ZWDHZDT.arecode
+  is '止数';
+comment on column YS_GD_ZWDHZDT.arreadsl
+  is '抄见水量';
+comment on column YS_GD_ZWDHZDT.arinvmemo
+  is '发票备注';
+comment on column YS_GD_ZWDHZDT.arentrustbatch
+  is '托收代扣批号';
+comment on column YS_GD_ZWDHZDT.arentrustseqno
+  is '托收代扣流水号';
+comment on column YS_GD_ZWDHZDT.aroutflag
+  is '发出标志(Y-发出 N-未发出)';
+comment on column YS_GD_ZWDHZDT.artrans
+  is '应收事务(rectrans)';
+comment on column YS_GD_ZWDHZDT.arcd
+  is '借贷方向';
+comment on column YS_GD_ZWDHZDT.aryschargetype
+  is '应收方式';
+comment on column YS_GD_ZWDHZDT.arsl
+  is '应收水量';
+comment on column YS_GD_ZWDHZDT.arje
+  is '应收金额';
+comment on column YS_GD_ZWDHZDT.araddsl
+  is '加调水量';
+comment on column YS_GD_ZWDHZDT.arscrarid
+  is '原应收帐流水';
+comment on column YS_GD_ZWDHZDT.arscrartrans
+  is '原应收帐事务';
+comment on column YS_GD_ZWDHZDT.arscrarmonth
+  is '原应收帐月份';
+comment on column YS_GD_ZWDHZDT.arpaidje
+  is '销帐金额';
+comment on column YS_GD_ZWDHZDT.arpaidflag
+  is '销帐标志(Y:Y，N:N，X:X，V:Y/N，T:Y/X，K:N/X，W:Y/N/X)';
+comment on column YS_GD_ZWDHZDT.arpaidper
+  is '销帐人员';
+comment on column YS_GD_ZWDHZDT.arpaiddate
+  is '销帐日期';
+comment on column YS_GD_ZWDHZDT.armrid
+  is '抄表流水';
+comment on column YS_GD_ZWDHZDT.armemo
+  is '备注';
+comment on column YS_GD_ZWDHZDT.arznj
+  is '违约金';
+comment on column YS_GD_ZWDHZDT.arlb
+  is '类别';
+comment on column YS_GD_ZWDHZDT.arcname2
+  is '曾用名';
+comment on column YS_GD_ZWDHZDT.arpfid
+  is '主价格类别(priceframe)';
+comment on column YS_GD_ZWDHZDT.ardatetime
+  is '发生日期';
+comment on column YS_GD_ZWDHZDT.arscrardate
+  is '原帐务日期';
+comment on column YS_GD_ZWDHZDT.arprimcode
+  is '合收表主表号';
+comment on column YS_GD_ZWDHZDT.arpriflag
+  is '合收表标志(Y-是 N-否)';
+comment on column YS_GD_ZWDHZDT.arrper
+  is '抄表员';
+comment on column YS_GD_ZWDHZDT.arsafid
+  is '区域';
+comment on column YS_GD_ZWDHZDT.arscodechar
+  is '上期抄表（带表位）';
+comment on column YS_GD_ZWDHZDT.arecodechar
+  is '本期抄表（带表位）';
+comment on column YS_GD_ZWDHZDT.arilid
+  is '发票打印批次';
+comment on column YS_GD_ZWDHZDT.armiuiid
+  is '合收单位编号（迁移前营业所）';
+comment on column YS_GD_ZWDHZDT.argroup
+  is '应收帐分组';
+comment on column YS_GD_ZWDHZDT.arpid
+  is '实收流水（与payment.pid对应）';
+comment on column YS_GD_ZWDHZDT.arpbatch
+  is '缴费交易批次（与payment.PBATCH对应）';
+comment on column YS_GD_ZWDHZDT.arsavingqc
+  is '期初预存（销帐时产生）';
+comment on column YS_GD_ZWDHZDT.arsavingbq
+  is '本期预存发生（销帐时产生）';
+comment on column YS_GD_ZWDHZDT.arsavingqm
+  is '期末预存（销帐时产生）';
+comment on column YS_GD_ZWDHZDT.arreverseflag
+  is '冲正标志（N为正常，Y为冲正）';
+comment on column YS_GD_ZWDHZDT.arbadflag
+  is '呆帐标志（Y :呆坏帐，O:呆坏帐审批中，N:正常帐）';
+comment on column YS_GD_ZWDHZDT.arznjreducflag
+  is '滞纳金减免标志,未减免时为N，销帐时滞纳金直接计算；减免后为Y,销帐时滞纳金直接取ARznj';
+comment on column YS_GD_ZWDHZDT.armistid
+  is '"行业分类【metersortframe】(20政府/21视同/22区域用户/26集体户/1居民/2企业/3特困企业/4破产企业/5增值税企业/6银行/7市直行政事业/8区行政事业/10学校/11医院/12环卫公厕/13非环卫公厕/14绿  化/15暂不开票/16销  户/17表  拆/18分  户/19报  停/23农郊用户/24校核表/25消防表/30一户一表)
+"';
+comment on column YS_GD_ZWDHZDT.arminame
+  is '票据名称';
+comment on column YS_GD_ZWDHZDT.arsxf
+  is '手续费';
+comment on column YS_GD_ZWDHZDT.armiface2
+  is '抄见故障(01正常/02表异常/03零水量)';
+comment on column YS_GD_ZWDHZDT.armiface3
+  is '非常计量';
+comment on column YS_GD_ZWDHZDT.armiface4
+  is '表井设施说明';
+comment on column YS_GD_ZWDHZDT.armiifckf
+  is '垃圾费户数';
+comment on column YS_GD_ZWDHZDT.armigps
+  is '是否合票(Y-是 N-否)';
+comment on column YS_GD_ZWDHZDT.armiqfh
+  is '铅封号';
+comment on column YS_GD_ZWDHZDT.armibox
+  is '消防水价（增值税水价，襄阳需求）';
+comment on column YS_GD_ZWDHZDT.arminame2
+  is '招牌名称(小区名，襄阳需求）';
+comment on column YS_GD_ZWDHZDT.armiseqno
+  is '户号（初始化时册号+序号）';
+comment on column YS_GD_ZWDHZDT.armisaving
+  is '算费时预存';
+comment on column YS_GD_ZWDHZDT.arpriorje
+  is '算费之前欠费';
+comment on column YS_GD_ZWDHZDT.armicommunity
+  is '小区';
+comment on column YS_GD_ZWDHZDT.armiremoteno
+  is '远传表号';
+comment on column YS_GD_ZWDHZDT.armiremotehubno
+  is '远传HUB号';
+comment on column YS_GD_ZWDHZDT.armiemail
+  is '电子邮件';
+comment on column YS_GD_ZWDHZDT.armiemailflag
+  is '发票类别';
+comment on column YS_GD_ZWDHZDT.armicolumn1
+  is '备用字段1';
+comment on column YS_GD_ZWDHZDT.armicolumn2
+  is '票据批次号';
+comment on column YS_GD_ZWDHZDT.armicolumn3
+  is '备用字段3';
+comment on column YS_GD_ZWDHZDT.armicolumn4
+  is '备用字段3';
+comment on column YS_GD_ZWDHZDT.arpaidmonth
+  is '销账月份';
+comment on column YS_GD_ZWDHZDT.arcolumn5
+  is '上次应帐帐日期';
+comment on column YS_GD_ZWDHZDT.arcolumn9
+  is '上次应收帐流水';
+comment on column YS_GD_ZWDHZDT.arcolumn10
+  is '上次应收帐月份';
+comment on column YS_GD_ZWDHZDT.arcolumn11
+  is '上次应收帐事务';
+comment on column YS_GD_ZWDHZDT.arjtmk
+  is '不记阶梯注记';
+comment on column YS_GD_ZWDHZDT.arjtsrq
+  is '本周期阶梯开始日期';
+comment on column YS_GD_ZWDHZDT.arcolumn12
+  is '年度累计量';
+create unique index PK_YS_GD_ZWDHZDT on YS_GD_ZWDHZDT (BILL_ID, DHZROWNO);
+

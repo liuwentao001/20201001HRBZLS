@@ -1,0 +1,45 @@
+create table YS_YH_ACCOUNT
+(
+  id             VARCHAR2(32) not null,
+  sbid           VARCHAR2(10),
+  yhano          VARCHAR2(64),
+  yhanoname      VARCHAR2(60),
+  yhabankid      VARCHAR2(30),
+  yhaaccountno   VARCHAR2(32),
+  yhaaccountname VARCHAR2(64),
+  yhatsbankid    VARCHAR2(30),
+  yhatsbankname  VARCHAR2(64),
+  yhaifxezf      CHAR(1),
+  yharegdate     DATE,
+  hire_code      VARCHAR2(20)
+)
+;
+comment on table YS_YH_ACCOUNT
+  is '户表银行信息【YhA】';
+comment on column YS_YH_ACCOUNT.id
+  is '唯一值';
+comment on column YS_YH_ACCOUNT.sbid
+  is '水表资料号';
+comment on column YS_YH_ACCOUNT.yhano
+  is '委托授权号';
+comment on column YS_YH_ACCOUNT.yhanoname
+  is '签约户名';
+comment on column YS_YH_ACCOUNT.yhabankid
+  is '开户行（代托）';
+comment on column YS_YH_ACCOUNT.yhaaccountno
+  is '开户帐号（代托）';
+comment on column YS_YH_ACCOUNT.yhaaccountname
+  is '开户名（代托）';
+comment on column YS_YH_ACCOUNT.yhatsbankid
+  is '接收行号（托）';
+comment on column YS_YH_ACCOUNT.yhatsbankname
+  is '凭证银行（托）';
+comment on column YS_YH_ACCOUNT.yhaifxezf
+  is '小额支付（托）';
+comment on column YS_YH_ACCOUNT.yharegdate
+  is '签约日期';
+create index IDX_YHAACCOUNTNO on YS_YH_ACCOUNT (YHAACCOUNTNO);
+create index IDX_YH_ACCOUNT_001 on YS_YH_ACCOUNT (YHABANKID);
+alter table YS_YH_ACCOUNT
+  add constraint AK_PK_YH_ACCOUNT_ID primary key (ID);
+

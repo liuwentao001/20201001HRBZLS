@@ -1,0 +1,385 @@
+create table YS_ZW_PAIDMENT
+(
+  id           VARCHAR2(32) not null,
+  hire_code    VARCHAR2(20),
+  pid          VARCHAR2(10) not null,
+  yhid         VARCHAR2(10) not null,
+  sbid         VARCHAR2(10),
+  pddate       DATE,
+  pdatetime    DATE,
+  pdmonth      VARCHAR2(7),
+  manage_no    VARCHAR2(10),
+  pdtran       CHAR(1) not null,
+  pdpers       VARCHAR2(20),
+  pdsavingqc   NUMBER(12,2),
+  pdsavingbq   NUMBER(12,2),
+  pdsavingqm   NUMBER(12,2),
+  paidment     NUMBER(12,2),
+  pdifsaving   CHAR(1),
+  pdchange     NUMBER(12,2),
+  pdpayway     VARCHAR2(6),
+  pdbseqno     VARCHAR2(20),
+  pdcseqno     VARCHAR2(20),
+  pdbdate      DATE,
+  pdchkdate    DATE,
+  pdcchkflag   CHAR(1),
+  pdcdate      DATE,
+  pdbatch      VARCHAR2(10),
+  pdseqno      VARCHAR2(10),
+  pdpayee      VARCHAR2(20),
+  pdchbatch    VARCHAR2(100),
+  pdmemo       VARCHAR2(200),
+  pdpaypoint   VARCHAR2(10),
+  pdsxf        NUMBER(12,2),
+  pdilid       VARCHAR2(40),
+  pdflag       VARCHAR2(1),
+  pdwyj        NUMBER(12,2),
+  pdrcreceived NUMBER(12,2),
+  pdspje       NUMBER(12,2),
+  preverseflag VARCHAR2(1),
+  pdscrid      VARCHAR2(10),
+  pdscrtrans   VARCHAR2(1),
+  pdscrmonth   VARCHAR2(7),
+  pdscrdate    DATE,
+  pdchkno      VARCHAR2(10),
+  pdpriid      VARCHAR2(10),
+  tchkdate     DATE,
+  pdtax        NUMBER(12,3) default 0,
+  pdzdate      DATE
+)
+partition by range (PDDATE)
+(
+  partition PART_YS_PAIDMENT_200901 values less than (TO_DATE(' 2009-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201001 values less than (TO_DATE(' 2010-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201101 values less than (TO_DATE(' 2011-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201201 values less than (TO_DATE(' 2012-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201202 values less than (TO_DATE(' 2012-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201203 values less than (TO_DATE(' 2012-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201204 values less than (TO_DATE(' 2012-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201205 values less than (TO_DATE(' 2012-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201206 values less than (TO_DATE(' 2012-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201207 values less than (TO_DATE(' 2012-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201208 values less than (TO_DATE(' 2012-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201209 values less than (TO_DATE(' 2012-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201210 values less than (TO_DATE(' 2012-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201211 values less than (TO_DATE(' 2012-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201212 values less than (TO_DATE(' 2012-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201301 values less than (TO_DATE(' 2013-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201302 values less than (TO_DATE(' 2013-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201303 values less than (TO_DATE(' 2013-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201304 values less than (TO_DATE(' 2013-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201305 values less than (TO_DATE(' 2013-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201306 values less than (TO_DATE(' 2013-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201307 values less than (TO_DATE(' 2013-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201308 values less than (TO_DATE(' 2013-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201309 values less than (TO_DATE(' 2013-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201310 values less than (TO_DATE(' 2013-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201311 values less than (TO_DATE(' 2013-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201312 values less than (TO_DATE(' 2013-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201401 values less than (TO_DATE(' 2014-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201402 values less than (TO_DATE(' 2014-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201403 values less than (TO_DATE(' 2014-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201404 values less than (TO_DATE(' 2014-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201405 values less than (TO_DATE(' 2014-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201406 values less than (TO_DATE(' 2014-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201407 values less than (TO_DATE(' 2014-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201408 values less than (TO_DATE(' 2014-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201409 values less than (TO_DATE(' 2014-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201410 values less than (TO_DATE(' 2014-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201411 values less than (TO_DATE(' 2014-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201412 values less than (TO_DATE(' 2014-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201501 values less than (TO_DATE(' 2015-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201502 values less than (TO_DATE(' 2015-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201503 values less than (TO_DATE(' 2015-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201504 values less than (TO_DATE(' 2015-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201505 values less than (TO_DATE(' 2015-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201506 values less than (TO_DATE(' 2015-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201507 values less than (TO_DATE(' 2015-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201508 values less than (TO_DATE(' 2015-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201509 values less than (TO_DATE(' 2015-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201510 values less than (TO_DATE(' 2015-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201511 values less than (TO_DATE(' 2015-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201512 values less than (TO_DATE(' 2015-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201601 values less than (TO_DATE(' 2016-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201602 values less than (TO_DATE(' 2016-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201603 values less than (TO_DATE(' 2016-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201604 values less than (TO_DATE(' 2016-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201605 values less than (TO_DATE(' 2016-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201606 values less than (TO_DATE(' 2016-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201607 values less than (TO_DATE(' 2016-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201608 values less than (TO_DATE(' 2016-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201609 values less than (TO_DATE(' 2016-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201610 values less than (TO_DATE(' 2016-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201611 values less than (TO_DATE(' 2016-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201612 values less than (TO_DATE(' 2016-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201701 values less than (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201702 values less than (TO_DATE(' 2017-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201703 values less than (TO_DATE(' 2017-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201704 values less than (TO_DATE(' 2017-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201705 values less than (TO_DATE(' 2017-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201706 values less than (TO_DATE(' 2017-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201707 values less than (TO_DATE(' 2017-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201708 values less than (TO_DATE(' 2017-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201709 values less than (TO_DATE(' 2017-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201710 values less than (TO_DATE(' 2017-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201711 values less than (TO_DATE(' 2017-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201712 values less than (TO_DATE(' 2017-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201801 values less than (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201802 values less than (TO_DATE(' 2018-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201803 values less than (TO_DATE(' 2018-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201804 values less than (TO_DATE(' 2018-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201805 values less than (TO_DATE(' 2018-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201806 values less than (TO_DATE(' 2018-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201807 values less than (TO_DATE(' 2018-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201808 values less than (TO_DATE(' 2018-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201809 values less than (TO_DATE(' 2018-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201810 values less than (TO_DATE(' 2018-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201811 values less than (TO_DATE(' 2018-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201812 values less than (TO_DATE(' 2018-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201901 values less than (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201902 values less than (TO_DATE(' 2019-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201903 values less than (TO_DATE(' 2019-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201904 values less than (TO_DATE(' 2019-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201905 values less than (TO_DATE(' 2019-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201906 values less than (TO_DATE(' 2019-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201907 values less than (TO_DATE(' 2019-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201908 values less than (TO_DATE(' 2019-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201909 values less than (TO_DATE(' 2019-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201910 values less than (TO_DATE(' 2019-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201911 values less than (TO_DATE(' 2019-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_201912 values less than (TO_DATE(' 2019-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202001 values less than (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202002 values less than (TO_DATE(' 2020-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202003 values less than (TO_DATE(' 2020-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202004 values less than (TO_DATE(' 2020-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202005 values less than (TO_DATE(' 2020-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202006 values less than (TO_DATE(' 2020-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202007 values less than (TO_DATE(' 2020-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202008 values less than (TO_DATE(' 2020-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202009 values less than (TO_DATE(' 2020-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202010 values less than (TO_DATE(' 2020-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202011 values less than (TO_DATE(' 2020-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202012 values less than (TO_DATE(' 2020-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_202101 values less than (TO_DATE(' 2021-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS,
+  partition PART_YS_PAIDMENT_PMAX values less than (MAXVALUE)
+    tablespace USERS
+);
+comment on table YS_ZW_PAIDMENT
+  is '付款交易【P】';
+comment on column YS_ZW_PAIDMENT.pid
+  is '流水号';
+comment on column YS_ZW_PAIDMENT.yhid
+  is '用户编号';
+comment on column YS_ZW_PAIDMENT.sbid
+  is '水表编号';
+comment on column YS_ZW_PAIDMENT.pddate
+  is '帐务日期（收费日期）';
+comment on column YS_ZW_PAIDMENT.pdatetime
+  is '发生日期';
+comment on column YS_ZW_PAIDMENT.pdmonth
+  is '缴费月份';
+comment on column YS_ZW_PAIDMENT.manage_no
+  is '缴费机构（营业所或银行）【SYSMANAFRAME】(0201道里营业一分公司/0208南岗营业二分公司/0206香坊营业二分公司/0204香坊营业一分公司/0205道外营业二分公司/0203南岗营业一分公司/0207平房营业分公司/0202道外营业一分公司/0209道里营业二分公司/0210嵩山营业分公司/0302邮政储蓄/0304哈尔滨银行/0305中国银行/0301交通银行/0303工商银行/0306光大银行/0307建设银行/0308招商银行)
+';
+comment on column YS_ZW_PAIDMENT.pdtran
+  is '缴费事务(paidtrans)';
+comment on column YS_ZW_PAIDMENT.pdpers
+  is '销帐人员';
+comment on column YS_ZW_PAIDMENT.pdsavingqc
+  is '期初预存余额';
+comment on column YS_ZW_PAIDMENT.pdsavingbq
+  is '本期发生预存金额';
+comment on column YS_ZW_PAIDMENT.pdsavingqm
+  is '期末预存余额';
+comment on column YS_ZW_PAIDMENT.paidment
+  is '付款金额';
+comment on column YS_ZW_PAIDMENT.pdifsaving
+  is '找零转预存';
+comment on column YS_ZW_PAIDMENT.pdchange
+  is '找零金额';
+comment on column YS_ZW_PAIDMENT.pdpayway
+  is '付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)';
+comment on column YS_ZW_PAIDMENT.pdbseqno
+  is '银行流水(银行实时收费交易流水)';
+comment on column YS_ZW_PAIDMENT.pdcseqno
+  is '清算中心流水(NO USE)';
+comment on column YS_ZW_PAIDMENT.pdbdate
+  is '银行日期(银行缴费账务日期)';
+comment on column YS_ZW_PAIDMENT.pdchkdate
+  is '扎帐日期（收费员结账后回写审核日期）';
+comment on column YS_ZW_PAIDMENT.pdcchkflag
+  is '标志(NO USE)';
+comment on column YS_ZW_PAIDMENT.pdcdate
+  is '清算日期';
+comment on column YS_ZW_PAIDMENT.pdbatch
+  is '缴费交易批次';
+comment on column YS_ZW_PAIDMENT.pdseqno
+  is '缴费交易流水(NO USE)';
+comment on column YS_ZW_PAIDMENT.pdpayee
+  is '收款员';
+comment on column YS_ZW_PAIDMENT.pdchbatch
+  is '支票交易批次';
+comment on column YS_ZW_PAIDMENT.pdmemo
+  is '备注';
+comment on column YS_ZW_PAIDMENT.pdpaypoint
+  is '缴费地点（可细化到窗口）';
+comment on column YS_ZW_PAIDMENT.pdsxf
+  is '手续费';
+comment on column YS_ZW_PAIDMENT.pdilid
+  is '发票流水号（迁移前营业所）';
+comment on column YS_ZW_PAIDMENT.pdflag
+  is '实收标志（全部为Y.暂无启用）';
+comment on column YS_ZW_PAIDMENT.pdwyj
+  is '实收滞金';
+comment on column YS_ZW_PAIDMENT.pdrcreceived
+  is '实际收款金额（实际收款金额 =  付款金额 -找零金额；销帐金额 + 实收滞金 + 手续费 + 本期发生预存金额）';
+comment on column YS_ZW_PAIDMENT.pdspje
+  is '销帐金额（如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0）';
+comment on column YS_ZW_PAIDMENT.preverseflag
+  is '冲正标志（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）';
+comment on column YS_ZW_PAIDMENT.pdscrid
+  is '原实收帐流水（应收冲实产生的负帐时YS_PAIDMENT.PSCRID不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况YS_PAIDMENT.PSCRID为空）';
+comment on column YS_ZW_PAIDMENT.pdscrtrans
+  is '原实收缴费事务（实收冲正产生的负帐时YS_PAIDMENT.PSCRTRANS不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况YS_PAIDMENT.PSCRTRANS为空）';
+comment on column YS_ZW_PAIDMENT.pdscrmonth
+  is '原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：A用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）';
+comment on column YS_ZW_PAIDMENT.pdscrdate
+  is '原实收日期';
+comment on column YS_ZW_PAIDMENT.pdchkno
+  is '进账单号（收费员结账后回写营销单号）';
+comment on column YS_ZW_PAIDMENT.pdpriid
+  is '合收主表号';
+comment on column YS_ZW_PAIDMENT.tchkdate
+  is '到账日期（财务到账确认后回写到账日期）';
+comment on column YS_ZW_PAIDMENT.pdtax
+  is '税额比例';
+comment on column YS_ZW_PAIDMENT.pdzdate
+  is '财务对账日期（财务对账审核后回写）';
+create index IDX_PBATCH on YS_ZW_PAIDMENT (PDBATCH);
+create index IDX_PBSEQNO on YS_ZW_PAIDMENT (PDBSEQNO);
+create index IDX_PCHKDATE on YS_ZW_PAIDMENT (PDCHKDATE);
+create index IDX_PCID on YS_ZW_PAIDMENT (YHID);
+create index IDX_PCKNO on YS_ZW_PAIDMENT (PDCHKNO);
+create index IDX_PDATETIME on YS_ZW_PAIDMENT (PDATETIME);
+create index IDX_PMONTH on YS_ZW_PAIDMENT (PDMONTH);
+create index IDX_PSPOSITION on YS_ZW_PAIDMENT (MANAGE_NO);
+create index IDX_YS_PAIDMENT_PDZDATE on YS_ZW_PAIDMENT (PDZDATE);
+create index IDX_YS_PAIDMENT_PMID on YS_ZW_PAIDMENT (SBID);
+create index IDX_YS_PAIDMENT_PPRIID on YS_ZW_PAIDMENT (PDPRIID);
+create index IDX_YS_PAIDMENT_PSCRID on YS_ZW_PAIDMENT (PDSCRID);
+create index IDX_YS_PAIDMENT_PTRANS on YS_ZW_PAIDMENT (PDTRAN);
+alter table YS_ZW_PAIDMENT
+  add constraint PK_YS_PAIDMENT primary key (PID);
+

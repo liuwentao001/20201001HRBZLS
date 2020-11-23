@@ -1,0 +1,93 @@
+create table YS_GD_ARADJUSTDT
+(
+  id             VARCHAR2(32),
+  hire_code      VARCHAR2(32),
+  bill_id        VARCHAR2(32),
+  chk_flag       CHAR(1),
+  user_no        VARCHAR2(20),
+  rec_id         VARCHAR2(24),
+  price_no       VARCHAR2(32),
+  rec_month      VARCHAR2(7),
+  rec_date       DATE,
+  pread_date     DATE,
+  read_date      DATE,
+  read_scode     INTEGER,
+  read_ecode     INTEGER,
+  read_water     INTEGER,
+  water          INTEGER,
+  charge_amt     NUMBER(13,3),
+  pread_date_old DATE,
+  read_date_old  DATE,
+  read_scode_old INTEGER,
+  read_ecode_old INTEGER,
+  read_water_old INTEGER,
+  water_old      INTEGER,
+  charge_amt_old NUMBER(13,3),
+  price_no_old   VARCHAR2(32),
+  adj_water      INTEGER,
+  adj_amt        NUMBER(13,3),
+  check_flag     VARCHAR2(2),
+  fail_reason    VARCHAR2(60),
+  rec_id_cr      VARCHAR2(24),
+  rec_id_de      VARCHAR2(24)
+)
+;
+comment on column YS_GD_ARADJUSTDT.hire_code
+  is '租户编号';
+comment on column YS_GD_ARADJUSTDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_ARADJUSTDT.chk_flag
+  is '选中标志';
+comment on column YS_GD_ARADJUSTDT.user_no
+  is '用户编号';
+comment on column YS_GD_ARADJUSTDT.rec_id
+  is '账务流水';
+comment on column YS_GD_ARADJUSTDT.price_no
+  is '主价格类别';
+comment on column YS_GD_ARADJUSTDT.rec_month
+  is '帐务月份';
+comment on column YS_GD_ARADJUSTDT.rec_date
+  is '帐务日期';
+comment on column YS_GD_ARADJUSTDT.pread_date
+  is '上次抄表日期';
+comment on column YS_GD_ARADJUSTDT.read_date
+  is '本次抄表日期';
+comment on column YS_GD_ARADJUSTDT.read_scode
+  is '起数';
+comment on column YS_GD_ARADJUSTDT.read_ecode
+  is '止数';
+comment on column YS_GD_ARADJUSTDT.read_water
+  is '抄见水量';
+comment on column YS_GD_ARADJUSTDT.water
+  is '应收水量';
+comment on column YS_GD_ARADJUSTDT.charge_amt
+  is '应收金额';
+comment on column YS_GD_ARADJUSTDT.pread_date_old
+  is '上次抄表日期旧';
+comment on column YS_GD_ARADJUSTDT.read_date_old
+  is '本次抄表日期旧';
+comment on column YS_GD_ARADJUSTDT.read_scode_old
+  is '起数旧';
+comment on column YS_GD_ARADJUSTDT.read_ecode_old
+  is '止数旧';
+comment on column YS_GD_ARADJUSTDT.read_water_old
+  is '抄见水量旧';
+comment on column YS_GD_ARADJUSTDT.water_old
+  is '应收水量旧';
+comment on column YS_GD_ARADJUSTDT.charge_amt_old
+  is '应收金额旧';
+comment on column YS_GD_ARADJUSTDT.price_no_old
+  is '主价格类别旧';
+comment on column YS_GD_ARADJUSTDT.adj_water
+  is '调整水量';
+comment on column YS_GD_ARADJUSTDT.adj_amt
+  is '调整金额';
+comment on column YS_GD_ARADJUSTDT.check_flag
+  is '审核标志';
+comment on column YS_GD_ARADJUSTDT.fail_reason
+  is '失败原因';
+comment on column YS_GD_ARADJUSTDT.rec_id_cr
+  is '贷记账务流水（回写）';
+comment on column YS_GD_ARADJUSTDT.rec_id_de
+  is '借记账务流水（回写）';
+

@@ -1,0 +1,16 @@
+create table ACT_RU_EVENT_SUBSCR
+(
+  id_            VARCHAR2(64),
+  rev_           NUMBER,
+  event_type_    VARCHAR2(255),
+  event_name_    VARCHAR2(255),
+  execution_id_  VARCHAR2(64),
+  proc_inst_id_  VARCHAR2(64),
+  activity_id_   VARCHAR2(64),
+  configuration_ VARCHAR2(255),
+  created_       DATE,
+  proc_def_id_   VARCHAR2(64),
+  tenant_id_     VARCHAR2(255)
+)
+;
+

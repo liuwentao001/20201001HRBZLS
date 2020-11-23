@@ -1,0 +1,17 @@
+create table ACT_EVT_LOG
+(
+  log_nr_       NUMBER,
+  type_         VARCHAR2(64),
+  proc_def_id_  VARCHAR2(64),
+  proc_inst_id_ VARCHAR2(64),
+  execution_id_ VARCHAR2(64),
+  task_id_      VARCHAR2(64),
+  time_stamp_   DATE,
+  user_id_      VARCHAR2(255),
+  data_         VARCHAR2(2000),
+  lock_owner_   VARCHAR2(255),
+  lock_time_    DATE,
+  is_processed_ NUMBER
+)
+;
+

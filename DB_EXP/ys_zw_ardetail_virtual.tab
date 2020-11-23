@@ -1,0 +1,102 @@
+create global temporary table YS_ZW_ARDETAIL_VIRTUAL
+(
+  id            VARCHAR2(32) not null,
+  hire_code     VARCHAR2(20),
+  ardid         VARCHAR2(10) not null,
+  ardpmdid      NUMBER not null,
+  ardpiid       CHAR(2) not null,
+  ardpfid       VARCHAR2(10) not null,
+  ardpscid      NUMBER not null,
+  ardclass      NUMBER not null,
+  ardysdj       NUMBER(13,3),
+  ardyssl       NUMBER(12,2),
+  ardysje       NUMBER(13,3),
+  arddj         NUMBER(13,3),
+  ardsl         NUMBER(12,2),
+  ardje         NUMBER(13,3),
+  ardadjdj      NUMBER(13,3),
+  ardadjsl      NUMBER(12,2),
+  ardadjje      NUMBER(13,3),
+  ardmethod     CHAR(3),
+  ardpaidflag   CHAR(1),
+  ardpaiddate   DATE,
+  ardpaidmonth  VARCHAR2(7),
+  ardpaidper    VARCHAR2(20),
+  ardpmdscale   NUMBER(10,2),
+  ardilid       VARCHAR2(10),
+  ardznj        NUMBER(12,2),
+  ardmemo       VARCHAR2(200),
+  ardmsmfid     VARCHAR2(10),
+  ardmonth      VARCHAR2(7),
+  ardmid        VARCHAR2(10),
+  ardpmdtype    VARCHAR2(2),
+  ardpmdcolumn1 VARCHAR2(10),
+  ardpmdcolumn2 VARCHAR2(10),
+  ardpmdcolumn3 VARCHAR2(10)
+)
+on commit delete rows;
+comment on table YS_ZW_ARDETAIL_VIRTUAL
+  is '应收帐明细【ARD】';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardid
+  is '流水号';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdid
+  is '混合用水分组';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpiid
+  is '费用项目';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpfid
+  is '费率';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpscid
+  is '费率明细方案';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardclass
+  is '阶梯级别';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardysdj
+  is '应收单价';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardyssl
+  is '应收水量';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardysje
+  is '应收金额';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.arddj
+  is '实收单价';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardsl
+  is '实收水量';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardje
+  is '实收金额';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardadjdj
+  is '调整单价';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardadjsl
+  is '调整水量';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardadjje
+  is '调整金额';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmethod
+  is '计费方法';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaidflag
+  is '销帐标志';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaiddate
+  is '销帐日期';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaidmonth
+  is '销帐月份';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaidper
+  is '销帐人员';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdscale
+  is '混合比例';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardilid
+  is '票据流水';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardznj
+  is '违约金';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmemo
+  is '备注';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmsmfid
+  is '营销公司';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmonth
+  is '帐务月份';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmid
+  is '水表编号';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdtype
+  is '混合类别';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdcolumn1
+  is '备用字段1';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdcolumn2
+  is '备用字段2';
+comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdcolumn3
+  is '备用字段3';
+

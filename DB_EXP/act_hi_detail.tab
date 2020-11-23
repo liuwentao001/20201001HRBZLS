@@ -1,0 +1,20 @@
+create table ACT_HI_DETAIL
+(
+  id_           VARCHAR2(64),
+  type_         VARCHAR2(255),
+  proc_inst_id_ VARCHAR2(64),
+  execution_id_ VARCHAR2(64),
+  task_id_      VARCHAR2(64),
+  act_inst_id_  VARCHAR2(64),
+  name_         VARCHAR2(255),
+  var_type_     VARCHAR2(255),
+  rev_          NUMBER,
+  time_         DATE,
+  bytearray_id_ VARCHAR2(64),
+  double_       NUMBER,
+  long_         NUMBER,
+  text_         CLOB,
+  text2_        CLOB
+)
+;
+

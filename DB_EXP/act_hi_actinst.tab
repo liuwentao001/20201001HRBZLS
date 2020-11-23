@@ -1,0 +1,19 @@
+create table ACT_HI_ACTINST
+(
+  id_                VARCHAR2(64),
+  proc_def_id_       VARCHAR2(64),
+  proc_inst_id_      VARCHAR2(64),
+  execution_id_      VARCHAR2(64),
+  act_id_            VARCHAR2(255),
+  task_id_           VARCHAR2(64),
+  call_proc_inst_id_ VARCHAR2(64),
+  act_name_          VARCHAR2(255),
+  act_type_          VARCHAR2(255),
+  assignee_          VARCHAR2(255),
+  start_time_        DATE,
+  end_time_          DATE,
+  duration_          NUMBER,
+  tenant_id_         VARCHAR2(255)
+)
+;
+

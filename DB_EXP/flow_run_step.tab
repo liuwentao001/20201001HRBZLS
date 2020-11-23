@@ -1,0 +1,15 @@
+create table FLOW_RUN_STEP
+(
+  id           VARCHAR2(32),
+  step_code    VARCHAR2(32),
+  turn_per     VARCHAR2(60),
+  turn_date    DATE,
+  flow_id      VARCHAR2(32),
+  receive_per  VARCHAR2(60),
+  receive_date DATE,
+  dept_id      VARCHAR2(60),
+  hire_code    VARCHAR2(32),
+  repeat_id    VARCHAR2(32)
+)
+;
+

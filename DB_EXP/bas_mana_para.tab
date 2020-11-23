@@ -1,0 +1,11 @@
+create table BAS_MANA_PARA
+(
+  id           VARCHAR2(32),
+  hire_code    VARCHAR2(32),
+  manage_no    VARCHAR2(10),
+  parameter_no VARCHAR2(100),
+  bcs_describe VARCHAR2(100),
+  content      VARCHAR2(500)
+)
+;
+

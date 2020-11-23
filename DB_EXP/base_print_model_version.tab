@@ -1,0 +1,12 @@
+create table BASE_PRINT_MODEL_VERSION
+(
+  model_version_id          VARCHAR2(32),
+  model_id                  VARCHAR2(32),
+  model_version_num         INTEGER,
+  model_version_note        CLOB,
+  model_version_create_per  VARCHAR2(255),
+  model_version_create_time DATE,
+  hire_code                 VARCHAR2(255)
+)
+;
+

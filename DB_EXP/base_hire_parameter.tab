@@ -1,0 +1,11 @@
+create table BASE_HIRE_PARAMETER
+(
+  id              VARCHAR2(32),
+  hire_code       VARCHAR2(32),
+  parameter_code  VARCHAR2(20),
+  parameter_value VARCHAR2(255),
+  create_date     DATE,
+  create_per      VARCHAR2(255)
+)
+;
+

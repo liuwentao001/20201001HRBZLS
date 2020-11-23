@@ -1,0 +1,23 @@
+create table BASE_SMS_RECORD
+(
+  id           VARCHAR2(32),
+  is_delayed   VARCHAR2(32),
+  delayed_date VARCHAR2(32),
+  msg_type     VARCHAR2(32),
+  text         VARCHAR2(300),
+  encoding     VARCHAR2(30),
+  task_id      VARCHAR2(100),
+  port         VARCHAR2(30),
+  number       VARCHAR2(15),
+  user_id      VARCHAR2(50),
+  time         VARCHAR2(50),
+  status       VARCHAR2(100),
+  count        INTEGER,
+  succ_count   INTEGER,
+  status_code  VARCHAR2(100),
+  create_date  VARCHAR2(30),
+  create_per   VARCHAR2(50),
+  hire_code    VARCHAR2(32)
+)
+;
+

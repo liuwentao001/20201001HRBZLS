@@ -1,0 +1,73 @@
+create table YS_GD_ARSPLITDT
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(20),
+  bill_id     VARCHAR2(32),
+  chk_flag    CHAR(1),
+  user_no     VARCHAR2(20),
+  rec_id      VARCHAR2(24),
+  price_no    VARCHAR2(10),
+  rec_month   VARCHAR2(7),
+  rec_date    DATE,
+  pread_date  DATE,
+  read_date   DATE,
+  read_scode  INTEGER,
+  read_ecode  INTEGER,
+  read_water  INTEGER,
+  water       INTEGER,
+  charge_amt  NUMBER(13,3),
+  water1      INTEGER,
+  charge_amt1 NUMBER(13,3),
+  water2      INTEGER,
+  charge_amt2 NUMBER(13,3),
+  check_flag  VARCHAR2(2),
+  fail_reason VARCHAR2(60)
+)
+;
+comment on table YS_GD_ARSPLITDT
+  is '拆分账单体';
+comment on column YS_GD_ARSPLITDT.id
+  is '主键';
+comment on column YS_GD_ARSPLITDT.hire_code
+  is '租户编号';
+comment on column YS_GD_ARSPLITDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_ARSPLITDT.chk_flag
+  is '选中标志';
+comment on column YS_GD_ARSPLITDT.user_no
+  is '用户编号';
+comment on column YS_GD_ARSPLITDT.rec_id
+  is '账务流水';
+comment on column YS_GD_ARSPLITDT.price_no
+  is '主价格类别';
+comment on column YS_GD_ARSPLITDT.rec_month
+  is '帐务月份';
+comment on column YS_GD_ARSPLITDT.rec_date
+  is '帐务日期';
+comment on column YS_GD_ARSPLITDT.pread_date
+  is '上次抄表日期';
+comment on column YS_GD_ARSPLITDT.read_date
+  is '本次抄表日期';
+comment on column YS_GD_ARSPLITDT.read_scode
+  is '起数';
+comment on column YS_GD_ARSPLITDT.read_ecode
+  is '止数';
+comment on column YS_GD_ARSPLITDT.read_water
+  is '抄见水量';
+comment on column YS_GD_ARSPLITDT.water
+  is '应收水量';
+comment on column YS_GD_ARSPLITDT.charge_amt
+  is '应收金额';
+comment on column YS_GD_ARSPLITDT.water1
+  is '水量1';
+comment on column YS_GD_ARSPLITDT.charge_amt1
+  is '金额1';
+comment on column YS_GD_ARSPLITDT.water2
+  is '水量2';
+comment on column YS_GD_ARSPLITDT.charge_amt2
+  is '金额2';
+comment on column YS_GD_ARSPLITDT.check_flag
+  is '审核标志';
+comment on column YS_GD_ARSPLITDT.fail_reason
+  is '失败原因';
+

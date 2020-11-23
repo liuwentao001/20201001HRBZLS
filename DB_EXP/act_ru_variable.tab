@@ -1,0 +1,17 @@
+create table ACT_RU_VARIABLE
+(
+  id_           VARCHAR2(64),
+  rev_          NUMBER,
+  type_         VARCHAR2(255),
+  name_         VARCHAR2(255),
+  execution_id_ VARCHAR2(64),
+  proc_inst_id_ VARCHAR2(64),
+  task_id_      VARCHAR2(64),
+  bytearray_id_ VARCHAR2(64),
+  double_       NUMBER,
+  long_         NUMBER,
+  text_         CLOB,
+  text2_        CLOB
+)
+;
+

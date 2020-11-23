@@ -1,0 +1,9 @@
+create table EM_WORK_CALENDAR
+(
+  caldate   VARCHAR2(20),
+  week      VARCHAR2(255),
+  califhol  VARCHAR2(255),
+  hire_code VARCHAR2(32)
+)
+;
+

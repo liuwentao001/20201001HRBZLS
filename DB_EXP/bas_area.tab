@@ -1,0 +1,15 @@
+create table BAS_AREA
+(
+  id         VARCHAR2(32),
+  hire_code  VARCHAR2(32),
+  area_no    VARCHAR2(10),
+  area_name  VARCHAR2(100),
+  area_pid   VARCHAR2(400),
+  area_class INTEGER,
+  last_mark  CHAR(1),
+  status     CHAR(1),
+  memo       VARCHAR2(200),
+  manage_no  VARCHAR2(32)
+)
+;
+

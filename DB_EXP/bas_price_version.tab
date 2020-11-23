@@ -1,0 +1,13 @@
+create table BAS_PRICE_VERSION
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(32),
+  price_ver   VARCHAR2(6),
+  start_month VARCHAR2(10),
+  end_month   VARCHAR2(10),
+  memo        VARCHAR2(100),
+  add_user    VARCHAR2(20),
+  add_time    VARCHAR2(20)
+)
+;
+

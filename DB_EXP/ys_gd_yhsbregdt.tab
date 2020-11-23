@@ -1,0 +1,494 @@
+create table YS_GD_YHSBREGDT
+(
+  id             VARCHAR2(32) not null,
+  hire_code      VARCHAR2(20),
+  bill_id        VARCHAR2(50) not null,
+  cmrdrowno      NUMBER(6) not null,
+  yhid           VARCHAR2(10),
+  yhconid        VARCHAR2(20),
+  manage_no      VARCHAR2(10),
+  yhpid          VARCHAR2(10),
+  yhclass        NUMBER,
+  yhflag         CHAR(1),
+  yhname         VARCHAR2(64),
+  yhname2        VARCHAR2(64),
+  yhadr          VARCHAR2(64),
+  yhstatus       VARCHAR2(2),
+  yhstatusdate   DATE,
+  yhstatustrans  CHAR(1),
+  yhnewdate      DATE,
+  yhidentitylb   CHAR(1),
+  yhidentityno   VARCHAR2(60),
+  yhmtel         VARCHAR2(30),
+  yhtel1         VARCHAR2(30),
+  yhtel2         VARCHAR2(30),
+  yhtel3         VARCHAR2(30),
+  yhconnectper   VARCHAR2(60),
+  yhconnecttel   VARCHAR2(30),
+  yhifinv        CHAR(1),
+  yhifsms        CHAR(1),
+  yhifzn         CHAR(1),
+  yhprojno       VARCHAR2(25),
+  yhfileno       VARCHAR2(20),
+  yhmemo         VARCHAR2(120),
+  yhdeptid       VARCHAR2(10),
+  sbid           VARCHAR2(10),
+  sbadr          VARCHAR2(64),
+  area_no        VARCHAR2(10),
+  sbprmon        VARCHAR2(7),
+  sbrmon         VARCHAR2(7),
+  book_no        VARCHAR2(10),
+  sbrorder       NUMBER,
+  sbpid          VARCHAR2(10),
+  sbclass        NUMBER,
+  sbflag         CHAR(1),
+  sbrtid         VARCHAR2(3),
+  sbifmp         CHAR(1),
+  sbifsp         CHAR(1),
+  trade_no       VARCHAR2(10),
+  price_no       VARCHAR2(10),
+  sbstatus       VARCHAR2(2),
+  sbstatusdate   DATE,
+  sbstatustrans  CHAR(1),
+  sbface         VARCHAR2(2),
+  sbrpid         VARCHAR2(3),
+  sbside         VARCHAR2(100),
+  sbposition     VARCHAR2(64),
+  sbinscode      NUMBER(10),
+  sbinsdate      DATE,
+  sbinsper       VARCHAR2(64),
+  sbreinscode    NUMBER(10),
+  sbreinsdate    DATE,
+  sbreinsper     VARCHAR2(64),
+  sbtype         CHAR(1),
+  sbrcode        NUMBER(10),
+  sbrecdate      DATE,
+  sbrecsl        NUMBER(10),
+  sbifcharge     CHAR(1),
+  sbifsl         CHAR(1),
+  sbifchk        CHAR(1),
+  sbifwatch      CHAR(1),
+  sbicno         VARCHAR2(40),
+  sbmemo         VARCHAR2(120),
+  sbpriid        VARCHAR2(10),
+  sbpriflag      CHAR(1),
+  sbusenum       NUMBER(2),
+  sbchargetype   CHAR(1),
+  sbsaving       NUMBER(13,3),
+  sblb           CHAR(1),
+  sbnewflag      CHAR(1),
+  sbcper         VARCHAR2(10),
+  sbiftax        CHAR(1),
+  sbtaxno        VARCHAR2(20),
+  sbifckf        CHAR(1),
+  sbgps          VARCHAR2(60),
+  sbqfh          VARCHAR2(20),
+  sbbox          VARCHAR2(10),
+  sbname         VARCHAR2(64),
+  sbname2        VARCHAR2(64),
+  pmdid          NUMBER,
+  pmdpfid        VARCHAR2(10),
+  pmdscale       NUMBER(13,2),
+  pmdid2         NUMBER,
+  pmdpfid2       VARCHAR2(10),
+  pmdscale2      NUMBER(13,2),
+  pmdid3         NUMBER,
+  pmdpfid3       VARCHAR2(10),
+  pmdscale3      NUMBER(13,2),
+  pmdid4         NUMBER,
+  pmdpfid4       VARCHAR2(10),
+  pmdscale4      NUMBER(13,2),
+  mdno           VARCHAR2(40),
+  mdcaliber      NUMBER(10),
+  mdbrand        VARCHAR2(2),
+  mdmodel        VARCHAR2(2),
+  mdstatus       VARCHAR2(8),
+  mdstatusdate   DATE,
+  yhano          VARCHAR2(12),
+  yhanoname      VARCHAR2(60),
+  yhabankid      VARCHAR2(20),
+  yhaaccountno   VARCHAR2(32),
+  yhaaccountname VARCHAR2(64),
+  yhatsbankid    VARCHAR2(12),
+  yhatsbankname  VARCHAR2(64),
+  yhaifxezf      CHAR(1),
+  sbinscodechar  VARCHAR2(10),
+  sbrcodechar    VARCHAR2(10),
+  predisposeflag VARCHAR2(1) default 'Y',
+  cmdchkper      VARCHAR2(64),
+  sbuiid         VARCHAR2(10),
+  sbcommunity    VARCHAR2(10),
+  sbremoteno     VARCHAR2(20),
+  sbremotehubno  VARCHAR2(20),
+  sbemail        VARCHAR2(64),
+  sbemailflag    CHAR(1),
+  sbdbjmsl1      NUMBER(12,2),
+  sbdbyhbz2      VARCHAR2(10),
+  sbdbjzyf3      VARCHAR2(64),
+  sbyhxz4        VARCHAR2(10),
+  pmdtype        VARCHAR2(2) default '01',
+  pmdcolumn1     VARCHAR2(10),
+  pmdcolumn2     VARCHAR2(10),
+  pmdcolumn3     VARCHAR2(10),
+  pmdtype2       VARCHAR2(2) default '01',
+  pmdcolumn12    VARCHAR2(10),
+  pmdcolumn22    VARCHAR2(10),
+  pmdcolumn32    VARCHAR2(10),
+  pmdtype3       VARCHAR2(2) default '01',
+  pmdcolumn13    VARCHAR2(10),
+  pmdcolumn23    VARCHAR2(10),
+  pmdcolumn33    VARCHAR2(10),
+  pmdtype4       VARCHAR2(2) default '01',
+  pmdcolumn14    VARCHAR2(10),
+  pmdcolumn24    VARCHAR2(10),
+  pmdcolumn34    VARCHAR2(10),
+  lh             VARCHAR2(10),
+  dyh            VARCHAR2(10),
+  mph            VARCHAR2(10),
+  sfh            VARCHAR2(40),
+  dqsfh          VARCHAR2(40),
+  dqgfh          VARCHAR2(40),
+  jcgfh          VARCHAR2(40),
+  qhf            VARCHAR2(40),
+  sbjd           VARCHAR2(64),
+  sbgdsl5        NUMBER default 0,
+  sbftsl6        NUMBER(12,3),
+  sbxjdj7        NUMBER(12,3),
+  sbcolumn8      VARCHAR2(20),
+  sbyhlb9        VARCHAR2(10),
+  sbsfqdht10     VARCHAR2(10),
+  sbtkbz11       VARCHAR2(10),
+  sbsavingflag   VARCHAR2(10),
+  pbatch         VARCHAR2(10),
+  pid            VARCHAR2(10),
+  rfid           VARCHAR2(20),
+  barcode        VARCHAR2(20)
+)
+;
+comment on table YS_GD_YHSBREGDT
+  is '立户单体【CMRD】
+一户一表';
+comment on column YS_GD_YHSBREGDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_YHSBREGDT.cmrdrowno
+  is '行号';
+comment on column YS_GD_YHSBREGDT.yhid
+  is '用户编号';
+comment on column YS_GD_YHSBREGDT.yhconid
+  is '报装合同编号';
+comment on column YS_GD_YHSBREGDT.manage_no
+  is '营业所';
+comment on column YS_GD_YHSBREGDT.yhpid
+  is '上级用户编号';
+comment on column YS_GD_YHSBREGDT.yhclass
+  is '用户级次';
+comment on column YS_GD_YHSBREGDT.yhflag
+  is '末级标志';
+comment on column YS_GD_YHSBREGDT.yhname
+  is '用户名称';
+comment on column YS_GD_YHSBREGDT.yhname2
+  is '曾用名';
+comment on column YS_GD_YHSBREGDT.yhadr
+  is '用户地址';
+comment on column YS_GD_YHSBREGDT.yhstatus
+  is '用户状态';
+comment on column YS_GD_YHSBREGDT.yhstatusdate
+  is '状态日期';
+comment on column YS_GD_YHSBREGDT.yhstatustrans
+  is '状态表务';
+comment on column YS_GD_YHSBREGDT.yhnewdate
+  is '立户日期';
+comment on column YS_GD_YHSBREGDT.yhidentitylb
+  is '证件类型';
+comment on column YS_GD_YHSBREGDT.yhidentityno
+  is '证件号码';
+comment on column YS_GD_YHSBREGDT.yhmtel
+  is '移动电话';
+comment on column YS_GD_YHSBREGDT.yhtel1
+  is '固定电话1';
+comment on column YS_GD_YHSBREGDT.yhtel2
+  is '固定电话2';
+comment on column YS_GD_YHSBREGDT.yhtel3
+  is '固定电话3';
+comment on column YS_GD_YHSBREGDT.yhconnectper
+  is '联系人';
+comment on column YS_GD_YHSBREGDT.yhconnecttel
+  is '联系电话';
+comment on column YS_GD_YHSBREGDT.yhifinv
+  is '是否普票';
+comment on column YS_GD_YHSBREGDT.yhifsms
+  is '是否提供短信服务';
+comment on column YS_GD_YHSBREGDT.yhifzn
+  is '是否滞纳金';
+comment on column YS_GD_YHSBREGDT.yhprojno
+  is '工程编号';
+comment on column YS_GD_YHSBREGDT.yhfileno
+  is '档案号';
+comment on column YS_GD_YHSBREGDT.yhmemo
+  is '备注信息';
+comment on column YS_GD_YHSBREGDT.yhdeptid
+  is '立户部门';
+comment on column YS_GD_YHSBREGDT.sbid
+  is '水表编号';
+comment on column YS_GD_YHSBREGDT.sbadr
+  is '用水地址';
+comment on column YS_GD_YHSBREGDT.area_no
+  is '区域';
+comment on column YS_GD_YHSBREGDT.sbprmon
+  is '上期抄表月份';
+comment on column YS_GD_YHSBREGDT.sbrmon
+  is '本期抄表月份';
+comment on column YS_GD_YHSBREGDT.book_no
+  is '表册';
+comment on column YS_GD_YHSBREGDT.sbrorder
+  is '抄表次序';
+comment on column YS_GD_YHSBREGDT.sbpid
+  is '上级水表编号';
+comment on column YS_GD_YHSBREGDT.sbclass
+  is '水表级次';
+comment on column YS_GD_YHSBREGDT.sbflag
+  is '末级标志';
+comment on column YS_GD_YHSBREGDT.sbrtid
+  is '抄表方式';
+comment on column YS_GD_YHSBREGDT.sbifmp
+  is '混合用水标志';
+comment on column YS_GD_YHSBREGDT.sbifsp
+  is '例外单价标志';
+comment on column YS_GD_YHSBREGDT.trade_no
+  is '用水类别';
+comment on column YS_GD_YHSBREGDT.price_no
+  is '价格类别';
+comment on column YS_GD_YHSBREGDT.sbstatus
+  is '状态';
+comment on column YS_GD_YHSBREGDT.sbstatusdate
+  is '状态日期';
+comment on column YS_GD_YHSBREGDT.sbstatustrans
+  is '状态表务';
+comment on column YS_GD_YHSBREGDT.sbface
+  is '表况';
+comment on column YS_GD_YHSBREGDT.sbrpid
+  is '计件类型';
+comment on column YS_GD_YHSBREGDT.sbside
+  is '表位';
+comment on column YS_GD_YHSBREGDT.sbposition
+  is '水表接水地址';
+comment on column YS_GD_YHSBREGDT.sbinscode
+  is '新装起度';
+comment on column YS_GD_YHSBREGDT.sbinsdate
+  is '安装日期';
+comment on column YS_GD_YHSBREGDT.sbinsper
+  is '安装人';
+comment on column YS_GD_YHSBREGDT.sbreinscode
+  is '换表起度';
+comment on column YS_GD_YHSBREGDT.sbreinsdate
+  is '换表日期';
+comment on column YS_GD_YHSBREGDT.sbreinsper
+  is '换表人';
+comment on column YS_GD_YHSBREGDT.sbtype
+  is '类型';
+comment on column YS_GD_YHSBREGDT.sbrcode
+  is '本期读数';
+comment on column YS_GD_YHSBREGDT.sbrecdate
+  is '本期抄见日期';
+comment on column YS_GD_YHSBREGDT.sbrecsl
+  is '本期抄见水量';
+comment on column YS_GD_YHSBREGDT.sbifcharge
+  is '是否计费';
+comment on column YS_GD_YHSBREGDT.sbifsl
+  is '是否计量';
+comment on column YS_GD_YHSBREGDT.sbifchk
+  is '是否考核表';
+comment on column YS_GD_YHSBREGDT.sbifwatch
+  is '是否节水';
+comment on column YS_GD_YHSBREGDT.sbicno
+  is 'IC卡号';
+comment on column YS_GD_YHSBREGDT.sbmemo
+  is '备注信息';
+comment on column YS_GD_YHSBREGDT.sbpriid
+  is '合收表主表号';
+comment on column YS_GD_YHSBREGDT.sbpriflag
+  is '合收表标志';
+comment on column YS_GD_YHSBREGDT.sbusenum
+  is '户籍人数';
+comment on column YS_GD_YHSBREGDT.sbchargetype
+  is '收费方式';
+comment on column YS_GD_YHSBREGDT.sbsaving
+  is '预存款余额';
+comment on column YS_GD_YHSBREGDT.sblb
+  is '水表类别';
+comment on column YS_GD_YHSBREGDT.sbnewflag
+  is '新表标志';
+comment on column YS_GD_YHSBREGDT.sbcper
+  is '收费员';
+comment on column YS_GD_YHSBREGDT.sbiftax
+  is '是否税票';
+comment on column YS_GD_YHSBREGDT.sbtaxno
+  is '增值税号（增）';
+comment on column YS_GD_YHSBREGDT.sbifckf
+  is '是否磁控阀';
+comment on column YS_GD_YHSBREGDT.sbgps
+  is 'GPS地址';
+comment on column YS_GD_YHSBREGDT.sbqfh
+  is '铅封号';
+comment on column YS_GD_YHSBREGDT.sbbox
+  is '表箱规格';
+comment on column YS_GD_YHSBREGDT.sbname
+  is '票居名';
+comment on column YS_GD_YHSBREGDT.sbname2
+  is '招牌名';
+comment on column YS_GD_YHSBREGDT.pmdid
+  is '分组号';
+comment on column YS_GD_YHSBREGDT.pmdpfid
+  is '价格类别';
+comment on column YS_GD_YHSBREGDT.pmdscale
+  is '比例';
+comment on column YS_GD_YHSBREGDT.pmdid2
+  is '分组号';
+comment on column YS_GD_YHSBREGDT.pmdpfid2
+  is '价格类别';
+comment on column YS_GD_YHSBREGDT.pmdscale2
+  is '比例';
+comment on column YS_GD_YHSBREGDT.pmdid3
+  is '分组号';
+comment on column YS_GD_YHSBREGDT.pmdpfid3
+  is '价格类别';
+comment on column YS_GD_YHSBREGDT.pmdscale3
+  is '比例';
+comment on column YS_GD_YHSBREGDT.pmdid4
+  is '分组号';
+comment on column YS_GD_YHSBREGDT.pmdpfid4
+  is '价格类别';
+comment on column YS_GD_YHSBREGDT.pmdscale4
+  is '比例';
+comment on column YS_GD_YHSBREGDT.mdno
+  is '表号';
+comment on column YS_GD_YHSBREGDT.mdcaliber
+  is '表口径';
+comment on column YS_GD_YHSBREGDT.mdbrand
+  is '表厂家';
+comment on column YS_GD_YHSBREGDT.mdmodel
+  is '表型号';
+comment on column YS_GD_YHSBREGDT.mdstatus
+  is '表状态';
+comment on column YS_GD_YHSBREGDT.mdstatusdate
+  is '表状态发生时间';
+comment on column YS_GD_YHSBREGDT.yhano
+  is '委托授权号';
+comment on column YS_GD_YHSBREGDT.yhanoname
+  is '签约户名';
+comment on column YS_GD_YHSBREGDT.yhabankid
+  is '付款银行';
+comment on column YS_GD_YHSBREGDT.yhaaccountno
+  is '付款帐号';
+comment on column YS_GD_YHSBREGDT.yhaaccountname
+  is '付款开户名';
+comment on column YS_GD_YHSBREGDT.yhatsbankid
+  is '收款银行';
+comment on column YS_GD_YHSBREGDT.yhatsbankname
+  is '收款行名（弃用）';
+comment on column YS_GD_YHSBREGDT.yhaifxezf
+  is '小额支付';
+comment on column YS_GD_YHSBREGDT.sbinscodechar
+  is '新装起度表位';
+comment on column YS_GD_YHSBREGDT.sbrcodechar
+  is '本期读数表位';
+comment on column YS_GD_YHSBREGDT.predisposeflag
+  is '审核选择标志';
+comment on column YS_GD_YHSBREGDT.cmdchkper
+  is '验收人员';
+comment on column YS_GD_YHSBREGDT.sbuiid
+  is '合收单位编号';
+comment on column YS_GD_YHSBREGDT.sbcommunity
+  is '小区';
+comment on column YS_GD_YHSBREGDT.sbremoteno
+  is '远传表号';
+comment on column YS_GD_YHSBREGDT.sbremotehubno
+  is '远传表HUB号';
+comment on column YS_GD_YHSBREGDT.sbemail
+  is '电子邮件';
+comment on column YS_GD_YHSBREGDT.sbemailflag
+  is '发账是否发邮件';
+comment on column YS_GD_YHSBREGDT.sbdbjmsl1
+  is '备用字段1(低保减免水量)  SBCOLUMN1';
+comment on column YS_GD_YHSBREGDT.sbdbyhbz2
+  is '备用字段2(低保用户标志)SBCOLUMN2';
+comment on column YS_GD_YHSBREGDT.sbdbjzyf3
+  is '备用字段3(低保截止月份)SBCOLUMN3';
+comment on column YS_GD_YHSBREGDT.sbyhxz4
+  is '用户性质(GQ 公企 SM收免 TK 特困 GD 定量 PT 普通)SBCOLUMN4';
+comment on column YS_GD_YHSBREGDT.pmdtype
+  is '混合类别(01比例，02定量)';
+comment on column YS_GD_YHSBREGDT.pmdcolumn1
+  is '备用字段1';
+comment on column YS_GD_YHSBREGDT.pmdcolumn2
+  is '备用字段2';
+comment on column YS_GD_YHSBREGDT.pmdcolumn3
+  is '备用字段3';
+comment on column YS_GD_YHSBREGDT.pmdtype2
+  is '混合类别(01比例，02定量)';
+comment on column YS_GD_YHSBREGDT.pmdcolumn12
+  is '备用字段1';
+comment on column YS_GD_YHSBREGDT.pmdcolumn22
+  is '备用字段2';
+comment on column YS_GD_YHSBREGDT.pmdcolumn32
+  is '备用字段3';
+comment on column YS_GD_YHSBREGDT.pmdtype3
+  is '混合类别(01比例，02定量)';
+comment on column YS_GD_YHSBREGDT.pmdcolumn13
+  is '备用字段1';
+comment on column YS_GD_YHSBREGDT.pmdcolumn23
+  is '备用字段2';
+comment on column YS_GD_YHSBREGDT.pmdcolumn33
+  is '备用字段3';
+comment on column YS_GD_YHSBREGDT.pmdtype4
+  is '混合类别(01比例，02定量)';
+comment on column YS_GD_YHSBREGDT.pmdcolumn14
+  is '备用字段1';
+comment on column YS_GD_YHSBREGDT.pmdcolumn24
+  is '备用字段2';
+comment on column YS_GD_YHSBREGDT.pmdcolumn34
+  is '备用字段3';
+comment on column YS_GD_YHSBREGDT.lh
+  is '楼号';
+comment on column YS_GD_YHSBREGDT.dyh
+  is '单元号';
+comment on column YS_GD_YHSBREGDT.mph
+  is '门牌号';
+comment on column YS_GD_YHSBREGDT.sfh
+  is '首封号';
+comment on column YS_GD_YHSBREGDT.dqsfh
+  is '地区塑封号';
+comment on column YS_GD_YHSBREGDT.dqgfh
+  is '地区钢封号';
+comment on column YS_GD_YHSBREGDT.jcgfh
+  is '稽查刚封号';
+comment on column YS_GD_YHSBREGDT.qhf
+  is '铅封号【哈尔滨】';
+comment on column YS_GD_YHSBREGDT.sbjd
+  is '街道';
+comment on column YS_GD_YHSBREGDT.sbgdsl5
+  is '无表户水量(免抄户指定水量)SBCOLUMN5';
+comment on column YS_GD_YHSBREGDT.sbftsl6
+  is '备用字段6(一表多户分摊主表比例，连云港)SBCOLUMN6';
+comment on column YS_GD_YHSBREGDT.sbxjdj7
+  is '星级等级SBCOLUMN7';
+comment on column YS_GD_YHSBREGDT.sbcolumn8
+  is '备用字段8';
+comment on column YS_GD_YHSBREGDT.sbyhlb9
+  is '用户类别2SBCOLUMN9';
+comment on column YS_GD_YHSBREGDT.sbsfqdht10
+  is '备用字段10(是否签订供用水合同)SBCOLUMN10';
+comment on column YS_GD_YHSBREGDT.sbtkbz11
+  is '特困标志SBCOLUMN11';
+comment on column YS_GD_YHSBREGDT.sbsavingflag
+  is '预存缴费字段';
+comment on column YS_GD_YHSBREGDT.pbatch
+  is '缴费批次';
+comment on column YS_GD_YHSBREGDT.pid
+  is '缴费ID';
+comment on column YS_GD_YHSBREGDT.rfid
+  is '电子标签';
+comment on column YS_GD_YHSBREGDT.barcode
+  is '条形码';
+create index IDX_YS_YHSBREGDT_MDNO on YS_GD_YHSBREGDT (MDNO);
+

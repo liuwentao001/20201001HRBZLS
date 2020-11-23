@@ -1,0 +1,11 @@
+create table BASE_RUN_LOG
+(
+  id          VARCHAR2(32),
+  log_type    VARCHAR2(2),
+  log_note    VARCHAR2(1000),
+  create_date DATE,
+  log_leavel  INTEGER,
+  hire_code   VARCHAR2(32)
+)
+;
+

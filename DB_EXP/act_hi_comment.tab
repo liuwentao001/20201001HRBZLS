@@ -1,0 +1,14 @@
+create table ACT_HI_COMMENT
+(
+  id_           VARCHAR2(64),
+  type_         VARCHAR2(255),
+  time_         DATE,
+  user_id_      VARCHAR2(255),
+  task_id_      VARCHAR2(64),
+  proc_inst_id_ VARCHAR2(64),
+  action_       VARCHAR2(255),
+  message_      CLOB,
+  full_msg_     VARCHAR2(2000)
+)
+;
+

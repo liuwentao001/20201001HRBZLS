@@ -1,0 +1,11 @@
+create table OA_MEETING_USER
+(
+  id                 VARCHAR2(32),
+  meeting_id         VARCHAR2(32),
+  user_name          VARCHAR2(32),
+  infrom_affirm_date DATE,
+  inform_cancel_date DATE,
+  hire_code          VARCHAR2(32)
+)
+;
+

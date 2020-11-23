@@ -1,0 +1,13 @@
+create table ACT_ID_INFO
+(
+  id_        VARCHAR2(64),
+  rev_       NUMBER,
+  user_id_   VARCHAR2(64),
+  type_      VARCHAR2(64),
+  key_       VARCHAR2(255),
+  value_     VARCHAR2(255),
+  password_  VARCHAR2(2000),
+  parent_id_ VARCHAR2(255)
+)
+;
+
