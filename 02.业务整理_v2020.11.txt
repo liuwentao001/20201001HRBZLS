@@ -2293,6 +2293,26 @@ package pg_arsplit_01
 		      p_arje in number --分帐金额
 		      ) return number;
 
+package pg_sbtrans
 
+	procedure audit(p_hire_code in varchar2,
+		    p_billno in varchar2,
+		    p_person in varchar2,
+		    p_billid in varchar2,
+		    p_djlb   in varchar2);
+
+	--工单主程序
+	procedure sp_sbtrans(p_hire_code in varchar2,
+			  p_type      in varchar2, --操作类型
+			  p_bill_id   in varchar2, --批次流水
+			  p_per       in varchar2, --操作员
+			  p_commit    in varchar2 --提交标志
+			  );
+
+	--工单单个审核过程
+	procedure sp_sbtransone(p_type   in varchar2, --类型
+			     p_person in varchar2, -- 操作员
+			     p_md     in ys_gd_metertransdt%rowtype --单体行变更
+			     );
 
 
