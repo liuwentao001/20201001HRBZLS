@@ -1,4 +1,4 @@
-create table YS_GD_ARADJUSTDDT
+ï»¿create table YS_GD_ARADJUSTDDT
 (
   id           VARCHAR2(32),
   hire_code    VARCHAR2(32),
@@ -24,39 +24,39 @@ create table YS_GD_ARADJUSTDDT
 comment on column YS_GD_ARADJUSTDDT.id
   is 'ID';
 comment on column YS_GD_ARADJUSTDDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_ARADJUSTDDT.rd_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_ARADJUSTDDT.group_no
-  is '»ìºÏÓÃË®·Ö×é';
+  is 'æ··åˆç”¨æ°´åˆ†ç»„';
 comment on column YS_GD_ARADJUSTDDT.price_no
-  is '¼Û¸ñÀà±ğ';
+  is 'ä»·æ ¼ç±»åˆ«';
 comment on column YS_GD_ARADJUSTDDT.price_item
-  is '·ÑÓÃÏîÄ¿';
+  is 'è´¹ç”¨é¡¹ç›®';
 comment on column YS_GD_ARADJUSTDDT.step_class
-  is '½×Ìİ¼¶±ğ';
+  is 'é˜¶æ¢¯çº§åˆ«';
 comment on column YS_GD_ARADJUSTDDT.rec_price
-  is 'Ó¦ÊÕµ¥¼Û';
+  is 'åº”æ”¶å•ä»·';
 comment on column YS_GD_ARADJUSTDDT.rec_water
-  is 'Ó¦ÊÕË®Á¿';
+  is 'åº”æ”¶æ°´é‡';
 comment on column YS_GD_ARADJUSTDDT.rec_amt
-  is 'Ó¦ÊÕ½ğ¶î';
+  is 'åº”æ”¶é‡‘é¢';
 comment on column YS_GD_ARADJUSTDDT.price
-  is 'µ¥¼Û';
+  is 'å•ä»·';
 comment on column YS_GD_ARADJUSTDDT.water
-  is 'Ë®Á¿';
+  is 'æ°´é‡';
 comment on column YS_GD_ARADJUSTDDT.price_no_old
-  is '¼Û¸ñÀà±ğ¾É';
+  is 'ä»·æ ¼ç±»åˆ«æ—§';
 comment on column YS_GD_ARADJUSTDDT.charge_amt
-  is '½ğ¶î';
+  is 'é‡‘é¢';
 comment on column YS_GD_ARADJUSTDDT.adjust_price
-  is 'µ÷Õûµ¥¼Û';
+  is 'è°ƒæ•´å•ä»·';
 comment on column YS_GD_ARADJUSTDDT.adjust_water
-  is 'µ÷ÕûË®Á¿';
+  is 'è°ƒæ•´æ°´é‡';
 comment on column YS_GD_ARADJUSTDDT.adjust_amt
-  is 'µ÷Õû½ğ¶î';
+  is 'è°ƒæ•´é‡‘é¢';
 comment on column YS_GD_ARADJUSTDDT.method
-  is '¼Æ·Ñ·½·¨';
+  is 'è®¡è´¹æ–¹æ³•';
 comment on column YS_GD_ARADJUSTDDT.ardpscid
-  is '·ÑÂÊÃ÷Ï¸·½°¸';
+  is 'è´¹ç‡æ˜ç»†æ–¹æ¡ˆ';
 

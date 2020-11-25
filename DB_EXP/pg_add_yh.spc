@@ -1,9 +1,9 @@
-CREATE OR REPLACE PACKAGE PG_add_yh is
+锘緾REATE OR REPLACE PACKAGE PG_add_yh is
 
   -- --------------------------------------------------------------------------
   -- Name         : PG_add_yh
   -- Author       : Tim
-  -- Description  : 用户审核
+  -- Description  : 鐢ㄦ埛瀹℃牳
   -- Ammedments   :
   --   When         Who       What
   --   ===========  ========  =================================================
@@ -13,11 +13,11 @@ CREATE OR REPLACE PACKAGE PG_add_yh is
   errcode constant integer := -20012;
   v_HIRE_CODE varchar2(10) := f_get_HIRE_CODE();
   no_data_found exception;
-  --审核审核入口
+  --瀹℃牳瀹℃牳鍏ュ彛
   PROCEDURE AUDIT(P_BILLNO IN VARCHAR2,
                   P_PERSON IN VARCHAR2,
                   P_DJLB   IN VARCHAR2);
-  --立户审核（一户一表）
+  --绔嬫埛瀹℃牳锛堜竴鎴蜂竴琛級
   PROCEDURE SP_yhadd(P_DJLB   IN VARCHAR2,
                      P_billno IN VARCHAR2,
                      P_PERSON IN VARCHAR2,

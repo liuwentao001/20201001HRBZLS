@@ -1,4 +1,4 @@
-create table YS_GD_ARSPLITDT
+ï»¿create table YS_GD_ARSPLITDT
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(20),
@@ -25,49 +25,49 @@ create table YS_GD_ARSPLITDT
 )
 ;
 comment on table YS_GD_ARSPLITDT
-  is '²ğ·ÖÕËµ¥Ìå';
+  is 'æ‹†åˆ†è´¦å•ä½“';
 comment on column YS_GD_ARSPLITDT.id
-  is 'Ö÷¼ü';
+  is 'ä¸»é”®';
 comment on column YS_GD_ARSPLITDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_ARSPLITDT.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_ARSPLITDT.chk_flag
-  is 'Ñ¡ÖĞ±êÖ¾';
+  is 'é€‰ä¸­æ ‡å¿—';
 comment on column YS_GD_ARSPLITDT.user_no
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_ARSPLITDT.rec_id
-  is 'ÕËÎñÁ÷Ë®';
+  is 'è´¦åŠ¡æµæ°´';
 comment on column YS_GD_ARSPLITDT.price_no
-  is 'Ö÷¼Û¸ñÀà±ğ';
+  is 'ä¸»ä»·æ ¼ç±»åˆ«';
 comment on column YS_GD_ARSPLITDT.rec_month
-  is 'ÕÊÎñÔÂ·İ';
+  is 'å¸åŠ¡æœˆä»½';
 comment on column YS_GD_ARSPLITDT.rec_date
-  is 'ÕÊÎñÈÕÆÚ';
+  is 'å¸åŠ¡æ—¥æœŸ';
 comment on column YS_GD_ARSPLITDT.pread_date
-  is 'ÉÏ´Î³­±íÈÕÆÚ';
+  is 'ä¸Šæ¬¡æŠ„è¡¨æ—¥æœŸ';
 comment on column YS_GD_ARSPLITDT.read_date
-  is '±¾´Î³­±íÈÕÆÚ';
+  is 'æœ¬æ¬¡æŠ„è¡¨æ—¥æœŸ';
 comment on column YS_GD_ARSPLITDT.read_scode
-  is 'ÆğÊı';
+  is 'èµ·æ•°';
 comment on column YS_GD_ARSPLITDT.read_ecode
-  is 'Ö¹Êı';
+  is 'æ­¢æ•°';
 comment on column YS_GD_ARSPLITDT.read_water
-  is '³­¼ûË®Á¿';
+  is 'æŠ„è§æ°´é‡';
 comment on column YS_GD_ARSPLITDT.water
-  is 'Ó¦ÊÕË®Á¿';
+  is 'åº”æ”¶æ°´é‡';
 comment on column YS_GD_ARSPLITDT.charge_amt
-  is 'Ó¦ÊÕ½ğ¶î';
+  is 'åº”æ”¶é‡‘é¢';
 comment on column YS_GD_ARSPLITDT.water1
-  is 'Ë®Á¿1';
+  is 'æ°´é‡1';
 comment on column YS_GD_ARSPLITDT.charge_amt1
-  is '½ğ¶î1';
+  is 'é‡‘é¢1';
 comment on column YS_GD_ARSPLITDT.water2
-  is 'Ë®Á¿2';
+  is 'æ°´é‡2';
 comment on column YS_GD_ARSPLITDT.charge_amt2
-  is '½ğ¶î2';
+  is 'é‡‘é¢2';
 comment on column YS_GD_ARSPLITDT.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_ARSPLITDT.fail_reason
-  is 'Ê§°ÜÔ­Òò';
+  is 'å¤±è´¥åŸå› ';
 

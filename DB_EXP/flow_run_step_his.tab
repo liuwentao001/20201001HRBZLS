@@ -1,4 +1,4 @@
-create table FLOW_RUN_STEP_HIS
+﻿create table FLOW_RUN_STEP_HIS
 (
   id           VARCHAR2(32),
   step_code    VARCHAR2(32),

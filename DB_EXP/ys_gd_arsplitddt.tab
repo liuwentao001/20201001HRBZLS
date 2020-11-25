@@ -1,4 +1,4 @@
-create table YS_GD_ARSPLITDDT
+ï»¿create table YS_GD_ARSPLITDDT
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(20),
@@ -20,39 +20,39 @@ create table YS_GD_ARSPLITDDT
 )
 ;
 comment on table YS_GD_ARSPLITDDT
-  is '²ğ·ÖÕËµ¥ÌåÃ÷Ï¸';
+  is 'æ‹†åˆ†è´¦å•ä½“æ˜ç»†';
 comment on column YS_GD_ARSPLITDDT.id
   is 'ID';
 comment on column YS_GD_ARSPLITDDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_ARSPLITDDT.dt_id
-  is 'µ¥ÌåÁ÷Ë®ºÅ';
+  is 'å•ä½“æµæ°´å·';
 comment on column YS_GD_ARSPLITDDT.group_no
-  is '»ìºÏÓÃË®·Ö×é';
+  is 'æ··åˆç”¨æ°´åˆ†ç»„';
 comment on column YS_GD_ARSPLITDDT.price_no
-  is '¼Û¸ñÀà±ğ';
+  is 'ä»·æ ¼ç±»åˆ«';
 comment on column YS_GD_ARSPLITDDT.price_item
-  is '·ÑÓÃÏîÄ¿';
+  is 'è´¹ç”¨é¡¹ç›®';
 comment on column YS_GD_ARSPLITDDT.step_class
-  is '½×Ìİ¼¶±ğ';
+  is 'é˜¶æ¢¯çº§åˆ«';
 comment on column YS_GD_ARSPLITDDT.rec_price
-  is 'Ó¦ÊÕµ¥¼Û';
+  is 'åº”æ”¶å•ä»·';
 comment on column YS_GD_ARSPLITDDT.rec_water
-  is 'Ó¦ÊÕË®Á¿';
+  is 'åº”æ”¶æ°´é‡';
 comment on column YS_GD_ARSPLITDDT.rec_amt
-  is 'Ó¦ÊÕ½ğ¶î';
+  is 'åº”æ”¶é‡‘é¢';
 comment on column YS_GD_ARSPLITDDT.price
-  is 'µ¥¼Û';
+  is 'å•ä»·';
 comment on column YS_GD_ARSPLITDDT.water
-  is 'Ë®Á¿';
+  is 'æ°´é‡';
 comment on column YS_GD_ARSPLITDDT.charge_amt
-  is '½ğ¶î';
+  is 'é‡‘é¢';
 comment on column YS_GD_ARSPLITDDT.water1
-  is 'Ë®Á¿1';
+  is 'æ°´é‡1';
 comment on column YS_GD_ARSPLITDDT.charge_amt1
-  is '½ğ¶î1';
+  is 'é‡‘é¢1';
 comment on column YS_GD_ARSPLITDDT.water2
-  is 'Ë®Á¿2';
+  is 'æ°´é‡2';
 comment on column YS_GD_ARSPLITDDT.charge_amt2
-  is 'Ë®Á¿2';
+  is 'æ°´é‡2';
 

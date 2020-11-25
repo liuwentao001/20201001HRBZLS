@@ -1,4 +1,4 @@
-create table EM_WORK_CALENDAR
+﻿create table EM_WORK_CALENDAR
 (
   caldate   VARCHAR2(20),
   week      VARCHAR2(255),

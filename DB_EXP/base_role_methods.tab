@@ -1,4 +1,4 @@
-create table BASE_ROLE_METHODS
+﻿create table BASE_ROLE_METHODS
 (
   id          VARCHAR2(32),
   role_id     VARCHAR2(32),

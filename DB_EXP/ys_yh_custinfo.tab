@@ -1,4 +1,4 @@
-create table YS_YH_CUSTINFO
+ï»¿create table YS_YH_CUSTINFO
 (
   id            VARCHAR2(32) not null,
   hire_code     VARCHAR2(20),
@@ -34,63 +34,63 @@ create table YS_YH_CUSTINFO
 )
 ;
 comment on table YS_YH_CUSTINFO
-  is 'ÓÃ»§ĞÅÏ¢±í¡¾yh¡¿';
+  is 'ç”¨æˆ·ä¿¡æ¯è¡¨ã€yhã€‘';
 comment on column YS_YH_CUSTINFO.yhid
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_YH_CUSTINFO.yhconid
-  is '¹©Ë®ÅÆºÅ';
+  is 'ä¾›æ°´ç‰Œå·';
 comment on column YS_YH_CUSTINFO.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_YH_CUSTINFO.yhpid
-  is 'ÉÏ¼¶ÓÃ»§±àºÅ';
+  is 'ä¸Šçº§ç”¨æˆ·ç¼–å·';
 comment on column YS_YH_CUSTINFO.yhclass
-  is 'ÓÃ»§¼¶´Î';
+  is 'ç”¨æˆ·çº§æ¬¡';
 comment on column YS_YH_CUSTINFO.yhflag
-  is 'Ä©¼¶±êÖ¾';
+  is 'æœ«çº§æ ‡å¿—';
 comment on column YS_YH_CUSTINFO.yhname
-  is '²úÈ¨Ãû';
+  is 'äº§æƒå';
 comment on column YS_YH_CUSTINFO.yhname2
-  is 'ÔøÓÃÃû';
+  is 'æ›¾ç”¨å';
 comment on column YS_YH_CUSTINFO.yhadr
-  is 'ÓÃ»§µØÖ·';
+  is 'ç”¨æˆ·åœ°å€';
 comment on column YS_YH_CUSTINFO.yhstatus
-  is 'ÓÃ»§×´Ì¬¡¾syscuststatus¡¿(1Õı³£/7Ïú»§/2Ô¤Á¢»§)';
+  is 'ç”¨æˆ·çŠ¶æ€ã€syscuststatusã€‘(1æ­£å¸¸/7é”€æˆ·/2é¢„ç«‹æˆ·)';
 comment on column YS_YH_CUSTINFO.yhstatusdate
-  is '×´Ì¬ÈÕÆÚ';
+  is 'çŠ¶æ€æ—¥æœŸ';
 comment on column YS_YH_CUSTINFO.yhstatustrans
-  is '×´Ì¬±íÎñ';
+  is 'çŠ¶æ€è¡¨åŠ¡';
 comment on column YS_YH_CUSTINFO.yhnewdate
-  is 'Á¢»§ÈÕÆÚ';
+  is 'ç«‹æˆ·æ—¥æœŸ';
 comment on column YS_YH_CUSTINFO.yhidentitylb
-  is 'Ö¤¼şÀàĞÍ(1-Éí·İÖ¤ 2-ÓªÒµÖ´ÕÕ  0-ÎŞ)';
+  is 'è¯ä»¶ç±»å‹(1-èº«ä»½è¯ 2-è¥ä¸šæ‰§ç…§  0-æ— )';
 comment on column YS_YH_CUSTINFO.yhidentityno
-  is 'Ö¤¼şºÅÂë';
+  is 'è¯ä»¶å·ç ';
 comment on column YS_YH_CUSTINFO.yhmtel
-  is 'ÒÆ¶¯µç»°';
+  is 'ç§»åŠ¨ç”µè¯';
 comment on column YS_YH_CUSTINFO.yhtel1
-  is '¹Ì¶¨µç»°1';
+  is 'å›ºå®šç”µè¯1';
 comment on column YS_YH_CUSTINFO.yhtel2
-  is '¹Ì¶¨µç»°2';
+  is 'å›ºå®šç”µè¯2';
 comment on column YS_YH_CUSTINFO.yhtel3
-  is '¹Ì¶¨µç»°3';
+  is 'å›ºå®šç”µè¯3';
 comment on column YS_YH_CUSTINFO.yhconnectper
-  is 'ÁªÏµÈË';
+  is 'è”ç³»äºº';
 comment on column YS_YH_CUSTINFO.yhconnecttel
-  is 'ÁªÏµµç»°';
+  is 'è”ç³»ç”µè¯';
 comment on column YS_YH_CUSTINFO.yhifinv
-  is 'ÊÇ·ñÆÕÆ±£¨¹ş¶û±õ£º½èÓÃ×öÊÇ·ñÒÑ´òÓ¡ÔöÖµË°ÊÕ¾İ£¬reclistÈ¡Öµ£¬ÖÃ¿Õ£©';
+  is 'æ˜¯å¦æ™®ç¥¨ï¼ˆå“ˆå°”æ»¨ï¼šå€Ÿç”¨åšæ˜¯å¦å·²æ‰“å°å¢å€¼ç¨æ”¶æ®ï¼Œreclistå–å€¼ï¼Œç½®ç©ºï¼‰';
 comment on column YS_YH_CUSTINFO.yhifsms
-  is 'ÊÇ·ñÌá¹©¶ÌĞÅ·şÎñ';
+  is 'æ˜¯å¦æä¾›çŸ­ä¿¡æœåŠ¡';
 comment on column YS_YH_CUSTINFO.yhifzn
-  is 'ÊÇ·ñÖÍÄÉ½ğ';
+  is 'æ˜¯å¦æ»çº³é‡‘';
 comment on column YS_YH_CUSTINFO.yhprojno
-  is '¹¤³Ì±àºÅ(Ë®ÕË±êÊ¶ºÅ)';
+  is 'å·¥ç¨‹ç¼–å·(æ°´è´¦æ ‡è¯†å·)';
 comment on column YS_YH_CUSTINFO.yhfileno
-  is 'µµ°¸ºÅ(¹©Ë®ºÏÍ¬ºÅ)';
+  is 'æ¡£æ¡ˆå·(ä¾›æ°´åˆåŒå·)';
 comment on column YS_YH_CUSTINFO.yhmemo
-  is '±¸×¢ĞÅÏ¢';
+  is 'å¤‡æ³¨ä¿¡æ¯';
 comment on column YS_YH_CUSTINFO.yhdeptid
-  is 'Á¢»§²¿ÃÅ';
+  is 'ç«‹æˆ·éƒ¨é—¨';
 create index IDX_YHSMFID on YS_YH_CUSTINFO (MANAGE_NO);
 alter table YS_YH_CUSTINFO
   add constraint PK_YS_YH_CUSTINFO primary key (YHID);

@@ -1,4 +1,4 @@
-create table BASE_MESSAGES
+﻿create table BASE_MESSAGES
 (
   id              VARCHAR2(32),
   notice_title    VARCHAR2(255),

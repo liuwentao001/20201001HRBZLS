@@ -1,4 +1,4 @@
-create table BASE_USER_DICTIONARY_TMP
+﻿create table BASE_USER_DICTIONARY_TMP
 (
   id         VARCHAR2(32),
   dic_value  VARCHAR2(60),

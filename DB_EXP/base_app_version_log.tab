@@ -1,4 +1,4 @@
-create table BASE_APP_VERSION_LOG
+﻿create table BASE_APP_VERSION_LOG
 (
   id           VARCHAR2(32),
   curr_version INTEGER,

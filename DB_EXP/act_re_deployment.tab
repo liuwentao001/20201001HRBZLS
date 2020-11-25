@@ -1,4 +1,4 @@
-create table ACT_RE_DEPLOYMENT
+﻿create table ACT_RE_DEPLOYMENT
 (
   id_          VARCHAR2(64),
   name_        VARCHAR2(255),

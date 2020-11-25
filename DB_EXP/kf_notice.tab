@@ -1,4 +1,4 @@
-create table KF_NOTICE
+﻿create table KF_NOTICE
 (
   id              VARCHAR2(32),
   notice_type     VARCHAR2(2),

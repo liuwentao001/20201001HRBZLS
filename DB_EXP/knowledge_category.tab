@@ -1,4 +1,4 @@
-create table KNOWLEDGE_CATEGORY
+﻿create table KNOWLEDGE_CATEGORY
 (
   id             VARCHAR2(32),
   name           VARCHAR2(64),

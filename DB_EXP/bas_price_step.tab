@@ -1,4 +1,4 @@
-create table BAS_PRICE_STEP
+ï»¿create table BAS_PRICE_STEP
 (
   id           VARCHAR2(32),
   hire_code    VARCHAR2(32),
@@ -15,27 +15,27 @@ create table BAS_PRICE_STEP
 )
 ;
 comment on column BAS_PRICE_STEP.id
-  is 'Á÷Ë®id';
+  is 'æµæ°´id';
 comment on column BAS_PRICE_STEP.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column BAS_PRICE_STEP.price_ver
-  is 'Ë®¼Û°æ±¾ºÅ';
+  is 'æ°´ä»·ç‰ˆæœ¬å·';
 comment on column BAS_PRICE_STEP.price_no
-  is 'Ë®¼Û±àºÅ';
+  is 'æ°´ä»·ç¼–å·';
 comment on column BAS_PRICE_STEP.price_item
-  is '·ÑÓÃÏîÄ¿';
+  is 'è´¹ç”¨é¡¹ç›®';
 comment on column BAS_PRICE_STEP.step_class
-  is '½×Ìİ¼¶±ğ';
+  is 'é˜¶æ¢¯çº§åˆ«';
 comment on column BAS_PRICE_STEP.start_code
-  is 'ÆğÂë';
+  is 'èµ·ç ';
 comment on column BAS_PRICE_STEP.end_code
-  is 'Ö¹Âë';
+  is 'æ­¢ç ';
 comment on column BAS_PRICE_STEP.price
-  is 'µ¥¼Û';
+  is 'å•ä»·';
 comment on column BAS_PRICE_STEP.peoples
-  is 'Ä¬ÈÏÈË¿ÚÊı';
+  is 'é»˜è®¤äººå£æ•°';
 comment on column BAS_PRICE_STEP.add_waterqty
-  is 'Ã¿»§Ôö²¹Ë®Á¿';
+  is 'æ¯æˆ·å¢è¡¥æ°´é‡';
 comment on column BAS_PRICE_STEP.add_price
-  is 'Ã¿»§Ôö²¹µ¥¼Û';
+  is 'æ¯æˆ·å¢è¡¥å•ä»·';
 

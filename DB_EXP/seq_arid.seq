@@ -1,4 +1,4 @@
-create sequence SEQ_ARID
+﻿create sequence SEQ_ARID
 minvalue 1
 maxvalue 9999999999
 start with 12481

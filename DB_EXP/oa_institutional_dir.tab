@@ -1,4 +1,4 @@
-create table OA_INSTITUTIONAL_DIR
+﻿create table OA_INSTITUTIONAL_DIR
 (
   id        VARCHAR2(32),
   dir_name  VARCHAR2(255),

@@ -1,4 +1,4 @@
-create table A1
+﻿create table A1
 (
   a VARCHAR2(500),
   b VARCHAR2(500),

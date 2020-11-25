@@ -1,4 +1,4 @@
-create table KF_IVR_QUEUING
+﻿create table KF_IVR_QUEUING
 (
   id          VARCHAR2(32),
   caller      VARCHAR2(64),

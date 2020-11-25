@@ -1,4 +1,4 @@
-create table OA_MEETING_USER
+﻿create table OA_MEETING_USER
 (
   id                 VARCHAR2(32),
   meeting_id         VARCHAR2(32),

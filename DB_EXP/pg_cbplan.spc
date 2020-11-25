@@ -1,9 +1,9 @@
-CREATE OR REPLACE PACKAGE PG_CBPLAN is
+锘緾REATE OR REPLACE PACKAGE PG_CBPLAN is
 
  -- --------------------------------------------------------------------------
 -- Name         : PG_CBPLAN
 -- Author       : Tim
--- Description  : 抄表计划管理  
+-- Description  : 鎶勮〃璁″垝绠＄悊  
 -- Ammedments   :
 --   When         Who       What
 --   ===========  ========  =================================================

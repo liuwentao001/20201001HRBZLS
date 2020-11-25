@@ -1,4 +1,4 @@
-create table PBCATVLD
+﻿create table PBCATVLD
 (
   pbv_name VARCHAR2(60),
   pbv_vald VARCHAR2(254),

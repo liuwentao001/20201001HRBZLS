@@ -1,4 +1,4 @@
-create table BAS_PRICE_NAME
+﻿create table BAS_PRICE_NAME
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(32),

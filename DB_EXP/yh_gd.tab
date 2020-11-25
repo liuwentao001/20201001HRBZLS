@@ -1,4 +1,4 @@
-create table YH_GD
+﻿create table YH_GD
 (
   c1  VARCHAR2(2000),
   c2  VARCHAR2(2000),

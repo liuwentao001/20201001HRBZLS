@@ -1,4 +1,4 @@
-create table YS_GD_ARADDDT
+ï»¿create table YS_GD_ARADDDT
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(32),
@@ -18,17 +18,17 @@ create table YS_GD_ARADDDT
 )
 ;
 comment on column YS_GD_ARADDDT.rec_water
-  is 'Ó¦ÊÕË®Á¿';
+  is 'åº”æ”¶æ°´é‡';
 comment on column YS_GD_ARADDDT.rec_amt
-  is 'Ó¦ÊÕ½ğ¶î';
+  is 'åº”æ”¶é‡‘é¢';
 comment on column YS_GD_ARADDDT.price
-  is 'µ¥¼Û';
+  is 'å•ä»·';
 comment on column YS_GD_ARADDDT.water
-  is 'Ë®Á¿';
+  is 'æ°´é‡';
 comment on column YS_GD_ARADDDT.charge_amt
-  is '½ğ¶î';
+  is 'é‡‘é¢';
 comment on column YS_GD_ARADDDT.check_flag
-  is 'ÉóºË×´Ì¬';
+  is 'å®¡æ ¸çŠ¶æ€';
 comment on column YS_GD_ARADDDT.fail_reason
-  is 'Ê§°ÜÔ­Òò';
+  is 'å¤±è´¥åŸå› ';
 

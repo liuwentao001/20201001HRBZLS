@@ -1,4 +1,4 @@
-create table BASE_DEPT
+﻿create table BASE_DEPT
 (
   id               VARCHAR2(32),
   dept_no          VARCHAR2(32),

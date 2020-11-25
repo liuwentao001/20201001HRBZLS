@@ -1,4 +1,4 @@
-CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
+ï»¿CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
   --CurrentDate date := tools.fGetSysDate;
 
   --msl meter_static_log%rowtype;
@@ -19,12 +19,12 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
       RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
   END AUDIT;
 
-  --Á¢»§ÉóºË£¨Ò»»§Ò»±í£©
-  PROCEDURE SP_yhadd(P_DJLB   IN VARCHAR2, --µ¥¾ÝÀàÐÍ
-                     P_billno IN VARCHAR2, --µ¥¾ÝÁ÷Ë®ºÅ
-                     P_PERSON IN VARCHAR2, --ÉóºËÈË
+  --ç«‹æˆ·å®¡æ ¸ï¼ˆä¸€æˆ·ä¸€è¡¨ï¼‰
+  PROCEDURE SP_yhadd(P_DJLB   IN VARCHAR2, --å•æ®ç±»åž‹
+                     P_billno IN VARCHAR2, --å•æ®æµæ°´å·
+                     P_PERSON IN VARCHAR2, --å®¡æ ¸äºº
                      P_COMMIT IN VARCHAR2) AS
-    --ÊÇ·ñÌá½»
+    --æ˜¯å¦æäº¤
     v_CRHSHFLAG varchar2(10);
     v_yh        ys_yh_custinfo%ROWTYPE;
     v_sb        ys_yh_sbinfo%ROWTYPE;
@@ -50,13 +50,13 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
      where bill_id = P_billno
        and HIRE_CODE = v_HIRE_CODE;
     IF v_CRHSHFLAG = '999' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'Á¢»§µ¥²»´æÔÚ!');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'ç«‹æˆ·å•ä¸å­˜åœ¨!');
     END IF;
     IF v_CRHSHFLAG = 'Y' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'µ¥¾ÝÒÑÉóºË');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'å•æ®å·²å®¡æ ¸');
     END IF;
     IF v_CRHSHFLAG = 'Q' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'µ¥¾ÝÒÑÈ¡Ïû');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'å•æ®å·²å–æ¶ˆ');
     END IF;
     for i in (select *
                 from ys_gd_yhsbregdt
@@ -68,13 +68,13 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
       v_yh.yhconid   := i.yhconid;
       v_yh.manage_no := i.manage_no;
       v_yh.yhpid     := i.yhpid;
-      --Ð£ÑéÉÏ¼¶ÓÃ»§
+      --æ ¡éªŒä¸Šçº§ç”¨æˆ·
       IF v_yh.yhpid IS NOT NULL THEN
         OPEN C_YHPID(i.yhpid);
         FETCH C_YHPID
           INTO V_YHPID;
         IF C_YHPID%NOTFOUND THEN
-          RAISE_APPLICATION_ERROR(ERRCODE, P_billno || 'ÎÞÐ§µÄÉÏ¼¶ÓÃ»§');
+          RAISE_APPLICATION_ERROR(ERRCODE, P_billno || 'æ— æ•ˆçš„ä¸Šçº§ç”¨æˆ·');
         END IF;
         v_yh.yhclass := V_YHPID.yhclass + 1; --
         CLOSE C_YHPID;
@@ -128,7 +128,7 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
         FETCH C_SBPID
           INTO V_SBPID;
         IF C_SBPID%NOTFOUND THEN
-          RAISE_APPLICATION_ERROR(ERRCODE, P_billno || 'ÎÞÐ§µÄÉÏ¼¶ÓÃ»§');
+          RAISE_APPLICATION_ERROR(ERRCODE, P_billno || 'æ— æ•ˆçš„ä¸Šçº§ç”¨æˆ·');
         END IF;
         v_sb.sbclass := V_SBPID.SBclass + 1; --
         CLOSE C_SBPID;
@@ -247,14 +247,14 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
     
       --v_sd.BARCODE      := i.BARCODE;
       v_sd.RFID   := i.RFID;
-      v_sd.IFDZSB := 'N'; --³õ×°Ë®±íÄ¬ÈÏÊÇÕý³£Ë®±í£¬µ¹×°×ßË®±íÐÅÏ¢Î¬»¤
-      --ÌõÐÎÂë×Ô¶¯Éú³É=1Î»ÇøºÅ+8Î»ÄêÔÂÈÕ+10Î»¿Í»§´úÂë¡£ 
+      v_sd.IFDZSB := 'N'; --åˆè£…æ°´è¡¨é»˜è®¤æ˜¯æ­£å¸¸æ°´è¡¨ï¼Œå€’è£…èµ°æ°´è¡¨ä¿¡æ¯ç»´æŠ¤
+      --æ¡å½¢ç è‡ªåŠ¨ç”Ÿæˆ=1ä½åŒºå·+8ä½å¹´æœˆæ—¥+10ä½å®¢æˆ·ä»£ç ã€‚ 
       v_sd.BARCODE := SUBSTR(v_sb.manage_no, 4, 1) ||
                       TO_CHAR(SYSDATE, 'YYYYMMDD') || v_sb.sbid;
-      v_sd.DQSFH   := i.DQSFH; --ËÜ·âºÅ
-      v_sd.DQGFH   := i.DQGFH; --¸Ö·âºÅ
-      v_sd.JCGFH   := i.JCGFH; --»ü²é·âºÅ
-      v_sd.QFH     := i.QHF; --Ç¦·âºÅ
+      v_sd.DQSFH   := i.DQSFH; --å¡‘å°å·
+      v_sd.DQGFH   := i.DQGFH; --é’¢å°å·
+      v_sd.JCGFH   := i.JCGFH; --ç¨½æŸ¥å°å·
+      v_sd.QFH     := i.QHF; --é“…å°å·
     
       v_sa.id             := uuid();
       v_sa.hire_code      := v_HIRE_CODE;
@@ -277,12 +277,12 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
     WHEN OTHERS THEN
       RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
   END SP_yhadd;
-  --Á¢»§ÉóºË£¨Ò»»§Ò»±í£©
-  PROCEDURE SP_yhModify(P_DJLB   IN VARCHAR2, --µ¥¾ÝÀàÐÍ
-                        P_billno IN VARCHAR2, --µ¥¾ÝÁ÷Ë®ºÅ
-                        P_PERSON IN VARCHAR2, --ÉóºËÈË
+  --ç«‹æˆ·å®¡æ ¸ï¼ˆä¸€æˆ·ä¸€è¡¨ï¼‰
+  PROCEDURE SP_yhModify(P_DJLB   IN VARCHAR2, --å•æ®ç±»åž‹
+                        P_billno IN VARCHAR2, --å•æ®æµæ°´å·
+                        P_PERSON IN VARCHAR2, --å®¡æ ¸äºº
                         P_COMMIT IN VARCHAR2) AS
-    --ÊÇ·ñÌá½»
+    --æ˜¯å¦æäº¤
     v_CRHSHFLAG varchar2(10);
     v_yh        ys_yh_custinfo%ROWTYPE;
     v_sb        ys_yh_sbinfo%ROWTYPE;
@@ -308,19 +308,19 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
      where bill_id = P_billno
        and HIRE_CODE = v_HIRE_CODE;
     IF v_CRHSHFLAG = '999' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'Á¢»§µ¥²»´æÔÚ!');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'ç«‹æˆ·å•ä¸å­˜åœ¨!');
     END IF;
     IF v_CRHSHFLAG = 'Y' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'µ¥¾ÝÒÑÉóºË');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'å•æ®å·²å®¡æ ¸');
     END IF;
     IF v_CRHSHFLAG = 'Q' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'µ¥¾ÝÒÑÈ¡Ïû');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'å•æ®å·²å–æ¶ˆ');
     END IF;
     for i in (select *
                 from ys_gd_yhsbmodifyt
                where bill_id = P_billno
                  and HIRE_CODE = v_HIRE_CODE) loop
-      --¸üÃû           
+      --æ›´å           
       if P_DJLB = 'YHXXBG' then
         update ys_yh_custinfo
            set yhname       = i.yhname,
@@ -340,7 +340,7 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
          where sbid = i.sbid;
       end if;
     
-      --¹ý»§          
+      --è¿‡æˆ·          
       if P_DJLB = 'GH' then
         update ys_yh_custinfo
            set yhname       = i.yhname,
@@ -362,7 +362,7 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
            AND HIRE_CODE = I.HIRE_CODE;
       end if;
     
-      --Ë®¼Û±ä¸ü    
+      --æ°´ä»·å˜æ›´    
       if P_DJLB = 'SJBG' then
       
         update ys_yh_sbinfo O
@@ -370,7 +370,7 @@ CREATE OR REPLACE PACKAGE BODY PG_ADDModify_YH is
            set O.PRICE_NO = i.price_no
          where O.sbid = i.sbid
            AND O.HIRE_CODE = I.HIRE_CODE;
-        --É¾³ý»ìºÏ  
+        --åˆ é™¤æ··åˆ  
         DELETE ys_yh_pricegroup P
          WHERE P.SBID = I.SBID
            AND P.HIRE_CODE = I.HIRE_CODE;

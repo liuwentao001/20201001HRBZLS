@@ -1,4 +1,4 @@
-create table ACT_RE_MODEL
+﻿create table ACT_RE_MODEL
 (
   id_                           VARCHAR2(64),
   rev_                          NUMBER,

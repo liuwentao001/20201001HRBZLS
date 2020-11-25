@@ -1,4 +1,4 @@
-create table BASE_SUBSYSTEM
+﻿create table BASE_SUBSYSTEM
 (
   id                 VARCHAR2(32),
   subsystem_code     VARCHAR2(20),

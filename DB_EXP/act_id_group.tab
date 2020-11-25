@@ -1,4 +1,4 @@
-create table ACT_ID_GROUP
+﻿create table ACT_ID_GROUP
 (
   id_   VARCHAR2(64),
   rev_  NUMBER,

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION ÊÇ·ñº¬Äê½×ÌÝË®¼Û(P_SBID IN VARCHAR2) RETURN VARCHAR2 AS
+ï»¿CREATE OR REPLACE FUNCTION æ˜¯å¦å«å¹´é˜¶æ¢¯æ°´ä»·(P_SBID IN VARCHAR2) RETURN VARCHAR2 AS
   VCOUNT NUMBER := 0;
 BEGIN
   SELECT COUNT(*)
@@ -7,14 +7,14 @@ BEGIN
             FROM YS_YH_SBINFO MI
            WHERE MI.SBID = P_SBID
              AND MI.SBIFMP = 'N'
-             AND ÊÇ·ñÄê½×ÌÝË®¼Û(MI.PRICE_NO) = 'Y'
+             AND æ˜¯å¦å¹´é˜¶æ¢¯æ°´ä»·(MI.PRICE_NO) = 'Y'
           UNION
           SELECT 1
             FROM YS_YH_SBINFO MI, YS_YH_PRICEGROUP PMD
            WHERE MI.SBID = P_SBID
              AND MI.SBID = PMD.SBID
              AND MI.SBIFMP = 'Y'
-             AND ÊÇ·ñÄê½×ÌÝË®¼Û(PMD.PRICE_NO) = 'Y');
+             AND æ˜¯å¦å¹´é˜¶æ¢¯æ°´ä»·(PMD.PRICE_NO) = 'Y');
   IF VCOUNT > 0 THEN
     RETURN 'Y';
   ELSE

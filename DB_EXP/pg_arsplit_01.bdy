@@ -1,16 +1,16 @@
-CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
+ï»¿CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
   /*====================================================================
   -- Name: Pg_ARSPLIT_01.Approve
-  -- Author:  Ñî»ª Gary 190388857@qq.com    date: 2020Äê11ÔÂ11ÈÕ
+  -- Author:  æ¨å Gary 190388857@qq.com    date: 2020å¹´11æœˆ11æ—¥
   ----------------------------------------------------------------------
-  -- Description: ²ğ·ÖÕËµ¥¹ı³Ì°ü,µ¥¾İÌá½»Èë¿Ú¹ı³Ì
+  -- Description: æ‹†åˆ†è´¦å•è¿‡ç¨‹åŒ…,å•æ®æäº¤å…¥å£è¿‡ç¨‹
   ----------------------------------------------------------------------
   Copyright (c) 2002-2025 Gary(TM), All rights reserved.
   ----------------------------------------------------------------------
-  -- ĞŞ¸ÄÀúÊ·:
+  -- ä¿®æ”¹å†å²:
   -- When         Who       What
   -- ===========  ========  ============================================
-     2020-11-11   Ñî»ª      ĞÂÔö
+     2020-11-11   æ¨å      æ–°å¢
   --====================================================================*/
   PROCEDURE Approve(p_Billno IN VARCHAR2,
                     p_Person IN VARCHAR2,
@@ -21,12 +21,12 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     IF p_Djlb = '3' THEN
       Sp_Arsplit(p_Billno, p_Person, 'Y');
     ELSE
-      Raise_Application_Error(Errcode, p_Billno || '->1 ÎŞĞ§µÄµ¥¾İÀà±ğ£¡');
+      Raise_Application_Error(Errcode, p_Billno || '->1 æ— æ•ˆçš„å•æ®ç±»åˆ«ï¼');
     END IF;
   END;
-  --·ÖÕË¹ı³Ì
-  PROCEDURE Sp_Recfzrlid(p_Arid IN VARCHAR2, --·ÖÕËÁ÷Ë®
-                         p_Je   IN NUMBER --·ÖÕË½ğ¶î
+  --åˆ†è´¦è¿‡ç¨‹
+  PROCEDURE Sp_Recfzrlid(p_Arid IN VARCHAR2, --åˆ†è´¦æµæ°´
+                         p_Je   IN NUMBER --åˆ†è´¦é‡‘é¢
                          
                          ) AS
   
@@ -67,24 +67,24 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
   
   BEGIN
     NULL;
-    --1¡¢µ÷ÓÃ¹ı³Ì¼ì²éÒª·Ö²ğË®Á¿
+    --1ã€è°ƒç”¨è¿‡ç¨‹æ£€æŸ¥è¦åˆ†æ‹†æ°´é‡
     OPEN c_Ar;
     FETCH c_Ar
       INTO Ar;
     IF c_Ar%NOTFOUND OR c_Ar%NOTFOUND IS NULL THEN
       Raise_Application_Error(Errcode,
-                              'Ó¦ÊÕÕËÎñ²»´æÔÚ,»ò²»ÊÇÕı³£Ç··Ñ,Á÷Ë®ºÅ:' || p_Arid || 'Çë¼ì²é£¡');
+                              'åº”æ”¶è´¦åŠ¡ä¸å­˜åœ¨,æˆ–ä¸æ˜¯æ­£å¸¸æ¬ è´¹,æµæ°´å·:' || p_Arid || 'è¯·æ£€æŸ¥ï¼');
     END IF;
     CLOSE c_Ar;
     p_Sl := Sf_Recfzsl(p_Arid, p_Je);
   
     IF p_Sl <= 0 THEN
       Raise_Application_Error(Errcode,
-                              '·ÖÕËË®Á¿±ØĞëĞ¡ÓÚ' || Ar.Arsl || ',Á÷Ë®ºÅ:' || Ar.Arid);
+                              'åˆ†è´¦æ°´é‡å¿…é¡»å°äº' || Ar.Arsl || ',æµæ°´å·:' || Ar.Arid);
     END IF;
   
-    --2¡¢½«Òª·ÖÕË ±¸·İ 
-    Arf := Ar; --±¸·İÔ­ÕËÎñ
+    --2ã€å°†è¦åˆ†è´¦ å¤‡ä»½ 
+    Arf := Ar; --å¤‡ä»½åŸè´¦åŠ¡
     INSERT INTO Ys_Zw_Arlist_Fz VALUES Ar;
     OPEN c_Rd;
     LOOP
@@ -95,7 +95,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     END LOOP;
     CLOSE c_Rd;
   
-    --YS_ZW_ARDETAIL²åÈë·ÖÕËµÚÒ»±Ê
+    --YS_ZW_ARDETAILæ’å…¥åˆ†è´¦ç¬¬ä¸€ç¬”
     v_Je := 0;
     SELECT Lpad(Seq_Arid.Nextval, 10, '0') INTO v_Arid FROM Dual;
     SELECT Lpad(Seq_Arid.Nextval, 10, '0') INTO v_Arid2 FROM Dual;
@@ -108,22 +108,22 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
       FETCH c_Rdf
         INTO Rd;
       EXIT WHEN c_Rdf%NOTFOUND OR c_Rdf%NOTFOUND IS NULL;
-      --»ñÈ¡ÁÙÊ±±íÖĞµÄË®Á¿
+      --è·å–ä¸´æ—¶è¡¨ä¸­çš„æ°´é‡
       SELECT * INTO Pb FROM Ysparmtemp p WHERE TRIM(p.C1) = Rd.Ardpmdid;
       p_Sl  := To_Number(TRIM(Pb.C4));
-      v_Sl2 := Rd.Ardsl - p_Sl; --µÚ¶ş±ÊÃ÷Ï¸Ë®Á¿
+      v_Sl2 := Rd.Ardsl - p_Sl; --ç¬¬äºŒç¬”æ˜ç»†æ°´é‡
       v_Je2 := Rd.Ardje;
-      --µÚÒ»±ÊÃ÷Ï¸
+      --ç¬¬ä¸€ç¬”æ˜ç»†
     
       Rd.Ardid   := TRIM(v_Arid);
       Rd.Ardyssl := p_Sl;
       Rd.Ardsl   := p_Sl;
       Rd.Ardysje := Rd.Ardysdj * Rd.Ardyssl;
       Rd.Ardje   := Rd.Arddj * Rd.Ardsl;
-      INSERT INTO Ys_Zw_Ardetail VALUES Rd; --µÚÒ»±ÊÃ÷Ï¸
-      v_Je  := v_Je + Rd.Ardje; --µÚÒ»±ÊÓ¦ÊÕºÏ¼Æ½ğ¶î
-      v_Je2 := v_Je2 - Rd.Ardje; --µÚ¶ş±ÊÃ÷Ï¸½ğ¶î
-      --Éú³ÉµÚ¶ş±ÊÃ÷Ï¸
+      INSERT INTO Ys_Zw_Ardetail VALUES Rd; --ç¬¬ä¸€ç¬”æ˜ç»†
+      v_Je  := v_Je + Rd.Ardje; --ç¬¬ä¸€ç¬”åº”æ”¶åˆè®¡é‡‘é¢
+      v_Je2 := v_Je2 - Rd.Ardje; --ç¬¬äºŒç¬”æ˜ç»†é‡‘é¢
+      --ç”Ÿæˆç¬¬äºŒç¬”æ˜ç»†
       Rd.Ardid   := TRIM(v_Arid2);
       Rd.Ardyssl := v_Sl2;
       Rd.Ardsl   := v_Sl2;
@@ -135,11 +135,11 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     END LOOP;
     CLOSE c_Rdf;
   
-    -- ±¸·İÆğÖ¹Âë
+    -- å¤‡ä»½èµ·æ­¢ç 
     v_Scode := Ar.Arscode;
     v_Ecode := Ar.Arecode;
   
-    --ys_zw_arlist²åÈë·ÖÕËµÚÒ»±Ê
+    --ys_zw_arlistæ’å…¥åˆ†è´¦ç¬¬ä¸€ç¬”
     SELECT Uuid() INTO Ar.Id FROM Dual;
   
     Ar.Hire_Code := f_Get_Hire_Code();
@@ -148,28 +148,28 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Ar.Armonth   := Fobtmanapara(Arf.Manage_No, 'READ_MONTH');
     Ar.Ardate    := Trunc(SYSDATE);
   
-    Ar.Arcolumn5  := Arf.Ardate; --ÉÏ´ÎÓ¦ÕÊÕÊÈÕÆÚ
-    Ar.Arcolumn9  := Arf.Arid; --ÉÏ´ÎÓ¦ÊÕÕÊÁ÷Ë®
-    Ar.Arcolumn10 := Arf.Armonth; --ÉÏ´ÎÓ¦ÊÕÕÊÔÂ·İ
-    Ar.Arcolumn11 := Arf.Artrans; --ÉÏ´ÎÓ¦ÊÕÕÊÊÂÎñ
+    Ar.Arcolumn5  := Arf.Ardate; --ä¸Šæ¬¡åº”å¸å¸æ—¥æœŸ
+    Ar.Arcolumn9  := Arf.Arid; --ä¸Šæ¬¡åº”æ”¶å¸æµæ°´
+    Ar.Arcolumn10 := Arf.Armonth; --ä¸Šæ¬¡åº”æ”¶å¸æœˆä»½
+    Ar.Arcolumn11 := Arf.Artrans; --ä¸Šæ¬¡åº”æ”¶å¸äº‹åŠ¡
     Ar.Artrans    := 'C';
-    /*ar.arSCRarID    := arF.arID; --Ô­ÕËÎñÓ¦ÊÕÁ÷Ë®
-    ar.arSCRarTRANS := arF.arTRANS; --Ô­ÕËÎñÊÂÎï
-    ar.arSCRarMONTH := arF.arMONTH; --Ô­ÕËÎñÔÂ·İ
-    ar.arSCRarDATE  := arF.arDATE;  --Ô­ÕËÎñÈÕÆÚ*/
+    /*ar.arSCRarID    := arF.arID; --åŸè´¦åŠ¡åº”æ”¶æµæ°´
+    ar.arSCRarTRANS := arF.arTRANS; --åŸè´¦åŠ¡äº‹ç‰©
+    ar.arSCRarMONTH := arF.arMONTH; --åŸè´¦åŠ¡æœˆä»½
+    ar.arSCRarDATE  := arF.arDATE;  --åŸè´¦åŠ¡æ—¥æœŸ*/
     SELECT SUM(To_Number(Nvl(TRIM(C4), 0))) INTO v_Czsl FROM Ysparmtemp;
     Ar.Arsl     := v_Czsl;
     Ar.Arje     := v_Je;
     Ar.Arreadsl := v_Czsl;
   
-    --µÚÒ»±ÊÕËÆğÂë²»±ä£¬Ö¹ÂëÎªÆğÂë¼ÓÉÏÓ¦ÊÕË®Á¿ 20140318
+    --ç¬¬ä¸€ç¬”è´¦èµ·ç ä¸å˜ï¼Œæ­¢ç ä¸ºèµ·ç åŠ ä¸Šåº”æ”¶æ°´é‡ 20140318
     Ar.Arscode     := v_Scode;
     Ar.Arscodechar := To_Char(Ar.Arscode);
     Ar.Arecode     := v_Scode + Ar.Arsl;
     Ar.Arecodechar := To_Char(Ar.Arecode);
     INSERT INTO Ys_Zw_Arlist VALUES Ar;
   
-    --ys_zw_arlist²åÈë·ÖÕËµÚ¶ş±Ê 
+    --ys_zw_arlistæ’å…¥åˆ†è´¦ç¬¬äºŒç¬” 
     SELECT Uuid() INTO Ar.Id FROM Dual;
     Ar.Hire_Code := f_Get_Hire_Code();
     Ar.Manage_No := Arf.Manage_No;
@@ -181,7 +181,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Ar.Arje     := v_Jes2;
     Ar.Arreadsl := v_Sls2 - v_Czsl;
   
-    --µÚ¶ş±ÊÕËÖ¹Âë²»±ä£¬ÆğÂëÎªÖ¹Âë¼õÈ¥Ó¦ÊÕË®Á¿ 20140318
+    --ç¬¬äºŒç¬”è´¦æ­¢ç ä¸å˜ï¼Œèµ·ç ä¸ºæ­¢ç å‡å»åº”æ”¶æ°´é‡ 20140318
     Ar.Arscode     := v_Ecode - Ar.Arsl;
     Ar.Arscodechar := To_Char(Ar.Arscode);
     Ar.Arecode     := v_Ecode;
@@ -189,7 +189,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
   
     INSERT INTO Ys_Zw_Arlist VALUES Ar;
   
-    --5¡¢¼ì²éÒ»ÏÂ·Ö²ğÁ½ÌõÓ¦ÊÕºóË®Á¿Óë½ğ¶îÕâÓëÓëÔ­ÕÊ ys_zw_arlist_fz,YS_ZW_ARDETAIL_fz ÊÇ·ñÏàÍ¬
+    --5ã€æ£€æŸ¥ä¸€ä¸‹åˆ†æ‹†ä¸¤æ¡åº”æ”¶åæ°´é‡ä¸é‡‘é¢è¿™ä¸ä¸åŸå¸ ys_zw_arlist_fz,YS_ZW_ARDETAIL_fz æ˜¯å¦ç›¸åŒ
     --SELECT * INTO arF FROM ys_zw_arlist_FZ WHERE
     SELECT COUNT(*)
       INTO v_Count
@@ -201,7 +201,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
               FROM Ys_Zw_Arlist
              WHERE Arid IN (TRIM(v_Arid), TRIM(v_Arid2)));
     IF v_Count > 0 THEN
-      Raise_Application_Error(Errcode, '·ÖÕË×Ü½ğ¶î´íÎó£¡');
+      Raise_Application_Error(Errcode, 'åˆ†è´¦æ€»é‡‘é¢é”™è¯¯ï¼');
     END IF;
   
     SELECT COUNT(*)
@@ -216,10 +216,10 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
              GROUP BY Ardpmdid, Ardpiid, Ardpfid, Ardclass);
   
     IF v_Count > 0 THEN
-      Raise_Application_Error(Errcode, '·ÖÕËÃ÷Ï¸½ğ¶î´íÎó£¡');
+      Raise_Application_Error(Errcode, 'åˆ†è´¦æ˜ç»†é‡‘é¢é”™è¯¯ï¼');
     END IF;
   
-    --5³åÔ­Ó¦ÊÕÕÊ
+    --5å†²åŸåº”æ”¶å¸
     Sp_Reccz_One_01(p_Arid, 'N');
   
     --O_RET := 'Y';
@@ -238,21 +238,21 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
 
   /*====================================================================
   -- Name: Pg_ARSPLIT_01.Sp_ARSPLIT
-  -- Author:  Ñî»ª Gary 190388857@qq.com    date: 2020Äê11ÔÂ11ÈÕ
+  -- Author:  æ¨å Gary 190388857@qq.com    date: 2020å¹´11æœˆ11æ—¥
   ----------------------------------------------------------------------
-  -- Description: ²ğ·ÖÕËµ¥¹ı³Ì°ü,²ğ·ÖÕËµ¥
+  -- Description: æ‹†åˆ†è´¦å•è¿‡ç¨‹åŒ…,æ‹†åˆ†è´¦å•
   ----------------------------------------------------------------------
   Copyright (c) 2002-2025 Gary(TM), All rights reserved.
   ----------------------------------------------------------------------
-  -- ĞŞ¸ÄÀúÊ·:
+  -- ä¿®æ”¹å†å²:
   -- When         Who       What
   -- ===========  ========  ============================================
-     2020-11-11   Ñî»ª      ĞÂÔö
+     2020-11-11   æ¨å      æ–°å¢
   --====================================================================*/
 
-  PROCEDURE Sp_Arsplit(p_Bill_Id IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                       p_Per     IN VARCHAR2, --²Ù×÷Ô±
-                       p_Commit  IN VARCHAR2 --Ìá½»±êÖ¾
+  PROCEDURE Sp_Arsplit(p_Bill_Id IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                       p_Per     IN VARCHAR2, --æ“ä½œå‘˜
+                       p_Commit  IN VARCHAR2 --æäº¤æ ‡å¿—
                        ) AS
     CURSOR c_Hd IS
       SELECT * FROM Ys_Gd_Arsplithd WHERE Bill_Id = p_Bill_Id;
@@ -267,15 +267,15 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Dt    Ys_Gd_Arsplitdt%ROWTYPE;
     v_Ret VARCHAR2(10);
   BEGIN
-    --¼ì²éµ¥Í·
+    --æ£€æŸ¥å•å¤´
     OPEN c_Hd;
     FETCH c_Hd
       INTO Hd;
     IF c_Hd%NOTFOUND OR c_Hd%NOTFOUND IS NULL THEN
-      Raise_Application_Error(Errcode, 'µ¥¾İ²»´æÔÚ' || p_Bill_Id);
+      Raise_Application_Error(Errcode, 'å•æ®ä¸å­˜åœ¨' || p_Bill_Id);
     END IF;
     CLOSE c_Hd;
-    --¼ì²éµ¥Ìå
+    --æ£€æŸ¥å•ä½“
     OPEN c_Dt;
     LOOP
       FETCH c_Dt
@@ -285,7 +285,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
       --Sp_Recfzrlid(c_Dt.REC_ID,c_Dt.CHARGE_AMT1);
       IF v_Ret = 'N' THEN
         Raise_Application_Error(Errcode,
-                                '·ÖÕË´íÎó,ÕËÎñÁ÷Ë®:' || Dt.Rec_Id || '|Ó¦ÊÕ½ğ¶î:' ||
+                                'åˆ†è´¦é”™è¯¯,è´¦åŠ¡æµæ°´:' || Dt.Rec_Id || '|åº”æ”¶é‡‘é¢:' ||
                                 Dt.Charge_Amt);
       END IF;
     END LOOP;
@@ -310,8 +310,8 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
   END;
  ----------------------------------------------- 
   PROCEDURE Sp_Arsplit_change_one(p_Arsplitdt   IN Ys_Gd_Arsplitdt%rowTYPE,  
-                                   p_Per     IN VARCHAR2, --²Ù×÷Ô±
-                                   p_Commit  IN VARCHAR2 --Ìá½»±êÖ¾
+                                   p_Per     IN VARCHAR2, --æ“ä½œå‘˜
+                                   p_Commit  IN VARCHAR2 --æäº¤æ ‡å¿—
                                    ) AS
    CURSOR c_Ar IS
       SELECT *
@@ -341,24 +341,24 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
   
   BEGIN
     NULL;
-    --1¡¢µ÷ÓÃ¹ı³Ì¼ì²éÒª·Ö²ğË®Á¿
+    --1ã€è°ƒç”¨è¿‡ç¨‹æ£€æŸ¥è¦åˆ†æ‹†æ°´é‡
     OPEN c_Ar;
     FETCH c_Ar
       INTO Ar;
     IF c_Ar%NOTFOUND OR c_Ar%NOTFOUND IS NULL THEN
       Raise_Application_Error(Errcode,
-                              'Ó¦ÊÕÕËÎñ²»´æÔÚ,»ò²»ÊÇÕı³£Ç··Ñ,Á÷Ë®ºÅ:' || p_Arsplitdt.Rec_Id || 'Çë¼ì²é£¡');
+                              'åº”æ”¶è´¦åŠ¡ä¸å­˜åœ¨,æˆ–ä¸æ˜¯æ­£å¸¸æ¬ è´¹,æµæ°´å·:' || p_Arsplitdt.Rec_Id || 'è¯·æ£€æŸ¥ï¼');
     END IF;
     CLOSE c_Ar;
     --p_Sl := Sf_Recfzsl(p_Arid, p_Je);
   
     IF p_Arsplitdt.Water1 + p_Arsplitdt.Water2 <> Ar.Arsl THEN
       Raise_Application_Error(Errcode,
-                              '·ÖÕËË®Á¿±ØĞëĞ¡ÓÚ' || Ar.Arsl || ',Á÷Ë®ºÅ:' || Ar.Arid);
+                              'åˆ†è´¦æ°´é‡å¿…é¡»å°äº' || Ar.Arsl || ',æµæ°´å·:' || Ar.Arid);
     END IF;
   
-    --2¡¢½«Òª·ÖÕË ±¸·İ 
-    Arf := Ar; --±¸·İÔ­ÕËÎñ
+    --2ã€å°†è¦åˆ†è´¦ å¤‡ä»½ 
+    Arf := Ar; --å¤‡ä»½åŸè´¦åŠ¡
     INSERT INTO Ys_Zw_Arlist_Fz VALUES Ar;
     OPEN c_Rd;
     LOOP
@@ -369,16 +369,16 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     END LOOP;
     CLOSE c_Rd;
   
-    --YS_ZW_ARDETAIL²åÈë·ÖÕËµÚÒ»±Ê
+    --YS_ZW_ARDETAILæ’å…¥åˆ†è´¦ç¬¬ä¸€ç¬”
     
     SELECT Lpad(Seq_Arid.Nextval, 10, '0') INTO v_Arid FROM Dual;
     SELECT Lpad(Seq_Arid.Nextval, 10, '0') INTO v_Arid2 FROM Dual;
     
-    -- ±¸·İÆğÖ¹Âë
+    -- å¤‡ä»½èµ·æ­¢ç 
     v_Scode := Ar.Arscode;
     v_Ecode := Ar.Arecode;
   
-    --ys_zw_arlist²åÈë·ÖÕËµÚÒ»±Ê
+    --ys_zw_arlistæ’å…¥åˆ†è´¦ç¬¬ä¸€ç¬”
     SELECT Uuid() INTO Ar.Id FROM Dual;
   
     Ar.Hire_Code := f_Get_Hire_Code();
@@ -387,27 +387,27 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Ar.Armonth   := Fobtmanapara(Arf.Manage_No, 'READ_MONTH');
     Ar.Ardate    := Trunc(SYSDATE);
   
-    Ar.Arcolumn5  := Arf.Ardate; --ÉÏ´ÎÓ¦ÕÊÕÊÈÕÆÚ
-    Ar.Arcolumn9  := Arf.Arid; --ÉÏ´ÎÓ¦ÊÕÕÊÁ÷Ë®
-    Ar.Arcolumn10 := Arf.Armonth; --ÉÏ´ÎÓ¦ÊÕÕÊÔÂ·İ
-    Ar.Arcolumn11 := Arf.Artrans; --ÉÏ´ÎÓ¦ÊÕÕÊÊÂÎñ
+    Ar.Arcolumn5  := Arf.Ardate; --ä¸Šæ¬¡åº”å¸å¸æ—¥æœŸ
+    Ar.Arcolumn9  := Arf.Arid; --ä¸Šæ¬¡åº”æ”¶å¸æµæ°´
+    Ar.Arcolumn10 := Arf.Armonth; --ä¸Šæ¬¡åº”æ”¶å¸æœˆä»½
+    Ar.Arcolumn11 := Arf.Artrans; --ä¸Šæ¬¡åº”æ”¶å¸äº‹åŠ¡
     Ar.Artrans    := 'C';
-    /*ar.arSCRarID    := arF.arID; --Ô­ÕËÎñÓ¦ÊÕÁ÷Ë®
-    ar.arSCRarTRANS := arF.arTRANS; --Ô­ÕËÎñÊÂÎï
-    ar.arSCRarMONTH := arF.arMONTH; --Ô­ÕËÎñÔÂ·İ
-    ar.arSCRarDATE  := arF.arDATE;  --Ô­ÕËÎñÈÕÆÚ*/ 
+    /*ar.arSCRarID    := arF.arID; --åŸè´¦åŠ¡åº”æ”¶æµæ°´
+    ar.arSCRarTRANS := arF.arTRANS; --åŸè´¦åŠ¡äº‹ç‰©
+    ar.arSCRarMONTH := arF.arMONTH; --åŸè´¦åŠ¡æœˆä»½
+    ar.arSCRarDATE  := arF.arDATE;  --åŸè´¦åŠ¡æ—¥æœŸ*/ 
     Ar.Arsl     := p_Arsplitdt.Water1;
     Ar.Arje     := p_Arsplitdt.Charge_Amt1;
     Ar.Arreadsl :=  p_Arsplitdt.Water1;
   
-    --µÚÒ»±ÊÕËÆğÂë²»±ä£¬Ö¹ÂëÎªÆğÂë¼ÓÉÏÓ¦ÊÕË®Á¿ 20140318
+    --ç¬¬ä¸€ç¬”è´¦èµ·ç ä¸å˜ï¼Œæ­¢ç ä¸ºèµ·ç åŠ ä¸Šåº”æ”¶æ°´é‡ 20140318
     Ar.Arscode     := v_Scode;
     Ar.Arscodechar := To_Char(Ar.Arscode);
     Ar.Arecode     := v_Scode + Ar.Arsl;
     Ar.Arecodechar := To_Char(Ar.Arecode);
     INSERT INTO Ys_Zw_Arlist VALUES Ar;
   
-    --ys_zw_arlist²åÈë·ÖÕËµÚ¶ş±Ê 
+    --ys_zw_arlistæ’å…¥åˆ†è´¦ç¬¬äºŒç¬” 
     SELECT Uuid() INTO Ar.Id FROM Dual;
     Ar.Hire_Code := f_Get_Hire_Code();
     Ar.Manage_No := Arf.Manage_No;
@@ -419,7 +419,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Ar.Arje     := p_Arsplitdt.Charge_Amt2;
     Ar.Arreadsl :=  p_Arsplitdt.Water2;
   
-    --µÚ¶ş±ÊÕËÖ¹Âë²»±ä£¬ÆğÂëÎªÖ¹Âë¼õÈ¥Ó¦ÊÕË®Á¿ 20140318
+    --ç¬¬äºŒç¬”è´¦æ­¢ç ä¸å˜ï¼Œèµ·ç ä¸ºæ­¢ç å‡å»åº”æ”¶æ°´é‡ 20140318
     Ar.Arscode     := v_Ecode - Ar.Arsl;
     Ar.Arscodechar := To_Char(Ar.Arscode);
     Ar.Arecode     := v_Ecode;
@@ -433,14 +433,14 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
         INTO Rd;
       EXIT WHEN c_Rdf%NOTFOUND OR c_Rdf%NOTFOUND IS NULL;
        
-      --µÚÒ»±ÊÃ÷Ï¸    
+      --ç¬¬ä¸€ç¬”æ˜ç»†    
       Rd.Ardid   := TRIM(v_Arid);
       Rd.Ardyssl := p_Arsplitdt.Water1;
       Rd.Ardsl   := p_Arsplitdt.Water1;
       Rd.Ardysje := Rd.Ardysdj * Rd.Ardyssl;
       Rd.Ardje   := Rd.Arddj * Rd.Ardsl;
-      INSERT INTO Ys_Zw_Ardetail VALUES Rd; --µÚÒ»±ÊÃ÷Ï¸ 
-      --Éú³ÉµÚ¶ş±ÊÃ÷Ï¸
+      INSERT INTO Ys_Zw_Ardetail VALUES Rd; --ç¬¬ä¸€ç¬”æ˜ç»† 
+      --ç”Ÿæˆç¬¬äºŒç¬”æ˜ç»†
       Rd.Ardid   := TRIM(v_Arid2);
       Rd.Ardyssl := p_Arsplitdt.Water2;
       Rd.Ardsl   := p_Arsplitdt.Water2;
@@ -449,7 +449,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
       INSERT INTO Ys_Zw_Ardetail VALUES Rd; 
     END LOOP;
     CLOSE c_Rdf;
-    --5¡¢¼ì²éÒ»ÏÂ·Ö²ğÁ½ÌõÓ¦ÊÕºóË®Á¿Óë½ğ¶îÕâÓëÓëÔ­ÕÊ ys_zw_arlist_fz,YS_ZW_ARDETAIL_fz ÊÇ·ñÏàÍ¬
+    --5ã€æ£€æŸ¥ä¸€ä¸‹åˆ†æ‹†ä¸¤æ¡åº”æ”¶åæ°´é‡ä¸é‡‘é¢è¿™ä¸ä¸åŸå¸ ys_zw_arlist_fz,YS_ZW_ARDETAIL_fz æ˜¯å¦ç›¸åŒ
     --SELECT * INTO arF FROM ys_zw_arlist_FZ WHERE
     SELECT COUNT(*)
       INTO v_Count
@@ -461,7 +461,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
               FROM Ys_Zw_Arlist
              WHERE Arid IN (TRIM(v_Arid), TRIM(v_Arid2)));
     IF v_Count > 0 THEN
-      Raise_Application_Error(Errcode, '·ÖÕË×Ü½ğ¶î´íÎó£¡');
+      Raise_Application_Error(Errcode, 'åˆ†è´¦æ€»é‡‘é¢é”™è¯¯ï¼');
     END IF;
   
     SELECT COUNT(*)
@@ -476,10 +476,10 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
              GROUP BY Ardpmdid, Ardpiid, Ardpfid, Ardclass);
   
     IF v_Count > 0 THEN
-      Raise_Application_Error(Errcode, '·ÖÕËÃ÷Ï¸½ğ¶î´íÎó£¡');
+      Raise_Application_Error(Errcode, 'åˆ†è´¦æ˜ç»†é‡‘é¢é”™è¯¯ï¼');
     END IF;
   
-    --5³åÔ­Ó¦ÊÕÕÊ
+    --5å†²åŸåº”æ”¶å¸
     Sp_Reccz_One_01(p_Arsplitdt.Rec_Id, p_Commit);
     --O_RET := 'Y';
   EXCEPTION
@@ -495,9 +495,9 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
       Raise_Application_Error(Errcode, SQLERRM);
   END;
 
-  --²åÈëµ¥¸ºÓ¦ÊÕÓëÓ¦ÊÕ³åÕı --µ¥Ìõ  
-  PROCEDURE Sp_Reccz_One_01(p_Arid   IN Ys_Zw_Arlist.Arid%TYPE, --  ĞĞ±äÁ¿
-                            p_Commit IN VARCHAR --ÊÇ·ñÌá½»±êÖ¾
+  --æ’å…¥å•è´Ÿåº”æ”¶ä¸åº”æ”¶å†²æ­£ --å•æ¡  
+  PROCEDURE Sp_Reccz_One_01(p_Arid   IN Ys_Zw_Arlist.Arid%TYPE, --  è¡Œå˜é‡
+                            p_Commit IN VARCHAR --æ˜¯å¦æäº¤æ ‡å¿—
                             ) AS
   
     Arde Ys_Zw_Arlist%ROWTYPE;
@@ -526,21 +526,21 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
       INTO Arde;
     IF c_Ar%NOTFOUND OR c_Ar%NOTFOUND IS NULL THEN
       Raise_Application_Error(Errcode,
-                              'Ó¦ÊÕÕËÎñ²»´æÔÚ,»ò²»ÊÇÕı³£Ç··Ñ,Á÷Ë®ºÅ:' || p_Arid || 'Çë¼ì²é£¡');
+                              'åº”æ”¶è´¦åŠ¡ä¸å­˜åœ¨,æˆ–ä¸æ˜¯æ­£å¸¸æ¬ è´¹,æµæ°´å·:' || p_Arid || 'è¯·æ£€æŸ¥ï¼');
     END IF;
     CLOSE c_Ar;
-    --½«±»³åÓ¦ÊÕ²úÉú¶ÔÓ¦µÄ¸ºÕÊ
+    --å°†è¢«å†²åº”æ”¶äº§ç”Ÿå¯¹åº”çš„è´Ÿå¸
     Arcr := Arde;
   
-    --´ûÕÊÍ·¸³Öµ
+    --è´·å¸å¤´èµ‹å€¼
     /*arCR.arSCRarID    := arCR.arID;
     arCR.arSCRarTRANS := arCR.arTRANS;
     arCR.arSCRarMONTH := arCR.arMONTH;
     arCR.arSCRarDATE  := arCR.arDATE;*/
-    Arcr.Arcolumn5  := Arcr.Ardate; --ÉÏ´ÎÓ¦ÕÊÕÊÈÕÆÚ
-    Arcr.Arcolumn9  := Arcr.Arid; --ÉÏ´ÎÓ¦ÊÕÕÊÁ÷Ë®
-    Arcr.Arcolumn10 := Arcr.Armonth; --ÉÏ´ÎÓ¦ÊÕÕÊÔÂ·İ
-    Arcr.Arcolumn11 := Arcr.Artrans; --ÉÏ´ÎÓ¦ÊÕÕÊÊÂÎñ
+    Arcr.Arcolumn5  := Arcr.Ardate; --ä¸Šæ¬¡åº”å¸å¸æ—¥æœŸ
+    Arcr.Arcolumn9  := Arcr.Arid; --ä¸Šæ¬¡åº”æ”¶å¸æµæ°´
+    Arcr.Arcolumn10 := Arcr.Armonth; --ä¸Šæ¬¡åº”æ”¶å¸æœˆä»½
+    Arcr.Arcolumn11 := Arcr.Artrans; --ä¸Šæ¬¡åº”æ”¶å¸äº‹åŠ¡
   
     SELECT Uuid() INTO Arcr.Id FROM Dual;
     --arCR.HIRE_CODE     := arDE.HIRE_CODE;
@@ -558,7 +558,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Arcr.Arje     := 0 - Arcr.Arje;
     Arcr.Araddsl  := 0 - Arcr.Araddsl;
     Arcr.Arpaidje := 0 - Arcr.Arpaidje;
-    --Êı¾İ
+    --æ•°æ®
     Arcr.Arsavingqc := 0 - Arcr.Arsavingqc;
     Arcr.Arsavingbq := 0 - Arcr.Arsavingbq;
     Arcr.Arsavingqm := 0 - Arcr.Arsavingqm;
@@ -567,14 +567,14 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Arcr.Armemo        := Arde.Armemo;
     Arcr.Arreverseflag := 'Y';
   
-    --´ûÕÊÌå¸³Öµ,Í¬Ê±¸üĞÂ´ı³åÄ¿±êÓ¦ÊÕÃ÷Ï¸ÏúÕÊ±êÖ¾
+    --è´·å¸ä½“èµ‹å€¼,åŒæ—¶æ›´æ–°å¾…å†²ç›®æ ‡åº”æ”¶æ˜ç»†é”€å¸æ ‡å¿—
     OPEN c_Rd;
     LOOP
       FETCH c_Rd
         INTO Rd;
       /*if c_rd%notfound or c_rd%notfound is null then
         raise_application_error(errcode,
-                                  'ÎŞĞ§µÄ´ı³åÕıÓ¦ÊÕ¼ÇÂ¼£ºÎŞ´ËÓ¦ÊÕ·ÑÓÃÃ÷Ï¸');
+                                  'æ— æ•ˆçš„å¾…å†²æ­£åº”æ”¶è®°å½•ï¼šæ— æ­¤åº”æ”¶è´¹ç”¨æ˜ç»†');
       end if;*/
       EXIT WHEN c_Rd%NOTFOUND OR c_Rd%NOTFOUND IS NULL;
       SELECT Uuid() INTO Rdcr.Id FROM Dual;
@@ -615,12 +615,12 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     
     END LOOP;
     CLOSE c_Rd;
-    --²åÈë´ûÕÊÍ·¡¢ÕÊÌå
+    --æ’å…¥è´·å¸å¤´ã€å¸ä½“
     INSERT INTO Ys_Zw_Arlist VALUES Arcr;
   
-    --¸üĞÂ×î½üË®Á¿(Èç¹û³åÕıµÄÇ¡ºÃ×î½üÊ±)
+    --æ›´æ–°æœ€è¿‘æ°´é‡(å¦‚æœå†²æ­£çš„æ°å¥½æœ€è¿‘æ—¶)
     UPDATE Ys_Zw_Arlist SET Arreverseflag = 'Y' WHERE Arid = p_Arid;
-    --ÅÅ³ı²ğÕËµ¥
+    --æ’é™¤æ‹†è´¦å•
     IF Arde.Artrans <> '3' THEN
       UPDATE Ys_Yh_Sbinfo
          SET Sbrecsl = 0
@@ -644,16 +644,16 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
       Raise_Application_Error(Errcode, SQLERRM);
   END Sp_Reccz_One_01;
 
-  --Ó¦ÊÕ·ÖÕË´¦Àí BY sp_recfzsl by wy  20130324
-  --ÊäÈëÓ¦ÊÕÁ÷Ë®£¬·ÖÕÊ½ğ¶î£¬
-  --·µ»Ø·ÖÕÊË®Á¿
-  --1°´Ë®Á¿³Ëµ¥¼Û·Ö
-  --2·Öµ½²»×ãÒ»¶ÖË®ÎªÖ¹
-  --3´Ó¸ßË®Á¿¼õÆğ¼õµ½Ë®Á¿Îª1¶ÖÎªÖ¹
+  --åº”æ”¶åˆ†è´¦å¤„ç† BY sp_recfzsl by wy  20130324
+  --è¾“å…¥åº”æ”¶æµæ°´ï¼Œåˆ†å¸é‡‘é¢ï¼Œ
+  --è¿”å›åˆ†å¸æ°´é‡
+  --1æŒ‰æ°´é‡ä¹˜å•ä»·åˆ†
+  --2åˆ†åˆ°ä¸è¶³ä¸€å¨æ°´ä¸ºæ­¢
+  --3ä»é«˜æ°´é‡å‡èµ·å‡åˆ°æ°´é‡ä¸º1å¨ä¸ºæ­¢
   --
 
-  FUNCTION Sf_Recfzsl(p_Arid IN VARCHAR2, --·ÖÕÊÁ÷Ë®
-                      p_Arje IN NUMBER --·ÖÕÊ½ğ¶î
+  FUNCTION Sf_Recfzsl(p_Arid IN VARCHAR2, --åˆ†å¸æµæ°´
+                      p_Arje IN NUMBER --åˆ†å¸é‡‘é¢
                       ) RETURN NUMBER AS
     v_Maxsl Ys_Zw_Arlist.Arsl%TYPE;
     v_Maxje Ys_Zw_Arlist.Arje%TYPE;
@@ -663,7 +663,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     Pb      Ysparmtemp%ROWTYPE;
     v_Czsl  Ys_Zw_Arlist.Arsl%TYPE;
   
-    --Ğè²ğ·Ö ·ÑÓÃ·Ö×é¡¢Ë®Á¿¡¢½ğ¶î   Ó¦²ğ½ğ¶î
+    --éœ€æ‹†åˆ† è´¹ç”¨åˆ†ç»„ã€æ°´é‡ã€é‡‘é¢   åº”æ‹†é‡‘é¢
     v_Cfz   Ys_Zw_Ardetail.Ardpmdid%TYPE;
     v_Csl   Ys_Zw_Ardetail.Ardsl%TYPE;
     v_Cje   Ys_Zw_Ardetail.Ardje%TYPE;
@@ -679,7 +679,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
        ORDER BY Ardpmdid;
   
   BEGIN
-    --1¡¢È¡×ÜË®Á¿
+    --1ã€å–æ€»æ°´é‡
     /*SELECT SUM (ardsl) INTO v_maxsl FROM
     (
       select ARDPMDID,max(nvl(ardsl,0)) ardsl
@@ -688,17 +688,17 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
       GROUP BY ARDPMDID
     );*/
     /*
-    PB ±í½ğ¶î×é³É½á¹¹
-    ²ğ·Ö½ğ¶î120
+    PB è¡¨é‡‘é¢ç»„æˆç»“æ„
+    æ‹†åˆ†é‡‘é¢120
     
-    A B C±íÊ¾ĞĞ
-    ĞĞºÅ  ·Ö×éC1   Ë®Á¿C2   ½ğ¶îC3  ²ğ·ÖË®Á¿C4  ²ğ·Ö½ğ¶îC5 ĞĞ²ğ·ÖË®Á¿±êÖ¾C6£¨1±íÊ¾ĞèÒª¼ÆËã²ğ·ÖË®Á¿£©
+    A B Cè¡¨ç¤ºè¡Œ
+    è¡Œå·  åˆ†ç»„C1   æ°´é‡C2   é‡‘é¢C3  æ‹†åˆ†æ°´é‡C4  æ‹†åˆ†é‡‘é¢C5 è¡Œæ‹†åˆ†æ°´é‡æ ‡å¿—C6ï¼ˆ1è¡¨ç¤ºéœ€è¦è®¡ç®—æ‹†åˆ†æ°´é‡ï¼‰
     A      0        30       90       30         90          0
     B      1        50       150      10         30          1
     C      2        60       180      0          0           0
     */
-    --·ÖÀà»ñÈ¡Ë®Á¿½ğ¶î
-    --¸Ã²½ÖèC5²ğ·Ö½ğ¶îÎª¿É²ğ·Ö½ğ¶î
+    --åˆ†ç±»è·å–æ°´é‡é‡‘é¢
+    --è¯¥æ­¥éª¤C5æ‹†åˆ†é‡‘é¢ä¸ºå¯æ‹†åˆ†é‡‘é¢
     v_Fzje  := p_Arje;
     v_Maxsl := 0;
     v_Maxje := 0;
@@ -728,13 +728,13 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
     END LOOP;
     CLOSE c_Rd;
   
-    --²ğ·Ö½ğ¶îÈç¹û´óÓÚ½ğ¶î£¬²»ÔÊĞí²ğ·Ö
+    --æ‹†åˆ†é‡‘é¢å¦‚æœå¤§äºé‡‘é¢ï¼Œä¸å…è®¸æ‹†åˆ†
     IF p_Arje >= v_Maxje OR p_Arje <= 0 OR v_Maxje <= 0 OR v_Maxsl <= 0 THEN
       RETURN - 1;
     END IF;
   
-    --¸ù¾İC6È¡²ğ·ÖÊı¾İĞĞ
-    --¸Ã²¿·Ö£¨C4²ğÕËË®Á¿£©¡¢£¨C5²ğÕË½ğ¶î£©ÎªÓ¦²ğÕËË®Á¿¡¢½ğ¶î
+    --æ ¹æ®C6å–æ‹†åˆ†æ•°æ®è¡Œ
+    --è¯¥éƒ¨åˆ†ï¼ˆC4æ‹†è´¦æ°´é‡ï¼‰ã€ï¼ˆC5æ‹†è´¦é‡‘é¢ï¼‰ä¸ºåº”æ‹†è´¦æ°´é‡ã€é‡‘é¢
     BEGIN
       SELECT * INTO Pb FROM Ysparmtemp WHERE TRIM(C6) = '1';
       v_Cfz   := To_Number(TRIM(Pb.C1));
@@ -765,7 +765,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arsplit_01 IS
          AND TRIM(C6) = '1';
     EXCEPTION
       WHEN OTHERS THEN
-        --ÎŞĞè¼ÆËãË®Á¿½ğ¶î£¬²ğÕË½ğ¶îÕıºÃÆ¥Åä
+        --æ— éœ€è®¡ç®—æ°´é‡é‡‘é¢ï¼Œæ‹†è´¦é‡‘é¢æ­£å¥½åŒ¹é…
         RETURN v_Maxsl;
     END;
   

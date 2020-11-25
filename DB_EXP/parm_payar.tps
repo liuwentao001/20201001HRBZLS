@@ -1,4 +1,4 @@
-CREATE OR REPLACE TYPE PARM_PAYAR as object
+﻿CREATE OR REPLACE TYPE PARM_PAYAR as object
 (
   arid    varchar2(1000),
   ardpiids varchar2(4000),

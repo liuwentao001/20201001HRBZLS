@@ -1,4 +1,4 @@
-create table FLOW_RUN_INFO
+﻿create table FLOW_RUN_INFO
 (
   id             VARCHAR2(32),
   flow_id        VARCHAR2(32),

@@ -1,4 +1,4 @@
-create table ACT_GE_BYTEARRAY
+﻿create table ACT_GE_BYTEARRAY
 (
   id_            VARCHAR2(64),
   rev_           NUMBER,

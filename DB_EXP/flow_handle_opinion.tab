@@ -1,4 +1,4 @@
-create table FLOW_HANDLE_OPINION
+﻿create table FLOW_HANDLE_OPINION
 (
   id             VARCHAR2(32),
   flow_id        VARCHAR2(32),

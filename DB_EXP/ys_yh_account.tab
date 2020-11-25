@@ -1,4 +1,4 @@
-create table YS_YH_ACCOUNT
+ï»¿create table YS_YH_ACCOUNT
 (
   id             VARCHAR2(32) not null,
   sbid           VARCHAR2(10),
@@ -15,29 +15,29 @@ create table YS_YH_ACCOUNT
 )
 ;
 comment on table YS_YH_ACCOUNT
-  is '»§±íÒøĞĞĞÅÏ¢¡¾YhA¡¿';
+  is 'æˆ·è¡¨é“¶è¡Œä¿¡æ¯ã€YhAã€‘';
 comment on column YS_YH_ACCOUNT.id
-  is 'Î¨Ò»Öµ';
+  is 'å”¯ä¸€å€¼';
 comment on column YS_YH_ACCOUNT.sbid
-  is 'Ë®±í×ÊÁÏºÅ';
+  is 'æ°´è¡¨èµ„æ–™å·';
 comment on column YS_YH_ACCOUNT.yhano
-  is 'Î¯ÍĞÊÚÈ¨ºÅ';
+  is 'å§”æ‰˜æˆæƒå·';
 comment on column YS_YH_ACCOUNT.yhanoname
-  is 'Ç©Ô¼»§Ãû';
+  is 'ç­¾çº¦æˆ·å';
 comment on column YS_YH_ACCOUNT.yhabankid
-  is '¿ª»§ĞĞ£¨´úÍĞ£©';
+  is 'å¼€æˆ·è¡Œï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_YH_ACCOUNT.yhaaccountno
-  is '¿ª»§ÕÊºÅ£¨´úÍĞ£©';
+  is 'å¼€æˆ·å¸å·ï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_YH_ACCOUNT.yhaaccountname
-  is '¿ª»§Ãû£¨´úÍĞ£©';
+  is 'å¼€æˆ·åï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_YH_ACCOUNT.yhatsbankid
-  is '½ÓÊÕĞĞºÅ£¨ÍĞ£©';
+  is 'æ¥æ”¶è¡Œå·ï¼ˆæ‰˜ï¼‰';
 comment on column YS_YH_ACCOUNT.yhatsbankname
-  is 'Æ¾Ö¤ÒøĞĞ£¨ÍĞ£©';
+  is 'å‡­è¯é“¶è¡Œï¼ˆæ‰˜ï¼‰';
 comment on column YS_YH_ACCOUNT.yhaifxezf
-  is 'Ğ¡¶îÖ§¸¶£¨ÍĞ£©';
+  is 'å°é¢æ”¯ä»˜ï¼ˆæ‰˜ï¼‰';
 comment on column YS_YH_ACCOUNT.yharegdate
-  is 'Ç©Ô¼ÈÕÆÚ';
+  is 'ç­¾çº¦æ—¥æœŸ';
 create index IDX_YHAACCOUNTNO on YS_YH_ACCOUNT (YHAACCOUNTNO);
 create index IDX_YH_ACCOUNT_001 on YS_YH_ACCOUNT (YHABANKID);
 alter table YS_YH_ACCOUNT

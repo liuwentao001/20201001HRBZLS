@@ -1,4 +1,4 @@
-create table KF_BILL_ACCEP_INFO
+﻿create table KF_BILL_ACCEP_INFO
 (
   id                  VARCHAR2(32),
   bill_code           VARCHAR2(32),

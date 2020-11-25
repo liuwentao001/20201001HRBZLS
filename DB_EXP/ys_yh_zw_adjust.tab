@@ -1,4 +1,4 @@
-create table YS_YH_ZW_ADJUST
+ï»¿create table YS_YH_ZW_ADJUST
 (
   id           VARCHAR2(32),
   hire_code    VARCHAR2(32),
@@ -21,39 +21,39 @@ create table YS_YH_ZW_ADJUST
 )
 ;
 comment on table YS_YH_ZW_ADJUST
-  is '¼Æ·Ñµ÷ÕûÁĞ±í¡¾yzw¡¿';
+  is 'è®¡è´¹è°ƒæ•´åˆ—è¡¨ã€yzwã€‘';
 comment on column YS_YH_ZW_ADJUST.yzwid
-  is 'Á÷Ë®ºÅ';
+  is 'æµæ°´å·';
 comment on column YS_YH_ZW_ADJUST.yzwtactic
-  is '²ßÂÔ';
+  is 'ç­–ç•¥';
 comment on column YS_YH_ZW_ADJUST.yzwmethod
-  is 'µ÷Õû·½·¨';
+  is 'è°ƒæ•´æ–¹æ³•';
 comment on column YS_YH_ZW_ADJUST.yhid
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_YH_ZW_ADJUST.sbid
-  is 'Ë®±í±àºÅ';
+  is 'æ°´è¡¨ç¼–å·';
 comment on column YS_YH_ZW_ADJUST.yzwpiid
-  is '·ÑÓÃÏîÄ¿';
+  is 'è´¹ç”¨é¡¹ç›®';
 comment on column YS_YH_ZW_ADJUST.price_no
-  is '·ÑÂÊ±àÂë';
+  is 'è´¹ç‡ç¼–ç ';
 comment on column YS_YH_ZW_ADJUST.yzwprice
-  is 'ÀıÍâµ¥¼Û';
+  is 'ä¾‹å¤–å•ä»·';
 comment on column YS_YH_ZW_ADJUST.yzwway
-  is 'µ÷Õû·½Ïò(+/-)';
+  is 'è°ƒæ•´æ–¹å‘(+/-)';
 comment on column YS_YH_ZW_ADJUST.yzwvalue
-  is 'µ÷ÕûÖµ';
+  is 'è°ƒæ•´å€¼';
 comment on column YS_YH_ZW_ADJUST.yzwstartmon
-  is '¿ªÊ¼ÔÂ·İ';
+  is 'å¼€å§‹æœˆä»½';
 comment on column YS_YH_ZW_ADJUST.yzwendmon
-  is '½áÊøÔÂ·İ';
+  is 'ç»“æŸæœˆä»½';
 comment on column YS_YH_ZW_ADJUST.yzwstatus
-  is 'ÓĞĞ§×´Ì¬';
+  is 'æœ‰æ•ˆçŠ¶æ€';
 comment on column YS_YH_ZW_ADJUST.yzwinitvalue
-  is 'µ÷ÕûÖµ³õÖµ';
+  is 'è°ƒæ•´å€¼åˆå€¼';
 comment on column YS_YH_ZW_ADJUST.yzwper
-  is 'µ÷ÕûÈËÔ±';
+  is 'è°ƒæ•´äººå‘˜';
 comment on column YS_YH_ZW_ADJUST.yzwdate
-  is 'µ÷ÕûÈÕÆÚ';
+  is 'è°ƒæ•´æ—¥æœŸ';
 create index IDX_YZWMETHOD on YS_YH_ZW_ADJUST (YZWMETHOD);
 create index IDX_YZWMID on YS_YH_ZW_ADJUST (SBID);
 create index IDX_YZWSTATUS on YS_YH_ZW_ADJUST (YZWSTATUS, YZWSTARTMON, YZWENDMON);

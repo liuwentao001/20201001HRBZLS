@@ -1,4 +1,4 @@
-create table ACT_RU_VARIABLE
+﻿create table ACT_RU_VARIABLE
 (
   id_           VARCHAR2(64),
   rev_          NUMBER,

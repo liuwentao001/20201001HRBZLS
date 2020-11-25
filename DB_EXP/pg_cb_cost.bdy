@@ -1,11 +1,11 @@
-CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
+ï»¿CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
 
-  ×Ü±í½ØÁ¿     VARCHAR2(10);
-  ×îµÍËã·ÑË®Á¿ NUMBER(10);
+  æ€»è¡¨æˆªé‡     VARCHAR2(10);
+  æœ€ä½Žç®—è´¹æ°´é‡ NUMBER(10);
   
   
   
-  --Ìá¹©Íâ²¿ÅúÁ¿µ÷ÓÃ
+  --æä¾›å¤–éƒ¨æ‰¹é‡è°ƒç”¨
   PROCEDURE COSTBATCH(P_BFID IN VARCHAR2) IS
     CURSOR C_MR(VBFID IN VARCHAR2, VSMFID IN VARCHAR2) IS
       SELECT YCM.ID
@@ -13,8 +13,8 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
        WHERE YCM.SBID = YYS.SBID
          AND YCM.BOOK_NO = VBFID
          AND YCM.MANAGE_NO = VSMFID
-         AND CBMRIFREC = 'N' --Î´¼Æ·Ñ
-         AND CBMRREADOK = 'Y' --³­¼û
+         AND CBMRIFREC = 'N' --æœªè®¡è´¹
+         AND CBMRREADOK = 'Y' --æŠ„è§
        ORDER BY SBCLASS DESC,
                 (CASE
                   WHEN SBPRIFLAG = 'Y' AND SBPRIID <> SBCODE THEN
@@ -22,7 +22,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                   ELSE
                    2
                 END) ASC;
-    --ÓÎ±êÖÐ²»¹²Ïí×ÊÔ´£¬½âËøÇ°×ÊÔ´²»ÄÜ±»¸üÐÂ²¢ÇÒ²»µÈ´ý²¢Å×³öÒì³£
+    --æ¸¸æ ‡ä¸­ä¸å…±äº«èµ„æºï¼Œè§£é”å‰èµ„æºä¸èƒ½è¢«æ›´æ–°å¹¶ä¸”ä¸ç­‰å¾…å¹¶æŠ›å‡ºå¼‚å¸¸
   
     VMRID  YS_CB_MTREAD.ID%TYPE;
     VBFID  YS_CB_MTREAD.BOOK_NO%TYPE;
@@ -37,9 +37,9 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
         FETCH C_MR
           INTO VMRID;
         EXIT WHEN C_MR%NOTFOUND OR C_MR%NOTFOUND IS NULL;
-        --µ¥Ìõ³­±í¼ÇÂ¼´¦Àí
+        --å•æ¡æŠ„è¡¨è®°å½•å¤„ç†
         BEGIN
-          COSTCULATE(VMRID, Ìá½»);
+          COSTCULATE(VMRID, æäº¤);
           COMMIT;
         EXCEPTION
           WHEN OTHERS THEN
@@ -57,18 +57,18 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
   
   
   
-  --¼Æ»®³­±íµ¥±ÊËã·Ñ-°´³­±íÁ÷Ë®
+  --è®¡åˆ’æŠ„è¡¨å•ç¬”ç®—è´¹-æŒ‰æŠ„è¡¨æµæ°´
   PROCEDURE COSTCULATE(P_MRID IN YS_CB_MTREAD.ID%TYPE, P_COMMIT IN NUMBER) IS
     CURSOR C_MR IS
       SELECT *
         FROM YS_CB_MTREAD
        WHERE ID = P_MRID
          AND CBMRIFREC = 'N'
-         AND CBMRREADOK = 'Y' --³­¼û
+         AND CBMRREADOK = 'Y' --æŠ„è§
          AND CBMRSL >= 0
          FOR UPDATE NOWAIT;
   
-    --ºÏÊÕ×Ó±í³­±í¼ÇÂ¼
+    --åˆæ”¶å­è¡¨æŠ„è¡¨è®°å½•
     CURSOR C_MR_PRI(P_PRIMCODE IN VARCHAR2) IS
       SELECT CBMRSL, CBMRIFREC, YCM.SBID
         FROM YS_YH_SBINFO YYS, YS_CB_MTREAD YCM
@@ -77,7 +77,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
          AND SBPRIID = P_PRIMCODE
          AND YYS.SBID <> P_PRIMCODE;
   
-    --È¡ºÏÊÕ±íÐÅÏ¢
+    --å–åˆæ”¶è¡¨ä¿¡æ¯
     CURSOR C_MI(P_MID IN VARCHAR2) IS
       SELECT SBPRIFLAG,
              SBPRIID,
@@ -108,11 +108,11 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       INTO MR;
     IF C_MR%NOTFOUND OR C_MR%NOTFOUND IS NULL THEN
       RAISE_APPLICATION_ERROR(ERRCODE,
-                              '³­±íÁ÷Ë®ºÅ:' || P_MRID || 'ÎÞÐ§µÄ³­±í¼Æ»®Á÷Ë®ºÅ£¬»ò²»·ûºÏ¼Æ·ÑÌõ¼þ');
+                              'æŠ„è¡¨æµæ°´å·:' || P_MRID || 'æ— æ•ˆçš„æŠ„è¡¨è®¡åˆ’æµæ°´å·ï¼Œæˆ–ä¸ç¬¦åˆè®¡è´¹æ¡ä»¶');
     END IF;
     MR.CBMRCHKSL := MR.CBMRSL;
   
-    --Ë®±í¼ÇÂ¼
+    --æ°´è¡¨è®°å½•
     OPEN C_MI(MR.SBID);
     FETCH C_MI
       INTO MI.SBPRIFLAG,
@@ -125,55 +125,55 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
            MI.SBSTATUS,
            MI.SBIFCHK;
     IF C_MI%NOTFOUND OR C_MI%NOTFOUND IS NULL THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞÐ§µÄË®±í±àºÅ' || MR.SBID);
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ•ˆçš„æ°´è¡¨ç¼–å·' || MR.SBID);
     END IF;
     CLOSE C_MI;
   
     MR.CBMRRECSL := MR.CBMRSL;
-    IF MR.CBMRSL > 0 AND MR.CBMRSL < ×îµÍËã·ÑË®Á¿ AND
+    IF MR.CBMRSL > 0 AND MR.CBMRSL < æœ€ä½Žç®—è´¹æ°´é‡ AND
        MR.CBMRDATASOURCE IN ('1', '5', '9') THEN
       MR.CBMRIFREC   := 'Y';
       MR.CBMRRECDATE := TRUNC(SYSDATE);
-      MR.CBMRMEMO    := MR.CBMRMEMO || ',' || ×îµÍËã·ÑË®Á¿ || '¶ÖÒÔÏÂ²»¼Æ·Ñ';
-    ELSIF ×Ü±í½ØÁ¿ = 'Y' THEN
-      --²éÕÒÊÇ·ñÓÐ¶à¼¶±í¹ØÏµ Ô¤Áô
+      MR.CBMRMEMO    := MR.CBMRMEMO || ',' || æœ€ä½Žç®—è´¹æ°´é‡ || 'å¨ä»¥ä¸‹ä¸è®¡è´¹';
+    ELSIF æ€»è¡¨æˆªé‡ = 'Y' THEN
+      --æŸ¥æ‰¾æ˜¯å¦æœ‰å¤šçº§è¡¨å…³ç³» é¢„ç•™
     
-      --¼Æ·ÑºËÐÄ----------------------------------------------------------
-      IF MR.CBMRIFREC = 'N' AND (MR.CBMRIFSUBMIT = 'Y' OR P_COMMIT = µ÷ÊÔ) AND
+      --è®¡è´¹æ ¸å¿ƒ----------------------------------------------------------
+      IF MR.CBMRIFREC = 'N' AND (MR.CBMRIFSUBMIT = 'Y' OR P_COMMIT = è°ƒè¯•) AND
          MI.SBIFCHARGE = 'Y' THEN
-        COSTCULATECORE(MR, ¼Æ»®³­±í, '0', P_COMMIT); --¾ùÒÑµ±Ç°Ë®¼Û½øÐÐ¼Æ·Ñ£¬Ë®¼Û°æ±¾ºÅÄ¬ÈÏ0£¬ºóÐø¿ÉÀ©Õ¹
+        COSTCULATECORE(MR, è®¡åˆ’æŠ„è¡¨, '0', P_COMMIT); --å‡å·²å½“å‰æ°´ä»·è¿›è¡Œè®¡è´¹ï¼Œæ°´ä»·ç‰ˆæœ¬å·é»˜è®¤0ï¼ŒåŽç»­å¯æ‰©å±•
       END IF;
-      --ÍÆÖ¹Âë------------------------------------------------------------
-      IF P_COMMIT != µ÷ÊÔ THEN
+      --æŽ¨æ­¢ç ------------------------------------------------------------
+      IF P_COMMIT != è°ƒè¯• THEN
         UPDATE YS_YH_SBINFO
            SET SBRCODE     = MR.CBMRECODE,
                SBRECDATE   = MR.CBMRRDATE,
-               SBRECSL     = MR.CBMRSL, --È¡±¾ÆÚË®Á¿£¨³­Á¿£©
+               SBRECSL     = MR.CBMRSL, --å–æœ¬æœŸæ°´é‡ï¼ˆæŠ„é‡ï¼‰
                SBFACE      = MR.CBMRFACE,
                SBNEWFLAG   = 'N',
                SBRCODECHAR = MR.CBMRECODECHAR
          WHERE SBID = MR.SBID;
       END IF;
     ELSE
-      --¼Æ·ÑºËÐÄ----------------------------------------------------------
-      IF MR.CBMRIFREC = 'N' AND (MR.CBMRIFSUBMIT = 'Y' OR P_COMMIT = µ÷ÊÔ) AND
+      --è®¡è´¹æ ¸å¿ƒ----------------------------------------------------------
+      IF MR.CBMRIFREC = 'N' AND (MR.CBMRIFSUBMIT = 'Y' OR P_COMMIT = è°ƒè¯•) AND
          MI.SBIFCHARGE = 'Y' THEN
-        COSTCULATECORE(MR, ¼Æ»®³­±í, '0', P_COMMIT); --¾ùÒÑµ±Ç°Ë®¼Û½øÐÐ¼Æ·Ñ£¬Ë®¼Û°æ±¾ºÅÄ¬ÈÏ0£¬ºóÐø¿ÉÀ©Õ¹
+        COSTCULATECORE(MR, è®¡åˆ’æŠ„è¡¨, '0', P_COMMIT); --å‡å·²å½“å‰æ°´ä»·è¿›è¡Œè®¡è´¹ï¼Œæ°´ä»·ç‰ˆæœ¬å·é»˜è®¤0ï¼ŒåŽç»­å¯æ‰©å±•
       END IF;
-      --ÍÆÖ¹Âë------------------------------------------------------------
-      IF P_COMMIT != µ÷ÊÔ AND MR.CBMRIFREC = 'Y' THEN
+      --æŽ¨æ­¢ç ------------------------------------------------------------
+      IF P_COMMIT != è°ƒè¯• AND MR.CBMRIFREC = 'Y' THEN
         UPDATE YS_YH_SBINFO
            SET SBRCODE     = MR.CBMRECODE,
                SBRECDATE   = MR.CBMRRDATE,
-               SBRECSL     = MR.CBMRSL, --È¡±¾ÆÚË®Á¿£¨³­Á¿£©
+               SBRECSL     = MR.CBMRSL, --å–æœ¬æœŸæ°´é‡ï¼ˆæŠ„é‡ï¼‰
                SBFACE      = MR.CBMRFACE,
                SBNEWFLAG   = 'N',
                SBRCODECHAR = MR.CBMRECODECHAR
          WHERE SBID = MR.SBID;
       END IF;
     END IF;
-    --¸üÐÂµ±Ç°³­±í¼ÇÂ¼¡¢·´À¡×îºó¼Æ·ÑÐÅÏ¢
-    IF P_COMMIT != µ÷ÊÔ AND MR.CBMRIFREC = 'Y' THEN
+    --æ›´æ–°å½“å‰æŠ„è¡¨è®°å½•ã€åé¦ˆæœ€åŽè®¡è´¹ä¿¡æ¯
+    IF P_COMMIT != è°ƒè¯• AND MR.CBMRIFREC = 'Y' THEN
       UPDATE YS_CB_MTREAD
          SET CBMRIFREC   = MR.CBMRIFREC,
              CBMRRECDATE = MR.CBMRRECDATE,
@@ -196,19 +196,19 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
              CBMRRECSL   = MR.CBMRRECSL
        WHERE CURRENT OF C_MR;
     END IF;
-    --2¡¢Ìá½»´¦Àí
+    --2ã€æäº¤å¤„ç†
     BEGIN
       CLOSE C_MR;
-      IF P_COMMIT = µ÷ÊÔ THEN
+      IF P_COMMIT = è°ƒè¯• THEN
         NULL;
         --rollback;
       ELSE
-        IF P_COMMIT = Ìá½» THEN
+        IF P_COMMIT = æäº¤ THEN
           COMMIT;
-        ELSIF P_COMMIT = ²»Ìá½» THEN
+        ELSIF P_COMMIT = ä¸æäº¤ THEN
           NULL;
         ELSE
-          RAISE_APPLICATION_ERROR(ERRCODE, 'ÊÇ·ñÌá½»²ÎÊý²»ÕýÈ·');
+          RAISE_APPLICATION_ERROR(ERRCODE, 'æ˜¯å¦æäº¤å‚æ•°ä¸æ­£ç¡®');
         END IF;
       END IF;
     END;
@@ -226,7 +226,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       END IF;
       RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
   END COSTCULATE;
-  --µ¥±ÊËã·ÑºËÐÄ
+  --å•ç¬”ç®—è´¹æ ¸å¿ƒ
   PROCEDURE COSTCULATECORE(MR       IN OUT YS_CB_MTREAD%ROWTYPE,
                            P_TRANS  IN CHAR,
                            P_PSCID  IN NUMBER,
@@ -253,15 +253,15 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     V_RDATE DATE;
     V_SL    NUMBER;
   
-    --»ìºÏÓÃË®ÏÈ¶¨Á¿ÔÙ¶¨±È
+    --æ··åˆç”¨æ°´å…ˆå®šé‡å†å®šæ¯”
     CURSOR C_PMD(VPSCID IN NUMBER, VMID IN ys_yh_pricegroup.SBID%TYPE) IS
       SELECT *
         FROM (SELECT * FROM ys_yh_pricegroup WHERE SBID = VMID)
-       ORDER BY GRPTYPE DESC, GRPID; --°´Î¬»¤ÏÈºóË³Ðò
+       ORDER BY GRPTYPE DESC, GRPID; --æŒ‰ç»´æŠ¤å…ˆåŽé¡ºåº
   
     PMD YS_YH_PRICEGROUP%ROWTYPE;
   
-    --¼Û¸ñÌåÏµ
+    --ä»·æ ¼ä½“ç³»
     CURSOR C_PD(VPSCID IN NUMBER, VPFID IN BAS_PRICE_DETAIL.PRICE_NO%TYPE) IS
       SELECT *
         FROM (SELECT *
@@ -293,54 +293,54 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     RDTAB     RD_TABLE;
     N         NUMBER;
     M         NUMBER;
-    CLASSCTL  CHAR(1) := 'N'; --Ä¬ÈÏ²»È¡Ïû½×ÌÝ¼Æ·Ñ·½·¨
+    CLASSCTL  CHAR(1) := 'N'; --é»˜è®¤ä¸å–æ¶ˆé˜¶æ¢¯è®¡è´¹æ–¹æ³•
   
     I   NUMBER;
     VRD YS_ZW_ARDETAIL%ROWTYPE;
   
   BEGIN
-    --Ëø¶¨Ë®±í¼ÇÂ¼
+    --é”å®šæ°´è¡¨è®°å½•
     OPEN C_MI(MR.SBID);
     FETCH C_MI
       INTO MI;
     IF C_MI%NOTFOUND OR C_MI%NOTFOUND IS NULL THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞÐ§µÄË®±í±àºÅ' || MR.SBID);
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ•ˆçš„æ°´è¡¨ç¼–å·' || MR.SBID);
     END IF;
-    --Ëø¶¨Ë®±íµµ°¸
+    --é”å®šæ°´è¡¨æ¡£æ¡ˆ
     OPEN C_MD(MR.SBID);
     FETCH C_MD
       INTO MD;
     IF C_MD%NOTFOUND OR C_MD%NOTFOUND IS NULL THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞÐ§µÄË®±í±àºÅ' || MR.SBID);
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ•ˆçš„æ°´è¡¨ç¼–å·' || MR.SBID);
     END IF;
-    --Ëø¶¨Ë®±íÒøÐÐ
+    --é”å®šæ°´è¡¨é“¶è¡Œ
     OPEN C_MA(MR.SBID);
     FETCH C_MA
       INTO MA;
     CLOSE C_MA;
-    --Ëø¶¨ÓÃ»§¼ÇÂ¼
+    --é”å®šç”¨æˆ·è®°å½•
     OPEN C_CI(MI.SBID);
     FETCH C_CI
       INTO CI;
     IF C_CI%NOTFOUND OR C_CI%NOTFOUND IS NULL THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞÐ§µÄÓÃ»§±àºÅ' || MI.SBID);
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ•ˆçš„ç”¨æˆ·ç¼–å·' || MI.SBID);
     END IF;
-    --Èç¹ûÊÇ¼Æ·Ñµ÷Õû°´¹¤µ¥Ë®¼Û½øÐÐ¼Æ·Ñ
+    --å¦‚æžœæ˜¯è®¡è´¹è°ƒæ•´æŒ‰å·¥å•æ°´ä»·è¿›è¡Œè®¡è´¹
     IF MR.ID = '?' OR P_TRANS = 'O' THEN
       MI.PRICE_NO := MR.PRICE_NO;
     END IF;
-    /*------------------Ôö¼ÓÄê½×ÌÝÐ£Ñé-------------------
-    IF ÊÇ·ñº¬Äê½×ÌÝË®¼Û(MI.SBID) = 'Y' AND MI.SBYEARDATE IS NULL THEN
-      MI.SBYEARSL := 0; --ÄêÀÛ¼ÆÁ¿
-      MI.SBYEARDATE := TRUNC(SYSDATE, 'YYYY'); --Äê½×ÌÝÆðËãÈÕ
+    /*------------------å¢žåŠ å¹´é˜¶æ¢¯æ ¡éªŒ-------------------
+    IF æ˜¯å¦å«å¹´é˜¶æ¢¯æ°´ä»·(MI.SBID) = 'Y' AND MI.SBYEARDATE IS NULL THEN
+      MI.SBYEARSL := 0; --å¹´ç´¯è®¡é‡
+      MI.SBYEARDATE := TRUNC(SYSDATE, 'YYYY'); --å¹´é˜¶æ¢¯èµ·ç®—æ—¥
       UPDATE YS_YH_SBINFO
          SET SBYEARSL = MI.SBYEARSL, SBYEARDATE = MI.SBYEARDATE
        WHERE SBID = MI.SBID;
     END IF;
-    ------------------Ôö¼ÓÄê½×ÌÝÐ£Ñé-------------------*/
+    ------------------å¢žåŠ å¹´é˜¶æ¢¯æ ¡éªŒ-------------------*/
   
-    --·Ç¼Æ·Ñ±íÖ´ÐÐ¿Õ¹ý³Ì£¬²»Å×Òì³£
-    --reclist¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý
+    --éžè®¡è´¹è¡¨æ‰§è¡Œç©ºè¿‡ç¨‹ï¼Œä¸æŠ›å¼‚å¸¸
+    --reclistâ†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“
     BEGIN
       SELECT SYS_GUID() INTO RL.ID FROM DUAL;
       RL.HIRE_CODE     := MI.HIRE_CODE;
@@ -369,23 +369,23 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       RL.ARACCOUNTNAME := MA.YHAACCOUNTNAME;
       RL.ARIFTAX       := MI.SBIFTAX;
       RL.ARTAXNO       := MI.SBTAXNO;
-      RL.ARIFINV       := CI.YHIFINV; --¿ªÆ±±êÖ¾
+      RL.ARIFINV       := CI.YHIFINV; --å¼€ç¥¨æ ‡å¿—
       RL.ARMCODE       := MI.SBCODE;
       RL.ARMPID        := MI.SBPID;
       RL.ARMCLASS      := MI.SBCLASS;
       RL.ARMFLAG       := MI.SBFLAG;
       RL.ARDAY         := MR.CBMRDAY;
       RL.ARBFID        := MI.BOOK_NO; --
-      --·Ö¶ÎËã·¨ÒªÇóÉÏÆÚ³­±íÈÕÆÚºÍ±¾ÆÚ³­±íÈÕÆÚ·Ç¿Õ
+      --åˆ†æ®µç®—æ³•è¦æ±‚ä¸ŠæœŸæŠ„è¡¨æ—¥æœŸå’Œæœ¬æœŸæŠ„è¡¨æ—¥æœŸéžç©º
       RL.ARPRDATE := NVL(NVL(NVL(MR.CBMRPRDATE, MI.SBINSDATE), MI.SBNEWDATE),
                          TRUNC(SYSDATE));
       RL.ARRDATE  := NVL(NVL(MR.CBMRRDATE, TRUNC(MR.CBMRINPUTDATE)),
                          TRUNC(SYSDATE));
     
-      --Î¥Ô¼½ðÆðËãÈÕÆÚ£¨×¢ÒâÍ¬²½ÐÞ¸ÄÓªÒµÍâÊÕÈëÉóºË£©
-      /*A  µ±ÔÂ¶¨ÈÕÆðËã
-      B  ÏÂÔÂ¶¨ÈÕÆðËã
-      C  ¼Æ·ÑÈÕÆðËã*/
+      --è¿çº¦é‡‘èµ·ç®—æ—¥æœŸï¼ˆæ³¨æ„åŒæ­¥ä¿®æ”¹è¥ä¸šå¤–æ”¶å…¥å®¡æ ¸ï¼‰
+      /*A  å½“æœˆå®šæ—¥èµ·ç®—
+      B  ä¸‹æœˆå®šæ—¥èµ·ç®—
+      C  è®¡è´¹æ—¥èµ·ç®—*/
       /*BEGIN
         SELECT * INTO BL FROM BREACHLIST;
       EXCEPTION
@@ -409,10 +409,10 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       RL.ARMNO          := MD.MDNO;
       RL.ARSCODE        := MR.CBMRSCODE;
       RL.ARECODE        := MR.CBMRECODE;
-      RL.ARREADSL       := MR.CBMRSL; --±äÁ¿ÔÝ´æ£¬×îºó»Ö¸´
+      RL.ARREADSL       := MR.CBMRSL; --å˜é‡æš‚å­˜ï¼Œæœ€åŽæ¢å¤
       RL.ARINVMEMO := CASE
                         WHEN NOT (P_PSCID = '0000.00' OR P_PSCID IS NULL) THEN
-                         '[' || P_PSCID || ']ÀúÊ·µ¥¼Û'
+                         '[' || P_PSCID || ']åŽ†å²å•ä»·'
                         ELSE
                          ''
                       END;
@@ -422,8 +422,8 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       RL.ARTRANS        := P_TRANS;
       RL.ARCD           := DEBIT;
       RL.ARYSCHARGETYPE := MI.SBCHARGETYPE;
-      RL.ARSL           := 0; --Ó¦ÊÕË®·ÑË®Á¿£¬¡¾rlsl = rlreadsl + rladjsl¡¿
-      RL.ARJE           := 0; --Éú³ÉÕÊÌåºó¼ÆËã,ÏÈ³õÊ¼»¯
+      RL.ARSL           := 0; --åº”æ”¶æ°´è´¹æ°´é‡ï¼Œã€rlsl = rlreadsl + rladjslã€‘
+      RL.ARJE           := 0; --ç”Ÿæˆå¸ä½“åŽè®¡ç®—,å…ˆåˆå§‹åŒ–
       RL.ARADDSL        := NVL(MR.CBMRADDSL, 0);
       RL.ARPAIDJE       := 0;
       RL.ARPAIDFLAG     := 'N';
@@ -435,37 +435,37 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       RL.ARLB           := MI.SBLB;
       RL.ARPFID         := MI.PRICE_NO;
       RL.ARDATETIME     := SYSDATE;
-      RL.ARPRIMCODE     := MI.SBPRIID; --¼ÇÂ¼ºÏÊÕ×Ó±í´®
+      RL.ARPRIMCODE     := MI.SBPRIID; --è®°å½•åˆæ”¶å­è¡¨ä¸²
       RL.ARPRIFLAG      := MI.SBPRIFLAG;
       RL.ARRPER         := MR.CBMRRPER;
       RL.ARSCODECHAR    := MR.CBMRSCODE;
       RL.ARECODECHAR    := MR.CBMRECODE;
-      RL.ARGROUP        := '1'; --Ó¦ÊÕÕÊ·Ö×é
-      RL.ARPID          := NULL; --ÊµÊÕÁ÷Ë®£¨Óëpayment.pid¶ÔÓ¦£©
-      RL.ARPBATCH       := NULL; --½É·Ñ½»Ò×Åú´Î£¨Óëpayment.pbatch¶ÔÓ¦£©
-      RL.ARSAVINGQC     := 0; --ÆÚ³õÔ¤´æ£¨ÏúÕÊÊ±²úÉú£©
-      RL.ARSAVINGBQ     := 0; --±¾ÆÚÔ¤´æ·¢Éú£¨ÏúÕÊÊ±²úÉú£©
-      RL.ARSAVINGQM     := 0; --ÆÚÄ©Ô¤´æ£¨ÏúÕÊÊ±²úÉú£©
-      RL.ARREVERSEFLAG  := 'N'; --  ³åÕý±êÖ¾£¨nÎªÕý³££¬yÎª³åÕý£©
-      RL.ARBADFLAG      := 'N'; --´ôÕÊ±êÖ¾£¨y :´ô»µÕÊ£¬o:´ô»µÕÊÉóÅúÖÐ£¬n:Õý³£ÕÊ£©
-      RL.ARZNJREDUCFLAG := 'N'; --ÖÍÄÉ½ð¼õÃâ±êÖ¾,Î´¼õÃâÊ±Îªn£¬ÏúÕÊÊ±ÖÍÄÉ½ðÖ±½Ó¼ÆËã£»¼õÃâºóÎªy,ÏúÕÊÊ±ÖÍÄÉ½ðÖ±½ÓÈ¡rlznj
-      RL.ARSXF          := 0; --ÊÖÐø·Ñ
-      RL.ARMIFACE2      := MI.SBFACE2; --³­¼û¹ÊÕÏ
-      RL.ARMIFACE3      := MI.SBFACE3; --·Ç³£¼ÆÁ¿
-      RL.ARMIFACE4      := MI.SBFACE4; --±í¾®ÉèÊ©ËµÃ÷
-      RL.ARMIIFCKF      := MI.SBIFCHK; --À¬»ø·Ñ»§Êý
-      RL.ARMIGPS        := MI.SBGPS; --ÊÇ·ñºÏÆ±
-      RL.ARMIQFH        := MI.SBQFH; --Ç¦·âºÅ
-      RL.ARMIBOX        := MI.SBBOX; --Ïû·ÀË®¼Û£¨ÔöÖµË°Ë®¼Û£©
-      RL.ARMINAME2      := MI.SBNAME2; --ÕÐÅÆÃû³Æ(Ð¡ÇøÃû£©
-      RL.ARMISEQNO      := MI.SBSEQNO; --»§ºÅ£¨³õÊ¼»¯Ê±²áºÅ+ÐòºÅ£©
-      RL.ARSCRARID      := RL.ARID; --Ô­Ó¦ÊÕÕÊÁ÷Ë®
-      RL.ARSCRARTRANS   := RL.ARTRANS; --Ô­Ó¦ÊÕÕÊÊÂÎñ
-      RL.ARSCRARMONTH   := RL.ARMONTH; --Ô­Ó¦ÊÕÕÊÔÂ·Ý
-      RL.ARSCRARDATE    := RL.ARDATE; --Ô­Ó¦ÊÕÕÊÈÕÆÚ
+      RL.ARGROUP        := '1'; --åº”æ”¶å¸åˆ†ç»„
+      RL.ARPID          := NULL; --å®žæ”¶æµæ°´ï¼ˆä¸Žpayment.pidå¯¹åº”ï¼‰
+      RL.ARPBATCH       := NULL; --ç¼´è´¹äº¤æ˜“æ‰¹æ¬¡ï¼ˆä¸Žpayment.pbatchå¯¹åº”ï¼‰
+      RL.ARSAVINGQC     := 0; --æœŸåˆé¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+      RL.ARSAVINGBQ     := 0; --æœ¬æœŸé¢„å­˜å‘ç”Ÿï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+      RL.ARSAVINGQM     := 0; --æœŸæœ«é¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+      RL.ARREVERSEFLAG  := 'N'; --  å†²æ­£æ ‡å¿—ï¼ˆnä¸ºæ­£å¸¸ï¼Œyä¸ºå†²æ­£ï¼‰
+      RL.ARBADFLAG      := 'N'; --å‘†å¸æ ‡å¿—ï¼ˆy :å‘†åå¸ï¼Œo:å‘†åå¸å®¡æ‰¹ä¸­ï¼Œn:æ­£å¸¸å¸ï¼‰
+      RL.ARZNJREDUCFLAG := 'N'; --æ»žçº³é‡‘å‡å…æ ‡å¿—,æœªå‡å…æ—¶ä¸ºnï¼Œé”€å¸æ—¶æ»žçº³é‡‘ç›´æŽ¥è®¡ç®—ï¼›å‡å…åŽä¸ºy,é”€å¸æ—¶æ»žçº³é‡‘ç›´æŽ¥å–rlznj
+      RL.ARSXF          := 0; --æ‰‹ç»­è´¹
+      RL.ARMIFACE2      := MI.SBFACE2; --æŠ„è§æ•…éšœ
+      RL.ARMIFACE3      := MI.SBFACE3; --éžå¸¸è®¡é‡
+      RL.ARMIFACE4      := MI.SBFACE4; --è¡¨äº•è®¾æ–½è¯´æ˜Ž
+      RL.ARMIIFCKF      := MI.SBIFCHK; --åžƒåœ¾è´¹æˆ·æ•°
+      RL.ARMIGPS        := MI.SBGPS; --æ˜¯å¦åˆç¥¨
+      RL.ARMIQFH        := MI.SBQFH; --é“…å°å·
+      RL.ARMIBOX        := MI.SBBOX; --æ¶ˆé˜²æ°´ä»·ï¼ˆå¢žå€¼ç¨Žæ°´ä»·ï¼‰
+      RL.ARMINAME2      := MI.SBNAME2; --æ‹›ç‰Œåç§°(å°åŒºåï¼‰
+      RL.ARMISEQNO      := MI.SBSEQNO; --æˆ·å·ï¼ˆåˆå§‹åŒ–æ—¶å†Œå·+åºå·ï¼‰
+      RL.ARSCRARID      := RL.ARID; --åŽŸåº”æ”¶å¸æµæ°´
+      RL.ARSCRARTRANS   := RL.ARTRANS; --åŽŸåº”æ”¶å¸äº‹åŠ¡
+      RL.ARSCRARMONTH   := RL.ARMONTH; --åŽŸåº”æ”¶å¸æœˆä»½
+      RL.ARSCRARDATE    := RL.ARDATE; --åŽŸåº”æ”¶å¸æ—¥æœŸ
     
       IF (MR.CBMRNEWFLAG = 'Y' AND (MR.ID = '?' OR P_TRANS = 'O')) THEN
-        --Ó¦ÊÕ×·²¹¹´Ñ¡²»¼Æ½×ÌÝ±êÖ¾
+        --åº”æ”¶è¿½è¡¥å‹¾é€‰ä¸è®¡é˜¶æ¢¯æ ‡å¿—
         CLASSCTL := 'Y';
       ELSE
         CLASSCTL := 'N';
@@ -482,9 +482,9 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
            AND SBID = MI.SBID;
       EXCEPTION
         WHEN OTHERS THEN
-          RL.ARPRIORJE := 0; --Ëã·ÑÖ®Ç°Ç··Ñ
+          RL.ARPRIORJE := 0; --ç®—è´¹ä¹‹å‰æ¬ è´¹
       END;
-      RL.ARMISAVING := MI.SBSAVING; --Ëã·ÑÊ±Ô¤´æ
+      RL.ARMISAVING := MI.SBSAVING; --ç®—è´¹æ—¶é¢„å­˜
       /*END IF;*/
       RL.ARMICOMMUNITY   := MI.SBCOMMUNITY;
       RL.ARMIREMOTENO    := MI.SBREMOTENO;
@@ -495,27 +495,27 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       RL.ARMICOLUMN2     := NULL;
       RL.ARMICOLUMN3     := NULL;
       RL.ARMICOLUMN4     := NULL;
-      RL.ARCOLUMN5       := NULL; --ÉÏ´ÎÓ¦ÕÊÕÊÈÕÆÚ
-      RL.ARCOLUMN9       := NULL; --ÉÏ´ÎÓ¦ÊÕÕÊÁ÷Ë®
-      RL.ARCOLUMN10      := NULL; --ÉÏ´ÎÓ¦ÊÕÕÊÔÂ·Ý
-      RL.ARCOLUMN11      := NULL; --ÉÏ´ÎÓ¦ÊÕÕÊÊÂÎñ
+      RL.ARCOLUMN5       := NULL; --ä¸Šæ¬¡åº”å¸å¸æ—¥æœŸ
+      RL.ARCOLUMN9       := NULL; --ä¸Šæ¬¡åº”æ”¶å¸æµæ°´
+      RL.ARCOLUMN10      := NULL; --ä¸Šæ¬¡åº”æ”¶å¸æœˆä»½
+      RL.ARCOLUMN11      := NULL; --ä¸Šæ¬¡åº”æ”¶å¸äº‹åŠ¡
     END;
-    --reclist¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
+    --reclistâ†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘
   
-    --0¡¢¡®°´¹éµµ¼Û¸ñÏµ·Ö¶Î¡¯»ò¡®Ö¸¶¨¼Û¸ñÏµ¡¯Ç°ÖÃÊý¾Ý¼¯×¼±¸
+    --0ã€â€˜æŒ‰å½’æ¡£ä»·æ ¼ç³»åˆ†æ®µâ€™æˆ–â€˜æŒ‡å®šä»·æ ¼ç³»â€™å‰ç½®æ•°æ®é›†å‡†å¤‡
     IF P_PSCID IS NOT NULL THEN
-      --Ö¸¶¨¼Û¸ñÏµ
+      --æŒ‡å®šä»·æ ¼ç³»
       IF P_PSCID = 0 THEN
         SELECT MAX(PRICE_VER) INTO RL.ARMICOLUMN1 FROM BAS_PRICE_NAME;
       END IF;
       RLTAB := RL_TABLE(RL);
     ELSE
-      --·Ö¶Î
+      --åˆ†æ®µ
       OPEN C_VER;
       FETCH C_VER
         INTO V_VERID, V_ODATE;
       IF C_VER%NOTFOUND OR C_VER%NOTFOUND IS NULL THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞ·¨»ñÈ¡ÓÐÐ§µÄ¼Û¸ñÏµ1');
+        RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ³•èŽ·å–æœ‰æ•ˆçš„ä»·æ ¼ç³»1');
       END IF;
       WHILE C_VER%FOUND LOOP
         IF V_ODATE >= RL.ARPRDATE AND
@@ -562,7 +562,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
           RLVER.ARMICOLUMN1 := V_VERID;
           ---------------------
           V_RDATE := RLVER.ARRDATE;
-          --²åÈëËã·ÑÁÙÊ±·Ö¶Î°ü
+          --æ’å…¥ç®—è´¹ä¸´æ—¶åˆ†æ®µåŒ…
           IF RLTAB IS NULL THEN
             RLTAB := RL_TABLE(RLVER);
           ELSE
@@ -578,18 +578,18 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       CLOSE C_VER;
     END IF;
     IF RLTAB IS NULL THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞ·¨»ñÈ¡ÓÐÐ§µÄ¼Û¸ñÏµ2');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ³•èŽ·å–æœ‰æ•ˆçš„ä»·æ ¼ç³»2');
     END IF;
   
-    --1¡¢°´¼Û¸ñÌåÏµ£¨º¬¹éµµ¼Û¸ñ£©
+    --1ã€æŒ‰ä»·æ ¼ä½“ç³»ï¼ˆå«å½’æ¡£ä»·æ ¼ï¼‰
     FOR I IN RLTAB.FIRST .. RLTAB.LAST LOOP
       RLVER := RLTAB(I);
       OPEN C_PMD(RLVER.ARMICOLUMN1, MI.SBID);
       FETCH C_PMD
         INTO PMD;
-      --1.1¡¢µ¥Ò»ÓÃË®
+      --1.1ã€å•ä¸€ç”¨æ°´
       IF C_PMD%NOTFOUND OR C_PMD%NOTFOUND IS NULL THEN
-        --1.1.1¡¢·ÇÌØ±ðµ¥¼Û
+        --1.1.1ã€éžç‰¹åˆ«å•ä»·
         OPEN C_PD(RLVER.ARMICOLUMN1, MI.PRICE_NO);
         LOOP
           FETCH C_PD
@@ -610,28 +610,28 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
         END LOOP;
         CLOSE C_PD;
         ------------------------------------------------------
-        --1.2¡¢»ìºÏÓÃË®
+        --1.2ã€æ··åˆç”¨æ°´
       ELSE
         SELECT COUNT(GRPID)
           INTO MAXPMDID
           FROM (SELECT * FROM YS_YH_PRICEGROUP WHERE SBID = MI.SBID);
       
-        V_PMDSL   := 0; --×é·ÖÅäË®Á¿
+        V_PMDSL   := 0; --ç»„åˆ†é…æ°´é‡
         PMNUM     := 0;
-        V_PMDDBSL := RLVER.ARREADSL; --¶¨±ÈÔªË®Á¿
-        TEMPSL    := RLVER.ARREADSL; --·ÖÅäºóÊ£ÓàË®Á¿
+        V_PMDDBSL := RLVER.ARREADSL; --å®šæ¯”å…ƒæ°´é‡
+        TEMPSL    := RLVER.ARREADSL; --åˆ†é…åŽå‰©ä½™æ°´é‡
       
         WHILE C_PMD%FOUND AND TEMPSL >= 0 LOOP
           PMNUM := PMNUM + 1;
-          --²ð·ÖÓàÁ¿¼ÇÈë×îºó·ÑÉÏ
+          --æ‹†åˆ†ä½™é‡è®°å…¥æœ€åŽè´¹ä¸Š
           IF PMNUM = MAXPMDID THEN
             V_PMDSL := TEMPSL;
           ELSE
             IF PMD.GRPTYPE = '00' THEN
-              --¶¨±È»ìºÏ
+              --å®šæ¯”æ··åˆ
               V_PMDSL := CEIL(PMD.GRPSCALE * V_PMDDBSL);
             ELSE
-              --¶¨Á¿»ìºÏ
+              --å®šé‡æ··åˆ
               V_PMDSL := (CASE
                            WHEN TEMPSL >= TRUNC(PMD.GRPSCALE) THEN
                             TRUNC(PMD.GRPSCALE)
@@ -642,7 +642,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
             END IF;
           END IF;
         
-          --´Ë´¦°´»ù±¾¼Û¸ñÀà±ðÕý³£¼Æ·Ñ--------------------------
+          --æ­¤å¤„æŒ‰åŸºæœ¬ä»·æ ¼ç±»åˆ«æ­£å¸¸è®¡è´¹--------------------------
           OPEN C_PD(RLVER.ARMICOLUMN1, PMD.PRICE_NO);
           LOOP
             FETCH C_PD
@@ -667,8 +667,8 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       END IF;
       CLOSE C_PMD;
     END LOOP;
-    --Í³Ò»ÖØËã»ã×ÜÓ¦ÊÕË®Á¿¡¢½ð¶îµ½×ÜÕËÉÏ
-    RL.ARREADSL := MR.CBMRSL; --»¹Ô­
+    --ç»Ÿä¸€é‡ç®—æ±‡æ€»åº”æ”¶æ°´é‡ã€é‡‘é¢åˆ°æ€»è´¦ä¸Š
+    RL.ARREADSL := MR.CBMRSL; --è¿˜åŽŸ
     RL.ARSL     := 0;
     RL.ARJE     := 0;
     IF RDTAB IS NOT NULL THEN
@@ -680,9 +680,9 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       END LOOP;
     ELSE
       RAISE_APPLICATION_ERROR(ERRCODE,
-                              'ÎÞ·¨Éú³ÉÓ¦ÊÕÕÊÎñÃ÷Ï¸£¬¿ÉÄÜÎÞÓÃË®ÐÔÖÊ');
+                              'æ— æ³•ç”Ÿæˆåº”æ”¶å¸åŠ¡æ˜Žç»†ï¼Œå¯èƒ½æ— ç”¨æ°´æ€§è´¨');
     END IF;
-    IF P_COMMIT != µ÷ÊÔ THEN
+    IF P_COMMIT != è°ƒè¯• THEN
       INSERT INTO YS_ZW_ARLIST VALUES RL;
     ELSE
       INSERT INTO YS_ZW_ARLIST_BUDGET VALUES RL;
@@ -693,13 +693,13 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     CLOSE C_MI;
     CLOSE C_MD;
     CLOSE C_CI;
-    --·´À¡Ó¦ÊÕË®Á¿Ë®·Ñµ½Ô­Ê¼³­±í¼ÇÂ¼
+    --åé¦ˆåº”æ”¶æ°´é‡æ°´è´¹åˆ°åŽŸå§‹æŠ„è¡¨è®°å½•
     MR.CBMRRECSL        := NVL(RL.ARSL, 0);
     MR.CBMRIFREC        := 'Y';
     MR.CBMRRECDATE      := RL.ARDATE;
-    MR.CBMRPRIVILEGEPER := RL.ARID; --½è×Ö¶Î¼ÇÂ¼rlid·µ»Ø£¬¹©¼´Ê±ÏúÕÊ20140507
+    MR.CBMRPRIVILEGEPER := RL.ARID; --å€Ÿå­—æ®µè®°å½•rlidè¿”å›žï¼Œä¾›å³æ—¶é”€å¸20140507
   
-    --ÎªÊÊÓ¦³­±íÂ¼ÈëÖÐµÄÕË±¾Ð¡½á£¬ÕâÀïÏÈ³õÊ¼»¯Îª0
+    --ä¸ºé€‚åº”æŠ„è¡¨å½•å…¥ä¸­çš„è´¦æœ¬å°ç»“ï¼Œè¿™é‡Œå…ˆåˆå§‹åŒ–ä¸º0
     MR.CBMRRECJE01 := 0;
     MR.CBMRRECJE02 := 0;
     MR.CBMRRECJE03 := 0;
@@ -708,7 +708,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     IF RDTAB IS NOT NULL THEN
       FOR I IN RDTAB.FIRST .. RDTAB.LAST LOOP
         VRD := RDTAB(I);
-        --·´À¡×Ü½ð¶îµ½
+        --åé¦ˆæ€»é‡‘é¢åˆ°
         CASE VRD.ARDPIID
           WHEN '01' THEN
             MR.CBMRRECJE01 := NVL(MR.CBMRRECJE01, 0) + VRD.ARDJE;
@@ -752,7 +752,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       END IF;
       RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
   END;
-  --·ÑÂÊÃ÷Ï¸¼ÆËã²½Öè
+  --è´¹çŽ‡æ˜Žç»†è®¡ç®—æ­¥éª¤
   PROCEDURE COSTPIID(P_RL       IN OUT YS_ZW_ARLIST%ROWTYPE,
                      P_MR       IN OUT YS_CB_MTREAD%ROWTYPE,
                      P_SL       IN NUMBER,
@@ -762,7 +762,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                      P_CLASSCTL IN CHAR,
                      P_PSCID    IN NUMBER,
                      P_COMMIT   IN NUMBER) IS
-    --p_classctl£¨Y£ºÇ¿ÖÆ²»Ê¹ÓÃ½×ÌÝ¼Æ·Ñ·½·¨£»N£º¼ÆËã½×ÌÝ£¬Èç¹ûÊÇµÄ»°£©
+    --p_classctlï¼ˆYï¼šå¼ºåˆ¶ä¸ä½¿ç”¨é˜¶æ¢¯è®¡è´¹æ–¹æ³•ï¼›Nï¼šè®¡ç®—é˜¶æ¢¯ï¼Œå¦‚æžœæ˜¯çš„è¯ï¼‰
     RD        YS_ZW_ARDETAIL%ROWTYPE;
     I         INTEGER;
     V_MONTHS  NUMBER(10);
@@ -773,7 +773,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     BF        YS_BAS_BOOK%ROWTYPE;
   BEGIN
   
-    --²»¼Æ½×ÌÝ¿ØÖÆ²»½øÈë½×ÌÝ×Ó¹ý³Ì£¬²»²úÉú1½×½ð¶î
+    --ä¸è®¡é˜¶æ¢¯æŽ§åˆ¶ä¸è¿›å…¥é˜¶æ¢¯å­è¿‡ç¨‹ï¼Œä¸äº§ç”Ÿ1é˜¶é‡‘é¢
     IF P_CLASSCTL = 'Y' AND PD.METHOD IN ('yjt', 'njt') THEN
       VPDMETHOD := 'dj';
     ELSE
@@ -783,7 +783,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     BEGIN
       SELECT ROUND(MONTHS_BETWEEN(TRUNC(P_RL.ARRDATE, 'MM'),
                                   TRUNC(P_RL.ARPRDATE, 'MM')))
-        INTO N --¼Æ·ÑÊ±¶ÎÔÂÊý
+        INTO N --è®¡è´¹æ—¶æ®µæœˆæ•°
         FROM DUAL;
       IF N <= 0 OR N IS NULL THEN
         N := 1;
@@ -794,12 +794,12 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     END;
     SELECT SYS_GUID() INTO RD.ID FROM DUAL;
     RD.HIRE_CODE     := P_RL.HIRE_CODE;
-    RD.ARDID         := P_RL.ARID; --Á÷Ë®ºÅ
-    RD.ARDPMDID      := NVL(PMD.GRPID, 0); --»ìºÏÓÃË®·Ö×é
+    RD.ARDID         := P_RL.ARID; --æµæ°´å·
+    RD.ARDPMDID      := NVL(PMD.GRPID, 0); --æ··åˆç”¨æ°´åˆ†ç»„
     RD.ARDPMDSCALE   := NVL(PMD.GRPSCALE, 1);
-    RD.ARDPIID       := PD.PRICE_ITEM; --·ÑÓÃÏîÄ¿
-    RD.ARDPFID       := PD.PRICE_NO; --·ÑÂÊ
-    RD.ARDPSCID      := PD.PRICE_VER; --·ÑÂÊÃ÷Ï¸·½°¸
+    RD.ARDPIID       := PD.PRICE_ITEM; --è´¹ç”¨é¡¹ç›®
+    RD.ARDPFID       := PD.PRICE_NO; --è´¹çŽ‡
+    RD.ARDPSCID      := PD.PRICE_VER; --è´¹çŽ‡æ˜Žç»†æ–¹æ¡ˆ
     RD.ARDMETHOD     := VPDMETHOD;
     RD.ARDPAIDFLAG   := 'N';
     RD.ARDYSDJ       := 0;
@@ -811,15 +811,15 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     RD.ARDADJDJ      := 0;
     RD.ARDADJSL      := 0;
     RD.ARDADJJE      := 0;
-    RD.ARDMSMFID     := P_RL.MANAGE_NO; --ÓªÏú¹«Ë¾
-    RD.ARDMONTH      := P_RL.ARMONTH; --ÕÊÎñÔÂ·Ý
-    RD.ARDMID        := P_RL.SBID; --Ë®±í±àºÅ
-    RD.ARDPMDTYPE    := NVL(PMD.GRPTYPE, '01'); --»ìºÏÀà±ð
-    RD.ARDPMDCOLUMN1 := PMD.GRPCOLUMN1; --±¸ÓÃ×Ö¶Î1
+    RD.ARDMSMFID     := P_RL.MANAGE_NO; --è¥é”€å…¬å¸
+    RD.ARDMONTH      := P_RL.ARMONTH; --å¸åŠ¡æœˆä»½
+    RD.ARDMID        := P_RL.SBID; --æ°´è¡¨ç¼–å·
+    RD.ARDPMDTYPE    := NVL(PMD.GRPTYPE, '01'); --æ··åˆç±»åˆ«
+    RD.ARDPMDCOLUMN1 := PMD.GRPCOLUMN1; --å¤‡ç”¨å­—æ®µ1
   
     CASE VPDMETHOD
       WHEN '01' THEN
-        --¹Ì¶¨µ¥¼Û  Ä¬ÈÏ·½Ê½£¬Óë³­Á¿ÓÐ¹Ø
+        --å›ºå®šå•ä»·  é»˜è®¤æ–¹å¼ï¼Œä¸ŽæŠ„é‡æœ‰å…³
         BEGIN
           RD.ARDCLASS := 0;
           RD.ARDYSDJ  := PD.PRICE;
@@ -831,7 +831,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
           RD.ARDADJDJ := 0;
           RD.ARDADJSL := 0;
           RD.ARDADJJE := RD.ARDJE - RD.ARDYSJE;
-          --²åÈëÃ÷Ï¸°ü
+          --æ’å…¥æ˜Žç»†åŒ…
           IF RDTAB IS NULL THEN
             RDTAB := RD_TABLE(RD);
           ELSE
@@ -840,7 +840,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
           END IF;
         END;
       WHEN '02' THEN
-        --¹Ì¶¨½ð¶î£¬Óë³­Á¿ÎÞ¹Ø
+        --å›ºå®šé‡‘é¢ï¼Œä¸ŽæŠ„é‡æ— å…³
         BEGIN
           RD.ARDCLASS := 0;
           RD.ARDYSDJ  := 0;
@@ -860,7 +860,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
             RD.ARDYSJE := 0;
             RD.ARDJE   := 0;
           END IF;
-          --²åÈëÃ÷Ï¸°ü
+          --æ’å…¥æ˜Žç»†åŒ…
           IF RDTAB IS NULL THEN
             RDTAB := RD_TABLE(RD);
           ELSE
@@ -886,13 +886,13 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                         P_PSCID);
         END;
       ELSE
-        RAISE_APPLICATION_ERROR(ERRCODE, '²»Ö§³ÖµÄ¼Æ·Ñ·½·¨' || VPDMETHOD);
+        RAISE_APPLICATION_ERROR(ERRCODE, 'ä¸æ”¯æŒçš„è®¡è´¹æ–¹æ³•' || VPDMETHOD);
     END CASE;
   EXCEPTION
     WHEN OTHERS THEN
       RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
   END;
-  --ÔÂ½×ÌÝ¼Æ·Ñ²½Öè
+  --æœˆé˜¶æ¢¯è®¡è´¹æ­¥éª¤
   PROCEDURE COSTSTEP_MON(P_RL       IN OUT YS_ZW_ARLIST%ROWTYPE,
                          P_MR       IN OUT YS_CB_MTREAD%ROWTYPE,
                          P_SL       IN NUMBER,
@@ -902,7 +902,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                          RDTAB      IN OUT RD_TABLE,
                          P_CLASSCTL IN CHAR,
                          PMD        IN YS_YH_PRICEGROUP%ROWTYPE) IS
-    --rd.rdpiid£»rd.rdpfid£»rd.rdpscidÎª±ØÒª²ÎÊý
+    --rd.rdpiidï¼›rd.rdpfidï¼›rd.rdpscidä¸ºå¿…è¦å‚æ•°
     CURSOR C_PS IS
       SELECT *
         FROM (SELECT *
@@ -920,7 +920,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     PS           BAS_PRICE_STEP%ROWTYPE;
     PS0          BAS_PRICE_STEP%ROWTYPE;
     MINFO        YS_YH_SBINFO%ROWTYPE;
-    N            NUMBER(38, 12); --¼Æ·ÑÆÚÊý
+    N            NUMBER(38, 12); --è®¡è´¹æœŸæ•°
     TMPSCODE     NUMBER;
   BEGIN
     SELECT SYS_GUID() INTO RD.ID FROM DUAL;
@@ -934,27 +934,27 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     RD.ARDMETHOD   := PD.METHOD;
     RD.ARDPAIDFLAG := 'N';
   
-    RD.ARDMSMFID  := P_RL.MANAGE_NO; --ÓªÏú¹«Ë¾
-    RD.ARDMONTH   := P_RL.ARMONTH; --ÕÊÎñÔÂ·Ý
-    RD.ARDMID     := P_RL.SBID; --Ë®±í±àºÅ
-    RD.ARDPMDTYPE := NVL(PMD.GRPTYPE, '01'); --»ìºÏÀà±ð
+    RD.ARDMSMFID  := P_RL.MANAGE_NO; --è¥é”€å…¬å¸
+    RD.ARDMONTH   := P_RL.ARMONTH; --å¸åŠ¡æœˆä»½
+    RD.ARDMID     := P_RL.SBID; --æ°´è¡¨ç¼–å·
+    RD.ARDPMDTYPE := NVL(PMD.GRPTYPE, '01'); --æ··åˆç±»åˆ«
   
-    TMPYSSL := P_SL; --½×ÌÝÀÛ¼õÓ¦ÊÕË®Á¿Óà¶î
-    TMPSL   := P_SL + P_ADJSL; --½×ÌÝÀÛ¼õÊµÊÕË®Á¿Óà¶î
+    TMPYSSL := P_SL; --é˜¶æ¢¯ç´¯å‡åº”æ”¶æ°´é‡ä½™é¢
+    TMPSL   := P_SL + P_ADJSL; --é˜¶æ¢¯ç´¯å‡å®žæ”¶æ°´é‡ä½™é¢
   
-    --ÅÐ¶ÏÊý¾ÝÊÇ·ñÂú×ãÊÕÈ¡½×ÌÝµÄÌõ¼þ
+    --åˆ¤æ–­æ•°æ®æ˜¯å¦æ»¡è¶³æ”¶å–é˜¶æ¢¯çš„æ¡ä»¶
     SELECT MI.* INTO MINFO FROM YS_YH_SBINFO MI WHERE MI.SBID = P_RL.SBID;
   
-    --½×ÌÝ¼Æ·ÑÖÜÆÚ
-    --¼ä¸ôÔÂ(¼´Ã¿´Î¼Æ·Ñ°´Êµ¼Ê¼ä¸ôÔÂÊý¼Æ·Ñ)
+    --é˜¶æ¢¯è®¡è´¹å‘¨æœŸ
+    --é—´éš”æœˆ(å³æ¯æ¬¡è®¡è´¹æŒ‰å®žé™…é—´éš”æœˆæ•°è®¡è´¹)
     BEGIN
       SELECT ROUND(MONTHS_BETWEEN(TRUNC(P_RL.ARRDATE, 'MM'),
                                   TRUNC(P_RL.ARPRDATE, 'MM')))
-        INTO N --¼Æ·ÑÊ±¶ÎÔÂÊý
+        INTO N --è®¡è´¹æ—¶æ®µæœˆæ•°
         FROM DUAL;
     
       IF N <= 0 OR N IS NULL THEN
-        N := 1; --Òì³£ÖÜÆÚ¶¼ËãÒ»¸öÔÂ½×ÌÝ
+        N := 1; --å¼‚å¸¸å‘¨æœŸéƒ½ç®—ä¸€ä¸ªæœˆé˜¶æ¢¯
       END IF;
     
     EXCEPTION
@@ -971,17 +971,17 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     FETCH C_PS
       INTO PS;
     IF C_PS%NOTFOUND OR C_PS%NOTFOUND IS NULL THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞÐ§µÄ½×ÌÝ¼Æ·ÑÉèÖÃ');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ•ˆçš„é˜¶æ¢¯è®¡è´¹è®¾ç½®');
     END IF;
     WHILE C_PS%FOUND AND (TMPYSSL >= 0 OR TMPSL >= 0) LOOP
-      -->=0±£Ö¤0ÓÃË®ÖÁÉÙÒ»Ìõ·ÑÓÃÃ÷Ï¸
+      -->=0ä¿è¯0ç”¨æ°´è‡³å°‘ä¸€æ¡è´¹ç”¨æ˜Žç»†
       /*
-      ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´
-      ©¦½×ÌÝ¹æÔò£¨»§/ÈË¾ùÓÃË®Á¿ÒÔÍ¬Ò»µØÖ·µÄËùÓÐË®±íÓÃË®Á¿Ö®ºÍÎª»ù´¡¼ÆËã£©                      ©¦
-      ©¦1¡¢¼ÒÍ¥»§¼®ÈË¿ÚÔÚ4ÈËÒÔÏÂ£¨º¬4ÈË£©µÄÓÃË®»§£¬°´»§ÓÃË®Á¿»®·Ö½×ÌÝÊ½¼ÆÁ¿Ë®¼Û¡£                      ©¦
-      ©¦2¡¢¼ÒÍ¥»§¼®ÈË¿ÚÔÚ5ÈË£¨º¬5ÈË£©ÒÔÉÏµÄÓÃË®»§£¬°´ÈË¾ùÓÃË®Á¿»®·Ö½×ÌÝÊ½¼ÆÁ¿Ë®¼Û¡£                    ©¦
-      ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼
-      */ --Ò»½×Ö¹¶þ½×ÆðÒªÇóÉèÖÃÖµÏàÍ¬£¬ÒÀ´ËÀàÍÆ
+      â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+      â”‚é˜¶æ¢¯è§„åˆ™ï¼ˆæˆ·/äººå‡ç”¨æ°´é‡ä»¥åŒä¸€åœ°å€çš„æ‰€æœ‰æ°´è¡¨ç”¨æ°´é‡ä¹‹å’Œä¸ºåŸºç¡€è®¡ç®—ï¼‰                      â”‚
+      â”‚1ã€å®¶åº­æˆ·ç±äººå£åœ¨4äººä»¥ä¸‹ï¼ˆå«4äººï¼‰çš„ç”¨æ°´æˆ·ï¼ŒæŒ‰æˆ·ç”¨æ°´é‡åˆ’åˆ†é˜¶æ¢¯å¼è®¡é‡æ°´ä»·ã€‚                      â”‚
+      â”‚2ã€å®¶åº­æˆ·ç±äººå£åœ¨5äººï¼ˆå«5äººï¼‰ä»¥ä¸Šçš„ç”¨æ°´æˆ·ï¼ŒæŒ‰äººå‡ç”¨æ°´é‡åˆ’åˆ†é˜¶æ¢¯å¼è®¡é‡æ°´ä»·ã€‚                    â”‚
+      â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+      */ --ä¸€é˜¶æ­¢äºŒé˜¶èµ·è¦æ±‚è®¾ç½®å€¼ç›¸åŒï¼Œä¾æ­¤ç±»æŽ¨
       P_RL.ARUSENUM := (CASE
                          WHEN NVL(P_RL.ARUSENUM, 0) < PS.PEOPLES THEN
                           PS.PEOPLES
@@ -993,11 +993,11 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       END IF;
       PS.END_CODE  := CEIL(N * (PS.END_CODE +
                            GETMAX(P_RL.ARUSENUM - PS.PEOPLES, 0) *
-                           PS.ADD_WATERQTY + LASTPSSLPERS)); --½×ÌÝ¶ÎÖ¹ËãÁ¿
+                           PS.ADD_WATERQTY + LASTPSSLPERS)); --é˜¶æ¢¯æ®µæ­¢ç®—é‡
       TMPSCODE     := PS.END_CODE;
       LASTPSSLPERS := GETMAX(P_RL.ARUSENUM - PS.PEOPLES, 0) *
                       PS.ADD_WATERQTY;
-      --ÒÔÉÏCEIL±£³ÖÈë£¬¾¡Á¿À­¿î×Ó½×ÌÝ¶Î£¬ÈÃÀûÓë¿Í»§
+      --ä»¥ä¸ŠCEILä¿æŒå…¥ï¼Œå°½é‡æ‹‰æ¬¾å­é˜¶æ¢¯æ®µï¼Œè®©åˆ©ä¸Žå®¢æˆ·
       RD.ARDCLASS      := PS.STEP_CLASS;
       RD.ARDYSDJ       := PS.PRICE;
       RD.ARDYSSL       := GETMIN(TMPYSSL, PS.END_CODE - PS.START_CODE);
@@ -1011,14 +1011,14 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       RD.ARDPMDCOLUMN1 := TO_CHAR(ROUND(N, 2));
       RD.ARDPMDCOLUMN2 := PS.START_CODE;
       RD.ARDPMDCOLUMN3 := PS.END_CODE;
-      --²åÈëÃ÷Ï¸°ü
+      --æ’å…¥æ˜Žç»†åŒ…
       IF RDTAB IS NULL THEN
         RDTAB := RD_TABLE(RD);
       ELSE
         RDTAB.EXTEND;
         RDTAB(RDTAB.LAST) := RD;
       END IF;
-      --ÀÛ¼õºó´øÈëÏÂÒ»ÐÐÓÎ±ê
+      --ç´¯å‡åŽå¸¦å…¥ä¸‹ä¸€è¡Œæ¸¸æ ‡
       TMPYSSL := GETMAX(TMPYSSL - RD.ARDYSSL, 0);
       TMPSL   := GETMAX(TMPSL - RD.ARDYSSL, 0);
       EXIT WHEN TMPYSSL <= 0 AND TMPSL <= 0;
@@ -1044,7 +1044,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                           P_CLASSCTL IN CHAR,
                           PMD        YS_YH_PRICEGROUP%ROWTYPE,
                           PMONTH     IN VARCHAR2) IS
-    --rd.ardpiid£»rd.ardpfid£»rd.ardpscidÎª±ØÒª²ÎÊý
+    --rd.ardpiidï¼›rd.ardpfidï¼›rd.ardpscidä¸ºå¿…è¦å‚æ•°
     CURSOR C_PS IS
       SELECT *
         FROM (SELECT *
@@ -1061,10 +1061,10 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     MI             YS_YH_SBINFO%ROWTYPE;
     TMPSCODE       NUMBER;
     LASTPSSLPERS   NUMBER := 0;
-    N              NUMBER; --¼Æ·ÑÆÚÊý
-    ÄêÀÛ¼ÆÒÑÓÃË®Á¿ NUMBER;
-    ÄêÀÛ¼ÆÓ¦ÊÕË®Á¿ NUMBER;
-    ÄêÀÛ¼ÆÊµÊÕË®Á¿ NUMBER;
+    N              NUMBER; --è®¡è´¹æœŸæ•°
+    å¹´ç´¯è®¡å·²ç”¨æ°´é‡ NUMBER;
+    å¹´ç´¯è®¡åº”æ”¶æ°´é‡ NUMBER;
+    å¹´ç´¯è®¡å®žæ”¶æ°´é‡ NUMBER;
   BEGIN
     SELECT SYS_GUID() INTO RD.ID FROM DUAL;
     RD.HIRE_CODE   := P_RL.HIRE_CODE;
@@ -1077,28 +1077,28 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     RD.ARDMETHOD   := PD.METHOD;
     RD.ARDPAIDFLAG := 'N';
   
-    RD.ARDMSMFID  := P_RL.MANAGE_NO; --ÓªÏú¹«Ë¾
-    RD.ARDMONTH   := P_RL.ARMONTH; --ÕÊÎñÔÂ·Ý
-    RD.ARDMID     := P_RL.SBID; --Ë®±í±àºÅ
-    RD.ARDPMDTYPE := NVL(PMD.GRPTYPE, '01'); --»ìºÏÀà±ð
+    RD.ARDMSMFID  := P_RL.MANAGE_NO; --è¥é”€å…¬å¸
+    RD.ARDMONTH   := P_RL.ARMONTH; --å¸åŠ¡æœˆä»½
+    RD.ARDMID     := P_RL.SBID; --æ°´è¡¨ç¼–å·
+    RD.ARDPMDTYPE := NVL(PMD.GRPTYPE, '01'); --æ··åˆç±»åˆ«
   
-    TMPYSSL := P_SL; --½×ÌÝÀÛ¼õÓ¦ÊÕË®Á¿Óà¶î
-    TMPSL   := P_SL + P_ADJSL; --½×ÌÝÀÛ¼õÊµÊÕË®Á¿Óà¶î
+    TMPYSSL := P_SL; --é˜¶æ¢¯ç´¯å‡åº”æ”¶æ°´é‡ä½™é¢
+    TMPSL   := P_SL + P_ADJSL; --é˜¶æ¢¯ç´¯å‡å®žæ”¶æ°´é‡ä½™é¢
   
-    --ÅÐ¶ÏÊý¾ÝÊÇ·ñÂú×ãÊÕÈ¡½×ÌÝµÄÌõ¼þ
+    --åˆ¤æ–­æ•°æ®æ˜¯å¦æ»¡è¶³æ”¶å–é˜¶æ¢¯çš„æ¡ä»¶
     SELECT * INTO MI FROM YS_YH_SBINFO WHERE SBID = P_RL.SBID;
   
-    --ÊµÊ±¼ÆËãÄêÀÛ¼ÆÒÑÓÃË®Á¿
-    ÄêÀÛ¼ÆÒÑÓÃË®Á¿ := ÊµÊ±¼ÆËãÄêÀÛ¼ÆÒÑÓÃÁ¿(MI.SBID, TRUNC(SYSDATE, 'YYYY'));
-    --¼ÆÈë±¾´ÎÓÃÁ¿
-    ÄêÀÛ¼ÆÓ¦ÊÕË®Á¿ := GETMAX(TO_NUMBER(NVL(ÄêÀÛ¼ÆÒÑÓÃË®Á¿, 0)), 0) + TMPYSSL;
-    ÄêÀÛ¼ÆÊµÊÕË®Á¿ := GETMAX(TO_NUMBER(NVL(ÄêÀÛ¼ÆÒÑÓÃË®Á¿, 0)), 0) + TMPSL;
+    --å®žæ—¶è®¡ç®—å¹´ç´¯è®¡å·²ç”¨æ°´é‡
+    å¹´ç´¯è®¡å·²ç”¨æ°´é‡ := å®žæ—¶è®¡ç®—å¹´ç´¯è®¡å·²ç”¨é‡(MI.SBID, TRUNC(SYSDATE, 'YYYY'));
+    --è®¡å…¥æœ¬æ¬¡ç”¨é‡
+    å¹´ç´¯è®¡åº”æ”¶æ°´é‡ := GETMAX(TO_NUMBER(NVL(å¹´ç´¯è®¡å·²ç”¨æ°´é‡, 0)), 0) + TMPYSSL;
+    å¹´ç´¯è®¡å®žæ”¶æ°´é‡ := GETMAX(TO_NUMBER(NVL(å¹´ç´¯è®¡å·²ç”¨æ°´é‡, 0)), 0) + TMPSL;
   
     OPEN C_PS;
     FETCH C_PS
       INTO PS;
     IF C_PS%NOTFOUND OR C_PS%NOTFOUND IS NULL THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÎÞÐ§µÄ½×ÌÝ¼Æ·ÑÉèÖÃ');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ— æ•ˆçš„é˜¶æ¢¯è®¡è´¹è®¾ç½®');
     END IF;
     WHILE C_PS%FOUND AND (TMPYSSL >= 0 OR TMPSL >= 0) LOOP
     
@@ -1113,7 +1113,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
       END IF;
       PS.END_CODE      := PS.END_CODE +
                           GETMAX(P_RL.ARUSENUM - PS.PEOPLES, 0) *
-                          PS.ADD_WATERQTY + LASTPSSLPERS; --½×ÌÝ¶ÎÖ¹ËãÁ¿
+                          PS.ADD_WATERQTY + LASTPSSLPERS; --é˜¶æ¢¯æ®µæ­¢ç®—é‡
       TMPSCODE         := PS.END_CODE;
       LASTPSSLPERS     := GETMAX(P_RL.ARUSENUM - PS.PEOPLES, 0) *
                           PS.PEOPLES;
@@ -1127,13 +1127,13 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                        TMPYSSL
                       ELSE
                        CASE
-                         WHEN ÄêÀÛ¼ÆÓ¦ÊÕË®Á¿ >= PS.START_CODE AND ÄêÀÛ¼ÆÓ¦ÊÕË®Á¿ <= PS.END_CODE THEN
-                          ÄêÀÛ¼ÆÓ¦ÊÕË®Á¿ -
-                          GETMAX(TO_NUMBER(NVL(ÄêÀÛ¼ÆÒÑÓÃË®Á¿, 0)), PS.START_CODE)
-                         WHEN ÄêÀÛ¼ÆÓ¦ÊÕË®Á¿ > PS.END_CODE THEN
+                         WHEN å¹´ç´¯è®¡åº”æ”¶æ°´é‡ >= PS.START_CODE AND å¹´ç´¯è®¡åº”æ”¶æ°´é‡ <= PS.END_CODE THEN
+                          å¹´ç´¯è®¡åº”æ”¶æ°´é‡ -
+                          GETMAX(TO_NUMBER(NVL(å¹´ç´¯è®¡å·²ç”¨æ°´é‡, 0)), PS.START_CODE)
+                         WHEN å¹´ç´¯è®¡åº”æ”¶æ°´é‡ > PS.END_CODE THEN
                           GETMAX(0,
                                  GETMIN(PS.END_CODE -
-                                        TO_NUMBER(NVL(ÄêÀÛ¼ÆÒÑÓÃË®Á¿, 0)),
+                                        TO_NUMBER(NVL(å¹´ç´¯è®¡å·²ç”¨æ°´é‡, 0)),
                                         PS.END_CODE - PS.START_CODE))
                          ELSE
                           0
@@ -1147,31 +1147,31 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                      TMPSL
                     ELSE
                      CASE
-                       WHEN ÄêÀÛ¼ÆÊµÊÕË®Á¿ >= PS.START_CODE AND ÄêÀÛ¼ÆÊµÊÕË®Á¿ <= PS.END_CODE THEN
-                        ÄêÀÛ¼ÆÊµÊÕË®Á¿ -
-                        GETMAX(TO_NUMBER(NVL(ÄêÀÛ¼ÆÒÑÓÃË®Á¿, 0)), PS.START_CODE)
-                       WHEN ÄêÀÛ¼ÆÊµÊÕË®Á¿ > PS.END_CODE THEN
+                       WHEN å¹´ç´¯è®¡å®žæ”¶æ°´é‡ >= PS.START_CODE AND å¹´ç´¯è®¡å®žæ”¶æ°´é‡ <= PS.END_CODE THEN
+                        å¹´ç´¯è®¡å®žæ”¶æ°´é‡ -
+                        GETMAX(TO_NUMBER(NVL(å¹´ç´¯è®¡å·²ç”¨æ°´é‡, 0)), PS.START_CODE)
+                       WHEN å¹´ç´¯è®¡å®žæ”¶æ°´é‡ > PS.END_CODE THEN
                         GETMAX(0,
-                               GETMIN(PS.END_CODE - TO_NUMBER(NVL(ÄêÀÛ¼ÆÒÑÓÃË®Á¿, 0)),
+                               GETMIN(PS.END_CODE - TO_NUMBER(NVL(å¹´ç´¯è®¡å·²ç”¨æ°´é‡, 0)),
                                       PS.END_CODE - PS.START_CODE))
                        ELSE
                         0
                      END
                   END;
-      RD.ARDJE := ROUND(RD.ARDDJ * RD.ARDSL, 2); --ÊµÊÕ½ð¶î
+      RD.ARDJE := ROUND(RD.ARDDJ * RD.ARDSL, 2); --å®žæ”¶é‡‘é¢
     
       RD.ARDADJDJ := RD.ARDDJ - RD.ARDYSDJ;
       RD.ARDADJSL := RD.ARDSL - RD.ARDYSSL;
       RD.ARDADJJE := RD.ARDJE - RD.ARDYSJE;
     
-      --²åÈëÃ÷Ï¸°ü
+      --æ’å…¥æ˜Žç»†åŒ…
       IF RDTAB IS NULL THEN
         RDTAB := RD_TABLE(RD);
       ELSE
         RDTAB.EXTEND;
         RDTAB(RDTAB.LAST) := RD;
       END IF;
-      --»ã×Ü
+      --æ±‡æ€»
       P_RL.ARJE := P_RL.ARJE + RD.ARDJE;
       P_RL.ARSL := P_RL.ARSL + (CASE
                      WHEN RD.ARDPIID = '01' THEN
@@ -1179,7 +1179,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                      ELSE
                       0
                    END);
-      --ÀÛ¼õºó´øÈëÏÂÒ»ÐÐÓÎ±ê
+      --ç´¯å‡åŽå¸¦å…¥ä¸‹ä¸€è¡Œæ¸¸æ ‡
       TMPYSSL := GETMAX(TMPYSSL - RD.ARDYSSL, 0);
       TMPSL   := GETMAX(TMPSL - RD.ARDSL, 0);
       EXIT WHEN TMPYSSL <= 0 AND TMPSL <= 0;
@@ -1202,7 +1202,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
   BEGIN
     FOR I IN RD.FIRST .. RD.LAST LOOP
       VRD := RD(I);
-      IF P_COMMIT != µ÷ÊÔ THEN
+      IF P_COMMIT != è°ƒè¯• THEN
         INSERT INTO YS_ZW_ARDETAIL VALUES VRD;
       ELSE
         INSERT INTO YS_ZW_ARDETAIL_BUDGET VALUES VRD;
@@ -1232,8 +1232,8 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
     END IF;
   END GETMAX;
   FUNCTION FBOUNDPARA(P_PARASTR IN CLOB) RETURN INTEGER IS
-    --Ò»Î¬Êý×é¹æÔò£º#####,####,####|
-    --¶þÎ¬Êý×é¹æÔò£º#####,####,####|#####,####,#######|##,####,####|
+    --ä¸€ç»´æ•°ç»„è§„åˆ™ï¼š#####,####,####|
+    --äºŒç»´æ•°ç»„è§„åˆ™ï¼š#####,####,####|#####,####,#######|##,####,####|
     I     INTEGER;
     N     INTEGER := 0;
     VCHAR NCHAR(1);
@@ -1250,8 +1250,8 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
   FUNCTION FGETPARA(P_PARASTR IN VARCHAR2,
                     ROWN      IN INTEGER,
                     COLN      IN INTEGER) RETURN VARCHAR2 IS
-    --Ò»Î¬Êý×é¹æÔò£º#####|####|####|
-    --¶þÎ¬Êý×é¹æÔò£º#####,####,####|#####,####,#######|##,####,####|
+    --ä¸€ç»´æ•°ç»„è§„åˆ™ï¼š#####|####|####|
+    --äºŒç»´æ•°ç»„è§„åˆ™ï¼š#####,####,####|#####,####,#######|##,####,####|
     VCHAR NCHAR(1);
     V     VARCHAR2(10000);
     VSTR  VARCHAR2(10000) := '';
@@ -1260,13 +1260,13 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
   BEGIN
     V := TRIM(P_PARASTR);
     IF LENGTH(V) = 0 OR SUBSTR(V, LENGTH(V)) != '|' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'Êý×é×Ö·û´®¸ñÊ½´íÎó' || P_PARASTR);
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ•°ç»„å­—ç¬¦ä¸²æ ¼å¼é”™è¯¯' || P_PARASTR);
     END IF;
     FOR I IN 1 .. LENGTH(V) LOOP
       VCHAR := SUBSTR(V, I, 1);
       CASE VCHAR
         WHEN '|' THEN
-          --Ò»ÐÐ¶ÁÍê
+          --ä¸€è¡Œè¯»å®Œ
           BEGIN
             C := C + 1;
             IF R = ROWN AND C = COLN THEN
@@ -1277,7 +1277,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
             VSTR := '';
           END;
         WHEN ',' THEN
-          --Ò»ÁÐ¶ÁÍê
+          --ä¸€åˆ—è¯»å®Œ
           BEGIN
             C := C + 1;
             IF R = ROWN AND C = COLN THEN
@@ -1294,7 +1294,7 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
   
     RETURN '';
   END;
-  --Ô¤Ëã·Ñ£¬Ìá¹©×·²¹¡¢Ó¦ÊÕµ÷Õû¡¢ÍË·Ñµ¥¾ÝÖÐÖØËã·ÑÖÐ¼äÊý¾Ý
+  --é¢„ç®—è´¹ï¼Œæä¾›è¿½è¡¥ã€åº”æ”¶è°ƒæ•´ã€é€€è´¹å•æ®ä¸­é‡ç®—è´¹ä¸­é—´æ•°æ®
  PROCEDURE SUBMIT_VIRTUAL(p_mid    in varchar2,
                            p_prdate in date,
                            p_rdate  in date,
@@ -1306,129 +1306,129 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
                            p_usenum in number,
                            p_trans  in varchar2,
                            o_rlid   out varchar2) IS 
-    cb Ys_Cb_Mtread%ROWTYPE; --³­±íÀúÊ·¿â
+    cb Ys_Cb_Mtread%ROWTYPE; --æŠ„è¡¨åŽ†å²åº“
     mi ys_yh_sbinfo%rowtype;
   BEGIN
     delete ys_zw_arlist_virtual;
     delete ys_zw_ardetail_virtual;
     BEGIN
       select * into mi from ys_yh_sbinfo where SBID = p_mid; 
-      cb.id            := '?'; --varchar2(10)  Á÷Ë®ºÅ 
-      cb.CBMRMONTH         := to_char(p_rdate, 'yyyy.mm'); --varchar2(7)  ³­±íÔÂ·Ý
-      cb.MANAGE_NO         := mi.MANAGE_NO; --varchar2(10)  ÓªÏú¹«Ë¾
-      cb.BOOK_NO          := mi.BOOK_NO; --varchar2(10)  ±í²á 
-      cb.cbmrbatch         := null; --number(20)  ³­±íÅú´Î
-      cb.cbmrday           := null; --date  ¼Æ»®³­±íÈÕ
-      cb.cbmrrorder        := null; --number(10)  ³­±í´ÎÐò
-      cb.YHID           := p_mid; --varchar2(10)  ÓÃ»§±àºÅ 
-      cb.SBID           := p_mid; --varchar2(10)  Ë®±í±àºÅ 
-      cb.TRADE_NO          := null; --varchar2(10)  ÐÐÒµ·ÖÀà
-      cb.SBPID          := null; --varchar2(10)  ÉÏ¼¶Ë®±í
-      cb.CBMRMCLASS        := null; --number  Ë®±í¼¶´Î
-      cb.cbmrmflag         := null; --char(1)  Ä©¼¶±êÖ¾
-      cb.cbmrcreadate      := p_rdate; --date  ´´½¨ÈÕÆÚ
-      cb.cbmrinputdate     := p_rdate; --date  ±à¼­ÈÕÆÚ
-      cb.cbmrreadok        := 'Y'; --char(1)  ³­¼û±êÖ¾
-      cb.cbmrrdate         := p_rdate; --date  ³­±íÈÕÆÚ
-      cb.cbmrrper          := p_rper; --varchar2(15)  ³­±íÔ±
-      cb.cbmrprdate        := p_prdate; --date  ÉÏ´Î³­¼ûÈÕÆÚ
-      cb.cbmrscode         := p_scode; --number(10)  ÉÏÆÚ³­¼û
-      cb.cbmrecode         := p_ecode; --number(10)  ±¾ÆÚ³­¼û
-      cb.cbmrsl            := p_sl; --number(10)  ±¾ÆÚË®Á¿
-      cb.cbmrface          := null; --varchar2(2)  Ë®±í¹ÊÕÏ
-      cb.cbmrifsubmit      := 'Y'; --char(1)  ÊÇ·ñÌá½»¼Æ·Ñ
-      cb.cbmrifhalt        := null; --char(1)  ÏµÍ³Í£Ëã
-      cb.cbmrdatasource    := null; --char(1)  ³­±í½á¹ûÀ´Ô´
-      cb.cbmrifignoreminsl := null; --char(1)  Í£Ëã×îµÍ³­Á¿
-      cb.cbmrpdardate      := null; --date  ³­±í»ú³­±íÊ±¼ä
-      cb.cbmroutflag       := null; --char(1)  ·¢³öµ½³­±í»ú±êÖ¾
-      cb.cbmroutid         := null; --varchar2(10)  ·¢³öµ½³­±í»úÁ÷Ë®ºÅ
-      cb.cbmroutdate       := null; --date  ·¢³öµ½³­±í»úÈÕÆÚ
-      cb.cbmrinorder       := null; --number(4)  ³­±í»ú½ÓÊÕ´ÎÐò
-      cb.cbmrindate        := null; --date  ³­±í»ú½ÓÊÜÈÕÆÚ
-      cb.cbmrrpid          := null; --varchar2(3)  ¼Æ¼þÀàÐÍ
-      cb.cbmrmemo          := null; --varchar2(120)  ³­±í±¸×¢
-      cb.cbmrifgu          := null; --char(1)  ¹À±í±êÖ¾
-      cb.cbmrifrec         := null; --char(1)  ÒÑ¼Æ·Ñ
-      cb.cbmrrecdate       := null; --date  ¼Æ·ÑÈÕÆÚ
-      cb.cbmrrecsl         := p_sl; --number(10)  Ó¦ÊÕË®Á¿
-      cb.cbmraddsl         := null; --number(10)  ÓàÁ¿
-      cb.cbmrcarrysl       := null; --number(10)  Ð£ÑéË®Á¿
-      cb.cbmrctrl1         := null; --varchar2(10)  ³­±í»ú¿ØÖÆÎ»1
-      cb.cbmrctrl2         := null; --varchar2(10)  ³­±í»ú¿ØÖÆÎ»2
-      cb.cbmrctrl3         := null; --varchar2(10)  ³­±í»ú¿ØÖÆÎ»3
-      cb.cbmrctrl4         := null; --varchar2(10)  ³­±í»ú¿ØÖÆÎ»4
-      cb.cbmrctrl5         := null; --varchar2(10)  »»±íµ¥¾ÝºÅ
-      cb.cbmrchkflag       := null; --char(1)  ¸´ºË±êÖ¾
-      cb.cbmrchkdate       := null; --date  ¸´ºËÈÕÆÚ
-      cb.cbmrchkper        := null; --varchar2(10)  ¸´ºËÈËÔ±
-      cb.cbmrchkscode      := null; --number(10)  Ô­ÆðÊý
-      cb.cbmrchkecode      := null; --number(10)  Ô­Ö¹Êý
-      cb.cbmrchksl         := null; --number(10)  Ô­Ë®Á¿
-      cb.cbmrchkaddsl      := null; --number(10)  Ô­ÓàÁ¿
-      cb.cbmrchkcarrysl    := null; --number(10)  Ô­½øÎ»Ë®Á¿
-      cb.cbmrchkrdate      := null; --date  Ô­³­¼ûÈÕÆÚ
-      cb.cbmrchkface       := null; --varchar2(2)  Ô­±í¿ö
-      cb.cbmrchkresult     := null; --varchar2(100)  ¼ì²é½á¹ûÀàÐÍ
-      cb.cbmrchkresultmemo := null; --varchar2(100)  ¼ì²é½á¹ûËµÃ÷
-      cb.cbmrprimid        := null; --varchar2(200)  ºÏÊÕ±íÖ÷±í
-      cb.cbmrprimflag      := null; --char(1)  ºÏÊÕ±í±êÖ¾
-      cb.cbmrlb            := null; --char(1)  Ë®±íÀà±ð
-      cb.cbmrnewflag       := null; --char(1)  ÐÂ±í±êÖ¾
-      cb.cbmrface2         := null; --varchar2(2)  ³­¼û¹ÊÕÏ
-      cb.cbmrface3         := null; --varchar2(2)  ·Ç³£¼ÆÁ¿
-      cb.cbmrface4         := null; --varchar2(2)  ±í¾®ÉèÊ©ËµÃ÷
-      cb.cbmrscodechar     := p_scode; --varchar2(10)  ÉÏÆÚ³­¼û
-      cb.cbmrecodechar     := p_ecode; --varchar2(10)  ±¾ÆÚ³­¼û
-      cb.cbmrprivilegeflag := null; --varchar2(1)  ÌØÈ¨±êÖ¾(y/n)
-      cb.cbmrprivilegeper  := null; --varchar2(10)  ÌØÈ¨²Ù×÷ÈË
-      cb.cbmrprivilegememo := null; --varchar2(200)  ÌØÈ¨²Ù×÷±¸×¢
-      cb.cbmrprivilegedate := null; --date  ÌØÈ¨²Ù×÷Ê±¼ä
-      cb.AREA_NO         := null; --varchar2(10)  ¹ÜÀíÇøÓò
-      cb.cbmriftrans       := null; --char(1)  ³­±íÊÂÎñ
-      cb.cbmrrequisition   := null; --number(2)  Í¨Öªµ¥´òÓ¡´ÎÊý
-      cb.cbmrifchk         := null; --char(1)  ¿¼ºË±í
-      cb.cbmrinputper      := null; --varchar2(10)  ÈëÕËÈËÔ±
-      cb.Price_No          := p_pfid; --varchar2(10)  ÓÃË®Àà±ð
-      cb.cbmrcaliber       := null; --number(10)  ¿Ú¾¶
-      cb.cbmrside          := null; --varchar2(100)  ±íÎ»
-      cb.cbmrlastsl        := null; --number(10)  ÉÏ´Î³­±íË®Á¿
-      cb.cbmrthreesl       := null; --number(10)  Ç°ÈýÔÂ³­±íË®Á¿
-      cb.cbmryearsl        := null; --number(10)  È¥ÄêÍ¬ÆÚ³­±íË®Á¿
-      cb.cbmrrecje01       := null; --number(13,3)  Ó¦ÊÕ½ð¶î·ÑÓÃÏîÄ¿01
-      cb.cbmrrecje02       := null; --number(13,3)  Ó¦ÊÕ½ð¶î·ÑÓÃÏîÄ¿02
-      cb.cbmrrecje03       := null; --number(13,3)  Ó¦ÊÕ½ð¶î·ÑÓÃÏîÄ¿03
-      cb.cbmrrecje04       := null; --number(13,3)  Ó¦ÊÕ½ð¶î·ÑÓÃÏîÄ¿04
-      cb.cbmrmtype         := null; --varchar2(10)  ±íÐÍ
-      cb.cbmrnullcont      := null; --number(10)  Á¬Ðø¼¸ÔÂÎ´³­¼û
-      cb.cbmrnulltotal     := null; --number(10)  ÀÛ¼Æ¼¸ÔÂÎ´³­¼û
-      cb.cbmrplansl        := null; --number(18,8)  ¼Æ»®Ë®Á¿
-      cb.cbmrplanje01      := null; --number(18,8)  ¼Æ»®Ë®·Ñ
-      cb.cbmrplanje02      := null; --number(18,8)  ¼Æ»®ÎÛË®´¦Àí·Ñ
-      cb.cbmrplanje03      := null; --number(18,8)  ¼Æ»®Ë®×ÊÔ´·Ñ
-      cb.cbmrlastje01      := null; --number(13,3)  ÉÏ´ÎË®·Ñ
-      cb.cbmrthreeje01     := null; --number(13,3)  Ç°n´Î¾ùË®·Ñ
-      cb.cbmryearje01      := null; --number(13,3)  È¥ÄêÍ¬ÆÚË®·Ñ
-      cb.cbmrlastje02      := null; --number(13,3)  ÉÏ´ÎÎÛË®·Ñ
-      cb.cbmrthreeje02     := null; --number(13,3)  Ç°n´Î¾ùÎÛË®·Ñ
-      cb.cbmryearje02      := null; --number(13,3)  È¥ÄêÍ¬ÆÚÎÛË®·Ñ
-      cb.cbmrlastje03      := null; --number(13,3)  ÉÏ´ÎË®×ÊÔ´·Ñ
-      cb.cbmrthreeje03     := null; --number(13,3)  Ç°n´Î¾ùË®×ÊÔ´·Ñ
-      cb.cbmryearje03      := null; --number(13,3)  È¥ÄêÍ¬ÆÚË®×ÊÔ´·Ñ
-      cb.cbmrlastyearsl    := null; --number(10)  È¥Äê¶È´Î¾ùÁ¿
-      cb.cbmrlastyearje01  := null; --number(13,3)  È¥Äê¶È´Î¾ùË®·Ñ
-      cb.cbmrlastyearje02  := null; --number(13,3)  È¥Äê¶È´Î¾ùÎÛË®·Ñ
-      cb.cbmrlastyearje03  := null; --number(13,3)  È¥Äê¶È´Î¾ùË®×ÊÔ´·Ñ  
+      cb.id            := '?'; --varchar2(10)  æµæ°´å· 
+      cb.CBMRMONTH         := to_char(p_rdate, 'yyyy.mm'); --varchar2(7)  æŠ„è¡¨æœˆä»½
+      cb.MANAGE_NO         := mi.MANAGE_NO; --varchar2(10)  è¥é”€å…¬å¸
+      cb.BOOK_NO          := mi.BOOK_NO; --varchar2(10)  è¡¨å†Œ 
+      cb.cbmrbatch         := null; --number(20)  æŠ„è¡¨æ‰¹æ¬¡
+      cb.cbmrday           := null; --date  è®¡åˆ’æŠ„è¡¨æ—¥
+      cb.cbmrrorder        := null; --number(10)  æŠ„è¡¨æ¬¡åº
+      cb.YHID           := p_mid; --varchar2(10)  ç”¨æˆ·ç¼–å· 
+      cb.SBID           := p_mid; --varchar2(10)  æ°´è¡¨ç¼–å· 
+      cb.TRADE_NO          := null; --varchar2(10)  è¡Œä¸šåˆ†ç±»
+      cb.SBPID          := null; --varchar2(10)  ä¸Šçº§æ°´è¡¨
+      cb.CBMRMCLASS        := null; --number  æ°´è¡¨çº§æ¬¡
+      cb.cbmrmflag         := null; --char(1)  æœ«çº§æ ‡å¿—
+      cb.cbmrcreadate      := p_rdate; --date  åˆ›å»ºæ—¥æœŸ
+      cb.cbmrinputdate     := p_rdate; --date  ç¼–è¾‘æ—¥æœŸ
+      cb.cbmrreadok        := 'Y'; --char(1)  æŠ„è§æ ‡å¿—
+      cb.cbmrrdate         := p_rdate; --date  æŠ„è¡¨æ—¥æœŸ
+      cb.cbmrrper          := p_rper; --varchar2(15)  æŠ„è¡¨å‘˜
+      cb.cbmrprdate        := p_prdate; --date  ä¸Šæ¬¡æŠ„è§æ—¥æœŸ
+      cb.cbmrscode         := p_scode; --number(10)  ä¸ŠæœŸæŠ„è§
+      cb.cbmrecode         := p_ecode; --number(10)  æœ¬æœŸæŠ„è§
+      cb.cbmrsl            := p_sl; --number(10)  æœ¬æœŸæ°´é‡
+      cb.cbmrface          := null; --varchar2(2)  æ°´è¡¨æ•…éšœ
+      cb.cbmrifsubmit      := 'Y'; --char(1)  æ˜¯å¦æäº¤è®¡è´¹
+      cb.cbmrifhalt        := null; --char(1)  ç³»ç»Ÿåœç®—
+      cb.cbmrdatasource    := null; --char(1)  æŠ„è¡¨ç»“æžœæ¥æº
+      cb.cbmrifignoreminsl := null; --char(1)  åœç®—æœ€ä½ŽæŠ„é‡
+      cb.cbmrpdardate      := null; --date  æŠ„è¡¨æœºæŠ„è¡¨æ—¶é—´
+      cb.cbmroutflag       := null; --char(1)  å‘å‡ºåˆ°æŠ„è¡¨æœºæ ‡å¿—
+      cb.cbmroutid         := null; --varchar2(10)  å‘å‡ºåˆ°æŠ„è¡¨æœºæµæ°´å·
+      cb.cbmroutdate       := null; --date  å‘å‡ºåˆ°æŠ„è¡¨æœºæ—¥æœŸ
+      cb.cbmrinorder       := null; --number(4)  æŠ„è¡¨æœºæŽ¥æ”¶æ¬¡åº
+      cb.cbmrindate        := null; --date  æŠ„è¡¨æœºæŽ¥å—æ—¥æœŸ
+      cb.cbmrrpid          := null; --varchar2(3)  è®¡ä»¶ç±»åž‹
+      cb.cbmrmemo          := null; --varchar2(120)  æŠ„è¡¨å¤‡æ³¨
+      cb.cbmrifgu          := null; --char(1)  ä¼°è¡¨æ ‡å¿—
+      cb.cbmrifrec         := null; --char(1)  å·²è®¡è´¹
+      cb.cbmrrecdate       := null; --date  è®¡è´¹æ—¥æœŸ
+      cb.cbmrrecsl         := p_sl; --number(10)  åº”æ”¶æ°´é‡
+      cb.cbmraddsl         := null; --number(10)  ä½™é‡
+      cb.cbmrcarrysl       := null; --number(10)  æ ¡éªŒæ°´é‡
+      cb.cbmrctrl1         := null; --varchar2(10)  æŠ„è¡¨æœºæŽ§åˆ¶ä½1
+      cb.cbmrctrl2         := null; --varchar2(10)  æŠ„è¡¨æœºæŽ§åˆ¶ä½2
+      cb.cbmrctrl3         := null; --varchar2(10)  æŠ„è¡¨æœºæŽ§åˆ¶ä½3
+      cb.cbmrctrl4         := null; --varchar2(10)  æŠ„è¡¨æœºæŽ§åˆ¶ä½4
+      cb.cbmrctrl5         := null; --varchar2(10)  æ¢è¡¨å•æ®å·
+      cb.cbmrchkflag       := null; --char(1)  å¤æ ¸æ ‡å¿—
+      cb.cbmrchkdate       := null; --date  å¤æ ¸æ—¥æœŸ
+      cb.cbmrchkper        := null; --varchar2(10)  å¤æ ¸äººå‘˜
+      cb.cbmrchkscode      := null; --number(10)  åŽŸèµ·æ•°
+      cb.cbmrchkecode      := null; --number(10)  åŽŸæ­¢æ•°
+      cb.cbmrchksl         := null; --number(10)  åŽŸæ°´é‡
+      cb.cbmrchkaddsl      := null; --number(10)  åŽŸä½™é‡
+      cb.cbmrchkcarrysl    := null; --number(10)  åŽŸè¿›ä½æ°´é‡
+      cb.cbmrchkrdate      := null; --date  åŽŸæŠ„è§æ—¥æœŸ
+      cb.cbmrchkface       := null; --varchar2(2)  åŽŸè¡¨å†µ
+      cb.cbmrchkresult     := null; --varchar2(100)  æ£€æŸ¥ç»“æžœç±»åž‹
+      cb.cbmrchkresultmemo := null; --varchar2(100)  æ£€æŸ¥ç»“æžœè¯´æ˜Ž
+      cb.cbmrprimid        := null; --varchar2(200)  åˆæ”¶è¡¨ä¸»è¡¨
+      cb.cbmrprimflag      := null; --char(1)  åˆæ”¶è¡¨æ ‡å¿—
+      cb.cbmrlb            := null; --char(1)  æ°´è¡¨ç±»åˆ«
+      cb.cbmrnewflag       := null; --char(1)  æ–°è¡¨æ ‡å¿—
+      cb.cbmrface2         := null; --varchar2(2)  æŠ„è§æ•…éšœ
+      cb.cbmrface3         := null; --varchar2(2)  éžå¸¸è®¡é‡
+      cb.cbmrface4         := null; --varchar2(2)  è¡¨äº•è®¾æ–½è¯´æ˜Ž
+      cb.cbmrscodechar     := p_scode; --varchar2(10)  ä¸ŠæœŸæŠ„è§
+      cb.cbmrecodechar     := p_ecode; --varchar2(10)  æœ¬æœŸæŠ„è§
+      cb.cbmrprivilegeflag := null; --varchar2(1)  ç‰¹æƒæ ‡å¿—(y/n)
+      cb.cbmrprivilegeper  := null; --varchar2(10)  ç‰¹æƒæ“ä½œäºº
+      cb.cbmrprivilegememo := null; --varchar2(200)  ç‰¹æƒæ“ä½œå¤‡æ³¨
+      cb.cbmrprivilegedate := null; --date  ç‰¹æƒæ“ä½œæ—¶é—´
+      cb.AREA_NO         := null; --varchar2(10)  ç®¡ç†åŒºåŸŸ
+      cb.cbmriftrans       := null; --char(1)  æŠ„è¡¨äº‹åŠ¡
+      cb.cbmrrequisition   := null; --number(2)  é€šçŸ¥å•æ‰“å°æ¬¡æ•°
+      cb.cbmrifchk         := null; --char(1)  è€ƒæ ¸è¡¨
+      cb.cbmrinputper      := null; --varchar2(10)  å…¥è´¦äººå‘˜
+      cb.Price_No          := p_pfid; --varchar2(10)  ç”¨æ°´ç±»åˆ«
+      cb.cbmrcaliber       := null; --number(10)  å£å¾„
+      cb.cbmrside          := null; --varchar2(100)  è¡¨ä½
+      cb.cbmrlastsl        := null; --number(10)  ä¸Šæ¬¡æŠ„è¡¨æ°´é‡
+      cb.cbmrthreesl       := null; --number(10)  å‰ä¸‰æœˆæŠ„è¡¨æ°´é‡
+      cb.cbmryearsl        := null; --number(10)  åŽ»å¹´åŒæœŸæŠ„è¡¨æ°´é‡
+      cb.cbmrrecje01       := null; --number(13,3)  åº”æ”¶é‡‘é¢è´¹ç”¨é¡¹ç›®01
+      cb.cbmrrecje02       := null; --number(13,3)  åº”æ”¶é‡‘é¢è´¹ç”¨é¡¹ç›®02
+      cb.cbmrrecje03       := null; --number(13,3)  åº”æ”¶é‡‘é¢è´¹ç”¨é¡¹ç›®03
+      cb.cbmrrecje04       := null; --number(13,3)  åº”æ”¶é‡‘é¢è´¹ç”¨é¡¹ç›®04
+      cb.cbmrmtype         := null; --varchar2(10)  è¡¨åž‹
+      cb.cbmrnullcont      := null; --number(10)  è¿žç»­å‡ æœˆæœªæŠ„è§
+      cb.cbmrnulltotal     := null; --number(10)  ç´¯è®¡å‡ æœˆæœªæŠ„è§
+      cb.cbmrplansl        := null; --number(18,8)  è®¡åˆ’æ°´é‡
+      cb.cbmrplanje01      := null; --number(18,8)  è®¡åˆ’æ°´è´¹
+      cb.cbmrplanje02      := null; --number(18,8)  è®¡åˆ’æ±¡æ°´å¤„ç†è´¹
+      cb.cbmrplanje03      := null; --number(18,8)  è®¡åˆ’æ°´èµ„æºè´¹
+      cb.cbmrlastje01      := null; --number(13,3)  ä¸Šæ¬¡æ°´è´¹
+      cb.cbmrthreeje01     := null; --number(13,3)  å‰næ¬¡å‡æ°´è´¹
+      cb.cbmryearje01      := null; --number(13,3)  åŽ»å¹´åŒæœŸæ°´è´¹
+      cb.cbmrlastje02      := null; --number(13,3)  ä¸Šæ¬¡æ±¡æ°´è´¹
+      cb.cbmrthreeje02     := null; --number(13,3)  å‰næ¬¡å‡æ±¡æ°´è´¹
+      cb.cbmryearje02      := null; --number(13,3)  åŽ»å¹´åŒæœŸæ±¡æ°´è´¹
+      cb.cbmrlastje03      := null; --number(13,3)  ä¸Šæ¬¡æ°´èµ„æºè´¹
+      cb.cbmrthreeje03     := null; --number(13,3)  å‰næ¬¡å‡æ°´èµ„æºè´¹
+      cb.cbmryearje03      := null; --number(13,3)  åŽ»å¹´åŒæœŸæ°´èµ„æºè´¹
+      cb.cbmrlastyearsl    := null; --number(10)  åŽ»å¹´åº¦æ¬¡å‡é‡
+      cb.cbmrlastyearje01  := null; --number(13,3)  åŽ»å¹´åº¦æ¬¡å‡æ°´è´¹
+      cb.cbmrlastyearje02  := null; --number(13,3)  åŽ»å¹´åº¦æ¬¡å‡æ±¡æ°´è´¹
+      cb.cbmrlastyearje03  := null; --number(13,3)  åŽ»å¹´åº¦æ¬¡å‡æ°´èµ„æºè´¹  
       --
-      COSTCULATECORE(cb, p_trans, 'Ö¸¶¨', µ÷ÊÔ);
-      --20150414 Ó¦ÊÕ×·²¹Ô¤Ëã·ÑÖ§³ÖÀúÊ·Ë®¼ÛËã·Ñ
-      --CALCULATE(cb, p_trans, to_char(p_rdate,'yyyy.mm'), µ÷ÊÔ);
+      COSTCULATECORE(cb, p_trans, 'æŒ‡å®š', è°ƒè¯•);
+      --20150414 åº”æ”¶è¿½è¡¥é¢„ç®—è´¹æ”¯æŒåŽ†å²æ°´ä»·ç®—è´¹
+      --CALCULATE(cb, p_trans, to_char(p_rdate,'yyyy.mm'), è°ƒè¯•);
 
       o_rlid := cb.cbmrprivilegeper;
     EXCEPTION
       WHEN OTHERS THEN
         /*WLOG(p_mid || ',' || p_prdate || ',' || p_rdate || ',' || p_sl || ',' ||
-             p_pfid || ',' || p_usenum || ',' || p_trans || 'Ô¤Ëã·ÑÊ§°Ü2£¬ÒÑ±»ºöÂÔ' ||
+             p_pfid || ',' || p_usenum || ',' || p_trans || 'é¢„ç®—è´¹å¤±è´¥2ï¼Œå·²è¢«å¿½ç•¥' ||
              sqlerrm);*/
               RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
     END;
@@ -1438,8 +1438,8 @@ CREATE OR REPLACE PACKAGE BODY PG_CB_COST IS
   END;
 
  BEGIN
-  ×Ü±í½ØÁ¿     := 'Y';
-  ×îµÍËã·ÑË®Á¿ := 0;
+  æ€»è¡¨æˆªé‡     := 'Y';
+  æœ€ä½Žç®—è´¹æ°´é‡ := 0;
 END;
 /
 

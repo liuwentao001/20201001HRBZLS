@@ -1,4 +1,4 @@
-CREATE OR REPLACE TYPE CONNSTRIMPL as object
+﻿CREATE OR REPLACE TYPE CONNSTRIMPL as object
 (
   currentstr varchar2(4000),
   currentseprator varchar2(8),

@@ -1,4 +1,4 @@
-create table ACT_HI_IDENTITYLINK
+﻿create table ACT_HI_IDENTITYLINK
 (
   id_           VARCHAR2(64),
   group_id_     VARCHAR2(255),

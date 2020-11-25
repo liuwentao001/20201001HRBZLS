@@ -1,4 +1,4 @@
-create table YS_ZW_ARDETAIL
+ï»¿create table YS_ZW_ARDETAIL
 (
   id            VARCHAR2(32) not null,
   hire_code     VARCHAR2(20),
@@ -36,69 +36,69 @@ create table YS_ZW_ARDETAIL
 )
 ;
 comment on table YS_ZW_ARDETAIL
-  is 'Ó¦ÊÕÕÊÃ÷Ï¸¡¾ARD¡¿';
+  is 'åº”æ”¶å¸æ˜ç»†ã€ARDã€‘';
 comment on column YS_ZW_ARDETAIL.ardid
-  is 'Á÷Ë®ºÅ';
+  is 'æµæ°´å·';
 comment on column YS_ZW_ARDETAIL.ardpmdid
-  is '»ìºÏÓÃË®·Ö×é';
+  is 'æ··åˆç”¨æ°´åˆ†ç»„';
 comment on column YS_ZW_ARDETAIL.ardpiid
-  is '·ÑÓÃÏîÄ¿';
+  is 'è´¹ç”¨é¡¹ç›®';
 comment on column YS_ZW_ARDETAIL.ardpfid
-  is '·ÑÂÊ';
+  is 'è´¹ç‡';
 comment on column YS_ZW_ARDETAIL.ardpscid
-  is '·ÑÂÊÃ÷Ï¸·½°¸';
+  is 'è´¹ç‡æ˜ç»†æ–¹æ¡ˆ';
 comment on column YS_ZW_ARDETAIL.ardclass
-  is '½×Ìİ¼¶±ğ';
+  is 'é˜¶æ¢¯çº§åˆ«';
 comment on column YS_ZW_ARDETAIL.ardysdj
-  is 'Ó¦ÊÕµ¥¼Û';
+  is 'åº”æ”¶å•ä»·';
 comment on column YS_ZW_ARDETAIL.ardyssl
-  is 'Ó¦ÊÕË®Á¿';
+  is 'åº”æ”¶æ°´é‡';
 comment on column YS_ZW_ARDETAIL.ardysje
-  is 'Ó¦ÊÕ½ğ¶î';
+  is 'åº”æ”¶é‡‘é¢';
 comment on column YS_ZW_ARDETAIL.arddj
-  is 'ÊµÊÕµ¥¼Û';
+  is 'å®æ”¶å•ä»·';
 comment on column YS_ZW_ARDETAIL.ardsl
-  is 'ÊµÊÕË®Á¿';
+  is 'å®æ”¶æ°´é‡';
 comment on column YS_ZW_ARDETAIL.ardje
-  is 'ÊµÊÕ½ğ¶î';
+  is 'å®æ”¶é‡‘é¢';
 comment on column YS_ZW_ARDETAIL.ardadjdj
-  is 'µ÷Õûµ¥¼Û';
+  is 'è°ƒæ•´å•ä»·';
 comment on column YS_ZW_ARDETAIL.ardadjsl
-  is 'µ÷ÕûË®Á¿';
+  is 'è°ƒæ•´æ°´é‡';
 comment on column YS_ZW_ARDETAIL.ardadjje
-  is 'µ÷Õû½ğ¶î';
+  is 'è°ƒæ•´é‡‘é¢';
 comment on column YS_ZW_ARDETAIL.ardmethod
-  is '¼Æ·Ñ·½·¨';
+  is 'è®¡è´¹æ–¹æ³•';
 comment on column YS_ZW_ARDETAIL.ardpaidflag
-  is 'ÏúÕÊ±êÖ¾';
+  is 'é”€å¸æ ‡å¿—';
 comment on column YS_ZW_ARDETAIL.ardpaiddate
-  is 'ÏúÕÊÈÕÆÚ';
+  is 'é”€å¸æ—¥æœŸ';
 comment on column YS_ZW_ARDETAIL.ardpaidmonth
-  is 'ÏúÕÊÔÂ·İ';
+  is 'é”€å¸æœˆä»½';
 comment on column YS_ZW_ARDETAIL.ardpaidper
-  is 'ÏúÕÊÈËÔ±';
+  is 'é”€å¸äººå‘˜';
 comment on column YS_ZW_ARDETAIL.ardpmdscale
-  is '»ìºÏ±ÈÀı';
+  is 'æ··åˆæ¯”ä¾‹';
 comment on column YS_ZW_ARDETAIL.ardilid
-  is 'Æ±¾İÁ÷Ë®';
+  is 'ç¥¨æ®æµæ°´';
 comment on column YS_ZW_ARDETAIL.ardznj
-  is 'Î¥Ô¼½ğ';
+  is 'è¿çº¦é‡‘';
 comment on column YS_ZW_ARDETAIL.ardmemo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_ZW_ARDETAIL.ardmsmfid
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_ZW_ARDETAIL.ardmonth
-  is 'ÕÊÎñÔÂ·İ';
+  is 'å¸åŠ¡æœˆä»½';
 comment on column YS_ZW_ARDETAIL.ardmid
-  is 'Ë®±í±àºÅ';
+  is 'æ°´è¡¨ç¼–å·';
 comment on column YS_ZW_ARDETAIL.ardpmdtype
-  is '»ìºÏÀà±ğ';
+  is 'æ··åˆç±»åˆ«';
 comment on column YS_ZW_ARDETAIL.ardpmdcolumn1
-  is '±¸ÓÃ×Ö¶Î1';
+  is 'å¤‡ç”¨å­—æ®µ1';
 comment on column YS_ZW_ARDETAIL.ardpmdcolumn2
-  is '±¸ÓÃ×Ö¶Î2';
+  is 'å¤‡ç”¨å­—æ®µ2';
 comment on column YS_ZW_ARDETAIL.ardpmdcolumn3
-  is '±¸ÓÃ×Ö¶Î3';
+  is 'å¤‡ç”¨å­—æ®µ3';
 create index IDX_ARDID on YS_ZW_ARDETAIL (ARDID);
 alter table YS_ZW_ARDETAIL
   add constraint PK_YS_ARDETAIL primary key (ARDID, ARDPMDID, ARDCLASS, ARDPIID, ARDPFID, ARDPSCID);

@@ -1,4 +1,4 @@
-create table YS_BAS_BOOK
+ï»¿create table YS_BAS_BOOK
 (
   id           VARCHAR2(32),
   hire_code    VARCHAR2(20),
@@ -27,41 +27,41 @@ create table YS_BAS_BOOK
 )
 ;
 comment on column YS_BAS_BOOK.book_no
-  is '±àÂë';
+  is 'ç¼–ç ';
 comment on column YS_BAS_BOOK.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_BAS_BOOK.read_batch
-  is '³­±íÅú´Î';
+  is 'æŠ„è¡¨æ‰¹æ¬¡';
 comment on column YS_BAS_BOOK.book_name
-  is 'Ãû³Æ';
+  is 'åç§°';
 comment on column YS_BAS_BOOK.book_pno
-  is 'ÉÏ¼¶±àÂë';
+  is 'ä¸Šçº§ç¼–ç ';
 comment on column YS_BAS_BOOK.book_class
-  is '¼¶´Î';
+  is 'çº§æ¬¡';
 comment on column YS_BAS_BOOK.last_mark
-  is 'Ä©¼¶±êÖ¾';
+  is 'æœ«çº§æ ‡å¿—';
 comment on column YS_BAS_BOOK.statuss
-  is 'ÓĞĞ§×´Ì¬';
+  is 'æœ‰æ•ˆçŠ¶æ€';
 comment on column YS_BAS_BOOK.read_cycle
-  is '³­±íÖÜÆÚ';
+  is 'æŠ„è¡¨å‘¨æœŸ';
 comment on column YS_BAS_BOOK.read_nmonth
-  is 'ÏÂ´Î³­±íÔÂ·İ';
+  is 'ä¸‹æ¬¡æŠ„è¡¨æœˆä»½';
 comment on column YS_BAS_BOOK.book_type
-  is '±í²áÀà±ğ';
+  is 'è¡¨å†Œç±»åˆ«';
 comment on column YS_BAS_BOOK.read_per
-  is '³­±íÔ±';
+  is 'æŠ„è¡¨å‘˜';
 comment on column YS_BAS_BOOK.plan_rearday
-  is '¼Æ»®ÈÕÆÚ';
+  is 'è®¡åˆ’æ—¥æœŸ';
 comment on column YS_BAS_BOOK.grace_days
-  is 'Æ«ÒÆÌìÊı';
+  is 'åç§»å¤©æ•°';
 comment on column YS_BAS_BOOK.memo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_BAS_BOOK.bfsdate
-  is '¼Æ»®ÆğÊ¼ÈÕÆÚ';
+  is 'è®¡åˆ’èµ·å§‹æ—¥æœŸ';
 comment on column YS_BAS_BOOK.bfedate
-  is '¼Æ»®½áÊøÈÕÆÚ';
+  is 'è®¡åˆ’ç»“æŸæ—¥æœŸ';
 comment on column YS_BAS_BOOK.bfpper
-  is 'ÊÕ·ÑÔ±';
+  is 'æ”¶è´¹å‘˜';
 comment on column YS_BAS_BOOK.bfjtsny
-  is '½×Ìİ¿ªÊ¼ÔÂ';
+  is 'é˜¶æ¢¯å¼€å§‹æœˆ';
 

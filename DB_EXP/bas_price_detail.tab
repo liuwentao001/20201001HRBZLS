@@ -1,4 +1,4 @@
-create table BAS_PRICE_DETAIL
+ï»¿create table BAS_PRICE_DETAIL
 (
   id         VARCHAR2(32),
   hire_code  VARCHAR2(32),
@@ -12,5 +12,5 @@ create table BAS_PRICE_DETAIL
 )
 ;
 comment on column BAS_PRICE_DETAIL.method
-  is '¼Æ·Ñ·½Ê½ dj/je/yjt/njt µ¥¼Û/¹Ì¶¨½ğ¶î/ÔÂ½×Ìİ/Äê½×Ìİ';
+  is 'è®¡è´¹æ–¹å¼ dj/je/yjt/njt å•ä»·/å›ºå®šé‡‘é¢/æœˆé˜¶æ¢¯/å¹´é˜¶æ¢¯';
 

@@ -1,4 +1,4 @@
-create table BASE_AFFIX_TEMPLATE_INFO
+﻿create table BASE_AFFIX_TEMPLATE_INFO
 (
   id             VARCHAR2(32),
   ywid           VARCHAR2(32),

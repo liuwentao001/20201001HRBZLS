@@ -1,4 +1,4 @@
-create table YS_GD_DOCCHANGE_LOG
+﻿create table YS_GD_DOCCHANGE_LOG
 (
   id           VARCHAR2(32),
   table_name   VARCHAR2(60),

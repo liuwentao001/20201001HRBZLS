@@ -1,16 +1,16 @@
-CREATE OR REPLACE PACKAGE BODY Pg_Balanceadj_01 IS
+ï»¿CREATE OR REPLACE PACKAGE BODY Pg_Balanceadj_01 IS
   /*====================================================================
   -- Name: Pg_BALANCEADJ_01.Approve
-  -- Author:  Ñî»ª Gary 190388857@qq.com    date: 2020Äê11ÔÂ11ÈÕ
+  -- Author:  æ¨å Gary 190388857@qq.com    date: 2020å¹´11æœˆ11æ—¥
   ----------------------------------------------------------------------
-  -- Description: Óà¶îµ÷Õû¹ı³Ì°ü,µ¥¾İÌá½»Èë¿Ú¹ı³Ì
+  -- Description: ä½™é¢è°ƒæ•´è¿‡ç¨‹åŒ…,å•æ®æäº¤å…¥å£è¿‡ç¨‹
   ----------------------------------------------------------------------
   Copyright (c) 2002-2025 Gary(TM), All rights reserved.
   ----------------------------------------------------------------------
-  -- ĞŞ¸ÄÀúÊ·:
+  -- ä¿®æ”¹å†å²:
   -- When         Who       What
   -- ===========  ========  ============================================
-     2020-11-11   Ñî»ª      ĞÂÔö
+     2020-11-11   æ¨å      æ–°å¢
   --====================================================================*/
   PROCEDURE Approve(p_Billno IN VARCHAR2,
                     p_Person IN VARCHAR2,
@@ -19,29 +19,29 @@ CREATE OR REPLACE PACKAGE BODY Pg_Balanceadj_01 IS
   BEGIN
   
     IF p_Djlb = '36' OR p_Djlb = '39' THEN
-      --36Ô¤´æÓà¶îÍË·ÑÉêÇë  39Ô¤´æÓà¶î³·±íÍË·ÑÉêÇë
+      --36é¢„å­˜ä½™é¢é€€è´¹ç”³è¯·  39é¢„å­˜ä½™é¢æ’¤è¡¨é€€è´¹ç”³è¯·
       Sp_Balanceadj(p_Billno, p_Person, 'Y');
     ELSE
-      Raise_Application_Error(Errcode, p_Billno || '->1 ÎŞĞ§µÄµ¥¾İÀà±ğ£¡');
+      Raise_Application_Error(Errcode, p_Billno || '->1 æ— æ•ˆçš„å•æ®ç±»åˆ«ï¼');
     END IF;
   END;
 
   /*====================================================================
   -- Name: Pg_BALANCEADJ_01.Sp_Balanceadj
-  -- Author:  Ñî»ª Gary 190388857@qq.com    date: 2020Äê11ÔÂ11ÈÕ
+  -- Author:  æ¨å Gary 190388857@qq.com    date: 2020å¹´11æœˆ11æ—¥
   ----------------------------------------------------------------------
-  -- Description: Óà¶îµ÷Õû¹ı³Ì°ü,Óà¶îµ÷Õû
+  -- Description: ä½™é¢è°ƒæ•´è¿‡ç¨‹åŒ…,ä½™é¢è°ƒæ•´
   ----------------------------------------------------------------------
   Copyright (c) 2002-2025 Gary(TM), All rights reserved.
   ----------------------------------------------------------------------
-  -- ĞŞ¸ÄÀúÊ·:
+  -- ä¿®æ”¹å†å²:
   -- When         Who       What
   -- ===========  ========  ============================================
-     2020-11-11   Ñî»ª      ĞÂÔö
+     2020-11-11   æ¨å      æ–°å¢
   --====================================================================*/
-  PROCEDURE Sp_Balanceadj(p_Bill_Id IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                          p_Per     IN VARCHAR2, --²Ù×÷Ô±
-                          p_Commit  IN VARCHAR2 --Ìá½»±êÖ¾
+  PROCEDURE Sp_Balanceadj(p_Bill_Id IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                          p_Per     IN VARCHAR2, --æ“ä½œå‘˜
+                          p_Commit  IN VARCHAR2 --æäº¤æ ‡å¿—
                           ) AS
     v_Exist NUMBER(10);
     Znjdt   Ys_Gd_Balanceadjdt%ROWTYPE;
@@ -71,14 +71,14 @@ CREATE OR REPLACE PACKAGE BODY Pg_Balanceadj_01 IS
        WHERE Bill_Id = p_Bill_Id;
     EXCEPTION
       WHEN OTHERS THEN
-        Raise_Application_Error(Errcode, '±ä¸üµ¥Í·ĞÅÏ¢²»´æÔÚ!');
+        Raise_Application_Error(Errcode, 'å˜æ›´å•å¤´ä¿¡æ¯ä¸å­˜åœ¨!');
     END;
   
     IF Znjhd.Check_Flag = 'Y' THEN
-      Raise_Application_Error(Errcode, '±ä¸üµ¥ÒÑÉóºË,²»ĞèÔÙÉó!');
+      Raise_Application_Error(Errcode, 'å˜æ›´å•å·²å®¡æ ¸,ä¸éœ€å†å®¡!');
     END IF;
     IF Znjhd.Check_Flag = 'Q' THEN
-      Raise_Application_Error(Errcode, '±ä¸üµ¥ÒÑÈ¡Ïû,²»ÄÜÉó!');
+      Raise_Application_Error(Errcode, 'å˜æ›´å•å·²å–æ¶ˆ,ä¸èƒ½å®¡!');
     END IF;
     Znjhd.Check_Date := SYSDATE;
     OPEN c_Ys_Gd_Balanceadjdt;
@@ -91,7 +91,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Balanceadj_01 IS
       FETCH c_Custinfo
         INTO Ci;
       IF c_Custinfo%NOTFOUND OR c_Custinfo%NOTFOUND IS NULL THEN
-        Raise_Application_Error(Errcode, 'ÎŞ´ËÓÃ»§');
+        Raise_Application_Error(Errcode, 'æ— æ­¤ç”¨æˆ·');
       END IF;
       CLOSE c_Custinfo;
     
@@ -99,21 +99,21 @@ CREATE OR REPLACE PACKAGE BODY Pg_Balanceadj_01 IS
       FETCH c_Meterinfo
         INTO Mi;
       IF c_Meterinfo%NOTFOUND OR c_Meterinfo%NOTFOUND IS NULL THEN
-        Raise_Application_Error(Errcode, 'ÎŞ´ËË®±í');
+        Raise_Application_Error(Errcode, 'æ— æ­¤æ°´è¡¨');
       END IF;
       CLOSE c_Meterinfo;
     
       IF Mi.Sbsaving + Znjdt.Adjust_Balance < 0 THEN
         Raise_Application_Error(Errcode,
-                                'ÔÚ´Ë¹¤µ¥ÉêÇëºó£¬ÓÃ»§[' || Znjdt.Yhid ||
-                                ']µÄÔ¤´æÓà¶î²»¹»,»áÔì³É¸ºÔ¤´æ,ÇëºË²é!');
+                                'åœ¨æ­¤å·¥å•ç”³è¯·åï¼Œç”¨æˆ·[' || Znjdt.Yhid ||
+                                ']çš„é¢„å­˜ä½™é¢ä¸å¤Ÿ,ä¼šé€ æˆè´Ÿé¢„å­˜,è¯·æ ¸æŸ¥!');
       END IF;
       IF Mi.Sbsaving <> Znjdt.Balance THEN
         Raise_Application_Error(Errcode,
-                                'ÔÚ´Ë¹¤µ¥ÉêÇëºó£¬ÓÃ»§[' || Znjdt.Yhid ||
-                                ']µÄÔ¤´æÓà¶îÒÑ±»¸ü¸Ä,ÇëºË²é!');
+                                'åœ¨æ­¤å·¥å•ç”³è¯·åï¼Œç”¨æˆ·[' || Znjdt.Yhid ||
+                                ']çš„é¢„å­˜ä½™é¢å·²è¢«æ›´æ”¹,è¯·æ ¸æŸ¥!');
       END IF;
-      --ÅĞ¶ÏÊÇ·ñÓĞÇ··Ñ
+      --åˆ¤æ–­æ˜¯å¦æœ‰æ¬ è´¹
       BEGIN
         SELECT 1
           INTO v_Exist
@@ -130,15 +130,15 @@ CREATE OR REPLACE PACKAGE BODY Pg_Balanceadj_01 IS
       END;
       IF v_Exist > 0 THEN
         Raise_Application_Error(Errcode,
-                                'ÔÚ´Ë¹¤µ¥ÉêÇëºó£¬ÓÃ»§[' || Znjdt.Yhid || ']ÓĞÇ··Ñ,ÇëºË²é!');
+                                'åœ¨æ­¤å·¥å•ç”³è¯·åï¼Œç”¨æˆ·[' || Znjdt.Yhid || ']æœ‰æ¬ è´¹,è¯·æ ¸æŸ¥!');
       END IF;
     
       IF Znjdt.Change_Type = '36' THEN
         c_Ptrans := 'y';
-        --yc.ycnote := 'Ô¤´æÓà¶îÍË·ÑÉêÇë';
+        --yc.ycnote := 'é¢„å­˜ä½™é¢é€€è´¹ç”³è¯·';
       ELSIF Znjdt.Change_Type = '39' THEN
         c_Ptrans := 'Y';
-        --yc.ycnote := 'Ô¤´æÓà¶î³·±íÍË·ÑÉêÇë';
+        --yc.ycnote := 'é¢„å­˜ä½™é¢æ’¤è¡¨é€€è´¹ç”³è¯·';
       END IF;
     
       SELECT TRIM(To_Char(Seq_Paidbatch.Nextval, '0000000000'))

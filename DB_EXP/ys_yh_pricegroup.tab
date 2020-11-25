@@ -1,4 +1,4 @@
-create table YS_YH_PRICEGROUP
+ï»¿create table YS_YH_PRICEGROUP
 (
   id         VARCHAR2(32),
   hire_code  VARCHAR2(32),
@@ -14,25 +14,25 @@ create table YS_YH_PRICEGROUP
 )
 ;
 comment on table YS_YH_PRICEGROUP
-  is '»ìºÏÓÃË®Ã÷Ï¸¡¾grp¡¿';
+  is 'æ··åˆç”¨æ°´æ˜ç»†ã€grpã€‘';
 comment on column YS_YH_PRICEGROUP.yhid
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_YH_PRICEGROUP.sbid
-  is 'Ë®±í±àºÅ';
+  is 'æ°´è¡¨ç¼–å·';
 comment on column YS_YH_PRICEGROUP.grpid
-  is '·Ö×éºÅ';
+  is 'åˆ†ç»„å·';
 comment on column YS_YH_PRICEGROUP.price_no
-  is '¼Û¸ñÀà±ğ';
+  is 'ä»·æ ¼ç±»åˆ«';
 comment on column YS_YH_PRICEGROUP.grpscale
-  is '±ÈÀı';
+  is 'æ¯”ä¾‹';
 comment on column YS_YH_PRICEGROUP.grptype
-  is '»ìºÏÀà±ğ(00±ÈÀı£¬01¶¨Á¿)';
+  is 'æ··åˆç±»åˆ«(00æ¯”ä¾‹ï¼Œ01å®šé‡)';
 comment on column YS_YH_PRICEGROUP.grpcolumn1
-  is '±¸ÓÃ×Ö¶Î1';
+  is 'å¤‡ç”¨å­—æ®µ1';
 comment on column YS_YH_PRICEGROUP.grpcolumn2
-  is '±¸ÓÃ×Ö¶Î2';
+  is 'å¤‡ç”¨å­—æ®µ2';
 comment on column YS_YH_PRICEGROUP.grpcolumn3
-  is '±¸ÓÃ×Ö¶Î3';
+  is 'å¤‡ç”¨å­—æ®µ3';
 alter table YS_YH_PRICEGROUP
   add constraint PK_YHPRICEGROUP primary key (YHID, SBID, GRPID, PRICE_NO);
 

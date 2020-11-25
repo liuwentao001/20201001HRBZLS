@@ -1,4 +1,4 @@
-create table BASE_TRAVEL_CALENDAR
+﻿create table BASE_TRAVEL_CALENDAR
 (
   id             VARCHAR2(32),
   hire_code      VARCHAR2(32),

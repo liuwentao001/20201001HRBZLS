@@ -1,4 +1,4 @@
-create global temporary table YS_ZW_ARLIST_BUDGET
+ï»¿create global temporary table YS_ZW_ARLIST_BUDGET
 (
   id              VARCHAR2(32) not null,
   hire_code       VARCHAR2(20),
@@ -120,5 +120,5 @@ create global temporary table YS_ZW_ARLIST_BUDGET
 )
 on commit delete rows;
 comment on table YS_ZW_ARLIST_BUDGET
-  is 'Ó¦ÊÕ×ÜÕÊÃ÷Ï¸Ô¤Ëã·ÑÖĞ¼ä±í¡¾AR¡¿';
+  is 'åº”æ”¶æ€»å¸æ˜ç»†é¢„ç®—è´¹ä¸­é—´è¡¨ã€ARã€‘';
 

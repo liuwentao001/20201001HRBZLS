@@ -1,4 +1,4 @@
-create table ACT_RU_EXECUTION
+﻿create table ACT_RU_EXECUTION
 (
   id_               VARCHAR2(64),
   rev_              NUMBER,

@@ -1,4 +1,4 @@
-create table BASE_MENU
+﻿create table BASE_MENU
 (
   id         VARCHAR2(34),
   menu_name  VARCHAR2(60),

@@ -1,4 +1,4 @@
-create table YS_GD_ARADJUSTHD
+ï»¿create table YS_GD_ARADJUSTHD
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(20),
@@ -26,51 +26,51 @@ create table YS_GD_ARADJUSTHD
 )
 ;
 comment on table YS_GD_ARADJUSTHD
-  is 'µ÷Õû¼õÃâ';
+  is 'è°ƒæ•´å‡å…';
 comment on column YS_GD_ARADJUSTHD.id
   is 'id';
 comment on column YS_GD_ARADJUSTHD.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_ARADJUSTHD.bill_id
-  is 'µ¥Í·ID';
+  is 'å•å¤´ID';
 comment on column YS_GD_ARADJUSTHD.bill_no
-  is 'µ¥¾İ±àºÅ';
+  is 'å•æ®ç¼–å·';
 comment on column YS_GD_ARADJUSTHD.bill_type
-  is 'µ¥¾İÀà±ğ';
+  is 'å•æ®ç±»åˆ«';
 comment on column YS_GD_ARADJUSTHD.bill_source
-  is 'µ¥¾İÀ´Ô´';
+  is 'å•æ®æ¥æº';
 comment on column YS_GD_ARADJUSTHD.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_GD_ARADJUSTHD.new_dept
-  is 'ÉêÇë²¿ÃÅ';
+  is 'ç”³è¯·éƒ¨é—¨';
 comment on column YS_GD_ARADJUSTHD.add_date
-  is 'ÉêÇëÈÕÆÚ';
+  is 'ç”³è¯·æ—¥æœŸ';
 comment on column YS_GD_ARADJUSTHD.add_per
-  is 'ÉêÇëÈËÔ±';
+  is 'ç”³è¯·äººå‘˜';
 comment on column YS_GD_ARADJUSTHD.check_date
-  is 'ÉóºËÈÕÆÚ';
+  is 'å®¡æ ¸æ—¥æœŸ';
 comment on column YS_GD_ARADJUSTHD.check_per
-  is 'ÉóºËÈËÔ±';
+  is 'å®¡æ ¸äººå‘˜';
 comment on column YS_GD_ARADJUSTHD.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_ARADJUSTHD.flow_id
-  is 'Á÷³ÌID';
+  is 'æµç¨‹ID';
 comment on column YS_GD_ARADJUSTHD.user_no
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_ARADJUSTHD.user_name
-  is 'ÒµÖ÷Ãû³Æ';
+  is 'ä¸šä¸»åç§°';
 comment on column YS_GD_ARADJUSTHD.user_adr
-  is 'ÒµÖ÷µØÖ·';
+  is 'ä¸šä¸»åœ°å€';
 comment on column YS_GD_ARADJUSTHD.adj_type
-  is 'µ÷ÕûÀà±ğ(1:µ÷Õû 2:¼õÃâ)';
+  is 'è°ƒæ•´ç±»åˆ«(1:è°ƒæ•´ 2:å‡å…)';
 comment on column YS_GD_ARADJUSTHD.adj_memo
-  is 'µ÷ÕûËµÃ÷';
+  is 'è°ƒæ•´è¯´æ˜';
 comment on column YS_GD_ARADJUSTHD.ncode_flag
-  is 'ÖØÖÃÏÂ´Î³­±íÆğÂë';
+  is 'é‡ç½®ä¸‹æ¬¡æŠ„è¡¨èµ·ç ';
 comment on column YS_GD_ARADJUSTHD.next_code
-  is 'ÏÂ´Î³­±íÆğÂë';
+  is 'ä¸‹æ¬¡æŠ„è¡¨èµ·ç ';
 comment on column YS_GD_ARADJUSTHD.ndate_flag
-  is 'ÖØÖÃ×îºó³­±íÈÕÆÚ';
+  is 'é‡ç½®æœ€åæŠ„è¡¨æ—¥æœŸ';
 comment on column YS_GD_ARADJUSTHD.next_date
-  is 'ÏÂ´Î³­±íÈÕÆÚ';
+  is 'ä¸‹æ¬¡æŠ„è¡¨æ—¥æœŸ';
 

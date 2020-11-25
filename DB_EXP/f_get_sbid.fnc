@@ -1,9 +1,9 @@
-CREATE OR REPLACE FUNCTION F_GET_SBID return varchar2 is
+ï»¿CREATE OR REPLACE FUNCTION F_GET_SBID return varchar2 is
  -- --------------------------------------------------------------------------
   -- Name         : F_GET_SBID
   -- Author       : Tim
-  -- Description  : È¡Ë®±í±àºÅ
-  -- Ammedments   : Ë®±í±àºÅÇ°Ãæ9Î»ÊÇ´ÓĞòºÅÈ¡£¬ºóÃæÒ»Î»ÊÇÇ°Ãæ9Î»Êı¾İÏà¼Ó£¬È¡4µÄÄ¤
+  -- Description  : å–æ°´è¡¨ç¼–å·
+  -- Ammedments   : æ°´è¡¨ç¼–å·å‰é¢9ä½æ˜¯ä»åºå·å–ï¼Œåé¢ä¸€ä½æ˜¯å‰é¢9ä½æ•°æ®ç›¸åŠ ï¼Œå–4çš„è†œ
   --   When         Who       What
   --   ===========  ========  =================================================
   --   2020-12-01  Tim      Initial Creation

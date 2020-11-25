@@ -1,56 +1,56 @@
-CREATE OR REPLACE PACKAGE Pg_Dszbill_01 IS
+ï»¿CREATE OR REPLACE PACKAGE Pg_Dszbill_01 IS
 
   Errcode CONSTANT INTEGER := -20012;
   /*====================================================================
   -- Name: PG_DSZBILL_01
-  -- Author:  Ñî»ª Gary 190388857@qq.com    date: 2020Äê11ÔÂ11ÈÕ
+  -- Author:  æ¨åŽ Gary 190388857@qq.com    date: 2020å¹´11æœˆ11æ—¥
   ----------------------------------------------------------------------
-  -- Description: ´ô»µÕË¹ý³Ì°ü
+  -- Description: å‘†åè´¦è¿‡ç¨‹åŒ…
   ----------------------------------------------------------------------
   Copyright (c) 2002-2025 Gary(TM), All rights reserved. 
   ----------------------------------------------------------------------
-  -- ÐÞ¸ÄÀúÊ·:
+  -- ä¿®æ”¹åŽ†å²:
   -- When         Who       What
   -- ===========  ========  ============================================
-     2020-11-11   Ñî»ª      ÐÂÔö
+     2020-11-11   æ¨åŽ      æ–°å¢ž
   --====================================================================*/
-  PROCEDURE Createhd(p_Dshno     IN VARCHAR2, --µ¥¾ÝÁ÷Ë®ºÅ
-                     p_Dshlb     IN VARCHAR2, --µ¥¾ÝÀà±ð
-                     p_Dshsmfid  IN VARCHAR2, --ÓªÏú¹«Ë¾
-                     p_Dshdept   IN VARCHAR2, --ÊÜÀí²¿ÃÅ
-                     p_Dshcreper IN VARCHAR2 --ÊÜÀíÈËÔ±
+  PROCEDURE Createhd(p_Dshno     IN VARCHAR2, --å•æ®æµæ°´å·
+                     p_Dshlb     IN VARCHAR2, --å•æ®ç±»åˆ«
+                     p_Dshsmfid  IN VARCHAR2, --è¥é”€å…¬å¸
+                     p_Dshdept   IN VARCHAR2, --å—ç†éƒ¨é—¨
+                     p_Dshcreper IN VARCHAR2 --å—ç†äººå‘˜
                      );
-  PROCEDURE Createdt(p_Dsdno    IN VARCHAR2, --µ¥¾ÝÁ÷Ë®ºÅ
-                     p_Dsdrowno IN VARCHAR2, --ÐÐºÅ
-                     p_Arid     IN VARCHAR2 --Ó¦ÊÕÁ÷Ë®
+  PROCEDURE Createdt(p_Dsdno    IN VARCHAR2, --å•æ®æµæ°´å·
+                     p_Dsdrowno IN VARCHAR2, --è¡Œå·
+                     p_Arid     IN VARCHAR2 --åº”æ”¶æµæ°´
                      );
 
   -----------------------------------------------------
-  --¹¹Ôì´ôËÀÕÊµ¥¾Ý
-  --Íâ²¿µ÷ÓÃ£¬½«Ó¦ÊÕÁ÷Ë®ºÅYS_ZW_AARIST.ARIDÔÚÇ°Ì¨²åÈëµ½ÁÙÊ±±íPBPARMTEMP.C1ÖÐ
-  PROCEDURE Createdszbill(p_Dshno     IN VARCHAR2, --µ¥¾ÝÁ÷Ë®ºÅ
-                          p_Dshlb     IN VARCHAR2, --µ¥¾ÝÀà±ð
-                          p_Dshsmfid  IN VARCHAR2, --ÓªÏú¹«Ë¾
-                          p_Dshdept   IN VARCHAR2, --ÊÜÀí²¿ÃÅ
-                          p_Dshcreper IN VARCHAR2, --ÊÜÀíÈËÔ±
-                          p_Arid      IN VARCHAR2 --Ó¦ÊÕÁ÷Ë®ºÅ
+  --æž„é€ å‘†æ­»å¸å•æ®
+  --å¤–éƒ¨è°ƒç”¨ï¼Œå°†åº”æ”¶æµæ°´å·YS_ZW_AARIST.ARIDåœ¨å‰å°æ’å…¥åˆ°ä¸´æ—¶è¡¨PBPARMTEMP.C1ä¸­
+  PROCEDURE Createdszbill(p_Dshno     IN VARCHAR2, --å•æ®æµæ°´å·
+                          p_Dshlb     IN VARCHAR2, --å•æ®ç±»åˆ«
+                          p_Dshsmfid  IN VARCHAR2, --è¥é”€å…¬å¸
+                          p_Dshdept   IN VARCHAR2, --å—ç†éƒ¨é—¨
+                          p_Dshcreper IN VARCHAR2, --å—ç†äººå‘˜
+                          p_Arid      IN VARCHAR2 --åº”æ”¶æµæ°´å·
                           );
 
-  --É¾³ýµ¥¾Ý
-  PROCEDURE Cancelbill(p_Billno IN VARCHAR2, --µ¥¾Ý±àºÅ
-                       p_Person IN VARCHAR2, --²Ù×÷Ô±
-                       p_Djlb   IN VARCHAR2); --µ¥¾ÝÀà±ð
+  --åˆ é™¤å•æ®
+  PROCEDURE Cancelbill(p_Billno IN VARCHAR2, --å•æ®ç¼–å·
+                       p_Person IN VARCHAR2, --æ“ä½œå‘˜
+                       p_Djlb   IN VARCHAR2); --å•æ®ç±»åˆ«
 
-  PROCEDURE Custbillmain(p_Cchno    IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                         p_Per      IN VARCHAR2, --²Ù×÷Ô±
-                         p_Billid   IN VARCHAR2, --µ¥¾ÝID
-                         p_Billtype IN VARCHAR2 --µ¥¾ÝÀà±ð
+  PROCEDURE Custbillmain(p_Cchno    IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                         p_Per      IN VARCHAR2, --æ“ä½œå‘˜
+                         p_Billid   IN VARCHAR2, --å•æ®ID
+                         p_Billtype IN VARCHAR2 --å•æ®ç±»åˆ«
                          );
-  --ÉóºËÖ÷³ÌÐò
-  PROCEDURE Custbill(p_Cchno    IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                     p_Per      IN VARCHAR2, --²Ù×÷Ô±
-                     p_Billtype IN VARCHAR2, --µ¥¾ÝÀà±ð
-                     p_Commit   IN VARCHAR2 --Ìá½»±êÖ¾
+  --å®¡æ ¸ä¸»ç¨‹åº
+  PROCEDURE Custbill(p_Cchno    IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                     p_Per      IN VARCHAR2, --æ“ä½œå‘˜
+                     p_Billtype IN VARCHAR2, --å•æ®ç±»åˆ«
+                     p_Commit   IN VARCHAR2 --æäº¤æ ‡å¿—
                      );
 END;
 /

@@ -1,4 +1,4 @@
-create table OAUTH_REFRESH_TOKEN
+﻿create table OAUTH_REFRESH_TOKEN
 (
   token_id       VARCHAR2(255),
   token          BLOB,

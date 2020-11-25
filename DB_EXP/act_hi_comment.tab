@@ -1,4 +1,4 @@
-create table ACT_HI_COMMENT
+﻿create table ACT_HI_COMMENT
 (
   id_           VARCHAR2(64),
   type_         VARCHAR2(255),

@@ -1,4 +1,4 @@
-create table ACT_RU_IDENTITYLINK
+﻿create table ACT_RU_IDENTITYLINK
 (
   id_           VARCHAR2(64),
   rev_          NUMBER,

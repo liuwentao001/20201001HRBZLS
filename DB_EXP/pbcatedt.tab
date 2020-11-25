@@ -1,4 +1,4 @@
-create table PBCATEDT
+﻿create table PBCATEDT
 (
   pbe_name VARCHAR2(60),
   pbe_edit VARCHAR2(254),

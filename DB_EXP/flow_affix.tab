@@ -1,4 +1,4 @@
-create table FLOW_AFFIX
+﻿create table FLOW_AFFIX
 (
   id             VARCHAR2(32),
   flow_id        VARCHAR2(32),

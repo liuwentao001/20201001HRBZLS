@@ -1,4 +1,4 @@
-create global temporary table YS_ZW_ARDETAIL_VIRTUAL
+ï»¿create global temporary table YS_ZW_ARDETAIL_VIRTUAL
 (
   id            VARCHAR2(32) not null,
   hire_code     VARCHAR2(20),
@@ -36,67 +36,67 @@ create global temporary table YS_ZW_ARDETAIL_VIRTUAL
 )
 on commit delete rows;
 comment on table YS_ZW_ARDETAIL_VIRTUAL
-  is 'Ó¦ÊÕÕÊÃ÷Ï¸¡¾ARD¡¿';
+  is 'åº”æ”¶å¸æ˜ç»†ã€ARDã€‘';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardid
-  is 'Á÷Ë®ºÅ';
+  is 'æµæ°´å·';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdid
-  is '»ìºÏÓÃË®·Ö×é';
+  is 'æ··åˆç”¨æ°´åˆ†ç»„';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpiid
-  is '·ÑÓÃÏîÄ¿';
+  is 'è´¹ç”¨é¡¹ç›®';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpfid
-  is '·ÑÂÊ';
+  is 'è´¹ç‡';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpscid
-  is '·ÑÂÊÃ÷Ï¸·½°¸';
+  is 'è´¹ç‡æ˜ç»†æ–¹æ¡ˆ';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardclass
-  is '½×Ìİ¼¶±ğ';
+  is 'é˜¶æ¢¯çº§åˆ«';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardysdj
-  is 'Ó¦ÊÕµ¥¼Û';
+  is 'åº”æ”¶å•ä»·';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardyssl
-  is 'Ó¦ÊÕË®Á¿';
+  is 'åº”æ”¶æ°´é‡';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardysje
-  is 'Ó¦ÊÕ½ğ¶î';
+  is 'åº”æ”¶é‡‘é¢';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.arddj
-  is 'ÊµÊÕµ¥¼Û';
+  is 'å®æ”¶å•ä»·';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardsl
-  is 'ÊµÊÕË®Á¿';
+  is 'å®æ”¶æ°´é‡';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardje
-  is 'ÊµÊÕ½ğ¶î';
+  is 'å®æ”¶é‡‘é¢';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardadjdj
-  is 'µ÷Õûµ¥¼Û';
+  is 'è°ƒæ•´å•ä»·';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardadjsl
-  is 'µ÷ÕûË®Á¿';
+  is 'è°ƒæ•´æ°´é‡';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardadjje
-  is 'µ÷Õû½ğ¶î';
+  is 'è°ƒæ•´é‡‘é¢';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmethod
-  is '¼Æ·Ñ·½·¨';
+  is 'è®¡è´¹æ–¹æ³•';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaidflag
-  is 'ÏúÕÊ±êÖ¾';
+  is 'é”€å¸æ ‡å¿—';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaiddate
-  is 'ÏúÕÊÈÕÆÚ';
+  is 'é”€å¸æ—¥æœŸ';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaidmonth
-  is 'ÏúÕÊÔÂ·İ';
+  is 'é”€å¸æœˆä»½';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpaidper
-  is 'ÏúÕÊÈËÔ±';
+  is 'é”€å¸äººå‘˜';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdscale
-  is '»ìºÏ±ÈÀı';
+  is 'æ··åˆæ¯”ä¾‹';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardilid
-  is 'Æ±¾İÁ÷Ë®';
+  is 'ç¥¨æ®æµæ°´';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardznj
-  is 'Î¥Ô¼½ğ';
+  is 'è¿çº¦é‡‘';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmemo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmsmfid
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmonth
-  is 'ÕÊÎñÔÂ·İ';
+  is 'å¸åŠ¡æœˆä»½';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardmid
-  is 'Ë®±í±àºÅ';
+  is 'æ°´è¡¨ç¼–å·';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdtype
-  is '»ìºÏÀà±ğ';
+  is 'æ··åˆç±»åˆ«';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdcolumn1
-  is '±¸ÓÃ×Ö¶Î1';
+  is 'å¤‡ç”¨å­—æ®µ1';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdcolumn2
-  is '±¸ÓÃ×Ö¶Î2';
+  is 'å¤‡ç”¨å­—æ®µ2';
 comment on column YS_ZW_ARDETAIL_VIRTUAL.ardpmdcolumn3
-  is '±¸ÓÃ×Ö¶Î3';
+  is 'å¤‡ç”¨å­—æ®µ3';
 

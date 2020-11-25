@@ -1,4 +1,4 @@
-create table ACT_EVT_LOG
+﻿create table ACT_EVT_LOG
 (
   log_nr_       NUMBER,
   type_         VARCHAR2(64),

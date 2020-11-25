@@ -1,4 +1,4 @@
-create table ACT_RU_JOB
+﻿create table ACT_RU_JOB
 (
   id_                  VARCHAR2(64),
   rev_                 NUMBER,

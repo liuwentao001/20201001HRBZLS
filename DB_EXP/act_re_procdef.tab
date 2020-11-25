@@ -1,4 +1,4 @@
-create table ACT_RE_PROCDEF
+﻿create table ACT_RE_PROCDEF
 (
   id_                     VARCHAR2(64),
   rev_                    NUMBER,

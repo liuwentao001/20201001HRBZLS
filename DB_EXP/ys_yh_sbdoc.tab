@@ -1,4 +1,4 @@
-create table YS_YH_SBDOC
+ï»¿create table YS_YH_SBDOC
 (
   id             VARCHAR2(32) not null,
   sbid           VARCHAR2(10),
@@ -43,85 +43,85 @@ create table YS_YH_SBDOC
 )
 ;
 comment on table YS_YH_SBDOC
-  is 'Ë®±íµµ°¸';
+  is 'æ°´è¡¨æ¡£æ¡ˆ';
 comment on column YS_YH_SBDOC.id
-  is 'ĞòÁĞºÅ';
+  is 'åºåˆ—å·';
 comment on column YS_YH_SBDOC.sbid
-  is 'Ë®±íµµ°¸±àºÅ(»§ºÅ£¬Èë¿âÊ±Îª¿Õ)';
+  is 'æ°´è¡¨æ¡£æ¡ˆç¼–å·(æˆ·å·ï¼Œå…¥åº“æ—¶ä¸ºç©º)';
 comment on column YS_YH_SBDOC.mdno
-  is '±íÉíÂë';
+  is 'è¡¨èº«ç ';
 comment on column YS_YH_SBDOC.mdcaliber
-  is '±í¿Ú¾¶(METERCALIBER)';
+  is 'è¡¨å£å¾„(METERCALIBER)';
 comment on column YS_YH_SBDOC.mdbrand
-  is '±í³§¼Ò(meterbrand)';
+  is 'è¡¨å‚å®¶(meterbrand)';
 comment on column YS_YH_SBDOC.mdmodel
-  is '¼ÆÁ¿·½Ê½';
+  is 'è®¡é‡æ–¹å¼';
 comment on column YS_YH_SBDOC.mdstatus
-  is '±í×´Ì¬£¨0=Î´Ê¹ÓÃ£¬1=ÒÑÊ¹ÓÃ£¬2=×÷·Ï£©';
+  is 'è¡¨çŠ¶æ€ï¼ˆ0=æœªä½¿ç”¨ï¼Œ1=å·²ä½¿ç”¨ï¼Œ2=ä½œåºŸï¼‰';
 comment on column YS_YH_SBDOC.mdstatusdate
-  is '±í×´Ì¬·¢ÉúÊ±¼ä';
+  is 'è¡¨çŠ¶æ€å‘ç”Ÿæ—¶é—´';
 comment on column YS_YH_SBDOC.mdcycchkdate
-  is 'ÖÜ¼ìÆğËãÈÕ';
+  is 'å‘¨æ£€èµ·ç®—æ—¥';
 comment on column YS_YH_SBDOC.mdstockdate
-  is 'ĞÂ¹ºÈë¿âÈÕÆÚ';
+  is 'æ–°è´­å…¥åº“æ—¥æœŸ';
 comment on column YS_YH_SBDOC.mdstore
-  is '¿â´æÎ»ÖÃ';
+  is 'åº“å­˜ä½ç½®';
 comment on column YS_YH_SBDOC.sfh
-  is 'Ê×·âºÅ';
+  is 'é¦–å°å·';
 comment on column YS_YH_SBDOC.dqsfh
-  is 'ËÜ·âºÅ';
+  is 'å¡‘å°å·';
 comment on column YS_YH_SBDOC.dqgfh
-  is '¸Ö·âºÅ';
+  is 'é’¢å°å·';
 comment on column YS_YH_SBDOC.jcgfh
-  is '»ü²é¸Õ·âºÅ';
+  is 'ç¨½æŸ¥åˆšå°å·';
 comment on column YS_YH_SBDOC.qfh
-  is 'Ç¦·âºÅ';
+  is 'é“…å°å·';
 comment on column YS_YH_SBDOC.mdfq1
-  is '±¸ÓÃ·âºÅ1';
+  is 'å¤‡ç”¨å°å·1';
 comment on column YS_YH_SBDOC.mdfq2
-  is '±¸ÓÃ·âºÅ2';
+  is 'å¤‡ç”¨å°å·2';
 comment on column YS_YH_SBDOC.mdfq3
-  is '±¸ÓÃ·âºÅ3';
+  is 'å¤‡ç”¨å°å·3';
 comment on column YS_YH_SBDOC.mdfq4
-  is '±¸ÓÃ·âºÅ4';
+  is 'å¤‡ç”¨å°å·4';
 comment on column YS_YH_SBDOC.mdfq5
-  is '±¸ÓÃ·âºÅ5';
+  is 'å¤‡ç”¨å°å·5';
 comment on column YS_YH_SBDOC.barcode
-  is 'ÌõĞÎÂë';
+  is 'æ¡å½¢ç ';
 comment on column YS_YH_SBDOC.rfid
-  is 'µç×Ó±êÇ©';
+  is 'ç”µå­æ ‡ç­¾';
 comment on column YS_YH_SBDOC.ifdzsb
-  is 'ÊÇ·ñµ¹±í£¨µ¹±í=Y Õı³£±í=''N''£©';
+  is 'æ˜¯å¦å€’è¡¨ï¼ˆå€’è¡¨=Y æ­£å¸¸è¡¨=''N''ï¼‰';
 comment on column YS_YH_SBDOC.concentratorid
-  is '¼¯ÖĞÆ÷ID';
+  is 'é›†ä¸­å™¨ID';
 comment on column YS_YH_SBDOC.readmetercode
-  is '³­±íĞòºÅ';
+  is 'æŠ„è¡¨åºå·';
 comment on column YS_YH_SBDOC.transferstype
-  is '´«ÊäÀàĞÍ';
+  is 'ä¼ è¾“ç±»å‹';
 comment on column YS_YH_SBDOC.collenttype
-  is '²É¼¯ÀàĞÍ(ÆúÓÃ×Ö¶Î)';
+  is 'é‡‡é›†ç±»å‹(å¼ƒç”¨å­—æ®µ)';
 comment on column YS_YH_SBDOC.iscontrol
-  is '·§¿Ø·ñ';
+  is 'é˜€æ§å¦';
 comment on column YS_YH_SBDOC.readtype
-  is '¶ÁÊı·½Ê½';
+  is 'è¯»æ•°æ–¹å¼';
 comment on column YS_YH_SBDOC.rkbatch
-  is 'Èë¿âÅú´Î';
+  is 'å…¥åº“æ‰¹æ¬¡';
 comment on column YS_YH_SBDOC.rkdno
-  is 'Èë¿âµ¥ºÅ';
+  is 'å…¥åº“å•å·';
 comment on column YS_YH_SBDOC.storeroomid
-  is '¿â·¿±àºÅ';
+  is 'åº“æˆ¿ç¼–å·';
 comment on column YS_YH_SBDOC.rkman
-  is 'Èë¿âÈËÔ±';
+  is 'å…¥åº“äººå‘˜';
 comment on column YS_YH_SBDOC.mainman
-  is 'Î¬»¤ÈËÔ±';
+  is 'ç»´æŠ¤äººå‘˜';
 comment on column YS_YH_SBDOC.maindate
-  is 'Î¬»¤Ê±¼ä';
+  is 'ç»´æŠ¤æ—¶é—´';
 comment on column YS_YH_SBDOC.sjdate
-  is 'Ê×¼ìÈÕÆÚ';
+  is 'é¦–æ£€æ—¥æœŸ';
 comment on column YS_YH_SBDOC.mdmode
-  is '»ùµç×ª»»·½Ê½';
+  is 'åŸºç”µè½¬æ¢æ–¹å¼';
 comment on column YS_YH_SBDOC.portno
-  is 'ÉÏ´«¶Ë¿ÚºÅ';
+  is 'ä¸Šä¼ ç«¯å£å·';
 alter table YS_YH_SBDOC
   add constraint PK_YH_METERDOC primary key (ID);
 

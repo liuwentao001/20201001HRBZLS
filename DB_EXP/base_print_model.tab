@@ -1,4 +1,4 @@
-create table BASE_PRINT_MODEL
+﻿create table BASE_PRINT_MODEL
 (
   model_id              VARCHAR2(32),
   model_code            VARCHAR2(255),

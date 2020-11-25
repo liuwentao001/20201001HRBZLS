@@ -1,4 +1,4 @@
-create table OAUTH_CLIENT_DETAILS
+﻿create table OAUTH_CLIENT_DETAILS
 (
   client_id               VARCHAR2(250),
   resource_ids            VARCHAR2(256),

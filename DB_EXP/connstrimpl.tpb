@@ -1,4 +1,4 @@
-CREATE OR REPLACE TYPE BODY CONNSTRIMPL is
+﻿CREATE OR REPLACE TYPE BODY CONNSTRIMPL is
       static function ODCIAggregateInitialize(sctx IN OUT connstrImpl)
       return number is
       begin

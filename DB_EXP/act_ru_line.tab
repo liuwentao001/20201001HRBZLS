@@ -1,4 +1,4 @@
-create table ACT_RU_LINE
+﻿create table ACT_RU_LINE
 (
   id               VARCHAR2(32),
   flow_id          VARCHAR2(32),

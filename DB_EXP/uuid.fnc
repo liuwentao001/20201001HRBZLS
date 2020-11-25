@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION uuid  RETURN char AS
+﻿CREATE OR REPLACE FUNCTION uuid  RETURN char AS
   v_method varchar2(32);
 BEGIN
  

@@ -1,4 +1,4 @@
-create table KNOWLEDGE_POINT
+﻿create table KNOWLEDGE_POINT
 (
   id           VARCHAR2(32),
   category_id  VARCHAR2(32),

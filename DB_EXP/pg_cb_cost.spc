@@ -1,32 +1,32 @@
-CREATE OR REPLACE PACKAGE pg_cb_cost is
+ï»¿CREATE OR REPLACE PACKAGE pg_cb_cost is
   /*add 20201113*/
-  ----¹ý³ÌÌá½»¿ØÖÆ
-  ²»Ìá½» CONSTANT NUMBER := 0;
-  Ìá½»   CONSTANT NUMBER := 1;
-  µ÷ÊÔ   CONSTANT NUMBER := 2;
-  --¼Æ·ÑÊÂÎñ
-  ¼Æ»®³­±í   CONSTANT CHAR(1) := '1';
-  Óà¶È       CONSTANT CHAR(1) := 'Q';
-  ÓªÒµÍâÊÕÈë CONSTANT CHAR(1) := 'T';
-  ×·Á¿       CONSTANT CHAR(1) := 'O';
-  --Ó¦ÊÕ×ÜÕË°ü
+  ----è¿‡ç¨‹æäº¤æŽ§åˆ¶
+  ä¸æäº¤ CONSTANT NUMBER := 0;
+  æäº¤   CONSTANT NUMBER := 1;
+  è°ƒè¯•   CONSTANT NUMBER := 2;
+  --è®¡è´¹äº‹åŠ¡
+  è®¡åˆ’æŠ„è¡¨   CONSTANT CHAR(1) := '1';
+  ä½™åº¦       CONSTANT CHAR(1) := 'Q';
+  è¥ä¸šå¤–æ”¶å…¥ CONSTANT CHAR(1) := 'T';
+  è¿½é‡       CONSTANT CHAR(1) := 'O';
+  --åº”æ”¶æ€»è´¦åŒ…
   SUBTYPE RL_TYPE IS YS_ZW_ARLIST%ROWTYPE;
   TYPE RL_TABLE IS TABLE OF RL_TYPE;
-  --Ó¦ÊÕÃ÷Ï¸°ü
+  --åº”æ”¶æ˜Žç»†åŒ…
   SUBTYPE RD_TYPE IS ys_zw_ardetail%ROWTYPE;
   TYPE RD_TABLE IS TABLE OF RD_TYPE;
-  --Ó¦ÊÕÁÙÊ±ÉóÅúÃ÷Ï¸°ü
+  --åº”æ”¶ä¸´æ—¶å®¡æ‰¹æ˜Žç»†åŒ…
   SUBTYPE RDT_TYPE IS ys_zw_ardetail_budget%ROWTYPE;
   TYPE RDT_TABLE IS TABLE OF RDT_TYPE;
 
-  --¼ÇÕË·½Ïò
-  DEBIT  CONSTANT CHAR(2) := 'DE'; --½è·½
-  CREDIT CONSTANT CHAR(2) := 'CR'; --´û·½
+  --è®°è´¦æ–¹å‘
+  DEBIT  CONSTANT CHAR(2) := 'DE'; --å€Ÿæ–¹
+  CREDIT CONSTANT CHAR(2) := 'CR'; --è´·æ–¹
 
-  --´íÎó´úÂë
+  --é”™è¯¯ä»£ç 
   ERRCODE CONSTANT INTEGER := -20012;
 
-  --Ð´Ëã·ÑÈÕÖ¾
+  --å†™ç®—è´¹æ—¥å¿—
   /*PROCEDURE AUTOSUBMIT;
   PROCEDURE SUBMIT(P_BFID IN VARCHAR2);
   PROCEDURE SUBMIT1(P_MICODE IN VARCHAR2);
@@ -34,8 +34,8 @@ CREATE OR REPLACE PACKAGE pg_cb_cost is
   
   PROCEDURE SUBMIT(P_BFID IN VARCHAR2, LOG OUT CLOB);*/
   PROCEDURE COSTBATCH(P_BFID IN VARCHAR2);
-  PROCEDURE COSTCULATE(P_MRID IN YS_CB_MTREAD.ID%TYPE, P_COMMIT IN NUMBER); --¼Æ»®ÄÚËã·Ñ
-  --µ¥±ÊËã·ÑºËÐÄ
+  PROCEDURE COSTCULATE(P_MRID IN YS_CB_MTREAD.ID%TYPE, P_COMMIT IN NUMBER); --è®¡åˆ’å†…ç®—è´¹
+  --å•ç¬”ç®—è´¹æ ¸å¿ƒ
   PROCEDURE COSTCULATECORE(MR       IN OUT YS_CB_MTREAD%ROWTYPE,
                            P_TRANS  IN CHAR,
                            P_PSCID  IN NUMBER,
@@ -82,7 +82,7 @@ CREATE OR REPLACE PACKAGE pg_cb_cost is
   FUNCTION FGETPARA(P_PARASTR IN VARCHAR2,
                     ROWN      IN INTEGER,
                     COLN      IN INTEGER) RETURN VARCHAR2;
-   --Ô¤Ëã·Ñ£¬Ìá¹©×·²¹¡¢Ó¦ÊÕµ÷Õû¡¢ÍË·Ñµ¥¾ÝÖÐÖØËã·ÑÖÐ¼äÊý¾Ý                  
+   --é¢„ç®—è´¹ï¼Œæä¾›è¿½è¡¥ã€åº”æ”¶è°ƒæ•´ã€é€€è´¹å•æ®ä¸­é‡ç®—è´¹ä¸­é—´æ•°æ®                  
   PROCEDURE SUBMIT_VIRTUAL(p_mid    in varchar2,
                            p_prdate in date,
                            p_rdate  in date,

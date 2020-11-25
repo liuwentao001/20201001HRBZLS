@@ -1,4 +1,4 @@
-create table YCB_READSL_INFO
+ï»¿create table YCB_READSL_INFO
 (
   id               VARCHAR2(32) not null,
   user_code        VARCHAR2(20) not null,
@@ -29,57 +29,57 @@ create table YCB_READSL_INFO
 )
 ;
 comment on column YCB_READSL_INFO.id
-  is 'Á÷Ë®ºÅ';
+  is 'æµæ°´å·';
 comment on column YCB_READSL_INFO.user_code
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YCB_READSL_INFO.scode
-  is 'ÆğÂë';
+  is 'èµ·ç ';
 comment on column YCB_READSL_INFO.ecode
-  is 'Ö¹Âë';
+  is 'æ­¢ç ';
 comment on column YCB_READSL_INFO.read_sl
-  is 'Ë®Á¿';
+  is 'æ°´é‡';
 comment on column YCB_READSL_INFO.copy_date
-  is '³­±íÊ±¼ä';
+  is 'æŠ„è¡¨æ—¶é—´';
 comment on column YCB_READSL_INFO.copy_per
-  is '³­±íÔ±';
+  is 'æŠ„è¡¨å‘˜';
 comment on column YCB_READSL_INFO.copy_waterstatus
-  is '³­±í±í¿ö';
+  is 'æŠ„è¡¨è¡¨å†µ';
 comment on column YCB_READSL_INFO.read_date
-  is '¶ÁÈ¡Ê±¼ä';
+  is 'è¯»å–æ—¶é—´';
 comment on column YCB_READSL_INFO.read_per
-  is '¶ÁÈ¡ÈË';
+  is 'è¯»å–äºº';
 comment on column YCB_READSL_INFO.copy_type
-  is '³­±í·½Ê½';
+  is 'æŠ„è¡¨æ–¹å¼';
 comment on column YCB_READSL_INFO.water_vender
-  is 'Ë®±í³§ÉÌ';
+  is 'æ°´è¡¨å‚å•†';
 comment on column YCB_READSL_INFO.is_upload_ys
-  is 'ÊÇ·ñÉÏ´«ÓªÊÕ';
+  is 'æ˜¯å¦ä¸Šä¼ è¥æ”¶';
 comment on column YCB_READSL_INFO.remark
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YCB_READSL_INFO.modify_date
-  is '×îºóĞŞ¸ÄÊ±¼ä';
+  is 'æœ€åä¿®æ”¹æ—¶é—´';
 comment on column YCB_READSL_INFO.modify_per
-  is '×îºóĞŞ¸ÄÈË';
+  is 'æœ€åä¿®æ”¹äºº';
 comment on column YCB_READSL_INFO.copy_month
-  is '³­±íÔÂ·İ';
+  is 'æŠ„è¡¨æœˆä»½';
 comment on column YCB_READSL_INFO.house_code
-  is 'Ğ¡Çø±àºÅ';
+  is 'å°åŒºç¼–å·';
 comment on column YCB_READSL_INFO.sl
-  is 'Ë®Á¿';
+  is 'æ°´é‡';
 comment on column YCB_READSL_INFO.lastsl
-  is 'ÉÏ´Î³­±íË®Á¿';
+  is 'ä¸Šæ¬¡æŠ„è¡¨æ°´é‡';
 comment on column YCB_READSL_INFO.user_name
-  is 'ÓÃ»§Ãû³Æ';
+  is 'ç”¨æˆ·åç§°';
 comment on column YCB_READSL_INFO.water_addr
-  is 'Ë®±íµØÖ·';
+  is 'æ°´è¡¨åœ°å€';
 comment on column YCB_READSL_INFO.upload_date
-  is 'ÉÏ´«Ê±¼ä';
+  is 'ä¸Šä¼ æ—¶é—´';
 comment on column YCB_READSL_INFO.upload_per
-  is 'ÉÏ´«ÈË';
+  is 'ä¸Šä¼ äºº';
 comment on column YCB_READSL_INFO.upload_result
-  is 'ÉÏ´«½á¹û';
+  is 'ä¸Šä¼ ç»“æœ';
 comment on column YCB_READSL_INFO.data_source
-  is 'Êı¾İÀ´Ô´';
+  is 'æ•°æ®æ¥æº';
 alter table YCB_READSL_INFO
   add constraint PK_YCB_READSL_INFO primary key (ID);
 alter table YCB_READSL_INFO

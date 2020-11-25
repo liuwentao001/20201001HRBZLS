@@ -1,4 +1,4 @@
-create table YS_GD_ARADJUSTDT
+ï»¿create table YS_GD_ARADJUSTDT
 (
   id             VARCHAR2(32),
   hire_code      VARCHAR2(32),
@@ -33,61 +33,61 @@ create table YS_GD_ARADJUSTDT
 )
 ;
 comment on column YS_GD_ARADJUSTDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_ARADJUSTDT.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_ARADJUSTDT.chk_flag
-  is 'Ñ¡ÖĞ±êÖ¾';
+  is 'é€‰ä¸­æ ‡å¿—';
 comment on column YS_GD_ARADJUSTDT.user_no
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_ARADJUSTDT.rec_id
-  is 'ÕËÎñÁ÷Ë®';
+  is 'è´¦åŠ¡æµæ°´';
 comment on column YS_GD_ARADJUSTDT.price_no
-  is 'Ö÷¼Û¸ñÀà±ğ';
+  is 'ä¸»ä»·æ ¼ç±»åˆ«';
 comment on column YS_GD_ARADJUSTDT.rec_month
-  is 'ÕÊÎñÔÂ·İ';
+  is 'å¸åŠ¡æœˆä»½';
 comment on column YS_GD_ARADJUSTDT.rec_date
-  is 'ÕÊÎñÈÕÆÚ';
+  is 'å¸åŠ¡æ—¥æœŸ';
 comment on column YS_GD_ARADJUSTDT.pread_date
-  is 'ÉÏ´Î³­±íÈÕÆÚ';
+  is 'ä¸Šæ¬¡æŠ„è¡¨æ—¥æœŸ';
 comment on column YS_GD_ARADJUSTDT.read_date
-  is '±¾´Î³­±íÈÕÆÚ';
+  is 'æœ¬æ¬¡æŠ„è¡¨æ—¥æœŸ';
 comment on column YS_GD_ARADJUSTDT.read_scode
-  is 'ÆğÊı';
+  is 'èµ·æ•°';
 comment on column YS_GD_ARADJUSTDT.read_ecode
-  is 'Ö¹Êı';
+  is 'æ­¢æ•°';
 comment on column YS_GD_ARADJUSTDT.read_water
-  is '³­¼ûË®Á¿';
+  is 'æŠ„è§æ°´é‡';
 comment on column YS_GD_ARADJUSTDT.water
-  is 'Ó¦ÊÕË®Á¿';
+  is 'åº”æ”¶æ°´é‡';
 comment on column YS_GD_ARADJUSTDT.charge_amt
-  is 'Ó¦ÊÕ½ğ¶î';
+  is 'åº”æ”¶é‡‘é¢';
 comment on column YS_GD_ARADJUSTDT.pread_date_old
-  is 'ÉÏ´Î³­±íÈÕÆÚ¾É';
+  is 'ä¸Šæ¬¡æŠ„è¡¨æ—¥æœŸæ—§';
 comment on column YS_GD_ARADJUSTDT.read_date_old
-  is '±¾´Î³­±íÈÕÆÚ¾É';
+  is 'æœ¬æ¬¡æŠ„è¡¨æ—¥æœŸæ—§';
 comment on column YS_GD_ARADJUSTDT.read_scode_old
-  is 'ÆğÊı¾É';
+  is 'èµ·æ•°æ—§';
 comment on column YS_GD_ARADJUSTDT.read_ecode_old
-  is 'Ö¹Êı¾É';
+  is 'æ­¢æ•°æ—§';
 comment on column YS_GD_ARADJUSTDT.read_water_old
-  is '³­¼ûË®Á¿¾É';
+  is 'æŠ„è§æ°´é‡æ—§';
 comment on column YS_GD_ARADJUSTDT.water_old
-  is 'Ó¦ÊÕË®Á¿¾É';
+  is 'åº”æ”¶æ°´é‡æ—§';
 comment on column YS_GD_ARADJUSTDT.charge_amt_old
-  is 'Ó¦ÊÕ½ğ¶î¾É';
+  is 'åº”æ”¶é‡‘é¢æ—§';
 comment on column YS_GD_ARADJUSTDT.price_no_old
-  is 'Ö÷¼Û¸ñÀà±ğ¾É';
+  is 'ä¸»ä»·æ ¼ç±»åˆ«æ—§';
 comment on column YS_GD_ARADJUSTDT.adj_water
-  is 'µ÷ÕûË®Á¿';
+  is 'è°ƒæ•´æ°´é‡';
 comment on column YS_GD_ARADJUSTDT.adj_amt
-  is 'µ÷Õû½ğ¶î';
+  is 'è°ƒæ•´é‡‘é¢';
 comment on column YS_GD_ARADJUSTDT.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_ARADJUSTDT.fail_reason
-  is 'Ê§°ÜÔ­Òò';
+  is 'å¤±è´¥åŸå› ';
 comment on column YS_GD_ARADJUSTDT.rec_id_cr
-  is '´û¼ÇÕËÎñÁ÷Ë®£¨»ØĞ´£©';
+  is 'è´·è®°è´¦åŠ¡æµæ°´ï¼ˆå›å†™ï¼‰';
 comment on column YS_GD_ARADJUSTDT.rec_id_de
-  is '½è¼ÇÕËÎñÁ÷Ë®£¨»ØĞ´£©';
+  is 'å€Ÿè®°è´¦åŠ¡æµæ°´ï¼ˆå›å†™ï¼‰';
 

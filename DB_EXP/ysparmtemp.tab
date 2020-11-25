@@ -1,4 +1,4 @@
-create global temporary table YSPARMTEMP
+ï»¿create global temporary table YSPARMTEMP
 (
   c1  VARCHAR2(2000),
   c2  VARCHAR2(400),
@@ -33,67 +33,67 @@ create global temporary table YSPARMTEMP
 )
 on commit delete rows;
 comment on table YSPARMTEMP
-  is 'PB²ÎÊý´«µÝÁÙÊ±±í';
+  is 'PBå‚æ•°ä¼ é€’ä¸´æ—¶è¡¨';
 comment on column YSPARMTEMP.c1
-  is '×Ö·û´®1';
+  is 'å­—ç¬¦ä¸²1';
 comment on column YSPARMTEMP.c2
-  is '×Ö·û´®2';
+  is 'å­—ç¬¦ä¸²2';
 comment on column YSPARMTEMP.c3
-  is '×Ö·û´®3';
+  is 'å­—ç¬¦ä¸²3';
 comment on column YSPARMTEMP.c4
-  is '×Ö·û´®4';
+  is 'å­—ç¬¦ä¸²4';
 comment on column YSPARMTEMP.c5
-  is '×Ö·û´®5';
+  is 'å­—ç¬¦ä¸²5';
 comment on column YSPARMTEMP.c6
-  is '×Ö·û´®6';
+  is 'å­—ç¬¦ä¸²6';
 comment on column YSPARMTEMP.c7
-  is '×Ö·û´®7';
+  is 'å­—ç¬¦ä¸²7';
 comment on column YSPARMTEMP.c8
-  is '×Ö·û´®8';
+  is 'å­—ç¬¦ä¸²8';
 comment on column YSPARMTEMP.c9
-  is '×Ö·û´®9';
+  is 'å­—ç¬¦ä¸²9';
 comment on column YSPARMTEMP.c10
-  is '×Ö·û´®10';
+  is 'å­—ç¬¦ä¸²10';
 comment on column YSPARMTEMP.c11
-  is '×Ö·û´®11';
+  is 'å­—ç¬¦ä¸²11';
 comment on column YSPARMTEMP.c12
-  is '×Ö·û´®12';
+  is 'å­—ç¬¦ä¸²12';
 comment on column YSPARMTEMP.c13
-  is '×Ö·û´®13';
+  is 'å­—ç¬¦ä¸²13';
 comment on column YSPARMTEMP.c14
-  is '×Ö·û´®14';
+  is 'å­—ç¬¦ä¸²14';
 comment on column YSPARMTEMP.c15
-  is '×Ö·û´®15';
+  is 'å­—ç¬¦ä¸²15';
 comment on column YSPARMTEMP.c16
-  is '×Ö·û´®16';
+  is 'å­—ç¬¦ä¸²16';
 comment on column YSPARMTEMP.c17
-  is '×Ö·û´®17';
+  is 'å­—ç¬¦ä¸²17';
 comment on column YSPARMTEMP.c18
-  is '×Ö·û´®18';
+  is 'å­—ç¬¦ä¸²18';
 comment on column YSPARMTEMP.c19
-  is '×Ö·û´®19';
+  is 'å­—ç¬¦ä¸²19';
 comment on column YSPARMTEMP.c20
-  is '×Ö·û´®20';
+  is 'å­—ç¬¦ä¸²20';
 comment on column YSPARMTEMP.c21
-  is '×Ö·û´®21';
+  is 'å­—ç¬¦ä¸²21';
 comment on column YSPARMTEMP.c22
-  is '×Ö·û´®22';
+  is 'å­—ç¬¦ä¸²22';
 comment on column YSPARMTEMP.c23
-  is '×Ö·û´®23';
+  is 'å­—ç¬¦ä¸²23';
 comment on column YSPARMTEMP.c24
-  is '×Ö·û´®24';
+  is 'å­—ç¬¦ä¸²24';
 comment on column YSPARMTEMP.c25
-  is '×Ö·û´®25';
+  is 'å­—ç¬¦ä¸²25';
 comment on column YSPARMTEMP.c26
-  is '×Ö·û´®26';
+  is 'å­—ç¬¦ä¸²26';
 comment on column YSPARMTEMP.c27
-  is '×Ö·û´®27';
+  is 'å­—ç¬¦ä¸²27';
 comment on column YSPARMTEMP.c28
-  is '×Ö·û´®28';
+  is 'å­—ç¬¦ä¸²28';
 comment on column YSPARMTEMP.c29
-  is '×Ö·û´®29';
+  is 'å­—ç¬¦ä¸²29';
 comment on column YSPARMTEMP.c30
-  is '×Ö·û´®30';
+  is 'å­—ç¬¦ä¸²30';
 create index IDX_YSPARMTEMP_C1 on YSPARMTEMP (C1);
 create index IDX_YSPARMTEMP_C2 on YSPARMTEMP (C2);
 

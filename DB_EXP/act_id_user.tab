@@ -1,4 +1,4 @@
-create table ACT_ID_USER
+﻿create table ACT_ID_USER
 (
   id_         VARCHAR2(64),
   rev_        NUMBER,

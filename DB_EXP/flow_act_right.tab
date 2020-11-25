@@ -1,4 +1,4 @@
-create table FLOW_ACT_RIGHT
+﻿create table FLOW_ACT_RIGHT
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(32),

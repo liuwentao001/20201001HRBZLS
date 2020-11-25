@@ -1,4 +1,4 @@
-CREATE OR REPLACE TRIGGER TIDB_YS_GD_ZWDHZDT
+ÔªøCREATE OR REPLACE TRIGGER TIDB_YS_GD_ZWDHZDT
   BEFORE INSERT OR DELETE ON YS_GD_ZWDHZDT
   FOR EACH ROW
 DECLARE
@@ -10,19 +10,19 @@ DECLARE
   WHERE A.BILL_ID = V_BILL_ID;
 
 BEGIN
-    IF INSERTING THEN  --–¬‘ˆ
+    IF INSERTING THEN  --Êñ∞Â¢û
        OPEN S1(:NEW.BILL_ID) ;
        FETCH S1 INTO V_BILL_TYPE ;
        IF S1%NOTFOUND THEN
           V_BILL_TYPE:='';
        END IF ;
        CLOSE S1;
-       IF TRIM(V_BILL_TYPE)= '8' OR TRIM(V_BILL_TYPE)='38'  THEN  --¥Ùªµ’À
+       IF TRIM(V_BILL_TYPE)= '8' OR TRIM(V_BILL_TYPE)='38'  THEN  --ÂëÜÂùèË¥¶
            UPDATE  YS_ZW_ARLIST  AR
            SET AR.ARBADFLAG ='0'
            WHERE AR.ARID =:NEW.ARID;
         END IF ;
-    ELSE  --…æ≥˝
+    ELSE  --Âà†Èô§
 
        OPEN S1(:OLD.BILL_ID) ;
        FETCH S1 INTO V_BILL_TYPE ;
@@ -31,7 +31,7 @@ BEGIN
        END IF ;
        CLOSE S1;
 
-      IF TRIM(V_BILL_TYPE)= '8'  THEN  --¥Ùªµ’À
+      IF TRIM(V_BILL_TYPE)= '8'  THEN  --ÂëÜÂùèË¥¶
          UPDATE YS_ZW_ARLIST   AR
          SET AR.ARBADFLAG ='N'
          WHERE AR.ARID =:OLD.ARID;

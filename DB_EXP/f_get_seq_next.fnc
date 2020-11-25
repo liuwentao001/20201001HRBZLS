@@ -1,9 +1,9 @@
-CREATE OR REPLACE FUNCTION F_GET_SEQ_NEXT(AS_TAB_NAME IN VARCHAR2)
+﻿CREATE OR REPLACE FUNCTION F_GET_SEQ_NEXT(AS_TAB_NAME IN VARCHAR2)
   RETURN VARCHAR2 IS
   -- --------------------------------------------------------------------------
   -- Name         : F_GET_SEQ_NEXT
   -- Author       : Tim
-  -- Description  : ������SYS_SEQ_ID ���ж����ϸ�ڷ�������ֵ
+  -- Description  : 按照在SYS_SEQ_ID 表中定义的细节返回序列值
   -- Ammedments   : 
   --   When         Who       What
   --   ===========  ========  =================================================
@@ -20,7 +20,7 @@ CREATE OR REPLACE FUNCTION F_GET_SEQ_NEXT(AS_TAB_NAME IN VARCHAR2)
   LR_SEQLIST    SYS_SEQ_ID%ROWTYPE;
   PRELEN        NUMBER;
 BEGIN
-  --��õ�ǰ��������صĶ���
+  --获得当前的序列相关的定义
   SELECT SEQSEQNAME, NVL(SEQPREFIX, ' '), SEQWIDTH, SEQSTARTNO
     INTO LR_SEQLIST.SEQSEQNAME,
          LR_SEQLIST.SEQPREFIX,
@@ -35,7 +35,7 @@ BEGIN
     PRELEN := LENGTH(TRIM(LR_SEQLIST.SEQPREFIX));
   END IF;
 
-  --��̬SQLȡ���е�ֵ
+  --动态SQL取序列的值
   AS_SEQ_NAME   := LR_SEQLIST.SEQSEQNAME;
   LS_PREFIX     := LR_SEQLIST.SEQPREFIX;
   LI_CUR_HANDLE := DBMS_SQL.OPEN_CURSOR;
@@ -49,7 +49,7 @@ BEGIN
     DBMS_SQL.CLOSE_CURSOR(LI_CUR_HANDLE);
   END IF;
 
-  -- ����Ԥ���ĸ�ʽ��������ֵ
+  -- 按照预定的格式返回序列值
   TEMP_ID    := '000000000000000000000000000000' || TO_CHAR(LN_SEQ_NUM);
   LS_SEQ_NUM := TRIM(LR_SEQLIST.SEQPREFIX ||
                      SUBSTR(TEMP_ID,

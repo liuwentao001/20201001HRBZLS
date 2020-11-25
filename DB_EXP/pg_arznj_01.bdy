@@ -1,16 +1,16 @@
-CREATE OR REPLACE PACKAGE BODY Pg_Arznj_01 IS
+ï»¿CREATE OR REPLACE PACKAGE BODY Pg_Arznj_01 IS
   /*====================================================================
   -- Name: Pg_Arznj_01.Approve
-  -- Author:  Ñî»ª Gary 190388857@qq.com    date: 2020Äê11ÔÂ11ÈÕ
+  -- Author:  æ¨åŽ Gary 190388857@qq.com    date: 2020å¹´11æœˆ11æ—¥
   ----------------------------------------------------------------------
-  -- Description: Î¥Ô¼½ðµ÷Õû¹ý³Ì°ü,µ¥¾ÝÌá½»Èë¿Ú¹ý³Ì
+  -- Description: è¿çº¦é‡‘è°ƒæ•´è¿‡ç¨‹åŒ…,å•æ®æäº¤å…¥å£è¿‡ç¨‹
   ----------------------------------------------------------------------
   Copyright (c) 2002-2025 Gary(TM), All rights reserved. 
   ----------------------------------------------------------------------
-  -- ÐÞ¸ÄÀúÊ·:
+  -- ä¿®æ”¹åŽ†å²:
   -- When         Who       What
   -- ===========  ========  ============================================
-     2020-11-11   Ñî»ª      ÐÂÔö
+     2020-11-11   æ¨åŽ      æ–°å¢ž
   --====================================================================*/
   PROCEDURE Approve(p_Billno IN VARCHAR2,
                     p_Person IN VARCHAR2,
@@ -21,26 +21,26 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arznj_01 IS
     IF p_Djlb = '7' THEN
        SP_ARZNJJM(P_BILLNO, P_PERSON, 'Y');
     ELSE
-      Raise_Application_Error(Errcode, p_Billno || '->1 ÎÞÐ§µÄµ¥¾ÝÀà±ð£¡');
+      Raise_Application_Error(Errcode, p_Billno || '->1 æ— æ•ˆçš„å•æ®ç±»åˆ«ï¼');
     END IF;
   END;
 
   /*====================================================================
   -- Name: Pg_Arznj_01.Sp_Arznjjm
-  -- Author:  Ñî»ª Gary 190388857@qq.com    date: 2020Äê11ÔÂ11ÈÕ
+  -- Author:  æ¨åŽ Gary 190388857@qq.com    date: 2020å¹´11æœˆ11æ—¥
   ----------------------------------------------------------------------
-  -- Description: Î¥Ô¼½ðµ÷Õû¹ý³Ì°ü,ÖÍÄÉ½ð¼õÃâ
+  -- Description: è¿çº¦é‡‘è°ƒæ•´è¿‡ç¨‹åŒ…,æ»žçº³é‡‘å‡å…
   ----------------------------------------------------------------------
   Copyright (c) 2002-2025 Gary(TM), All rights reserved. 
   ----------------------------------------------------------------------
-  -- ÐÞ¸ÄÀúÊ·:
+  -- ä¿®æ”¹åŽ†å²:
   -- When         Who       What
   -- ===========  ========  ============================================
-     2020-11-11   Ñî»ª      ÐÂÔö
+     2020-11-11   æ¨åŽ      æ–°å¢ž
   --====================================================================*/
-  PROCEDURE Sp_Arznjjm(p_Bill_Id IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                       p_Per     IN VARCHAR2, --²Ù×÷Ô±
-                       p_Commit  IN VARCHAR2 --Ìá½»±êÖ¾
+  PROCEDURE Sp_Arznjjm(p_Bill_Id IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                       p_Per     IN VARCHAR2, --æ“ä½œå‘˜
+                       p_Commit  IN VARCHAR2 --æäº¤æ ‡å¿—
                        ) AS
     v_Exist NUMBER(10);
     Znjdt   Ys_Gd_Znjadjustdt%ROWTYPE;
@@ -56,18 +56,18 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arznj_01 IS
       SELECT * INTO Znjhd FROM Ys_Gd_Znjadjusthd WHERE Bill_Id = p_Bill_Id;
     EXCEPTION
       WHEN OTHERS THEN
-        Raise_Application_Error(Errcode, '±ä¸üµ¥Í·ÐÅÏ¢²»´æÔÚ!');
+        Raise_Application_Error(Errcode, 'å˜æ›´å•å¤´ä¿¡æ¯ä¸å­˜åœ¨!');
     END;
-    --¼ì²é¼õÃâ¶î¶È
+    --æ£€æŸ¥å‡å…é¢åº¦
     /*    V_CHKSTR :=F_CHKZNJED( P_PER ,ZNJHD.bill_id   ) ;
     IF V_CHKSTR <>'Y' THEN
       RAISE_APPLICATION_ERROR(ERRCODE, V_CHKSTR);
     END IF;*/
     IF Znjhd.Check_Flag = 'Y' THEN
-      Raise_Application_Error(Errcode, '±ä¸üµ¥ÒÑÉóºË,²»ÐèÔÙÉó!');
+      Raise_Application_Error(Errcode, 'å˜æ›´å•å·²å®¡æ ¸,ä¸éœ€å†å®¡!');
     END IF;
     IF Znjhd.Check_Flag = 'Q' THEN
-      Raise_Application_Error(Errcode, '±ä¸üµ¥ÒÑÈ¡Ïû,²»ÄÜÉó!');
+      Raise_Application_Error(Errcode, 'å˜æ›´å•å·²å–æ¶ˆ,ä¸èƒ½å®¡!');
     END IF;
     Znjhd.Check_Date := SYSDATE;
     OPEN c_Ys_Gd_Znjadjustdt;
@@ -80,43 +80,43 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arznj_01 IS
       EXCEPTION
         WHEN OTHERS THEN
           Raise_Application_Error(Errcode,
-                                  'Ó¦ÊÕÁ÷Ë®ºÅ[' || Znjdt.Rec_Id || ']²»´æÔÚ');
+                                  'åº”æ”¶æµæ°´å·[' || Znjdt.Rec_Id || ']ä¸å­˜åœ¨');
       END;
       IF Ar.Arcd <> 'DE' THEN
         Raise_Application_Error(Errcode,
-                                '×ÊÁÏºÅ[' || Ar.Armcode || ']' || Ar.Armonth || 'ÔÂ·Ý' ||
-                                'Ó¦ÊÕÁ÷Ë®ºÅ[' || Ar.Arid || ']ÒÑ½øÐÐ³åÕý´¦Àí£¬²»ÄÜ×ö¼õÃâ£¡');
+                                'èµ„æ–™å·[' || Ar.Armcode || ']' || Ar.Armonth || 'æœˆä»½' ||
+                                'åº”æ”¶æµæ°´å·[' || Ar.Arid || ']å·²è¿›è¡Œå†²æ­£å¤„ç†ï¼Œä¸èƒ½åšå‡å…ï¼');
       END IF;
     
       IF Ar.Arpaidflag <> 'N' THEN
         Raise_Application_Error(Errcode,
-                                '×ÊÁÏºÅ[' || Ar.Armcode || ']' || Ar.Armonth || 'ÔÂ·Ý' ||
-                                'Ó¦ÊÕÁ÷Ë®ºÅ[' || Ar.Arid || ']ÒÑÎªÏúÕÊ×´Ì¬£¬²»ÄÜ×ö¼õÃâ£¡');
+                                'èµ„æ–™å·[' || Ar.Armcode || ']' || Ar.Armonth || 'æœˆä»½' ||
+                                'åº”æ”¶æµæ°´å·[' || Ar.Arid || ']å·²ä¸ºé”€å¸çŠ¶æ€ï¼Œä¸èƒ½åšå‡å…ï¼');
       END IF;
     
       /*IF AR.AROUTFLAG = 'Y' THEN
         RAISE_APPLICATION_ERROR(ERRCODE,
-                                '×ÊÁÏºÅ[' || AR.ARMCODE || ']' || AR.ARMONTH || 'ÔÂ·Ý' ||
-                                'Ó¦ÊÕÁ÷Ë®ºÅ[' || AR.rec_id ||
-                                ']Ç··ÑÐÅÏ¢ÒÑ·¢µ½ÒøÐÐ¿Û¿î£¬²»ÄÜ×ö¼õÃâ£¡');
+                                'èµ„æ–™å·[' || AR.ARMCODE || ']' || AR.ARMONTH || 'æœˆä»½' ||
+                                'åº”æ”¶æµæ°´å·[' || AR.rec_id ||
+                                ']æ¬ è´¹ä¿¡æ¯å·²å‘åˆ°é“¶è¡Œæ‰£æ¬¾ï¼Œä¸èƒ½åšå‡å…ï¼');
       END IF;*/
       /*UPDATE ZNJADJUSTLIST T
          SET ZALSTATUS = 'N'
        WHERE T.ZALrec_id = ZNJDT.ZADrec_id
          AND ZALSTATUS = 'Y';
       
-      ZNJL.ZALrec_id      := ZNJDT.ZADrec_id; --¼õÃâÓ¦ÊÕÁ÷Ë®
-      ZNJL.ZALPIID      := ZNJDT.ZADPIID; --¼õÃâ·ÑÓÃÏîÄ¿£¨È«²¿ÎªNA£©
-      ZNJL.ZALMID       := ZNJDT.ZADMID; --Ë®±í±àºÅ
-      ZNJL.ZALMCODE     := ZNJDT.ZADMCODE; --Ë®±íºÅ
-      ZNJL.ZALMETHOD    := ZNJDT.ZADMETHOD; --¼õÃâ·½·¨£¨1¡¢Ä¿±ê½ð¶î¼õÃâ£»2¡¢±ÈÀý½ð¶î¼õÃâ£»3¡¢²î¶î¼õÃâ£»4¡¢µ÷ÕûÆðËãÈÕÆÚ£©
-      ZNJL.ZALVALUE     := ZNJDT.ZADVALUE; --¼õÃâ½ð¶î/±ÈÀýÖµ
-      ZNJL.ZALZNDATE    := ZNJDT.ZADZNDATE; --¼õÃâÄ¿±êÆðËãÈÕ
-      ZNJL.ZALDATE      := ZNJHD.check_date; --¼õÃâÈÕÆÚ
-      ZNJL.ZALPER       := P_PER; --¼õÃâÈËÔ±
-      ZNJL.ZALBILLNO    := ZNJDT.bill_id; --¼õÃâµ¥¾Ý±àºÅ
-      ZNJL.ZALBILLROWNO := ZNJDT.ZADROWNO; --¼õÃâµ¥¾ÝÐÐºÅ
-      ZNJL.ZALSTATUS    := 'Y'; --ÓÐÐ§±êÖ¾
+      ZNJL.ZALrec_id      := ZNJDT.ZADrec_id; --å‡å…åº”æ”¶æµæ°´
+      ZNJL.ZALPIID      := ZNJDT.ZADPIID; --å‡å…è´¹ç”¨é¡¹ç›®ï¼ˆå…¨éƒ¨ä¸ºNAï¼‰
+      ZNJL.ZALMID       := ZNJDT.ZADMID; --æ°´è¡¨ç¼–å·
+      ZNJL.ZALMCODE     := ZNJDT.ZADMCODE; --æ°´è¡¨å·
+      ZNJL.ZALMETHOD    := ZNJDT.ZADMETHOD; --å‡å…æ–¹æ³•ï¼ˆ1ã€ç›®æ ‡é‡‘é¢å‡å…ï¼›2ã€æ¯”ä¾‹é‡‘é¢å‡å…ï¼›3ã€å·®é¢å‡å…ï¼›4ã€è°ƒæ•´èµ·ç®—æ—¥æœŸï¼‰
+      ZNJL.ZALVALUE     := ZNJDT.ZADVALUE; --å‡å…é‡‘é¢/æ¯”ä¾‹å€¼
+      ZNJL.ZALZNDATE    := ZNJDT.ZADZNDATE; --å‡å…ç›®æ ‡èµ·ç®—æ—¥
+      ZNJL.ZALDATE      := ZNJHD.check_date; --å‡å…æ—¥æœŸ
+      ZNJL.ZALPER       := P_PER; --å‡å…äººå‘˜
+      ZNJL.ZALBILLNO    := ZNJDT.bill_id; --å‡å…å•æ®ç¼–å·
+      ZNJL.ZALBILLROWNO := ZNJDT.ZADROWNO; --å‡å…å•æ®è¡Œå·
+      ZNJL.ZALSTATUS    := 'Y'; --æœ‰æ•ˆæ ‡å¿—
       INSERT INTO ZNJADJUSTLIST VALUES ZNJL;*/
       UPDATE Ys_Zw_Arlist Ar
          SET Ar.Arznjreducflag = 'N', Ar.Arznj = 0
@@ -125,7 +125,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Arznj_01 IS
          AND Arpaidflag = 'N';
     
       IF Znjdt.Method = '4' THEN
-        -- µ÷ÕûÆðËãÈÕÆÚ  
+        -- è°ƒæ•´èµ·ç®—æ—¥æœŸ  
         UPDATE Ys_Zw_Arlist Ar
            SET Ar.Arzndate = Znjdt.Late_Fee_Date
          WHERE Arid = Znjdt.Rec_Id;

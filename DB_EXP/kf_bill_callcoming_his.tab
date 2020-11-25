@@ -1,4 +1,4 @@
-create table KF_BILL_CALLCOMING_HIS
+﻿create table KF_BILL_CALLCOMING_HIS
 (
   id            VARCHAR2(32),
   bill_code     VARCHAR2(32),

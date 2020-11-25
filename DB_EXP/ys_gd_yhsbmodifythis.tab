@@ -1,4 +1,4 @@
-create table YS_GD_YHSBMODIFYTHIS
+ï»¿create table YS_GD_YHSBMODIFYTHIS
 (
   id             VARCHAR2(32) not null,
   hire_code      VARCHAR2(20),
@@ -229,449 +229,449 @@ create table YS_GD_YHSBMODIFYTHIS
 )
 ;
 comment on column YS_GD_YHSBMODIFYTHIS.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_YHSBMODIFYTHIS.mddrowno
-  is 'ĞĞºÅ';
+  is 'è¡Œå·';
 comment on column YS_GD_YHSBMODIFYTHIS.yhid
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.yhconid
-  is '¹©Ë®ÅÆºÅ';
+  is 'ä¾›æ°´ç‰Œå·';
 comment on column YS_GD_YHSBMODIFYTHIS.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_GD_YHSBMODIFYTHIS.yhpid
-  is 'ÉÏ¼¶ÓÃ»§±àºÅ';
+  is 'ä¸Šçº§ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.yhclass
-  is 'ÓÃ»§¼¶´Î';
+  is 'ç”¨æˆ·çº§æ¬¡';
 comment on column YS_GD_YHSBMODIFYTHIS.yhflag
-  is 'Ä©¼¶±êÖ¾';
+  is 'æœ«çº§æ ‡å¿—';
 comment on column YS_GD_YHSBMODIFYTHIS.yhname
-  is '²úÈ¨Ãû';
+  is 'äº§æƒå';
 comment on column YS_GD_YHSBMODIFYTHIS.yhname2
-  is 'ÔøÓÃÃû';
+  is 'æ›¾ç”¨å';
 comment on column YS_GD_YHSBMODIFYTHIS.yhadr
-  is 'ÓÃ»§µØÖ·';
+  is 'ç”¨æˆ·åœ°å€';
 comment on column YS_GD_YHSBMODIFYTHIS.yhstatus
-  is 'ÓÃ»§×´Ì¬¡¾syscuststatus¡¿(1Õı³£/7Ïú»§/2Ô¤Á¢»§)';
+  is 'ç”¨æˆ·çŠ¶æ€ã€syscuststatusã€‘(1æ­£å¸¸/7é”€æˆ·/2é¢„ç«‹æˆ·)';
 comment on column YS_GD_YHSBMODIFYTHIS.yhstatusdate
-  is '×´Ì¬ÈÕÆÚ';
+  is 'çŠ¶æ€æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.yhstatustrans
-  is '×´Ì¬±íÎñ';
+  is 'çŠ¶æ€è¡¨åŠ¡';
 comment on column YS_GD_YHSBMODIFYTHIS.yhnewdate
-  is 'Á¢»§ÈÕÆÚ';
+  is 'ç«‹æˆ·æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.yhidentitylb
-  is 'Ö¤¼şÀàĞÍ(1-Éí·İÖ¤ 2-ÓªÒµÖ´ÕÕ  0-ÎŞ)';
+  is 'è¯ä»¶ç±»å‹(1-èº«ä»½è¯ 2-è¥ä¸šæ‰§ç…§  0-æ— )';
 comment on column YS_GD_YHSBMODIFYTHIS.yhidentityno
-  is 'Ö¤¼şºÅÂë';
+  is 'è¯ä»¶å·ç ';
 comment on column YS_GD_YHSBMODIFYTHIS.yhmtel
-  is 'ÒÆ¶¯µç»°';
+  is 'ç§»åŠ¨ç”µè¯';
 comment on column YS_GD_YHSBMODIFYTHIS.yhtel1
-  is '¹Ì¶¨µç»°1';
+  is 'å›ºå®šç”µè¯1';
 comment on column YS_GD_YHSBMODIFYTHIS.yhtel2
-  is '¹Ì¶¨µç»°2';
+  is 'å›ºå®šç”µè¯2';
 comment on column YS_GD_YHSBMODIFYTHIS.yhtel3
-  is '¹Ì¶¨µç»°3';
+  is 'å›ºå®šç”µè¯3';
 comment on column YS_GD_YHSBMODIFYTHIS.yhconnectper
-  is 'ÁªÏµÈË';
+  is 'è”ç³»äºº';
 comment on column YS_GD_YHSBMODIFYTHIS.yhconnecttel
-  is 'ÁªÏµµç»°';
+  is 'è”ç³»ç”µè¯';
 comment on column YS_GD_YHSBMODIFYTHIS.yhifinv
-  is 'ÊÇ·ñÆÕÆ±£¨¹ş¶û±õ£º½èÓÃ×öÊÇ·ñÒÑ´òÓ¡ÔöÖµË°ÊÕ¾İ£¬reclistÈ¡Öµ£¬ÖÃ¿Õ£©';
+  is 'æ˜¯å¦æ™®ç¥¨ï¼ˆå“ˆå°”æ»¨ï¼šå€Ÿç”¨åšæ˜¯å¦å·²æ‰“å°å¢å€¼ç¨æ”¶æ®ï¼Œreclistå–å€¼ï¼Œç½®ç©ºï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.yhifsms
-  is 'ÊÇ·ñÌá¹©¶ÌĞÅ·şÎñ';
+  is 'æ˜¯å¦æä¾›çŸ­ä¿¡æœåŠ¡';
 comment on column YS_GD_YHSBMODIFYTHIS.yhifzn
-  is 'ÊÇ·ñÖÍÄÉ½ğ';
+  is 'æ˜¯å¦æ»çº³é‡‘';
 comment on column YS_GD_YHSBMODIFYTHIS.yhprojno
-  is '¹¤³Ì±àºÅ(Ë®ÕË±êÊ¶ºÅ)';
+  is 'å·¥ç¨‹ç¼–å·(æ°´è´¦æ ‡è¯†å·)';
 comment on column YS_GD_YHSBMODIFYTHIS.yhfileno
-  is 'µµ°¸ºÅ(¹©Ë®ºÏÍ¬ºÅ)';
+  is 'æ¡£æ¡ˆå·(ä¾›æ°´åˆåŒå·)';
 comment on column YS_GD_YHSBMODIFYTHIS.yhmemo
-  is '±¸×¢ĞÅÏ¢';
+  is 'å¤‡æ³¨ä¿¡æ¯';
 comment on column YS_GD_YHSBMODIFYTHIS.yhdeptid
-  is 'Á¢»§²¿ÃÅ';
+  is 'ç«‹æˆ·éƒ¨é—¨';
 comment on column YS_GD_YHSBMODIFYTHIS.sbid
-  is 'Ë®±í±àºÅ';
+  is 'æ°´è¡¨ç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbadr
-  is '±íµØÖ·';
+  is 'è¡¨åœ°å€';
 comment on column YS_GD_YHSBMODIFYTHIS.area_no
-  is 'ÇøÓò';
+  is 'åŒºåŸŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbprmon
-  is 'ÉÏÆÚ³­±íÔÂ·İ';
+  is 'ä¸ŠæœŸæŠ„è¡¨æœˆä»½';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrmon
-  is '±¾ÆÚ³­±íÔÂ·İ';
+  is 'æœ¬æœŸæŠ„è¡¨æœˆä»½';
 comment on column YS_GD_YHSBMODIFYTHIS.book_no
-  is '±í²á(bookframe)';
+  is 'è¡¨å†Œ(bookframe)';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrorder
-  is '³­±í´ÎĞò';
+  is 'æŠ„è¡¨æ¬¡åº';
 comment on column YS_GD_YHSBMODIFYTHIS.sbpid
-  is 'ÉÏ¼¶Ë®±í±àºÅ';
+  is 'ä¸Šçº§æ°´è¡¨ç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbclass
-  is 'Ë®±í¼¶´Î';
+  is 'æ°´è¡¨çº§æ¬¡';
 comment on column YS_GD_YHSBMODIFYTHIS.sbflag
-  is 'Ä©¼¶±êÖ¾';
+  is 'æœ«çº§æ ‡å¿—';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrtid
-  is '³­±í·½Ê½';
+  is 'æŠ„è¡¨æ–¹å¼';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifmp
-  is '»ìºÏÓÃË®±êÖ¾(Y-ÊÇ,N-·ñ )';
+  is 'æ··åˆç”¨æ°´æ ‡å¿—(Y-æ˜¯,N-å¦ )';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifsp
-  is 'ÀıÍâµ¥¼Û±êÖ¾(Y-ÊÇ,N-·ñ )';
+  is 'ä¾‹å¤–å•ä»·æ ‡å¿—(Y-æ˜¯,N-å¦ )';
 comment on column YS_GD_YHSBMODIFYTHIS.trade_no
-  is 'ĞĞÒµ·ÖÀà';
+  is 'è¡Œä¸šåˆ†ç±»';
 comment on column YS_GD_YHSBMODIFYTHIS.price_no
-  is '¼Û¸ñ·ÖÀà';
+  is 'ä»·æ ¼åˆ†ç±»';
 comment on column YS_GD_YHSBMODIFYTHIS.sbstatus
-  is 'ÓĞĞ§×´Ì¬';
+  is 'æœ‰æ•ˆçŠ¶æ€';
 comment on column YS_GD_YHSBMODIFYTHIS.sbstatusdate
-  is '×´Ì¬ÈÕÆÚ';
+  is 'çŠ¶æ€æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbstatustrans
-  is '×´Ì¬±íÎñ';
+  is 'çŠ¶æ€è¡¨åŠ¡';
 comment on column YS_GD_YHSBMODIFYTHIS.sbface
-  is 'Ë®±í¹ÊÕÏ(01Õı³£/02±íÒì³£/03ÁãË®Á¿)';
+  is 'æ°´è¡¨æ•…éšœ(01æ­£å¸¸/02è¡¨å¼‚å¸¸/03é›¶æ°´é‡)';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrpid
-  is '¼Æ¼şÀàĞÍ';
+  is 'è®¡ä»¶ç±»å‹';
 comment on column YS_GD_YHSBMODIFYTHIS.sbside
-  is '±íÎ»';
+  is 'è¡¨ä½';
 comment on column YS_GD_YHSBMODIFYTHIS.sbposition
-  is 'Ë®±í½ÓË®µØÖ·';
+  is 'æ°´è¡¨æ¥æ°´åœ°å€';
 comment on column YS_GD_YHSBMODIFYTHIS.sbinscode
-  is 'ĞÂ×°Æğ¶È';
+  is 'æ–°è£…èµ·åº¦';
 comment on column YS_GD_YHSBMODIFYTHIS.sbinsdate
-  is '×°±íÈÕÆÚ';
+  is 'è£…è¡¨æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbinsper
-  is '°²×°ÈË';
+  is 'å®‰è£…äºº';
 comment on column YS_GD_YHSBMODIFYTHIS.sbreinscode
-  is '»»±íÆğ¶È';
+  is 'æ¢è¡¨èµ·åº¦';
 comment on column YS_GD_YHSBMODIFYTHIS.sbreinsdate
-  is '»»±íÈÕÆÚ';
+  is 'æ¢è¡¨æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbreinsper
-  is '»»±íÈË';
+  is 'æ¢è¡¨äºº';
 comment on column YS_GD_YHSBMODIFYTHIS.sbtype
-  is 'ÀàĞÍ(1=×øÊÕ,2=×ßÊÕ)²»ÒªÁË';
+  is 'ç±»å‹(1=åæ”¶,2=èµ°æ”¶)ä¸è¦äº†';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrcode
-  is '±¾ÆÚ¶ÁÊı';
+  is 'æœ¬æœŸè¯»æ•°';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrecdate
-  is '±¾ÆÚ³­¼ûÈÕÆÚ';
+  is 'æœ¬æœŸæŠ„è§æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrecsl
-  is '±¾ÆÚ³­¼ûË®Á¿';
+  is 'æœ¬æœŸæŠ„è§æ°´é‡';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifcharge
-  is 'ÊÇ·ñ¼Æ·Ñ(Y-ÊÇ,N-·ñ )';
+  is 'æ˜¯å¦è®¡è´¹(Y-æ˜¯,N-å¦ )';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifsl
-  is 'ÊÇ·ñ¼ÆÁ¿(Y-ÊÇ,N-·ñ )';
+  is 'æ˜¯å¦è®¡é‡(Y-æ˜¯,N-å¦ )';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifchk
-  is 'ÊÇ·ñ¿¼ºË±í(Y-ÊÇ,N-·ñ )';
+  is 'æ˜¯å¦è€ƒæ ¸è¡¨(Y-æ˜¯,N-å¦ )';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifwatch
-  is 'ÊÇ·ñ½ÚË®(Y-ÊÇ,N-·ñ )';
+  is 'æ˜¯å¦èŠ‚æ°´(Y-æ˜¯,N-å¦ )';
 comment on column YS_GD_YHSBMODIFYTHIS.sbicno
-  is 'IC¿¨ºÅ';
+  is 'ICå¡å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbmemo
-  is '±¸×¢ĞÅÏ¢';
+  is 'å¤‡æ³¨ä¿¡æ¯';
 comment on column YS_GD_YHSBMODIFYTHIS.sbpriid
-  is 'ºÏÊÕ±íÖ÷±íºÅ';
+  is 'åˆæ”¶è¡¨ä¸»è¡¨å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbpriflag
-  is 'ºÏÊÕ±í±êÖ¾(Y-ºÏÊÕ±í±êÖ¾,N-·ÇºÏÊÕÖ÷±í )';
+  is 'åˆæ”¶è¡¨æ ‡å¿—(Y-åˆæ”¶è¡¨æ ‡å¿—,N-éåˆæ”¶ä¸»è¡¨ )';
 comment on column YS_GD_YHSBMODIFYTHIS.sbusenum
-  is '»§¼®ÈËÊı';
+  is 'æˆ·ç±äººæ•°';
 comment on column YS_GD_YHSBMODIFYTHIS.sbchargetype
-  is 'ÊÕ·Ñ·½Ê½(X×øÊÕM×ßÊÕ)';
+  is 'æ”¶è´¹æ–¹å¼(Xåæ”¶Mèµ°æ”¶)';
 comment on column YS_GD_YHSBMODIFYTHIS.sbsaving
-  is 'Ô¤´æ¿îÓà¶î';
+  is 'é¢„å­˜æ¬¾ä½™é¢';
 comment on column YS_GD_YHSBMODIFYTHIS.sblb
-  is 'Ë®±íÀà±ğ(D=×Ü±í,H=»§±í)';
+  is 'æ°´è¡¨ç±»åˆ«(D=æ€»è¡¨,H=æˆ·è¡¨)';
 comment on column YS_GD_YHSBMODIFYTHIS.sbnewflag
-  is 'ĞÂ±í±êÖ¾';
+  is 'æ–°è¡¨æ ‡å¿—';
 comment on column YS_GD_YHSBMODIFYTHIS.sbcper
-  is 'ÊÕ·ÑÔ±';
+  is 'æ”¶è´¹å‘˜';
 comment on column YS_GD_YHSBMODIFYTHIS.sbiftax
-  is 'ÊÇ·ñË°Æ±';
+  is 'æ˜¯å¦ç¨ç¥¨';
 comment on column YS_GD_YHSBMODIFYTHIS.sbtaxno
-  is 'Ë°ºÅ';
+  is 'ç¨å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbuninscode
-  is '²ğ±íÖ¹¶È';
+  is 'æ‹†è¡¨æ­¢åº¦';
 comment on column YS_GD_YHSBMODIFYTHIS.sbuninsdate
-  is '²ğ±íÈÕÆÚ';
+  is 'æ‹†è¡¨æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbuninsper
-  is '²ğ±íÈË';
+  is 'æ‹†è¡¨äºº';
 comment on column YS_GD_YHSBMODIFYTHIS.sbface2
-  is '³­¼û¹ÊÕÏ';
+  is 'æŠ„è§æ•…éšœ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbface3
-  is '·Ç³£¼ÆÁ¿';
+  is 'éå¸¸è®¡é‡';
 comment on column YS_GD_YHSBMODIFYTHIS.sbface4
-  is '±í¾®ÉèÊ©ËµÃ÷';
+  is 'è¡¨äº•è®¾æ–½è¯´æ˜';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrcodechar
-  is '±¾ÆÚ¶ÁÊı';
+  is 'æœ¬æœŸè¯»æ•°';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifckf
-  is 'À¬»ø·Ñ»§Êı';
+  is 'åƒåœ¾è´¹æˆ·æ•°';
 comment on column YS_GD_YHSBMODIFYTHIS.sbgps
-  is 'ÊÇ·ñºÏÆ±';
+  is 'æ˜¯å¦åˆç¥¨';
 comment on column YS_GD_YHSBMODIFYTHIS.sbqfh
-  is 'Ç¦·âºÅ';
+  is 'é“…å°å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbbox
-  is 'Ïû·ÀË®¼Û£¨ÔöÖµË°Ë®¼Û£¬ÏåÑôĞèÇó£©';
+  is 'æ¶ˆé˜²æ°´ä»·ï¼ˆå¢å€¼ç¨æ°´ä»·ï¼Œè¥„é˜³éœ€æ±‚ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.sbjfkrow
-  is 'Ïû·Àµ×¶È';
+  is 'æ¶ˆé˜²åº•åº¦';
 comment on column YS_GD_YHSBMODIFYTHIS.sbname
-  is 'Æ±¾İÃû³Æ';
+  is 'ç¥¨æ®åç§°';
 comment on column YS_GD_YHSBMODIFYTHIS.sbname2
-  is 'ÕĞÅÆÃû³Æ(Ğ¡ÇøÃû£¬ÏåÑôĞèÇó£©';
+  is 'æ‹›ç‰Œåç§°(å°åŒºåï¼Œè¥„é˜³éœ€æ±‚ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.sbseqno
-  is '»§ºÅ£¨³õÊ¼»¯Ê±²áºÅ+ĞòºÅ£©£¨¹ş¶û±õ£ºÕÊ¿¨ºÅ£©';
+  is 'æˆ·å·ï¼ˆåˆå§‹åŒ–æ—¶å†Œå·+åºå·ï¼‰ï¼ˆå“ˆå°”æ»¨ï¼šå¸å¡å·ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.sbnewdate
-  is 'Á¢»§ÈÕÆÚ';
+  is 'ç«‹æˆ·æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.sbuiid
-  is 'ºÏÊÕµ¥Î»±àºÅ';
+  is 'åˆæ”¶å•ä½ç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbcommunity
-  is 'Ô¶´«±íĞ¡ÇøºÅ';
+  is 'è¿œä¼ è¡¨å°åŒºå·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbremoteno
-  is 'Ô¶´«±íºÅ|²É¼¯»ú£¨¹ş¶û±õ£º½èÓÃ½¨ÕË´æ·ÅºÏÊÕÖ÷±í±íÉíÂë£©';
+  is 'è¿œä¼ è¡¨å·|é‡‡é›†æœºï¼ˆå“ˆå°”æ»¨ï¼šå€Ÿç”¨å»ºè´¦å­˜æ”¾åˆæ”¶ä¸»è¡¨è¡¨èº«ç ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.sbremotehubno
-  is 'Ô¶´«±íHUBºÅ|¶Ë¿Ú£¨¹ş¶û±õ£º½èÓÃ´æ·ÅÓÃ»§±àºÅclt_id£¬×øÊÕÀÏºÅ²éÑ¯£©';
+  is 'è¿œä¼ è¡¨HUBå·|ç«¯å£ï¼ˆå“ˆå°”æ»¨ï¼šå€Ÿç”¨å­˜æ”¾ç”¨æˆ·ç¼–å·clt_idï¼Œåæ”¶è€å·æŸ¥è¯¢ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.sbemail
-  is 'µç×ÓÓÊ¼ş£¨¹ş¶û±õ£º½èÓÃ´æ·ÅË®ÕÊºÅÂëclt_no£©';
+  is 'ç”µå­é‚®ä»¶ï¼ˆå“ˆå°”æ»¨ï¼šå€Ÿç”¨å­˜æ”¾æ°´å¸å·ç clt_noï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.sbemailflag
-  is '·¢ÕËÊÇ·ñ·¢ÓÊ¼ş';
+  is 'å‘è´¦æ˜¯å¦å‘é‚®ä»¶';
 comment on column YS_GD_YHSBMODIFYTHIS.sbdbjmsl1
-  is '±¸ÓÃ×Ö¶Î1(µÍ±£¼õÃâË®Á¿)  SBCOLUMN1';
+  is 'å¤‡ç”¨å­—æ®µ1(ä½ä¿å‡å…æ°´é‡)  SBCOLUMN1';
 comment on column YS_GD_YHSBMODIFYTHIS.sbdbyhbz2
-  is '±¸ÓÃ×Ö¶Î2(µÍ±£ÓÃ»§±êÖ¾)SBCOLUMN2';
+  is 'å¤‡ç”¨å­—æ®µ2(ä½ä¿ç”¨æˆ·æ ‡å¿—)SBCOLUMN2';
 comment on column YS_GD_YHSBMODIFYTHIS.sbdbjzyf3
-  is '±¸ÓÃ×Ö¶Î3(µÍ±£½ØÖ¹ÔÂ·İ)SBCOLUMN3';
+  is 'å¤‡ç”¨å­—æ®µ3(ä½ä¿æˆªæ­¢æœˆä»½)SBCOLUMN3';
 comment on column YS_GD_YHSBMODIFYTHIS.sbyhxz4
-  is 'ÓÃ»§ĞÔÖÊ(GQ ¹«Æó SMÊÕÃâ TK ÌØÀ§ GD ¶¨Á¿ PT ÆÕÍ¨)SBCOLUMN4';
+  is 'ç”¨æˆ·æ€§è´¨(GQ å…¬ä¼ SMæ”¶å… TK ç‰¹å›° GD å®šé‡ PT æ™®é€š)SBCOLUMN4';
 comment on column YS_GD_YHSBMODIFYTHIS.sbpaymentid
-  is '×î½üÒ»´ÎÊµÊÕÁ÷Ë®';
+  is 'æœ€è¿‘ä¸€æ¬¡å®æ”¶æµæ°´';
 comment on column YS_GD_YHSBMODIFYTHIS.sbgdsl5
-  is 'ÎŞ±í»§Ë®Á¿(Ãâ³­»§Ö¸¶¨Ë®Á¿)SBCOLUMN5';
+  is 'æ— è¡¨æˆ·æ°´é‡(å…æŠ„æˆ·æŒ‡å®šæ°´é‡)SBCOLUMN5';
 comment on column YS_GD_YHSBMODIFYTHIS.sbftsl6
-  is '±¸ÓÃ×Ö¶Î6(Ò»±í¶à»§·ÖÌ¯Ö÷±í±ÈÀı£¬Á¬ÔÆ¸Û)SBCOLUMN6';
+  is 'å¤‡ç”¨å­—æ®µ6(ä¸€è¡¨å¤šæˆ·åˆ†æ‘Šä¸»è¡¨æ¯”ä¾‹ï¼Œè¿äº‘æ¸¯)SBCOLUMN6';
 comment on column YS_GD_YHSBMODIFYTHIS.sbxjdj7
-  is 'ĞÇ¼¶µÈ¼¶SBCOLUMN7';
+  is 'æ˜Ÿçº§ç­‰çº§SBCOLUMN7';
 comment on column YS_GD_YHSBMODIFYTHIS.sbcolumn8
-  is '±¸ÓÃ×Ö¶Î8';
+  is 'å¤‡ç”¨å­—æ®µ8';
 comment on column YS_GD_YHSBMODIFYTHIS.sbyhlb9
-  is 'ÓÃ»§Àà±ğ2SBCOLUMN9';
+  is 'ç”¨æˆ·ç±»åˆ«2SBCOLUMN9';
 comment on column YS_GD_YHSBMODIFYTHIS.sbsfqdht10
-  is '±¸ÓÃ×Ö¶Î10(ÊÇ·ñÇ©¶©¹©ÓÃË®ºÏÍ¬)SBCOLUMN10';
+  is 'å¤‡ç”¨å­—æ®µ10(æ˜¯å¦ç­¾è®¢ä¾›ç”¨æ°´åˆåŒ)SBCOLUMN10';
 comment on column YS_GD_YHSBMODIFYTHIS.sblh
-  is 'Â¥ºÅ';
+  is 'æ¥¼å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbdyh
-  is 'µ¥ÔªºÅ';
+  is 'å•å…ƒå·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbmph
-  is 'ÃÅÅÆºÅ';
+  is 'é—¨ç‰Œå·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbjd
-  is '½ÖµÀ';
+  is 'è¡—é“';
 comment on column YS_GD_YHSBMODIFYTHIS.sbyhpj
-  is 'ÓÃ»§ĞÅÓÃÆÀ¼¶';
+  is 'ç”¨æˆ·ä¿¡ç”¨è¯„çº§';
 comment on column YS_GD_YHSBMODIFYTHIS.sbtax
-  is 'Ë°¶î±ÈÀı';
+  is 'ç¨é¢æ¯”ä¾‹';
 comment on column YS_GD_YHSBMODIFYTHIS.sbifzdh
-  is 'ÖØµã»§±àºÅ';
+  is 'é‡ç‚¹æˆ·ç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbdbzjh
-  is 'µÍ±£Ö¤¼şºÅ';
+  is 'ä½ä¿è¯ä»¶å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbdzbz1
-  is 'µÈÕë±êÖ¾£¨Y=µÈÕë£¬N=·ÇµÈÕë£©SBYL1';
+  is 'ç­‰é’ˆæ ‡å¿—ï¼ˆY=ç­‰é’ˆï¼ŒN=éç­‰é’ˆï¼‰SBYL1';
 comment on column YS_GD_YHSBMODIFYTHIS.sbmsbz2
-  is '×Ü±íÊÕÃâ±êÖ¾(0=ÆÕÍ¨±í£¬1=×Ü±íÊÕÃâ£¬2=¶à¼¶±í(»ò×Ü±í¹ÒĞé±í))SBYL2';
+  is 'æ€»è¡¨æ”¶å…æ ‡å¿—(0=æ™®é€šè¡¨ï¼Œ1=æ€»è¡¨æ”¶å…ï¼Œ2=å¤šçº§è¡¨(æˆ–æ€»è¡¨æŒ‚è™šè¡¨))SBYL2';
 comment on column YS_GD_YHSBMODIFYTHIS.sbxkzbz3
-  is 'Ô¤Áô×Ö¶Î3£¨»ù½¨ÁÙÊ±ÓÃË®Ğí¿É±êÖ¾£©SBYL3';
+  is 'é¢„ç•™å­—æ®µ3ï¼ˆåŸºå»ºä¸´æ—¶ç”¨æ°´è®¸å¯æ ‡å¿—ï¼‰SBYL3';
 comment on column YS_GD_YHSBMODIFYTHIS.sbsbmm4
-  is 'ÓÃ»§Ë®±íÃÜÂë(ÏŞ¶¨6Î»,Ä¬Îª6¸ö888888)SBYL4';
+  is 'ç”¨æˆ·æ°´è¡¨å¯†ç (é™å®š6ä½,é»˜ä¸º6ä¸ª888888)SBYL4';
 comment on column YS_GD_YHSBMODIFYTHIS.sbmmsz5
-  is 'Ô¤Áô×Ö¶Î5£¨ÓÃ»§ÃÜÂëÉèÖÃ£ºY=ÉèÖÃÃÜÂë£¬N=³õÊ¼ÃÜÂë£»Ô¤´æ³åÕı£º±£´æsbstatus£»ÊÖ»ú³­±íÏÂÔØĞ£Ñé£º¹¤µ¥ÉêÇë±êÖ¾£©SBYL5';
+  is 'é¢„ç•™å­—æ®µ5ï¼ˆç”¨æˆ·å¯†ç è®¾ç½®ï¼šY=è®¾ç½®å¯†ç ï¼ŒN=åˆå§‹å¯†ç ï¼›é¢„å­˜å†²æ­£ï¼šä¿å­˜sbstatusï¼›æ‰‹æœºæŠ„è¡¨ä¸‹è½½æ ¡éªŒï¼šå·¥å•ç”³è¯·æ ‡å¿—ï¼‰SBYL5';
 comment on column YS_GD_YHSBMODIFYTHIS.sbxymm6
-  is 'Ô¤Áô×Ö¶Î6£¨Ğ£ÑéÃÜÂë£©SBYL6';
+  is 'é¢„ç•™å­—æ®µ6ï¼ˆæ ¡éªŒå¯†ç ï¼‰SBYL6';
 comment on column YS_GD_YHSBMODIFYTHIS.sbmszdsl7
-  is '×Ü±íÊÕÃâË®Á¿×î´óÖµSBYL7';
+  is 'æ€»è¡¨æ”¶å…æ°´é‡æœ€å¤§å€¼SBYL7';
 comment on column YS_GD_YHSBMODIFYTHIS.sbyctf8
-  is 'Ô¤Áô×Ö¶Î8£¨Ô¤´æÍË·Ñ£©SBYL8';
+  is 'é¢„ç•™å­—æ®µ8ï¼ˆé¢„å­˜é€€è´¹ï¼‰SBYL8';
 comment on column YS_GD_YHSBMODIFYTHIS.sbzdzzs9
-  is 'Ô¤Áô×Ö¶Î9£¨Ë®±í×î´óÖ¸ÕëÊı£©SBYL9';
+  is 'é¢„ç•™å­—æ®µ9ï¼ˆæ°´è¡¨æœ€å¤§æŒ‡é’ˆæ•°ï¼‰SBYL9';
 comment on column YS_GD_YHSBMODIFYTHIS.sbcbshsj10
-  is 'Ô¤Áô×Ö¶Î10£¨ÊÖ»ú³­±íÉóºË£ºĞŞ¸ÄÊ±¼ä£©SBYL10';
+  is 'é¢„ç•™å­—æ®µ10ï¼ˆæ‰‹æœºæŠ„è¡¨å®¡æ ¸ï¼šä¿®æ”¹æ—¶é—´ï¼‰SBYL10';
 comment on column YS_GD_YHSBMODIFYTHIS.sbjtkssj11
-  is 'Ô¤Áô×Ö¶Î11£¨½×Ìİ¿ªÊ¼ÈÕÆÚ£©SBYL11';
+  is 'é¢„ç•™å­—æ®µ11ï¼ˆé˜¶æ¢¯å¼€å§‹æ—¥æœŸï¼‰SBYL11';
 comment on column YS_GD_YHSBMODIFYTHIS.sbyl12
-  is 'Ô¤Áô×Ö¶Î12';
+  is 'é¢„ç•™å­—æ®µ12';
 comment on column YS_GD_YHSBMODIFYTHIS.sbjdh13
-  is 'Ô¤Áô×Ö¶Î13(¹ş¶û±õ£º½ÖµÀºÅ)SBYL13';
+  is 'é¢„ç•™å­—æ®µ13(å“ˆå°”æ»¨ï¼šè¡—é“å·)SBYL13';
 comment on column YS_GD_YHSBMODIFYTHIS.sbtkbz11
-  is 'ÌØÀ§±êÖ¾SBCOLUMN11';
+  is 'ç‰¹å›°æ ‡å¿—SBCOLUMN11';
 comment on column YS_GD_YHSBMODIFYTHIS.sbtkzjh
-  is 'ÌØÀ§Ö¤¼şºÅ';
+  is 'ç‰¹å›°è¯ä»¶å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbhtbh
-  is 'ºÏÍ¬±àºÅ';
+  is 'åˆåŒç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.sbhtzq
-  is 'ÖÜÆÚ£¨ºÏÍ¬ÓÃ£©';
+  is 'å‘¨æœŸï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.sbrqxz
-  is 'ÈÕÆÚÏŞÖÆ£¨ºÏÍ¬ÓÃ£©';
+  is 'æ—¥æœŸé™åˆ¶ï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.htdate
-  is 'ºÏÍ¬Ç©¶©ÈÕÆÚ£¨ºÏÍ¬ÓÃ£©';
+  is 'åˆåŒç­¾è®¢æ—¥æœŸï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.zfdate
-  is 'ºÏÍ¬×÷·ÏÈÕÆÚ£¨ºÏÍ¬ÓÃ£©';
+  is 'åˆåŒä½œåºŸæ—¥æœŸï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.jzdate
-  is 'ºÏÍ¬Ç©¶©½ØÖ¹ÈÕÆÚ£¨ºÏÍ¬ÓÃ£©';
+  is 'åˆåŒç­¾è®¢æˆªæ­¢æ—¥æœŸï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.signper
-  is 'Ç©¶©ÈË£¨ºÏÍ¬ÓÃ£©';
+  is 'ç­¾è®¢äººï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.signid
-  is 'Ç©¶©ÈËÉí·İÖ¤ºÅ£¨ºÏÍ¬ÓÃ£©';
+  is 'ç­¾è®¢äººèº«ä»½è¯å·ï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.pocid
-  is '·¿²úÖ¤ºÅ£¨ºÏÍ¬ÓÃ£©';
+  is 'æˆ¿äº§è¯å·ï¼ˆåˆåŒç”¨ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdtype
-  is '»ìºÏÀà±ğ(01±ÈÀı£¬02¶¨Á¿)';
+  is 'æ··åˆç±»åˆ«(01æ¯”ä¾‹ï¼Œ02å®šé‡)';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn1
-  is '±¸ÓÃ×Ö¶Î1';
+  is 'å¤‡ç”¨å­—æ®µ1';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn2
-  is '±¸ÓÃ×Ö¶Î2';
+  is 'å¤‡ç”¨å­—æ®µ2';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn3
-  is '±¸ÓÃ×Ö¶Î3';
+  is 'å¤‡ç”¨å­—æ®µ3';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdtype2
-  is '»ìºÏÀà±ğ(01±ÈÀı£¬02¶¨Á¿)';
+  is 'æ··åˆç±»åˆ«(01æ¯”ä¾‹ï¼Œ02å®šé‡)';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn12
-  is '±¸ÓÃ×Ö¶Î1';
+  is 'å¤‡ç”¨å­—æ®µ1';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn22
-  is '±¸ÓÃ×Ö¶Î2';
+  is 'å¤‡ç”¨å­—æ®µ2';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn32
-  is '±¸ÓÃ×Ö¶Î3';
+  is 'å¤‡ç”¨å­—æ®µ3';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdtype3
-  is '»ìºÏÀà±ğ(01±ÈÀı£¬02¶¨Á¿)';
+  is 'æ··åˆç±»åˆ«(01æ¯”ä¾‹ï¼Œ02å®šé‡)';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn13
-  is '±¸ÓÃ×Ö¶Î1';
+  is 'å¤‡ç”¨å­—æ®µ1';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn23
-  is '±¸ÓÃ×Ö¶Î2';
+  is 'å¤‡ç”¨å­—æ®µ2';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn33
-  is '±¸ÓÃ×Ö¶Î3';
+  is 'å¤‡ç”¨å­—æ®µ3';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdtype4
-  is '»ìºÏÀà±ğ(01±ÈÀı£¬02¶¨Á¿)';
+  is 'æ··åˆç±»åˆ«(01æ¯”ä¾‹ï¼Œ02å®šé‡)';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn14
-  is '±¸ÓÃ×Ö¶Î1';
+  is 'å¤‡ç”¨å­—æ®µ1';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn24
-  is '±¸ÓÃ×Ö¶Î2';
+  is 'å¤‡ç”¨å­—æ®µ2';
 comment on column YS_GD_YHSBMODIFYTHIS.pmdcolumn34
-  is '±¸ÓÃ×Ö¶Î3';
+  is 'å¤‡ç”¨å­—æ®µ3';
 comment on column YS_GD_YHSBMODIFYTHIS.yhano
-  is 'Î¯ÍĞÊÚÈ¨ºÅ';
+  is 'å§”æ‰˜æˆæƒå·';
 comment on column YS_GD_YHSBMODIFYTHIS.yhanoname
-  is 'Ç©Ô¼»§Ãû';
+  is 'ç­¾çº¦æˆ·å';
 comment on column YS_GD_YHSBMODIFYTHIS.yhabankid
-  is '¿ª»§ĞĞ£¨´úÍĞ£©';
+  is 'å¼€æˆ·è¡Œï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.yhaaccountno
-  is '¿ª»§ÕÊºÅ£¨´úÍĞ£©';
+  is 'å¼€æˆ·å¸å·ï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.yhaaccountname
-  is '¿ª»§Ãû£¨´úÍĞ£©';
+  is 'å¼€æˆ·åï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.yhatsbankid
-  is '½ÓÊÕĞĞºÅ£¨ÍĞ£©';
+  is 'æ¥æ”¶è¡Œå·ï¼ˆæ‰˜ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.yhatsbankname
-  is 'Æ¾Ö¤ÒøĞĞ£¨ÍĞ£©';
+  is 'å‡­è¯é“¶è¡Œï¼ˆæ‰˜ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.yhaifxezf
-  is 'Ğ¡¶îÖ§¸¶£¨ÍĞ£©';
+  is 'å°é¢æ”¯ä»˜ï¼ˆæ‰˜ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.yharegdate
-  is 'Ç©Ô¼ÈÕÆÚ';
+  is 'ç­¾çº¦æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.yhamicode
-  is '×ÊÁÏºÅ';
+  is 'èµ„æ–™å·';
 comment on column YS_GD_YHSBMODIFYTHIS.mdno
-  is '±íÉíÂë';
+  is 'è¡¨èº«ç ';
 comment on column YS_GD_YHSBMODIFYTHIS.mdcaliber
-  is '±í¿Ú¾¶(METERCALIBER)';
+  is 'è¡¨å£å¾„(METERCALIBER)';
 comment on column YS_GD_YHSBMODIFYTHIS.mdbrand
-  is '±í³§¼Ò(meterbrand)';
+  is 'è¡¨å‚å®¶(meterbrand)';
 comment on column YS_GD_YHSBMODIFYTHIS.mdmodel
-  is '¼ÆÁ¿·½Ê½';
+  is 'è®¡é‡æ–¹å¼';
 comment on column YS_GD_YHSBMODIFYTHIS.mdstatus
-  is '±í×´Ì¬£¨0=Î´Ê¹ÓÃ£¬1=ÒÑÊ¹ÓÃ£¬2=×÷·Ï£©';
+  is 'è¡¨çŠ¶æ€ï¼ˆ0=æœªä½¿ç”¨ï¼Œ1=å·²ä½¿ç”¨ï¼Œ2=ä½œåºŸï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.mdstatusdate
-  is '±í×´Ì¬·¢ÉúÊ±¼ä';
+  is 'è¡¨çŠ¶æ€å‘ç”Ÿæ—¶é—´';
 comment on column YS_GD_YHSBMODIFYTHIS.mdcycchkdate
-  is 'ÖÜ¼ìÆğËãÈÕ';
+  is 'å‘¨æ£€èµ·ç®—æ—¥';
 comment on column YS_GD_YHSBMODIFYTHIS.mdstockdate
-  is 'ĞÂ¹ºÈë¿âÈÕÆÚ';
+  is 'æ–°è´­å…¥åº“æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.mdstore
-  is '¿â´æÎ»ÖÃ';
+  is 'åº“å­˜ä½ç½®';
 comment on column YS_GD_YHSBMODIFYTHIS.sfh
-  is 'Ê×·âºÅ';
+  is 'é¦–å°å·';
 comment on column YS_GD_YHSBMODIFYTHIS.dqsfh
-  is 'ËÜ·âºÅ';
+  is 'å¡‘å°å·';
 comment on column YS_GD_YHSBMODIFYTHIS.dqgfh
-  is '¸Ö·âºÅ';
+  is 'é’¢å°å·';
 comment on column YS_GD_YHSBMODIFYTHIS.jcgfh
-  is '»ü²é¸Õ·âºÅ';
+  is 'ç¨½æŸ¥åˆšå°å·';
 comment on column YS_GD_YHSBMODIFYTHIS.qfh
-  is 'Ç¦·âºÅ';
+  is 'é“…å°å·';
 comment on column YS_GD_YHSBMODIFYTHIS.mdfq1
-  is '±¸ÓÃ·âºÅ1';
+  is 'å¤‡ç”¨å°å·1';
 comment on column YS_GD_YHSBMODIFYTHIS.mdfq2
-  is '±¸ÓÃ·âºÅ2';
+  is 'å¤‡ç”¨å°å·2';
 comment on column YS_GD_YHSBMODIFYTHIS.mdfq3
-  is '±¸ÓÃ·âºÅ3';
+  is 'å¤‡ç”¨å°å·3';
 comment on column YS_GD_YHSBMODIFYTHIS.mdfq4
-  is '±¸ÓÃ·âºÅ4';
+  is 'å¤‡ç”¨å°å·4';
 comment on column YS_GD_YHSBMODIFYTHIS.mdfq5
-  is '±¸ÓÃ·âºÅ5';
+  is 'å¤‡ç”¨å°å·5';
 comment on column YS_GD_YHSBMODIFYTHIS.barcode
-  is 'ÌõĞÎÂë';
+  is 'æ¡å½¢ç ';
 comment on column YS_GD_YHSBMODIFYTHIS.rfid
-  is 'µç×Ó±êÇ©';
+  is 'ç”µå­æ ‡ç­¾';
 comment on column YS_GD_YHSBMODIFYTHIS.ifdzsb
-  is 'ÊÇ·ñµ¹±í£¨µ¹±í=Y Õı³£±í=''N''£©';
+  is 'æ˜¯å¦å€’è¡¨ï¼ˆå€’è¡¨=Y æ­£å¸¸è¡¨=''N''ï¼‰';
 comment on column YS_GD_YHSBMODIFYTHIS.concentratorid
-  is '¼¯ÖĞÆ÷ID';
+  is 'é›†ä¸­å™¨ID';
 comment on column YS_GD_YHSBMODIFYTHIS.readmetercode
-  is '³­±íĞòºÅ';
+  is 'æŠ„è¡¨åºå·';
 comment on column YS_GD_YHSBMODIFYTHIS.transferstype
-  is '´«ÊäÀàĞÍ';
+  is 'ä¼ è¾“ç±»å‹';
 comment on column YS_GD_YHSBMODIFYTHIS.collenttype
-  is '²É¼¯ÀàĞÍ(ÆúÓÃ×Ö¶Î)';
+  is 'é‡‡é›†ç±»å‹(å¼ƒç”¨å­—æ®µ)';
 comment on column YS_GD_YHSBMODIFYTHIS.iscontrol
-  is '·§¿Ø·ñ';
+  is 'é˜€æ§å¦';
 comment on column YS_GD_YHSBMODIFYTHIS.readtype
-  is '¶ÁÊı·½Ê½';
+  is 'è¯»æ•°æ–¹å¼';
 comment on column YS_GD_YHSBMODIFYTHIS.rkbatch
-  is 'Èë¿âÅú´Î';
+  is 'å…¥åº“æ‰¹æ¬¡';
 comment on column YS_GD_YHSBMODIFYTHIS.rkdno
-  is 'Èë¿âµ¥ºÅ';
+  is 'å…¥åº“å•å·';
 comment on column YS_GD_YHSBMODIFYTHIS.storeroomid
-  is '¿â·¿±àºÅ';
+  is 'åº“æˆ¿ç¼–å·';
 comment on column YS_GD_YHSBMODIFYTHIS.rkman
-  is 'Èë¿âÈËÔ±';
+  is 'å…¥åº“äººå‘˜';
 comment on column YS_GD_YHSBMODIFYTHIS.mainman
-  is 'Î¬»¤ÈËÔ±';
+  is 'ç»´æŠ¤äººå‘˜';
 comment on column YS_GD_YHSBMODIFYTHIS.maindate
-  is 'Î¬»¤Ê±¼ä';
+  is 'ç»´æŠ¤æ—¶é—´';
 comment on column YS_GD_YHSBMODIFYTHIS.sjdate
-  is 'Ê×¼ìÈÕÆÚ';
+  is 'é¦–æ£€æ—¥æœŸ';
 comment on column YS_GD_YHSBMODIFYTHIS.mdmode
-  is '»ùµç×ª»»·½Ê½';
+  is 'åŸºç”µè½¬æ¢æ–¹å¼';
 comment on column YS_GD_YHSBMODIFYTHIS.portno
-  is 'ÉÏ´«¶Ë¿ÚºÅ';
+  is 'ä¸Šä¼ ç«¯å£å·';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag01
-  is 'Ô­»§Ö÷Éí·İÖ¤¸´Ó¡¼ş';
+  is 'åŸæˆ·ä¸»èº«ä»½è¯å¤å°ä»¶';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag02
-  is 'ĞÂ»§Ö÷Éí·İÖ¤¸´Ó¡¼ş';
+  is 'æ–°æˆ·ä¸»èº«ä»½è¯å¤å°ä»¶';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag03
-  is '´ú°ìÈËÉí·İÖ¤¸´Ó¡¼ş';
+  is 'ä»£åŠäººèº«ä»½è¯å¤å°ä»¶';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag04
-  is 'Ë®·Ñµ£±£Êé';
+  is 'æ°´è´¹æ‹…ä¿ä¹¦';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag05
-  is 'ÁŞºÏÍ¬¸´Ó¡¼ş';
+  is 'èµåˆåŒå¤å°ä»¶';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag06
-  is '·¿²úÖ¤»ò¹º·¿ºÏÍ¬¸´Ó¡¼ş';
+  is 'æˆ¿äº§è¯æˆ–è´­æˆ¿åˆåŒå¤å°ä»¶';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag07
-  is 'ÆóÒµ·¨ÈËÓªÒµÖ´ÕÕ£¨»ò×éÖ¯»ú¹¹´úÂëÖ¤£©¸´Ó¡¼şÒ»·İ';
+  is 'ä¼ä¸šæ³•äººè¥ä¸šæ‰§ç…§ï¼ˆæˆ–ç»„ç»‡æœºæ„ä»£ç è¯ï¼‰å¤å°ä»¶ä¸€ä»½';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag08
-  is 'ÆäËû';
+  is 'å…¶ä»–';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag09
-  is 'Éí·İÖ¤¸´Ó¡¼ş';
+  is 'èº«ä»½è¯å¤å°ä»¶';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag10
-  is 'ÓÃ»§ÉêÇëÊé';
+  is 'ç”¨æˆ·ç”³è¯·ä¹¦';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag11
-  is '¸½¼ş±êÖ¾11';
+  is 'é™„ä»¶æ ‡å¿—11';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag12
-  is '¸½¼ş±êÖ¾12';
+  is 'é™„ä»¶æ ‡å¿—12';
 comment on column YS_GD_YHSBMODIFYTHIS.annexflag13
-  is '¸½¼ş±êÖ¾12';
+  is 'é™„ä»¶æ ‡å¿—12';
 comment on column YS_GD_YHSBMODIFYTHIS.ccdappnote
-  is 'ÉêÇëËµÃ÷';
+  is 'ç”³è¯·è¯´æ˜';
 comment on column YS_GD_YHSBMODIFYTHIS.ccdfilashnote
-  is 'Áìµ¼Òâ¼û';
+  is 'é¢†å¯¼æ„è§';
 comment on column YS_GD_YHSBMODIFYTHIS.ccdmemo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_GD_YHSBMODIFYTHIS.sbcode
-  is '¿Í»§´úÂë';
+  is 'å®¢æˆ·ä»£ç ';
 

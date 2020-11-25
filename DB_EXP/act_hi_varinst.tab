@@ -1,4 +1,4 @@
-create table ACT_HI_VARINST
+﻿create table ACT_HI_VARINST
 (
   id_                VARCHAR2(64),
   proc_inst_id_      VARCHAR2(64),

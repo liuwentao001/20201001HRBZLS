@@ -1,4 +1,4 @@
-create table YS_GD_PAIDADJUSTHD
+ï»¿create table YS_GD_PAIDADJUSTHD
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(20),
@@ -17,33 +17,33 @@ create table YS_GD_PAIDADJUSTHD
 )
 ;
 comment on table YS_GD_PAIDADJUSTHD
-  is 'ÊµÊÕ³åÕı';
+  is 'å®æ”¶å†²æ­£';
 comment on column YS_GD_PAIDADJUSTHD.id
   is 'id';
 comment on column YS_GD_PAIDADJUSTHD.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_PAIDADJUSTHD.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_PAIDADJUSTHD.bill_no
-  is 'µ¥¾İ±àºÅ';
+  is 'å•æ®ç¼–å·';
 comment on column YS_GD_PAIDADJUSTHD.bill_type
-  is 'µ¥¾İÀà±ğ';
+  is 'å•æ®ç±»åˆ«';
 comment on column YS_GD_PAIDADJUSTHD.bill_source
-  is 'µ¥¾İÀ´Ô´';
+  is 'å•æ®æ¥æº';
 comment on column YS_GD_PAIDADJUSTHD.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_GD_PAIDADJUSTHD.new_dept
-  is 'ÉêÇë²¿ÃÅ';
+  is 'ç”³è¯·éƒ¨é—¨';
 comment on column YS_GD_PAIDADJUSTHD.add_date
-  is 'ÉêÇëÈÕÆÚ';
+  is 'ç”³è¯·æ—¥æœŸ';
 comment on column YS_GD_PAIDADJUSTHD.add_per
-  is 'ÉêÇëÈËÔ±';
+  is 'ç”³è¯·äººå‘˜';
 comment on column YS_GD_PAIDADJUSTHD.check_date
-  is 'ÉóºËÈÕÆÚ';
+  is 'å®¡æ ¸æ—¥æœŸ';
 comment on column YS_GD_PAIDADJUSTHD.check_per
-  is 'ÉóºËÈËÔ±';
+  is 'å®¡æ ¸äººå‘˜';
 comment on column YS_GD_PAIDADJUSTHD.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_PAIDADJUSTHD.flow_id
-  is 'Á÷³ÌID';
+  is 'æµç¨‹ID';
 

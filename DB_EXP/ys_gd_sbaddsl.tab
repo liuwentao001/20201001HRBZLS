@@ -1,4 +1,4 @@
-create table YS_GD_SBADDSL
+ï»¿create table YS_GD_SBADDSL
 (
   id           VARCHAR2(32) not null,
   hire_code    VARCHAR2(20),
@@ -20,35 +20,35 @@ create table YS_GD_SBADDSL
 )
 ;
 comment on table YS_GD_SBADDSL
-  is 'ÓàÁ¿ĞÅÏ¢ ';
+  is 'ä½™é‡ä¿¡æ¯ ';
 comment on column YS_GD_SBADDSL.yhid
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_SBADDSL.sbid
-  is 'Ë®±í±àºÅ';
+  is 'æ°´è¡¨ç¼–å·';
 comment on column YS_GD_SBADDSL.addscodeo
-  is '¾É±íÆğ¶È';
+  is 'æ—§è¡¨èµ·åº¦';
 comment on column YS_GD_SBADDSL.addecoden
-  is '¾É±íÖ¹¶È';
+  is 'æ—§è¡¨æ­¢åº¦';
 comment on column YS_GD_SBADDSL.adduninsdate
-  is '²ğ±íÈÕÆÚ';
+  is 'æ‹†è¡¨æ—¥æœŸ';
 comment on column YS_GD_SBADDSL.adduninsper
-  is '²ğ±íÈË';
+  is 'æ‹†è¡¨äºº';
 comment on column YS_GD_SBADDSL.addsl
-  is 'ÓàÁ¿';
+  is 'ä½™é‡';
 comment on column YS_GD_SBADDSL.addtrans
-  is '¼Óµ÷ÊÂÎñ';
+  is 'åŠ è°ƒäº‹åŠ¡';
 comment on column YS_GD_SBADDSL.bill_id
-  is 'µ¥¾İÁ÷Ë®';
+  is 'å•æ®æµæ°´';
 comment on column YS_GD_SBADDSL.addscoden
-  is 'ĞÂ±íÆğ¶È';
+  is 'æ–°è¡¨èµ·åº¦';
 comment on column YS_GD_SBADDSL.addinsdate
-  is '×°±íÈÕÆÚ';
+  is 'è£…è¡¨æ—¥æœŸ';
 comment on column YS_GD_SBADDSL.addcredate
-  is '´´½¨ÈÕÆÚ';
+  is 'åˆ›å»ºæ—¥æœŸ';
 comment on column YS_GD_SBADDSL.addcreper
-  is '´´½¨ÈËÔ±';
+  is 'åˆ›å»ºäººå‘˜';
 comment on column YS_GD_SBADDSL.ifrecmk
-  is 'ÊÇ·ñÁìÓÃ';
+  is 'æ˜¯å¦é¢†ç”¨';
 comment on column YS_GD_SBADDSL.addmrid
-  is '³­±íÁ÷Ë®';
+  is 'æŠ„è¡¨æµæ°´';
 

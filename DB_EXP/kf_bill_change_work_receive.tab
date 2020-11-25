@@ -1,4 +1,4 @@
-create table KF_BILL_CHANGE_WORK_RECEIVE
+﻿create table KF_BILL_CHANGE_WORK_RECEIVE
 (
   id             VARCHAR2(32),
   change_work_id VARCHAR2(255),

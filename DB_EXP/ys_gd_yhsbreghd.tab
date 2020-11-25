@@ -1,4 +1,4 @@
-create table YS_GD_YHSBREGHD
+ï»¿create table YS_GD_YHSBREGHD
 (
   id          VARCHAR2(32) not null,
   hire_code   VARCHAR2(20),
@@ -17,33 +17,33 @@ create table YS_GD_YHSBREGHD
 )
 ;
 comment on table YS_GD_YHSBREGHD
-  is 'Á¢»§µ¥Í·¡¾H¡¿';
+  is 'ç«‹æˆ·å•å¤´ã€Hã€‘';
 comment on column YS_GD_YHSBREGHD.id
-  is 'Î¨Ò»Öµ';
+  is 'å”¯ä¸€å€¼';
 comment on column YS_GD_YHSBREGHD.crhwfid
-  is '¹¤×÷Á÷ÊµÀı';
+  is 'å·¥ä½œæµå®ä¾‹';
 comment on column YS_GD_YHSBREGHD.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_GD_YHSBREGHD.bill_id
-  is 'µ¥Í·ID';
+  is 'å•å¤´ID';
 comment on column YS_GD_YHSBREGHD.bill_no
-  is 'µ¥¾İ±àºÅ';
+  is 'å•æ®ç¼–å·';
 comment on column YS_GD_YHSBREGHD.bill_type
-  is 'µ¥¾İÀà±ğ';
+  is 'å•æ®ç±»åˆ«';
 comment on column YS_GD_YHSBREGHD.bill_source
-  is 'µ¥¾İÀ´Ô´';
+  is 'å•æ®æ¥æº';
 comment on column YS_GD_YHSBREGHD.new_dept
-  is 'ÉêÇë²¿ÃÅ';
+  is 'ç”³è¯·éƒ¨é—¨';
 comment on column YS_GD_YHSBREGHD.add_date
-  is 'ÉêÇëÈÕÆÚ';
+  is 'ç”³è¯·æ—¥æœŸ';
 comment on column YS_GD_YHSBREGHD.add_per
-  is 'ÉêÇëÈËÔ±';
+  is 'ç”³è¯·äººå‘˜';
 comment on column YS_GD_YHSBREGHD.check_date
-  is 'ÉóºËÈÕÆÚ';
+  is 'å®¡æ ¸æ—¥æœŸ';
 comment on column YS_GD_YHSBREGHD.check_per
-  is 'ÉóºËÈËÔ±';
+  is 'å®¡æ ¸äººå‘˜';
 comment on column YS_GD_YHSBREGHD.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 alter table YS_GD_YHSBREGHD
   add constraint PK_GD_CUSTREGHD primary key (ID);
 

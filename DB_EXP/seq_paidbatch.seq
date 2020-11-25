@@ -1,4 +1,4 @@
-create sequence SEQ_PAIDBATCH
+﻿create sequence SEQ_PAIDBATCH
 minvalue 1
 maxvalue 9999999999
 start with 1160967

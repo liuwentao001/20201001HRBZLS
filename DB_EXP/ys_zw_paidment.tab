@@ -1,4 +1,4 @@
-create table YS_ZW_PAIDMENT
+﻿create table YS_ZW_PAIDMENT
 (
   id           VARCHAR2(32) not null,
   hire_code    VARCHAR2(20),
@@ -277,96 +277,96 @@ partition by range (PDDATE)
     tablespace USERS
 );
 comment on table YS_ZW_PAIDMENT
-  is '����ס�P��';
+  is '付款交易【P】';
 comment on column YS_ZW_PAIDMENT.pid
-  is '��ˮ��';
+  is '流水号';
 comment on column YS_ZW_PAIDMENT.yhid
-  is '�û����';
+  is '用户编号';
 comment on column YS_ZW_PAIDMENT.sbid
-  is 'ˮ�����';
+  is '水表编号';
 comment on column YS_ZW_PAIDMENT.pddate
-  is '�������ڣ��շ����ڣ�';
+  is '帐务日期（收费日期）';
 comment on column YS_ZW_PAIDMENT.pdatetime
-  is '��������';
+  is '发生日期';
 comment on column YS_ZW_PAIDMENT.pdmonth
-  is '�ɷ��·�';
+  is '缴费月份';
 comment on column YS_ZW_PAIDMENT.manage_no
-  is '�ɷѻ�����Ӫҵ�������У���SYSMANAFRAME��(0201����Ӫҵһ�ֹ�˾/0208�ϸ�Ӫҵ���ֹ�˾/0206�㷻Ӫҵ���ֹ�˾/0204�㷻Ӫҵһ�ֹ�˾/0205����Ӫҵ���ֹ�˾/0203�ϸ�Ӫҵһ�ֹ�˾/0207ƽ��Ӫҵ�ֹ�˾/0202����Ӫҵһ�ֹ�˾/0209����Ӫҵ���ֹ�˾/0210��ɽӪҵ�ֹ�˾/0302��������/0304����������/0305�й�����/0301��ͨ����/0303��������/0306�������/0307��������/0308��������)
+  is '缴费机构（营业所或银行）【SYSMANAFRAME】(0201道里营业一分公司/0208南岗营业二分公司/0206香坊营业二分公司/0204香坊营业一分公司/0205道外营业二分公司/0203南岗营业一分公司/0207平房营业分公司/0202道外营业一分公司/0209道里营业二分公司/0210嵩山营业分公司/0302邮政储蓄/0304哈尔滨银行/0305中国银行/0301交通银行/0303工商银行/0306光大银行/0307建设银行/0308招商银行)
 ';
 comment on column YS_ZW_PAIDMENT.pdtran
-  is '�ɷ�����(paidtrans)';
+  is '缴费事务(paidtrans)';
 comment on column YS_ZW_PAIDMENT.pdpers
-  is '������Ա';
+  is '销帐人员';
 comment on column YS_ZW_PAIDMENT.pdsavingqc
-  is '�ڳ�Ԥ�����';
+  is '期初预存余额';
 comment on column YS_ZW_PAIDMENT.pdsavingbq
-  is '���ڷ���Ԥ����';
+  is '本期发生预存金额';
 comment on column YS_ZW_PAIDMENT.pdsavingqm
-  is '��ĩԤ�����';
+  is '期末预存余额';
 comment on column YS_ZW_PAIDMENT.paidment
-  is '������';
+  is '付款金额';
 comment on column YS_ZW_PAIDMENT.pdifsaving
-  is '����תԤ��';
+  is '找零转预存';
 comment on column YS_ZW_PAIDMENT.pdchange
-  is '������';
+  is '找零金额';
 comment on column YS_ZW_PAIDMENT.pdpayway
-  is '���ʽ(XJ-�ֽ� ZP-֧Ʊ MZ-Ĩ�� DC-����)';
+  is '付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)';
 comment on column YS_ZW_PAIDMENT.pdbseqno
-  is '������ˮ(����ʵʱ�շѽ�����ˮ)';
+  is '银行流水(银行实时收费交易流水)';
 comment on column YS_ZW_PAIDMENT.pdcseqno
-  is '����������ˮ(NO USE)';
+  is '清算中心流水(NO USE)';
 comment on column YS_ZW_PAIDMENT.pdbdate
-  is '��������(���нɷ���������)';
+  is '银行日期(银行缴费账务日期)';
 comment on column YS_ZW_PAIDMENT.pdchkdate
-  is '�������ڣ��շ�Ա���˺��д������ڣ�';
+  is '扎帐日期（收费员结账后回写审核日期）';
 comment on column YS_ZW_PAIDMENT.pdcchkflag
-  is '��־(NO USE)';
+  is '标志(NO USE)';
 comment on column YS_ZW_PAIDMENT.pdcdate
-  is '��������';
+  is '清算日期';
 comment on column YS_ZW_PAIDMENT.pdbatch
-  is '�ɷѽ�������';
+  is '缴费交易批次';
 comment on column YS_ZW_PAIDMENT.pdseqno
-  is '�ɷѽ�����ˮ(NO USE)';
+  is '缴费交易流水(NO USE)';
 comment on column YS_ZW_PAIDMENT.pdpayee
-  is '�տ�Ա';
+  is '收款员';
 comment on column YS_ZW_PAIDMENT.pdchbatch
-  is '֧Ʊ��������';
+  is '支票交易批次';
 comment on column YS_ZW_PAIDMENT.pdmemo
-  is '��ע';
+  is '备注';
 comment on column YS_ZW_PAIDMENT.pdpaypoint
-  is '�ɷѵص㣨��ϸ�������ڣ�';
+  is '缴费地点（可细化到窗口）';
 comment on column YS_ZW_PAIDMENT.pdsxf
-  is '������';
+  is '手续费';
 comment on column YS_ZW_PAIDMENT.pdilid
-  is '��Ʊ��ˮ�ţ�Ǩ��ǰӪҵ����';
+  is '发票流水号（迁移前营业所）';
 comment on column YS_ZW_PAIDMENT.pdflag
-  is 'ʵ�ձ�־��ȫ��ΪY.�������ã�';
+  is '实收标志（全部为Y.暂无启用）';
 comment on column YS_ZW_PAIDMENT.pdwyj
-  is 'ʵ���ͽ�';
+  is '实收滞金';
 comment on column YS_ZW_PAIDMENT.pdrcreceived
-  is 'ʵ���տ��ʵ���տ��� =  ������ -��������ʽ�� + ʵ���ͽ� + ������ + ���ڷ���Ԥ���';
+  is '实际收款金额（实际收款金额 =  付款金额 -找零金额；销帐金额 + 实收滞金 + 手续费 + 本期发生预存金额）';
 comment on column YS_ZW_PAIDMENT.pdspje
-  is '���ʽ�������ʽ�����ˮ�ѣ����ʽ����Ϊˮ�ѽ������Ԥ����Ϊ0��';
+  is '销帐金额（如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0）';
 comment on column YS_ZW_PAIDMENT.preverseflag
-  is '������־����ˮ����Ԥ����ΪN,��ˮ�ѳ�Ԥ�汻��ʵ�պͳ�ʵ�ղ���������ΪY��';
+  is '冲正标志（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）';
 comment on column YS_ZW_PAIDMENT.pdscrid
-  is 'ԭʵ������ˮ��Ӧ�ճ�ʵ�����ĸ���ʱYS_PAIDMENT.PSCRID���գ���Ϊ����ʵ������ˮ�ţ����ڹ������뱻��Ĺ������������YS_PAIDMENT.PSCRIDΪ�գ�';
+  is '原实收帐流水（应收冲实产生的负帐时YS_PAIDMENT.PSCRID不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况YS_PAIDMENT.PSCRID为空）';
 comment on column YS_ZW_PAIDMENT.pdscrtrans
-  is 'ԭʵ�սɷ�����ʵ�ճ��������ĸ���ʱYS_PAIDMENT.PSCRTRANS���գ���Ϊ����Ӧ�����������ڹ������뱻��Ĺ������������YS_PAIDMENT.PSCRTRANSΪ�գ�';
+  is '原实收缴费事务（实收冲正产生的负帐时YS_PAIDMENT.PSCRTRANS不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况YS_PAIDMENT.PSCRTRANS为空）';
 comment on column YS_ZW_PAIDMENT.pdscrmonth
-  is 'ԭʵ�����·ݣ�ʵ�ճ���������ʲ�����ʵ���ʣ��������ɸ�ʵ���ʵ�ԭʵ�����·��뱻����ʵ�����·���ͬ���磺A�û�2011��8�½�һ��ˮ�ѣ�����ˮ��˾��2011��9�·�����������⣬��Ҫ��ʵ�ճ�������ʵ�ճ���ʱ�����һ��2011��9�¸�ʵ�ʣ�2011��9�¸���ԭʵ�����·�Ϊ2011��8�£�';
+  is '原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：A用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）';
 comment on column YS_ZW_PAIDMENT.pdscrdate
-  is 'ԭʵ������';
+  is '原实收日期';
 comment on column YS_ZW_PAIDMENT.pdchkno
-  is '���˵��ţ��շ�Ա���˺��дӪ�����ţ�';
+  is '进账单号（收费员结账后回写营销单号）';
 comment on column YS_ZW_PAIDMENT.pdpriid
-  is '����������';
+  is '合收主表号';
 comment on column YS_ZW_PAIDMENT.tchkdate
-  is '�������ڣ�������ȷ�Ϻ��д�������ڣ�';
+  is '到账日期（财务到账确认后回写到账日期）';
 comment on column YS_ZW_PAIDMENT.pdtax
-  is '˰�����';
+  is '税额比例';
 comment on column YS_ZW_PAIDMENT.pdzdate
-  is '����������ڣ����������˺��д��';
+  is '财务对账日期（财务对账审核后回写）';
 create index IDX_PBATCH on YS_ZW_PAIDMENT (PDBATCH);
 create index IDX_PBSEQNO on YS_ZW_PAIDMENT (PDBSEQNO);
 create index IDX_PCHKDATE on YS_ZW_PAIDMENT (PDCHKDATE);

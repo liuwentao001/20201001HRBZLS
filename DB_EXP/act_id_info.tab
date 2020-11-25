@@ -1,4 +1,4 @@
-create table ACT_ID_INFO
+﻿create table ACT_ID_INFO
 (
   id_        VARCHAR2(64),
   rev_       NUMBER,

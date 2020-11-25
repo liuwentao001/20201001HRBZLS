@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION ÊµÊ±¼ÆËãÄêÀÛ¼ÆÒÑÓÃÁ¿(P_MIID IN VARCHAR2, P_SDATE IN DATE)
+ï»¿CREATE OR REPLACE FUNCTION å®žæ—¶è®¡ç®—å¹´ç´¯è®¡å·²ç”¨é‡(P_MIID IN VARCHAR2, P_SDATE IN DATE)
   RETURN VARCHAR2 AS
   LRET NUMBER;
 BEGIN
@@ -6,9 +6,9 @@ BEGIN
     INTO LRET
     FROM YS_ZW_ARLIST, YS_ZW_ARDETAIL
    WHERE ARID = ARDID
-     AND ARDPIID = '01' --Ö»¼ÆË®·ÑË®Á¿
-     AND ARDMETHOD IN( 'yjt','njt') --Äê½×ÌÝÔÂ½á ÔÝÊ±Ö»Í¨¹ýRLIFYEARCLASS±êÖ¾ÅÐ¶Ï
-     AND ARSCRARMONTH >= TO_CHAR(P_SDATE, 'YYYY.MM') --´óÓÚ½×ÌÝÆðËãÈÕ
+     AND ARDPIID = '01' --åªè®¡æ°´è´¹æ°´é‡
+     AND ARDMETHOD IN( 'yjt','njt') --å¹´é˜¶æ¢¯æœˆç»“ æš‚æ—¶åªé€šè¿‡RLIFYEARCLASSæ ‡å¿—åˆ¤æ–­
+     AND ARSCRARMONTH >= TO_CHAR(P_SDATE, 'YYYY.MM') --å¤§äºŽé˜¶æ¢¯èµ·ç®—æ—¥
      AND SBID = P_MIID;
   RETURN LRET;
 EXCEPTION

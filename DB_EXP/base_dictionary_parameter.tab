@@ -1,4 +1,4 @@
-create table BASE_DICTIONARY_PARAMETER
+﻿create table BASE_DICTIONARY_PARAMETER
 (
   id              VARCHAR2(32),
   dic_id          VARCHAR2(32),

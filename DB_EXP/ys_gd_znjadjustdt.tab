@@ -1,4 +1,4 @@
-create table YS_GD_ZNJADJUSTDT
+ï»¿create table YS_GD_ZNJADJUSTDT
 (
   id            VARCHAR2(32),
   hire_code     VARCHAR2(32),
@@ -20,31 +20,31 @@ create table YS_GD_ZNJADJUSTDT
 comment on column YS_GD_ZNJADJUSTDT.id
   is 'id';
 comment on column YS_GD_ZNJADJUSTDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_ZNJADJUSTDT.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_ZNJADJUSTDT.user_no
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_ZNJADJUSTDT.adjust_memo
-  is '¼õÃâÔ­Òò';
+  is 'å‡å…åŸå› ';
 comment on column YS_GD_ZNJADJUSTDT.rec_id
-  is 'ÕËÎñid';
+  is 'è´¦åŠ¡id';
 comment on column YS_GD_ZNJADJUSTDT.method
-  is '¼õÃâ·½·¨£¨1¡¢Ä¿±ê½ğ¶î¼õÃâ£»2¡¢±ÈÀı½ğ¶î¼õÃâ£»3¡¢²î¶î¼õÃâ£»4¡¢µ÷ÕûÆğËãÈÕÆÚ£©';
+  is 'å‡å…æ–¹æ³•ï¼ˆ1ã€ç›®æ ‡é‡‘é¢å‡å…ï¼›2ã€æ¯”ä¾‹é‡‘é¢å‡å…ï¼›3ã€å·®é¢å‡å…ï¼›4ã€è°ƒæ•´èµ·ç®—æ—¥æœŸï¼‰';
 comment on column YS_GD_ZNJADJUSTDT.adjust_ratio
-  is '±ÈÀıÖµ(%)';
+  is 'æ¯”ä¾‹å€¼(%)';
 comment on column YS_GD_ZNJADJUSTDT.adjust_value
-  is '¼õÃâ½ğ¶î/±ÈÀıÖµ';
+  is 'å‡å…é‡‘é¢/æ¯”ä¾‹å€¼';
 comment on column YS_GD_ZNJADJUSTDT.adjust_ndate
-  is '¼õÃâÄ¿±êÆğËãÈÕ';
+  is 'å‡å…ç›®æ ‡èµ·ç®—æ—¥';
 comment on column YS_GD_ZNJADJUSTDT.late_fee_date
-  is 'Î¥Ô¼½ğÆğËãÈÕ';
+  is 'è¿çº¦é‡‘èµ·ç®—æ—¥';
 comment on column YS_GD_ZNJADJUSTDT.late_fee
-  is 'Î¥Ô¼½ğ';
+  is 'è¿çº¦é‡‘';
 comment on column YS_GD_ZNJADJUSTDT.zmemo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_GD_ZNJADJUSTDT.check_flag
-  is 'ÉóºË×´Ì¬';
+  is 'å®¡æ ¸çŠ¶æ€';
 comment on column YS_GD_ZNJADJUSTDT.fail_reason
-  is 'Ê§°ÜÔ­Òò';
+  is 'å¤±è´¥åŸå› ';
 

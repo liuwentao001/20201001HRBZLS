@@ -1,4 +1,4 @@
-create table BAS_SYSPM
+﻿create table BAS_SYSPM
 (
   id         VARCHAR2(32),
   pm_no      VARCHAR2(100),

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION F_ljf_month(p_pmicode in varchar2,
+﻿CREATE OR REPLACE FUNCTION F_ljf_month(p_pmicode in varchar2,
                                        p_month   in varchar2) RETURN number AS
   LCODE number(13, 3) := 0 ;
 BEGIN

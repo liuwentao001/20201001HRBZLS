@@ -1,4 +1,4 @@
-create table KF_ALIYUN_CALLCENTER_TOKEN
+﻿create table KF_ALIYUN_CALLCENTER_TOKEN
 (
   id                VARCHAR2(32),
   custom_login_name VARCHAR2(60),

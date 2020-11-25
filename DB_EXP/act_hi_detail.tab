@@ -1,4 +1,4 @@
-create table ACT_HI_DETAIL
+﻿create table ACT_HI_DETAIL
 (
   id_           VARCHAR2(64),
   type_         VARCHAR2(255),

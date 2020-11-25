@@ -1,4 +1,4 @@
-CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
+ï»¿CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
 
    
   PROCEDURE Approve(p_Billno IN VARCHAR2,
@@ -7,14 +7,14 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
                     p_Djlb   IN VARCHAR2) IS
   BEGIN
     IF p_Djlb IN ('O', 'T', '6', 'N', '13', '14', '21', '23') THEN
-      Sp_Rectrans(p_Billno, p_Person); --×·Á¿
+      Sp_Rectrans(p_Billno, p_Person); --è¿½é‡
     ELSIF p_Djlb = 'G' THEN 
-      RecAdjust(p_Billno, p_Person, '', 'Y'); --µ÷Õû¼õÃâ   
+      RecAdjust(p_Billno, p_Person, '', 'Y'); --è°ƒæ•´å‡å…   
     ELSIF p_Djlb = '12' THEN
-      Sp_Paidbak(p_Billno, p_Person); --ÊµÊÕ³åÕı 
+      Sp_Paidbak(p_Billno, p_Person); --å®æ”¶å†²æ­£ 
     END IF;
   END;
-  --×·Á¿ÊÕ·Ñ V --±£³ÖÔ­ÓĞ ×·Á¿ÊÕ·Ñ
+  --è¿½é‡æ”¶è´¹ V --ä¿æŒåŸæœ‰ è¿½é‡æ”¶è´¹
   PROCEDURE Sp_Rectrans(p_No IN VARCHAR2, p_Per IN VARCHAR2) AS
     CURSOR c_Dt IS
       SELECT * FROM Ys_Gd_Aradddt WHERE Bill_Id = p_No FOR UPDATE;
@@ -66,18 +66,18 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
       SELECT * INTO Rth FROM Ys_Gd_Araddhd WHERE Bill_No = p_No;
     EXCEPTION
       WHEN OTHERS THEN
-        Raise_Application_Error(Errcode, 'µ¥¾İ²»´æÔÚ!');
+        Raise_Application_Error(Errcode, 'å•æ®ä¸å­˜åœ¨!');
     END;
-    --ÔÂÄ©×îºóÒ»Ìì²»ÄÜ½øĞĞ×·Á¿£¬»ü²é£¬²¹½É£¬²úÉúÓ¦ÊÕ£¬±ÜÃâÕËÎñÔÂ·İ¿çÔÂ
+    --æœˆæœ«æœ€åä¸€å¤©ä¸èƒ½è¿›è¡Œè¿½é‡ï¼Œç¨½æŸ¥ï¼Œè¡¥ç¼´ï¼Œäº§ç”Ÿåº”æ”¶ï¼Œé¿å…è´¦åŠ¡æœˆä»½è·¨æœˆ
     IF Trunc(SYSDATE) = Last_Day(Trunc(SYSDATE, 'MONTH')) AND
        Rth.Bill_Type IN ('O', '13', '21') THEN
-      Raise_Application_Error(Errcode, 'µ±Ç°Îª³öÕËÈÕ£¬²»ÄÜ×ö´ËÒµÎñ');
+      Raise_Application_Error(Errcode, 'å½“å‰ä¸ºå‡ºè´¦æ—¥ï¼Œä¸èƒ½åšæ­¤ä¸šåŠ¡');
     END IF;
     IF Rth.Check_Flag = 'Y' THEN
-      Raise_Application_Error(Errcode, 'µ¥¾İÒÑÉóºË');
+      Raise_Application_Error(Errcode, 'å•æ®å·²å®¡æ ¸');
     END IF;
     IF Rth.Check_Flag = 'Q' THEN
-      Raise_Application_Error(Errcode, 'µ¥¾İÒÑÈ¡Ïû');
+      Raise_Application_Error(Errcode, 'å•æ®å·²å–æ¶ˆ');
     END IF;
     IF Rth.Bill_Type = '13' THEN
       SELECT COUNT(*)
@@ -85,10 +85,10 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
         FROM Ys_Cb_Mtread
        WHERE Yhid = Rth.User_No
          AND Cbmrreadok = 'Y'
-         AND Nvl(Cbmrifrec, 'N') = 'N'; -- by ralph 20150213 Ôö¼Ó²¹½ÉÉóºËÊ±¶ÔÊÇ·ñ³­¼ûÎ´Ëã·ÑµÄÅĞ¶Ï
+         AND Nvl(Cbmrifrec, 'N') = 'N'; -- by ralph 20150213 å¢åŠ è¡¥ç¼´å®¡æ ¸æ—¶å¯¹æ˜¯å¦æŠ„è§æœªç®—è´¹çš„åˆ¤æ–­
       IF v_Count > 0 THEN
         Raise_Application_Error(Errcode,
-                                '´ËÓÃ»§´æÔÚÒÑ³­¼ûÎ´Ëã·Ñ¼ÇÂ¼£¡²»¿ÉÒÔ²¹½ÉÉóºË!');
+                                'æ­¤ç”¨æˆ·å­˜åœ¨å·²æŠ„è§æœªç®—è´¹è®°å½•ï¼ä¸å¯ä»¥è¡¥ç¼´å®¡æ ¸!');
       END IF;
     END IF;
     --
@@ -96,7 +96,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     FETCH c_Ys_Yh_Custinfo
       INTO Ci;
     IF c_Ys_Yh_Custinfo%NOTFOUND OR c_Ys_Yh_Custinfo%NOTFOUND IS NULL THEN
-      Raise_Application_Error(Errcode, 'ÎŞ´ËÓÃ»§');
+      Raise_Application_Error(Errcode, 'æ— æ­¤ç”¨æˆ·');
     END IF;
     CLOSE c_Ys_Yh_Custinfo;
   
@@ -104,14 +104,14 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     FETCH c_Ys_Yh_Sbinfo
       INTO Mi;
     IF c_Ys_Yh_Sbinfo%NOTFOUND OR c_Ys_Yh_Sbinfo%NOTFOUND IS NULL THEN
-      Raise_Application_Error(Errcode, 'ÎŞ´ËË®±í');
+      Raise_Application_Error(Errcode, 'æ— æ­¤æ°´è¡¨');
     END IF;
   
     OPEN c_Ys_Yh_Sbdoc(Rth.User_No);
     FETCH c_Ys_Yh_Sbdoc
       INTO Md;
     IF c_Ys_Yh_Sbdoc%NOTFOUND OR c_Ys_Yh_Sbdoc%NOTFOUND IS NULL THEN
-      Raise_Application_Error(Errcode, 'ÎŞ´ËË®±íµµ°¸');
+      Raise_Application_Error(Errcode, 'æ— æ­¤æ°´è¡¨æ¡£æ¡ˆ');
     END IF;
     CLOSE c_Ys_Yh_Sbdoc;
   
@@ -119,7 +119,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     FETCH c_Ys_Yh_Account
       INTO Ma;
     IF c_Ys_Yh_Account%NOTFOUND OR c_Ys_Yh_Account%NOTFOUND IS NULL THEN
-      --raise_application_error(errcode,'ÎŞ´ËË®±íÕÊÎñ');
+      --raise_application_error(errcode,'æ— æ­¤æ°´è¡¨å¸åŠ¡');
       NULL;
     END IF;
     CLOSE c_Ys_Yh_Account;
@@ -128,14 +128,14 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     FETCH c_Ys_Bas_Book
       INTO Bf;
     IF c_Ys_Bas_Book%NOTFOUND OR c_Ys_Bas_Book%NOTFOUND IS NULL THEN
-      Raise_Application_Error(Errcode, 'ÎŞ´Ë±í²á');
+      Raise_Application_Error(Errcode, 'æ— æ­¤è¡¨å†Œ');
       NULL;
     END IF;
     CLOSE c_Ys_Bas_Book;
   
-    /*--byj add 2016.4.5 Èç¹ûÊÇ(»ü²é²¹½É ²¹ÊÕ ×·Á¿),ÒªÅĞ¶ÏÊÇ·ñÓĞÎ´Íê½áµÄ »»±í¹¤µ¥ ¡¢ÓÃË®ĞÔÖÊ±ä¸ü¹¤µ¥¡¢³·±íÍË·Ñ¡¢Ïú»§¹¤µ¥ ¡¢Ô¤´æÍË·Ñ¹¤µ¥  ----------
+    /*--byj add 2016.4.5 å¦‚æœæ˜¯(ç¨½æŸ¥è¡¥ç¼´ è¡¥æ”¶ è¿½é‡),è¦åˆ¤æ–­æ˜¯å¦æœ‰æœªå®Œç»“çš„ æ¢è¡¨å·¥å• ã€ç”¨æ°´æ€§è´¨å˜æ›´å·¥å•ã€æ’¤è¡¨é€€è´¹ã€é”€æˆ·å·¥å• ã€é¢„å­˜é€€è´¹å·¥å•  ----------
     if RTH.BILL_TYPE in ('21','13','O' ) then
-       --ÅĞ¶ÏÊÇ·ñÓĞÎ´Íê½áµÄÓÃË®ĞÔÖÊ±ä¸ü¹¤µ¥
+       --åˆ¤æ–­æ˜¯å¦æœ‰æœªå®Œç»“çš„ç”¨æ°´æ€§è´¨å˜æ›´å·¥å•
        select count(*) into v_count
          from custchangehd hd,
               custchangedt dt
@@ -144,27 +144,27 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
               dt.YHID = mi.micid and
               hd.CCHSHFLAG = 'N';
        if v_count > 0 then
-          RAISE_APPLICATION_ERROR(ERRCODE, '´ËÓÃ»§ÓĞÎ´Íê½áµÄ¡¾Ë®¼Û±ä¸ü¡¿¹¤µ¥,²»ÄÜ½øĞĞÉóºË!');
+          RAISE_APPLICATION_ERROR(ERRCODE, 'æ­¤ç”¨æˆ·æœ‰æœªå®Œç»“çš„ã€æ°´ä»·å˜æ›´ã€‘å·¥å•,ä¸èƒ½è¿›è¡Œå®¡æ ¸!');
        end if;
-       --ÅĞ¶ÏÊÇ·ñÓĞ¹ÊÕÏ»»±í
+       --åˆ¤æ–­æ˜¯å¦æœ‰æ•…éšœæ¢è¡¨
        if mi.mistatus = '24' then
-          RAISE_APPLICATION_ERROR(ERRCODE, '´ËÓÃ»§ÓĞÎ´Íê½áµÄ¡¾¹ÊÕÏ»»±í¡¿¹¤µ¥,²»ÄÜ½øĞĞÉóºË!');
+          RAISE_APPLICATION_ERROR(ERRCODE, 'æ­¤ç”¨æˆ·æœ‰æœªå®Œç»“çš„ã€æ•…éšœæ¢è¡¨ã€‘å·¥å•,ä¸èƒ½è¿›è¡Œå®¡æ ¸!');
        elsif mi.mistatus = '35' then
-          RAISE_APPLICATION_ERROR(ERRCODE, '´ËÓÃ»§ÓĞÎ´Íê½áµÄ¡¾ÖÜÆÚ»»±í¡¿¹¤µ¥,²»ÄÜ½øĞĞÉóºË!');
+          RAISE_APPLICATION_ERROR(ERRCODE, 'æ­¤ç”¨æˆ·æœ‰æœªå®Œç»“çš„ã€å‘¨æœŸæ¢è¡¨ã€‘å·¥å•,ä¸èƒ½è¿›è¡Œå®¡æ ¸!');
        elsif mi.mistatus = '36' then
-          RAISE_APPLICATION_ERROR(ERRCODE, '´ËÓÃ»§ÓĞÎ´Íê½áµÄ¡¾Ô¤´æÍË·Ñ¡¿¹¤µ¥,²»ÄÜ½øĞĞÉóºË!');
+          RAISE_APPLICATION_ERROR(ERRCODE, 'æ­¤ç”¨æˆ·æœ‰æœªå®Œç»“çš„ã€é¢„å­˜é€€è´¹ã€‘å·¥å•,ä¸èƒ½è¿›è¡Œå®¡æ ¸!');
        elsif mi.mistatus = '39' then
-          RAISE_APPLICATION_ERROR(ERRCODE, '´ËÓÃ»§ÓĞÎ´Íê½áµÄ¡¾Ô¤´æ³·±íÍË·Ñ¡¿¹¤µ¥,²»ÄÜ½øĞĞÉóºË!');
+          RAISE_APPLICATION_ERROR(ERRCODE, 'æ­¤ç”¨æˆ·æœ‰æœªå®Œç»“çš„ã€é¢„å­˜æ’¤è¡¨é€€è´¹ã€‘å·¥å•,ä¸èƒ½è¿›è¡Œå®¡æ ¸!');
        elsif mi.mistatus = '19' then
-          RAISE_APPLICATION_ERROR(ERRCODE, '´ËÓÃ»§ÓĞÎ´Íê½áµÄ¡¾Ïú»§¡¿¹¤µ¥,²»ÄÜ½øĞĞÉóºË!');
+          RAISE_APPLICATION_ERROR(ERRCODE, 'æ­¤ç”¨æˆ·æœ‰æœªå®Œç»“çš„ã€é”€æˆ·ã€‘å·¥å•,ä¸èƒ½è¿›è¡Œå®¡æ ¸!');
        end if;
-       --Èç¹ûĞŞ¸ÄË®±íÖ¸Õë,ÒªÅĞ¶ÏÉóºËÊ±µÄÖ¸ÕëÊÇ·ñÓë½¨Á¢¹¤µ¥Ê±Ò»ÖÂ
+       --å¦‚æœä¿®æ”¹æ°´è¡¨æŒ‡é’ˆ,è¦åˆ¤æ–­å®¡æ ¸æ—¶çš„æŒ‡é’ˆæ˜¯å¦ä¸å»ºç«‹å·¥å•æ—¶ä¸€è‡´
        if rth.rthecodeflag = 'Y' then
           if rth.rthscode <> mi.mircode then
-             RAISE_APPLICATION_ERROR(ERRCODE, '´ËË®±íµÄÖ¹Âë×Ô¹¤µ¥±£´æºóÒÑ¾­±ä¸ü,ÇëºË²é!');
+             RAISE_APPLICATION_ERROR(ERRCODE, 'æ­¤æ°´è¡¨çš„æ­¢ç è‡ªå·¥å•ä¿å­˜åå·²ç»å˜æ›´,è¯·æ ¸æŸ¥!');
           end if;
-          \*»ü²éÉóºËÊ±,Èç¹ûµ±ÔÂÓĞ³­±í¼Æ»®ÒÑÉÏ´«µ«Î´Ëã·Ñ,ÌáÊ¾²»ÄÜÉóºË!!! (¿ÉÒÔËã·ÑÍê³ÉÊ±) *\
-          if RTH.rthlb = '21' \*»ü²é²¹ÊÕ*\ then
+          \*ç¨½æŸ¥å®¡æ ¸æ—¶,å¦‚æœå½“æœˆæœ‰æŠ„è¡¨è®¡åˆ’å·²ä¸Šä¼ ä½†æœªç®—è´¹,æç¤ºä¸èƒ½å®¡æ ¸!!! (å¯ä»¥ç®—è´¹å®Œæˆæ—¶) *\
+          if RTH.rthlb = '21' \*ç¨½æŸ¥è¡¥æ”¶*\ then
              begin
                select 1 into v_temp
                  from ys_cb_mtread mr
@@ -177,47 +177,47 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
                  v_temp := 0;
              end;
              if v_temp > 1 then
-                RAISE_APPLICATION_ERROR(ERRCODE, 'Ë®±í±àºÅ¡¾' || mi.micid ||  '¡¿±¾ÔÂÒÑÓĞ³­±íÊı¾İÉÏ´«µ«Î´Ëã·ÑµÄ¼ÇÂ¼,ÇëºË²é!');
+                RAISE_APPLICATION_ERROR(ERRCODE, 'æ°´è¡¨ç¼–å·ã€' || mi.micid ||  'ã€‘æœ¬æœˆå·²æœ‰æŠ„è¡¨æ•°æ®ä¸Šä¼ ä½†æœªç®—è´¹çš„è®°å½•,è¯·æ ¸æŸ¥!');
              end if;
           end if;
        end if;
     end if;*/
     --end!!!
   
-    -----µ¥Í·´¦Àí¿ªÊ¼
+    -----å•å¤´å¤„ç†å¼€å§‹
   
-    -- Ô¤ÏÈ¸³Öµ
+    -- é¢„å…ˆèµ‹å€¼
     Rth.Check_Per  := p_Per;
     Rth.Check_Date := Currentdate;
   
-    /*******´¦Àí×·Á¿ĞÅÏ¢*****/
+    /*******å¤„ç†è¿½é‡ä¿¡æ¯*****/
     IF 1 = 1 THEN
-      --ÊÇ·ñ×ßËã·Ñ¹ı³Ì(²»×ß¿ÉÈÏÎªÓªÒµÍâ)  
-      --²åÈë³­±í¿â
+      --æ˜¯å¦èµ°ç®—è´¹è¿‡ç¨‹(ä¸èµ°å¯è®¤ä¸ºè¥ä¸šå¤–)  
+      --æ’å…¥æŠ„è¡¨åº“
       Pg_Artrans_01.Sp_Insertmr(Rth, TRIM(Rth.Bill_Type), Mi, Rl.Armrid);
     
       IF Rl.Armrid IS NOT NULL THEN
         SELECT * INTO Mr FROM Ys_Cb_Mtread WHERE Id = Rl.Armrid;
         IF Rth.If_Rechis = 'Y' THEN
           IF Rth.Price_Ver IS NULL THEN
-            Raise_Application_Error(Errcode, '¹éµµ¼Û¸ñ°æ±¾²»ÄÜÎª¿Õ£¡');
+            Raise_Application_Error(Errcode, 'å½’æ¡£ä»·æ ¼ç‰ˆæœ¬ä¸èƒ½ä¸ºç©ºï¼');
           END IF;
           SELECT COUNT(*)
             INTO v_Pv
             FROM Bas_Price_Version
            WHERE Price_Ver = Rth.Price_Ver;
           IF v_Pv = 0 THEN
-            Raise_Application_Error(Errcode, '¸ÃÔÂ·İË®¼ÛÎ´¹éµµ£¡');
+            Raise_Application_Error(Errcode, 'è¯¥æœˆä»½æ°´ä»·æœªå½’æ¡£ï¼');
           END IF;
-          --ÊÇ·ñ°´ÀúÊ·Ë®¼ÛËã·Ñ(Ñ¡Ôñ¹éµµ¼Û¸ñ°æ±¾)
+          --æ˜¯å¦æŒ‰å†å²æ°´ä»·ç®—è´¹(é€‰æ‹©å½’æ¡£ä»·æ ¼ç‰ˆæœ¬)
           /*  pg_cb_cost.CALCULATE(MR, TRIM(RTH.RTHLB), TO_CHAR(RTH.PRICEMONTH, 'yyyy.mm'));*/
-          Pg_Cb_Cost.Costculate(Rl.Armrid, 'N'); -- ÎŞÀúÊ·¹éµµË®¼Û¼Æ·Ñ¹ı³Ì£¬ÏÈÓÃµ±Ç°¼Æ·Ñ¹ı³Ì
+          Pg_Cb_Cost.Costculate(Rl.Armrid, 'N'); -- æ— å†å²å½’æ¡£æ°´ä»·è®¡è´¹è¿‡ç¨‹ï¼Œå…ˆç”¨å½“å‰è®¡è´¹è¿‡ç¨‹
           INSERT INTO Ys_Cb_Mtreadhis
             SELECT * FROM Ys_Cb_Mtread WHERE Id = Rl.Armrid;
           DELETE Ys_Cb_Mtread WHERE Id = Rl.Armrid;
           SELECT * INTO Rl FROM Ys_Zw_Arlist WHERE Armrid = Rl.Armrid;
         ELSE
-          /*  pg_cb_cost.CALCULATE(MR, TRIM(RTH.RTHLB), '0000.00');*/ -- ÎŞÀúÊ·¹éµµË®¼Û¼Æ·Ñ¹ı³Ì£¬ÏÈÓÃµ±Ç°¼Æ·Ñ¹ı³Ì
+          /*  pg_cb_cost.CALCULATE(MR, TRIM(RTH.RTHLB), '0000.00');*/ -- æ— å†å²å½’æ¡£æ°´ä»·è®¡è´¹è¿‡ç¨‹ï¼Œå…ˆç”¨å½“å‰è®¡è´¹è¿‡ç¨‹
           Pg_Cb_Cost.Costculate(Rl.Armrid, 'N');
           INSERT INTO Ys_Cb_Mtreadhis
             SELECT * FROM Ys_Cb_Mtread WHERE Id = Rl.Armrid;
@@ -241,7 +241,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
            Check_Flag = 'Y'
      WHERE Bill_Id = p_No;
   
-    --´¦ÀíÆğÂëµÄÎÊÌâ(ÓÉÓÚËã·ÑµÄÊ±ºòÃ»ÓĞ¿¼ÂÇµ½ÊÇ·ñ¸üĞÂÖ¹ÂëµÄÎÊÌâ)
+    --å¤„ç†èµ·ç çš„é—®é¢˜(ç”±äºç®—è´¹çš„æ—¶å€™æ²¡æœ‰è€ƒè™‘åˆ°æ˜¯å¦æ›´æ–°æ­¢ç çš„é—®é¢˜)
     IF Rth.Ecode_Flag = 'N' THEN
       UPDATE Ys_Yh_Sbinfo
          SET Sbrcode     = Rth.Read_Ecode,
@@ -258,250 +258,250 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
       Raise_Application_Error(Errcode, SQLERRM);
   END;
   -----------------------------------
-  PROCEDURE Sp_Insertmr(Rth         IN Ys_Gd_Araddhd%ROWTYPE, --×·ÊÕÍ·
-                        p_Mriftrans IN VARCHAR2, --³­±íÊı¾İÊÂÎñ
-                        Mi          IN Ys_Yh_Sbinfo%ROWTYPE, --Ë®±íĞÅÏ¢
+  PROCEDURE Sp_Insertmr(Rth         IN Ys_Gd_Araddhd%ROWTYPE, --è¿½æ”¶å¤´
+                        p_Mriftrans IN VARCHAR2, --æŠ„è¡¨æ•°æ®äº‹åŠ¡
+                        Mi          IN Ys_Yh_Sbinfo%ROWTYPE, --æ°´è¡¨ä¿¡æ¯
                         Omrid       OUT Ys_Cb_Mtread.Id%TYPE) AS
-    --³­±íÁ÷Ë®
-    Mr Ys_Cb_Mtread%ROWTYPE; --³­±íÀúÊ·¿â
+    --æŠ„è¡¨æµæ°´
+    Mr Ys_Cb_Mtread%ROWTYPE; --æŠ„è¡¨å†å²åº“
   BEGIN
-    Mr.Id        := Uuid(); --Á÷Ë®ºÅ
+    Mr.Id        := Uuid(); --æµæ°´å·
     Omrid        := Mr.Id;
-    Mr.Cbmrmonth := Fobtmanapara(Rth.Manage_No, 'READ_MONTH'); --³­±íÔÂ·İ
-    Mr.Manage_No := Rth.Manage_No; --ÓªÏú¹«Ë¾
-    Mr.Book_No   := Rth.Book_No; --±í²á
+    Mr.Cbmrmonth := Fobtmanapara(Rth.Manage_No, 'READ_MONTH'); --æŠ„è¡¨æœˆä»½
+    Mr.Manage_No := Rth.Manage_No; --è¥é”€å…¬å¸
+    Mr.Book_No   := Rth.Book_No; --è¡¨å†Œ
     BEGIN
       SELECT Read_Batch, Read_Per
-        INTO Mr.Cbmrbatch, Mr.Cbmrrper --³­±íÅú´Î,³­±íÔ±
+        INTO Mr.Cbmrbatch, Mr.Cbmrrper --æŠ„è¡¨æ‰¹æ¬¡,æŠ„è¡¨å‘˜
         FROM Ys_Bas_Book
        WHERE Book_No = Mi.Book_No
          AND Manage_No = Mi.Manage_No;
     EXCEPTION
       WHEN OTHERS THEN
-        Mr.Cbmrbatch := 1; --³­±íÅú´Î
+        Mr.Cbmrbatch := 1; --æŠ„è¡¨æ‰¹æ¬¡
         Mr.Cbmrrper  := 'system';
     END;
-    Mr.Cbmrrorder := Mi.Sbrorder; --,³­±í´ÎĞòºÅ
-    Mr.Yhid       := Mi.Yhid; --ÓÃ»§±àºÅ
+    Mr.Cbmrrorder := Mi.Sbrorder; --,æŠ„è¡¨æ¬¡åºå·
+    Mr.Yhid       := Mi.Yhid; --ç”¨æˆ·ç¼–å·
   
-    Mr.Sbid := Mi.Sbid; --Ë®±í±àºÅ
+    Mr.Sbid := Mi.Sbid; --æ°´è¡¨ç¼–å·
   
-    Mr.Trade_No          := Mi.Trade_No; --ĞĞÒµ·ÖÀà
-    Mr.Sbpid             := Mi.Sbpid; --ÉÏ¼¶Ë®±í
-    Mr.Cbmrmclass        := Mi.Sbclass; --Ë®±í¼¶´Î
-    Mr.Cbmrmflag         := Mi.Sbflag; --Ä©¼¶±êÖ¾
-    Mr.Cbmrcreadate      := SYSDATE; --´´½¨ÈÕÆÚ
-    Mr.Cbmrinputdate     := NULL; --±à¼­ÈÕÆÚ
-    Mr.Cbmrreadok        := 'Y'; --³­¼û±êÖ¾
-    Mr.Cbmrrdate         := Rth.Read_Date; --³­±íÈÕÆÚ
-    Mr.Cbmrprdate        := Rth.Pread_Date; --ÉÏ´Î³­¼ûÈÕÆÚ(È¡ÉÏ´ÎÓĞĞ§³­±íÈÕÆÚ)
-    Mr.Cbmrscode         := Rth.Read_Scode; --ÉÏÆÚ³­¼û
-    Mr.Cbmrscodechar     := Rth.Read_Scode; --ÉÏÆÚ³­¼ûchar
-    Mr.Cbmrecode         := Rth.Read_Ecode; --±¾ÆÚ³­¼û
-    Mr.Cbmrsl            := Rth.Read_Water; --±¾ÆÚË®Á¿
-    Mr.Cbmrface          := NULL; --±í¿ö
-    Mr.Cbmrifsubmit      := 'Y'; --ÊÇ·ñÌá½»¼Æ·Ñ
-    Mr.Cbmrifhalt        := 'N'; --ÏµÍ³Í£Ëã
-    Mr.Cbmrdatasource    := 'Z'; --³­±í½á¹ûÀ´Ô´
-    Mr.Cbmrifignoreminsl := 'Y'; --Í£Ëã×îµÍ³­Á¿
-    Mr.Cbmrpdardate      := NULL; --³­±í»ú³­±íÊ±¼ä
-    Mr.Cbmroutflag       := 'N'; --·¢³öµ½³­±í»ú±êÖ¾
-    Mr.Cbmroutid         := NULL; --·¢³öµ½³­±í»úÁ÷Ë®ºÅ
-    Mr.Cbmroutdate       := NULL; --·¢³öµ½³­±í»úÈÕÆÚ
-    Mr.Cbmrinorder       := NULL; --³­±í»ú½ÓÊÕ´ÎĞò
-    Mr.Cbmrindate        := NULL; --³­±í»ú½ÓÊÜÈÕÆÚ
-    Mr.Cbmrrpid          := Mi.Sbrpid; --¼Æ¼şÀàĞÍ
-    Mr.Cbmrmemo          := NULL; --³­±í±¸×¢
-    Mr.Cbmrifgu          := 'N'; --¹À±í±êÖ¾
-    Mr.Cbmrifrec         := 'Y'; --ÒÑ¼Æ·Ñ
-    Mr.Cbmrrecdate       := NULL; --¼Æ·ÑÈÕÆÚ
-    Mr.Cbmrrecsl         := NULL; --Ó¦ÊÕË®Á¿
-    /*        --È¡Î´ÓÃÓàÁ¿
-    sp_fetchaddingsl(mr.cbmrid , --³­±íÁ÷Ë®
-                     sb.sbid,--Ë®±íºÅ
-                     v_tempnum,--¾É±íÖ¹¶È
-                     v_tempnum,--ĞÂ±íÆğ¶È
-                     v_addsl ,--ÓàÁ¿
-                     v_date,--´´½¨ÈÕÆÚ
-                     v_tempstr,--¼Óµ÷ÊÂÎñ
-                     v_ret  --·µ»ØÖµ
+    Mr.Trade_No          := Mi.Trade_No; --è¡Œä¸šåˆ†ç±»
+    Mr.Sbpid             := Mi.Sbpid; --ä¸Šçº§æ°´è¡¨
+    Mr.Cbmrmclass        := Mi.Sbclass; --æ°´è¡¨çº§æ¬¡
+    Mr.Cbmrmflag         := Mi.Sbflag; --æœ«çº§æ ‡å¿—
+    Mr.Cbmrcreadate      := SYSDATE; --åˆ›å»ºæ—¥æœŸ
+    Mr.Cbmrinputdate     := NULL; --ç¼–è¾‘æ—¥æœŸ
+    Mr.Cbmrreadok        := 'Y'; --æŠ„è§æ ‡å¿—
+    Mr.Cbmrrdate         := Rth.Read_Date; --æŠ„è¡¨æ—¥æœŸ
+    Mr.Cbmrprdate        := Rth.Pread_Date; --ä¸Šæ¬¡æŠ„è§æ—¥æœŸ(å–ä¸Šæ¬¡æœ‰æ•ˆæŠ„è¡¨æ—¥æœŸ)
+    Mr.Cbmrscode         := Rth.Read_Scode; --ä¸ŠæœŸæŠ„è§
+    Mr.Cbmrscodechar     := Rth.Read_Scode; --ä¸ŠæœŸæŠ„è§char
+    Mr.Cbmrecode         := Rth.Read_Ecode; --æœ¬æœŸæŠ„è§
+    Mr.Cbmrsl            := Rth.Read_Water; --æœ¬æœŸæ°´é‡
+    Mr.Cbmrface          := NULL; --è¡¨å†µ
+    Mr.Cbmrifsubmit      := 'Y'; --æ˜¯å¦æäº¤è®¡è´¹
+    Mr.Cbmrifhalt        := 'N'; --ç³»ç»Ÿåœç®—
+    Mr.Cbmrdatasource    := 'Z'; --æŠ„è¡¨ç»“æœæ¥æº
+    Mr.Cbmrifignoreminsl := 'Y'; --åœç®—æœ€ä½æŠ„é‡
+    Mr.Cbmrpdardate      := NULL; --æŠ„è¡¨æœºæŠ„è¡¨æ—¶é—´
+    Mr.Cbmroutflag       := 'N'; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ ‡å¿—
+    Mr.Cbmroutid         := NULL; --å‘å‡ºåˆ°æŠ„è¡¨æœºæµæ°´å·
+    Mr.Cbmroutdate       := NULL; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ—¥æœŸ
+    Mr.Cbmrinorder       := NULL; --æŠ„è¡¨æœºæ¥æ”¶æ¬¡åº
+    Mr.Cbmrindate        := NULL; --æŠ„è¡¨æœºæ¥å—æ—¥æœŸ
+    Mr.Cbmrrpid          := Mi.Sbrpid; --è®¡ä»¶ç±»å‹
+    Mr.Cbmrmemo          := NULL; --æŠ„è¡¨å¤‡æ³¨
+    Mr.Cbmrifgu          := 'N'; --ä¼°è¡¨æ ‡å¿—
+    Mr.Cbmrifrec         := 'Y'; --å·²è®¡è´¹
+    Mr.Cbmrrecdate       := NULL; --è®¡è´¹æ—¥æœŸ
+    Mr.Cbmrrecsl         := NULL; --åº”æ”¶æ°´é‡
+    /*        --å–æœªç”¨ä½™é‡
+    sp_fetchaddingsl(mr.cbmrid , --æŠ„è¡¨æµæ°´
+                     sb.sbid,--æ°´è¡¨å·
+                     v_tempnum,--æ—§è¡¨æ­¢åº¦
+                     v_tempnum,--æ–°è¡¨èµ·åº¦
+                     v_addsl ,--ä½™é‡
+                     v_date,--åˆ›å»ºæ—¥æœŸ
+                     v_tempstr,--åŠ è°ƒäº‹åŠ¡
+                     v_ret  --è¿”å›å€¼
                      ) ;
-    mr.cbmraddsl         :=   v_addsl ;  --ÓàÁ¿   */
-    Mr.Cbmraddsl         := 0; --ÓàÁ¿
-    Mr.Cbmrcarrysl       := NULL; --½øÎ»Ë®Á¿
-    Mr.Cbmrctrl1         := NULL; --³­±í»ú¿ØÖÆÎ»1
-    Mr.Cbmrctrl2         := NULL; --³­±í»ú¿ØÖÆÎ»2
-    Mr.Cbmrctrl3         := NULL; --³­±í»ú¿ØÖÆÎ»3
-    Mr.Cbmrctrl4         := NULL; --³­±í»ú¿ØÖÆÎ»4
-    Mr.Cbmrctrl5         := NULL; --³­±í»ú¿ØÖÆÎ»5
-    Mr.Cbmrchkflag       := 'N'; --¸´ºË±êÖ¾
-    Mr.Cbmrchkdate       := NULL; --¸´ºËÈÕÆÚ
-    Mr.Cbmrchkper        := NULL; --¸´ºËÈËÔ±
-    Mr.Cbmrchkscode      := NULL; --Ô­ÆğÊı
-    Mr.Cbmrchkecode      := NULL; --Ô­Ö¹Êı
-    Mr.Cbmrchksl         := NULL; --Ô­Ë®Á¿
-    Mr.Cbmrchkaddsl      := NULL; --Ô­ÓàÁ¿
-    Mr.Cbmrchkcarrysl    := NULL; --Ô­½øÎ»Ë®Á¿
-    Mr.Cbmrchkrdate      := NULL; --Ô­³­¼ûÈÕÆÚ
-    Mr.Cbmrchkface       := NULL; --Ô­±í¿ö
-    Mr.Cbmrchkresult     := NULL; --¼ì²é½á¹ûÀàĞÍ
-    Mr.Cbmrchkresultmemo := NULL; --¼ì²é½á¹ûËµÃ÷
-    Mr.Cbmrprimid        := Mi.Sbpriid; --ºÏÊÕ±íÖ÷±í
-    Mr.Cbmrprimflag      := Mi.Sbpriflag; --  ºÏÊÕ±í±êÖ¾
-    Mr.Cbmrlb            := Mi.Sblb; -- Ë®±íÀà±ğ
-    Mr.Cbmrnewflag       := Mi.Sbnewflag; -- ĞÂ±í±êÖ¾
-    Mr.Cbmrface2         := NULL; --³­¼û¹ÊÕÏ
-    Mr.Cbmrface3         := NULL; --·Ç³£¼ÆÁ¿
-    Mr.Cbmrface4         := NULL; --±í¾®ÉèÊ©ËµÃ÷
+    mr.cbmraddsl         :=   v_addsl ;  --ä½™é‡   */
+    Mr.Cbmraddsl         := 0; --ä½™é‡
+    Mr.Cbmrcarrysl       := NULL; --è¿›ä½æ°´é‡
+    Mr.Cbmrctrl1         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½1
+    Mr.Cbmrctrl2         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½2
+    Mr.Cbmrctrl3         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½3
+    Mr.Cbmrctrl4         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½4
+    Mr.Cbmrctrl5         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½5
+    Mr.Cbmrchkflag       := 'N'; --å¤æ ¸æ ‡å¿—
+    Mr.Cbmrchkdate       := NULL; --å¤æ ¸æ—¥æœŸ
+    Mr.Cbmrchkper        := NULL; --å¤æ ¸äººå‘˜
+    Mr.Cbmrchkscode      := NULL; --åŸèµ·æ•°
+    Mr.Cbmrchkecode      := NULL; --åŸæ­¢æ•°
+    Mr.Cbmrchksl         := NULL; --åŸæ°´é‡
+    Mr.Cbmrchkaddsl      := NULL; --åŸä½™é‡
+    Mr.Cbmrchkcarrysl    := NULL; --åŸè¿›ä½æ°´é‡
+    Mr.Cbmrchkrdate      := NULL; --åŸæŠ„è§æ—¥æœŸ
+    Mr.Cbmrchkface       := NULL; --åŸè¡¨å†µ
+    Mr.Cbmrchkresult     := NULL; --æ£€æŸ¥ç»“æœç±»å‹
+    Mr.Cbmrchkresultmemo := NULL; --æ£€æŸ¥ç»“æœè¯´æ˜
+    Mr.Cbmrprimid        := Mi.Sbpriid; --åˆæ”¶è¡¨ä¸»è¡¨
+    Mr.Cbmrprimflag      := Mi.Sbpriflag; --  åˆæ”¶è¡¨æ ‡å¿—
+    Mr.Cbmrlb            := Mi.Sblb; -- æ°´è¡¨ç±»åˆ«
+    Mr.Cbmrnewflag       := Mi.Sbnewflag; -- æ–°è¡¨æ ‡å¿—
+    Mr.Cbmrface2         := NULL; --æŠ„è§æ•…éšœ
+    Mr.Cbmrface3         := NULL; --éå¸¸è®¡é‡
+    Mr.Cbmrface4         := NULL; --è¡¨äº•è®¾æ–½è¯´æ˜
   
-    Mr.Cbmrprivilegeflag := 'N'; --ÌØÈ¨±êÖ¾(Y/N)
-    Mr.Cbmrprivilegeper  := NULL; --ÌØÈ¨²Ù×÷ÈË
-    Mr.Cbmrprivilegememo := NULL; --ÌØÈ¨²Ù×÷±¸×¢
-    Mr.Area_No           := Mi.Area_No; --¹ÜÀíÇøÓò
-    Mr.Cbmriftrans       := 'N'; --×ªµ¥±êÖ¾
-    Mr.Cbmrrequisition   := 0; --Í¨Öªµ¥´òÓ¡´ÎÊı
-    Mr.Cbmrifchk         := Mi.Sbifchk; --¿¼ºË±í±êÖ¾
-    Mr.Cbmrinputper      := NULL; --ÈëÕËÈËÔ±
-    Mr.Price_No          := Mi.Price_No; --ÓÃË®Àà±ğ
-    --mr.cbmrcaliber       := md.mdcaliber;--¿Ú¾¶
-    Mr.Cbmrside  := Mi.Sbside; --±íÎ»
-    Mr.Cbmrmtype := Mi.Sbtype; --±íĞÍ
+    Mr.Cbmrprivilegeflag := 'N'; --ç‰¹æƒæ ‡å¿—(Y/N)
+    Mr.Cbmrprivilegeper  := NULL; --ç‰¹æƒæ“ä½œäºº
+    Mr.Cbmrprivilegememo := NULL; --ç‰¹æƒæ“ä½œå¤‡æ³¨
+    Mr.Area_No           := Mi.Area_No; --ç®¡ç†åŒºåŸŸ
+    Mr.Cbmriftrans       := 'N'; --è½¬å•æ ‡å¿—
+    Mr.Cbmrrequisition   := 0; --é€šçŸ¥å•æ‰“å°æ¬¡æ•°
+    Mr.Cbmrifchk         := Mi.Sbifchk; --è€ƒæ ¸è¡¨æ ‡å¿—
+    Mr.Cbmrinputper      := NULL; --å…¥è´¦äººå‘˜
+    Mr.Price_No          := Mi.Price_No; --ç”¨æ°´ç±»åˆ«
+    --mr.cbmrcaliber       := md.mdcaliber;--å£å¾„
+    Mr.Cbmrside  := Mi.Sbside; --è¡¨ä½
+    Mr.Cbmrmtype := Mi.Sbtype; --è¡¨å‹
   
-    Mr.Cbmrplansl   := 0; --¼Æ»®Ë®Á¿
-    Mr.Cbmrplanje01 := 0; --¼Æ»®Ë®·Ñ
-    Mr.Cbmrplanje02 := 0; --¼Æ»®ÎÛË®´¦Àí·Ñ
-    Mr.Cbmrplanje03 := 0; --¼Æ»®Ë®×ÊÔ´·Ñ
+    Mr.Cbmrplansl   := 0; --è®¡åˆ’æ°´é‡
+    Mr.Cbmrplanje01 := 0; --è®¡åˆ’æ°´è´¹
+    Mr.Cbmrplanje02 := 0; --è®¡åˆ’æ±¡æ°´å¤„ç†è´¹
+    Mr.Cbmrplanje03 := 0; --è®¡åˆ’æ°´èµ„æºè´¹
   
     INSERT INTO Ys_Cb_Mtread VALUES Mr;
   EXCEPTION
     WHEN OTHERS THEN
       --OMRID := '';
-      Raise_Application_Error(Errcode, 'Êı¾İ¿â´íÎó!' || SQLERRM);
+      Raise_Application_Error(Errcode, 'æ•°æ®åº“é”™è¯¯!' || SQLERRM);
   END;
 -----------------------------------------------------------
-  --×·ÊÕ²åÈë³­±í¼Æ»®µ½ÀúÊ·¿â
-  PROCEDURE Sp_Insertmrhis(Rth         IN Ys_Gd_Araddhd%ROWTYPE, --×·ÊÕÍ·
-                        p_Mriftrans IN VARCHAR2, --³­±íÊı¾İÊÂÎñ
-                        Mi          IN Ys_Yh_Sbinfo%ROWTYPE, --Ë®±íĞÅÏ¢
+  --è¿½æ”¶æ’å…¥æŠ„è¡¨è®¡åˆ’åˆ°å†å²åº“
+  PROCEDURE Sp_Insertmrhis(Rth         IN Ys_Gd_Araddhd%ROWTYPE, --è¿½æ”¶å¤´
+                        p_Mriftrans IN VARCHAR2, --æŠ„è¡¨æ•°æ®äº‹åŠ¡
+                        Mi          IN Ys_Yh_Sbinfo%ROWTYPE, --æ°´è¡¨ä¿¡æ¯
                         Omrid       OUT Ys_Cb_Mtread.Id%TYPE)  AS
-    --³­±íÁ÷Ë®
-    Mrhis Ys_Cb_Mtreadhis%ROWTYPE; --³­±íÀúÊ·¿â
+    --æŠ„è¡¨æµæ°´
+    Mrhis Ys_Cb_Mtreadhis%ROWTYPE; --æŠ„è¡¨å†å²åº“
   BEGIN
-    Mrhis.Id        := Uuid(); --Á÷Ë®ºÅ
+    Mrhis.Id        := Uuid(); --æµæ°´å·
     Omrid           := Mrhis.Id;
-    Mrhis.Cbmrmonth := Fobtmanapara(Rth.Manage_No, 'READ_MONTH'); --³­±íÔÂ·İ
-    Mrhis.Manage_No := Rth.Manage_No; --ÓªÏú¹«Ë¾
-    Mrhis.Book_No   := Rth.Book_No; --±í²á
+    Mrhis.Cbmrmonth := Fobtmanapara(Rth.Manage_No, 'READ_MONTH'); --æŠ„è¡¨æœˆä»½
+    Mrhis.Manage_No := Rth.Manage_No; --è¥é”€å…¬å¸
+    Mrhis.Book_No   := Rth.Book_No; --è¡¨å†Œ
     BEGIN
       SELECT Read_Batch, Read_Per
-        INTO Mrhis.Cbmrbatch, Mrhis.Cbmrrper --³­±íÅú´Î,³­±íÔ±
+        INTO Mrhis.Cbmrbatch, Mrhis.Cbmrrper --æŠ„è¡¨æ‰¹æ¬¡,æŠ„è¡¨å‘˜
         FROM Ys_Bas_Book
        WHERE Book_No = Mi.Book_No
          AND Manage_No = Mi.Manage_No;
     EXCEPTION
       WHEN OTHERS THEN
-        Mrhis.Cbmrbatch := 1; --³­±íÅú´Î
+        Mrhis.Cbmrbatch := 1; --æŠ„è¡¨æ‰¹æ¬¡
         Mrhis.Cbmrrper  := 'system';
     END;
-    Mrhis.Cbmrrorder := Mi.Sbrorder; --,³­±í´ÎĞòºÅ
-    Mrhis.Yhid       := Mi.Yhid; --ÓÃ»§±àºÅ
+    Mrhis.Cbmrrorder := Mi.Sbrorder; --,æŠ„è¡¨æ¬¡åºå·
+    Mrhis.Yhid       := Mi.Yhid; --ç”¨æˆ·ç¼–å·
   
-    Mrhis.Sbid := Mi.Sbid; --Ë®±í±àºÅ
+    Mrhis.Sbid := Mi.Sbid; --æ°´è¡¨ç¼–å·
   
-    Mrhis.Trade_No          := Mi.Trade_No; --ĞĞÒµ·ÖÀà
-    Mrhis.Sbpid             := Mi.Sbpid; --ÉÏ¼¶Ë®±í
-    Mrhis.Cbmrmclass        := Mi.Sbclass; --Ë®±í¼¶´Î
-    Mrhis.Cbmrmflag         := Mi.Sbflag; --Ä©¼¶±êÖ¾
-    Mrhis.Cbmrcreadate      := SYSDATE; --´´½¨ÈÕÆÚ
-    Mrhis.Cbmrinputdate     := NULL; --±à¼­ÈÕÆÚ
-    Mrhis.Cbmrreadok        := 'Y'; --³­¼û±êÖ¾
-    Mrhis.Cbmrrdate         := Rth.Read_Date; --³­±íÈÕÆÚ
-    Mrhis.Cbmrprdate        := Rth.Pread_Date; --ÉÏ´Î³­¼ûÈÕÆÚ(È¡ÉÏ´ÎÓĞĞ§³­±íÈÕÆÚ)
-    Mrhis.Cbmrscode         := Rth.Read_Scode; --ÉÏÆÚ³­¼û
-    Mrhis.Cbmrscodechar     := Rth.Read_Scode; --ÉÏÆÚ³­¼ûchar
-    Mrhis.Cbmrecode         := Rth.Read_Ecode; --±¾ÆÚ³­¼û
-    Mrhis.Cbmrsl            := Rth.Read_Water; --±¾ÆÚË®Á¿
-    Mrhis.Cbmrface          := NULL; --±í¿ö
-    Mrhis.Cbmrifsubmit      := 'Y'; --ÊÇ·ñÌá½»¼Æ·Ñ
-    Mrhis.Cbmrifhalt        := 'N'; --ÏµÍ³Í£Ëã
-    Mrhis.Cbmrdatasource    := 'Z'; --³­±í½á¹ûÀ´Ô´
-    Mrhis.Cbmrifignoreminsl := 'Y'; --Í£Ëã×îµÍ³­Á¿
-    Mrhis.Cbmrpdardate      := NULL; --³­±í»ú³­±íÊ±¼ä
-    Mrhis.Cbmroutflag       := 'N'; --·¢³öµ½³­±í»ú±êÖ¾
-    Mrhis.Cbmroutid         := NULL; --·¢³öµ½³­±í»úÁ÷Ë®ºÅ
-    Mrhis.Cbmroutdate       := NULL; --·¢³öµ½³­±í»úÈÕÆÚ
-    Mrhis.Cbmrinorder       := NULL; --³­±í»ú½ÓÊÕ´ÎĞò
-    Mrhis.Cbmrindate        := NULL; --³­±í»ú½ÓÊÜÈÕÆÚ
-    Mrhis.Cbmrrpid          := Mi.Sbrpid; --¼Æ¼şÀàĞÍ
-    Mrhis.Cbmrmemo          := NULL; --³­±í±¸×¢
-    Mrhis.Cbmrifgu          := 'N'; --¹À±í±êÖ¾
-    Mrhis.Cbmrifrec         := 'Y'; --ÒÑ¼Æ·Ñ
-    Mrhis.Cbmrrecdate       := NULL; --¼Æ·ÑÈÕÆÚ
-    Mrhis.Cbmrrecsl         := NULL; --Ó¦ÊÕË®Á¿
-    /*        --È¡Î´ÓÃÓàÁ¿
-    sp_fetchaddingsl(mrHIS.cbmrid , --³­±íÁ÷Ë®
-                     sb.sbid,--Ë®±íºÅ
-                     v_tempnum,--¾É±íÖ¹¶È
-                     v_tempnum,--ĞÂ±íÆğ¶È
-                     v_addsl ,--ÓàÁ¿
-                     v_date,--´´½¨ÈÕÆÚ
-                     v_tempstr,--¼Óµ÷ÊÂÎñ
-                     v_ret  --·µ»ØÖµ
+    Mrhis.Trade_No          := Mi.Trade_No; --è¡Œä¸šåˆ†ç±»
+    Mrhis.Sbpid             := Mi.Sbpid; --ä¸Šçº§æ°´è¡¨
+    Mrhis.Cbmrmclass        := Mi.Sbclass; --æ°´è¡¨çº§æ¬¡
+    Mrhis.Cbmrmflag         := Mi.Sbflag; --æœ«çº§æ ‡å¿—
+    Mrhis.Cbmrcreadate      := SYSDATE; --åˆ›å»ºæ—¥æœŸ
+    Mrhis.Cbmrinputdate     := NULL; --ç¼–è¾‘æ—¥æœŸ
+    Mrhis.Cbmrreadok        := 'Y'; --æŠ„è§æ ‡å¿—
+    Mrhis.Cbmrrdate         := Rth.Read_Date; --æŠ„è¡¨æ—¥æœŸ
+    Mrhis.Cbmrprdate        := Rth.Pread_Date; --ä¸Šæ¬¡æŠ„è§æ—¥æœŸ(å–ä¸Šæ¬¡æœ‰æ•ˆæŠ„è¡¨æ—¥æœŸ)
+    Mrhis.Cbmrscode         := Rth.Read_Scode; --ä¸ŠæœŸæŠ„è§
+    Mrhis.Cbmrscodechar     := Rth.Read_Scode; --ä¸ŠæœŸæŠ„è§char
+    Mrhis.Cbmrecode         := Rth.Read_Ecode; --æœ¬æœŸæŠ„è§
+    Mrhis.Cbmrsl            := Rth.Read_Water; --æœ¬æœŸæ°´é‡
+    Mrhis.Cbmrface          := NULL; --è¡¨å†µ
+    Mrhis.Cbmrifsubmit      := 'Y'; --æ˜¯å¦æäº¤è®¡è´¹
+    Mrhis.Cbmrifhalt        := 'N'; --ç³»ç»Ÿåœç®—
+    Mrhis.Cbmrdatasource    := 'Z'; --æŠ„è¡¨ç»“æœæ¥æº
+    Mrhis.Cbmrifignoreminsl := 'Y'; --åœç®—æœ€ä½æŠ„é‡
+    Mrhis.Cbmrpdardate      := NULL; --æŠ„è¡¨æœºæŠ„è¡¨æ—¶é—´
+    Mrhis.Cbmroutflag       := 'N'; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ ‡å¿—
+    Mrhis.Cbmroutid         := NULL; --å‘å‡ºåˆ°æŠ„è¡¨æœºæµæ°´å·
+    Mrhis.Cbmroutdate       := NULL; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ—¥æœŸ
+    Mrhis.Cbmrinorder       := NULL; --æŠ„è¡¨æœºæ¥æ”¶æ¬¡åº
+    Mrhis.Cbmrindate        := NULL; --æŠ„è¡¨æœºæ¥å—æ—¥æœŸ
+    Mrhis.Cbmrrpid          := Mi.Sbrpid; --è®¡ä»¶ç±»å‹
+    Mrhis.Cbmrmemo          := NULL; --æŠ„è¡¨å¤‡æ³¨
+    Mrhis.Cbmrifgu          := 'N'; --ä¼°è¡¨æ ‡å¿—
+    Mrhis.Cbmrifrec         := 'Y'; --å·²è®¡è´¹
+    Mrhis.Cbmrrecdate       := NULL; --è®¡è´¹æ—¥æœŸ
+    Mrhis.Cbmrrecsl         := NULL; --åº”æ”¶æ°´é‡
+    /*        --å–æœªç”¨ä½™é‡
+    sp_fetchaddingsl(mrHIS.cbmrid , --æŠ„è¡¨æµæ°´
+                     sb.sbid,--æ°´è¡¨å·
+                     v_tempnum,--æ—§è¡¨æ­¢åº¦
+                     v_tempnum,--æ–°è¡¨èµ·åº¦
+                     v_addsl ,--ä½™é‡
+                     v_date,--åˆ›å»ºæ—¥æœŸ
+                     v_tempstr,--åŠ è°ƒäº‹åŠ¡
+                     v_ret  --è¿”å›å€¼
                      ) ;
-    mrHIS.cbmraddsl         :=   v_addsl ;  --ÓàÁ¿   */
-    Mrhis.Cbmraddsl         := 0; --ÓàÁ¿
-    Mrhis.Cbmrcarrysl       := NULL; --½øÎ»Ë®Á¿
-    Mrhis.Cbmrctrl1         := NULL; --³­±í»ú¿ØÖÆÎ»1
-    Mrhis.Cbmrctrl2         := NULL; --³­±í»ú¿ØÖÆÎ»2
-    Mrhis.Cbmrctrl3         := NULL; --³­±í»ú¿ØÖÆÎ»3
-    Mrhis.Cbmrctrl4         := NULL; --³­±í»ú¿ØÖÆÎ»4
-    Mrhis.Cbmrctrl5         := NULL; --³­±í»ú¿ØÖÆÎ»5
-    Mrhis.Cbmrchkflag       := 'N'; --¸´ºË±êÖ¾
-    Mrhis.Cbmrchkdate       := NULL; --¸´ºËÈÕÆÚ
-    Mrhis.Cbmrchkper        := NULL; --¸´ºËÈËÔ±
-    Mrhis.Cbmrchkscode      := NULL; --Ô­ÆğÊı
-    Mrhis.Cbmrchkecode      := NULL; --Ô­Ö¹Êı
-    Mrhis.Cbmrchksl         := NULL; --Ô­Ë®Á¿
-    Mrhis.Cbmrchkaddsl      := NULL; --Ô­ÓàÁ¿
-    Mrhis.Cbmrchkcarrysl    := NULL; --Ô­½øÎ»Ë®Á¿
-    Mrhis.Cbmrchkrdate      := NULL; --Ô­³­¼ûÈÕÆÚ
-    Mrhis.Cbmrchkface       := NULL; --Ô­±í¿ö
-    Mrhis.Cbmrchkresult     := NULL; --¼ì²é½á¹ûÀàĞÍ
-    Mrhis.Cbmrchkresultmemo := NULL; --¼ì²é½á¹ûËµÃ÷
-    Mrhis.Cbmrprimid        := Mi.Sbpriid; --ºÏÊÕ±íÖ÷±í
-    Mrhis.Cbmrprimflag      := Mi.Sbpriflag; --  ºÏÊÕ±í±êÖ¾
-    Mrhis.Cbmrlb            := Mi.Sblb; -- Ë®±íÀà±ğ
-    Mrhis.Cbmrnewflag       := Mi.Sbnewflag; -- ĞÂ±í±êÖ¾
-    Mrhis.Cbmrface2         := NULL; --³­¼û¹ÊÕÏ
-    Mrhis.Cbmrface3         := NULL; --·Ç³£¼ÆÁ¿
-    Mrhis.Cbmrface4         := NULL; --±í¾®ÉèÊ©ËµÃ÷
+    mrHIS.cbmraddsl         :=   v_addsl ;  --ä½™é‡   */
+    Mrhis.Cbmraddsl         := 0; --ä½™é‡
+    Mrhis.Cbmrcarrysl       := NULL; --è¿›ä½æ°´é‡
+    Mrhis.Cbmrctrl1         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½1
+    Mrhis.Cbmrctrl2         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½2
+    Mrhis.Cbmrctrl3         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½3
+    Mrhis.Cbmrctrl4         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½4
+    Mrhis.Cbmrctrl5         := NULL; --æŠ„è¡¨æœºæ§åˆ¶ä½5
+    Mrhis.Cbmrchkflag       := 'N'; --å¤æ ¸æ ‡å¿—
+    Mrhis.Cbmrchkdate       := NULL; --å¤æ ¸æ—¥æœŸ
+    Mrhis.Cbmrchkper        := NULL; --å¤æ ¸äººå‘˜
+    Mrhis.Cbmrchkscode      := NULL; --åŸèµ·æ•°
+    Mrhis.Cbmrchkecode      := NULL; --åŸæ­¢æ•°
+    Mrhis.Cbmrchksl         := NULL; --åŸæ°´é‡
+    Mrhis.Cbmrchkaddsl      := NULL; --åŸä½™é‡
+    Mrhis.Cbmrchkcarrysl    := NULL; --åŸè¿›ä½æ°´é‡
+    Mrhis.Cbmrchkrdate      := NULL; --åŸæŠ„è§æ—¥æœŸ
+    Mrhis.Cbmrchkface       := NULL; --åŸè¡¨å†µ
+    Mrhis.Cbmrchkresult     := NULL; --æ£€æŸ¥ç»“æœç±»å‹
+    Mrhis.Cbmrchkresultmemo := NULL; --æ£€æŸ¥ç»“æœè¯´æ˜
+    Mrhis.Cbmrprimid        := Mi.Sbpriid; --åˆæ”¶è¡¨ä¸»è¡¨
+    Mrhis.Cbmrprimflag      := Mi.Sbpriflag; --  åˆæ”¶è¡¨æ ‡å¿—
+    Mrhis.Cbmrlb            := Mi.Sblb; -- æ°´è¡¨ç±»åˆ«
+    Mrhis.Cbmrnewflag       := Mi.Sbnewflag; -- æ–°è¡¨æ ‡å¿—
+    Mrhis.Cbmrface2         := NULL; --æŠ„è§æ•…éšœ
+    Mrhis.Cbmrface3         := NULL; --éå¸¸è®¡é‡
+    Mrhis.Cbmrface4         := NULL; --è¡¨äº•è®¾æ–½è¯´æ˜
   
-    Mrhis.Cbmrprivilegeflag := 'N'; --ÌØÈ¨±êÖ¾(Y/N)
-    Mrhis.Cbmrprivilegeper  := NULL; --ÌØÈ¨²Ù×÷ÈË
-    Mrhis.Cbmrprivilegememo := NULL; --ÌØÈ¨²Ù×÷±¸×¢
-    Mrhis.Area_No           := Mi.Area_No; --¹ÜÀíÇøÓò
-    Mrhis.Cbmriftrans       := 'N'; --×ªµ¥±êÖ¾
-    Mrhis.Cbmrrequisition   := 0; --Í¨Öªµ¥´òÓ¡´ÎÊı
-    Mrhis.Cbmrifchk         := Mi.Sbifchk; --¿¼ºË±í±êÖ¾
-    Mrhis.Cbmrinputper      := NULL; --ÈëÕËÈËÔ±
-    Mrhis.Price_No          := Mi.Price_No; --ÓÃË®Àà±ğ
-    --mrHIS.cbmrcaliber       := md.mdcaliber;--¿Ú¾¶
-    Mrhis.Cbmrside  := Mi.Sbside; --±íÎ»
-    Mrhis.Cbmrmtype := Mi.Sbtype; --±íĞÍ
+    Mrhis.Cbmrprivilegeflag := 'N'; --ç‰¹æƒæ ‡å¿—(Y/N)
+    Mrhis.Cbmrprivilegeper  := NULL; --ç‰¹æƒæ“ä½œäºº
+    Mrhis.Cbmrprivilegememo := NULL; --ç‰¹æƒæ“ä½œå¤‡æ³¨
+    Mrhis.Area_No           := Mi.Area_No; --ç®¡ç†åŒºåŸŸ
+    Mrhis.Cbmriftrans       := 'N'; --è½¬å•æ ‡å¿—
+    Mrhis.Cbmrrequisition   := 0; --é€šçŸ¥å•æ‰“å°æ¬¡æ•°
+    Mrhis.Cbmrifchk         := Mi.Sbifchk; --è€ƒæ ¸è¡¨æ ‡å¿—
+    Mrhis.Cbmrinputper      := NULL; --å…¥è´¦äººå‘˜
+    Mrhis.Price_No          := Mi.Price_No; --ç”¨æ°´ç±»åˆ«
+    --mrHIS.cbmrcaliber       := md.mdcaliber;--å£å¾„
+    Mrhis.Cbmrside  := Mi.Sbside; --è¡¨ä½
+    Mrhis.Cbmrmtype := Mi.Sbtype; --è¡¨å‹
   
-    Mrhis.Cbmrplansl   := 0; --¼Æ»®Ë®Á¿
-    Mrhis.Cbmrplanje01 := 0; --¼Æ»®Ë®·Ñ
-    Mrhis.Cbmrplanje02 := 0; --¼Æ»®ÎÛË®´¦Àí·Ñ
-    Mrhis.Cbmrplanje03 := 0; --¼Æ»®Ë®×ÊÔ´·Ñ
+    Mrhis.Cbmrplansl   := 0; --è®¡åˆ’æ°´é‡
+    Mrhis.Cbmrplanje01 := 0; --è®¡åˆ’æ°´è´¹
+    Mrhis.Cbmrplanje02 := 0; --è®¡åˆ’æ±¡æ°´å¤„ç†è´¹
+    Mrhis.Cbmrplanje03 := 0; --è®¡åˆ’æ°´èµ„æºè´¹
     INSERT INTO Ys_Cb_Mtreadhis VALUES Mrhis;
   END;
 
-  --µ÷Õû¼õÃâ
- --Ó¦ÊÕµ÷Õû£¨°üº¬Ó¦ÊÕ³åÕı¡¢µ÷¸ß¡¢µ÷µÍ¡¢µ÷²î¼Û£©
-  procedure RecAdjust(p_billno in varchar2, --µ¥¾İ±àºÅ
-                      p_per    in varchar2, --Íê½áÈË
-                      p_memo   in varchar2, --±¸×¢
-                      p_commit in varchar --ÊÇ·ñÌá½»±êÖ¾
+  --è°ƒæ•´å‡å…
+ --åº”æ”¶è°ƒæ•´ï¼ˆåŒ…å«åº”æ”¶å†²æ­£ã€è°ƒé«˜ã€è°ƒä½ã€è°ƒå·®ä»·ï¼‰
+  procedure RecAdjust(p_billno in varchar2, --å•æ®ç¼–å·
+                      p_per    in varchar2, --å®Œç»“äºº
+                      p_memo   in varchar2, --å¤‡æ³¨
+                      p_commit in varchar --æ˜¯å¦æäº¤æ ‡å¿—
                      ) as
     cursor c_rah is
     select * from YS_GD_ARADJUSTHD
@@ -535,32 +535,32 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     --
     vrd  parm_append1rd:=parm_append1rd(null,null,null,null,null,null,null,null,null,null);
     vrds parm_append1rd_tab:= parm_append1rd_tab();
-    vsumraddje number:=0;--ÔÙ´ÎĞ£Ñéµ¥Í·µ¥Ìå½ğ¶îÏà·û£¬ºÜÖØÒª
+    vsumraddje number:=0;--å†æ¬¡æ ¡éªŒå•å¤´å•ä½“é‡‘é¢ç›¸ç¬¦ï¼Œå¾ˆé‡è¦
   BEGIN
-    --µ¥¾İ×´Ì¬Ğ£Ñé
-    --¼ì²éµ¥ÊÇ·ñÒÑÍê½á
+    --å•æ®çŠ¶æ€æ ¡éªŒ
+    --æ£€æŸ¥å•æ˜¯å¦å·²å®Œç»“
     open c_rah;
     fetch c_rah into rah;
     if c_rah%notfound or c_rah%notfound is null then
-      raise_application_error(errcode, 'µ¥¾İ²»´æÔÚ');
+      raise_application_error(errcode, 'å•æ®ä¸å­˜åœ¨');
     end if;
     if rah.CHECK_FLAG = 'Y' then
-      raise_application_error(errcode, 'µ¥¾İÒÑÉóºË');
+      raise_application_error(errcode, 'å•æ®å·²å®¡æ ¸');
     end if;
     if rah.CHECK_FLAG = 'Q' then
-      raise_application_error(errcode, 'µ¥¾İÒÑÈ¡Ïû');
+      raise_application_error(errcode, 'å•æ®å·²å–æ¶ˆ');
     end if;
 
     open c_rad;
     fetch c_rad into rad;
     if c_rad%notfound or c_rad%notfound is null then
-      raise_application_error(errcode,'µ¥¾İÖĞ²»´æÔÚÑ¡ÖĞµÄµ÷Õû¼ÇÂ¼');
+      raise_application_error(errcode,'å•æ®ä¸­ä¸å­˜åœ¨é€‰ä¸­çš„è°ƒæ•´è®°å½•');
     end if;
     while c_rad%found loop
       open c_rlsource(rad.REC_ID);
       fetch c_rlsource into rlsource;
       if c_rlsource%notfound or c_rlsource%notfound is null then
-        raise_application_error(errcode, '´ıµ÷ÕûÓ¦ÊÕÕÊÎñ²»´æÔÚ£¬»òÒÑÏú¡¢ÒÑµ÷¡¢»®ÕË´¦Àí¡¢´úÊÕ´ú¿ÛÔÚÍ¾µÈÔ­Òò£¡');
+        raise_application_error(errcode, 'å¾…è°ƒæ•´åº”æ”¶å¸åŠ¡ä¸å­˜åœ¨ï¼Œæˆ–å·²é”€ã€å·²è°ƒã€åˆ’è´¦å¤„ç†ã€ä»£æ”¶ä»£æ‰£åœ¨é€”ç­‰åŸå› ï¼');
       end if;
       close c_rlsource;
       -------------------------------------------------
@@ -574,12 +574,12 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
         vrd.HIRE_CODE  := radd.HIRE_CODE;
         vrd.ardpmdid  := radd.GROUP_NO;
         vrd.ardpfid   := radd.PRICE_NO;
-        vrd.ardpscid  := radd.ardpscid; --·ÑÂÊÃ÷Ï¸·½°¸
+        vrd.ardpscid  := radd.ardpscid; --è´¹ç‡æ˜ç»†æ–¹æ¡ˆ
         vrd.ardpiid   := radd.PRICE_ITEM;
         vrd.ardclass  := radd.STEP_CLASS;
         vrd.arddj     := radd.ADJUST_PRICE;
-       /* vrd.rdsl     := case when rah.rahmemo='¼õÃâ' then radd.raddyssl
-                             when rah.rahmemo='µ÷Õû' then radd.raddsl
+       /* vrd.rdsl     := case when rah.rahmemo='å‡å…' then radd.raddyssl
+                             when rah.rahmemo='è°ƒæ•´' then radd.raddsl
                              else radd.raddsl end;*/
         vrd.ardsl     :=radd.ADJUST_WATER;
         vrd.ardje     := radd.ADJUST_PRICE;
@@ -593,7 +593,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
       end loop;
       close c_raddall;
       if vsumraddje<>rad.CHARGE_AMT then
-         raise_application_error(errcode, 'µ¥¾İ'||rad.REC_ID||'Êı¾İ´íÎó£¬µ÷Õûºó½ğ¶î'||vsumraddje||'Óëµ¥ÌåÃ÷Ï¸ºÏ¼Æ'||rad.CHARGE_AMT||'²»·û');
+         raise_application_error(errcode, 'å•æ®'||rad.REC_ID||'æ•°æ®é”™è¯¯ï¼Œè°ƒæ•´åé‡‘é¢'||vsumraddje||'ä¸å•ä½“æ˜ç»†åˆè®¡'||rad.CHARGE_AMT||'ä¸ç¬¦');
       end if;
       -------------------------------------------------
        pg_paid.RecAdjust(p_rlmid => rad.USER_NO,
@@ -609,11 +609,11 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
                        p_rlmemo => rah.ADJ_MEMO,
                        p_rlid_source => rad.REC_ID,
                        p_parm_append1rds => vrds,
-                       p_commit => pg_pay.²»Ìá½»,
+                       p_commit => pg_pay.ä¸æäº¤,
                        p_ctl_mircode => case when rah.NCODE_FLAG='Y' then rah.NEXT_CODE else null end,
                        o_rlid_reverse => rad.REC_ID_CR,
                        o_rlid => rad.REC_ID_de);
-      ----·´À¡µ¥Ìå
+      ----åé¦ˆå•ä½“
       update YS_GD_ARADJUSTDT
          set REC_ID_CR = rad.REC_ID_CR,
              REC_ID_de = rad.REC_ID_de
@@ -622,7 +622,7 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     end loop;
     close c_rad;
 
-    --ÉóºËµ¥Í·
+    --å®¡æ ¸å•å¤´
     UPDATE YS_GD_ARADJUSTHD
        SET CHECK_DATE = CURRENTDATE, CHECK_PER = P_PER, CHECK_FLAG = 'Y'
      WHERE CURRENT OF c_rah;
@@ -648,13 +648,13 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     raise_application_error(errcode, sqlerrm);
   END RecAdjust;
    
-  --ÊµÊÕ³åÕı
+  --å®æ”¶å†²æ­£
   PROCEDURE Sp_Paidbak(p_No IN VARCHAR2, p_Per IN VARCHAR2) IS
     Ls_Retstr VARCHAR2(100);
-    --µ¥Í·
+    --å•å¤´
     CURSOR c_Hd IS
       SELECT * FROM YS_GD_PAIDADJUSTHD WHERE BILL_ID = p_No FOR UPDATE;
-    --µ¥Ìå
+    --å•ä½“
     CURSOR c_Dt IS
       SELECT *
         FROM YS_GD_PAIDADJUSTDT
@@ -669,18 +669,18 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     OPEN c_Hd;
     FETCH c_Hd
       INTO v_Hd;
-    /*¼ì²é´¦Àí*/
+    /*æ£€æŸ¥å¤„ç†*/
     IF c_Hd%ROWCOUNT = 0 THEN
       Raise_Application_Error(Errcode,
-                              'µ¥¾İ²»´æÔÚ,¿ÉÄÜÒÑ¾­ÓÉÆäËû²Ù×÷Ô±²Ù×÷£¡');
+                              'å•æ®ä¸å­˜åœ¨,å¯èƒ½å·²ç»ç”±å…¶ä»–æ“ä½œå‘˜æ“ä½œï¼');
     END IF;
     IF v_Hd.CHECK_FLAG = 'Y' THEN
-      Raise_Application_Error(Errcode, 'µ¥¾İÒÑ¾­ÉóºË£¡');
+      Raise_Application_Error(Errcode, 'å•æ®å·²ç»å®¡æ ¸ï¼');
     END IF;
     IF v_Hd.CHECK_FLAG = 'Q' THEN
-      Raise_Application_Error(Errcode, 'µ¥¾İÒÑÈ¡Ïû£¡');
+      Raise_Application_Error(Errcode, 'å•æ®å·²å–æ¶ˆï¼');
     END IF;
-    /*´¦Àíµ¥Ìå*/
+    /*å¤„ç†å•ä½“*/
     OPEN c_Dt;
     LOOP
       FETCH c_Dt
@@ -689,8 +689,8 @@ CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
     
       IF v_Dt.PAID_TRANS = 'H'  THEN
         Raise_Application_Error(Errcode,
-                                '½É·ÑÅú´ÎºÅ' || v_Dt.PAID_BATCH ||
-                                '»ù½¨µ÷²¦ÊµÊ©Ç°½É·Ñ,ÔİÊ±²»ÄÜ³åÕı!');
+                                'ç¼´è´¹æ‰¹æ¬¡å·' || v_Dt.PAID_BATCH ||
+                                'åŸºå»ºè°ƒæ‹¨å®æ–½å‰ç¼´è´¹,æš‚æ—¶ä¸èƒ½å†²æ­£!');
       END IF;
        
       --end!!!

@@ -1,4 +1,4 @@
-create table ACT_ID_MEMBERSHIP
+﻿create table ACT_ID_MEMBERSHIP
 (
   user_id_  VARCHAR2(64),
   group_id_ VARCHAR2(64)

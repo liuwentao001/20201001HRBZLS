@@ -1,26 +1,26 @@
-CREATE OR REPLACE PACKAGE pg_meter_cost is
-  /*ÕËÎñµÄ£º
+ï»¿CREATE OR REPLACE PACKAGE pg_meter_cost is
+  /*è´¦åŠ¡çš„ï¼š
    ys_zw_ardetail
    ys_zw_arlist
 
-  »ù±¾×ÊÁÏ£º
+  åŸºæœ¬èµ„æ–™ï¼š
    ys_yh_sbdoc
    ys_yh_sbinfo
    ys_yh_pricegroup
    ys_yh_custinfo
    ys_yh_account
 
-  Ë®¼Û£º
+  æ°´ä»·ï¼š
    bas_price_name
    bas_price_detail
    bas_price_step
 
-  ³­±í£º
+  æŠ„è¡¨ï¼š
    ys_cb_mtread*/
 
-  ²»Ìá½» CONSTANT NUMBER := 0;
-  Ìá½»   CONSTANT NUMBER := 1;
-  µ÷ÊÔ   CONSTANT NUMBER := 2;
+  ä¸æäº¤ CONSTANT NUMBER := 0;
+  æäº¤   CONSTANT NUMBER := 1;
+  è°ƒè¯•   CONSTANT NUMBER := 2;
   PROCEDURE PTEST(P_TXT IN VARCHAR2);
 end;
 /

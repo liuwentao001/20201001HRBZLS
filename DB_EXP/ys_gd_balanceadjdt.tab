@@ -1,4 +1,4 @@
-create table YS_GD_BALANCEADJDT
+ï»¿create table YS_GD_BALANCEADJDT
 (
   id               VARCHAR2(32),
   hire_code        VARCHAR2(32),
@@ -19,37 +19,37 @@ create table YS_GD_BALANCEADJDT
 )
 ;
 comment on table YS_GD_BALANCEADJDT
-  is 'Óà¶îµ÷Õûµ¥Ìå';
+  is 'ä½™é¢è°ƒæ•´å•ä½“';
 comment on column YS_GD_BALANCEADJDT.id
-  is 'Ö÷¼üID';
+  is 'ä¸»é”®ID';
 comment on column YS_GD_BALANCEADJDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_BALANCEADJDT.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ(Óëµ¥Í·±íµÄbill_id¹ØÁª)';
+  is 'å•æ®æµæ°´å·(ä¸å•å¤´è¡¨çš„bill_idå…³è”)';
 comment on column YS_GD_BALANCEADJDT.yhid
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_BALANCEADJDT.adjust_memo
-  is 'µ÷ÕûÔ­Òò';
+  is 'è°ƒæ•´åŸå› ';
 comment on column YS_GD_BALANCEADJDT.balance
-  is 'Óà¶î';
+  is 'ä½™é¢';
 comment on column YS_GD_BALANCEADJDT.adjust_balance
-  is 'µ÷Õû½ğ¶î';
+  is 'è°ƒæ•´é‡‘é¢';
 comment on column YS_GD_BALANCEADJDT.change_type
-  is '×ª´æÀà±ğ';
+  is 'è½¬å­˜ç±»åˆ«';
 comment on column YS_GD_BALANCEADJDT.toyhid
-  is '×ªÈëÓÃ»§';
+  is 'è½¬å…¥ç”¨æˆ·';
 comment on column YS_GD_BALANCEADJDT.early_balance
-  is 'ÆÚ³õÔ¤´æÓà¶î';
+  is 'æœŸåˆé¢„å­˜ä½™é¢';
 comment on column YS_GD_BALANCEADJDT.end_balance
-  is 'ÆÚÄ©Ô¤´æÓà¶î';
+  is 'æœŸæœ«é¢„å­˜ä½™é¢';
 comment on column YS_GD_BALANCEADJDT.early_balancechk
-  is 'ÉóºËÆÚ³õÔ¤´æÓà¶î';
+  is 'å®¡æ ¸æœŸåˆé¢„å­˜ä½™é¢';
 comment on column YS_GD_BALANCEADJDT.end_balancechk
-  is 'ÉóºËÆÚÄ©Ô¤´æÓà¶î';
+  is 'å®¡æ ¸æœŸæœ«é¢„å­˜ä½™é¢';
 comment on column YS_GD_BALANCEADJDT.remarks
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_GD_BALANCEADJDT.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_BALANCEADJDT.fail_reason
-  is 'ÉóºËÊ§°ÜÔ­Òò';
+  is 'å®¡æ ¸å¤±è´¥åŸå› ';
 

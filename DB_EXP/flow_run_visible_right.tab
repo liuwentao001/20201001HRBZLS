@@ -1,4 +1,4 @@
-create table FLOW_RUN_VISIBLE_RIGHT
+﻿create table FLOW_RUN_VISIBLE_RIGHT
 (
   id          VARCHAR2(32),
   flow_id     VARCHAR2(32),

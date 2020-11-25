@@ -1,207 +1,207 @@
-CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
+ï»¿CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
 
-  PROCEDURE Createhd(p_Dshno     IN VARCHAR2, --µ¥¾İÁ÷Ë®ºÅ
-                     p_Dshlb     IN VARCHAR2, --µ¥¾İÀà±ğ
-                     p_Dshsmfid  IN VARCHAR2, --ÓªÏú¹«Ë¾
-                     p_Dshdept   IN VARCHAR2, --ÊÜÀí²¿ÃÅ
-                     p_Dshcreper IN VARCHAR2 --ÊÜÀíÈËÔ±
+  PROCEDURE Createhd(p_Dshno     IN VARCHAR2, --å•æ®æµæ°´å·
+                     p_Dshlb     IN VARCHAR2, --å•æ®ç±»åˆ«
+                     p_Dshsmfid  IN VARCHAR2, --è¥é”€å…¬å¸
+                     p_Dshdept   IN VARCHAR2, --å—ç†éƒ¨é—¨
+                     p_Dshcreper IN VARCHAR2 --å—ç†äººå‘˜
                      ) IS
     Dbh Ys_Gd_Zwdhzd%ROWTYPE;
   BEGIN
-    --¸³Öµ µ¥Í·
+    --èµ‹å€¼ å•å¤´
     Dbh.Id          := Uuid();
     Dbh.Hire_Code   := f_Get_Hire_Code();
-    Dbh.Bill_Id     := p_Dshno; --µ¥¾İÁ÷Ë®ºÅ
-    Dbh.Bill_No     := p_Dshno; --µ¥¾İ±àºÅ
-    Dbh.Bill_Type   := p_Dshlb; --µ¥¾İÀà±ğ
-    Dbh.Bill_Source := '1'; --µ¥¾İÀ´Ô´
-    Dbh.Manage_No   := p_Dshsmfid; --ÓªÏú¹«Ë¾
-    Dbh.New_Dept    := p_Dshdept; --ÊÜÀí²¿ÃÅ
-    Dbh.Add_Date    := SYSDATE; --ÊÜÀíÈÕÆÚ
-    Dbh.Add_Per     := p_Dshcreper; --ÊÜÀíÈËÔ±
-    Dbh.Check_Date  := NULL; --ÉóºËÈÕÆÚ
-    Dbh.Check_Per   := NULL; --ÉóºËÈËÔ±
-    Dbh.Check_Flag  := 'N'; --ÉóºË±êÖ¾
+    Dbh.Bill_Id     := p_Dshno; --å•æ®æµæ°´å·
+    Dbh.Bill_No     := p_Dshno; --å•æ®ç¼–å·
+    Dbh.Bill_Type   := p_Dshlb; --å•æ®ç±»åˆ«
+    Dbh.Bill_Source := '1'; --å•æ®æ¥æº
+    Dbh.Manage_No   := p_Dshsmfid; --è¥é”€å…¬å¸
+    Dbh.New_Dept    := p_Dshdept; --å—ç†éƒ¨é—¨
+    Dbh.Add_Date    := SYSDATE; --å—ç†æ—¥æœŸ
+    Dbh.Add_Per     := p_Dshcreper; --å—ç†äººå‘˜
+    Dbh.Check_Date  := NULL; --å®¡æ ¸æ—¥æœŸ
+    Dbh.Check_Per   := NULL; --å®¡æ ¸äººå‘˜
+    Dbh.Check_Flag  := 'N'; --å®¡æ ¸æ ‡å¿—
     INSERT INTO Ys_Gd_Zwdhzd VALUES Dbh;
   
   END Createhd;
 
-  PROCEDURE Createdt(p_Dsdno    IN VARCHAR2, --µ¥¾İÁ÷Ë®ºÅ
-                     p_Dsdrowno IN VARCHAR2, --ĞĞºÅ
-                     p_Arid     IN VARCHAR2 --Ó¦ÊÕÁ÷Ë®
+  PROCEDURE Createdt(p_Dsdno    IN VARCHAR2, --å•æ®æµæ°´å·
+                     p_Dsdrowno IN VARCHAR2, --è¡Œå·
+                     p_Arid     IN VARCHAR2 --åº”æ”¶æµæ°´
                      ) IS
     Dbt Ys_Gd_Zwdhzdt%ROWTYPE;
     Ar  Ys_Zw_Arlist%ROWTYPE;
   BEGIN
-    --²éÑ¯ÕËÎñĞÅÏ¢
+    --æŸ¥è¯¢è´¦åŠ¡ä¿¡æ¯
     SELECT * INTO Ar FROM Ys_Zw_Arlist WHERE Arid = p_Arid;
-    --¸³Öµ µ¥Ìå      
-    Dbt.Bill_Id   := p_Dsdno; --µ¥¾İÁ÷Ë®ºÅ
-    Dbt.Dhzrowno  := p_Dsdrowno; --ĞĞºÅ
+    --èµ‹å€¼ å•ä½“      
+    Dbt.Bill_Id   := p_Dsdno; --å•æ®æµæ°´å·
+    Dbt.Dhzrowno  := p_Dsdrowno; --è¡Œå·
     Dbt.Hire_Code := Ar.Hire_Code; --
-    Dbt.Arid      := Ar.Arid; --Á÷Ë®ºÅ
-    Dbt.Manage_No := Ar.Manage_No; --ÓªÏú¹«Ë¾
-    Dbt.Armonth   := Ar.Armonth; --ÕÊÎñÔÂ·İ
-    Dbt.Ardate    := Ar.Ardate; --ÕÊÎñÈÕÆÚ
-    Dbt.Yhid      := Ar.Yhid; --ÓÃ»§±àºÅ
-    Dbt.Sbid      := Ar.Sbid; --Ë®±í±àºÅ
-    /* DBT.RLMSMFID        := Ar.RLMSMFID; --Ë®±í¹«Ë¾
-    DBT.RLCSMFID        := Ar.RLCSMFID; --ÓÃ»§¹«Ë¾
-    DBT.RLCCODE         := Ar.RLCCODE; --×ÊÁÏºÅ*/
-    Dbt.Archargeper     := Ar.Archargeper; --ÊÕ·ÑÔ±
-    Dbt.Arcpid          := Ar.Arcpid; --ÉÏ¼¶ÓÃ»§±àºÅ
-    Dbt.Arcclass        := Ar.Arcclass; --ÓÃ»§¼¶´Î
-    Dbt.Arcflag         := Ar.Arcflag; --Ä©¼¶±êÖ¾
-    Dbt.Arusenum        := Ar.Arusenum; --»§ÓÃË®ÈËÊı
-    Dbt.Arcname         := Ar.Arcname; --ÓÃ»§Ãû³Æ
-    Dbt.Arcadr          := Ar.Arcadr; --ÓÃ»§µØÖ·
-    Dbt.Armadr          := Ar.Armadr; --Ë®±íµØÖ·
-    Dbt.Arcstatus       := Ar.Arcstatus; --ÓÃ»§×´Ì¬
-    Dbt.Armtel          := Ar.Armtel; --ÒÆ¶¯µç»°
-    Dbt.Artel           := Ar.Artel; --¹Ì¶¨µç»°
-    Dbt.Arbankid        := Ar.Arbankid; --´ú¿ÛÒøĞĞ
-    Dbt.Artsbankid      := Ar.Artsbankid; --ÍĞÊÕÒøĞĞ
-    Dbt.Araccountno     := Ar.Araccountno; --¿ª»§ÕÊºÅ
-    Dbt.Araccountname   := Ar.Araccountname; --¿ª»§Ãû³Æ
-    Dbt.Ariftax         := Ar.Ariftax; --ÊÇ·ñË°Æ±
-    Dbt.Artaxno         := Ar.Artaxno; --ÔöÖ³Ë°ºÅ
-    Dbt.Arifinv         := Ar.Arifinv; --ÊÇ·ñÆÕÆ±
-    Dbt.Armcode         := Ar.Armcode; --Ë®±íÊÖ¹¤±àºÅ
-    Dbt.Armpid          := Ar.Armpid; --ÉÏ¼¶Ë®±í
-    Dbt.Armclass        := Ar.Armclass; --Ë®±í¼¶´Î
-    Dbt.Armflag         := Ar.Armflag; --Ä©¼¶±êÖ¾
-    Dbt.Armsfid         := Ar.Armsfid; --Ë®±íÀà±ğ
-    Dbt.Arday           := Ar.Arday; --³­±íÈÕ
-    Dbt.Arbfid          := Ar.Arbfid; --±í²á
-    Dbt.Arprdate        := Ar.Arprdate; --ÉÏ´Î³­±íÈÕÆÚ
-    Dbt.Arrdate         := Ar.Arrdate; --±¾´Î³­±íÈÕÆÚ
-    Dbt.Arzndate        := Ar.Arzndate; --Î¥Ô¼½ğÆğËãÈÕ
-    Dbt.Arcaliber       := Ar.Arcaliber; --±í¿Ú¾¶
-    Dbt.Arrtid          := Ar.Arrtid; --³­±í·½Ê½
-    Dbt.Armstatus       := Ar.Armstatus; --×´Ì¬
-    Dbt.Armtype         := Ar.Armtype; --ÀàĞÍ
-    Dbt.Armno           := Ar.Armno; --±íÉíÂë
-    Dbt.Arscode         := Ar.Arscode; --ÆğÊı
-    Dbt.Arecode         := Ar.Arecode; --Ö¹Êı
-    Dbt.Arreadsl        := Ar.Arreadsl; --³­¼ûË®Á¿
-    Dbt.Arinvmemo       := Ar.Arinvmemo; --·¢Æ±±¸×¢
-    Dbt.Arentrustbatch  := Ar.Arentrustbatch; --ÍĞÊÕ´ú¿ÛÅúºÅ
-    Dbt.Arentrustseqno  := Ar.Arentrustseqno; --ÍĞÊÕ´ú¿ÛÁ÷Ë®ºÅ
-    Dbt.Aroutflag       := Ar.Aroutflag; --·¢³ö±êÖ¾
-    Dbt.Artrans         := Ar.Artrans; --Ó¦ÊÕÊÂÎñ
-    Dbt.Arcd            := Ar.Arcd; --½è´û·½Ïò
-    Dbt.Aryschargetype  := Ar.Aryschargetype; --Ó¦ÊÕ·½Ê½
-    Dbt.Arsl            := Ar.Arsl; --Ó¦ÊÕË®Á¿
-    Dbt.Arje            := Ar.Arje; --Ó¦ÊÕ½ğ¶î
-    Dbt.Araddsl         := Ar.Araddsl; --¼Óµ÷Ë®Á¿
-    Dbt.Arscrarid       := Ar.Arscrarid; --Ô­Ó¦ÊÕÕÊÁ÷Ë®
-    Dbt.Arscrartrans    := Ar.Arscrartrans; --Ô­Ó¦ÊÕÕÊÊÂÎñ
-    Dbt.Arscrarmonth    := Ar.Arscrarmonth; --Ô­Ó¦ÊÕÕÊÔÂ·İ
-    Dbt.Arpaidje        := Ar.Arpaidje; --ÏúÕÊ½ğ¶î
-    Dbt.Arpaidflag      := Ar.Arpaidflag; --ÏúÕÊ±êÖ¾(Y:Y£¬N:N£¬X:X£¬V:Y/N£¬T:Y/X£¬K:N/X£¬W:Y/N/X)
-    Dbt.Arpaidper       := Ar.Arpaidper; --ÏúÕÊÈËÔ±
-    Dbt.Arpaiddate      := Ar.Arpaiddate; --ÏúÕÊÈÕÆÚ
-    Dbt.Armrid          := Ar.Armrid; --³­±íÁ÷Ë®
-    Dbt.Armemo          := Ar.Armemo; --±¸×¢
-    Dbt.Arznj           := Ar.Arznj; --Î¥Ô¼½ğ
-    Dbt.Arlb            := Ar.Arlb; --Àà±ğ
-    Dbt.Arcname2        := Ar.Arcname2; --ÔøÓÃÃû
-    Dbt.Arpfid          := Ar.Arpfid; --Ö÷¼Û¸ñÀà±ğ
-    Dbt.Ardatetime      := Ar.Ardatetime; --·¢ÉúÈÕÆÚ
-    Dbt.Arscrardate     := Ar.Arscrardate; --Ô­ÕÊÎñÈÕÆÚ
-    Dbt.Arprimcode      := Ar.Arprimcode; --ºÏÊÕ±íÖ÷±íºÅ
-    Dbt.Arpriflag       := Ar.Arpriflag; --ºÏÊÕ±í±êÖ¾
-    Dbt.Arrper          := Ar.Arrper; --³­±íÔ±
-    Dbt.Arsafid         := Ar.Arsafid; --ÇøÓò
-    Dbt.Arscodechar     := Ar.Arscodechar; --ÉÏÆÚ³­±í£¨´ø±íÎ»£©
-    Dbt.Arecodechar     := Ar.Arecodechar; --±¾ÆÚ³­±í£¨´ø±íÎ»£©
-    Dbt.Arilid          := Ar.Arilid; --·¢Æ±Á÷Ë®ºÅ
-    Dbt.Armiuiid        := Ar.Armiuiid; --ºÏÊÕµ¥Î»±àºÅ
-    Dbt.Argroup         := Ar.Argroup; --Ó¦ÊÕÕÊ·Ö×é
-    Dbt.Arpid           := Ar.Arpid; --ÊµÊÕÁ÷Ë®£¨ÓëPAYMENT.PID¶ÔÓ¦£©
-    Dbt.Arpbatch        := Ar.Arpbatch; --½É·Ñ½»Ò×Åú´Î£¨ÓëPAYMENT.PBATCH¶ÔÓ¦£©
-    Dbt.Arsavingqc      := Ar.Arsavingqc; --ÆÚ³õÔ¤´æ£¨ÏúÕÊÊ±²úÉú£©
-    Dbt.Arsavingbq      := Ar.Arsavingbq; --±¾ÆÚÔ¤´æ·¢Éú£¨ÏúÕÊÊ±²úÉú£©
-    Dbt.Arsavingqm      := Ar.Arsavingqm; --ÆÚÄ©Ô¤´æ£¨ÏúÕÊÊ±²úÉú£©
-    Dbt.Arreverseflag   := Ar.Arreverseflag; --  ³åÕı±êÖ¾£¨NÎªÕı³££¬YÎª³åÕı£©
-    Dbt.Arbadflag       := 'O'; --´ôÕÊ±êÖ¾£¨Y :´ô»µÕÊ£¬O:´ô»µÕÊÉóÅúÖĞ£¬N:Õı³£ÕÊ£©  --·¢³öÊ±ĞŞ¸Ä±êÖ¾
-    Dbt.Arznjreducflag  := Ar.Arznjreducflag; --ÖÍÄÉ½ğ¼õÃâ±êÖ¾,Î´¼õÃâÊ±ÎªN£¬ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½Ó¼ÆËã£»¼õÃâºóÎªY,ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½ÓÈ¡ARZNJ
-    Dbt.Armistid        := Ar.Armistid; --ĞĞÒµ·ÖÀà
-    Dbt.Arminame        := Ar.Arminame; --Æ±¾İÃû³Æ
-    Dbt.Arsxf           := Ar.Arsxf; --ÊÖĞø·Ñ
-    Dbt.Armiface2       := Ar.Armiface2; --³­¼û¹ÊÕÏ
-    Dbt.Armiface3       := Ar.Armiface3; --·Ç³£¼ÆÁ¿
-    Dbt.Armiface4       := Ar.Armiface4; --±í¾®ÉèÊ©ËµÃ÷
-    Dbt.Armiifckf       := Ar.Armiifckf; --À¬»ø·Ñ»§Êı
-    Dbt.Armigps         := Ar.Armigps; --ÊÇ·ñºÏÆ±
-    Dbt.Armiqfh         := Ar.Armiqfh; --Ç¦·âºÅ
-    Dbt.Armibox         := Ar.Armibox; --Ïû·ÀË®¼Û£¨ÔöÖµË°Ë®¼Û£¬ÏåÑôĞèÇó£©
-    Dbt.Arminame2       := Ar.Arminame2; --ÕĞÅÆÃû³Æ(Ğ¡ÇøÃû£¬ÏåÑôĞèÇó£©
-    Dbt.Armiseqno       := Ar.Armiseqno; --»§ºÅ£¨³õÊ¼»¯Ê±²áºÅ+ĞòºÅ£©
-    Dbt.Armisaving      := Ar.Armisaving; --Ëã·ÑÊ±Ô¤´æ
-    Dbt.Arpriorje       := Ar.Arpriorje; --Ëã·ÑÖ®Ç°Ç··Ñ
-    Dbt.Armicommunity   := Ar.Armicommunity; --Ğ¡Çø
-    Dbt.Armiremoteno    := Ar.Armiremoteno; --Ô¶´«±íºÅ
-    Dbt.Armiremotehubno := Ar.Armiremotehubno; --Ô¶´«HUBºÅ
-    Dbt.Armiemail       := Ar.Armiemail; --µç×ÓÓÊ¼ş
-    Dbt.Armiemailflag   := Ar.Armiemailflag; --·¢Æ±Àà±ğ
-    Dbt.Armicolumn1     := Ar.Armicolumn1; --±¸ÓÃ×Ö¶Î1
-    Dbt.Armicolumn2     := Ar.Armicolumn2; --±¸ÓÃ×Ö¶Î2(Ô¤¿ªÆ±´òÓ¡Åú´Î)
-    Dbt.Armicolumn3     := Ar.Armicolumn3; --±¸ÓÃ×Ö¶Î3
-    Dbt.Armicolumn4     := Ar.Armicolumn4; --±¸ÓÃ×Ö¶Î3
-    Dbt.Arpaidmonth     := Ar.Arpaidmonth; --ÏúÕËÔÂ·İ
-    Dbt.Arcolumn5       := Ar.Arcolumn5; --ÉÏ´ÎÓ¦ÕÊÕÊÈÕÆÚ
-    Dbt.Arcolumn9       := Ar.Arcolumn9; --ÉÏ´ÎÓ¦ÊÕÕÊÁ÷Ë®
-    Dbt.Arcolumn10      := Ar.Arcolumn10; --ÉÏ´ÎÓ¦ÊÕÕÊÔÂ·İ
-    Dbt.Arcolumn11      := Ar.Arcolumn11; --ÉÏ´ÎÓ¦ÊÕÕÊÊÂÎñ
-    Dbt.Arjtmk          := Ar.Arjtmk; --²»¼Ç½×Ìİ×¢¼Ç
-    Dbt.Arjtsrq         := Ar.Arjtsrq; --±¾ÖÜÆÚ½×Ìİ¿ªÊ¼ÈÕÆÚ
-    Dbt.Arcolumn12      := Ar.Arcolumn12; --Äê¶ÈÀÛ¼ÆÁ¿
-    Dbt.Dhzappnote      := ''; --ÉêÇëËµÃ÷
-    Dbt.Dhzfilashnote   := ''; --Áìµ¼Òâ¼û
-    Dbt.Dhzmemo         := ''; --±¸×¢
-    Dbt.Dhzshflag       := 'N'; --ĞĞÉóºË±êÖ¾
-    Dbt.Dhzshdate       := ''; --ĞĞÉóºËÈÕÆÚ
-    Dbt.Dhzshper        := ''; --ĞĞÉóºËÈË
+    Dbt.Arid      := Ar.Arid; --æµæ°´å·
+    Dbt.Manage_No := Ar.Manage_No; --è¥é”€å…¬å¸
+    Dbt.Armonth   := Ar.Armonth; --å¸åŠ¡æœˆä»½
+    Dbt.Ardate    := Ar.Ardate; --å¸åŠ¡æ—¥æœŸ
+    Dbt.Yhid      := Ar.Yhid; --ç”¨æˆ·ç¼–å·
+    Dbt.Sbid      := Ar.Sbid; --æ°´è¡¨ç¼–å·
+    /* DBT.RLMSMFID        := Ar.RLMSMFID; --æ°´è¡¨å…¬å¸
+    DBT.RLCSMFID        := Ar.RLCSMFID; --ç”¨æˆ·å…¬å¸
+    DBT.RLCCODE         := Ar.RLCCODE; --èµ„æ–™å·*/
+    Dbt.Archargeper     := Ar.Archargeper; --æ”¶è´¹å‘˜
+    Dbt.Arcpid          := Ar.Arcpid; --ä¸Šçº§ç”¨æˆ·ç¼–å·
+    Dbt.Arcclass        := Ar.Arcclass; --ç”¨æˆ·çº§æ¬¡
+    Dbt.Arcflag         := Ar.Arcflag; --æœ«çº§æ ‡å¿—
+    Dbt.Arusenum        := Ar.Arusenum; --æˆ·ç”¨æ°´äººæ•°
+    Dbt.Arcname         := Ar.Arcname; --ç”¨æˆ·åç§°
+    Dbt.Arcadr          := Ar.Arcadr; --ç”¨æˆ·åœ°å€
+    Dbt.Armadr          := Ar.Armadr; --æ°´è¡¨åœ°å€
+    Dbt.Arcstatus       := Ar.Arcstatus; --ç”¨æˆ·çŠ¶æ€
+    Dbt.Armtel          := Ar.Armtel; --ç§»åŠ¨ç”µè¯
+    Dbt.Artel           := Ar.Artel; --å›ºå®šç”µè¯
+    Dbt.Arbankid        := Ar.Arbankid; --ä»£æ‰£é“¶è¡Œ
+    Dbt.Artsbankid      := Ar.Artsbankid; --æ‰˜æ”¶é“¶è¡Œ
+    Dbt.Araccountno     := Ar.Araccountno; --å¼€æˆ·å¸å·
+    Dbt.Araccountname   := Ar.Araccountname; --å¼€æˆ·åç§°
+    Dbt.Ariftax         := Ar.Ariftax; --æ˜¯å¦ç¨ç¥¨
+    Dbt.Artaxno         := Ar.Artaxno; --å¢æ®–ç¨å·
+    Dbt.Arifinv         := Ar.Arifinv; --æ˜¯å¦æ™®ç¥¨
+    Dbt.Armcode         := Ar.Armcode; --æ°´è¡¨æ‰‹å·¥ç¼–å·
+    Dbt.Armpid          := Ar.Armpid; --ä¸Šçº§æ°´è¡¨
+    Dbt.Armclass        := Ar.Armclass; --æ°´è¡¨çº§æ¬¡
+    Dbt.Armflag         := Ar.Armflag; --æœ«çº§æ ‡å¿—
+    Dbt.Armsfid         := Ar.Armsfid; --æ°´è¡¨ç±»åˆ«
+    Dbt.Arday           := Ar.Arday; --æŠ„è¡¨æ—¥
+    Dbt.Arbfid          := Ar.Arbfid; --è¡¨å†Œ
+    Dbt.Arprdate        := Ar.Arprdate; --ä¸Šæ¬¡æŠ„è¡¨æ—¥æœŸ
+    Dbt.Arrdate         := Ar.Arrdate; --æœ¬æ¬¡æŠ„è¡¨æ—¥æœŸ
+    Dbt.Arzndate        := Ar.Arzndate; --è¿çº¦é‡‘èµ·ç®—æ—¥
+    Dbt.Arcaliber       := Ar.Arcaliber; --è¡¨å£å¾„
+    Dbt.Arrtid          := Ar.Arrtid; --æŠ„è¡¨æ–¹å¼
+    Dbt.Armstatus       := Ar.Armstatus; --çŠ¶æ€
+    Dbt.Armtype         := Ar.Armtype; --ç±»å‹
+    Dbt.Armno           := Ar.Armno; --è¡¨èº«ç 
+    Dbt.Arscode         := Ar.Arscode; --èµ·æ•°
+    Dbt.Arecode         := Ar.Arecode; --æ­¢æ•°
+    Dbt.Arreadsl        := Ar.Arreadsl; --æŠ„è§æ°´é‡
+    Dbt.Arinvmemo       := Ar.Arinvmemo; --å‘ç¥¨å¤‡æ³¨
+    Dbt.Arentrustbatch  := Ar.Arentrustbatch; --æ‰˜æ”¶ä»£æ‰£æ‰¹å·
+    Dbt.Arentrustseqno  := Ar.Arentrustseqno; --æ‰˜æ”¶ä»£æ‰£æµæ°´å·
+    Dbt.Aroutflag       := Ar.Aroutflag; --å‘å‡ºæ ‡å¿—
+    Dbt.Artrans         := Ar.Artrans; --åº”æ”¶äº‹åŠ¡
+    Dbt.Arcd            := Ar.Arcd; --å€Ÿè´·æ–¹å‘
+    Dbt.Aryschargetype  := Ar.Aryschargetype; --åº”æ”¶æ–¹å¼
+    Dbt.Arsl            := Ar.Arsl; --åº”æ”¶æ°´é‡
+    Dbt.Arje            := Ar.Arje; --åº”æ”¶é‡‘é¢
+    Dbt.Araddsl         := Ar.Araddsl; --åŠ è°ƒæ°´é‡
+    Dbt.Arscrarid       := Ar.Arscrarid; --åŸåº”æ”¶å¸æµæ°´
+    Dbt.Arscrartrans    := Ar.Arscrartrans; --åŸåº”æ”¶å¸äº‹åŠ¡
+    Dbt.Arscrarmonth    := Ar.Arscrarmonth; --åŸåº”æ”¶å¸æœˆä»½
+    Dbt.Arpaidje        := Ar.Arpaidje; --é”€å¸é‡‘é¢
+    Dbt.Arpaidflag      := Ar.Arpaidflag; --é”€å¸æ ‡å¿—(Y:Yï¼ŒN:Nï¼ŒX:Xï¼ŒV:Y/Nï¼ŒT:Y/Xï¼ŒK:N/Xï¼ŒW:Y/N/X)
+    Dbt.Arpaidper       := Ar.Arpaidper; --é”€å¸äººå‘˜
+    Dbt.Arpaiddate      := Ar.Arpaiddate; --é”€å¸æ—¥æœŸ
+    Dbt.Armrid          := Ar.Armrid; --æŠ„è¡¨æµæ°´
+    Dbt.Armemo          := Ar.Armemo; --å¤‡æ³¨
+    Dbt.Arznj           := Ar.Arznj; --è¿çº¦é‡‘
+    Dbt.Arlb            := Ar.Arlb; --ç±»åˆ«
+    Dbt.Arcname2        := Ar.Arcname2; --æ›¾ç”¨å
+    Dbt.Arpfid          := Ar.Arpfid; --ä¸»ä»·æ ¼ç±»åˆ«
+    Dbt.Ardatetime      := Ar.Ardatetime; --å‘ç”Ÿæ—¥æœŸ
+    Dbt.Arscrardate     := Ar.Arscrardate; --åŸå¸åŠ¡æ—¥æœŸ
+    Dbt.Arprimcode      := Ar.Arprimcode; --åˆæ”¶è¡¨ä¸»è¡¨å·
+    Dbt.Arpriflag       := Ar.Arpriflag; --åˆæ”¶è¡¨æ ‡å¿—
+    Dbt.Arrper          := Ar.Arrper; --æŠ„è¡¨å‘˜
+    Dbt.Arsafid         := Ar.Arsafid; --åŒºåŸŸ
+    Dbt.Arscodechar     := Ar.Arscodechar; --ä¸ŠæœŸæŠ„è¡¨ï¼ˆå¸¦è¡¨ä½ï¼‰
+    Dbt.Arecodechar     := Ar.Arecodechar; --æœ¬æœŸæŠ„è¡¨ï¼ˆå¸¦è¡¨ä½ï¼‰
+    Dbt.Arilid          := Ar.Arilid; --å‘ç¥¨æµæ°´å·
+    Dbt.Armiuiid        := Ar.Armiuiid; --åˆæ”¶å•ä½ç¼–å·
+    Dbt.Argroup         := Ar.Argroup; --åº”æ”¶å¸åˆ†ç»„
+    Dbt.Arpid           := Ar.Arpid; --å®æ”¶æµæ°´ï¼ˆä¸PAYMENT.PIDå¯¹åº”ï¼‰
+    Dbt.Arpbatch        := Ar.Arpbatch; --ç¼´è´¹äº¤æ˜“æ‰¹æ¬¡ï¼ˆä¸PAYMENT.PBATCHå¯¹åº”ï¼‰
+    Dbt.Arsavingqc      := Ar.Arsavingqc; --æœŸåˆé¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+    Dbt.Arsavingbq      := Ar.Arsavingbq; --æœ¬æœŸé¢„å­˜å‘ç”Ÿï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+    Dbt.Arsavingqm      := Ar.Arsavingqm; --æœŸæœ«é¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+    Dbt.Arreverseflag   := Ar.Arreverseflag; --  å†²æ­£æ ‡å¿—ï¼ˆNä¸ºæ­£å¸¸ï¼ŒYä¸ºå†²æ­£ï¼‰
+    Dbt.Arbadflag       := 'O'; --å‘†å¸æ ‡å¿—ï¼ˆY :å‘†åå¸ï¼ŒO:å‘†åå¸å®¡æ‰¹ä¸­ï¼ŒN:æ­£å¸¸å¸ï¼‰  --å‘å‡ºæ—¶ä¿®æ”¹æ ‡å¿—
+    Dbt.Arznjreducflag  := Ar.Arznjreducflag; --æ»çº³é‡‘å‡å…æ ‡å¿—,æœªå‡å…æ—¶ä¸ºNï¼Œé”€å¸æ—¶æ»çº³é‡‘ç›´æ¥è®¡ç®—ï¼›å‡å…åä¸ºY,é”€å¸æ—¶æ»çº³é‡‘ç›´æ¥å–ARZNJ
+    Dbt.Armistid        := Ar.Armistid; --è¡Œä¸šåˆ†ç±»
+    Dbt.Arminame        := Ar.Arminame; --ç¥¨æ®åç§°
+    Dbt.Arsxf           := Ar.Arsxf; --æ‰‹ç»­è´¹
+    Dbt.Armiface2       := Ar.Armiface2; --æŠ„è§æ•…éšœ
+    Dbt.Armiface3       := Ar.Armiface3; --éå¸¸è®¡é‡
+    Dbt.Armiface4       := Ar.Armiface4; --è¡¨äº•è®¾æ–½è¯´æ˜
+    Dbt.Armiifckf       := Ar.Armiifckf; --åƒåœ¾è´¹æˆ·æ•°
+    Dbt.Armigps         := Ar.Armigps; --æ˜¯å¦åˆç¥¨
+    Dbt.Armiqfh         := Ar.Armiqfh; --é“…å°å·
+    Dbt.Armibox         := Ar.Armibox; --æ¶ˆé˜²æ°´ä»·ï¼ˆå¢å€¼ç¨æ°´ä»·ï¼Œè¥„é˜³éœ€æ±‚ï¼‰
+    Dbt.Arminame2       := Ar.Arminame2; --æ‹›ç‰Œåç§°(å°åŒºåï¼Œè¥„é˜³éœ€æ±‚ï¼‰
+    Dbt.Armiseqno       := Ar.Armiseqno; --æˆ·å·ï¼ˆåˆå§‹åŒ–æ—¶å†Œå·+åºå·ï¼‰
+    Dbt.Armisaving      := Ar.Armisaving; --ç®—è´¹æ—¶é¢„å­˜
+    Dbt.Arpriorje       := Ar.Arpriorje; --ç®—è´¹ä¹‹å‰æ¬ è´¹
+    Dbt.Armicommunity   := Ar.Armicommunity; --å°åŒº
+    Dbt.Armiremoteno    := Ar.Armiremoteno; --è¿œä¼ è¡¨å·
+    Dbt.Armiremotehubno := Ar.Armiremotehubno; --è¿œä¼ HUBå·
+    Dbt.Armiemail       := Ar.Armiemail; --ç”µå­é‚®ä»¶
+    Dbt.Armiemailflag   := Ar.Armiemailflag; --å‘ç¥¨ç±»åˆ«
+    Dbt.Armicolumn1     := Ar.Armicolumn1; --å¤‡ç”¨å­—æ®µ1
+    Dbt.Armicolumn2     := Ar.Armicolumn2; --å¤‡ç”¨å­—æ®µ2(é¢„å¼€ç¥¨æ‰“å°æ‰¹æ¬¡)
+    Dbt.Armicolumn3     := Ar.Armicolumn3; --å¤‡ç”¨å­—æ®µ3
+    Dbt.Armicolumn4     := Ar.Armicolumn4; --å¤‡ç”¨å­—æ®µ3
+    Dbt.Arpaidmonth     := Ar.Arpaidmonth; --é”€è´¦æœˆä»½
+    Dbt.Arcolumn5       := Ar.Arcolumn5; --ä¸Šæ¬¡åº”å¸å¸æ—¥æœŸ
+    Dbt.Arcolumn9       := Ar.Arcolumn9; --ä¸Šæ¬¡åº”æ”¶å¸æµæ°´
+    Dbt.Arcolumn10      := Ar.Arcolumn10; --ä¸Šæ¬¡åº”æ”¶å¸æœˆä»½
+    Dbt.Arcolumn11      := Ar.Arcolumn11; --ä¸Šæ¬¡åº”æ”¶å¸äº‹åŠ¡
+    Dbt.Arjtmk          := Ar.Arjtmk; --ä¸è®°é˜¶æ¢¯æ³¨è®°
+    Dbt.Arjtsrq         := Ar.Arjtsrq; --æœ¬å‘¨æœŸé˜¶æ¢¯å¼€å§‹æ—¥æœŸ
+    Dbt.Arcolumn12      := Ar.Arcolumn12; --å¹´åº¦ç´¯è®¡é‡
+    Dbt.Dhzappnote      := ''; --ç”³è¯·è¯´æ˜
+    Dbt.Dhzfilashnote   := ''; --é¢†å¯¼æ„è§
+    Dbt.Dhzmemo         := ''; --å¤‡æ³¨
+    Dbt.Dhzshflag       := 'N'; --è¡Œå®¡æ ¸æ ‡å¿—
+    Dbt.Dhzshdate       := ''; --è¡Œå®¡æ ¸æ—¥æœŸ
+    Dbt.Dhzshper        := ''; --è¡Œå®¡æ ¸äºº
   
     INSERT INTO Ys_Gd_Zwdhzdt VALUES Dbt;
   END Createdt;
 
-  PROCEDURE Createdszbill(p_Dshno     IN VARCHAR2, --µ¥¾İÁ÷Ë®ºÅ
-                          p_Dshlb     IN VARCHAR2, --µ¥¾İÀà±ğ
-                          p_Dshsmfid  IN VARCHAR2, --ÓªÏú¹«Ë¾
-                          p_Dshdept   IN VARCHAR2, --ÊÜÀí²¿ÃÅ
-                          p_Dshcreper IN VARCHAR2, --ÊÜÀíÈËÔ±
-                          p_Arid      IN VARCHAR2 --Ó¦ÊÕÁ÷Ë®ºÅ
+  PROCEDURE Createdszbill(p_Dshno     IN VARCHAR2, --å•æ®æµæ°´å·
+                          p_Dshlb     IN VARCHAR2, --å•æ®ç±»åˆ«
+                          p_Dshsmfid  IN VARCHAR2, --è¥é”€å…¬å¸
+                          p_Dshdept   IN VARCHAR2, --å—ç†éƒ¨é—¨
+                          p_Dshcreper IN VARCHAR2, --å—ç†äººå‘˜
+                          p_Arid      IN VARCHAR2 --åº”æ”¶æµæ°´å·
                           ) IS
     Ar      Ys_Zw_Arlist%ROWTYPE;
-    v_Rowid NUMBER(10) := 0; --ĞĞºÅ
-    --µ¥Î»ÓÎ±ê
+    v_Rowid NUMBER(10) := 0; --è¡Œå·
+    --å•ä½æ¸¸æ ‡
     CURSOR c_Ar IS
       SELECT t.*
         FROM Ys_Zw_Arlist t /*, PBPARMTEMP P*/
        WHERE Arid = p_Arid;
     --ARID = '';
   BEGIN
-    --²åÈëµ¥Í·
-    Createhd(p_Dshno, --µ¥¾İÁ÷Ë®ºÅ
-             p_Dshlb, --µ¥¾İÀà±ğ
-             p_Dshsmfid, --ÓªÏú¹«Ë¾
-             p_Dshdept, --ÊÜÀí²¿ÃÅ
-             p_Dshcreper --ÊÜÀíÈËÔ±
+    --æ’å…¥å•å¤´
+    Createhd(p_Dshno, --å•æ®æµæ°´å·
+             p_Dshlb, --å•æ®ç±»åˆ«
+             p_Dshsmfid, --è¥é”€å…¬å¸
+             p_Dshdept, --å—ç†éƒ¨é—¨
+             p_Dshcreper --å—ç†äººå‘˜
              );
-    --²åÈëµ¥Ìå
+    --æ’å…¥å•ä½“
     OPEN c_Ar;
     LOOP
       FETCH c_Ar
         INTO Ar;
       EXIT WHEN c_Ar%NOTFOUND OR c_Ar%NOTFOUND IS NULL;
       v_Rowid := v_Rowid + 1;
-      Createdt(p_Dshno, --µ¥¾İÁ÷Ë®ºÅ
-               v_Rowid, --ĞĞºÅ
-               Ar.Arid --Ó¦ÊÕÁ÷Ë®ºÅ
+      Createdt(p_Dshno, --å•æ®æµæ°´å·
+               v_Rowid, --è¡Œå·
+               Ar.Arid --åº”æ”¶æµæ°´å·
                );
-      --ĞŞ¸Ä´ôËÀÕÊ±êÖ¾
+      --ä¿®æ”¹å‘†æ­»å¸æ ‡å¿—
       UPDATE Ys_Zw_Arlist
          SET Ys_Zw_Arlist.Arbadflag = 'O'
        WHERE Arid = Ar.Arid;
@@ -210,11 +210,11 @@ CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
     COMMIT;
   END Createdszbill;
 
-  --É¾³ıµ¥¾İ
-  PROCEDURE Cancelbill(p_Billno IN VARCHAR2, --µ¥¾İ±àºÅ
-                       p_Person IN VARCHAR2, --²Ù×÷Ô±
+  --åˆ é™¤å•æ®
+  PROCEDURE Cancelbill(p_Billno IN VARCHAR2, --å•æ®ç¼–å·
+                       p_Person IN VARCHAR2, --æ“ä½œå‘˜
                        p_Djlb   IN VARCHAR2) IS
-    --µ¥¾İÀà±ğ
+    --å•æ®ç±»åˆ«
     CURSOR c_Dbh IS
       SELECT *
         FROM Ys_Gd_Zwdhzd
@@ -227,19 +227,19 @@ CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
     FETCH c_Dbh
       INTO Dbh;
     IF c_Dbh%NOTFOUND OR c_Dbh%NOTFOUND IS NULL THEN
-      Raise_Application_Error(Errcode, 'µ¥¾İ²»´æÔÚ' || p_Billno);
+      Raise_Application_Error(Errcode, 'å•æ®ä¸å­˜åœ¨' || p_Billno);
     END IF;
     IF Dbh.Check_Flag <> 'N' THEN
-      Raise_Application_Error(Errcode, 'µ¥¾İ²»ÄÜÈ¡Ïû' || p_Billno);
+      Raise_Application_Error(Errcode, 'å•æ®ä¸èƒ½å–æ¶ˆ' || p_Billno);
     END IF;
-    --ĞŞ¸Ä´ôËÀÕÊ±êÖ¾
+    --ä¿®æ”¹å‘†æ­»å¸æ ‡å¿—
     UPDATE Ys_Zw_Arlist
        SET Ys_Zw_Arlist.Arbadflag = 'N'
      WHERE Arid IN
            (SELECT Arid FROM Ys_Gd_Zwdhzdt WHERE Bill_Id = p_Billno);
-    --É¾³ıµ¥Ìå
+    --åˆ é™¤å•ä½“
     DELETE FROM Ys_Gd_Zwdhzdt t WHERE t.Bill_Id = p_Billno;
-    --É¾³ıµ¥Í·
+    --åˆ é™¤å•å¤´
     DELETE FROM Ys_Gd_Zwdhzd t WHERE t.Bill_Id = p_Billno;
     CLOSE c_Dbh;
   
@@ -252,11 +252,11 @@ CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
       Raise_Application_Error(Errcode, SQLERRM);
   END Cancelbill;
 
-  --ÉóºËÖ÷³ÌĞò
-  PROCEDURE Custbillmain(p_Cchno    IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                         p_Per      IN VARCHAR2, --²Ù×÷Ô±
-                         p_Billid   IN VARCHAR2, --µ¥¾İID
-                         p_Billtype IN VARCHAR2 --µ¥¾İÀà±ğ
+  --å®¡æ ¸ä¸»ç¨‹åº
+  PROCEDURE Custbillmain(p_Cchno    IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                         p_Per      IN VARCHAR2, --æ“ä½œå‘˜
+                         p_Billid   IN VARCHAR2, --å•æ®ID
+                         p_Billtype IN VARCHAR2 --å•æ®ç±»åˆ«
                          ) AS
   
   BEGIN
@@ -268,11 +268,11 @@ CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
       Raise_Application_Error(Errcode, SQLERRM);
   END;
 
-  --ÉóºËÖ÷³ÌĞò
-  PROCEDURE Custbill(p_Cchno    IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                     p_Per      IN VARCHAR2, --²Ù×÷Ô±
+  --å®¡æ ¸ä¸»ç¨‹åº
+  PROCEDURE Custbill(p_Cchno    IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                     p_Per      IN VARCHAR2, --æ“ä½œå‘˜
                      p_Billtype IN VARCHAR2,
-                     p_Commit   IN VARCHAR2 --Ìá½»±êÖ¾
+                     p_Commit   IN VARCHAR2 --æäº¤æ ‡å¿—
                      ) AS 
     Dbh     Ys_Gd_Zwdhzd%ROWTYPE;
     Dbt     Ys_Gd_Zwdhzdt%ROWTYPE; 
@@ -283,13 +283,13 @@ CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
       SELECT * INTO Dbh FROM Ys_Gd_Zwdhzd WHERE Bill_Id = p_Cchno;
     EXCEPTION
       WHEN OTHERS THEN
-        Raise_Application_Error(Errcode, '±ä¸üµ¥Í·ĞÅÏ¢²»´æÔÚ!');
+        Raise_Application_Error(Errcode, 'å˜æ›´å•å¤´ä¿¡æ¯ä¸å­˜åœ¨!');
     END;
     IF Dbh.Check_Flag = 'Y' THEN
-      Raise_Application_Error(Errcode, '±ä¸üµ¥ÒÑÉóºË,²»ĞèÔÙÉó!');
+      Raise_Application_Error(Errcode, 'å˜æ›´å•å·²å®¡æ ¸,ä¸éœ€å†å®¡!');
     END IF;
     IF Dbh.Check_Flag = 'C' THEN
-      Raise_Application_Error(Errcode, '±ä¸üµ¥ÒÑÈ¡Ïû,²»ÄÜÉó!');
+      Raise_Application_Error(Errcode, 'å˜æ›´å•å·²å–æ¶ˆ,ä¸èƒ½å®¡!');
     END IF;
   
     OPEN c_Custdt;
@@ -297,29 +297,29 @@ CREATE OR REPLACE PACKAGE BODY Pg_Dszbill_01 IS
       FETCH c_Custdt
         INTO Dbt;
       EXIT WHEN c_Custdt%NOTFOUND OR c_Custdt%NOTFOUND IS NULL;
-      --¸üĞÂµ¥Ìå
+      --æ›´æ–°å•ä½“
       UPDATE Ys_Gd_Zwdhzdt
-         SET Dhzshflag = 'Y', --ĞĞÉóºË±êÖ¾
-             Dhzshdate = SYSDATE, --ĞĞÉóºËÈÕÆÚ
-             Dhzshper  = p_Per --ĞĞÉóºËÈË
+         SET Dhzshflag = 'Y', --è¡Œå®¡æ ¸æ ‡å¿—
+             Dhzshdate = SYSDATE, --è¡Œå®¡æ ¸æ—¥æœŸ
+             Dhzshper  = p_Per --è¡Œå®¡æ ¸äºº
        WHERE Bill_Id = Dbt.Bill_Id
          AND Dhzrowno = Dbt.Dhzrowno;
-      --¸üĞÂÕËÎñ´ôËÀÕÊ±êÖ¾
+      --æ›´æ–°è´¦åŠ¡å‘†æ­»å¸æ ‡å¿—
       IF p_Billtype = '8' THEN
-        --Õı³£ÕË±ä¸üÎª´ô»µÕË  ADD 20140831
-        --20140227 Ôö¼Ó´ô»µÕËÓ¦ÊÕÊÂÎñ  RECTRANS
+        --æ­£å¸¸è´¦å˜æ›´ä¸ºå‘†åè´¦  ADD 20140831
+        --20140227 å¢åŠ å‘†åè´¦åº”æ”¶äº‹åŠ¡  RECTRANS
         UPDATE Ys_Zw_Arlist
            SET Arbadflag = 'Y', Artrans = 'D'
          WHERE Arid = Dbt.Arid;
       ELSE
-        --´ô»µÕË±ä¸üÎªÕı³£ÕË ADD 20140831
+        --å‘†åè´¦å˜æ›´ä¸ºæ­£å¸¸è´¦ ADD 20140831
         UPDATE Ys_Zw_Arlist
            SET Arbadflag = 'N', Artrans = 'D'
          WHERE Arid = Dbt.Arid;
       END IF;
     END LOOP;
     CLOSE c_Custdt;
-    --ÉóºËµ¥Í·
+    --å®¡æ ¸å•å¤´
     UPDATE Ys_Gd_Zwdhzd
        SET Check_Date = SYSDATE, Check_Per = p_Per, Check_Flag = 'Y'
      WHERE Bill_Id = p_Cchno;

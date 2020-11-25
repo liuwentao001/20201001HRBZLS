@@ -1,4 +1,4 @@
-create table KF_SPORTS_TRAIL
+﻿create table KF_SPORTS_TRAIL
 (
   id              VARCHAR2(32),
   user_name       VARCHAR2(60),

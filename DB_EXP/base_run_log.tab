@@ -1,4 +1,4 @@
-create table BASE_RUN_LOG
+﻿create table BASE_RUN_LOG
 (
   id          VARCHAR2(32),
   log_type    VARCHAR2(2),

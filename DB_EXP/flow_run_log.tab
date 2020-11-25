@@ -1,4 +1,4 @@
-create table FLOW_RUN_LOG
+﻿create table FLOW_RUN_LOG
 (
   id          VARCHAR2(32),
   operator    VARCHAR2(60),

@@ -1,49 +1,49 @@
-CREATE OR REPLACE FUNCTION FIND_IN_SET(piv_str1 varchar2, piv_str2 varchar2, p_sep varchar2 := ',')
+ï»¿CREATE OR REPLACE FUNCTION FIND_IN_SET(piv_str1 varchar2, piv_str2 varchar2, p_sep varchar2 := ',')
 RETURN NUMBER IS
-  l_idx    number:=0; -- ÓÃÓÚ¼ÆËãpiv_str2ÖĞ·Ö¸ô·ûµÄÎ»ÖÃ
-  str      varchar2(500);  -- ¸ù¾İ·Ö¸ô·û½ØÈ¡µÄ×Ó×Ö·û´®
-  piv_str  varchar2(500) := piv_str2; -- ½«piv_str2¸³Öµ¸øpiv_str
-  res      number:=0; -- ·µ»Ø½á¹û
-  res_place      number:=0;-- Ô­×Ö·û´®ÔÚÄ¿±ê×Ö·û´®ÖĞµÄÎ»ÖÃ
+  l_idx    number:=0; -- ç”¨äºè®¡ç®—piv_str2ä¸­åˆ†éš”ç¬¦çš„ä½ç½®
+  str      varchar2(500);  -- æ ¹æ®åˆ†éš”ç¬¦æˆªå–çš„å­å­—ç¬¦ä¸²
+  piv_str  varchar2(500) := piv_str2; -- å°†piv_str2èµ‹å€¼ç»™piv_str
+  res      number:=0; -- è¿”å›ç»“æœ
+  res_place      number:=0;-- åŸå­—ç¬¦ä¸²åœ¨ç›®æ ‡å­—ç¬¦ä¸²ä¸­çš„ä½ç½®
 BEGIN
--- Èç¹û×Ö¶ÎÊÇnull Ôò·µ»Ø0
+-- å¦‚æœå­—æ®µæ˜¯null åˆ™è¿”å›0
 IF piv_str2 IS NULL THEN
   RETURN res;
 END IF;
--- Èç¹ûpiv_strÖĞÃ»ÓĞ·Ö¸î·û£¬Ö±½ÓÅĞ¶Ïpiv_str1ºÍpiv_strÊÇ·ñÏàµÈ£¬ÏàµÈ res_place=1
+-- å¦‚æœpiv_strä¸­æ²¡æœ‰åˆ†å‰²ç¬¦ï¼Œç›´æ¥åˆ¤æ–­piv_str1å’Œpiv_stræ˜¯å¦ç›¸ç­‰ï¼Œç›¸ç­‰ res_place=1
 IF instr(piv_str, p_sep, 1) = 0 THEN
    IF piv_str = piv_str1 THEN
       res_place:=1;
       res:= res_place;
    END IF;
 ELSE
- -- Ñ­»·°´·Ö¸ô·û½ØÈ¡piv_str
+ -- å¾ªç¯æŒ‰åˆ†éš”ç¬¦æˆªå–piv_str
 LOOP
     l_idx := instr(piv_str,p_sep);
     --
     res_place := res_place + 1;
-    -- µ±piv_strÖĞ»¹ÓĞ·Ö¸ô·ûÊ±
+    -- å½“piv_strä¸­è¿˜æœ‰åˆ†éš”ç¬¦æ—¶
       IF l_idx > 0 THEN
-      -- ½ØÈ¡µÚÒ»¸ö·Ö¸ô·ûÇ°µÄ×Ö¶Îstr
+      -- æˆªå–ç¬¬ä¸€ä¸ªåˆ†éš”ç¬¦å‰çš„å­—æ®µstr
          str:= substr(piv_str,1,l_idx-1);
-         -- ÅĞ¶Ï str ºÍpiv_str1 ÊÇ·ñÏàµÈ£¬ÏàµÈÔò½áÊøÑ­»·ÅĞ¶Ï
+         -- åˆ¤æ–­ str å’Œpiv_str1 æ˜¯å¦ç›¸ç­‰ï¼Œç›¸ç­‰åˆ™ç»“æŸå¾ªç¯åˆ¤æ–­
          IF str = piv_str1 THEN
            res:= res_place;
            EXIT;
          END IF;
         piv_str := substr(piv_str,l_idx+length(p_sep));
       ELSE
-      -- µ±½ØÈ¡ºóµÄpiv_str ÖĞ²»´æÔÚ·Ö¸î·ûÊ±£¬ÅĞ¶Ïpiv_strºÍpiv_str1ÊÇ·ñÏàµÈ£¬ÏàµÈ res=res_path
+      -- å½“æˆªå–åçš„piv_str ä¸­ä¸å­˜åœ¨åˆ†å‰²ç¬¦æ—¶ï¼Œåˆ¤æ–­piv_strå’Œpiv_str1æ˜¯å¦ç›¸ç­‰ï¼Œç›¸ç­‰ res=res_path
         IF piv_str = piv_str1 THEN
            res:= res_place;
         END IF;
-        -- ÎŞÂÛ×îºóÊÇ·ñÏàµÈ£¬¶¼Ìø³öÑ­»·
+        -- æ— è®ºæœ€åæ˜¯å¦ç›¸ç­‰ï¼Œéƒ½è·³å‡ºå¾ªç¯
         EXIT;
       END IF;
  END LOOP;
- -- ½áÊøÑ­»·
+ -- ç»“æŸå¾ªç¯
  END IF;
- -- ·µ»Øres
+ -- è¿”å›res
  RETURN res;
 END FIND_IN_SET;
 /

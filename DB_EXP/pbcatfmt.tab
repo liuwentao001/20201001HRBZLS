@@ -1,4 +1,4 @@
-create table PBCATFMT
+﻿create table PBCATFMT
 (
   pbf_name VARCHAR2(60),
   pbf_frmt VARCHAR2(254),

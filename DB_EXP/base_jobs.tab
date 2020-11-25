@@ -1,4 +1,4 @@
-create table BASE_JOBS
+﻿create table BASE_JOBS
 (
   id              VARCHAR2(32),
   job_name        VARCHAR2(100),

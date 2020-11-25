@@ -1,4 +1,4 @@
-create table SYS_SEQ_ID
+ï»¿create table SYS_SEQ_ID
 (
   hire_code  VARCHAR2(20),
   seqtblname VARCHAR2(60) not null,
@@ -10,19 +10,19 @@ create table SYS_SEQ_ID
 )
 ;
 comment on table SYS_SEQ_ID
-  is 'ĞòÁĞÁĞ±í¡¾SEQ¡¿';
+  is 'åºåˆ—åˆ—è¡¨ã€SEQã€‘';
 comment on column SYS_SEQ_ID.seqtblname
-  is '±íÃû';
+  is 'è¡¨å';
 comment on column SYS_SEQ_ID.seqseqname
-  is 'ĞòÁĞÃû';
+  is 'åºåˆ—å';
 comment on column SYS_SEQ_ID.seqprefix
-  is 'Ç°×º';
+  is 'å‰ç¼€';
 comment on column SYS_SEQ_ID.seqwidth
-  is 'ĞòÁĞ¿í¶È';
+  is 'åºåˆ—å®½åº¦';
 comment on column SYS_SEQ_ID.seqcname
-  is 'ÖĞÎÄÃû³Æ';
+  is 'ä¸­æ–‡åç§°';
 comment on column SYS_SEQ_ID.seqstartno
-  is '³õÊ¼Öµ';
+  is 'åˆå§‹å€¼';
 alter table SYS_SEQ_ID
   add constraint PK_SYS_SEQ_ID primary key (SEQTBLNAME);
 

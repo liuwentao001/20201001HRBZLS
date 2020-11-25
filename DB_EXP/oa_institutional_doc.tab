@@ -1,4 +1,4 @@
-create table OA_INSTITUTIONAL_DOC
+﻿create table OA_INSTITUTIONAL_DOC
 (
   id          VARCHAR2(32),
   doc_name    VARCHAR2(255),

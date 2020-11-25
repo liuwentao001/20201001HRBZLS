@@ -1,4 +1,4 @@
-create sequence SEQ_SBID
+﻿create sequence SEQ_SBID
 minvalue 1
 maxvalue 999999999
 start with 130758170

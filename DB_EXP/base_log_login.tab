@@ -1,4 +1,4 @@
-create table BASE_LOG_LOGIN
+﻿create table BASE_LOG_LOGIN
 (
   id             VARCHAR2(32),
   login_ip       VARCHAR2(50),

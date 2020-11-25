@@ -1,4 +1,4 @@
-create global temporary table YS_ZW_ARDETAIL_BUDGET
+ï»¿create global temporary table YS_ZW_ARDETAIL_BUDGET
 (
   id            VARCHAR2(32) not null,
   hire_code     VARCHAR2(20),
@@ -36,5 +36,5 @@ create global temporary table YS_ZW_ARDETAIL_BUDGET
 )
 on commit delete rows;
 comment on table YS_ZW_ARDETAIL_BUDGET
-  is 'Ó¦ÊÕÕÊÃ÷Ï¸Ô¤Ëã·ÑÖĞ¼ä±í¡¾ARD¡¿';
+  is 'åº”æ”¶å¸æ˜ç»†é¢„ç®—è´¹ä¸­é—´è¡¨ã€ARDã€‘';
 

@@ -1,4 +1,4 @@
-create table YS_GD_METERTRANSDT
+ï»¿create table YS_GD_METERTRANSDT
 (
   id                 VARCHAR2(32),
   hire_code          VARCHAR2(20),
@@ -60,119 +60,119 @@ create table YS_GD_METERTRANSDT
 )
 ;
 comment on table YS_GD_METERTRANSDT
-  is '»»±í¹¤µ¥';
+  is 'æ¢è¡¨å·¥å•';
 comment on column YS_GD_METERTRANSDT.id
   is 'id';
 comment on column YS_GD_METERTRANSDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_METERTRANSDT.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_METERTRANSDT.sbid
-  is 'Ë®±í±àºÅ';
+  is 'æ°´è¡¨ç¼–å·';
 comment on column YS_GD_METERTRANSDT.user_name
-  is 'ÒµÖ÷Ãû³Æ';
+  is 'ä¸šä¸»åç§°';
 comment on column YS_GD_METERTRANSDT.user_adr
-  is 'ÒµÖ÷µØÖ·';
+  is 'ä¸šä¸»åœ°å€';
 comment on column YS_GD_METERTRANSDT.connect_per
-  is 'ÁªÏµÈË';
+  is 'è”ç³»äºº';
 comment on column YS_GD_METERTRANSDT.connect_tel
-  is 'ÁªÏµµç»°';
+  is 'è”ç³»ç”µè¯';
 comment on column YS_GD_METERTRANSDT.price_no
-  is '¼Û¸ñÀà±ğ';
+  is 'ä»·æ ¼ç±»åˆ«';
 comment on column YS_GD_METERTRANSDT.sent_dept
-  is 'ÅÉ¹¤²¿ÃÅ';
+  is 'æ´¾å·¥éƒ¨é—¨';
 comment on column YS_GD_METERTRANSDT.sent_time
-  is 'ÅÉ¹¤Ê±¼ä';
+  is 'æ´¾å·¥æ—¶é—´';
 comment on column YS_GD_METERTRANSDT.sent_per
-  is 'ÅÉ¹¤ÈËÔ±';
+  is 'æ´¾å·¥äººå‘˜';
 comment on column YS_GD_METERTRANSDT.finish_date
-  is 'Íê¹¤Ê±¼ä';
+  is 'å®Œå·¥æ—¶é—´';
 comment on column YS_GD_METERTRANSDT.finish_per
-  is 'Íê¹¤ÈËÔ±';
+  is 'å®Œå·¥äººå‘˜';
 comment on column YS_GD_METERTRANSDT.finish_flag
-  is 'Íê¹¤±êÖ¾';
+  is 'å®Œå·¥æ ‡å¿—';
 comment on column YS_GD_METERTRANSDT.check_per
-  is 'ÑéÊÕÈËÔ±';
+  is 'éªŒæ”¶äººå‘˜';
 comment on column YS_GD_METERTRANSDT.check_date
-  is 'ÑéÊÕÈÕÆÚ';
+  is 'éªŒæ”¶æ—¥æœŸ';
 comment on column YS_GD_METERTRANSDT.check_memo
-  is 'ÑéÊÕËµÃ÷';
+  is 'éªŒæ”¶è¯´æ˜';
 comment on column YS_GD_METERTRANSDT.meter_position
-  is 'Ë®±íµØÖ·';
+  is 'æ°´è¡¨åœ°å€';
 comment on column YS_GD_METERTRANSDT.water_code
-  is 'ĞÂ±íÉíÂë';
+  is 'æ–°è¡¨èº«ç ';
 comment on column YS_GD_METERTRANSDT.caliber
-  is 'ĞÂ±í¿Ú¾¶';
+  is 'æ–°è¡¨å£å¾„';
 comment on column YS_GD_METERTRANSDT.brand
-  is 'ĞÂ±í³§¼Ò';
+  is 'æ–°è¡¨å‚å®¶';
 comment on column YS_GD_METERTRANSDT.model
-  is '±íĞÍºÅ';
+  is 'è¡¨å‹å·';
 comment on column YS_GD_METERTRANSDT.meter_position_old
-  is 'Ô­Ë®±íµØÖ·';
+  is 'åŸæ°´è¡¨åœ°å€';
 comment on column YS_GD_METERTRANSDT.water_code_old
-  is 'Ô­±íÉíÂë';
+  is 'åŸè¡¨èº«ç ';
 comment on column YS_GD_METERTRANSDT.caliber_old
-  is 'Ô­±í¿Ú¾¶';
+  is 'åŸè¡¨å£å¾„';
 comment on column YS_GD_METERTRANSDT.brand_old
-  is 'Ô­±í³§¼Ò';
+  is 'åŸè¡¨å‚å®¶';
 comment on column YS_GD_METERTRANSDT.model_old
-  is 'Ô­±íĞÍºÅ';
+  is 'åŸè¡¨å‹å·';
 comment on column YS_GD_METERTRANSDT.remove_per
-  is '²ğ³ıÈËÔ±';
+  is 'æ‹†é™¤äººå‘˜';
 comment on column YS_GD_METERTRANSDT.remove_time
-  is '²ğ³ıÊ±¼ä';
+  is 'æ‹†é™¤æ—¶é—´';
 comment on column YS_GD_METERTRANSDT.remove_type
-  is 'Ôİ²ğÀà±ğ';
+  is 'æš‚æ‹†ç±»åˆ«';
 comment on column YS_GD_METERTRANSDT.scode
-  is 'ÉÏÆÚ¶ÁÊı';
+  is 'ä¸ŠæœŸè¯»æ•°';
 comment on column YS_GD_METERTRANSDT.ecode
-  is '²ğ±íµÍ¶È';
+  is 'æ‹†è¡¨ä½åº¦';
 comment on column YS_GD_METERTRANSDT.add_water
-  is 'ÓàÁ¿';
+  is 'ä½™é‡';
 comment on column YS_GD_METERTRANSDT.trans_per
-  is '»»±íÈËÔ±';
+  is 'æ¢è¡¨äººå‘˜';
 comment on column YS_GD_METERTRANSDT.trans_time
-  is '»»±íÊ±¼ä';
+  is 'æ¢è¡¨æ—¶é—´';
 comment on column YS_GD_METERTRANSDT.trans_type
-  is '»»±íÀàĞÍ';
+  is 'æ¢è¡¨ç±»å‹';
 comment on column YS_GD_METERTRANSDT.new_code
-  is 'ĞÂ±íÆğ¶È';
+  is 'æ–°è¡¨èµ·åº¦';
 comment on column YS_GD_METERTRANSDT.status
-  is 'Ë®±í×´Ì¬';
+  is 'æ°´è¡¨çŠ¶æ€';
 comment on column YS_GD_METERTRANSDT.memo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_GD_METERTRANSDT.process_situation
-  is '´¦ÀíÇé¿ö';
+  is 'å¤„ç†æƒ…å†µ';
 comment on column YS_GD_METERTRANSDT.meter_type
-  is 'ĞÂ±íÀàĞÍ';
+  is 'æ–°è¡¨ç±»å‹';
 comment on column YS_GD_METERTRANSDT.meter_type_old
-  is 'Ô­±íÀàĞÍ';
+  is 'åŸè¡¨ç±»å‹';
 comment on column YS_GD_METERTRANSDT.book_no
-  is '±í²á±àºÅ';
+  is 'è¡¨å†Œç¼–å·';
 comment on column YS_GD_METERTRANSDT.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_GD_METERTRANSDT.stop_per
-  is 'Í£Ë®ÈËÔ±';
+  is 'åœæ°´äººå‘˜';
 comment on column YS_GD_METERTRANSDT.stop_date
-  is 'Í£Ë®ÈÕÆÚ';
+  is 'åœæ°´æ—¥æœŸ';
 comment on column YS_GD_METERTRANSDT.stop_mode
-  is 'Í£Ë®·½Ê½';
+  is 'åœæ°´æ–¹å¼';
 comment on column YS_GD_METERTRANSDT.stop_memo
-  is 'Í£Ë®ËµÃ÷';
+  is 'åœæ°´è¯´æ˜';
 comment on column YS_GD_METERTRANSDT.recover_per
-  is '»Ö¸´ÈËÔ±';
+  is 'æ¢å¤äººå‘˜';
 comment on column YS_GD_METERTRANSDT.recover_date
-  is '»Ö¸´Ê±¼ä';
+  is 'æ¢å¤æ—¶é—´';
 comment on column YS_GD_METERTRANSDT.recover_memo
-  is '»Ö¸´Ô­Òò';
+  is 'æ¢å¤åŸå› ';
 comment on column YS_GD_METERTRANSDT.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_METERTRANSDT.fail_reason
-  is 'Ê§°ÜÔ­Òò';
+  is 'å¤±è´¥åŸå› ';
 comment on column YS_GD_METERTRANSDT.mtdycchkdate
-  is 'ÖÜ¼ìÆğËãÈÕ';
+  is 'å‘¨æ£€èµ·ç®—æ—¥';
 comment on column YS_GD_METERTRANSDT.yhid
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_METERTRANSDT.sbrtid
-  is ' ³­±í·½Ê½';
+  is ' æŠ„è¡¨æ–¹å¼';
 

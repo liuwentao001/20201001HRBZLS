@@ -1,4 +1,4 @@
-create table BASE_USER_ROLE
+﻿create table BASE_USER_ROLE
 (
   id          VARCHAR2(32),
   user_name   VARCHAR2(60),

@@ -1,4 +1,4 @@
-create table YS_YHDWWH
+ï»¿create table YS_YHDWWH
 (
   id              VARCHAR2(32) not null,
   hire_code       VARCHAR2(20),
@@ -27,51 +27,51 @@ create table YS_YHDWWH
 )
 ;
 comment on table YS_YHDWWH
-  is 'µ¥Î»´úÂë';
+  is 'å•ä½ä»£ç ';
 comment on column YS_YHDWWH.dwid
-  is 'µ¥Î»±àºÅ';
+  is 'å•ä½ç¼–å·';
 comment on column YS_YHDWWH.dwmname
-  is 'µ¥Î»Ãû³Æ';
+  is 'å•ä½åç§°';
 comment on column YS_YHDWWH.dwremained
-  is 'Ô¤´æÓà¶î';
+  is 'é¢„å­˜ä½™é¢';
 comment on column YS_YHDWWH.dwmifusered
-  is 'ÊÇ·ñÓĞĞ§';
+  is 'æ˜¯å¦æœ‰æ•ˆ';
 comment on column YS_YHDWWH.dwmdefvalue
-  is 'Ä¬ÈÏÖµ';
+  is 'é»˜è®¤å€¼';
 comment on column YS_YHDWWH.dwmfpcode
-  is '¹ÜÏ½¹«Ë¾';
+  is 'ç®¡è¾–å…¬å¸';
 comment on column YS_YHDWWH.dwmano
-  is 'Î¯ÍĞÊÚÈ¨ºÅ';
+  is 'å§”æ‰˜æˆæƒå·';
 comment on column YS_YHDWWH.dwmanoname
-  is 'Ç©Ô¼»§Ãû';
+  is 'ç­¾çº¦æˆ·å';
 comment on column YS_YHDWWH.dwmabankid
-  is '¿ª»§ĞĞ£¨´úÍĞ£©';
+  is 'å¼€æˆ·è¡Œï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_YHDWWH.dwmaaccountno
-  is '¿ª»§ÕÊºÅ£¨´úÍĞ£©';
+  is 'å¼€æˆ·å¸å·ï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_YHDWWH.dwmaaccountname
-  is '¿ª»§Ãû£¨´úÍĞ£©';
+  is 'å¼€æˆ·åï¼ˆä»£æ‰˜ï¼‰';
 comment on column YS_YHDWWH.dwmatsbankid
-  is '½ÓÊÕĞĞºÅ£¨ÍĞ£©';
+  is 'æ¥æ”¶è¡Œå·ï¼ˆæ‰˜ï¼‰';
 comment on column YS_YHDWWH.dwmatsbankname
-  is 'Æ¾Ö¤ÒøĞĞ£¨ÍĞ£©';
+  is 'å‡­è¯é“¶è¡Œï¼ˆæ‰˜ï¼‰';
 comment on column YS_YHDWWH.dwmaifxezf
-  is 'Ğ¡¶îÖ§¸¶£¨ÍĞ£©';
+  is 'å°é¢æ”¯ä»˜ï¼ˆæ‰˜ï¼‰';
 comment on column YS_YHDWWH.dwmaregdate
-  is 'Ç©Ô¼ÈÕÆÚ';
+  is 'ç­¾çº¦æ—¥æœŸ';
 comment on column YS_YHDWWH.dwiftax
-  is 'ÊÇ·ñË°Æ±';
+  is 'æ˜¯å¦ç¨ç¥¨';
 comment on column YS_YHDWWH.dwtaxno
-  is 'Ë°Æ±ºÅÂë';
+  is 'ç¨ç¥¨å·ç ';
 comment on column YS_YHDWWH.dwtxdz
-  is '×¢²áµØÖ·';
+  is 'æ³¨å†Œåœ°å€';
 comment on column YS_YHDWWH.dwifhp
-  is 'ÊÇ·ñºÏÆ±';
+  is 'æ˜¯å¦åˆç¥¨';
 comment on column YS_YHDWWH.dwmemo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_YHDWWH.dwonnectper
-  is 'ÁªÏµÈË';
+  is 'è”ç³»äºº';
 comment on column YS_YHDWWH.dwconnecttel
-  is 'ÁªÏµµç»°';
+  is 'è”ç³»ç”µè¯';
 alter table YS_YHDWWH
   add constraint AK_KEY_DWMID_YS_YHDWWH unique (DWID);
 

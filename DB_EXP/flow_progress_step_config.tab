@@ -1,4 +1,4 @@
-create table FLOW_PROGRESS_STEP_CONFIG
+﻿create table FLOW_PROGRESS_STEP_CONFIG
 (
   id                 VARCHAR2(32),
   hire_code          VARCHAR2(32),

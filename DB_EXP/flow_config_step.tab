@@ -1,4 +1,4 @@
-create table FLOW_CONFIG_STEP
+﻿create table FLOW_CONFIG_STEP
 (
   id             VARCHAR2(32),
   step_code      VARCHAR2(32),

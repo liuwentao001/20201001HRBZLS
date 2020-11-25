@@ -1,4 +1,4 @@
-create table YS_GD_ARSPLITHD
+ï»¿create table YS_GD_ARSPLITHD
 (
   id          VARCHAR2(32),
   hire_code   VARCHAR2(20),
@@ -22,43 +22,43 @@ create table YS_GD_ARSPLITHD
 )
 ;
 comment on table YS_GD_ARSPLITHD
-  is '²ğ·ÖÕËµ¥Í·';
+  is 'æ‹†åˆ†è´¦å•å¤´';
 comment on column YS_GD_ARSPLITHD.id
   is 'id';
 comment on column YS_GD_ARSPLITHD.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_ARSPLITHD.bill_id
-  is 'µ¥Í·ID';
+  is 'å•å¤´ID';
 comment on column YS_GD_ARSPLITHD.bill_no
-  is 'µ¥¾İ±àºÅ';
+  is 'å•æ®ç¼–å·';
 comment on column YS_GD_ARSPLITHD.bill_type
-  is 'µ¥¾İÀà±ğ';
+  is 'å•æ®ç±»åˆ«';
 comment on column YS_GD_ARSPLITHD.bill_source
-  is 'µ¥¾İÀ´Ô´';
+  is 'å•æ®æ¥æº';
 comment on column YS_GD_ARSPLITHD.manage_no
-  is 'ÓªÏú¹«Ë¾';
+  is 'è¥é”€å…¬å¸';
 comment on column YS_GD_ARSPLITHD.new_dept
-  is 'ÉêÇë²¿ÃÅ';
+  is 'ç”³è¯·éƒ¨é—¨';
 comment on column YS_GD_ARSPLITHD.add_date
-  is 'ÉêÇëÈÕÆÚ';
+  is 'ç”³è¯·æ—¥æœŸ';
 comment on column YS_GD_ARSPLITHD.add_per
-  is 'ÉêÇëÈËÔ±';
+  is 'ç”³è¯·äººå‘˜';
 comment on column YS_GD_ARSPLITHD.check_date
-  is 'ÉóºËÈÕÆÚ';
+  is 'å®¡æ ¸æ—¥æœŸ';
 comment on column YS_GD_ARSPLITHD.check_per
-  is 'ÉóºËÈËÔ±';
+  is 'å®¡æ ¸äººå‘˜';
 comment on column YS_GD_ARSPLITHD.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_ARSPLITHD.flow_id
-  is 'Á÷³ÌID';
+  is 'æµç¨‹ID';
 comment on column YS_GD_ARSPLITHD.user_no
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_ARSPLITHD.user_name
-  is 'ÒµÖ÷Ãû³Æ';
+  is 'ä¸šä¸»åç§°';
 comment on column YS_GD_ARSPLITHD.user_adr
-  is 'ÒµÖ÷µØÖ·';
+  is 'ä¸šä¸»åœ°å€';
 comment on column YS_GD_ARSPLITHD.adj_type
-  is '²ğ·ÖÀà±ğ';
+  is 'æ‹†åˆ†ç±»åˆ«';
 comment on column YS_GD_ARSPLITHD.adj_memo
-  is '²ğ·ÖËµÃ÷';
+  is 'æ‹†åˆ†è¯´æ˜';
 

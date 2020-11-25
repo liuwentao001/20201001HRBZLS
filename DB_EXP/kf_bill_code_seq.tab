@@ -1,4 +1,4 @@
-create table KF_BILL_CODE_SEQ
+﻿create table KF_BILL_CODE_SEQ
 (
   id          VARCHAR2(36),
   create_date DATE,

@@ -1,4 +1,4 @@
-create table YS_GD_PAIDADJUSTDT
+ï»¿create table YS_GD_PAIDADJUSTDT
 (
   id            VARCHAR2(32),
   hire_code     VARCHAR2(32),
@@ -22,43 +22,43 @@ create table YS_GD_PAIDADJUSTDT
 )
 ;
 comment on table YS_GD_PAIDADJUSTDT
-  is 'ÊµÊÕ³åÕı';
+  is 'å®æ”¶å†²æ­£';
 comment on column YS_GD_PAIDADJUSTDT.id
-  is 'Ö÷¼üID';
+  is 'ä¸»é”®ID';
 comment on column YS_GD_PAIDADJUSTDT.hire_code
-  is '×â»§±àºÅ';
+  is 'ç§Ÿæˆ·ç¼–å·';
 comment on column YS_GD_PAIDADJUSTDT.bill_id
-  is 'µ¥¾İÁ÷Ë®ºÅ';
+  is 'å•æ®æµæ°´å·';
 comment on column YS_GD_PAIDADJUSTDT.user_no
-  is 'ÓÃ»§±àºÅ';
+  is 'ç”¨æˆ·ç¼–å·';
 comment on column YS_GD_PAIDADJUSTDT.paid_memo
-  is '³åÕıÔ­Òò';
+  is 'å†²æ­£åŸå› ';
 comment on column YS_GD_PAIDADJUSTDT.balance_flag
-  is '×ªÔ¤´æ±êÖ¾';
+  is 'è½¬é¢„å­˜æ ‡å¿—';
 comment on column YS_GD_PAIDADJUSTDT.paid_id
-  is 'Á÷Ë®ºÅ';
+  is 'æµæ°´å·';
 comment on column YS_GD_PAIDADJUSTDT.paid_batch
-  is '½É·Ñ½»Ò×Åú´Î';
+  is 'ç¼´è´¹äº¤æ˜“æ‰¹æ¬¡';
 comment on column YS_GD_PAIDADJUSTDT.paid_date
-  is 'ÕËÎñÈÕÆÚ';
+  is 'è´¦åŠ¡æ—¥æœŸ';
 comment on column YS_GD_PAIDADJUSTDT.paid_datetime
-  is '·¢ÉúÊ±¼ä';
+  is 'å‘ç”Ÿæ—¶é—´';
 comment on column YS_GD_PAIDADJUSTDT.paid_month
-  is 'ÕËÎñÔÂ·İ';
+  is 'è´¦åŠ¡æœˆä»½';
 comment on column YS_GD_PAIDADJUSTDT.paid_position
-  is '½É·Ñ»ú¹¹';
+  is 'ç¼´è´¹æœºæ„';
 comment on column YS_GD_PAIDADJUSTDT.paid_trans
-  is '½É·ÑÊÂÎñ';
+  is 'ç¼´è´¹äº‹åŠ¡';
 comment on column YS_GD_PAIDADJUSTDT.paid_per
-  is 'ÏúÕÊÈËÔ±';
+  is 'é”€å¸äººå‘˜';
 comment on column YS_GD_PAIDADJUSTDT.paid_way
-  is '¸¶¿î·½Ê½';
+  is 'ä»˜æ¬¾æ–¹å¼';
 comment on column YS_GD_PAIDADJUSTDT.paid_amt
-  is '¸¶¿î½ğ¶î';
+  is 'ä»˜æ¬¾é‡‘é¢';
 comment on column YS_GD_PAIDADJUSTDT.pmemo
-  is '±¸×¢';
+  is 'å¤‡æ³¨';
 comment on column YS_GD_PAIDADJUSTDT.check_flag
-  is 'ÉóºË±êÖ¾';
+  is 'å®¡æ ¸æ ‡å¿—';
 comment on column YS_GD_PAIDADJUSTDT.fail_reason
-  is 'Ê§°ÜÔ­Òò';
+  is 'å¤±è´¥åŸå› ';
 

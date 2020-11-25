@@ -1,4 +1,4 @@
-create table BASE_SMS_RECORD
+﻿create table BASE_SMS_RECORD
 (
   id           VARCHAR2(32),
   is_delayed   VARCHAR2(32),

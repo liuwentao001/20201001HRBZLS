@@ -1,12 +1,12 @@
-CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
+ï»¿CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
 
   /*
-  ½øĞĞÉú³É³­Âë±í
-  ²ÎÊı£ºp_manage_no£º ÁÙÊ±±íÀàĞÍ(PBPARMTEMP.c1)£¬´æ·Åµ÷¶ÎºóÄ¿±ê±í²áÖĞËùÓĞË®±í±àºÅc1,³­±í´ÎĞòc2
-        p_month: Ä¿±êÓªÒµËù
-        p_book_no:  Ä¿±ê±í²á 
-  ´¦Àí£ºÉú³É³­±í×ÊÁÏ
-  Êä³ö£ºÎŞ
+  è¿›è¡Œç”ŸæˆæŠ„ç è¡¨
+  å‚æ•°ï¼šp_manage_noï¼š ä¸´æ—¶è¡¨ç±»å‹(PBPARMTEMP.c1)ï¼Œå­˜æ”¾è°ƒæ®µåç›®æ ‡è¡¨å†Œä¸­æ‰€æœ‰æ°´è¡¨ç¼–å·c1,æŠ„è¡¨æ¬¡åºc2
+        p_month: ç›®æ ‡è¥ä¸šæ‰€
+        p_book_no:  ç›®æ ‡è¡¨å†Œ 
+  å¤„ç†ï¼šç”ŸæˆæŠ„è¡¨èµ„æ–™
+  è¾“å‡ºï¼šæ— 
   */
   PROCEDURE createCB(p_HIRE_CODE  in VARCHAR2,
                      p_manage_no in VARCHAR2,
@@ -22,7 +22,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
     v_tempstr varchar2(10);
     v_ret     varchar2(10);
     v_date    date;
-    --´æÔÚ
+    --å­˜åœ¨
     cursor c_cb(vsbid in varchar2) is
       select 1
         from ys_cb_mtread
@@ -30,7 +30,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
          and CBmrmonth = p_month;
     DUMMY INTEGER;
     FOUND BOOLEAN;
-    --¼Æ»®
+    --è®¡åˆ’
     cursor c_bksb is
       select a.yhid,
              b.sbid, 
@@ -95,113 +95,113 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
              sb.sbside,
              sb.sbtype;
       exit when c_bksb%notfound or c_bksb%notfound is null;
-      --ÅĞ¶ÏÊÇ·ñ´æÔÚÖØ¸´³­±í¼Æ»®
+      --åˆ¤æ–­æ˜¯å¦å­˜åœ¨é‡å¤æŠ„è¡¨è®¡åˆ’
       OPEN c_cb(sb.sbid);
       FETCH c_cb
         INTO DUMMY;
       found := c_cb%FOUND;
       close c_cb;
       if not found then
-        sbr.id     :=  sys_guid(); --Á÷Ë®ºÅ
+        sbr.id     :=  sys_guid(); --æµæ°´å·
         sbr.hire_code := p_HIRE_CODE;
-        sbr.cbmrmonth  := p_month; --³­±íÔÂ·İ
-        sbr.manage_no  := sb.manage_no; --¹ÜÏ½¹«Ë¾
-        sbr.book_no   := p_book_no; --±í²á
-        sbr.cbMRBATCH  := bc.READ_BATCH; --³­±íÅú´Î
-        sbr.cbMRRPER   := bc.READ_PER; --³­±íÔ±
-        sbr.cbmrrorder := sb.sbrorder; --³­±í´ÎĞòºÅ
+        sbr.cbmrmonth  := p_month; --æŠ„è¡¨æœˆä»½
+        sbr.manage_no  := sb.manage_no; --ç®¡è¾–å…¬å¸
+        sbr.book_no   := p_book_no; --è¡¨å†Œ
+        sbr.cbMRBATCH  := bc.READ_BATCH; --æŠ„è¡¨æ‰¹æ¬¡
+        sbr.cbMRRPER   := bc.READ_PER; --æŠ„è¡¨å‘˜
+        sbr.cbmrrorder := sb.sbrorder; --æŠ„è¡¨æ¬¡åºå·
         
-        sbr.YHID           := yh.yhid; --ÓÃ»§±àºÅ
+        sbr.YHID           := yh.yhid; --ç”¨æˆ·ç¼–å·
         
-        sbr.sbid           := sb.sbid; --Ë®±í±àºÅ
+        sbr.sbid           := sb.sbid; --æ°´è¡¨ç¼–å·
         
-        sbr.TRADE_NO          := sb.TRADE_NO; --ĞĞÒµ·ÖÀà
-        sbr.SBPID          := sb.sbpid; --ÉÏ¼¶Ë®±í
-        sbr.CBMRMCLASS        := sb.sbclass; --Ë®±í¼¶´Î
-        sbr.CBMRMFLAG         := sb.sbflag; --Ä©¼¶±êÖ¾
-        sbr.CBMRCREADATE      := sysdate; --´´½¨ÈÕÆÚ
-        sbr.CBMRINPUTDATE     := null; --±à¼­ÈÕÆÚ
-        sbr.CBMRREADOK        := 'N'; --³­¼û±êÖ¾
-        sbr.CBMRRDATE         := null; --³­±íÈÕÆÚ
-        sbr.cbmrprdate        := sb.sbrecdate; --ÉÏ´Î³­¼ûÈÕÆÚ(È¡ÉÏ´ÎÓĞĞ§³­±íÈÕÆÚ)
-        sbr.cbmrscode         := sb.sbrcode; --ÉÏÆÚ³­¼û
-        sbr.cbMRSCODECHAR     := sb.sbrcodechar; --ÉÏÆÚ³­¼ûchar
-        sbr.cbmrecode         := null; --±¾ÆÚ³­¼û
-        sbr.cbmrsl            := null; --±¾ÆÚË®Á¿
-        sbr.cbmrface          := null; --±í¿ö
-        sbr.cbmrifsubmit      := 'Y'; --ÊÇ·ñÌá½»¼Æ·Ñ
-        sbr.cbmrifhalt        := 'N'; --ÏµÍ³Í£Ëã
-        sbr.cbmrdatasource    := 1; --³­±í½á¹ûÀ´Ô´
-        sbr.cbmrifignoreminsl := 'Y'; --Í£Ëã×îµÍ³­Á¿
-        sbr.cbmrpdardate      := null; --³­±í»ú³­±íÊ±¼ä
-        sbr.cbmroutflag       := 'N'; --·¢³öµ½³­±í»ú±êÖ¾
-        sbr.cbmroutid         := null; --·¢³öµ½³­±í»úÁ÷Ë®ºÅ
-        sbr.cbmroutdate       := null; --·¢³öµ½³­±í»úÈÕÆÚ
-        sbr.cbmrinorder       := null; --³­±í»ú½ÓÊÕ´ÎĞò
-        sbr.cbmrindate        := null; --³­±í»ú½ÓÊÜÈÕÆÚ
-        sbr.cbmrrpid          := sb.sbrpid; --¼Æ¼şÀàĞÍ
-        sbr.CBMRMEMO          := null; --³­±í±¸×¢
-        sbr.cbmrifgu          := 'N'; --¹À±í±êÖ¾
-        sbr.cbmrifrec         := 'N'; --ÒÑ¼Æ·Ñ
-        sbr.cbmrrecdate       := null; --¼Æ·ÑÈÕÆÚ
-        sbr.cbmrrecsl         := null; --Ó¦ÊÕË®Á¿
-        /*        --È¡Î´ÓÃÓàÁ¿
-        sp_fetchaddingsl(sbr.cbmrid , --³­±íÁ÷Ë®
-                         sb.sbid,--Ë®±íºÅ
-                         v_tempnum,--¾É±íÖ¹¶È
-                         v_tempnum,--ĞÂ±íÆğ¶È
-                         v_addsl ,--ÓàÁ¿
-                         v_date,--´´½¨ÈÕÆÚ
-                         v_tempstr,--¼Óµ÷ÊÂÎñ
-                         v_ret  --·µ»ØÖµ
+        sbr.TRADE_NO          := sb.TRADE_NO; --è¡Œä¸šåˆ†ç±»
+        sbr.SBPID          := sb.sbpid; --ä¸Šçº§æ°´è¡¨
+        sbr.CBMRMCLASS        := sb.sbclass; --æ°´è¡¨çº§æ¬¡
+        sbr.CBMRMFLAG         := sb.sbflag; --æœ«çº§æ ‡å¿—
+        sbr.CBMRCREADATE      := sysdate; --åˆ›å»ºæ—¥æœŸ
+        sbr.CBMRINPUTDATE     := null; --ç¼–è¾‘æ—¥æœŸ
+        sbr.CBMRREADOK        := 'N'; --æŠ„è§æ ‡å¿—
+        sbr.CBMRRDATE         := null; --æŠ„è¡¨æ—¥æœŸ
+        sbr.cbmrprdate        := sb.sbrecdate; --ä¸Šæ¬¡æŠ„è§æ—¥æœŸ(å–ä¸Šæ¬¡æœ‰æ•ˆæŠ„è¡¨æ—¥æœŸ)
+        sbr.cbmrscode         := sb.sbrcode; --ä¸ŠæœŸæŠ„è§
+        sbr.cbMRSCODECHAR     := sb.sbrcodechar; --ä¸ŠæœŸæŠ„è§char
+        sbr.cbmrecode         := null; --æœ¬æœŸæŠ„è§
+        sbr.cbmrsl            := null; --æœ¬æœŸæ°´é‡
+        sbr.cbmrface          := null; --è¡¨å†µ
+        sbr.cbmrifsubmit      := 'Y'; --æ˜¯å¦æäº¤è®¡è´¹
+        sbr.cbmrifhalt        := 'N'; --ç³»ç»Ÿåœç®—
+        sbr.cbmrdatasource    := 1; --æŠ„è¡¨ç»“æœæ¥æº
+        sbr.cbmrifignoreminsl := 'Y'; --åœç®—æœ€ä½æŠ„é‡
+        sbr.cbmrpdardate      := null; --æŠ„è¡¨æœºæŠ„è¡¨æ—¶é—´
+        sbr.cbmroutflag       := 'N'; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ ‡å¿—
+        sbr.cbmroutid         := null; --å‘å‡ºåˆ°æŠ„è¡¨æœºæµæ°´å·
+        sbr.cbmroutdate       := null; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ—¥æœŸ
+        sbr.cbmrinorder       := null; --æŠ„è¡¨æœºæ¥æ”¶æ¬¡åº
+        sbr.cbmrindate        := null; --æŠ„è¡¨æœºæ¥å—æ—¥æœŸ
+        sbr.cbmrrpid          := sb.sbrpid; --è®¡ä»¶ç±»å‹
+        sbr.CBMRMEMO          := null; --æŠ„è¡¨å¤‡æ³¨
+        sbr.cbmrifgu          := 'N'; --ä¼°è¡¨æ ‡å¿—
+        sbr.cbmrifrec         := 'N'; --å·²è®¡è´¹
+        sbr.cbmrrecdate       := null; --è®¡è´¹æ—¥æœŸ
+        sbr.cbmrrecsl         := null; --åº”æ”¶æ°´é‡
+        /*        --å–æœªç”¨ä½™é‡
+        sp_fetchaddingsl(sbr.cbmrid , --æŠ„è¡¨æµæ°´
+                         sb.sbid,--æ°´è¡¨å·
+                         v_tempnum,--æ—§è¡¨æ­¢åº¦
+                         v_tempnum,--æ–°è¡¨èµ·åº¦
+                         v_addsl ,--ä½™é‡
+                         v_date,--åˆ›å»ºæ—¥æœŸ
+                         v_tempstr,--åŠ è°ƒäº‹åŠ¡
+                         v_ret  --è¿”å›å€¼
                          ) ;
-        sbr.cbmraddsl         :=   v_addsl ;  --ÓàÁ¿   */
-        sbr.cbmraddsl         := 0; --ÓàÁ¿
-        sbr.cbmrcarrysl       := null; --½øÎ»Ë®Á¿
-        sbr.cbmrctrl1         := null; --³­±í»ú¿ØÖÆÎ»1
-        sbr.cbmrctrl2         := null; --³­±í»ú¿ØÖÆÎ»2
-        sbr.cbmrctrl3         := null; --³­±í»ú¿ØÖÆÎ»3
-        sbr.cbmrctrl4         := null; --³­±í»ú¿ØÖÆÎ»4
-        sbr.cbmrctrl5         := null; --³­±í»ú¿ØÖÆÎ»5
-        sbr.cbmrchkflag       := 'N'; --¸´ºË±êÖ¾
-        sbr.cbmrchkdate       := null; --¸´ºËÈÕÆÚ
-        sbr.cbmrchkper        := null; --¸´ºËÈËÔ±
-        sbr.cbmrchkscode      := null; --Ô­ÆğÊı
-        sbr.cbmrchkecode      := null; --Ô­Ö¹Êı
-        sbr.cbmrchksl         := null; --Ô­Ë®Á¿
-        sbr.cbmrchkaddsl      := null; --Ô­ÓàÁ¿
-        sbr.cbmrchkcarrysl    := null; --Ô­½øÎ»Ë®Á¿
-        sbr.cbmrchkrdate      := null; --Ô­³­¼ûÈÕÆÚ
-        sbr.cbmrchkface       := null; --Ô­±í¿ö
-        sbr.cbmrchkresult     := null; --¼ì²é½á¹ûÀàĞÍ
-        sbr.cbmrchkresultmemo := null; --¼ì²é½á¹ûËµÃ÷
-        sbr.cbmrprimid        := sb.sbpriid; --ºÏÊÕ±íÖ÷±í
-        sbr.cbmrprimflag      := sb.sbpriflag; --  ºÏÊÕ±í±êÖ¾
-        sbr.cbmrlb            := sb.sblb; -- Ë®±íÀà±ğ
-        sbr.cbmrnewflag       := sb.sbnewflag; -- ĞÂ±í±êÖ¾
-        sbr.cbmrface2         :=null ;--³­¼û¹ÊÕÏ
-        sbr.cbmrface3         :=null ;--·Ç³£¼ÆÁ¿
-        sbr.cbmrface4         :=null ;--±í¾®ÉèÊ©ËµÃ÷
+        sbr.cbmraddsl         :=   v_addsl ;  --ä½™é‡   */
+        sbr.cbmraddsl         := 0; --ä½™é‡
+        sbr.cbmrcarrysl       := null; --è¿›ä½æ°´é‡
+        sbr.cbmrctrl1         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½1
+        sbr.cbmrctrl2         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½2
+        sbr.cbmrctrl3         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½3
+        sbr.cbmrctrl4         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½4
+        sbr.cbmrctrl5         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½5
+        sbr.cbmrchkflag       := 'N'; --å¤æ ¸æ ‡å¿—
+        sbr.cbmrchkdate       := null; --å¤æ ¸æ—¥æœŸ
+        sbr.cbmrchkper        := null; --å¤æ ¸äººå‘˜
+        sbr.cbmrchkscode      := null; --åŸèµ·æ•°
+        sbr.cbmrchkecode      := null; --åŸæ­¢æ•°
+        sbr.cbmrchksl         := null; --åŸæ°´é‡
+        sbr.cbmrchkaddsl      := null; --åŸä½™é‡
+        sbr.cbmrchkcarrysl    := null; --åŸè¿›ä½æ°´é‡
+        sbr.cbmrchkrdate      := null; --åŸæŠ„è§æ—¥æœŸ
+        sbr.cbmrchkface       := null; --åŸè¡¨å†µ
+        sbr.cbmrchkresult     := null; --æ£€æŸ¥ç»“æœç±»å‹
+        sbr.cbmrchkresultmemo := null; --æ£€æŸ¥ç»“æœè¯´æ˜
+        sbr.cbmrprimid        := sb.sbpriid; --åˆæ”¶è¡¨ä¸»è¡¨
+        sbr.cbmrprimflag      := sb.sbpriflag; --  åˆæ”¶è¡¨æ ‡å¿—
+        sbr.cbmrlb            := sb.sblb; -- æ°´è¡¨ç±»åˆ«
+        sbr.cbmrnewflag       := sb.sbnewflag; -- æ–°è¡¨æ ‡å¿—
+        sbr.cbmrface2         :=null ;--æŠ„è§æ•…éšœ
+        sbr.cbmrface3         :=null ;--éå¸¸è®¡é‡
+        sbr.cbmrface4         :=null ;--è¡¨äº•è®¾æ–½è¯´æ˜
 
-        sbr.cbMRPRIVILEGEFLAG := 'N'; --ÌØÈ¨±êÖ¾(Y/N)
-        sbr.cbmrprivilegeper  :=null;--ÌØÈ¨²Ù×÷ÈË
-        sbr.cbmrprivilegememo :=null;--ÌØÈ¨²Ù×÷±¸×¢
-        sbr.AREA_NO         := sb.AREA_NO; --¹ÜÀíÇøÓò
-        sbr.cbmriftrans       := 'N'; --×ªµ¥±êÖ¾
-        sbr.cbmrrequisition   := 0; --Í¨Öªµ¥´òÓ¡´ÎÊı
-        sbr.cbmrifchk         := sb.sbifchk; --¿¼ºË±í±êÖ¾
-        sbr.cbmrinputper      := null;--ÈëÕËÈËÔ±
-        sbr.PRICE_NO          := sb.PRICE_NO;--ÓÃË®Àà±ğ
-        sbr.cbmrcaliber       := md.mdcaliber;--¿Ú¾¶
-        sbr.cbmrside          := sb.sbside;--±íÎ»
-        sbr.cbmrmtype         := sb.sbtype;--±íĞÍ
+        sbr.cbMRPRIVILEGEFLAG := 'N'; --ç‰¹æƒæ ‡å¿—(Y/N)
+        sbr.cbmrprivilegeper  :=null;--ç‰¹æƒæ“ä½œäºº
+        sbr.cbmrprivilegememo :=null;--ç‰¹æƒæ“ä½œå¤‡æ³¨
+        sbr.AREA_NO         := sb.AREA_NO; --ç®¡ç†åŒºåŸŸ
+        sbr.cbmriftrans       := 'N'; --è½¬å•æ ‡å¿—
+        sbr.cbmrrequisition   := 0; --é€šçŸ¥å•æ‰“å°æ¬¡æ•°
+        sbr.cbmrifchk         := sb.sbifchk; --è€ƒæ ¸è¡¨æ ‡å¿—
+        sbr.cbmrinputper      := null;--å…¥è´¦äººå‘˜
+        sbr.PRICE_NO          := sb.PRICE_NO;--ç”¨æ°´ç±»åˆ«
+        sbr.cbmrcaliber       := md.mdcaliber;--å£å¾„
+        sbr.cbmrside          := sb.sbside;--è¡¨ä½
+        sbr.cbmrmtype         := sb.sbtype;--è¡¨å‹
 
-         sbr.cbmrplansl   := 0;--¼Æ»®Ë®Á¿
-        sbr.cbmrplanje01 := 0;--¼Æ»®Ë®·Ñ
-        sbr.CBMRPLANJE02 := 0;--¼Æ»®ÎÛË®´¦Àí·Ñ
-        sbr.cbmrplanje03 := 0;--¼Æ»®Ë®×ÊÔ´·Ñ
+         sbr.cbmrplansl   := 0;--è®¡åˆ’æ°´é‡
+        sbr.cbmrplanje01 := 0;--è®¡åˆ’æ°´è´¹
+        sbr.CBMRPLANJE02 := 0;--è®¡åˆ’æ±¡æ°´å¤„ç†è´¹
+        sbr.cbmrplanje03 := 0;--è®¡åˆ’æ°´èµ„æºè´¹
 
-        --ÉÏ´ÎË®·Ñ   ÖÁ  È¥Äê¶È´Î¾ùÁ¿
+        --ä¸Šæ¬¡æ°´è´¹   è‡³  å»å¹´åº¦æ¬¡å‡é‡
         getmrhis(sbr.id,
                  sbr.cbmrmonth,
                  sbr.cbmrthreesl,
@@ -248,12 +248,12 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
   END; 
   
    /*
-  ½øĞĞÉú³É³­Âë±í
-  ²ÎÊı£ºp_manage_no£º ÁÙÊ±±íÀàĞÍ(PBPARMTEMP.c1)£¬´æ·Åµ÷¶ÎºóÄ¿±ê±í²áÖĞËùÓĞË®±í±àºÅc1,³­±í´ÎĞòc2
-        p_month: Ä¿±êÓªÒµËù
-        p_book_no:  Ä¿±ê±í²á 
-  ´¦Àí£ºÉú³É³­±í×ÊÁÏ
-  Êä³ö£ºÎŞ
+  è¿›è¡Œç”ŸæˆæŠ„ç è¡¨
+  å‚æ•°ï¼šp_manage_noï¼š ä¸´æ—¶è¡¨ç±»å‹(PBPARMTEMP.c1)ï¼Œå­˜æ”¾è°ƒæ®µåç›®æ ‡è¡¨å†Œä¸­æ‰€æœ‰æ°´è¡¨ç¼–å·c1,æŠ„è¡¨æ¬¡åºc2
+        p_month: ç›®æ ‡è¥ä¸šæ‰€
+        p_book_no:  ç›®æ ‡è¡¨å†Œ 
+  å¤„ç†ï¼šç”ŸæˆæŠ„è¡¨èµ„æ–™
+  è¾“å‡ºï¼šæ— 
   */
   PROCEDURE createCBsb(p_HIRE_CODE  in VARCHAR2,
                         p_month in varchar2 , 
@@ -268,7 +268,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
     v_tempstr varchar2(10);
     v_ret     varchar2(10);
     v_date    date;
-    --´æÔÚ
+    --å­˜åœ¨
     cursor c_cb(vsbid in varchar2) is
       select 1
         from ys_cb_mtread
@@ -276,7 +276,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
          and CBmrmonth = p_month;
     DUMMY INTEGER;
     FOUND BOOLEAN;
-    --¼Æ»®
+    --è®¡åˆ’
     cursor c_bksb is
       select a.yhid,
              b.sbid, 
@@ -340,113 +340,113 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
              sb.sbtype,
              sb.book_no;
       exit when c_bksb%notfound or c_bksb%notfound is null;
-      --ÅĞ¶ÏÊÇ·ñ´æÔÚÖØ¸´³­±í¼Æ»®
+      --åˆ¤æ–­æ˜¯å¦å­˜åœ¨é‡å¤æŠ„è¡¨è®¡åˆ’
       OPEN c_cb(sb.sbid);
       FETCH c_cb
         INTO DUMMY;
       found := c_cb%FOUND;
       close c_cb;
       if not found then
-        sbr.id     :=  sys_guid(); --Á÷Ë®ºÅ
+        sbr.id     :=  sys_guid(); --æµæ°´å·
         sbr.hire_code := p_HIRE_CODE ;
-        sbr.cbmrmonth  := p_month; --³­±íÔÂ·İ
-        sbr.manage_no  := sb.manage_no; --¹ÜÏ½¹«Ë¾
-        sbr.book_no   := sb.book_no; --±í²á
-        sbr.cbMRBATCH  := bc.READ_BATCH; --³­±íÅú´Î
-        sbr.cbMRRPER   := bc.READ_PER; --³­±íÔ±
-        sbr.cbmrrorder := sb.sbrorder; --³­±í´ÎĞòºÅ
+        sbr.cbmrmonth  := p_month; --æŠ„è¡¨æœˆä»½
+        sbr.manage_no  := sb.manage_no; --ç®¡è¾–å…¬å¸
+        sbr.book_no   := sb.book_no; --è¡¨å†Œ
+        sbr.cbMRBATCH  := bc.READ_BATCH; --æŠ„è¡¨æ‰¹æ¬¡
+        sbr.cbMRRPER   := bc.READ_PER; --æŠ„è¡¨å‘˜
+        sbr.cbmrrorder := sb.sbrorder; --æŠ„è¡¨æ¬¡åºå·
         
-        sbr.YHID           := yh.yhid; --ÓÃ»§±àºÅ
+        sbr.YHID           := yh.yhid; --ç”¨æˆ·ç¼–å·
         
-        sbr.sbid           := sb.sbid; --Ë®±í±àºÅ
+        sbr.sbid           := sb.sbid; --æ°´è¡¨ç¼–å·
         
-        sbr.TRADE_NO          := sb.TRADE_NO; --ĞĞÒµ·ÖÀà
-        sbr.SBPID          := sb.sbpid; --ÉÏ¼¶Ë®±í
-        sbr.CBMRMCLASS        := sb.sbclass; --Ë®±í¼¶´Î
-        sbr.CBMRMFLAG         := sb.sbflag; --Ä©¼¶±êÖ¾
-        sbr.CBMRCREADATE      := sysdate; --´´½¨ÈÕÆÚ
-        sbr.CBMRINPUTDATE     := null; --±à¼­ÈÕÆÚ
-        sbr.CBMRREADOK        := 'N'; --³­¼û±êÖ¾
-        sbr.CBMRRDATE         := null; --³­±íÈÕÆÚ
-        sbr.cbmrprdate        := sb.sbrecdate; --ÉÏ´Î³­¼ûÈÕÆÚ(È¡ÉÏ´ÎÓĞĞ§³­±íÈÕÆÚ)
-        sbr.cbmrscode         := sb.sbrcode; --ÉÏÆÚ³­¼û
-        sbr.cbMRSCODECHAR     := sb.sbrcodechar; --ÉÏÆÚ³­¼ûchar
-        sbr.cbmrecode         := null; --±¾ÆÚ³­¼û
-        sbr.cbmrsl            := null; --±¾ÆÚË®Á¿
-        sbr.cbmrface          := null; --±í¿ö
-        sbr.cbmrifsubmit      := 'Y'; --ÊÇ·ñÌá½»¼Æ·Ñ
-        sbr.cbmrifhalt        := 'N'; --ÏµÍ³Í£Ëã
-        sbr.cbmrdatasource    := 1; --³­±í½á¹ûÀ´Ô´
-        sbr.cbmrifignoreminsl := 'Y'; --Í£Ëã×îµÍ³­Á¿
-        sbr.cbmrpdardate      := null; --³­±í»ú³­±íÊ±¼ä
-        sbr.cbmroutflag       := 'N'; --·¢³öµ½³­±í»ú±êÖ¾
-        sbr.cbmroutid         := null; --·¢³öµ½³­±í»úÁ÷Ë®ºÅ
-        sbr.cbmroutdate       := null; --·¢³öµ½³­±í»úÈÕÆÚ
-        sbr.cbmrinorder       := null; --³­±í»ú½ÓÊÕ´ÎĞò
-        sbr.cbmrindate        := null; --³­±í»ú½ÓÊÜÈÕÆÚ
-        sbr.cbmrrpid          := sb.sbrpid; --¼Æ¼şÀàĞÍ
-        sbr.CBMRMEMO          := null; --³­±í±¸×¢
-        sbr.cbmrifgu          := 'N'; --¹À±í±êÖ¾
-        sbr.cbmrifrec         := 'N'; --ÒÑ¼Æ·Ñ
-        sbr.cbmrrecdate       := null; --¼Æ·ÑÈÕÆÚ
-        sbr.cbmrrecsl         := null; --Ó¦ÊÕË®Á¿
-        /*        --È¡Î´ÓÃÓàÁ¿
-        sp_fetchaddingsl(sbr.cbmrid , --³­±íÁ÷Ë®
-                         sb.sbid,--Ë®±íºÅ
-                         v_tempnum,--¾É±íÖ¹¶È
-                         v_tempnum,--ĞÂ±íÆğ¶È
-                         v_addsl ,--ÓàÁ¿
-                         v_date,--´´½¨ÈÕÆÚ
-                         v_tempstr,--¼Óµ÷ÊÂÎñ
-                         v_ret  --·µ»ØÖµ
+        sbr.TRADE_NO          := sb.TRADE_NO; --è¡Œä¸šåˆ†ç±»
+        sbr.SBPID          := sb.sbpid; --ä¸Šçº§æ°´è¡¨
+        sbr.CBMRMCLASS        := sb.sbclass; --æ°´è¡¨çº§æ¬¡
+        sbr.CBMRMFLAG         := sb.sbflag; --æœ«çº§æ ‡å¿—
+        sbr.CBMRCREADATE      := sysdate; --åˆ›å»ºæ—¥æœŸ
+        sbr.CBMRINPUTDATE     := null; --ç¼–è¾‘æ—¥æœŸ
+        sbr.CBMRREADOK        := 'N'; --æŠ„è§æ ‡å¿—
+        sbr.CBMRRDATE         := null; --æŠ„è¡¨æ—¥æœŸ
+        sbr.cbmrprdate        := sb.sbrecdate; --ä¸Šæ¬¡æŠ„è§æ—¥æœŸ(å–ä¸Šæ¬¡æœ‰æ•ˆæŠ„è¡¨æ—¥æœŸ)
+        sbr.cbmrscode         := sb.sbrcode; --ä¸ŠæœŸæŠ„è§
+        sbr.cbMRSCODECHAR     := sb.sbrcodechar; --ä¸ŠæœŸæŠ„è§char
+        sbr.cbmrecode         := null; --æœ¬æœŸæŠ„è§
+        sbr.cbmrsl            := null; --æœ¬æœŸæ°´é‡
+        sbr.cbmrface          := null; --è¡¨å†µ
+        sbr.cbmrifsubmit      := 'Y'; --æ˜¯å¦æäº¤è®¡è´¹
+        sbr.cbmrifhalt        := 'N'; --ç³»ç»Ÿåœç®—
+        sbr.cbmrdatasource    := 1; --æŠ„è¡¨ç»“æœæ¥æº
+        sbr.cbmrifignoreminsl := 'Y'; --åœç®—æœ€ä½æŠ„é‡
+        sbr.cbmrpdardate      := null; --æŠ„è¡¨æœºæŠ„è¡¨æ—¶é—´
+        sbr.cbmroutflag       := 'N'; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ ‡å¿—
+        sbr.cbmroutid         := null; --å‘å‡ºåˆ°æŠ„è¡¨æœºæµæ°´å·
+        sbr.cbmroutdate       := null; --å‘å‡ºåˆ°æŠ„è¡¨æœºæ—¥æœŸ
+        sbr.cbmrinorder       := null; --æŠ„è¡¨æœºæ¥æ”¶æ¬¡åº
+        sbr.cbmrindate        := null; --æŠ„è¡¨æœºæ¥å—æ—¥æœŸ
+        sbr.cbmrrpid          := sb.sbrpid; --è®¡ä»¶ç±»å‹
+        sbr.CBMRMEMO          := null; --æŠ„è¡¨å¤‡æ³¨
+        sbr.cbmrifgu          := 'N'; --ä¼°è¡¨æ ‡å¿—
+        sbr.cbmrifrec         := 'N'; --å·²è®¡è´¹
+        sbr.cbmrrecdate       := null; --è®¡è´¹æ—¥æœŸ
+        sbr.cbmrrecsl         := null; --åº”æ”¶æ°´é‡
+        /*        --å–æœªç”¨ä½™é‡
+        sp_fetchaddingsl(sbr.cbmrid , --æŠ„è¡¨æµæ°´
+                         sb.sbid,--æ°´è¡¨å·
+                         v_tempnum,--æ—§è¡¨æ­¢åº¦
+                         v_tempnum,--æ–°è¡¨èµ·åº¦
+                         v_addsl ,--ä½™é‡
+                         v_date,--åˆ›å»ºæ—¥æœŸ
+                         v_tempstr,--åŠ è°ƒäº‹åŠ¡
+                         v_ret  --è¿”å›å€¼
                          ) ;
-        sbr.cbmraddsl         :=   v_addsl ;  --ÓàÁ¿   */
-        sbr.cbmraddsl         := 0; --ÓàÁ¿
-        sbr.cbmrcarrysl       := null; --½øÎ»Ë®Á¿
-        sbr.cbmrctrl1         := null; --³­±í»ú¿ØÖÆÎ»1
-        sbr.cbmrctrl2         := null; --³­±í»ú¿ØÖÆÎ»2
-        sbr.cbmrctrl3         := null; --³­±í»ú¿ØÖÆÎ»3
-        sbr.cbmrctrl4         := null; --³­±í»ú¿ØÖÆÎ»4
-        sbr.cbmrctrl5         := null; --³­±í»ú¿ØÖÆÎ»5
-        sbr.cbmrchkflag       := 'N'; --¸´ºË±êÖ¾
-        sbr.cbmrchkdate       := null; --¸´ºËÈÕÆÚ
-        sbr.cbmrchkper        := null; --¸´ºËÈËÔ±
-        sbr.cbmrchkscode      := null; --Ô­ÆğÊı
-        sbr.cbmrchkecode      := null; --Ô­Ö¹Êı
-        sbr.cbmrchksl         := null; --Ô­Ë®Á¿
-        sbr.cbmrchkaddsl      := null; --Ô­ÓàÁ¿
-        sbr.cbmrchkcarrysl    := null; --Ô­½øÎ»Ë®Á¿
-        sbr.cbmrchkrdate      := null; --Ô­³­¼ûÈÕÆÚ
-        sbr.cbmrchkface       := null; --Ô­±í¿ö
-        sbr.cbmrchkresult     := null; --¼ì²é½á¹ûÀàĞÍ
-        sbr.cbmrchkresultmemo := null; --¼ì²é½á¹ûËµÃ÷
-        sbr.cbmrprimid        := sb.sbpriid; --ºÏÊÕ±íÖ÷±í
-        sbr.cbmrprimflag      := sb.sbpriflag; --  ºÏÊÕ±í±êÖ¾
-        sbr.cbmrlb            := sb.sblb; -- Ë®±íÀà±ğ
-        sbr.cbmrnewflag       := sb.sbnewflag; -- ĞÂ±í±êÖ¾
-        sbr.cbmrface2         :=null ;--³­¼û¹ÊÕÏ
-        sbr.cbmrface3         :=null ;--·Ç³£¼ÆÁ¿
-        sbr.cbmrface4         :=null ;--±í¾®ÉèÊ©ËµÃ÷
+        sbr.cbmraddsl         :=   v_addsl ;  --ä½™é‡   */
+        sbr.cbmraddsl         := 0; --ä½™é‡
+        sbr.cbmrcarrysl       := null; --è¿›ä½æ°´é‡
+        sbr.cbmrctrl1         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½1
+        sbr.cbmrctrl2         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½2
+        sbr.cbmrctrl3         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½3
+        sbr.cbmrctrl4         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½4
+        sbr.cbmrctrl5         := null; --æŠ„è¡¨æœºæ§åˆ¶ä½5
+        sbr.cbmrchkflag       := 'N'; --å¤æ ¸æ ‡å¿—
+        sbr.cbmrchkdate       := null; --å¤æ ¸æ—¥æœŸ
+        sbr.cbmrchkper        := null; --å¤æ ¸äººå‘˜
+        sbr.cbmrchkscode      := null; --åŸèµ·æ•°
+        sbr.cbmrchkecode      := null; --åŸæ­¢æ•°
+        sbr.cbmrchksl         := null; --åŸæ°´é‡
+        sbr.cbmrchkaddsl      := null; --åŸä½™é‡
+        sbr.cbmrchkcarrysl    := null; --åŸè¿›ä½æ°´é‡
+        sbr.cbmrchkrdate      := null; --åŸæŠ„è§æ—¥æœŸ
+        sbr.cbmrchkface       := null; --åŸè¡¨å†µ
+        sbr.cbmrchkresult     := null; --æ£€æŸ¥ç»“æœç±»å‹
+        sbr.cbmrchkresultmemo := null; --æ£€æŸ¥ç»“æœè¯´æ˜
+        sbr.cbmrprimid        := sb.sbpriid; --åˆæ”¶è¡¨ä¸»è¡¨
+        sbr.cbmrprimflag      := sb.sbpriflag; --  åˆæ”¶è¡¨æ ‡å¿—
+        sbr.cbmrlb            := sb.sblb; -- æ°´è¡¨ç±»åˆ«
+        sbr.cbmrnewflag       := sb.sbnewflag; -- æ–°è¡¨æ ‡å¿—
+        sbr.cbmrface2         :=null ;--æŠ„è§æ•…éšœ
+        sbr.cbmrface3         :=null ;--éå¸¸è®¡é‡
+        sbr.cbmrface4         :=null ;--è¡¨äº•è®¾æ–½è¯´æ˜
 
-        sbr.cbMRPRIVILEGEFLAG := 'N'; --ÌØÈ¨±êÖ¾(Y/N)
-        sbr.cbmrprivilegeper  :=null;--ÌØÈ¨²Ù×÷ÈË
-        sbr.cbmrprivilegememo :=null;--ÌØÈ¨²Ù×÷±¸×¢
-        sbr.AREA_NO         := sb.AREA_NO; --¹ÜÀíÇøÓò
-        sbr.cbmriftrans       := 'N'; --×ªµ¥±êÖ¾
-        sbr.cbmrrequisition   := 0; --Í¨Öªµ¥´òÓ¡´ÎÊı
-        sbr.cbmrifchk         := sb.sbifchk; --¿¼ºË±í±êÖ¾
-        sbr.cbmrinputper      := null;--ÈëÕËÈËÔ±
-        sbr.PRICE_NO          := sb.PRICE_NO;--ÓÃË®Àà±ğ
-        sbr.cbmrcaliber       := md.mdcaliber;--¿Ú¾¶
-        sbr.cbmrside          := sb.sbside;--±íÎ»
-        sbr.cbmrmtype         := sb.sbtype;--±íĞÍ
+        sbr.cbMRPRIVILEGEFLAG := 'N'; --ç‰¹æƒæ ‡å¿—(Y/N)
+        sbr.cbmrprivilegeper  :=null;--ç‰¹æƒæ“ä½œäºº
+        sbr.cbmrprivilegememo :=null;--ç‰¹æƒæ“ä½œå¤‡æ³¨
+        sbr.AREA_NO         := sb.AREA_NO; --ç®¡ç†åŒºåŸŸ
+        sbr.cbmriftrans       := 'N'; --è½¬å•æ ‡å¿—
+        sbr.cbmrrequisition   := 0; --é€šçŸ¥å•æ‰“å°æ¬¡æ•°
+        sbr.cbmrifchk         := sb.sbifchk; --è€ƒæ ¸è¡¨æ ‡å¿—
+        sbr.cbmrinputper      := null;--å…¥è´¦äººå‘˜
+        sbr.PRICE_NO          := sb.PRICE_NO;--ç”¨æ°´ç±»åˆ«
+        sbr.cbmrcaliber       := md.mdcaliber;--å£å¾„
+        sbr.cbmrside          := sb.sbside;--è¡¨ä½
+        sbr.cbmrmtype         := sb.sbtype;--è¡¨å‹
 
-         sbr.cbmrplansl   := 0;--¼Æ»®Ë®Á¿
-        sbr.cbmrplanje01 := 0;--¼Æ»®Ë®·Ñ
-        sbr.CBMRPLANJE02 := 0;--¼Æ»®ÎÛË®´¦Àí·Ñ
-        sbr.cbmrplanje03 := 0;--¼Æ»®Ë®×ÊÔ´·Ñ
+         sbr.cbmrplansl   := 0;--è®¡åˆ’æ°´é‡
+        sbr.cbmrplanje01 := 0;--è®¡åˆ’æ°´è´¹
+        sbr.CBMRPLANJE02 := 0;--è®¡åˆ’æ±¡æ°´å¤„ç†è´¹
+        sbr.cbmrplanje03 := 0;--è®¡åˆ’æ°´èµ„æºè´¹
 
-        --ÉÏ´ÎË®·Ñ   ÖÁ  È¥Äê¶È´Î¾ùÁ¿
+        --ä¸Šæ¬¡æ°´è´¹   è‡³  å»å¹´åº¦æ¬¡å‡é‡
         getmrhis(sbr.id,
                  sbr.cbmrmonth,
                  sbr.cbmrthreesl,
@@ -486,32 +486,32 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
       RAISE;
   END; 
  /*
-  ¾ùÁ¿£¨·Ñ£©Ëã·¨
-  1¡¢Ç°n´Î¾ùÁ¿£º     ´Ó×î½ü³­±íË®Á¿ÏòÀúÊ··½ÏòµİÍÆ12´Î³­±íÀÛ¼ÆË®Á¿£¨0Ë®Á¿²»¼Æ´Î£©/µİÍÆ´ÎÊı
-  2¡¢ÉÏ´ÎË®Á¿£º      ×î½üÒ»´Î³­±íË®Á¿£¨°üÀ¨0Ë®Á¿£©
-  3¡¢È¥ÄêÍ¬ÆÚË®Á¿£º  È¥ÄêÍ¬³­±íÔÂ·İµÄ³­±íË®Á¿£¨°üÀ¨0Ë®Á¿£©
-  4¡¢È¥Äê¶È´Î¾ùÁ¿£º  È¥Äê¶ÈµÄ³­±íÀÛ¼ÆË®Á¿£¨0Ë®Á¿²»¼Æ´Î£©/µİÍÆ´ÎÊı
+  å‡é‡ï¼ˆè´¹ï¼‰ç®—æ³•
+  1ã€å‰næ¬¡å‡é‡ï¼š     ä»æœ€è¿‘æŠ„è¡¨æ°´é‡å‘å†å²æ–¹å‘é€’æ¨12æ¬¡æŠ„è¡¨ç´¯è®¡æ°´é‡ï¼ˆ0æ°´é‡ä¸è®¡æ¬¡ï¼‰/é€’æ¨æ¬¡æ•°
+  2ã€ä¸Šæ¬¡æ°´é‡ï¼š      æœ€è¿‘ä¸€æ¬¡æŠ„è¡¨æ°´é‡ï¼ˆåŒ…æ‹¬0æ°´é‡ï¼‰
+  3ã€å»å¹´åŒæœŸæ°´é‡ï¼š  å»å¹´åŒæŠ„è¡¨æœˆä»½çš„æŠ„è¡¨æ°´é‡ï¼ˆåŒ…æ‹¬0æ°´é‡ï¼‰
+  4ã€å»å¹´åº¦æ¬¡å‡é‡ï¼š  å»å¹´åº¦çš„æŠ„è¡¨ç´¯è®¡æ°´é‡ï¼ˆ0æ°´é‡ä¸è®¡æ¬¡ï¼‰/é€’æ¨æ¬¡æ•°
 
-  ¡¾meterread/meterreadhis¡¿¾ùÁ¿¼ÇÂ¼½á¹¹
-  mrthreesl   number(10)    Ç°n´Î¾ùÁ¿
-  mrthreeje01 number(13,3)  Ç°n´Î¾ùË®·Ñ
-  mrthreeje02 number(13,3)  Ç°n´Î¾ùÎÛË®·Ñ
-  mrthreeje03 number(13,3)  Ç°n´Î¾ùË®×ÊÔ´·Ñ
+  ã€meterread/meterreadhisã€‘å‡é‡è®°å½•ç»“æ„
+  mrthreesl   number(10)    å‰næ¬¡å‡é‡
+  mrthreeje01 number(13,3)  å‰næ¬¡å‡æ°´è´¹
+  mrthreeje02 number(13,3)  å‰næ¬¡å‡æ±¡æ°´è´¹
+  mrthreeje03 number(13,3)  å‰næ¬¡å‡æ°´èµ„æºè´¹
 
-  mrlastsl    number(10)    ÉÏ´ÎË®Á¿
-  mrlastje01  number(13,3)  ÉÏ´ÎË®·Ñ
-  mrlastje02  number(13,3)  ÉÏ´ÎÎÛË®·Ñ
-  mrlastje03  number(13,3)  ÉÏ´ÎË®×ÊÔ´·Ñ
+  mrlastsl    number(10)    ä¸Šæ¬¡æ°´é‡
+  mrlastje01  number(13,3)  ä¸Šæ¬¡æ°´è´¹
+  mrlastje02  number(13,3)  ä¸Šæ¬¡æ±¡æ°´è´¹
+  mrlastje03  number(13,3)  ä¸Šæ¬¡æ°´èµ„æºè´¹
 
-  mryearsl    number(10)    È¥ÄêÍ¬ÆÚË®Á¿
-  mryearje01  number(13,3)  È¥ÄêÍ¬ÆÚË®·Ñ
-  mryearje02  number(13,3)  È¥ÄêÍ¬ÆÚÎÛË®·Ñ
-  mryearje03  number(13,3)  È¥ÄêÍ¬ÆÚË®×ÊÔ´·Ñ
+  mryearsl    number(10)    å»å¹´åŒæœŸæ°´é‡
+  mryearje01  number(13,3)  å»å¹´åŒæœŸæ°´è´¹
+  mryearje02  number(13,3)  å»å¹´åŒæœŸæ±¡æ°´è´¹
+  mryearje03  number(13,3)  å»å¹´åŒæœŸæ°´èµ„æºè´¹
 
-  mrlastyearsl    number(10)    È¥Äê¶È´Î¾ùÁ¿
-  mrlastyearje01  number(13,3)  È¥Äê¶È´Î¾ùË®·Ñ
-  mrlastyearje02  number(13,3)  È¥Äê¶È´Î¾ùÎÛË®·Ñ
-  mrlastyearje03  number(13,3)  È¥Äê¶È´Î¾ùË®×ÊÔ´·Ñ
+  mrlastyearsl    number(10)    å»å¹´åº¦æ¬¡å‡é‡
+  mrlastyearje01  number(13,3)  å»å¹´åº¦æ¬¡å‡æ°´è´¹
+  mrlastyearje02  number(13,3)  å»å¹´åº¦æ¬¡å‡æ±¡æ°´è´¹
+  mrlastyearje03  number(13,3)  å»å¹´åº¦æ¬¡å‡æ°´èµ„æºè´¹
   */
   procedure getmrhis(p_sbid   in varchar2,
                      p_month  in varchar2,
@@ -563,36 +563,36 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
                                                             n4 > 12);
       if mrh.cbmrsl > 0 and n1 <= 12 then
         n1              := n1 + 1;
-        mrh.cbmrthreesl   := nvl(mrh.cbmrthreesl, 0) + mrh.cbmrsl; --Ç°n´Î¾ùÁ¿
-        mrh.cbmrthreeje01 := nvl(mrh.cbmrthreeje01, 0) + mrh.cbmrrecje01; --Ç°n´Î¾ùË®·Ñ
-        mrh.cbmrthreeje02 := nvl(mrh.cbmrthreeje02, 0) + mrh.cbmrrecje02; --Ç°n´Î¾ùÎÛË®·Ñ
-        mrh.cbmrthreeje03 := nvl(mrh.cbmrthreeje03, 0) + mrh.cbmrrecje03; --Ç°n´Î¾ùË®×ÊÔ´·Ñ
+        mrh.cbmrthreesl   := nvl(mrh.cbmrthreesl, 0) + mrh.cbmrsl; --å‰næ¬¡å‡é‡
+        mrh.cbmrthreeje01 := nvl(mrh.cbmrthreeje01, 0) + mrh.cbmrrecje01; --å‰næ¬¡å‡æ°´è´¹
+        mrh.cbmrthreeje02 := nvl(mrh.cbmrthreeje02, 0) + mrh.cbmrrecje02; --å‰næ¬¡å‡æ±¡æ°´è´¹
+        mrh.cbmrthreeje03 := nvl(mrh.cbmrthreeje03, 0) + mrh.cbmrrecje03; --å‰næ¬¡å‡æ°´èµ„æºè´¹
       end if;
 
       if c_mrh%rowcount = 1 then
         n2             := n2 + 1;
-        mrh.cbmrlastsl   := nvl(mrh.cbmrlastsl, 0) + mrh.cbmrsl; --ÉÏ´ÎË®Á¿
-        mrh.cbmrlastje01 := nvl(mrh.cbmrlastje01, 0) + mrh.cbmrrecje01; --ÉÏ´ÎË®·Ñ
-        mrh.cbmrlastje02 := nvl(mrh.cbmrlastje02, 0) + mrh.cbmrrecje02; --ÉÏ´ÎÎÛË®·Ñ
-        mrh.cbmrlastje03 := nvl(mrh.cbmrlastje03, 0) + mrh.cbmrrecje03; --ÉÏ´ÎË®×ÊÔ´·Ñ
+        mrh.cbmrlastsl   := nvl(mrh.cbmrlastsl, 0) + mrh.cbmrsl; --ä¸Šæ¬¡æ°´é‡
+        mrh.cbmrlastje01 := nvl(mrh.cbmrlastje01, 0) + mrh.cbmrrecje01; --ä¸Šæ¬¡æ°´è´¹
+        mrh.cbmrlastje02 := nvl(mrh.cbmrlastje02, 0) + mrh.cbmrrecje02; --ä¸Šæ¬¡æ±¡æ°´è´¹
+        mrh.cbmrlastje03 := nvl(mrh.cbmrlastje03, 0) + mrh.cbmrrecje03; --ä¸Šæ¬¡æ°´èµ„æºè´¹
       end if;
 
       if mrh.cbmrmonth = to_char(to_number(substr(p_month, 1, 4)) - 1) || '.' ||
          substr(p_month, 6, 2) then
         n3             := n3 + 1;
-        mrh.cbmryearsl   := nvl(mrh.cbmryearsl, 0) + mrh.cbmrsl; --È¥ÄêÍ¬ÆÚË®Á¿
-        mrh.cbmryearje01 := nvl(mrh.cbmryearje01, 0) + mrh.cbmrrecje01; --È¥ÄêÍ¬ÆÚË®·Ñ
-        mrh.cbmryearje02 := nvl(mrh.cbmryearje02, 0) + mrh.cbmrrecje02; --È¥ÄêÍ¬ÆÚÎÛË®·Ñ
-        mrh.cbmryearje03 := nvl(mrh.cbmryearje03, 0) + mrh.cbmrrecje03; --È¥ÄêÍ¬ÆÚË®×ÊÔ´·Ñ
+        mrh.cbmryearsl   := nvl(mrh.cbmryearsl, 0) + mrh.cbmrsl; --å»å¹´åŒæœŸæ°´é‡
+        mrh.cbmryearje01 := nvl(mrh.cbmryearje01, 0) + mrh.cbmrrecje01; --å»å¹´åŒæœŸæ°´è´¹
+        mrh.cbmryearje02 := nvl(mrh.cbmryearje02, 0) + mrh.cbmrrecje02; --å»å¹´åŒæœŸæ±¡æ°´è´¹
+        mrh.cbmryearje03 := nvl(mrh.cbmryearje03, 0) + mrh.cbmrrecje03; --å»å¹´åŒæœŸæ°´èµ„æºè´¹
       end if;
 
       if mrh.cbmrsl > 0 and to_number(substr(mrh.cbmrmonth, 1, 4)) =
          to_number(substr(p_month, 1, 4)) - 1 then
         n4                 := n4 + 1;
-        mrh.cbmrlastyearsl   := nvl(mrh.cbmrlastyearsl, 0) + mrh.cbmrsl; --È¥Äê¶È´Î¾ùÁ¿
-        mrh.cbmrlastyearje01 := nvl(mrh.cbmrlastyearje01, 0) + mrh.cbmrrecje01; --È¥Äê¶È´Î¾ùË®·Ñ
-        mrh.cbmrlastyearje02 := nvl(mrh.cbmrlastyearje02, 0) + mrh.cbmrrecje02; --È¥Äê¶È´Î¾ùÎÛË®·Ñ
-        mrh.cbmrlastyearje03 := nvl(mrh.cbmrlastyearje03, 0) + mrh.cbmrrecje03; --È¥Äê¶È´Î¾ùË®×ÊÔ´·Ñ
+        mrh.cbmrlastyearsl   := nvl(mrh.cbmrlastyearsl, 0) + mrh.cbmrsl; --å»å¹´åº¦æ¬¡å‡é‡
+        mrh.cbmrlastyearje01 := nvl(mrh.cbmrlastyearje01, 0) + mrh.cbmrrecje01; --å»å¹´åº¦æ¬¡å‡æ°´è´¹
+        mrh.cbmrlastyearje02 := nvl(mrh.cbmrlastyearje02, 0) + mrh.cbmrrecje02; --å»å¹´åº¦æ¬¡å‡æ±¡æ°´è´¹
+        mrh.cbmrlastyearje03 := nvl(mrh.cbmrlastyearje03, 0) + mrh.cbmrrecje03; --å»å¹´åº¦æ¬¡å‡æ°´èµ„æºè´¹
       end if;
     end loop;
 
@@ -702,12 +702,12 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
       end if;
   end getmrhis;
    
-   -- ÊÖ¹¤ÕËÎñÔÂ½á´¦Àí
-  --p_smfid ÓªÒµËù,ÊÛË®¹«Ë¾
-  --p_month µ±Ç°ÔÂ·İ
-  --p_per ²Ù×÷Ô±
-  --p_commit Ìá½»±êÖ¾
-  --o_ret ·µ»ØÖµ
+   -- æ‰‹å·¥è´¦åŠ¡æœˆç»“å¤„ç†
+  --p_smfid è¥ä¸šæ‰€,å”®æ°´å…¬å¸
+  --p_month å½“å‰æœˆä»½
+  --p_per æ“ä½œå‘˜
+  --p_commit æäº¤æ ‡å¿—
+  --o_ret è¿”å›å€¼
   --time 2010-08-20  by yf
   PROCEDURE month_over(p_HIRE_CODE in varchar2,
                          P_ID  IN VARCHAR2,
@@ -719,10 +719,10 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
     VSCRMONTH   VARCHAR2(7);
     VDESMONTH   VARCHAR2(7);
   BEGIN
-    ---START¼ì²éÊÇ·ñÓĞÂ©ËãÇé¿ö(ÔÚ¿Í»§¶ËÖĞ¼ì²é)----------------------------------------------------------
+    ---STARTæ£€æŸ¥æ˜¯å¦æœ‰æ¼ç®—æƒ…å†µ(åœ¨å®¢æˆ·ç«¯ä¸­æ£€æŸ¥)----------------------------------------------------------
     V_TEMPMONTH := fobtmanapara(P_ID,'READ_MONTH');
     IF V_TEMPMONTH <> P_MONTH THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÊÖ¹¤ÕËÎñÔÂ½áÔÂ·İÒì³£,Çë¼ì²é!');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'æ‰‹å·¥è´¦åŠ¡æœˆç»“æœˆä»½å¼‚å¸¸,è¯·æ£€æŸ¥!');
     END IF;
    
       update  BAS_MANA_PARA 
@@ -740,21 +740,21 @@ CREATE OR REPLACE PACKAGE BODY "PG_CBPLAN" is
          and  MANAGE_NO = p_id
           AND T.CBMRMONTH = P_MONTH);
 
-    --É¾³ıµ±Ç°³­±í¿âĞÅÏ¢
+    --åˆ é™¤å½“å‰æŠ„è¡¨åº“ä¿¡æ¯
     DELETE ys_cb_mtread T
         WHERE T.HIRE_CODE = P_HIRE_CODE
          and  MANAGE_NO = p_id
           AND T.CBMRMONTH = P_MONTH;
     --
       
-    --Ìá½»±êÖ¾
+    --æäº¤æ ‡å¿—
     IF P_COMMIT = 'Y' THEN
       COMMIT;
     END IF;
   EXCEPTION
     WHEN OTHERS THEN
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÕËÎñÔÂ½áÊ§°Ü' || SQLERRM);
+      RAISE_APPLICATION_ERROR(ERRCODE, 'è´¦åŠ¡æœˆç»“å¤±è´¥' || SQLERRM);
   END;
 end;
 /

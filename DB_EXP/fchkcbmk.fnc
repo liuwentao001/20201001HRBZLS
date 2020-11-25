@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION FCHKCBMK
+ï»¿CREATE OR REPLACE FUNCTION FCHKCBMK
    (vmiid IN VARCHAR2)
    Return CHAR
 AS
@@ -13,22 +13,22 @@ BEGIN
      INTO vmistatus,vmitype,vmiifsl,vmiifchk
      FROM METERINFO
     WHERE MIID=vmiid;
-   --·Ç³­±íÀàĞÍµÄ±í×´Ì¬Ë®±í²»³­
+   --éæŠ„è¡¨ç±»å‹çš„è¡¨çŠ¶æ€æ°´è¡¨ä¸æŠ„
    --
 \*   IF vmiifchk ='Y' THEN
-      return 'N';  --add 20141121 HB ¹ş¶û±õ¼ÆÁ¿±í²»Éú³É³­±í¼Æ»®
+      return 'N';  --add 20141121 HB å“ˆå°”æ»¨è®¡é‡è¡¨ä¸ç”ŸæˆæŠ„è¡¨è®¡åˆ’
    END IF ;
    *\
    select SMSMEMO into lret from sysmeterstatus where smsid=vmistatus;
    if lret='N' then
       return 'N';
    end if;
-   --·Ç³­±íÀàĞÍµÄ±íÀàĞÍË®±í²»³­
+   --éæŠ„è¡¨ç±»å‹çš„è¡¨ç±»å‹æ°´è¡¨ä¸æŠ„
    select smtifread into lret from sysmetertype where smtid=vmitype;
    if lret='N' then
       return 'N';
    end if;
-   --Ò»±í¶à»§·Ö±íË®±í²»³­ zhb
+   --ä¸€è¡¨å¤šæˆ·åˆ†è¡¨æ°´è¡¨ä¸æŠ„ zhb
    select * into mi from meterinfo where miid=vmiid;
    if mi.micolumn9='Y' and mi.micode <> mi.mipriid  then
       return 'N';
