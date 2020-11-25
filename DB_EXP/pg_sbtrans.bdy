@@ -1,6 +1,6 @@
 CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
 
-  ×îµÍËã·ÑË®Á¿ NUMBER(10);
+  æœ€ä½Žç®—è´¹æ°´é‡ NUMBER(10);
   PROCEDURE AUDIT(p_HIRE_CODE IN VARCHAR2,
                     P_BILLNO IN VARCHAR2,
                     P_PERSON IN VARCHAR2,
@@ -17,12 +17,12 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       -- raise_application_error(errcode,sqlerrm);
   END AUDIT;
 
-  --¹¤µ¥Ö÷³ÌÐò
+  --å·¥å•ä¸»ç¨‹åº
   PROCEDURE SP_SBTRANS(p_HIRE_CODE IN VARCHAR2,
-                          P_TYPE      IN VARCHAR2, --²Ù×÷ÀàÐÍ
-                          P_BILL_ID   IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                          P_PER       IN VARCHAR2, --²Ù×÷Ô±
-                          P_COMMIT    IN VARCHAR2 --Ìá½»±êÖ¾
+                          P_TYPE      IN VARCHAR2, --æ“ä½œç±»åž‹
+                          P_BILL_ID   IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                          P_PER       IN VARCHAR2, --æ“ä½œå‘˜
+                          P_COMMIT    IN VARCHAR2 --æäº¤æ ‡å¿—
                           ) AS
     MH ys_gd_metertranshd%ROWTYPE;
     MD ys_gd_metertransdt%ROWTYPE;
@@ -35,12 +35,12 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
          and HIRE_CODE = p_HIRE_CODE;
     EXCEPTION
       WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, '±ä¸üµ¥Í·ÐÅÏ¢²»´æÔÚ!');
+        RAISE_APPLICATION_ERROR(ERRCODE, 'å˜æ›´å•å¤´ä¿¡æ¯ä¸å­˜åœ¨!');
     END;
   
     --byj update 2016.10.21
     IF mh.check_flag = 'Y' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, '¹¤µ¥ÒÑ¾­ÉóºË,²»ÐèÖØ¸´ÉóºË!');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'å·¥å•å·²ç»å®¡æ ¸,ä¸éœ€é‡å¤å®¡æ ¸!');
     END IF;
   
     for md in (SELECT *
@@ -68,10 +68,10 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
   END;
 
-  --¹¤µ¥µ¥¸öÉóºË¹ý³Ì
-  PROCEDURE SP_SBTRANSONE(P_TYPE   IN VARCHAR2, --ÀàÐÍ
-                             P_PERSON IN VARCHAR2, -- ²Ù×÷Ô±
-                             P_MD     IN ys_gd_metertransdt%ROWTYPE --µ¥ÌåÐÐ±ä¸ü
+  --å·¥å•å•ä¸ªå®¡æ ¸è¿‡ç¨‹
+  PROCEDURE SP_SBTRANSONE(P_TYPE   IN VARCHAR2, --ç±»åž‹
+                             P_PERSON IN VARCHAR2, -- æ“ä½œå‘˜
+                             P_MD     IN ys_gd_metertransdt%ROWTYPE --å•ä½“è¡Œå˜æ›´
                              ) AS
     MH ys_gd_metertranshd%ROWTYPE;
     MD ys_gd_metertransdt%ROWTYPE;
@@ -89,7 +89,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
     V_OMRID     VARCHAR2(20);
     O_STR       VARCHAR2(20);
   
-    --Î´Ëã·Ñ³­±í¼ÇÂ¼
+    --æœªç®—è´¹æŠ„è¡¨è®°å½•
     cursor cur_nocalc(p_sbid varchar2, p_mrmonth varchar2) is
       select *
         from ys_cb_mtread mr
@@ -105,7 +105,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
          and HIRE_CODE = P_MD.Hire_Code;
     EXCEPTION
       WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, 'Ë®±í×ÊÁÏ²»´æÔÚ!');
+        RAISE_APPLICATION_ERROR(ERRCODE, 'æ°´è¡¨èµ„æ–™ä¸å­˜åœ¨!');
     END;
     BEGIN
       SELECT *
@@ -115,7 +115,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
          and HIRE_CODE = P_MD.Hire_Code;
     EXCEPTION
       WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, 'ÓÃ»§×ÊÁÏ²»´æÔÚ!');
+        RAISE_APPLICATION_ERROR(ERRCODE, 'ç”¨æˆ·èµ„æ–™ä¸å­˜åœ¨!');
     END;
     BEGIN
       SELECT *
@@ -125,41 +125,41 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
          and HIRE_CODE = P_MD.Hire_Code;
     EXCEPTION
       WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, 'Ë®±í²»´æÔÚ!');
+        RAISE_APPLICATION_ERROR(ERRCODE, 'æ°´è¡¨ä¸å­˜åœ¨!');
     END;
   
     IF MI.sbRCODE != MD.SCODE THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, 'ÉÏÆÚ³­¼û·¢Éú±ä»¯£¬ÇëÖØÖÃÉÏÆÚ³­¼û');
+      RAISE_APPLICATION_ERROR(ERRCODE, 'ä¸ŠæœŸæŠ„è§å‘ç”Ÿå˜åŒ–ï¼Œè¯·é‡ç½®ä¸ŠæœŸæŠ„è§');
     END IF;
   
-    --FÏú»§²ð±í
-    IF P_TYPE = BTÏú»§²ð±í THEN
-      -- METERINFO ÓÐÐ§×´Ì¬ --×´Ì¬ÈÕÆÚ --×´Ì¬±íÎñ
+    --Fé”€æˆ·æ‹†è¡¨
+    IF P_TYPE = 'XHCB' THEN
+      -- METERINFO æœ‰æ•ˆçŠ¶æ€ --çŠ¶æ€æ—¥æœŸ --çŠ¶æ€è¡¨åŠ¡
       update ys_yh_sbinfo
-         set sbSTATUS      = mÏú»§,
+         set sbSTATUS      = mé”€æˆ·,
              sbSTATUSDATE  = sysdate,
              sbSTATUSTRANS = P_TYPE,
              sbUNINSDATE   = sysdate,
-             BOOK_NO       = NULL -- by 20170904 wlj Ïú»§²ð±í½«±í²áÖÃ¿Õ
+             BOOK_NO       = NULL -- by 20170904 wlj é”€æˆ·æ‹†è¡¨å°†è¡¨å†Œç½®ç©º
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
-      --Ïú»§ºóÍ¬²½ÓÃ»§×´Ì¬
+      --é”€æˆ·åŽåŒæ­¥ç”¨æˆ·çŠ¶æ€
       UPDATE ys_yh_custinfo
-         SET yhSTATUS      = mÏú»§,
+         SET yhSTATUS      = mé”€æˆ·,
              yhstatusdate  = sysdate,
              yhstatustrans = P_TYPE
        WHERE yhid = mi.yhid
          and Hire_Code = p_md.hire_code;
     
-      --METERDOC  ±í×´Ì¬ ±í×´Ì¬·¢ÉúÊ±¼ä
+      --METERDOC  è¡¨çŠ¶æ€ è¡¨çŠ¶æ€å‘ç”Ÿæ—¶é—´
       update ys_yh_sbdoc
-         set MDSTATUS = mÏú»§, MDSTATUSDATE = sysdate
+         set MDSTATUS = mé”€æˆ·, MDSTATUSDATE = sysdate
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
-      --¼ÇÓàÁ¿±í METERADDSL
+      --è®°ä½™é‡è¡¨ METERADDSL
     
-      -- MD.MASID           :=     ;--¼ÇÂ¼Á÷Ë®ºÅ
+      -- MD.MASID           :=     ;--è®°å½•æµæ°´å·
       MA.id           := uuid();
       MA.hire_code    := p_md.hire_code;
       MA.yhid         := mi.yhid;
@@ -179,25 +179,26 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       /*MA.addmrid*/
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-    ELSIF P_TYPE = BT¿Ú¾¶±ä¸ü THEN
-      -- METERINFO ÓÐÐ§×´Ì¬ --×´Ì¬ÈÕÆÚ --×´Ì¬±íÎñ
+      --BTå£å¾„å˜æ›´
+    ELSIF P_TYPE = 'KJBG' THEN
+      -- METERINFO æœ‰æ•ˆçŠ¶æ€ --çŠ¶æ€æ—¥æœŸ --çŠ¶æ€è¡¨åŠ¡
       UPDATE ys_yh_sbinfo
-         SET SBSTATUS      = MÁ¢»§,
+         SET SBSTATUS      = Mç«‹æˆ·,
              SBSTATUSDATE  = SYSDATE,
              SBSTATUSTRANS = P_TYPE,
-             SBREINSCODE   = P_MD.NEW_CODE, --»»±íÆð¶È
-             SBREINSDATE   = P_MD.TRANS_TIME, --»»±íÈÕÆÚ
-             SBREINSPER    = P_MD.TRANS_PER, --»»±íÈË
-             SBTYPE        = P_MD.METER_TYPE, --±íÐÍ
+             SBREINSCODE   = P_MD.NEW_CODE, --æ¢è¡¨èµ·åº¦
+             SBREINSDATE   = P_MD.TRANS_TIME, --æ¢è¡¨æ—¥æœŸ
+             SBREINSPER    = P_MD.TRANS_PER, --æ¢è¡¨äºº
+             SBTYPE        = P_MD.METER_TYPE, --è¡¨åž‹
              BOOK_NO       = NULL
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
-      --METERDOC  ±í×´Ì¬ ±í×´Ì¬·¢ÉúÊ±¼ä
+      --METERDOC  è¡¨çŠ¶æ€ è¡¨çŠ¶æ€å‘ç”Ÿæ—¶é—´
     
       update ys_yh_sbdoc
-         set MDSTATUS     = MÁ¢»§,
+         set MDSTATUS     = Mç«‹æˆ·,
              MDCALIBER    = P_MD.CALIBER,
-             MDNO         = P_MD.MODEL, ---±íÐÍºÅ
+             MDNO         = P_MD.MODEL, ---è¡¨åž‹å·
              MDSTATUSDATE = SYSDATE,
              MDCYCCHKDATE = P_MD.MTDYCCHKDATE
        where sbid = P_MD.sbid
@@ -222,23 +223,23 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       /*MA.addmrid*/
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-      --Ëã·Ñ£¿£¿£¿
-    
-    ELSIF P_TYPE = BT»»·§ÃÅ THEN
-      -- METERINFO ÓÐÐ§×´Ì¬ --×´Ì¬ÈÕÆÚ --×´Ì¬±íÎñ
+      --ç®—è´¹ï¼Ÿï¼Ÿï¼Ÿ
+    --BTæ¢é˜€é—¨
+    ELSIF P_TYPE = 'HFM' THEN
+      -- METERINFO æœ‰æ•ˆçŠ¶æ€ --çŠ¶æ€æ—¥æœŸ --çŠ¶æ€è¡¨åŠ¡
       UPDATE ys_yh_sbinfo
-         SET sbSTATUS      = MÁ¢»§,
+         SET sbSTATUS      = Mç«‹æˆ·,
              sbSTATUSDATE  = SYSDATE,
              sbSTATUSTRANS = P_TYPE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
-      --METERDOC  ±í×´Ì¬ ±í×´Ì¬·¢ÉúÊ±¼ä
+      --METERDOC  è¡¨çŠ¶æ€ è¡¨çŠ¶æ€å‘ç”Ÿæ—¶é—´
       UPDATE ys_yh_sbdoc
-         SET MDSTATUS = MÁ¢»§, MDSTATUSDATE = SYSDATE
+         SET MDSTATUS = Mç«‹æˆ·, MDSTATUSDATE = SYSDATE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
-      --¼ÇÓàÁ¿±í METERADDSL
+      --è®°ä½™é‡è¡¨ METERADDSL
       MA.id           := uuid();
       MA.hire_code    := p_md.hire_code;
       MA.yhid         := mi.yhid;
@@ -258,19 +259,20 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       /*MA.addmrid*/
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-      --Ëã·Ñ
+      --ç®—è´¹
       --
-    ELSIF P_TYPE = BTÇ··ÑÍ£Ë® THEN
-      -- METERINFO ÓÐÐ§×´Ì¬ --×´Ì¬ÈÕÆÚ --×´Ì¬±íÎñ
+    --BTæ¬ è´¹åœæ°´
+    ELSIF P_TYPE = 'QFTS' THEN
+      -- METERINFO æœ‰æ•ˆçŠ¶æ€ --çŠ¶æ€æ—¥æœŸ --çŠ¶æ€è¡¨åŠ¡
       UPDATE ys_yh_sbinfo
-         SET sbSTATUS      = MÇ··ÑÍ£Ë®,
+         SET sbSTATUS      = Mæ¬ è´¹åœæ°´,
              sbSTATUSDATE  = SYSDATE,
              sbSTATUSTRANS = P_TYPE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
-      --METERDOC  ±í×´Ì¬ ±í×´Ì¬·¢ÉúÊ±¼ä
+      --METERDOC  è¡¨çŠ¶æ€ è¡¨çŠ¶æ€å‘ç”Ÿæ—¶é—´
       UPDATE ys_yh_sbdoc
-         SET MDSTATUS = MÇ··ÑÍ£Ë®, MDSTATUSDATE = SYSDATE
+         SET MDSTATUS = Mæ¬ è´¹åœæ°´, MDSTATUSDATE = SYSDATE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
@@ -291,21 +293,21 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       MA.ADDCREPER    := 'SYS';
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-      --Ëã·Ñ
-    ELSIF P_TYPE = BT»Ö¸´¹©Ë® THEN
-      -- METERINFO ÓÐÐ§×´Ì¬ --×´Ì¬ÈÕÆÚ --×´Ì¬±íÎñ
+      --BTæ¢å¤ä¾›æ°´
+    ELSIF P_TYPE = 'HFGS' THEN
+      -- METERINFO æœ‰æ•ˆçŠ¶æ€ --çŠ¶æ€æ—¥æœŸ --çŠ¶æ€è¡¨åŠ¡
       UPDATE ys_yh_sbinfo
-         SET SBSTATUS      = MÁ¢»§,
+         SET SBSTATUS      = Mç«‹æˆ·,
              SBSTATUSDATE  = SYSDATE,
              SBSTATUSTRANS = P_TYPE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
-      --METERDOC  ±í×´Ì¬ ±í×´Ì¬·¢ÉúÊ±¼ä
+      --METERDOC  è¡¨çŠ¶æ€ è¡¨çŠ¶æ€å‘ç”Ÿæ—¶é—´
       UPDATE YS_YH_SBDOC
-         SET MDSTATUS = MÁ¢»§, MDSTATUSDATE = SYSDATE
+         SET MDSTATUS = Mç«‹æˆ·, MDSTATUSDATE = SYSDATE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
-      /*  --METERTRANSDT »Ø¹ö»»±íÈÕÆÚ »Ø¹öË®±í×´Ì¬
+      /*  --METERTRANSDT å›žæ»šæ¢è¡¨æ—¥æœŸ å›žæ»šæ°´è¡¨çŠ¶æ€
       UPDATE METERTRANSDT
          SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
        WHERE MTDMID = MI.MIID;*/
@@ -329,18 +331,18 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       /*MA.addmrid*/
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-      --Ëã·Ñ
-    ELSIF P_TYPE = BT±¨Í£ THEN
+      --BTæŠ¥åœ
+    ELSIF P_TYPE = 'BT' THEN
     
       UPDATE ys_yh_sbinfo
-         SET SBSTATUS      = M±¨Í£,
+         SET SBSTATUS      = MæŠ¥åœ,
              SBSTATUSDATE  = SYSDATE,
              SBSTATUSTRANS = P_TYPE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
       UPDATE ys_yh_sbdoc
-         SET MDSTATUS = M±¨Í£, MDSTATUSDATE = SYSDATE
+         SET MDSTATUS = MæŠ¥åœ, MDSTATUSDATE = SYSDATE
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
@@ -363,11 +365,12 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       /*MA.addmrid*/
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-    ELSIF P_TYPE = BTÐ£±í THEN
-      -- METERINFO ÓÐÐ§×´Ì¬ --×´Ì¬ÈÕÆÚ --×´Ì¬±íÎñ
-      --ÔÝ²»¸üÐÂ±¾ÆÚ¶ÁÊý     ,MIRCODE=P_MD.MTDREINSCODE
+    --BTæ ¡è¡¨
+    ELSIF P_TYPE = 'XB' THEN
+      -- METERINFO æœ‰æ•ˆçŠ¶æ€ --çŠ¶æ€æ—¥æœŸ --çŠ¶æ€è¡¨åŠ¡
+      --æš‚ä¸æ›´æ–°æœ¬æœŸè¯»æ•°     ,MIRCODE=P_MD.MTDREINSCODE
       UPDATE ys_yh_sbinfo
-         SET sbSTATUS      = MÁ¢»§,
+         SET sbSTATUS      = Mç«‹æˆ·,
              sbSTATUSDATE  = SYSDATE,
              sbSTATUSTRANS = P_TYPE,
              sbREINSDATE   = P_MD.TRANS_TIME
@@ -375,7 +378,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
          and Hire_Code = p_md.hire_code;
        
       UPDATE ys_yh_sbdoc
-         SET MDSTATUS     = MÁ¢»§,
+         SET MDSTATUS     = Mç«‹æˆ·,
              MDSTATUSDATE = SYSDATE,
              MDCYCCHKDATE = P_MD.TRANS_TIME
       where sbid = P_MD.sbid
@@ -401,31 +404,31 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       /*MA.addmrid*/
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-      --Ëã·Ñ
-    ELSIF P_TYPE = BT¸´×° THEN
-      --ÔÝ²»¸üÐÂ±¾ÆÚ¶ÁÊý  MIRCODE=P_MD.MTDREINSCODE ,
+      --BTå¤è£…
+    ELSIF P_TYPE = 'FZ' THEN
+      --æš‚ä¸æ›´æ–°æœ¬æœŸè¯»æ•°  MIRCODE=P_MD.MTDREINSCODE ,
       UPDATE ys_yh_sbinfo
-         SET sbSTATUS      = MÁ¢»§, --×´Ì¬
-             sbSTATUSDATE  = SYSDATE, --×´Ì¬ÈÕÆÚ
-             sbSTATUSTRANS = P_TYPE, --×´Ì¬±íÎñ 
-             sbREINSCODE   = P_MD.NEW_CODE, --»»±íÆð¶È
-             sbREINSDATE   = P_MD.TRANS_TIME, --»»±íÈÕÆÚ
-             sbREINSPER    = P_MD.TRANS_PER --»»±íÈË
+         SET sbSTATUS      = Mç«‹æˆ·, --çŠ¶æ€
+             sbSTATUSDATE  = SYSDATE, --çŠ¶æ€æ—¥æœŸ
+             sbSTATUSTRANS = P_TYPE, --çŠ¶æ€è¡¨åŠ¡ 
+             sbREINSCODE   = P_MD.NEW_CODE, --æ¢è¡¨èµ·åº¦
+             sbREINSDATE   = P_MD.TRANS_TIME, --æ¢è¡¨æ—¥æœŸ
+             sbREINSPER    = P_MD.TRANS_PER --æ¢è¡¨äºº
         where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
       --METERDOC
       UPDATE ys_yh_sbdoc
-         SET MDSTATUS     = MÁ¢»§, --×´Ì¬
-             MDSTATUSDATE = SYSDATE, --×´Ì¬·¢ÉúÊ±¼ä
-             MDNO         = P_MD.WATER_CODE, --±íÉíºÅ
-             MDCALIBER    = P_MD.CALIBER, --±í¿Ú¾¶
-             MDBRAND      = P_MD.BRAND, --±í³§¼Ò
-             MDMODEL      = P_MD.MODEL, --±íÐÍºÅ
+         SET MDSTATUS     = Mç«‹æˆ·, --çŠ¶æ€
+             MDSTATUSDATE = SYSDATE, --çŠ¶æ€å‘ç”Ÿæ—¶é—´
+             MDNO         = P_MD.WATER_CODE, --è¡¨èº«å·
+             MDCALIBER    = P_MD.CALIBER, --è¡¨å£å¾„
+             MDBRAND      = P_MD.BRAND, --è¡¨åŽ‚å®¶
+             MDMODEL      = P_MD.MODEL, --è¡¨åž‹å·
              MDCYCCHKDATE = P_MD.MTDYCCHKDATE
         where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
-      --METERTRANSDT »Ø¹ö»»±íÈÕÆÚ »Ø¹öË®±í×´Ì¬
+      --METERTRANSDT å›žæ»šæ¢è¡¨æ—¥æœŸ å›žæ»šæ°´è¡¨çŠ¶æ€
      
     
        MA.id           := uuid();
@@ -447,23 +450,25 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       /*MA.addmrid*/
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
-      --Ëã·Ñ
-    ELSIF P_TYPE = BT¹ÊÕÏ»»±í THEN
+      --ç®—è´¹
+      
+    --BTæ•…éšœæ¢è¡¨
+    ELSIF P_TYPE = BTæ•…éšœæ¢è¡¨ THEN
       SELECT COUNT(*)
         INTO V_COUNTFLAG
         FROM YS_CB_MTREAD  
        WHERE  sbid = P_MD.Sbid
-         and  cbmrreadok = 'Y' --ÒÑ³­±í
-         AND  cbMRIFREC <> 'Y'; --Î´Ëã·Ñ
+         and  cbmrreadok = 'Y' --å·²æŠ„è¡¨
+         AND  cbMRIFREC <> 'Y'; --æœªç®—è´¹
       IF V_COUNTFLAG > 0 THEN
-        --³­±í¿âÒÑ¾­³­±íµ«Î´Ëã·ÑÔò²»ÔÊÐí¹ÊÕÏ»»±í£¬ÐèÈ¡Ïû³­¼û±êÖ¾ÖØ³­
+        --æŠ„è¡¨åº“å·²ç»æŠ„è¡¨ä½†æœªç®—è´¹åˆ™ä¸å…è®¸æ•…éšœæ¢è¡¨ï¼Œéœ€å–æ¶ˆæŠ„è§æ ‡å¿—é‡æŠ„
         RAISE_APPLICATION_ERROR(ERRCODE,
-                                '¡¾' || P_MD.Sbid ||
-                                '¡¿´ËË®±íÒÑ¾­³­±íÂ¼Èë,³­¼û±êÖ¾ÓÐ´òÉÏ,²»ÄÜ½øÐÐ¹ÊÕÏ»»±íÉóºË,Ðè½øÈë³ÌÊ½¡¾³­±íÂ¼Èë¡¿µã»÷ÖØ³­°´Å¦,È¡Ïûµ±Ç°Ë®Á¿!');
+                                'ã€' || P_MD.Sbid ||
+                                'ã€‘æ­¤æ°´è¡¨å·²ç»æŠ„è¡¨å½•å…¥,æŠ„è§æ ‡å¿—æœ‰æ‰“ä¸Š,ä¸èƒ½è¿›è¡Œæ•…éšœæ¢è¡¨å®¡æ ¸,éœ€è¿›å…¥ç¨‹å¼ã€æŠ„è¡¨å½•å…¥ã€‘ç‚¹å‡»é‡æŠ„æŒ‰çº½,å–æ¶ˆå½“å‰æ°´é‡!');
       end if;
     
       update YS_CB_MTREAD t
-         set CBMRSCODE = P_MD.NEW_CODE --by ralph 20151021  Ôö¼ÓµÄ½«Î´³­¼ûÖ¸Õë¸ü»»µô
+         set CBMRSCODE = P_MD.NEW_CODE --by ralph 20151021  å¢žåŠ çš„å°†æœªæŠ„è§æŒ‡é’ˆæ›´æ¢æŽ‰
        where SBID = P_MD.SBID
          AND CBmrreadok = 'N' /*and exists (select max(t1.mrmonth) from meterread  t1 where
            t.mrmid=t1.mrmid and t1.mrmid=P_MD.MTDMID  AND T1.mrreadok='N' )*/
@@ -471,18 +476,18 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
     
       
       UPDATE ys_yh_sbinfo
-         SET sbSTATUS      = MÁ¢»§, --×´Ì¬
-              sbSTATUSDATE  = SYSDATE, --×´Ì¬ÈÕÆÚ
-             sbSTATUSTRANS = P_TYPE, --×´Ì¬±íÎñ 
-             sbREINSCODE   = P_MD.NEW_CODE, --»»±íÆð¶È
-             sbREINSDATE   = P_MD.TRANS_TIME, --»»±íÈÕÆÚ
-             sbREINSPER    = P_MD.TRANS_PER ,--»»±íÈË
+         SET sbSTATUS      = Mç«‹æˆ·, --çŠ¶æ€
+              sbSTATUSDATE  = SYSDATE, --çŠ¶æ€æ—¥æœŸ
+             sbSTATUSTRANS = P_TYPE, --çŠ¶æ€è¡¨åŠ¡ 
+             sbREINSCODE   = P_MD.NEW_CODE, --æ¢è¡¨èµ·åº¦
+             sbREINSDATE   = P_MD.TRANS_TIME, --æ¢è¡¨æ—¥æœŸ
+             sbREINSPER    = P_MD.TRANS_PER ,--æ¢è¡¨äºº
             
-             sbRCODE       = P_MD.NEW_CODE, --»»±íÆð¶È
+             sbRCODE       = P_MD.NEW_CODE, --æ¢è¡¨èµ·åº¦
              
              
-             SBDZBZ1       = 'N', --»»±íºó½« µÈÕë±êÖ¾Çå³ý(Èç¹ûÓÐ)  
-             sbRTID      = p_md.sbRTID --»»±íºó ¸ù¾Ý¹¤µ¥¸üÐÂ ³­±í·½Ê½!  
+             SBDZBZ1       = 'N', --æ¢è¡¨åŽå°† ç­‰é’ˆæ ‡å¿—æ¸…é™¤(å¦‚æžœæœ‰)  
+             sbRTID      = p_md.sbRTID --æ¢è¡¨åŽ æ ¹æ®å·¥å•æ›´æ–° æŠ„è¡¨æ–¹å¼!  
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
@@ -490,12 +495,12 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       
        
           UPDATE ys_yh_sbdoc
-             SET MDSTATUS     = MÁ¢»§, --×´Ì¬
-             MDSTATUSDATE = SYSDATE, --×´Ì¬·¢ÉúÊ±¼ä
-             MDNO         = P_MD.WATER_CODE, --±íÉíºÅ
-             MDCALIBER    = P_MD.CALIBER, --±í¿Ú¾¶
-             MDBRAND      = P_MD.BRAND, --±í³§¼Ò
-             MDMODEL      = P_MD.MODEL, --±íÐÍºÅ
+             SET MDSTATUS     = Mç«‹æˆ·, --çŠ¶æ€
+             MDSTATUSDATE = SYSDATE, --çŠ¶æ€å‘ç”Ÿæ—¶é—´
+             MDNO         = P_MD.WATER_CODE, --è¡¨èº«å·
+             MDCALIBER    = P_MD.CALIBER, --è¡¨å£å¾„
+             MDBRAND      = P_MD.BRAND, --è¡¨åŽ‚å®¶
+             MDMODEL      = P_MD.MODEL, --è¡¨åž‹å·
              MDCYCCHKDATE = P_MD.MTDYCCHKDATE
            where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
@@ -520,23 +525,23 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
    
-    ELSIF P_TYPE = BTÖÜÆÚ»»±í THEN
+    ELSIF P_TYPE = BTå‘¨æœŸæ¢è¡¨ THEN
     
       SELECT COUNT(*)
         INTO V_COUNTFLAG
         FROM YS_CB_MTREAD  
        WHERE  sbid = P_MD.Sbid
-         and  cbmrreadok = 'Y' --ÒÑ³­±í
-         AND  cbMRIFREC <> 'Y'; --Î´Ëã·Ñ
+         and  cbmrreadok = 'Y' --å·²æŠ„è¡¨
+         AND  cbMRIFREC <> 'Y'; --æœªç®—è´¹
       IF V_COUNTFLAG > 0 THEN
-        --³­±í¿âÒÑ¾­³­±íµ«Î´Ëã·ÑÔò²»ÔÊÐí¹ÊÕÏ»»±í£¬ÐèÈ¡Ïû³­¼û±êÖ¾ÖØ³­
+        --æŠ„è¡¨åº“å·²ç»æŠ„è¡¨ä½†æœªç®—è´¹åˆ™ä¸å…è®¸æ•…éšœæ¢è¡¨ï¼Œéœ€å–æ¶ˆæŠ„è§æ ‡å¿—é‡æŠ„
         RAISE_APPLICATION_ERROR(ERRCODE,
-                                '¡¾' || P_MD.Sbid ||
-                                '¡¿´ËË®±íÒÑ¾­³­±íÂ¼Èë,³­¼û±êÖ¾ÓÐ´òÉÏ,²»ÄÜ½øÐÐ¹ÊÕÏ»»±íÉóºË,Ðè½øÈë³ÌÊ½¡¾³­±íÂ¼Èë¡¿µã»÷ÖØ³­°´Å¦,È¡Ïûµ±Ç°Ë®Á¿!');
+                                'ã€' || P_MD.Sbid ||
+                                'ã€‘æ­¤æ°´è¡¨å·²ç»æŠ„è¡¨å½•å…¥,æŠ„è§æ ‡å¿—æœ‰æ‰“ä¸Š,ä¸èƒ½è¿›è¡Œæ•…éšœæ¢è¡¨å®¡æ ¸,éœ€è¿›å…¥ç¨‹å¼ã€æŠ„è¡¨å½•å…¥ã€‘ç‚¹å‡»é‡æŠ„æŒ‰çº½,å–æ¶ˆå½“å‰æ°´é‡!');
       end if;
     
       update YS_CB_MTREAD t
-         set CBMRSCODE = P_MD.NEW_CODE --by ralph 20151021  Ôö¼ÓµÄ½«Î´³­¼ûÖ¸Õë¸ü»»µô
+         set CBMRSCODE = P_MD.NEW_CODE --by ralph 20151021  å¢žåŠ çš„å°†æœªæŠ„è§æŒ‡é’ˆæ›´æ¢æŽ‰
        where SBID = P_MD.SBID
          AND CBmrreadok = 'N' /*and exists (select max(t1.mrmonth) from meterread  t1 where
            t.mrmid=t1.mrmid and t1.mrmid=P_MD.MTDMID  AND T1.mrreadok='N' )*/
@@ -544,18 +549,18 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
     
       
       UPDATE ys_yh_sbinfo
-         SET sbSTATUS      = MÁ¢»§, --×´Ì¬
-              sbSTATUSDATE  = SYSDATE, --×´Ì¬ÈÕÆÚ
-             sbSTATUSTRANS = P_TYPE, --×´Ì¬±íÎñ 
-             sbREINSCODE   = P_MD.NEW_CODE, --»»±íÆð¶È
-             sbREINSDATE   = P_MD.TRANS_TIME, --»»±íÈÕÆÚ
-             sbREINSPER    = P_MD.TRANS_PER ,--»»±íÈË
+         SET sbSTATUS      = Mç«‹æˆ·, --çŠ¶æ€
+              sbSTATUSDATE  = SYSDATE, --çŠ¶æ€æ—¥æœŸ
+             sbSTATUSTRANS = P_TYPE, --çŠ¶æ€è¡¨åŠ¡ 
+             sbREINSCODE   = P_MD.NEW_CODE, --æ¢è¡¨èµ·åº¦
+             sbREINSDATE   = P_MD.TRANS_TIME, --æ¢è¡¨æ—¥æœŸ
+             sbREINSPER    = P_MD.TRANS_PER ,--æ¢è¡¨äºº
             
-             sbRCODE       = P_MD.NEW_CODE, --»»±íÆð¶È
+             sbRCODE       = P_MD.NEW_CODE, --æ¢è¡¨èµ·åº¦
              
              
-             SBDZBZ1       = 'N', --»»±íºó½« µÈÕë±êÖ¾Çå³ý(Èç¹ûÓÐ) byj 2016.08
-             sbRTID      = p_md.sbRTID --»»±íºó ¸ù¾Ý¹¤µ¥¸üÐÂ ³­±í·½Ê½! byj 2016.12
+             SBDZBZ1       = 'N', --æ¢è¡¨åŽå°† ç­‰é’ˆæ ‡å¿—æ¸…é™¤(å¦‚æžœæœ‰) byj 2016.08
+             sbRTID      = p_md.sbRTID --æ¢è¡¨åŽ æ ¹æ®å·¥å•æ›´æ–° æŠ„è¡¨æ–¹å¼! byj 2016.12
        where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
     
@@ -563,12 +568,12 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
       
        
           UPDATE ys_yh_sbdoc
-             SET MDSTATUS     = MÁ¢»§, --×´Ì¬
-             MDSTATUSDATE = SYSDATE, --×´Ì¬·¢ÉúÊ±¼ä
-             MDNO         = P_MD.WATER_CODE, --±íÉíºÅ
-             MDCALIBER    = P_MD.CALIBER, --±í¿Ú¾¶
-             MDBRAND      = P_MD.BRAND, --±í³§¼Ò
-             MDMODEL      = P_MD.MODEL, --±íÐÍºÅ
+             SET MDSTATUS     = Mç«‹æˆ·, --çŠ¶æ€
+             MDSTATUSDATE = SYSDATE, --çŠ¶æ€å‘ç”Ÿæ—¶é—´
+             MDNO         = P_MD.WATER_CODE, --è¡¨èº«å·
+             MDCALIBER    = P_MD.CALIBER, --è¡¨å£å¾„
+             MDBRAND      = P_MD.BRAND, --è¡¨åŽ‚å®¶
+             MDMODEL      = P_MD.MODEL, --è¡¨åž‹å·
              MDCYCCHKDATE = P_MD.MTDYCCHKDATE
            where sbid = P_MD.sbid
          and Hire_Code = p_md.hire_code;
@@ -593,7 +598,7 @@ CREATE OR REPLACE PACKAGE BODY "PG_SBTRANS" IS
     
       INSERT INTO YS_GD_SBADDSL VALUES MA;
     
-      --Ëã·Ñ
+      --ç®—è´¹
     END IF;
   
   EXCEPTION

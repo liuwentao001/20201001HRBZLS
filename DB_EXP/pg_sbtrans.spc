@@ -2,7 +2,7 @@ CREATE OR REPLACE PACKAGE "PG_SBTRANS" IS
    -- --------------------------------------------------------------------------
   -- Name         : PG_add_yh
   -- Author       : Tim
-  -- Description  : ÓÃ»§ÉóºË
+  -- Description  : ç”¨æˆ·å®¡æ ¸
   -- Ammedments   :
   --   When         Who       What
   --   ===========  ========  =================================================
@@ -11,62 +11,48 @@ CREATE OR REPLACE PACKAGE "PG_SBTRANS" IS
 
   ERRCODE CONSTANT INTEGER := -20012;
  
-  M´ýÁ¢»§   CONSTANT VARCHAR2(2) := '2'; --¡¾·Ö¹«Ë¾¡¿Ë®±í³ö¿âºóÃ»ÓÐ°²×°
-  MÔÝ²ð     CONSTANT VARCHAR2(2) := '3'; --¡¾·Ö¹«Ë¾¡¿Ç··Ñ²ð±íºó£¬Ôò´¦ÓÚÔÝ²ð
-  MÐÂ¹º     CONSTANT VARCHAR2(2) := '4'; --¡¾×Ü²Ö¡¿¡¢¡¾·Ö¹«Ë¾¡¿ÐÂ¹ºÂòµÄË®±í
-  M±¨·Ï     CONSTANT VARCHAR2(2) := '5'; --¡¾·Ö¹«Ë¾¡¿±¨·Ï´¦Àíºó£¬Îª±¨·Ï
-  M´ý¼ì     CONSTANT VARCHAR2(2) := '6'; --¡¾·Ö¹«Ë¾¡¿Ë®±íËÍ¼ìºó´¦ÓÚ´ý¼ì×´Ì¬
-  M¹ÊÕÏ     CONSTANT VARCHAR2(2) := '8'; --¡¾·Ö¹«Ë¾¡¿¹ÊÕÏ²ð±íºóÈç¹ûÃ»ÓÐËÍ¼ì£¬Ë®±í×´Ì¬Îª¹ÊÕÏ
-  MÖÜ¼ìµ½ÆÚ CONSTANT VARCHAR2(2) := '9'; --¡¾·Ö¹«Ë¾¡¿ÖÜ¼ì²ð±íºóÈç¹ûÃ»ÓÐËÍ¼ì£¬Ë®±í×´Ì¬ÎªÖÜ¼ìµ½ÆÚ
-  M¿ÉÓÃÀÏ±í CONSTANT VARCHAR2(2) := '10'; --¡¾×Ü²Ö¡¿¡¢¡¾·Ö¹«Ë¾¡¿¾­¼ìÐÞºóµÄÀÏ±í£¬Èç¹ûÃ»ÓÐ±¨·Ï£¬Èë¿âºó×´Ì¬¾ÍÎª¿ÉÓÃÀÏ±í
-  M»»±í     CONSTANT VARCHAR2(2) := '11'; --¡¾·Ö¹«Ë¾¡¿»»±í²ð±íºóÈç¹ûÃ»ÓÐËÍ¼ì£¬Ë®±í×´Ì¬Îª»»±í
-  MÎ¥ÕÂ     CONSTANT VARCHAR2(2) := '12'; --¡¾·Ö¹«Ë¾¡¿Î¥ÕÂ²ð±íºó£¬Ë®±í×´Ì¬ÎªÎ¥ÕÂ
-  M±¨Í£     CONSTANT VARCHAR2(2) := '13'; --¡¾·Ö¹«Ë¾¡¿±¨Í£²ð±íºó£¬Ôò´¦ÓÚ±¨Í£
-  MÔÝÍ£     CONSTANT VARCHAR2(2) := '14'; --¡¾·Ö¹«Ë¾¡¿ÔÝÍ£²ð±íºó£¬Ôò´¦ÓÚÔÝÍ£
-  MÒÅÊ§     CONSTANT VARCHAR2(2) := '15'; --¡¾·Ö¹«Ë¾¡¿ÒÅÊ§´¦Àíºó£¬ÎªÒÅÊ§
-  M×Ü²Ö³ö¿â CONSTANT VARCHAR2(2) := '17'; --¡¾×Ü²Ö¡¿×Ü²ÖÅä±íµ½·Ö¹«Ë¾ºó£¬×Ü²ÖË®±íÎª×Ü²Ö³ö¿â
-  M²ðÇ¨     CONSTANT VARCHAR2(2) := '16'; --¡¾·Ö¹«Ë¾¡¿²ðÇ¨²ð±íºóÈç¹ûÃ»ÓÐËÍ¼ì£¬Îª²ðÇ¨
-  MÇ··ÑÍ£Ë® CONSTANT VARCHAR2(2) := '21'; --¡¾×Ü²Ö¡¿Ç··ÑÔì³ÉÍ£Ë®
+ Mæ¢è¡¨     CONSTANT VARCHAR2(2) := '11'; --ã€åˆ†å…¬å¸ã€‘æ¢è¡¨æ‹†è¡¨åŽå¦‚æžœæ²¡æœ‰é€æ£€ï¼Œæ°´è¡¨çŠ¶æ€ä¸ºæ¢è¡¨
+  Mè¿ç«      CONSTANT VARCHAR2(2) := '12'; --ã€åˆ†å…¬å¸ã€‘è¿ç« æ‹†è¡¨åŽï¼Œæ°´è¡¨çŠ¶æ€ä¸ºè¿ç« 
+  MæŠ¥åœ     CONSTANT VARCHAR2(2) := '13'; --ã€åˆ†å…¬å¸ã€‘æŠ¥åœæ‹†è¡¨åŽï¼Œåˆ™å¤„äºŽæŠ¥åœ
+  Mæš‚åœ     CONSTANT VARCHAR2(2) := '14'; --ã€åˆ†å…¬å¸ã€‘æš‚åœæ‹†è¡¨åŽï¼Œåˆ™å¤„äºŽæš‚åœ
+  Mé—å¤±     CONSTANT VARCHAR2(2) := '15'; --ã€åˆ†å…¬å¸ã€‘é—å¤±å¤„ç†åŽï¼Œä¸ºé—å¤±
+  Mæ€»ä»“å‡ºåº“ CONSTANT VARCHAR2(2) := '17'; --ã€æ€»ä»“ã€‘æ€»ä»“é…è¡¨åˆ°åˆ†å…¬å¸åŽï¼Œæ€»ä»“æ°´è¡¨ä¸ºæ€»ä»“å‡ºåº“
+  Mæ‹†è¿     CONSTANT VARCHAR2(2) := '16'; --ã€åˆ†å…¬å¸ã€‘æ‹†è¿æ‹†è¡¨åŽå¦‚æžœæ²¡æœ‰é€æ£€ï¼Œä¸ºæ‹†è¿
+  Mæ¬ è´¹åœæ°´ CONSTANT VARCHAR2(2) := '21'; --ã€æ€»ä»“ã€‘æ¬ è´¹é€ æˆåœæ°´
 
-  --2¡¢ÔÚ×°Ë®±í×´Ì¬
-  MÁ¢»§       CONSTANT VARCHAR2(2) := '1'; --¡¾·Ö¹«Ë¾¡¿ÓÃ»§ÕýÔÚÊ¹ÓÃ
-  MÏú»§       CONSTANT VARCHAR2(2) := '7'; --¡¾·Ö¹«Ë¾¡¿Ïú»§²ð±íºóÈç¹ûÃ»ÓÐËÍ¼ì£¬Ôò´¦ÓÚÏú»§
-  MÏú»§ÖÐ     CONSTANT VARCHAR2(2) := '19'; --¡¾·Ö¹«Ë¾¡¿Ïú»§²ð±íÅÉ¹¤ºóºóÍê¹¤Ç°
-  M¿Ú¾¶±ä¸üÖÐ CONSTANT VARCHAR2(2) := '20'; --¡¾·Ö¹«Ë¾¡¿¿Ú¾¶±ä¸üÅÉ¹¤ºóÍê¹¤Ç°
-  MÇ··ÑÍ£Ë®ÖÐ CONSTANT VARCHAR2(2) := '21'; --¡¾·Ö¹«Ë¾¡¿Ç··ÑÍ£Ë®ÅÉ¹¤ºóÍê¹¤Ç°
-  M±¨Í£ÖÐ     CONSTANT VARCHAR2(2) := '13';
-  M¸´×°ÖÐ     CONSTANT VARCHAR2(2) := '22'; --¡¾·Ö¹«Ë¾¡¿¸´×°ÅÉ¹¤ºóÍê¹¤Ç°
-  MÐ£±íÖÐ     CONSTANT VARCHAR2(2) := '23'; --¡¾·Ö¹«Ë¾¡¿Ð£±íÅÉ¹¤ºóÍê¹¤Ç°
-  M¹ÊÕÏ»»±íÖÐ CONSTANT VARCHAR2(2) := '24'; --¡¾·Ö¹«Ë¾¡¿¹ÊÕÏ»»±íÅÉ¹¤ºóÍê¹¤Ç°
-  MÖÜ¼ì»»±íÖÐ CONSTANT VARCHAR2(2) := '25'; --¡¾·Ö¹«Ë¾¡¿ÖÜ¼ì»»±íÅÉ¹¤ºóÍê¹¤Ç°
-  M¸´²éÖÐ     CONSTANT VARCHAR2(2) := '26'; --¡¾·Ö¹«Ë¾¡¿¸´²éÅÉ¹¤ºóÍê¹¤Ç°
-  MÉýÒÆÖÐ     CONSTANT VARCHAR2(2) := '27'; --¡¾·Ö¹«Ë¾¡¿Ë®±íÉýÒÆ¸ÄÔìÅÉ¹¤ºóÍê¹¤Ç°
+  --2ã€åœ¨è£…æ°´è¡¨çŠ¶æ€
+  Mç«‹æˆ·       CONSTANT VARCHAR2(2) := '1'; --ã€åˆ†å…¬å¸ã€‘ç”¨æˆ·æ­£åœ¨ä½¿ç”¨
+  Mé”€æˆ·       CONSTANT VARCHAR2(2) := '7'; --ã€åˆ†å…¬å¸ã€‘é”€æˆ·æ‹†è¡¨åŽå¦‚æžœæ²¡æœ‰é€æ£€ï¼Œåˆ™å¤„äºŽé”€æˆ·
+  Mé”€æˆ·ä¸­     CONSTANT VARCHAR2(2) := '19'; --ã€åˆ†å…¬å¸ã€‘é”€æˆ·æ‹†è¡¨æ´¾å·¥åŽåŽå®Œå·¥å‰
+  Må£å¾„å˜æ›´ä¸­ CONSTANT VARCHAR2(2) := '20'; --ã€åˆ†å…¬å¸ã€‘å£å¾„å˜æ›´æ´¾å·¥åŽå®Œå·¥å‰
+  Mæ¬ è´¹åœæ°´ä¸­ CONSTANT VARCHAR2(2) := '21'; --ã€åˆ†å…¬å¸ã€‘æ¬ è´¹åœæ°´æ´¾å·¥åŽå®Œå·¥å‰
+  MæŠ¥åœä¸­     CONSTANT VARCHAR2(2) := '13';
+  Må¤è£…ä¸­     CONSTANT VARCHAR2(2) := '22'; --ã€åˆ†å…¬å¸ã€‘å¤è£…æ´¾å·¥åŽå®Œå·¥å‰
+  Mæ ¡è¡¨ä¸­     CONSTANT VARCHAR2(2) := '23'; --ã€åˆ†å…¬å¸ã€‘æ ¡è¡¨æ´¾å·¥åŽå®Œå·¥å‰
+  Mæ•…éšœæ¢è¡¨ä¸­ CONSTANT VARCHAR2(2) := '24'; --ã€åˆ†å…¬å¸ã€‘æ•…éšœæ¢è¡¨æ´¾å·¥åŽå®Œå·¥å‰
+  Må‘¨æ£€æ¢è¡¨ä¸­ CONSTANT VARCHAR2(2) := '25'; --ã€åˆ†å…¬å¸ã€‘å‘¨æ£€æ¢è¡¨æ´¾å·¥åŽå®Œå·¥å‰
+  Må¤æŸ¥ä¸­     CONSTANT VARCHAR2(2) := '26'; --ã€åˆ†å…¬å¸ã€‘å¤æŸ¥æ´¾å·¥åŽå®Œå·¥å‰
+  Må‡ç§»ä¸­     CONSTANT VARCHAR2(2) := '27'; --ã€åˆ†å…¬å¸ã€‘æ°´è¡¨å‡ç§»æ”¹é€ æ´¾å·¥åŽå®Œå·¥å‰
 
  
-  --µ¥¾ÝÀà±ð,±íÎñÀà±ð
-  BTÁ¢»§µ¥ CONSTANT CHAR(1) := 'R';
-
-  BT»ù´¡×ÊÁÏ±ä¸ü CONSTANT CHAR(1) := 'B';
-  BTÒøÐÐÐÅÏ¢±ä¸ü CONSTANT CHAR(1) := 'C';
-  BT¹ý»§         CONSTANT CHAR(1) := 'D';
-  BTË®¼Û±ä¸ü     CONSTANT CHAR(1) := 'E';
+  --å•æ®ç±»åˆ«,è¡¨åŠ¡ç±»åˆ«
   --
-  BTË®±íÉýÒÆ       CONSTANT CHAR(1) := '3';
-  BTË®±íÕû¸Ä       CONSTANT CHAR(1) := '4';
-  BT¸Ä×°×Ü±í       CONSTANT CHAR(2) := 'NA'; --±¨×°Àà
-  BTÏú»§²ð±í       CONSTANT CHAR(1) := 'F';
-  BT¿Ú¾¶±ä¸ü       CONSTANT CHAR(1) := 'G';
-  BTÇ··ÑÍ£Ë®       CONSTANT CHAR(1) := 'H';
-  BT»Ö¸´¹©Ë®       CONSTANT CHAR(1) := '9';
-  BT±¨Í£           CONSTANT CHAR(1) := '2';
-  BT¸´×°           CONSTANT CHAR(1) := 'I';
-  BT»»·§ÃÅ         CONSTANT CHAR(1) := 'P';
-  BTÐ£±í           CONSTANT CHAR(1) := 'A';
-  BT¹ÊÕÏ»»±í       CONSTANT CHAR(1) := 'K';
-  BTÖÜÆÚ»»±í       CONSTANT CHAR(1) := 'L';
-  BT¸´²é¹¤µ¥       CONSTANT CHAR(2) := 'NM';
-  BT°²×°·ÖÀà¼ÆÁ¿±í CONSTANT CHAR(2) := 'NP'; --±¨×°Àà
-  BT²¹×°»§±í       CONSTANT CHAR(2) := 'NQ'; --±¨×°Àà
+  BTæ°´è¡¨å‡ç§»       CONSTANT CHAR(1) := '3';
+  BTæ°´è¡¨æ•´æ”¹       CONSTANT CHAR(1) := '4';
+  BTæ”¹è£…æ€»è¡¨       CONSTANT CHAR(2) := 'NA'; --æŠ¥è£…ç±»
+  BTé”€æˆ·æ‹†è¡¨       CONSTANT CHAR(1) := 'F';
+  BTå£å¾„å˜æ›´       CONSTANT CHAR(1) := 'G';
+  BTæ¬ è´¹åœæ°´       CONSTANT CHAR(1) := 'H';
+  BTæ¢å¤ä¾›æ°´       CONSTANT CHAR(1) := '9';
+  BTæŠ¥åœ           CONSTANT CHAR(1) := '2';
+  BTå¤è£…           CONSTANT CHAR(1) := 'I';
+  BTæ¢é˜€é—¨         CONSTANT CHAR(1) := 'P';
+  BTæ ¡è¡¨           CONSTANT CHAR(1) := 'A';
+  BTæ•…éšœæ¢è¡¨       CONSTANT CHAR(1) := 'K';
+  BTå‘¨æœŸæ¢è¡¨       CONSTANT CHAR(1) := 'L';
+  BTå¤æŸ¥å·¥å•       CONSTANT CHAR(2) := 'NM';
+  BTå®‰è£…åˆ†ç±»è®¡é‡è¡¨ CONSTANT CHAR(2) := 'NP'; --æŠ¥è£…ç±»
+  BTè¡¥è£…æˆ·è¡¨       CONSTANT CHAR(2) := 'NQ'; --æŠ¥è£…ç±»
 
  
 
@@ -76,18 +62,18 @@ CREATE OR REPLACE PACKAGE "PG_SBTRANS" IS
                     P_BILLID IN VARCHAR2,
                     P_DJLB   IN VARCHAR2);
 
-  --¹¤µ¥Ö÷³ÌÐò
+  --å·¥å•ä¸»ç¨‹åº
   PROCEDURE SP_SBTRANS(p_HIRE_CODE IN VARCHAR2,
-                          P_TYPE      IN VARCHAR2, --²Ù×÷ÀàÐÍ
-                          P_BILL_ID   IN VARCHAR2, --Åú´ÎÁ÷Ë®
-                          P_PER       IN VARCHAR2, --²Ù×÷Ô±
-                          P_COMMIT    IN VARCHAR2 --Ìá½»±êÖ¾
+                          P_TYPE      IN VARCHAR2, --æ“ä½œç±»åž‹
+                          P_BILL_ID   IN VARCHAR2, --æ‰¹æ¬¡æµæ°´
+                          P_PER       IN VARCHAR2, --æ“ä½œå‘˜
+                          P_COMMIT    IN VARCHAR2 --æäº¤æ ‡å¿—
                           );
 
-  --¹¤µ¥µ¥¸öÉóºË¹ý³Ì
-  PROCEDURE SP_SBTRANSONE(P_TYPE   IN VARCHAR2, --ÀàÐÍ
-                             P_PERSON IN VARCHAR2, -- ²Ù×÷Ô±
-                             P_MD     IN ys_gd_metertransdt%ROWTYPE --µ¥ÌåÐÐ±ä¸ü
+  --å·¥å•å•ä¸ªå®¡æ ¸è¿‡ç¨‹
+  PROCEDURE SP_SBTRANSONE(P_TYPE   IN VARCHAR2, --ç±»åž‹
+                             P_PERSON IN VARCHAR2, -- æ“ä½œå‘˜
+                             P_MD     IN ys_gd_metertransdt%ROWTYPE --å•ä½“è¡Œå˜æ›´
                              );
 
  
