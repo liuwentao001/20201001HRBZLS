@@ -26,7 +26,7 @@ comment on column YS_YH_PRICEGROUP.price_no
 comment on column YS_YH_PRICEGROUP.grpscale
   is '比例';
 comment on column YS_YH_PRICEGROUP.grptype
-  is '混合类别(00比例，01定量)';
+  is '混合类别(01比例，02定量)';
 comment on column YS_YH_PRICEGROUP.grpcolumn1
   is '备用字段1';
 comment on column YS_YH_PRICEGROUP.grpcolumn2

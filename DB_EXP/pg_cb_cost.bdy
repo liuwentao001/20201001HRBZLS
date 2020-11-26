@@ -229,7 +229,7 @@
   --单笔算费核心
   PROCEDURE COSTCULATECORE(MR       IN OUT YS_CB_MTREAD%ROWTYPE,
                            P_TRANS  IN CHAR,
-                           P_PSCID  IN NUMBER,
+                           P_PSCID  IN VARCHAR2,
                            P_COMMIT IN NUMBER) IS
     CURSOR C_MI(VMIID IN YS_YH_SBINFO.SBID%TYPE) IS
       SELECT * FROM YS_YH_SBINFO WHERE SBID = VMIID;
@@ -627,7 +627,7 @@
           IF PMNUM = MAXPMDID THEN
             V_PMDSL := TEMPSL;
           ELSE
-            IF PMD.GRPTYPE = '00' THEN
+            IF PMD.GRPTYPE = '01' THEN
               --定比混合
               V_PMDSL := CEIL(PMD.GRPSCALE * V_PMDDBSL);
             ELSE
@@ -1296,6 +1296,7 @@
   END;
   --预算费，提供追补、应收调整、退费单据中重算费中间数据
  PROCEDURE SUBMIT_VIRTUAL(p_mid    in varchar2,
+                           p_PRICE_VER  IN  VARCHAR2,
                            p_prdate in date,
                            p_rdate  in date,
                            p_scode  in number,
@@ -1420,7 +1421,7 @@
       cb.cbmrlastyearje02  := null; --number(13,3)  去年度次均污水费
       cb.cbmrlastyearje03  := null; --number(13,3)  去年度次均水资源费  
       --
-      COSTCULATECORE(cb, p_trans, '指定', 调试);
+      COSTCULATECORE(cb, p_trans, p_PRICE_VER, 调试);
       --20150414 应收追补预算费支持历史水价算费
       --CALCULATE(cb, p_trans, to_char(p_rdate,'yyyy.mm'), 调试);
 

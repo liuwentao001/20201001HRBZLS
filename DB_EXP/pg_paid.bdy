@@ -1518,7 +1518,7 @@
         FROM Dual;
       SELECT Sys_Guid() INTO p_Reverse.Id FROM Dual;
       p_Reverse.Hire_Code  := Mi.Hire_Code;
-      p_Reverse.Pid        := p_Source.Pid;
+      p_Reverse.Pid        := o_Pid_Reverse;
       p_Reverse.Yhid       := p_Source.Yhid;
       p_Reverse.Sbid       := p_Source.Sbid;
       p_Reverse.Pddate     := Trunc(SYSDATE);
@@ -1628,7 +1628,7 @@
       IF c_p%ISOPEN THEN
         CLOSE c_p;
       END IF;
-      ROLLBACK;
+       dbms_output.put_line(SQLERRM);
       Raise_Application_Error(Errcode, SQLERRM);
   END Payreversecorebypid;
 
@@ -2398,7 +2398,7 @@
                         p_Payway,
                         p_Memo,
                         不提交,
-                        'Y',
+                        '0',
                         o_Pid_Reverse,
                         o_Ppayment_Reverse);
     FOR i IN (SELECT Arid, Arpaidje, Artrans

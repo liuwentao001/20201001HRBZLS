@@ -30,7 +30,7 @@ comment on column YS_GD_ZNJADJUSTDT.adjust_memo
 comment on column YS_GD_ZNJADJUSTDT.rec_id
   is '账务id';
 comment on column YS_GD_ZNJADJUSTDT.method
-  is '减免方法（1、目标金额减免；2、比例金额减免；3、差额减免；4、调整起算日期）';
+  is '减免方法(01目标金额调整02目标起算日调整03目标比例调整)';
 comment on column YS_GD_ZNJADJUSTDT.adjust_ratio
   is '比例值(%)';
 comment on column YS_GD_ZNJADJUSTDT.adjust_value

@@ -38,7 +38,7 @@
   --单笔算费核心
   PROCEDURE COSTCULATECORE(MR       IN OUT YS_CB_MTREAD%ROWTYPE,
                            P_TRANS  IN CHAR,
-                           P_PSCID  IN NUMBER,
+                           P_PSCID  IN VARCHAR2,
                            P_COMMIT IN NUMBER);
   --
   PROCEDURE COSTPIID(P_RL       IN OUT YS_ZW_ARLIST%ROWTYPE,
@@ -84,6 +84,7 @@
                     COLN      IN INTEGER) RETURN VARCHAR2;
    --预算费，提供追补、应收调整、退费单据中重算费中间数据                  
   PROCEDURE SUBMIT_VIRTUAL(p_mid    in varchar2,
+                           p_PRICE_VER  IN  VARCHAR2,
                            p_prdate in date,
                            p_rdate  in date,
                            p_scode  in number,

@@ -19,7 +19,7 @@
   BEGIN
   
     IF p_Djlb = '7' THEN
-       SP_ARZNJJM(P_BILLNO, P_PERSON, 'Y');
+      SP_ARZNJJM(P_BILLNO, P_PERSON, 'Y');
     ELSE
       Raise_Application_Error(Errcode, p_Billno || '->1 无效的单据类别！');
     END IF;
@@ -118,17 +118,30 @@
       ZNJL.ZALBILLROWNO := ZNJDT.ZADROWNO; --减免单据行号
       ZNJL.ZALSTATUS    := 'Y'; --有效标志
       INSERT INTO ZNJADJUSTLIST VALUES ZNJL;*/
-      UPDATE Ys_Zw_Arlist Ar
-         SET Ar.Arznjreducflag = 'N', Ar.Arznj = 0
-       WHERE Arid = Znjdt.Rec_Id
-         AND Arznjreducflag = 'Y'
-         AND Arpaidflag = 'N';
+      if Znjdt.Method = '01' then
+        UPDATE Ys_Zw_Arlist Ar
+           SET Ar.Arznjreducflag = 'Y', Ar.Arznj = Znjdt.Adjust_Value
+         WHERE Arid = Znjdt.Rec_Id
+           --AND Arznjreducflag = 'N'
+           AND Arpaidflag = 'N';
+      end if;
+      if Znjdt.Method = '03' then
+        UPDATE Ys_Zw_Arlist Ar
+           SET Ar.Arznjreducflag = 'Y',
+               Ar.Arznj          = round(Znjdt.Adjust_Value *
+                                         Znjdt.Adjust_Ratio,
+                                         2)
+         WHERE Arid = Znjdt.Rec_Id
+           --AND Arznjreducflag = 'N'
+           AND Arpaidflag = 'N';
+      end if;
     
-      IF Znjdt.Method = '4' THEN
+      IF Znjdt.Method = '02' THEN
         -- 调整起算日期  
         UPDATE Ys_Zw_Arlist Ar
            SET Ar.Arzndate = Znjdt.Late_Fee_Date
-         WHERE Arid = Znjdt.Rec_Id;
+         WHERE Arid = Znjdt.Rec_Id
+         AND Arpaidflag = 'N';
       END IF;
     END LOOP;
     CLOSE c_Ys_Gd_Znjadjustdt;
