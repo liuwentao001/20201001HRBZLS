@@ -10,7 +10,7 @@
   adduninsper  VARCHAR2(15),
   addsl        NUMBER(10),
   addtrans     CHAR(1),
-  bill_id      VARCHAR2(10),
+  bill_id      VARCHAR2(32),
   addscoden    NUMBER(10),
   addinsdate   DATE,
   addcredate   DATE,

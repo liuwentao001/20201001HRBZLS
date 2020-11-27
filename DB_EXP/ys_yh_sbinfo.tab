@@ -185,7 +185,7 @@ comment on column YS_YH_SBINFO.sbreinsdate
 comment on column YS_YH_SBINFO.sbreinsper
   is '换表人';
 comment on column YS_YH_SBINFO.sbtype
-  is '类型(1=坐收,2=走收)不要了，哈尔滨用收费方式sbCHARGETYPE';
+  is '类型';
 comment on column YS_YH_SBINFO.sbrcode
   is '本期读数';
 comment on column YS_YH_SBINFO.sbrecdate

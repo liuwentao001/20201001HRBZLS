@@ -211,14 +211,14 @@
           END IF;
           --是否按历史水价算费(选择归档价格版本)
           /*  pg_cb_cost.CALCULATE(MR, TRIM(RTH.RTHLB), TO_CHAR(RTH.PRICEMONTH, 'yyyy.mm'));*/
-          Pg_Cb_Cost.Costculate(Rl.Armrid, 'N'); -- 无历史归档水价计费过程，先用当前计费过程
+          Pg_Cb_Cost.Costculate(Rl.Armrid, '0'); -- 无历史归档水价计费过程，先用当前计费过程
           INSERT INTO Ys_Cb_Mtreadhis
             SELECT * FROM Ys_Cb_Mtread WHERE Id = Rl.Armrid;
           DELETE Ys_Cb_Mtread WHERE Id = Rl.Armrid;
           SELECT * INTO Rl FROM Ys_Zw_Arlist WHERE Armrid = Rl.Armrid;
         ELSE
           /*  pg_cb_cost.CALCULATE(MR, TRIM(RTH.RTHLB), '0000.00');*/ -- 无历史归档水价计费过程，先用当前计费过程
-          Pg_Cb_Cost.Costculate(Rl.Armrid, 'N');
+          Pg_Cb_Cost.Costculate(Rl.Armrid, '0');
           INSERT INTO Ys_Cb_Mtreadhis
             SELECT * FROM Ys_Cb_Mtread WHERE Id = Rl.Armrid;
         
@@ -313,7 +313,7 @@
     Mr.Cbmrrpid          := Mi.Sbrpid; --计件类型
     Mr.Cbmrmemo          := NULL; --抄表备注
     Mr.Cbmrifgu          := 'N'; --估表标志
-    Mr.Cbmrifrec         := 'Y'; --已计费
+    Mr.Cbmrifrec         := 'N'; --已计费
     Mr.Cbmrrecdate       := NULL; --计费日期
     Mr.Cbmrrecsl         := NULL; --应收水量
     /*        --取未用余量

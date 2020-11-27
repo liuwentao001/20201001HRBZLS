@@ -1,5 +1,5 @@
 ﻿CREATE OR REPLACE PACKAGE "PG_SBTRANS" IS
-   -- --------------------------------------------------------------------------
+  -- --------------------------------------------------------------------------
   -- Name         : PG_add_yh
   -- Author       : Tim
   -- Description  : 用户审核
@@ -10,8 +10,8 @@
   -- --------------------------------------------------------------------------
 
   ERRCODE CONSTANT INTEGER := -20012;
- 
- M换表     CONSTANT VARCHAR2(2) := '11'; --【分公司】换表拆表后如果没有送检，水表状态为换表
+
+  M换表     CONSTANT VARCHAR2(2) := '11'; --【分公司】换表拆表后如果没有送检，水表状态为换表
   M违章     CONSTANT VARCHAR2(2) := '12'; --【分公司】违章拆表后，水表状态为违章
   M报停     CONSTANT VARCHAR2(2) := '13'; --【分公司】报停拆表后，则处于报停
   M暂停     CONSTANT VARCHAR2(2) := '14'; --【分公司】暂停拆表后，则处于暂停
@@ -34,10 +34,9 @@
   M复查中     CONSTANT VARCHAR2(2) := '26'; --【分公司】复查派工后完工前
   M升移中     CONSTANT VARCHAR2(2) := '27'; --【分公司】水表升移改造派工后完工前
 
- 
   --单据类别,表务类别
   --
-  BT水表升移       CONSTANT CHAR(1) := '3';
+/*  BT水表升移       CONSTANT CHAR(1) := '3';
   BT水表整改       CONSTANT CHAR(1) := '4';
   BT改装总表       CONSTANT CHAR(2) := 'NA'; --报装类
   BT销户拆表       CONSTANT CHAR(1) := 'F';
@@ -52,31 +51,27 @@
   BT周期换表       CONSTANT CHAR(1) := 'L';
   BT复查工单       CONSTANT CHAR(2) := 'NM';
   BT安装分类计量表 CONSTANT CHAR(2) := 'NP'; --报装类
-  BT补装户表       CONSTANT CHAR(2) := 'NQ'; --报装类
-
- 
+  BT补装户表       CONSTANT CHAR(2) := 'NQ'; --报装类*/
 
   PROCEDURE AUDIT(p_HIRE_CODE IN VARCHAR2,
-                    P_BILLNO IN VARCHAR2,
-                    P_PERSON IN VARCHAR2,
-                    P_BILLID IN VARCHAR2,
-                    P_DJLB   IN VARCHAR2);
+                  P_BILLNO    IN VARCHAR2,
+                  P_PERSON    IN VARCHAR2,
+                  P_BILLID    IN VARCHAR2,
+                  P_DJLB      IN VARCHAR2);
 
   --工单主程序
   PROCEDURE SP_SBTRANS(p_HIRE_CODE IN VARCHAR2,
-                          P_TYPE      IN VARCHAR2, --操作类型
-                          P_BILL_ID   IN VARCHAR2, --批次流水
-                          P_PER       IN VARCHAR2, --操作员
-                          P_COMMIT    IN VARCHAR2 --提交标志
-                          );
+                       P_TYPE      IN VARCHAR2, --操作类型
+                       P_BILL_ID   IN VARCHAR2, --批次流水
+                       P_PER       IN VARCHAR2, --操作员
+                       P_COMMIT    IN VARCHAR2 --提交标志
+                       );
 
   --工单单个审核过程
   PROCEDURE SP_SBTRANSONE(P_TYPE   IN VARCHAR2, --类型
-                             P_PERSON IN VARCHAR2, -- 操作员
-                             P_MD     IN ys_gd_metertransdt%ROWTYPE --单体行变更
-                             );
-
- 
+                          P_PERSON IN VARCHAR2, -- 操作员
+                          P_MD     IN ys_gd_metertransdt%ROWTYPE --单体行变更
+                          );
 
 END PG_SBTRANS;
 /
