@@ -50,6 +50,13 @@
                            P_MONTH     IN VARCHAR2,
                            P_PER       IN VARCHAR2,
                            P_COMMIT    IN VARCHAR2);
+  PROCEDURE cb_delete(p_HIRE_CODE in varchar2,
+                      p_MANAGE_NO in varchar2,
+                      P_book_no   IN VARCHAR2,
+                      P_MONTH     IN VARCHAR2,
+                      p_sbid      in varchar2,
+                      P_PER       IN VARCHAR2,
+                      P_COMMIT    IN VARCHAR2);
 
 end;
 /

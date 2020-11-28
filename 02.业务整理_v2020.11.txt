@@ -21,8 +21,8 @@ function
 		 -- --------------------------------------------------------------------------
 		  -- name         : f_get_sbid
 		  -- author       : tim
-		  -- description  : È¡Ë®±í±àºÅ
-		  -- ammedments   : Ë®±í±àºÅÇ°Ãæ9Î»ÊÇ´ÓĞòºÅÈ¡£¬ºóÃæÒ»Î»ÊÇÇ°Ãæ9Î»Êı¾İÏà¼Ó£¬È¡4µÄÄ¤
+		  -- description  : å–æ°´è¡¨ç¼–å·
+		  -- ammedments   : æ°´è¡¨ç¼–å·å‰é¢9ä½æ˜¯ä»åºå·å–ï¼Œåé¢ä¸€ä½æ˜¯å‰é¢9ä½æ•°æ®ç›¸åŠ ï¼Œå–4çš„è†œ
 		  --   when         who       what
 		  --   ===========  ========  =================================================
 		  --   2020-12-01  tim      initial creation
@@ -47,7 +47,7 @@ function
 	function f_get_seq_next
 		create or replace function f_get_seq_next(as_tab_name in varchar2)
 		  return varchar2 is
-		  -- description  : °´ÕÕÔÚsys_seq_id ±íÖĞ¶¨ÒåµÄÏ¸½Ú·µ»ØĞòÁĞÖµ
+		  -- description  : æŒ‰ç…§åœ¨sys_seq_id è¡¨ä¸­å®šä¹‰çš„ç»†èŠ‚è¿”å›åºåˆ—å€¼
 		  ln_seq_num    number;
 		  ls_seq_num    varchar2(20);
 		  ls_prefix     varchar2(2);
@@ -59,7 +59,7 @@ function
 		  lr_seqlist    sys_seq_id%rowtype;
 		  prelen        number;
 		begin
-		  --»ñµÃµ±Ç°µÄĞòÁĞÏà¹ØµÄ¶¨Òå
+		  --è·å¾—å½“å‰çš„åºåˆ—ç›¸å…³çš„å®šä¹‰
 		  select seqseqname, nvl(seqprefix, ' '), seqwidth, seqstartno
 		    into lr_seqlist.seqseqname,
 			 lr_seqlist.seqprefix,
@@ -72,7 +72,7 @@ function
 		  else
 		    prelen := length(trim(lr_seqlist.seqprefix));
 		  end if;
-		  --¶¯Ì¬sqlÈ¡ĞòÁĞµÄÖµ
+		  --åŠ¨æ€sqlå–åºåˆ—çš„å€¼
 		  as_seq_name   := lr_seqlist.seqseqname;
 		  ls_prefix     := lr_seqlist.seqprefix;
 		  li_cur_handle := dbms_sql.open_cursor;
@@ -84,7 +84,7 @@ function
 		    dbms_sql.column_value(li_cur_handle, 1, ln_seq_num);
 		    dbms_sql.close_cursor(li_cur_handle);
 		  end if;
-		  -- °´ÕÕÔ¤¶¨µÄ¸ñÊ½·µ»ØĞòÁĞÖµ
+		  -- æŒ‰ç…§é¢„å®šçš„æ ¼å¼è¿”å›åºåˆ—å€¼
 		  temp_id    := '000000000000000000000000000000' || to_char(ln_seq_num);
 		  ls_seq_num := trim(lr_seqlist.seqprefix ||
 				     substr(temp_id,
@@ -111,86 +111,86 @@ function
 		    return sys_guid();
 		end;
 	function find_in_set
-		--²éÑ¯piv_str1ÊÇÔÚpiv_str2ÖĞµÄµÚ¼¸¸öÔªËØ
+		--æŸ¥è¯¢piv_str1æ˜¯åœ¨piv_str2ä¸­çš„ç¬¬å‡ ä¸ªå…ƒç´ 
 		create or replace function find_in_set(piv_str1 varchar2, piv_str2 varchar2, p_sep varchar2 := ',')
-		--ÅĞ¶Ïpiv_str2ÊÇ·ñÎª¿Õ
+		--åˆ¤æ–­piv_str2æ˜¯å¦ä¸ºç©º
 		if piv_str2 is null then
 		  return res;
 		end if;
-		-- Èç¹ûpiv_strÖĞÃ»ÓĞ·Ö¸î·û£¬Ö±½ÓÅĞ¶Ïpiv_str1ºÍpiv_strÊÇ·ñÏàµÈ£¬ÏàµÈ res_place=1
+		-- å¦‚æœpiv_strä¸­æ²¡æœ‰åˆ†å‰²ç¬¦ï¼Œç›´æ¥åˆ¤æ–­piv_str1å’Œpiv_stræ˜¯å¦ç›¸ç­‰ï¼Œç›¸ç­‰ res_place=1
 		if instr(piv_str, p_sep, 1) = 0 then
 		   if piv_str = piv_str1 then
 		      res_place:=1;
 		      res:= res_place;
 		   end if;
 		else
-		--Ñ­»·°´·Ö¸ô·û½ØÈ¡piv_str
+		--å¾ªç¯æŒ‰åˆ†éš”ç¬¦æˆªå–piv_str
 		loop
 		    l_idx := instr(piv_str,p_sep);
 		    res_place := res_place + 1;
-		    -- µ±piv_strÖĞ»¹ÓĞ·Ö¸ô·ûÊ±
+		    -- å½“piv_strä¸­è¿˜æœ‰åˆ†éš”ç¬¦æ—¶
 		      if l_idx > 0 then
-		      -- ½ØÈ¡µÚÒ»¸ö·Ö¸ô·ûÇ°µÄ×Ö¶Îstr
+		      -- æˆªå–ç¬¬ä¸€ä¸ªåˆ†éš”ç¬¦å‰çš„å­—æ®µstr
 			 str:= substr(piv_str,1,l_idx-1);
-			 -- ÅĞ¶Ï str ºÍpiv_str1 ÊÇ·ñÏàµÈ£¬ÏàµÈÔò½áÊøÑ­»·ÅĞ¶Ï
+			 -- åˆ¤æ–­ str å’Œpiv_str1 æ˜¯å¦ç›¸ç­‰ï¼Œç›¸ç­‰åˆ™ç»“æŸå¾ªç¯åˆ¤æ–­
 			 if str = piv_str1 then
 			   res:= res_place;
 			   exit;
 			 end if;
 			piv_str := substr(piv_str,l_idx+length(p_sep));
 		      else
-		      -- µ±½ØÈ¡ºóµÄpiv_str ÖĞ²»´æÔÚ·Ö¸î·ûÊ±£¬ÅĞ¶Ïpiv_strºÍpiv_str1ÊÇ·ñÏàµÈ£¬ÏàµÈ res=res_path
+		      -- å½“æˆªå–åçš„piv_str ä¸­ä¸å­˜åœ¨åˆ†å‰²ç¬¦æ—¶ï¼Œåˆ¤æ–­piv_strå’Œpiv_str1æ˜¯å¦ç›¸ç­‰ï¼Œç›¸ç­‰ res=res_path
 			if piv_str = piv_str1 then
 			   res:= res_place;
 			end if;
-			-- ÎŞÂÛ×îºóÊÇ·ñÏàµÈ£¬¶¼Ìø³öÑ­»·
+			-- æ— è®ºæœ€åæ˜¯å¦ç›¸ç­‰ï¼Œéƒ½è·³å‡ºå¾ªç¯
 			exit;
 		      end if;
 		 end loop;
-		 -- ½áÊøÑ­»·
+		 -- ç»“æŸå¾ªç¯
 		 end if;
-		 -- ·µ»Øres
+		 -- è¿”å›res
 		 return res;
-	function ÊÇ·ñÄê½×ÌİË®¼Û
-		--¸ù¾İ¼Û¸ñÀàĞÍ±àÂë²éÑ¯Äê½×ÌİÕËÎñ±í£¬ÊÇ·ñ½×Äê½×ÌİË®¼Û
-		create or replace function ÊÇ·ñÄê½×ÌİË®¼Û(p_pfno in varchar2) return varchar2 as
+	function æ˜¯å¦å¹´é˜¶æ¢¯æ°´ä»·
+		--æ ¹æ®ä»·æ ¼ç±»å‹ç¼–ç æŸ¥è¯¢å¹´é˜¶æ¢¯è´¦åŠ¡è¡¨ï¼Œæ˜¯å¦é˜¶å¹´é˜¶æ¢¯æ°´ä»·
+		create or replace function æ˜¯å¦å¹´é˜¶æ¢¯æ°´ä»·(p_pfno in varchar2) return varchar2 as
 		select count(*) into vcount from bas_price_detail where method in ('njt') and price_no = p_pfno;
 		if vcount > 0 then return 'y'; else return 'n'; end if;
-	function ÊµÊ±¼ÆËãÄêÀÛ¼ÆÒÑÓÃÁ¿
-		--¸ù¾İË®±í±àÂë£¬²éÑ¯p_sdateÖ®ºóµÄÊÊÓÃ½×ÌİËã·Ñ·½Ê½µÄË®±íµÄÀÛ¼ÆË®Á¿
-		create or replace function ÊµÊ±¼ÆËãÄêÀÛ¼ÆÒÑÓÃÁ¿(p_miid in varchar2, p_sdate in date)
+	function å®æ—¶è®¡ç®—å¹´ç´¯è®¡å·²ç”¨é‡
+		--æ ¹æ®æ°´è¡¨ç¼–ç ï¼ŒæŸ¥è¯¢p_sdateä¹‹åçš„é€‚ç”¨é˜¶æ¢¯ç®—è´¹æ–¹å¼çš„æ°´è¡¨çš„ç´¯è®¡æ°´é‡
+		create or replace function å®æ—¶è®¡ç®—å¹´ç´¯è®¡å·²ç”¨é‡(p_miid in varchar2, p_sdate in date)
 		select nvl(sum(ardsl), 0) into lret
 		from ys_zw_arlist, ys_zw_ardetail
 		   where arid = ardid
-		     and ardpiid = '01' --Ö»¼ÆË®·ÑË®Á¿
-		     and ardmethod in( 'yjt','njt') --Äê½×ÌİÔÂ½á ÔİÊ±Ö»Í¨¹ırlifyearclass±êÖ¾ÅĞ¶Ï
-		     and arscrarmonth >= to_char(p_sdate, 'yyyy.mm') --´óÓÚ½×ÌİÆğËãÈÕ
+		     and ardpiid = '01' --åªè®¡æ°´è´¹æ°´é‡
+		     and ardmethod in( 'yjt','njt') --å¹´é˜¶æ¢¯æœˆç»“ æš‚æ—¶åªé€šè¿‡rlifyearclassæ ‡å¿—åˆ¤æ–­
+		     and arscrarmonth >= to_char(p_sdate, 'yyyy.mm') --å¤§äºé˜¶æ¢¯èµ·ç®—æ—¥
 		     and sbid = p_miid;
 		  return lret;
-	function ÊÇ·ñº¬Äê½×ÌİË®¼Û
-		--¸ù¾İË®±í±àÂë²éÑ¯ÊÇ·ñº¬Äê½×ÌİË®¼Û
-		create or replace function ÊÇ·ñº¬Äê½×ÌİË®¼Û(p_sbid in varchar2) return varchar2 as
+	function æ˜¯å¦å«å¹´é˜¶æ¢¯æ°´ä»·
+		--æ ¹æ®æ°´è¡¨ç¼–ç æŸ¥è¯¢æ˜¯å¦å«å¹´é˜¶æ¢¯æ°´ä»·
+		create or replace function æ˜¯å¦å«å¹´é˜¶æ¢¯æ°´ä»·(p_sbid in varchar2) return varchar2 as
 		  select count(*)
 		    into vcount
 		    from (select 1
 			    from ys_yh_sbinfo mi
 			   where mi.sbid = p_sbid
 			     and mi.sbifmp = 'n'
-			     and ÊÇ·ñÄê½×ÌİË®¼Û(mi.price_no) = 'y'
+			     and æ˜¯å¦å¹´é˜¶æ¢¯æ°´ä»·(mi.price_no) = 'y'
 			  union
 			  select 1
 			    from ys_yh_sbinfo mi, ys_yh_pricegroup pmd
 			   where mi.sbid = p_sbid
 			     and mi.sbid = pmd.sbid
 			     and mi.sbifmp = 'y'
-			     and ÊÇ·ñÄê½×ÌİË®¼Û(pmd.price_no) = 'y');
+			     and æ˜¯å¦å¹´é˜¶æ¢¯æ°´ä»·(pmd.price_no) = 'y');
 		if vcount > 0 then return 'y'; else return 'n'; end if;
 
 package pg_addmodify_yh
 	errcode constant integer := -20012;
 	v_hire_code varchar2(10) := f_get_hire_code();
 	no_data_found exception;
-	--ÉóºËÉóºËÈë¿Ú
+	--å®¡æ ¸å®¡æ ¸å…¥å£
 	procedure audit(p_billno in varchar2, p_person in varchar2, p_djlb   in varchar2);
 		begin
 			if p_djlb in ('r', '0') then
@@ -203,55 +203,55 @@ package pg_addmodify_yh
 		  when others then
 		  raise_application_error(errcode, sqlerrm);
 		end audit;
-	--Á¢»§ÉóºË£¨Ò»»§Ò»±í£©
+	--ç«‹æˆ·å®¡æ ¸ï¼ˆä¸€æˆ·ä¸€è¡¨ï¼‰
 	procedure sp_yhadd(p_djlb   in varchar2,p_billno in varchar2,p_person in varchar2,p_commit in varchar2);
-		| Ô´±í            |                          |      |
+		| æºè¡¨            |                          |      |
 		| --------------- | ------------------------ | ---- |
-		| ys_yh_custinfo  | ÓÃ»§ĞÅÏ¢±í¡¾yh¡¿         |      |
-		| ys_yh_sbinfo    | »§±íĞÅÏ¢¡¾sb¡¿           |      |
-		| ys_gd_yhsbreghd | Á¢»§µ¥Í·¡¾h¡¿            |      |
-		| ys_gd_yhsbregdt | Á¢»§µ¥Ìå¡¾cmrd¡¿Ò»»§Ò»±í |      |
+		| ys_yh_custinfo  | ç”¨æˆ·ä¿¡æ¯è¡¨ã€yhã€‘         |      |
+		| ys_yh_sbinfo    | æˆ·è¡¨ä¿¡æ¯ã€sbã€‘           |      |
+		| ys_gd_yhsbreghd | ç«‹æˆ·å•å¤´ã€hã€‘            |      |
+		| ys_gd_yhsbregdt | ç«‹æˆ·å•ä½“ã€cmrdã€‘ä¸€æˆ·ä¸€è¡¨ |      |
 
-		| Ä¿±ê±í         |                     |      |
+		| ç›®æ ‡è¡¨         |                     |      |
 		| -------------- | ------------------- | ---- |
-		| ys_yh_custinfo | ÓÃ»§ĞÅÏ¢±í¡¾yh¡¿    |      |
-		| ys_yh_sbinfo   | »§±íĞÅÏ¢¡¾sb¡¿      |      |
-		| ys_yh_sbdoc    | Ë®±íµµ°¸            |      |
-		| ys_yh_account  | »§±íÒøĞĞĞÅÏ¢¡¾yha¡¿ |      |
+		| ys_yh_custinfo | ç”¨æˆ·ä¿¡æ¯è¡¨ã€yhã€‘    |      |
+		| ys_yh_sbinfo   | æˆ·è¡¨ä¿¡æ¯ã€sbã€‘      |      |
+		| ys_yh_sbdoc    | æ°´è¡¨æ¡£æ¡ˆ            |      |
+		| ys_yh_account  | æˆ·è¡¨é“¶è¡Œä¿¡æ¯ã€yhaã€‘ |      |
 		
-		| ±äÁ¿                              |              |                                                              |
+		| å˜é‡                              |              |                                                              |
 		| --------------------------------- | ------------ | ------------------------------------------------------------ |
-		| v_crhshflag                       | ÉóºË±êÖ¾     |                                                              |
-		| v_yh                              | ÓÃ»§ĞÅÏ¢     | ys_yh_custinfo%rowtype;                                      |
-		| v_sb                              | Ë®±íĞÅÏ¢     | ys_yh_sbinfo%rowtype;                                        |
-		| v_yhpid                           | ÉÏ¼¶ÓÃ»§ĞÅÏ¢ | ys_yh_custinfo%rowtype;                                      |
-		| v_sbpid                           | ÉÏ¼¶Ë®±íĞÅÏ¢ | ys_yh_sbinfo%rowtype;                                        |
-		| v_sd                              | Ë®±íµµ°¸ĞÅÏ¢ | ys_yh_sbdoc%rowtype;                                         |
-		| v_sa                              | »§±íÒøĞĞĞÅÏ¢ | ys_yh_account%rowtype;                                       |
+		| v_crhshflag                       | å®¡æ ¸æ ‡å¿—     |                                                              |
+		| v_yh                              | ç”¨æˆ·ä¿¡æ¯     | ys_yh_custinfo%rowtype;                                      |
+		| v_sb                              | æ°´è¡¨ä¿¡æ¯     | ys_yh_sbinfo%rowtype;                                        |
+		| v_yhpid                           | ä¸Šçº§ç”¨æˆ·ä¿¡æ¯ | ys_yh_custinfo%rowtype;                                      |
+		| v_sbpid                           | ä¸Šçº§æ°´è¡¨ä¿¡æ¯ | ys_yh_sbinfo%rowtype;                                        |
+		| v_sd                              | æ°´è¡¨æ¡£æ¡ˆä¿¡æ¯ | ys_yh_sbdoc%rowtype;                                         |
+		| v_sa                              | æˆ·è¡¨é“¶è¡Œä¿¡æ¯ | ys_yh_account%rowtype;                                       |
 		| cursor c_yhpid(vyhid in varchar2) |              | select * from ys_yh_custinfo where yhid = vyhid and hire_code = v_hire_code; |
 		| cursor c_sbpid(vsbid in varchar2) |              | select * from ys_yh_sbinfo where yhid = vsbid and hire_code = v_hire_code; |
 
-		--ÉóºË×´Ì¬ÑéÖ¤
+		--å®¡æ ¸çŠ¶æ€éªŒè¯
 		select nvl(max(check_flag), '999') into v_crhshflag
 		from ys_gd_yhsbreghd
 		where bill_id = p_billno and hire_code = v_hire_code;
 
-		if v_crhshflag = '999' then raise_application_error(errcode, 'Á¢»§µ¥²»´æÔÚ!'); end if;
-		if v_crhshflag = 'y' then raise_application_error(errcode, 'µ¥¾İÒÑÉóºË');end if;
-		if v_crhshflag = 'q' then raise_application_error(errcode, 'µ¥¾İÒÑÈ¡Ïû');end if;
+		if v_crhshflag = '999' then raise_application_error(errcode, 'ç«‹æˆ·å•ä¸å­˜åœ¨!'); end if;
+		if v_crhshflag = 'y' then raise_application_error(errcode, 'å•æ®å·²å®¡æ ¸');end if;
+		if v_crhshflag = 'q' then raise_application_error(errcode, 'å•æ®å·²å–æ¶ˆ');end if;
 
-		--ÖğÌõ¸üĞÂÄ¿±ê±íĞÅÏ¢
+		--é€æ¡æ›´æ–°ç›®æ ‡è¡¨ä¿¡æ¯
 		for i in (select * from ys_gd_yhsbregdt where bill_id = p_billno and hire_code = v_hire_code) loop
 			v_yh.id        := uuid();
 			v_yh.hire_code := v_hire_code;
 			v_yh.yhconid   := i.yhconid;
 			v_yh.manage_no := i.manage_no;
 			v_yh.yhpid     := i.yhpid;
-			--Ğ£ÑéÉÏ¼¶ÓÃ»§
+			--æ ¡éªŒä¸Šçº§ç”¨æˆ·
 			if v_yh.yhpid is not null then
 			open c_yhpid(i.yhpid);
 				fetch c_yhpid into v_yhpid;
-				if c_yhpid%notfound then raise_application_error(errcode, p_billno || 'ÎŞĞ§µÄÉÏ¼¶ÓÃ»§'); end if;
+				if c_yhpid%notfound then raise_application_error(errcode, p_billno || 'æ— æ•ˆçš„ä¸Šçº§ç”¨æˆ·'); end if;
 				v_yh.yhclass := v_yhpid.yhclass + 1; 
 				close c_yhpid;
 			else
@@ -297,7 +297,7 @@ package pg_addmodify_yh
 			if v_yh.yhpid is not null then
 				open c_sbpid(i.sbpid);
 				fetch c_sbpid into v_sbpid;
-				if c_sbpid%notfound then raise_application_error(errcode, p_billno || 'ÎŞĞ§µÄÉÏ¼¶ÓÃ»§');end if;
+				if c_sbpid%notfound then raise_application_error(errcode, p_billno || 'æ— æ•ˆçš„ä¸Šçº§ç”¨æˆ·');end if;
 				v_sb.sbclass  := v_sbpid.sbclass + 1; 
 				close c_sbpid;
 			else
@@ -383,13 +383,13 @@ package pg_addmodify_yh
 			v_sd.mdstatusdate  := null; 
 			v_sd.mdstockdate   := sysdate;
 			v_sd.rfid   := i.rfid;
-			v_sd.ifdzsb := 'n'; --³õ×°Ë®±íÄ¬ÈÏÊÇÕı³£Ë®±í£¬µ¹×°×ßË®±íĞÅÏ¢Î¬»¤
-			--ÌõĞÎÂë×Ô¶¯Éú³É=1Î»ÇøºÅ+8Î»ÄêÔÂÈÕ+10Î»¿Í»§´úÂë¡£ 
+			v_sd.ifdzsb := 'n'; --åˆè£…æ°´è¡¨é»˜è®¤æ˜¯æ­£å¸¸æ°´è¡¨ï¼Œå€’è£…èµ°æ°´è¡¨ä¿¡æ¯ç»´æŠ¤
+			--æ¡å½¢ç è‡ªåŠ¨ç”Ÿæˆ=1ä½åŒºå·+8ä½å¹´æœˆæ—¥+10ä½å®¢æˆ·ä»£ç ã€‚ 
 			v_sd.barcode := substr(v_sb.manage_no, 4, 1) || to_char(sysdate, 'yyyymmdd') || v_sb.sbid;
-			v_sd.dqsfh   := i.dqsfh; --ËÜ·âºÅ
-			v_sd.dqgfh   := i.dqgfh; --¸Ö·âºÅ
-			v_sd.jcgfh   := i.jcgfh; --»ü²é·âºÅ
-			v_sd.qfh     := i.qhf; --Ç¦·âºÅ
+			v_sd.dqsfh   := i.dqsfh; --å¡‘å°å·
+			v_sd.dqgfh   := i.dqgfh; --é’¢å°å·
+			v_sd.jcgfh   := i.jcgfh; --ç¨½æŸ¥å°å·
+			v_sd.qfh     := i.qhf; --é“…å°å·
 			v_sa.id        := uuid();
 			v_sa.hire_code := v_hire_code;
 			v_sa.sbid := v_sb.sbid;
@@ -407,309 +407,309 @@ package pg_addmodify_yh
 			insert into ys_yh_sbdoc values v_sd;
 			insert into ys_yh_account values v_sa; 
 		end loop;
-	--ÓÃ»§ĞŞ¸ÄÉóºË£¨Ò»»§Ò»±í£©
+	--ç”¨æˆ·ä¿®æ”¹å®¡æ ¸ï¼ˆä¸€æˆ·ä¸€è¡¨ï¼‰
 	procedure sp_yhmodify(p_djlb   in varchar2,p_billno in varchar2,p_person in varchar2,p_commit in varchar2);
-		Âß¼­Óëpg_addmodify_yh.sp_yhaddÏàÍ¬
+		é€»è¾‘ä¸pg_addmodify_yh.sp_yhaddç›¸åŒ
 
 package pg_add_yh
-	--ÓÃ»§ÉóºË
+	--ç”¨æˆ·å®¡æ ¸
 	errcode constant integer := -20012;
 	v_hire_code varchar2(10) := f_get_hire_code();
 	no_data_found exception;
-	--ÉóºËÉóºËÈë¿Ú
+	--å®¡æ ¸å®¡æ ¸å…¥å£
 	procedure audit(p_billno in varchar2,p_person in varchar2,p_djlb   in varchar2);
-	--Á¢»§ÉóºË£¨Ò»»§Ò»±í£©
+	--ç«‹æˆ·å®¡æ ¸ï¼ˆä¸€æˆ·ä¸€è¡¨ï¼‰
 	procedure sp_yhadd(p_djlb in varchar2,p_billno in varchar2,p_person in varchar2,p_commit in varchar2);
 
 package pg_dszbill_01
 	errcode constant integer := -20012;
 	procedure createhd(p_dshno in varchar2, p_dshlb in varchar2, p_dshsmfid in varchar2, p_dshdept in varchar2, p_dshcreper in varchar2 );
-		| ²ÎÊı        | ±¸×¢       |
+		| å‚æ•°        | å¤‡æ³¨       |
 		| ----------- | ---------- |
-		| p_dshno     | µ¥¾İÁ÷Ë®ºÅ |
-		| p_dshlb     | µ¥¾İÀà±ğ   |
-		| p_dshsmfid  | ÓªÏú¹«Ë¾   |
-		| p_dshdept   | ÊÜÀí²¿ÃÅ   |
-		| p_dshcreper | ÊÜÀíÈËÔ±   |
-		ÓÃµ½µÄ±í£ºys_gd_zwdhzd ´ôËÀÕÊµ¥Í·
-		³õÊ¼»¯±äÁ¿£ºdbh ys_gd_zwdhzd%rowtype;
-		| ±äÁ¿            | ¸³Öµ        | ±¸×¢       |
+		| p_dshno     | å•æ®æµæ°´å· |
+		| p_dshlb     | å•æ®ç±»åˆ«   |
+		| p_dshsmfid  | è¥é”€å…¬å¸   |
+		| p_dshdept   | å—ç†éƒ¨é—¨   |
+		| p_dshcreper | å—ç†äººå‘˜   |
+		ç”¨åˆ°çš„è¡¨ï¼šys_gd_zwdhzd å‘†æ­»å¸å•å¤´
+		åˆå§‹åŒ–å˜é‡ï¼šdbh ys_gd_zwdhzd%rowtype;
+		| å˜é‡            | èµ‹å€¼        | å¤‡æ³¨       |
 		| --------------- | ----------- | ---------- |
-		| dbh.bill_id     | p_dshno     | µ¥¾İÁ÷Ë®ºÅ |
-		| dbh.bill_no     | p_dshno     | µ¥¾İ±àºÅ   |
-		| dbh.bill_type   | p_dshlb     | µ¥¾İÀà±ğ   |
-		| dbh.bill_source | '1'         | µ¥¾İÀ´Ô´   |
-		| dbh.manage_no   | p_dshsmfid  | ÓªÏú¹«Ë¾   |
-		| dbh.new_dept    | p_dshdept   | ÊÜÀí²¿ÃÅ   |
-		| dbh.add_date    | sysdate     | ÊÜÀíÈÕÆÚ   |
-		| dbh.add_per     | p_dshcreper | ÊÜÀíÈËÔ±   |
-		| dbh.check_date  | null        | ÉóºËÈÕÆÚ   |
-		| dbh.check_per   | null        | ÉóºËÈËÔ±   |
-		| dbh.check_flag  | 'n'         | ÉóºË±êÖ¾   |
+		| dbh.bill_id     | p_dshno     | å•æ®æµæ°´å· |
+		| dbh.bill_no     | p_dshno     | å•æ®ç¼–å·   |
+		| dbh.bill_type   | p_dshlb     | å•æ®ç±»åˆ«   |
+		| dbh.bill_source | '1'         | å•æ®æ¥æº   |
+		| dbh.manage_no   | p_dshsmfid  | è¥é”€å…¬å¸   |
+		| dbh.new_dept    | p_dshdept   | å—ç†éƒ¨é—¨   |
+		| dbh.add_date    | sysdate     | å—ç†æ—¥æœŸ   |
+		| dbh.add_per     | p_dshcreper | å—ç†äººå‘˜   |
+		| dbh.check_date  | null        | å®¡æ ¸æ—¥æœŸ   |
+		| dbh.check_per   | null        | å®¡æ ¸äººå‘˜   |
+		| dbh.check_flag  | 'n'         | å®¡æ ¸æ ‡å¿—   |
 		insert into ys_gd_zwdhzd values dbh;
 	procedure createdt(p_dsdno in varchar2, p_dsdrowno in varchar2, p_arid in varchar2);
-		ÓÃÍ¾£º´´½¨´ôËÀÕËµ¥Ìå
-		²ÎÊı£º
-		p_dsdno    µ¥¾İÁ÷Ë®ºÅ
-		p_dsdrowno iĞĞºÅ
-		p_arid     Ó¦ÊÕÁ÷Ë®
-		ÓÃµ½µÄ±í£º
-		ys_zw_arlist  Ó¦ÊÕ×ÜÕÊÃ÷Ï¸¡¾AR¡¿
-		ys_gd_zwdhzdt  ´ôËÀÕÊµ¥Ìå
-		³õÊ¼»¯±äÁ¿£º
+		ç”¨é€”ï¼šåˆ›å»ºå‘†æ­»è´¦å•ä½“
+		å‚æ•°ï¼š
+		p_dsdno    å•æ®æµæ°´å·
+		p_dsdrowno iè¡Œå·
+		p_arid     åº”æ”¶æµæ°´
+		ç”¨åˆ°çš„è¡¨ï¼š
+		ys_zw_arlist  åº”æ”¶æ€»å¸æ˜ç»†ã€ARã€‘
+		ys_gd_zwdhzdt  å‘†æ­»å¸å•ä½“
+		åˆå§‹åŒ–å˜é‡ï¼š
 		dbt ys_gd_zwdhzdt%rowtype;
 		ar  ys_zw_arlist%rowtype;
-		²éÑ¯ÕËÎñĞÅÏ¢
+		æŸ¥è¯¢è´¦åŠ¡ä¿¡æ¯
 		select * into ar from ys_zw_arlist where arid = p_arid;
-		¸³Öµ µ¥Ìå
-		| ±äÁ¿                | ¸³Öµ               | ±¸×¢                                                         |
+		èµ‹å€¼ å•ä½“
+		| å˜é‡                | èµ‹å€¼               | å¤‡æ³¨                                                         |
 		| ------------------- | ------------------ | ------------------------------------------------------------ |
-		| dbt.bill_id         | p_dsdno            | µ¥¾İÁ÷Ë®ºÅ                                                   |
-		| dbt.dhzrowno        | p_dsdrowno         | ĞĞºÅ                                                         |
+		| dbt.bill_id         | p_dsdno            | å•æ®æµæ°´å·                                                   |
+		| dbt.dhzrowno        | p_dsdrowno         | è¡Œå·                                                         |
 		| dbt.hire_code       | ar.hire_code       |                                                              |
-		| dbt.arid            | ar.arid            | Á÷Ë®ºÅ                                                       |
-		| dbt.manage_no       | ar.manage_no       | ÓªÏú¹«Ë¾                                                     |
-		| dbt.armonth         | ar.armonth         | ÕÊÎñÔÂ·İ                                                     |
-		| dbt.ardate          | ar.ardate          | ÕÊÎñÈÕÆÚ                                                     |
-		| dbt.yhid            | ar.yhid            | ÓÃ»§±àºÅ                                                     |
-		| dbt.sbid            | ar.sbid            | Ë®±í±àºÅ                                                     |
-		| dbt.archargeper     | ar.archargeper     | ÊÕ·ÑÔ±                                                       |
-		| dbt.arcpid          | ar.arcpid          | ÉÏ¼¶ÓÃ»§±àºÅ                                                 |
-		| dbt.arcclass        | ar.arcclass        | ÓÃ»§¼¶´Î                                                     |
-		| dbt.arcflag         | ar.arcflag         | Ä©¼¶±êÖ¾                                                     |
-		| dbt.arusenum        | ar.arusenum        | »§ÓÃË®ÈËÊı                                                   |
-		| dbt.arcname         | ar.arcname         | ÓÃ»§Ãû³Æ                                                     |
-		| dbt.arcadr          | ar.arcadr          | ÓÃ»§µØÖ·                                                     |
-		| dbt.armadr          | ar.armadr          | Ë®±íµØÖ·                                                     |
-		| dbt.arcstatus       | ar.arcstatus       | ÓÃ»§×´Ì¬                                                     |
-		| dbt.armtel          | ar.armtel          | ÒÆ¶¯µç»°                                                     |
-		| dbt.artel           | ar.artel           | ¹Ì¶¨µç»°                                                     |
-		| dbt.arbankid        | ar.arbankid        | ´ú¿ÛÒøĞĞ                                                     |
-		| dbt.artsbankid      | ar.artsbankid      | ÍĞÊÕÒøĞĞ                                                     |
-		| dbt.araccountno     | ar.araccountno     | ¿ª»§ÕÊºÅ                                                     |
-		| dbt.araccountname   | ar.araccountname   | ¿ª»§Ãû³Æ                                                     |
-		| dbt.ariftax         | ar.ariftax         | ÊÇ·ñË°Æ±                                                     |
-		| dbt.artaxno         | ar.artaxno         | ÔöÖ³Ë°ºÅ                                                     |
-		| dbt.arifinv         | ar.arifinv         | ÊÇ·ñÆÕÆ±                                                     |
-		| dbt.armcode         | ar.armcode         | Ë®±íÊÖ¹¤±àºÅ                                                 |
-		| dbt.armpid          | ar.armpid          | ÉÏ¼¶Ë®±í                                                     |
-		| dbt.armclass        | ar.armclass        | Ë®±í¼¶´Î                                                     |
-		| dbt.armflag         | ar.armflag         | Ä©¼¶±êÖ¾                                                     |
-		| dbt.armsfid         | ar.armsfid         | Ë®±íÀà±ğ                                                     |
-		| dbt.arday           | ar.arday           | ³­±íÈÕ                                                       |
-		| dbt.arbfid          | ar.arbfid          | ±í²á                                                         |
-		| dbt.arprdate        | ar.arprdate        | ÉÏ´Î³­±íÈÕÆÚ                                                 |
-		| dbt.arrdate         | ar.arrdate         | ±¾´Î³­±íÈÕÆÚ                                                 |
-		| dbt.arzndate        | ar.arzndate        | Î¥Ô¼½ğÆğËãÈÕ                                                 |
-		| dbt.arcaliber       | ar.arcaliber       | ±í¿Ú¾¶                                                       |
-		| dbt.arrtid          | ar.arrtid          | ³­±í·½Ê½                                                     |
-		| dbt.armstatus       | ar.armstatus       | ×´Ì¬                                                         |
-		| dbt.armtype         | ar.armtype         | ÀàĞÍ                                                         |
-		| dbt.armno           | ar.armno           | ±íÉíÂë                                                       |
-		| dbt.arscode         | ar.arscode         | ÆğÊı                                                         |
-		| dbt.arecode         | ar.arecode         | Ö¹Êı                                                         |
-		| dbt.arreadsl        | ar.arreadsl        | ³­¼ûË®Á¿                                                     |
-		| dbt.arinvmemo       | ar.arinvmemo       | ·¢Æ±±¸×¢                                                     |
-		| dbt.arentrustbatch  | ar.arentrustbatch  | ÍĞÊÕ´ú¿ÛÅúºÅ                                                 |
-		| dbt.arentrustseqno  | ar.arentrustseqno  | ÍĞÊÕ´ú¿ÛÁ÷Ë®ºÅ                                               |
-		| dbt.aroutflag       | ar.aroutflag       | ·¢³ö±êÖ¾                                                     |
-		| dbt.artrans         | ar.artrans         | Ó¦ÊÕÊÂÎñ                                                     |
-		| dbt.arcd            | ar.arcd            | ½è´û·½Ïò                                                     |
-		| dbt.aryschargetype  | ar.aryschargetype  | Ó¦ÊÕ·½Ê½                                                     |
-		| dbt.arsl            | ar.arsl            | Ó¦ÊÕË®Á¿                                                     |
-		| dbt.arje            | ar.arje            | Ó¦ÊÕ½ğ¶î                                                     |
-		| dbt.araddsl         | ar.araddsl         | ¼Óµ÷Ë®Á¿                                                     |
-		| dbt.arscrarid       | ar.arscrarid       | Ô­Ó¦ÊÕÕÊÁ÷Ë®                                                 |
-		| dbt.arscrartrans    | ar.arscrartrans    | Ô­Ó¦ÊÕÕÊÊÂÎñ                                                 |
-		| dbt.arscrarmonth    | ar.arscrarmonth    | Ô­Ó¦ÊÕÕÊÔÂ·İ                                                 |
-		| dbt.arpaidje        | ar.arpaidje        | ÏúÕÊ½ğ¶î                                                     |
-		| dbt.arpaidflag      | ar.arpaidflag      | ÏúÕÊ±êÖ¾(y:y£¬n:n£¬x:x£¬v:y/n£¬t:y/x£¬k:n/x£¬w:y/n/x)        |
-		| dbt.arpaidper       | ar.arpaidper       | ÏúÕÊÈËÔ±                                                     |
-		| dbt.arpaiddate      | ar.arpaiddate      | ÏúÕÊÈÕÆÚ                                                     |
-		| dbt.armrid          | ar.armrid          | ³­±íÁ÷Ë®                                                     |
-		| dbt.armemo          | ar.armemo          | ±¸×¢                                                         |
-		| dbt.arznj           | ar.arznj           | Î¥Ô¼½ğ                                                       |
-		| dbt.arlb            | ar.arlb            | Àà±ğ                                                         |
-		| dbt.arcname2        | ar.arcname2        | ÔøÓÃÃû                                                       |
-		| dbt.arpfid          | ar.arpfid          | Ö÷¼Û¸ñÀà±ğ                                                   |
-		| dbt.ardatetime      | ar.ardatetime      | ·¢ÉúÈÕÆÚ                                                     |
-		| dbt.arscrardate     | ar.arscrardate     | Ô­ÕÊÎñÈÕÆÚ                                                   |
-		| dbt.arprimcode      | ar.arprimcode      | ºÏÊÕ±íÖ÷±íºÅ                                                 |
-		| dbt.arpriflag       | ar.arpriflag       | ºÏÊÕ±í±êÖ¾                                                   |
-		| dbt.arrper          | ar.arrper          | ³­±íÔ±                                                       |
-		| dbt.arsafid         | ar.arsafid         | ÇøÓò                                                         |
-		| dbt.arscodechar     | ar.arscodechar     | ÉÏÆÚ³­±í£¨´ø±íÎ»£©                                           |
-		| dbt.arecodechar     | ar.arecodechar     | ±¾ÆÚ³­±í£¨´ø±íÎ»£©                                           |
-		| dbt.arilid          | ar.arilid          | ·¢Æ±Á÷Ë®ºÅ                                                   |
-		| dbt.armiuiid        | ar.armiuiid        | ºÏÊÕµ¥Î»±àºÅ                                                 |
-		| dbt.argroup         | ar.argroup         | Ó¦ÊÕÕÊ·Ö×é                                                   |
-		| dbt.arpid           | ar.arpid           | ÊµÊÕÁ÷Ë®£¨Óëpayment.pid¶ÔÓ¦£©                                |
-		| dbt.arpbatch        | ar.arpbatch        | ½É·Ñ½»Ò×Åú´Î£¨Óëpayment.pbatch¶ÔÓ¦£©                         |
-		| dbt.arsavingqc      | ar.arsavingqc      | ÆÚ³õÔ¤´æ£¨ÏúÕÊÊ±²úÉú£©                                       |
-		| dbt.arsavingbq      | ar.arsavingbq      | ±¾ÆÚÔ¤´æ·¢Éú£¨ÏúÕÊÊ±²úÉú£©                                   |
-		| dbt.arsavingqm      | ar.arsavingqm      | ÆÚÄ©Ô¤´æ£¨ÏúÕÊÊ±²úÉú£©                                       |
-		| dbt.arreverseflag   | ar.arreverseflag   | ³åÕı±êÖ¾£¨nÎªÕı³££¬yÎª³åÕı£©                                 |
-		| dbt.arbadflag       | 'o'                | ´ôÕÊ±êÖ¾£¨y:´ô»µÕÊ£¬o:´ô»µÕÊÉóÅúÖĞ£¬n:Õı³£ÕÊ£©--·¢³öÊ±ĞŞ¸Ä±êÖ¾ |
-		| dbt.arznjreducflag  | ar.arznjreducflag  | ÖÍÄÉ½ğ¼õÃâ±êÖ¾,Î´¼õÃâÊ±Îªn£¬ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½Ó¼ÆËã£»¼õÃâºóÎªy,ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½ÓÈ¡arznj |
-		| dbt.armistid        | ar.armistid        | ĞĞÒµ·ÖÀà                                                     |
-		| dbt.arminame        | ar.arminame        | Æ±¾İÃû³Æ                                                     |
-		| dbt.arsxf           | ar.arsxf           | ÊÖĞø·Ñ                                                       |
-		| dbt.armiface2       | ar.armiface2       | ³­¼û¹ÊÕÏ                                                     |
-		| dbt.armiface3       | ar.armiface3       | ·Ç³£¼ÆÁ¿                                                     |
-		| dbt.armiface4       | ar.armiface4       | ±í¾®ÉèÊ©ËµÃ÷                                                 |
-		| dbt.armiifckf       | ar.armiifckf       | À¬»ø·Ñ»§Êı                                                   |
-		| dbt.armigps         | ar.armigps         | ÊÇ·ñºÏÆ±                                                     |
-		| dbt.armiqfh         | ar.armiqfh         | Ç¦·âºÅ                                                       |
-		| dbt.armibox         | ar.armibox         | Ïû·ÀË®¼Û£¨ÔöÖµË°Ë®¼Û£¬ÏåÑôĞèÇó£©                             |
-		| dbt.arminame2       | ar.arminame2       | ÕĞÅÆÃû³Æ(Ğ¡ÇøÃû£¬ÏåÑôĞèÇó£©                                  |
-		| dbt.armiseqno       | ar.armiseqno       | »§ºÅ£¨³õÊ¼»¯Ê±²áºÅ+ĞòºÅ£©                                    |
-		| dbt.armisaving      | ar.armisaving      | Ëã·ÑÊ±Ô¤´æ                                                   |
-		| dbt.arpriorje       | ar.arpriorje       | Ëã·ÑÖ®Ç°Ç··Ñ                                                 |
-		| dbt.armicommunity   | ar.armicommunity   | Ğ¡Çø                                                         |
-		| dbt.armiremoteno    | ar.armiremoteno    | Ô¶´«±íºÅ                                                     |
-		| dbt.armiremotehubno | ar.armiremotehubno | Ô¶´«hubºÅ                                                    |
-		| dbt.armiemail       | ar.armiemail       | µç×ÓÓÊ¼ş                                                     |
-		| dbt.armiemailflag   | ar.armiemailflag   | ·¢Æ±Àà±ğ                                                     |
-		| dbt.armicolumn1     | ar.armicolumn1     | ±¸ÓÃ×Ö¶Î1                                                    |
-		| dbt.armicolumn2     | ar.armicolumn2     | ±¸ÓÃ×Ö¶Î2(Ô¤¿ªÆ±´òÓ¡Åú´Î)                                    |
-		| dbt.armicolumn3     | ar.armicolumn3     | ±¸ÓÃ×Ö¶Î3                                                    |
-		| dbt.armicolumn4     | ar.armicolumn4     | ±¸ÓÃ×Ö¶Î3                                                    |
-		| dbt.arpaidmonth     | ar.arpaidmonth     | ÏúÕËÔÂ·İ                                                     |
-		| dbt.arcolumn5       | ar.arcolumn5       | ÉÏ´ÎÓ¦ÕÊÕÊÈÕÆÚ                                               |
-		| dbt.arcolumn9       | ar.arcolumn9       | ÉÏ´ÎÓ¦ÊÕÕÊÁ÷Ë®                                               |
-		| dbt.arcolumn10      | ar.arcolumn10      | ÉÏ´ÎÓ¦ÊÕÕÊÔÂ·İ                                               |
-		| dbt.arcolumn11      | ar.arcolumn11      | ÉÏ´ÎÓ¦ÊÕÕÊÊÂÎñ                                               |
-		| dbt.arjtmk          | ar.arjtmk          | ²»¼Ç½×Ìİ×¢¼Ç                                                 |
-		| dbt.arjtsrq         | ar.arjtsrq         | ±¾ÖÜÆÚ½×Ìİ¿ªÊ¼ÈÕÆÚ                                           |
-		| dbt.arcolumn12      | ar.arcolumn12      | Äê¶ÈÀÛ¼ÆÁ¿                                                   |
-		| dbt.dhzappnote      | ''                 | ÉêÇëËµÃ÷                                                     |
-		| dbt.dhzfilashnote   | ''                 | Áìµ¼Òâ¼û                                                     |
-		| dbt.dhzmemo         | ''                 | ±¸×¢                                                         |
-		| dbt.dhzshflag       | 'n'                | ĞĞÉóºË±êÖ¾                                                   |
-		| dbt.dhzshdate       | ''                 | ĞĞÉóºËÈÕÆÚ                                                   |
-		| dbt.dhzshper        | ''                 | ĞĞÉóºËÈË                                                     |
+		| dbt.arid            | ar.arid            | æµæ°´å·                                                       |
+		| dbt.manage_no       | ar.manage_no       | è¥é”€å…¬å¸                                                     |
+		| dbt.armonth         | ar.armonth         | å¸åŠ¡æœˆä»½                                                     |
+		| dbt.ardate          | ar.ardate          | å¸åŠ¡æ—¥æœŸ                                                     |
+		| dbt.yhid            | ar.yhid            | ç”¨æˆ·ç¼–å·                                                     |
+		| dbt.sbid            | ar.sbid            | æ°´è¡¨ç¼–å·                                                     |
+		| dbt.archargeper     | ar.archargeper     | æ”¶è´¹å‘˜                                                       |
+		| dbt.arcpid          | ar.arcpid          | ä¸Šçº§ç”¨æˆ·ç¼–å·                                                 |
+		| dbt.arcclass        | ar.arcclass        | ç”¨æˆ·çº§æ¬¡                                                     |
+		| dbt.arcflag         | ar.arcflag         | æœ«çº§æ ‡å¿—                                                     |
+		| dbt.arusenum        | ar.arusenum        | æˆ·ç”¨æ°´äººæ•°                                                   |
+		| dbt.arcname         | ar.arcname         | ç”¨æˆ·åç§°                                                     |
+		| dbt.arcadr          | ar.arcadr          | ç”¨æˆ·åœ°å€                                                     |
+		| dbt.armadr          | ar.armadr          | æ°´è¡¨åœ°å€                                                     |
+		| dbt.arcstatus       | ar.arcstatus       | ç”¨æˆ·çŠ¶æ€                                                     |
+		| dbt.armtel          | ar.armtel          | ç§»åŠ¨ç”µè¯                                                     |
+		| dbt.artel           | ar.artel           | å›ºå®šç”µè¯                                                     |
+		| dbt.arbankid        | ar.arbankid        | ä»£æ‰£é“¶è¡Œ                                                     |
+		| dbt.artsbankid      | ar.artsbankid      | æ‰˜æ”¶é“¶è¡Œ                                                     |
+		| dbt.araccountno     | ar.araccountno     | å¼€æˆ·å¸å·                                                     |
+		| dbt.araccountname   | ar.araccountname   | å¼€æˆ·åç§°                                                     |
+		| dbt.ariftax         | ar.ariftax         | æ˜¯å¦ç¨ç¥¨                                                     |
+		| dbt.artaxno         | ar.artaxno         | å¢æ®–ç¨å·                                                     |
+		| dbt.arifinv         | ar.arifinv         | æ˜¯å¦æ™®ç¥¨                                                     |
+		| dbt.armcode         | ar.armcode         | æ°´è¡¨æ‰‹å·¥ç¼–å·                                                 |
+		| dbt.armpid          | ar.armpid          | ä¸Šçº§æ°´è¡¨                                                     |
+		| dbt.armclass        | ar.armclass        | æ°´è¡¨çº§æ¬¡                                                     |
+		| dbt.armflag         | ar.armflag         | æœ«çº§æ ‡å¿—                                                     |
+		| dbt.armsfid         | ar.armsfid         | æ°´è¡¨ç±»åˆ«                                                     |
+		| dbt.arday           | ar.arday           | æŠ„è¡¨æ—¥                                                       |
+		| dbt.arbfid          | ar.arbfid          | è¡¨å†Œ                                                         |
+		| dbt.arprdate        | ar.arprdate        | ä¸Šæ¬¡æŠ„è¡¨æ—¥æœŸ                                                 |
+		| dbt.arrdate         | ar.arrdate         | æœ¬æ¬¡æŠ„è¡¨æ—¥æœŸ                                                 |
+		| dbt.arzndate        | ar.arzndate        | è¿çº¦é‡‘èµ·ç®—æ—¥                                                 |
+		| dbt.arcaliber       | ar.arcaliber       | è¡¨å£å¾„                                                       |
+		| dbt.arrtid          | ar.arrtid          | æŠ„è¡¨æ–¹å¼                                                     |
+		| dbt.armstatus       | ar.armstatus       | çŠ¶æ€                                                         |
+		| dbt.armtype         | ar.armtype         | ç±»å‹                                                         |
+		| dbt.armno           | ar.armno           | è¡¨èº«ç                                                        |
+		| dbt.arscode         | ar.arscode         | èµ·æ•°                                                         |
+		| dbt.arecode         | ar.arecode         | æ­¢æ•°                                                         |
+		| dbt.arreadsl        | ar.arreadsl        | æŠ„è§æ°´é‡                                                     |
+		| dbt.arinvmemo       | ar.arinvmemo       | å‘ç¥¨å¤‡æ³¨                                                     |
+		| dbt.arentrustbatch  | ar.arentrustbatch  | æ‰˜æ”¶ä»£æ‰£æ‰¹å·                                                 |
+		| dbt.arentrustseqno  | ar.arentrustseqno  | æ‰˜æ”¶ä»£æ‰£æµæ°´å·                                               |
+		| dbt.aroutflag       | ar.aroutflag       | å‘å‡ºæ ‡å¿—                                                     |
+		| dbt.artrans         | ar.artrans         | åº”æ”¶äº‹åŠ¡                                                     |
+		| dbt.arcd            | ar.arcd            | å€Ÿè´·æ–¹å‘                                                     |
+		| dbt.aryschargetype  | ar.aryschargetype  | åº”æ”¶æ–¹å¼                                                     |
+		| dbt.arsl            | ar.arsl            | åº”æ”¶æ°´é‡                                                     |
+		| dbt.arje            | ar.arje            | åº”æ”¶é‡‘é¢                                                     |
+		| dbt.araddsl         | ar.araddsl         | åŠ è°ƒæ°´é‡                                                     |
+		| dbt.arscrarid       | ar.arscrarid       | åŸåº”æ”¶å¸æµæ°´                                                 |
+		| dbt.arscrartrans    | ar.arscrartrans    | åŸåº”æ”¶å¸äº‹åŠ¡                                                 |
+		| dbt.arscrarmonth    | ar.arscrarmonth    | åŸåº”æ”¶å¸æœˆä»½                                                 |
+		| dbt.arpaidje        | ar.arpaidje        | é”€å¸é‡‘é¢                                                     |
+		| dbt.arpaidflag      | ar.arpaidflag      | é”€å¸æ ‡å¿—(y:yï¼Œn:nï¼Œx:xï¼Œv:y/nï¼Œt:y/xï¼Œk:n/xï¼Œw:y/n/x)        |
+		| dbt.arpaidper       | ar.arpaidper       | é”€å¸äººå‘˜                                                     |
+		| dbt.arpaiddate      | ar.arpaiddate      | é”€å¸æ—¥æœŸ                                                     |
+		| dbt.armrid          | ar.armrid          | æŠ„è¡¨æµæ°´                                                     |
+		| dbt.armemo          | ar.armemo          | å¤‡æ³¨                                                         |
+		| dbt.arznj           | ar.arznj           | è¿çº¦é‡‘                                                       |
+		| dbt.arlb            | ar.arlb            | ç±»åˆ«                                                         |
+		| dbt.arcname2        | ar.arcname2        | æ›¾ç”¨å                                                       |
+		| dbt.arpfid          | ar.arpfid          | ä¸»ä»·æ ¼ç±»åˆ«                                                   |
+		| dbt.ardatetime      | ar.ardatetime      | å‘ç”Ÿæ—¥æœŸ                                                     |
+		| dbt.arscrardate     | ar.arscrardate     | åŸå¸åŠ¡æ—¥æœŸ                                                   |
+		| dbt.arprimcode      | ar.arprimcode      | åˆæ”¶è¡¨ä¸»è¡¨å·                                                 |
+		| dbt.arpriflag       | ar.arpriflag       | åˆæ”¶è¡¨æ ‡å¿—                                                   |
+		| dbt.arrper          | ar.arrper          | æŠ„è¡¨å‘˜                                                       |
+		| dbt.arsafid         | ar.arsafid         | åŒºåŸŸ                                                         |
+		| dbt.arscodechar     | ar.arscodechar     | ä¸ŠæœŸæŠ„è¡¨ï¼ˆå¸¦è¡¨ä½ï¼‰                                           |
+		| dbt.arecodechar     | ar.arecodechar     | æœ¬æœŸæŠ„è¡¨ï¼ˆå¸¦è¡¨ä½ï¼‰                                           |
+		| dbt.arilid          | ar.arilid          | å‘ç¥¨æµæ°´å·                                                   |
+		| dbt.armiuiid        | ar.armiuiid        | åˆæ”¶å•ä½ç¼–å·                                                 |
+		| dbt.argroup         | ar.argroup         | åº”æ”¶å¸åˆ†ç»„                                                   |
+		| dbt.arpid           | ar.arpid           | å®æ”¶æµæ°´ï¼ˆä¸payment.pidå¯¹åº”ï¼‰                                |
+		| dbt.arpbatch        | ar.arpbatch        | ç¼´è´¹äº¤æ˜“æ‰¹æ¬¡ï¼ˆä¸payment.pbatchå¯¹åº”ï¼‰                         |
+		| dbt.arsavingqc      | ar.arsavingqc      | æœŸåˆé¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰                                       |
+		| dbt.arsavingbq      | ar.arsavingbq      | æœ¬æœŸé¢„å­˜å‘ç”Ÿï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰                                   |
+		| dbt.arsavingqm      | ar.arsavingqm      | æœŸæœ«é¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰                                       |
+		| dbt.arreverseflag   | ar.arreverseflag   | å†²æ­£æ ‡å¿—ï¼ˆnä¸ºæ­£å¸¸ï¼Œyä¸ºå†²æ­£ï¼‰                                 |
+		| dbt.arbadflag       | 'o'                | å‘†å¸æ ‡å¿—ï¼ˆy:å‘†åå¸ï¼Œo:å‘†åå¸å®¡æ‰¹ä¸­ï¼Œn:æ­£å¸¸å¸ï¼‰--å‘å‡ºæ—¶ä¿®æ”¹æ ‡å¿— |
+		| dbt.arznjreducflag  | ar.arznjreducflag  | æ»çº³é‡‘å‡å…æ ‡å¿—,æœªå‡å…æ—¶ä¸ºnï¼Œé”€å¸æ—¶æ»çº³é‡‘ç›´æ¥è®¡ç®—ï¼›å‡å…åä¸ºy,é”€å¸æ—¶æ»çº³é‡‘ç›´æ¥å–arznj |
+		| dbt.armistid        | ar.armistid        | è¡Œä¸šåˆ†ç±»                                                     |
+		| dbt.arminame        | ar.arminame        | ç¥¨æ®åç§°                                                     |
+		| dbt.arsxf           | ar.arsxf           | æ‰‹ç»­è´¹                                                       |
+		| dbt.armiface2       | ar.armiface2       | æŠ„è§æ•…éšœ                                                     |
+		| dbt.armiface3       | ar.armiface3       | éå¸¸è®¡é‡                                                     |
+		| dbt.armiface4       | ar.armiface4       | è¡¨äº•è®¾æ–½è¯´æ˜                                                 |
+		| dbt.armiifckf       | ar.armiifckf       | åƒåœ¾è´¹æˆ·æ•°                                                   |
+		| dbt.armigps         | ar.armigps         | æ˜¯å¦åˆç¥¨                                                     |
+		| dbt.armiqfh         | ar.armiqfh         | é“…å°å·                                                       |
+		| dbt.armibox         | ar.armibox         | æ¶ˆé˜²æ°´ä»·ï¼ˆå¢å€¼ç¨æ°´ä»·ï¼Œè¥„é˜³éœ€æ±‚ï¼‰                             |
+		| dbt.arminame2       | ar.arminame2       | æ‹›ç‰Œåç§°(å°åŒºåï¼Œè¥„é˜³éœ€æ±‚ï¼‰                                  |
+		| dbt.armiseqno       | ar.armiseqno       | æˆ·å·ï¼ˆåˆå§‹åŒ–æ—¶å†Œå·+åºå·ï¼‰                                    |
+		| dbt.armisaving      | ar.armisaving      | ç®—è´¹æ—¶é¢„å­˜                                                   |
+		| dbt.arpriorje       | ar.arpriorje       | ç®—è´¹ä¹‹å‰æ¬ è´¹                                                 |
+		| dbt.armicommunity   | ar.armicommunity   | å°åŒº                                                         |
+		| dbt.armiremoteno    | ar.armiremoteno    | è¿œä¼ è¡¨å·                                                     |
+		| dbt.armiremotehubno | ar.armiremotehubno | è¿œä¼ hubå·                                                    |
+		| dbt.armiemail       | ar.armiemail       | ç”µå­é‚®ä»¶                                                     |
+		| dbt.armiemailflag   | ar.armiemailflag   | å‘ç¥¨ç±»åˆ«                                                     |
+		| dbt.armicolumn1     | ar.armicolumn1     | å¤‡ç”¨å­—æ®µ1                                                    |
+		| dbt.armicolumn2     | ar.armicolumn2     | å¤‡ç”¨å­—æ®µ2(é¢„å¼€ç¥¨æ‰“å°æ‰¹æ¬¡)                                    |
+		| dbt.armicolumn3     | ar.armicolumn3     | å¤‡ç”¨å­—æ®µ3                                                    |
+		| dbt.armicolumn4     | ar.armicolumn4     | å¤‡ç”¨å­—æ®µ3                                                    |
+		| dbt.arpaidmonth     | ar.arpaidmonth     | é”€è´¦æœˆä»½                                                     |
+		| dbt.arcolumn5       | ar.arcolumn5       | ä¸Šæ¬¡åº”å¸å¸æ—¥æœŸ                                               |
+		| dbt.arcolumn9       | ar.arcolumn9       | ä¸Šæ¬¡åº”æ”¶å¸æµæ°´                                               |
+		| dbt.arcolumn10      | ar.arcolumn10      | ä¸Šæ¬¡åº”æ”¶å¸æœˆä»½                                               |
+		| dbt.arcolumn11      | ar.arcolumn11      | ä¸Šæ¬¡åº”æ”¶å¸äº‹åŠ¡                                               |
+		| dbt.arjtmk          | ar.arjtmk          | ä¸è®°é˜¶æ¢¯æ³¨è®°                                                 |
+		| dbt.arjtsrq         | ar.arjtsrq         | æœ¬å‘¨æœŸé˜¶æ¢¯å¼€å§‹æ—¥æœŸ                                           |
+		| dbt.arcolumn12      | ar.arcolumn12      | å¹´åº¦ç´¯è®¡é‡                                                   |
+		| dbt.dhzappnote      | ''                 | ç”³è¯·è¯´æ˜                                                     |
+		| dbt.dhzfilashnote   | ''                 | é¢†å¯¼æ„è§                                                     |
+		| dbt.dhzmemo         | ''                 | å¤‡æ³¨                                                         |
+		| dbt.dhzshflag       | 'n'                | è¡Œå®¡æ ¸æ ‡å¿—                                                   |
+		| dbt.dhzshdate       | ''                 | è¡Œå®¡æ ¸æ—¥æœŸ                                                   |
+		| dbt.dhzshper        | ''                 | è¡Œå®¡æ ¸äºº                                                     |
 		insert into ys_gd_zwdhzdt values dbt;
 	procedure createdszbill(p_dshno in varchar2, p_dshlb in varchar2, p_dshsmfid in varchar2, p_dshdept in varchar2,p_dshcreper in varchar2, p_arid in varchar2);
-		--¹¹Ôì´ôËÀÕÊµ¥¾İ
-		--Íâ²¿µ÷ÓÃ£¬½«Ó¦ÊÕÁ÷Ë®ºÅys_zw_aarist.aridÔÚÇ°Ì¨²åÈëµ½ÁÙÊ±±ípbparmtemp.c1ÖĞ	
-		²ÎÊı
-		p_dshno     µ¥¾İÁ÷Ë®ºÅ
-		p_dshlb     µ¥¾İÀà±ğ
-		p_dshsmfid  ÓªÏú¹«Ë¾
-		p_dshdept   ÊÜÀí²¿ÃÅ
-		p_dshcreper ÊÜÀíÈËÔ±
-		p_arid      Ó¦ÊÕÁ÷Ë®ºÅ
-		ÓÃµ½µÄ±í
-		ys_zw_arlist	Ó¦ÊÕ×ÜÕÊÃ÷Ï¸¡¾AR¡¿
-		³õÊ¼»¯±äÁ¿
+		--æ„é€ å‘†æ­»å¸å•æ®
+		--å¤–éƒ¨è°ƒç”¨ï¼Œå°†åº”æ”¶æµæ°´å·ys_zw_aarist.aridåœ¨å‰å°æ’å…¥åˆ°ä¸´æ—¶è¡¨pbparmtemp.c1ä¸­	
+		å‚æ•°
+		p_dshno     å•æ®æµæ°´å·
+		p_dshlb     å•æ®ç±»åˆ«
+		p_dshsmfid  è¥é”€å…¬å¸
+		p_dshdept   å—ç†éƒ¨é—¨
+		p_dshcreper å—ç†äººå‘˜
+		p_arid      åº”æ”¶æµæ°´å·
+		ç”¨åˆ°çš„è¡¨
+		ys_zw_arlist	åº”æ”¶æ€»å¸æ˜ç»†ã€ARã€‘
+		åˆå§‹åŒ–å˜é‡
 		ar      ys_zw_arlist%rowtype;
-		v_rowid number(10) := 0; --ĞĞºÅ
-		ÒÀÀµ¹ØÏµ
+		v_rowid number(10) := 0; --è¡Œå·
+		ä¾èµ–å…³ç³»
 		pg_dszbill_01.createhd
 		pg_dszbill_01.createdt
-		--²åÈëµ¥Í·
+		--æ’å…¥å•å¤´
 		createhd(p_dshno, p_dshlb, p_dshsmfid, p_dshdept, p_dshcreper);
-		--²åÈëµ¥Ìå
+		--æ’å…¥å•ä½“
 		open c_ar;
 			loop fetch c_ar into ar;
 			exit when c_ar%notfound or c_ar%notfound is null;
 				v_rowid := v_rowid + 1;
 				createdt(p_dshno, v_rowid, ar.arid );
-				--ĞŞ¸Ä´ôËÀÕÊ±êÖ¾
+				--ä¿®æ”¹å‘†æ­»å¸æ ‡å¿—
 				update ys_zw_arlist set ys_zw_arlist.arbadflag = 'o' where arid = ar.arid;
 			end loop;
 		close c_ar;
 	procedure cancelbill(p_billno in varchar2, p_person in varchar2, p_djlb in varchar2); 
-		--É¾³ı´ôÕËËÀÕËµ¥¾İ
-		²ÎÊı
-		p_billno in varchar2, --µ¥¾İ±àºÅ
-		p_person in varchar2, --²Ù×÷Ô±
+		--åˆ é™¤å‘†è´¦æ­»è´¦å•æ®
+		å‚æ•°
+		p_billno in varchar2, --å•æ®ç¼–å·
+		p_person in varchar2, --æ“ä½œå‘˜
 		p_djlb   in varchar2
-		³õÊ¼»¯±äÁ¿
+		åˆå§‹åŒ–å˜é‡
 		cursor c_dbh is select * from ys_gd_zwdhzd where bill_id = p_billno for update;
 		dbh ys_gd_zwdhzd%rowtype
 
 		open c_dbh;
 		fetch c_dbh into dbh;
 		if c_dbh%notfound or c_dbh%notfound is null then
-		raise_application_error(errcode, 'µ¥¾İ²»´æÔÚ' || p_billno);
+		raise_application_error(errcode, 'å•æ®ä¸å­˜åœ¨' || p_billno);
 		end if;
 		if dbh.check_flag <> 'n' then
-		raise_application_error(errcode, 'µ¥¾İ²»ÄÜÈ¡Ïû' || p_billno);
+		raise_application_error(errcode, 'å•æ®ä¸èƒ½å–æ¶ˆ' || p_billno);
 		end if;
-		--ĞŞ¸Ä´ôËÀÕÊ±êÖ¾
+		--ä¿®æ”¹å‘†æ­»å¸æ ‡å¿—
 		update ys_zw_arlist set ys_zw_arlist.arbadflag = 'n' where arid in (select arid from ys_gd_zwdhzdt where bill_id = p_billno);
-		--É¾³ıµ¥Ìå
+		--åˆ é™¤å•ä½“
 		delete from ys_gd_zwdhzdt t where t.bill_id = p_billno;
-		--É¾³ıµ¥Í·
+		--åˆ é™¤å•å¤´
 		delete from ys_gd_zwdhzd t where t.bill_id = p_billno;
 		close c_dbh;
 	procedure custbillmain(p_cchno in varchar2, p_per in varchar2,p_billid in varchar2,p_billtype in varchar2);
-		µ÷ÓÃ pg_dszbill_01.custbill
+		è°ƒç”¨ pg_dszbill_01.custbill
 		custbill(p_cchno, p_per, p_billtype, 'n');
 	procedure custbill(p_cchno in varchar2, p_per in varchar2, p_billtype in varchar2, p_commit in varchar2);
-		²ÎÊı
-		p_Cchno    Åú´ÎÁ÷Ë®
-		p_Per      ²Ù×÷Ô±
-		p_Billtype '8'Õı³£ÕË±ä¸üÎª´ô»µÕË,ÆäËû´ô»µÕË±ä¸üÎªÕı³£ÕË
-		p_Commit   Ìá½»±êÖ¾
-		ÓÃµ½µÄ±í
-		ys_gd_zwdhzdt	´ôËÀÕÊµ¥Ìå
-		ys_zw_arlist	Ó¦ÊÕ×ÜÕÊÃ÷Ï¸¡¾AR¡¿
-		ys_gd_zwdhzd	´ôËÀÕÊµ¥Í·
-		³õÊ¼»¯±äÁ¿
+		å‚æ•°
+		p_Cchno    æ‰¹æ¬¡æµæ°´
+		p_Per      æ“ä½œå‘˜
+		p_Billtype '8'æ­£å¸¸è´¦å˜æ›´ä¸ºå‘†åè´¦,å…¶ä»–å‘†åè´¦å˜æ›´ä¸ºæ­£å¸¸è´¦
+		p_Commit   æäº¤æ ‡å¿—
+		ç”¨åˆ°çš„è¡¨
+		ys_gd_zwdhzdt	å‘†æ­»å¸å•ä½“
+		ys_zw_arlist	åº”æ”¶æ€»å¸æ˜ç»†ã€ARã€‘
+		ys_gd_zwdhzd	å‘†æ­»å¸å•å¤´
+		åˆå§‹åŒ–å˜é‡
 		dbh     ys_gd_zwdhzd%rowtype;
 		dbt     ys_gd_zwdhzdt%rowtype; 
 		cursor c_custdt is select * from ys_gd_zwdhzdt where bill_id = p_cchno for update
-		±ä¸üµ¥ÑéÖ¤
+		å˜æ›´å•éªŒè¯
 		begin
 			select * into dbh from ys_gd_zwdhzd where bill_id = p_cchno;
-		exception when others then raise_application_error(errcode, '±ä¸üµ¥Í·ĞÅÏ¢²»´æÔÚ!');
+		exception when others then raise_application_error(errcode, 'å˜æ›´å•å¤´ä¿¡æ¯ä¸å­˜åœ¨!');
 		end;
 		if dbh.check_flag = 'y' then
-			raise_application_error(errcode, '±ä¸üµ¥ÒÑÉóºË,²»ĞèÔÙÉó!');
+			raise_application_error(errcode, 'å˜æ›´å•å·²å®¡æ ¸,ä¸éœ€å†å®¡!');
 		end if;
 		if dbh.check_flag = 'c' then
-			raise_application_error(errcode, '±ä¸üµ¥ÒÑÈ¡Ïû,²»ÄÜÉó!');
+			raise_application_error(errcode, 'å˜æ›´å•å·²å–æ¶ˆ,ä¸èƒ½å®¡!');
 		end if;
-		¸üĞÂµ¥Ìå¡¢Ó¦ÊÕ×ÜÕÊÃ÷Ï¸
+		æ›´æ–°å•ä½“ã€åº”æ”¶æ€»å¸æ˜ç»†
 		open c_custdt;
 		loop fetch c_custdt into dbt;
 		exit when c_custdt%notfound or c_custdt%notfound is null;
-			--¸üĞÂµ¥Ìå dhzshflag ĞĞÉóºË±êÖ¾£¬dhzshdate ĞĞÉóºËÈÕÆÚ£¬dhzshper ĞĞÉóºËÈË
+			--æ›´æ–°å•ä½“ dhzshflag è¡Œå®¡æ ¸æ ‡å¿—ï¼Œdhzshdate è¡Œå®¡æ ¸æ—¥æœŸï¼Œdhzshper è¡Œå®¡æ ¸äºº
 			update ys_gd_zwdhzdt set dhzshflag = 'y',dhzshdate=sysdate ,dhzshper=p_per where bill_id=dbt.bill_id and dhzrowno=dbt.dhzrowno;
-			--¸üĞÂÕËÎñ´ôËÀÕÊ±êÖ¾
+			--æ›´æ–°è´¦åŠ¡å‘†æ­»å¸æ ‡å¿—
 			if p_billtype = '8' then
-				--Õı³£ÕË±ä¸üÎª´ô»µÕË
+				--æ­£å¸¸è´¦å˜æ›´ä¸ºå‘†åè´¦
 				update ys_zw_arlist set arbadflag = 'y', artrans = 'd' where arid = dbt.arid;
 			else
-				--´ô»µÕË±ä¸üÎªÕı³£ÕË
+				--å‘†åè´¦å˜æ›´ä¸ºæ­£å¸¸è´¦
 				update ys_zw_arlist set arbadflag = 'n', artrans = 'd' where arid = dbt.arid;
 			end if;
 		end loop;
 		close c_custdt;
-		ÉóºËµ¥Í·
+		å®¡æ ¸å•å¤´
 		update ys_gd_zwdhzd set check_date = sysdate, check_per = p_per, check_flag = 'y' where bill_id = p_cchno;
-		Ìá½»
+		æäº¤
 		if p_commit = 'y' then commit; end if;
 
 package pg_cbplan
-	³­±í¼Æ»®¹ÜÀí
+	æŠ„è¡¨è®¡åˆ’ç®¡ç†
 	procedure createcb(p_manage_no in varchar2,p_month in varchar2,p_book_no in varchar2);
-		´¦Àí£ºÉú³É³­±í×ÊÁÏ
-		²ÎÊı£º
-		p_manage_no	ÁÙÊ±±íÀàĞÍ(PBPARMTEMP.c1)£¬´æ·Åµ÷¶ÎºóÄ¿±ê±í²áÖĞËùÓĞË®±í±àºÅc1,³­±í´ÎĞòc2
-		p_month		Ä¿±êÓªÒµËù
-		p_book_no	Ä¿±ê±í²á 
-		ÓÃµ½µÄ±í
-		ys_cb_mtread	³­±í¿â¡¾CBMR¡¿
-		ys_yh_custinfo	ÓÃ»§ĞÅÏ¢±í¡¾yh¡¿
-		ys_yh_sbinfo	»§±íĞÅÏ¢¡¾sb¡¿
-		ys_yh_sbdoc	Ë®±íµµ°¸
-		ys_bas_book	±í²á
-		ÒÀÀµ¹ØÏµ
+		å¤„ç†ï¼šç”ŸæˆæŠ„è¡¨èµ„æ–™
+		å‚æ•°ï¼š
+		p_manage_no	ä¸´æ—¶è¡¨ç±»å‹(PBPARMTEMP.c1)ï¼Œå­˜æ”¾è°ƒæ®µåç›®æ ‡è¡¨å†Œä¸­æ‰€æœ‰æ°´è¡¨ç¼–å·c1,æŠ„è¡¨æ¬¡åºc2
+		p_month		ç›®æ ‡è¥ä¸šæ‰€
+		p_book_no	ç›®æ ‡è¡¨å†Œ 
+		ç”¨åˆ°çš„è¡¨
+		ys_cb_mtread	æŠ„è¡¨åº“ã€CBMRã€‘
+		ys_yh_custinfo	ç”¨æˆ·ä¿¡æ¯è¡¨ã€yhã€‘
+		ys_yh_sbinfo	æˆ·è¡¨ä¿¡æ¯ã€sbã€‘
+		ys_yh_sbdoc	æ°´è¡¨æ¡£æ¡ˆ
+		ys_bas_book	è¡¨å†Œ
+		ä¾èµ–å…³ç³»
 		pg_cbplan.getmrhis
-		³õÊ¼»¯±äÁ¿
+		åˆå§‹åŒ–å˜é‡
 		yh		ys_yh_custinfo%rowtype;
 		sb		ys_yh_sbinfo%rowtype;
 		md		ys_yh_sbdoc%rowtype;
@@ -726,97 +726,97 @@ package pg_cbplan
 		cursor c_bksb is select a.yhid,b.sbid, b.manage_no,b.sbrorder, trade_no,sbpid,sbclass, sbflag,sbrecdate,sbrcode,sbrpid,sbpriid,sbpriflag,sblb,sbnewflag,read_batch,read_per,sbrcodechar,b.area_no,sbifchk,price_no,mdcaliber,sbside,sbtype 
 			from ys_yh_custinfo a , ys_yh_sbinfo b, ys_yh_sbdoc s , ys_bas_book d
 			where a.yhid = b.yhid and b.sbid = s.sbid and b.manage_no = d.manage_no and b.book_no = d.book_no and b.manage_no = p_manage_no and b.book_no = p_book_no and d.read_nmonth = p_month and fchkcbmk(b.sbid) = 'y';
-		ÅĞ¶ÏÊÇÓĞ³­±í¼Æ»®
+		åˆ¤æ–­æ˜¯æœ‰æŠ„è¡¨è®¡åˆ’
 		fetch c_bksb into yh.yhid,sb.sbid, sb.manage_no,sb.sbrorder,sb.trade_no,sb.sbpid,sb.sbclass,sb.sbflag,sb.sbrecdate,sb.sbrcode,sb.sbrpid,sb.sbpriid,sb.sbpriflag,sb.sblb,sb.sbnewflag,bc.read_batch,bc.read_per,sb.sbrcodechar,sb.area_no,sb.sbifchk,sb.price_no,md.mdcaliber,sb.sbside,sb.sbtype;
 		exit when c_bksb%notfound or c_bksb%notfound is null;
-		ÅĞ¶ÏÊÇ·ñ³­¹ı±í
+		åˆ¤æ–­æ˜¯å¦æŠ„è¿‡è¡¨
 		open c_cb(sb.sbid); fetch c_cb into dummy;found := c_cb%found; close c_cb;
-		¸³Öµ
+		èµ‹å€¼
 		if not found then
-		| ±äÁ¿                  | ¸³Öµ           | ±¸×¢                             |
+		| å˜é‡                  | èµ‹å€¼           | å¤‡æ³¨                             |
 		| --------------------- | -------------- | -------------------------------- |
-		| sbr.id                | sys_guid()     | Á÷Ë®ºÅ                           |
-		| sbr.cbmrmonth         | p_month        | ³­±íÔÂ·İ                         |
-		| sbr.manage_no         | sb.manage_no   | ¹ÜÏ½¹«Ë¾                         |
-		| sbr.book_no           | p_book_no      | ±í²á                             |
-		| sbr.cbmrbatch         | bc.read_batch  | ³­±íÅú´Î                         |
-		| sbr.cbmrrper          | bc.read_per    | ³­±íÔ±                           |
-		| sbr.cbmrrorder        | sb.sbrorder    | ³­±í´ÎĞòºÅ                       |
-		| sbr.yhid              | sb.yhid        | ÓÃ»§±àºÅ                         |
-		| sbr.sbid              | sb.sbid        | Ë®±í±àºÅ                         |
-		| sbr.trade_no          | sb.trade_no    | ĞĞÒµ·ÖÀà                         |
-		| sbr.sbpid             | sb.sbpid       | ÉÏ¼¶Ë®±í                         |
-		| sbr.cbmrmclass        | sb.sbclass     | Ë®±í¼¶´Î                         |
-		| sbr.cbmrmflag         | sb.sbflag      | Ä©¼¶±êÖ¾                         |
-		| sbr.cbmrcreadate      | sysdate        | ´´½¨ÈÕÆÚ                         |
-		| sbr.cbmrinputdate     | null           | ±à¼­ÈÕÆÚ                         |
-		| sbr.cbmrreadok        | 'n'            | ³­¼û±êÖ¾                         |
-		| sbr.cbmrrdate         | null           | ³­±íÈÕÆÚ                         |
-		| sbr.cbmrprdate        | sb.sbrecdate   | ÉÏ´Î³­¼ûÈÕÆÚ(È¡ÉÏ´ÎÓĞĞ§³­±íÈÕÆÚ) |
-		| sbr.cbmrscode         | sb.sbrcode     | ÉÏÆÚ³­¼û                         |
-		| sbr.cbmrscodechar     | sb.sbrcodechar | ÉÏÆÚ³­¼ûchar                     |
-		| sbr.cbmrecode         | null           | ±¾ÆÚ³­¼û                         |
-		| sbr.cbmrsl            | null           | ±¾ÆÚË®Á¿                         |
-		| sbr.cbmrface          | null           | ±í¿ö                             |
-		| sbr.cbmrifsubmit      | 'y'            | ÊÇ·ñÌá½»¼Æ·Ñ                     |
-		| sbr.cbmrifhalt        | 'n'            | ÏµÍ³Í£Ëã                         |
-		| sbr.cbmrdatasource    | 1              | ³­±í½á¹ûÀ´Ô´                     |
-		| sbr.cbmrifignoreminsl | 'y'            | Í£Ëã×îµÍ³­Á¿                     |
-		| sbr.cbmrpdardate      | null           | ³­±í»ú³­±íÊ±¼ä                   |
-		| sbr.cbmroutflag       | 'n'            | ·¢³öµ½³­±í»ú±êÖ¾                 |
-		| sbr.cbmroutid         | null           | ·¢³öµ½³­±í»úÁ÷Ë®ºÅ               |
-		| sbr.cbmroutdate       | null           | ·¢³öµ½³­±í»úÈÕÆÚ                 |
-		| sbr.cbmrinorder       | null           | ³­±í»ú½ÓÊÕ´ÎĞò                   |
-		| sbr.cbmrindate        | null           | ³­±í»ú½ÓÊÜÈÕÆÚ                   |
-		| sbr.cbmrrpid          | sb.sbrpid      | ¼Æ¼şÀàĞÍ                         |
-		| sbr.cbmrmemo          | null           | ³­±í±¸×¢                         |
-		| sbr.cbmrifgu          | 'n'            | ¹À±í±êÖ¾                         |
-		| sbr.cbmrifrec         | 'n'            | ÒÑ¼Æ·Ñ                           |
-		| sbr.cbmrrecdate       | null           | ¼Æ·ÑÈÕÆÚ                         |
-		| sbr.cbmrrecsl         | null           | Ó¦ÊÕË®Á¿                         |
-		| sbr.cbmraddsl         | 0              | ÓàÁ¿                             |
-		| sbr.cbmrcarrysl       | null           | ½øÎ»Ë®Á¿                         |
-		| sbr.cbmrctrl1         | null           | ³­±í»ú¿ØÖÆÎ»1                    |
-		| sbr.cbmrctrl2         | null           | ³­±í»ú¿ØÖÆÎ»2                    |
-		| sbr.cbmrctrl3         | null           | ³­±í»ú¿ØÖÆÎ»3                    |
-		| sbr.cbmrctrl4         | null           | ³­±í»ú¿ØÖÆÎ»4                    |
-		| sbr.cbmrctrl5         | null           | ³­±í»ú¿ØÖÆÎ»5                    |
-		| sbr.cbmrchkflag       | 'n'            | ¸´ºË±êÖ¾                         |
-		| sbr.cbmrchkdate       | null           | ¸´ºËÈÕÆÚ                         |
-		| sbr.cbmrchkper        | null           | ¸´ºËÈËÔ±                         |
-		| sbr.cbmrchkscode      | null           | Ô­ÆğÊı                           |
-		| sbr.cbmrchkecode      | null           | Ô­Ö¹Êı                           |
-		| sbr.cbmrchksl         | null           | Ô­Ë®Á¿                           |
-		| sbr.cbmrchkaddsl      | null           | Ô­ÓàÁ¿                           |
-		| sbr.cbmrchkcarrysl    | null           | Ô­½øÎ»Ë®Á¿                       |
-		| sbr.cbmrchkrdate      | null           | Ô­³­¼ûÈÕÆÚ                       |
-		| sbr.cbmrchkface       | null           | Ô­±í¿ö                           |
-		| sbr.cbmrchkresult     | null           | ¼ì²é½á¹ûÀàĞÍ                     |
-		| sbr.cbmrchkresultmemo | null           | ¼ì²é½á¹ûËµÃ÷                     |
-		| sbr.cbmrprimid        | sb.sbpriid     | ºÏÊÕ±íÖ÷±í                       |
-		| sbr.cbmrprimflag      | sb.sbpriflag   | ºÏÊÕ±í±êÖ¾                       |
-		| sbr.cbmrlb            | sb.sblb        | Ë®±íÀà±ğ                         |
-		| sbr.cbmrnewflag       | sb.sbnewflag   | ĞÂ±í±êÖ¾                         |
-		| sbr.cbmrface2         | null           | ³­¼û¹ÊÕÏ                         |
-		| sbr.cbmrface3         | null           | ·Ç³£¼ÆÁ¿                         |
-		| sbr.cbmrface4         | null           | ±í¾®ÉèÊ©ËµÃ÷                     |
-		| sbr.cbmrprivilegeflag | 'n'            | ÌØÈ¨±êÖ¾(y/n)                    |
-		| sbr.cbmrprivilegeper  | null           | ÌØÈ¨²Ù×÷ÈË                       |
-		| sbr.cbmrprivilegememo | null           | ÌØÈ¨²Ù×÷±¸×¢                     |
-		| sbr.area_no           | sb.area_no     | ¹ÜÀíÇøÓò                         |
-		| sbr.cbmriftrans       | 'n'            | ×ªµ¥±êÖ¾                         |
-		| sbr.cbmrrequisition   | 0              | Í¨Öªµ¥´òÓ¡´ÎÊı                   |
-		| sbr.cbmrifchk         | sb.sbifchk     | ¿¼ºË±í±êÖ¾                       |
-		| sbr.cbmrinputper      | null           | ÈëÕËÈËÔ±                         |
-		| sbr.price_no          | sb.price_no    | ÓÃË®Àà±ğ                         |
-		| sbr.cbmrcaliber       | md.mdcaliber   | ¿Ú¾¶                             |
-		| sbr.cbmrside          | sb.sbside      | ±íÎ»                             |
-		| sbr.cbmrmtype         | sb.sbtype      | ±íĞÍ                             |
-		| sbr.cbmrplansl        | 0              | ¼Æ»®Ë®Á¿                         |
-		| sbr.cbmrplanje01      | 0              | ¼Æ»®Ë®·Ñ                         |
-		| sbr.cbmrplanje02      | 0              | ¼Æ»®ÎÛË®´¦Àí·Ñ                   |
-		| sbr.cbmrplanje03      | 0              | ¼Æ»®Ë®×ÊÔ´·Ñ                     |
-		--ÉÏ´ÎË®·ÑÖÁÈ¥Äê¶È´Î¾ùÁ¿
+		| sbr.id                | sys_guid()     | æµæ°´å·                           |
+		| sbr.cbmrmonth         | p_month        | æŠ„è¡¨æœˆä»½                         |
+		| sbr.manage_no         | sb.manage_no   | ç®¡è¾–å…¬å¸                         |
+		| sbr.book_no           | p_book_no      | è¡¨å†Œ                             |
+		| sbr.cbmrbatch         | bc.read_batch  | æŠ„è¡¨æ‰¹æ¬¡                         |
+		| sbr.cbmrrper          | bc.read_per    | æŠ„è¡¨å‘˜                           |
+		| sbr.cbmrrorder        | sb.sbrorder    | æŠ„è¡¨æ¬¡åºå·                       |
+		| sbr.yhid              | sb.yhid        | ç”¨æˆ·ç¼–å·                         |
+		| sbr.sbid              | sb.sbid        | æ°´è¡¨ç¼–å·                         |
+		| sbr.trade_no          | sb.trade_no    | è¡Œä¸šåˆ†ç±»                         |
+		| sbr.sbpid             | sb.sbpid       | ä¸Šçº§æ°´è¡¨                         |
+		| sbr.cbmrmclass        | sb.sbclass     | æ°´è¡¨çº§æ¬¡                         |
+		| sbr.cbmrmflag         | sb.sbflag      | æœ«çº§æ ‡å¿—                         |
+		| sbr.cbmrcreadate      | sysdate        | åˆ›å»ºæ—¥æœŸ                         |
+		| sbr.cbmrinputdate     | null           | ç¼–è¾‘æ—¥æœŸ                         |
+		| sbr.cbmrreadok        | 'n'            | æŠ„è§æ ‡å¿—                         |
+		| sbr.cbmrrdate         | null           | æŠ„è¡¨æ—¥æœŸ                         |
+		| sbr.cbmrprdate        | sb.sbrecdate   | ä¸Šæ¬¡æŠ„è§æ—¥æœŸ(å–ä¸Šæ¬¡æœ‰æ•ˆæŠ„è¡¨æ—¥æœŸ) |
+		| sbr.cbmrscode         | sb.sbrcode     | ä¸ŠæœŸæŠ„è§                         |
+		| sbr.cbmrscodechar     | sb.sbrcodechar | ä¸ŠæœŸæŠ„è§char                     |
+		| sbr.cbmrecode         | null           | æœ¬æœŸæŠ„è§                         |
+		| sbr.cbmrsl            | null           | æœ¬æœŸæ°´é‡                         |
+		| sbr.cbmrface          | null           | è¡¨å†µ                             |
+		| sbr.cbmrifsubmit      | 'y'            | æ˜¯å¦æäº¤è®¡è´¹                     |
+		| sbr.cbmrifhalt        | 'n'            | ç³»ç»Ÿåœç®—                         |
+		| sbr.cbmrdatasource    | 1              | æŠ„è¡¨ç»“æœæ¥æº                     |
+		| sbr.cbmrifignoreminsl | 'y'            | åœç®—æœ€ä½æŠ„é‡                     |
+		| sbr.cbmrpdardate      | null           | æŠ„è¡¨æœºæŠ„è¡¨æ—¶é—´                   |
+		| sbr.cbmroutflag       | 'n'            | å‘å‡ºåˆ°æŠ„è¡¨æœºæ ‡å¿—                 |
+		| sbr.cbmroutid         | null           | å‘å‡ºåˆ°æŠ„è¡¨æœºæµæ°´å·               |
+		| sbr.cbmroutdate       | null           | å‘å‡ºåˆ°æŠ„è¡¨æœºæ—¥æœŸ                 |
+		| sbr.cbmrinorder       | null           | æŠ„è¡¨æœºæ¥æ”¶æ¬¡åº                   |
+		| sbr.cbmrindate        | null           | æŠ„è¡¨æœºæ¥å—æ—¥æœŸ                   |
+		| sbr.cbmrrpid          | sb.sbrpid      | è®¡ä»¶ç±»å‹                         |
+		| sbr.cbmrmemo          | null           | æŠ„è¡¨å¤‡æ³¨                         |
+		| sbr.cbmrifgu          | 'n'            | ä¼°è¡¨æ ‡å¿—                         |
+		| sbr.cbmrifrec         | 'n'            | å·²è®¡è´¹                           |
+		| sbr.cbmrrecdate       | null           | è®¡è´¹æ—¥æœŸ                         |
+		| sbr.cbmrrecsl         | null           | åº”æ”¶æ°´é‡                         |
+		| sbr.cbmraddsl         | 0              | ä½™é‡                             |
+		| sbr.cbmrcarrysl       | null           | è¿›ä½æ°´é‡                         |
+		| sbr.cbmrctrl1         | null           | æŠ„è¡¨æœºæ§åˆ¶ä½1                    |
+		| sbr.cbmrctrl2         | null           | æŠ„è¡¨æœºæ§åˆ¶ä½2                    |
+		| sbr.cbmrctrl3         | null           | æŠ„è¡¨æœºæ§åˆ¶ä½3                    |
+		| sbr.cbmrctrl4         | null           | æŠ„è¡¨æœºæ§åˆ¶ä½4                    |
+		| sbr.cbmrctrl5         | null           | æŠ„è¡¨æœºæ§åˆ¶ä½5                    |
+		| sbr.cbmrchkflag       | 'n'            | å¤æ ¸æ ‡å¿—                         |
+		| sbr.cbmrchkdate       | null           | å¤æ ¸æ—¥æœŸ                         |
+		| sbr.cbmrchkper        | null           | å¤æ ¸äººå‘˜                         |
+		| sbr.cbmrchkscode      | null           | åŸèµ·æ•°                           |
+		| sbr.cbmrchkecode      | null           | åŸæ­¢æ•°                           |
+		| sbr.cbmrchksl         | null           | åŸæ°´é‡                           |
+		| sbr.cbmrchkaddsl      | null           | åŸä½™é‡                           |
+		| sbr.cbmrchkcarrysl    | null           | åŸè¿›ä½æ°´é‡                       |
+		| sbr.cbmrchkrdate      | null           | åŸæŠ„è§æ—¥æœŸ                       |
+		| sbr.cbmrchkface       | null           | åŸè¡¨å†µ                           |
+		| sbr.cbmrchkresult     | null           | æ£€æŸ¥ç»“æœç±»å‹                     |
+		| sbr.cbmrchkresultmemo | null           | æ£€æŸ¥ç»“æœè¯´æ˜                     |
+		| sbr.cbmrprimid        | sb.sbpriid     | åˆæ”¶è¡¨ä¸»è¡¨                       |
+		| sbr.cbmrprimflag      | sb.sbpriflag   | åˆæ”¶è¡¨æ ‡å¿—                       |
+		| sbr.cbmrlb            | sb.sblb        | æ°´è¡¨ç±»åˆ«                         |
+		| sbr.cbmrnewflag       | sb.sbnewflag   | æ–°è¡¨æ ‡å¿—                         |
+		| sbr.cbmrface2         | null           | æŠ„è§æ•…éšœ                         |
+		| sbr.cbmrface3         | null           | éå¸¸è®¡é‡                         |
+		| sbr.cbmrface4         | null           | è¡¨äº•è®¾æ–½è¯´æ˜                     |
+		| sbr.cbmrprivilegeflag | 'n'            | ç‰¹æƒæ ‡å¿—(y/n)                    |
+		| sbr.cbmrprivilegeper  | null           | ç‰¹æƒæ“ä½œäºº                       |
+		| sbr.cbmrprivilegememo | null           | ç‰¹æƒæ“ä½œå¤‡æ³¨                     |
+		| sbr.area_no           | sb.area_no     | ç®¡ç†åŒºåŸŸ                         |
+		| sbr.cbmriftrans       | 'n'            | è½¬å•æ ‡å¿—                         |
+		| sbr.cbmrrequisition   | 0              | é€šçŸ¥å•æ‰“å°æ¬¡æ•°                   |
+		| sbr.cbmrifchk         | sb.sbifchk     | è€ƒæ ¸è¡¨æ ‡å¿—                       |
+		| sbr.cbmrinputper      | null           | å…¥è´¦äººå‘˜                         |
+		| sbr.price_no          | sb.price_no    | ç”¨æ°´ç±»åˆ«                         |
+		| sbr.cbmrcaliber       | md.mdcaliber   | å£å¾„                             |
+		| sbr.cbmrside          | sb.sbside      | è¡¨ä½                             |
+		| sbr.cbmrmtype         | sb.sbtype      | è¡¨å‹                             |
+		| sbr.cbmrplansl        | 0              | è®¡åˆ’æ°´é‡                         |
+		| sbr.cbmrplanje01      | 0              | è®¡åˆ’æ°´è´¹                         |
+		| sbr.cbmrplanje02      | 0              | è®¡åˆ’æ±¡æ°´å¤„ç†è´¹                   |
+		| sbr.cbmrplanje03      | 0              | è®¡åˆ’æ°´èµ„æºè´¹                     |
+		--ä¸Šæ¬¡æ°´è´¹è‡³å»å¹´åº¦æ¬¡å‡é‡
 		getmrhis(sbr.id,
 			 sbr.cbmrmonth,
 			 sbr.cbmrthreesl,
@@ -835,7 +835,7 @@ package pg_cbplan
 			 sbr.cbmrlastyearje01,
 			 sbr.cbmrlastyearje02,
 			 sbr.cbmrlastyearje03);
-		¸üĞÂ³­±í¿âºÍ»§±íĞÅÏ¢
+		æ›´æ–°æŠ„è¡¨åº“å’Œæˆ·è¡¨ä¿¡æ¯
 		insert into ys_cb_mtread values sbr;
 		update ys_yh_sbinfo set sbprmon = sbrmon, sbrmon = p_month where sbid = sb.sbid;
 		update ys_bas_book set read_nmonth = to_char(add_months(to_date(read_nmonth, 'yyyy.mm'),read_cycle),'yyyy.mm') where manage_no = p_manage_no and book_no = p_book_no;
@@ -858,29 +858,29 @@ package pg_cbplan
 		o_je01_4 out number,
 		o_je02_4 out number,
 		o_je03_4 out number);
-			¾ùÁ¿£¨·Ñ£©Ëã·¨
-			1¡¢Ç°n´Î¾ùÁ¿£º     ´Ó×î½ü³­±íË®Á¿ÏòÀúÊ··½ÏòµİÍÆ12´Î³­±íÀÛ¼ÆË®Á¿£¨0Ë®Á¿²»¼Æ´Î£©/µİÍÆ´ÎÊı
-			2¡¢ÉÏ´ÎË®Á¿£º      ×î½üÒ»´Î³­±íË®Á¿£¨°üÀ¨0Ë®Á¿£©
-			3¡¢È¥ÄêÍ¬ÆÚË®Á¿£º  È¥ÄêÍ¬³­±íÔÂ·İµÄ³­±íË®Á¿£¨°üÀ¨0Ë®Á¿£©
-			4¡¢È¥Äê¶È´Î¾ùÁ¿£º  È¥Äê¶ÈµÄ³­±íÀÛ¼ÆË®Á¿£¨0Ë®Á¿²»¼Æ´Î£©/µİÍÆ´ÎÊı
-			¡¾meterread/meterreadhis¡¿¾ùÁ¿¼ÇÂ¼½á¹¹
-			mrthreesl   number(10)    Ç°n´Î¾ùÁ¿
-			mrthreeje01 number(13,3)  Ç°n´Î¾ùË®·Ñ
-			mrthreeje02 number(13,3)  Ç°n´Î¾ùÎÛË®·Ñ
-			mrthreeje03 number(13,3)  Ç°n´Î¾ùË®×ÊÔ´·Ñ
-			mrlastsl    number(10)    ÉÏ´ÎË®Á¿
-			mrlastje01  number(13,3)  ÉÏ´ÎË®·Ñ
-			mrlastje02  number(13,3)  ÉÏ´ÎÎÛË®·Ñ
-			mrlastje03  number(13,3)  ÉÏ´ÎË®×ÊÔ´·Ñ
-			mryearsl    number(10)    È¥ÄêÍ¬ÆÚË®Á¿
-			mryearje01  number(13,3)  È¥ÄêÍ¬ÆÚË®·Ñ
-			mryearje02  number(13,3)  È¥ÄêÍ¬ÆÚÎÛË®·Ñ
-			mryearje03  number(13,3)  È¥ÄêÍ¬ÆÚË®×ÊÔ´·Ñ
-			mrlastyearsl    number(10)    È¥Äê¶È´Î¾ùÁ¿
-			mrlastyearje01  number(13,3)  È¥Äê¶È´Î¾ùË®·Ñ
-			mrlastyearje02  number(13,3)  È¥Äê¶È´Î¾ùÎÛË®·Ñ
-			mrlastyearje03  number(13,3)  È¥Äê¶È´Î¾ùË®×ÊÔ´·Ñ
-			³õÊ¼»¯±äÁ¿
+			å‡é‡ï¼ˆè´¹ï¼‰ç®—æ³•
+			1ã€å‰næ¬¡å‡é‡ï¼š     ä»æœ€è¿‘æŠ„è¡¨æ°´é‡å‘å†å²æ–¹å‘é€’æ¨12æ¬¡æŠ„è¡¨ç´¯è®¡æ°´é‡ï¼ˆ0æ°´é‡ä¸è®¡æ¬¡ï¼‰/é€’æ¨æ¬¡æ•°
+			2ã€ä¸Šæ¬¡æ°´é‡ï¼š      æœ€è¿‘ä¸€æ¬¡æŠ„è¡¨æ°´é‡ï¼ˆåŒ…æ‹¬0æ°´é‡ï¼‰
+			3ã€å»å¹´åŒæœŸæ°´é‡ï¼š  å»å¹´åŒæŠ„è¡¨æœˆä»½çš„æŠ„è¡¨æ°´é‡ï¼ˆåŒ…æ‹¬0æ°´é‡ï¼‰
+			4ã€å»å¹´åº¦æ¬¡å‡é‡ï¼š  å»å¹´åº¦çš„æŠ„è¡¨ç´¯è®¡æ°´é‡ï¼ˆ0æ°´é‡ä¸è®¡æ¬¡ï¼‰/é€’æ¨æ¬¡æ•°
+			ã€meterread/meterreadhisã€‘å‡é‡è®°å½•ç»“æ„
+			mrthreesl   number(10)    å‰næ¬¡å‡é‡
+			mrthreeje01 number(13,3)  å‰næ¬¡å‡æ°´è´¹
+			mrthreeje02 number(13,3)  å‰næ¬¡å‡æ±¡æ°´è´¹
+			mrthreeje03 number(13,3)  å‰næ¬¡å‡æ°´èµ„æºè´¹
+			mrlastsl    number(10)    ä¸Šæ¬¡æ°´é‡
+			mrlastje01  number(13,3)  ä¸Šæ¬¡æ°´è´¹
+			mrlastje02  number(13,3)  ä¸Šæ¬¡æ±¡æ°´è´¹
+			mrlastje03  number(13,3)  ä¸Šæ¬¡æ°´èµ„æºè´¹
+			mryearsl    number(10)    å»å¹´åŒæœŸæ°´é‡
+			mryearje01  number(13,3)  å»å¹´åŒæœŸæ°´è´¹
+			mryearje02  number(13,3)  å»å¹´åŒæœŸæ±¡æ°´è´¹
+			mryearje03  number(13,3)  å»å¹´åŒæœŸæ°´èµ„æºè´¹
+			mrlastyearsl    number(10)    å»å¹´åº¦æ¬¡å‡é‡
+			mrlastyearje01  number(13,3)  å»å¹´åº¦æ¬¡å‡æ°´è´¹
+			mrlastyearje02  number(13,3)  å»å¹´åº¦æ¬¡å‡æ±¡æ°´è´¹
+			mrlastyearje03  number(13,3)  å»å¹´åº¦æ¬¡å‡æ°´èµ„æºè´¹
+			åˆå§‹åŒ–å˜é‡
 			cursor c_mrh(v_sbid ys_cb_mtreadhis.sbid%type) is
 				select nvl(cbmrsl, 0),nvl(cbmrrecje01, 0),nvl(cbmrrecje02, 0),nvl(cbmrrecje03, 0),cbmrmonth
 				from ys_cb_mtreadhis
@@ -891,39 +891,39 @@ package pg_cbplan
 			n2  integer := 0;
 			n3  integer := 0;
 			n4  integer := 0;
-			ÅĞ¶Ï³­±í¿â
+			åˆ¤æ–­æŠ„è¡¨åº“
 			fetch c_mrh into mrh.cbmrsl,mrh.cbmrrecje01,mrh.cbmrrecje02,mrh.cbmrrecje03,mrh.cbmrmonth;
 			exit when c_mrh%notfound is null or c_mrh%notfound or(n1 > 12 and n2 > 1 and n3 > 1 and n4 > 12);
-			¼ÆËãË®Á¿Ë®·Ñ
+			è®¡ç®—æ°´é‡æ°´è´¹
 			if mrh.cbmrsl > 0 and n1 <= 12 then
 			n1 := n1 + 1;
-			mrh.cbmrthreesl   := nvl(mrh.cbmrthreesl, 0) + mrh.cbmrsl; --Ç°n´Î¾ùÁ¿
-			mrh.cbmrthreeje01 := nvl(mrh.cbmrthreeje01, 0) + mrh.cbmrrecje01; --Ç°n´Î¾ùË®·Ñ
-			mrh.cbmrthreeje02 := nvl(mrh.cbmrthreeje02, 0) + mrh.cbmrrecje02; --Ç°n´Î¾ùÎÛË®·Ñ
-			mrh.cbmrthreeje03 := nvl(mrh.cbmrthreeje03, 0) + mrh.cbmrrecje03; --Ç°n´Î¾ùË®×ÊÔ´·Ñ
+			mrh.cbmrthreesl   := nvl(mrh.cbmrthreesl, 0) + mrh.cbmrsl; --å‰næ¬¡å‡é‡
+			mrh.cbmrthreeje01 := nvl(mrh.cbmrthreeje01, 0) + mrh.cbmrrecje01; --å‰næ¬¡å‡æ°´è´¹
+			mrh.cbmrthreeje02 := nvl(mrh.cbmrthreeje02, 0) + mrh.cbmrrecje02; --å‰næ¬¡å‡æ±¡æ°´è´¹
+			mrh.cbmrthreeje03 := nvl(mrh.cbmrthreeje03, 0) + mrh.cbmrrecje03; --å‰næ¬¡å‡æ°´èµ„æºè´¹
 			end if;
 			if c_mrh%rowcount = 1 then
 			n2 := n2 + 1;
-			mrh.cbmrlastsl   := nvl(mrh.cbmrlastsl, 0) + mrh.cbmrsl; --ÉÏ´ÎË®Á¿
-			mrh.cbmrlastje01 := nvl(mrh.cbmrlastje01, 0) + mrh.cbmrrecje01; --ÉÏ´ÎË®·Ñ
-			mrh.cbmrlastje02 := nvl(mrh.cbmrlastje02, 0) + mrh.cbmrrecje02; --ÉÏ´ÎÎÛË®·Ñ
-			mrh.cbmrlastje03 := nvl(mrh.cbmrlastje03, 0) + mrh.cbmrrecje03; --ÉÏ´ÎË®×ÊÔ´·Ñ
+			mrh.cbmrlastsl   := nvl(mrh.cbmrlastsl, 0) + mrh.cbmrsl; --ä¸Šæ¬¡æ°´é‡
+			mrh.cbmrlastje01 := nvl(mrh.cbmrlastje01, 0) + mrh.cbmrrecje01; --ä¸Šæ¬¡æ°´è´¹
+			mrh.cbmrlastje02 := nvl(mrh.cbmrlastje02, 0) + mrh.cbmrrecje02; --ä¸Šæ¬¡æ±¡æ°´è´¹
+			mrh.cbmrlastje03 := nvl(mrh.cbmrlastje03, 0) + mrh.cbmrrecje03; --ä¸Šæ¬¡æ°´èµ„æºè´¹
 			end if;
 			if mrh.cbmrmonth = to_char(to_number(substr(p_month, 1, 4)) - 1) || '.' ||
 			substr(p_month, 6, 2) then
 			n3 := n3 + 1;
-			mrh.cbmryearsl   := nvl(mrh.cbmryearsl, 0) + mrh.cbmrsl; --È¥ÄêÍ¬ÆÚË®Á¿
-			mrh.cbmryearje01 := nvl(mrh.cbmryearje01, 0) + mrh.cbmrrecje01; --È¥ÄêÍ¬ÆÚË®·Ñ
-			mrh.cbmryearje02 := nvl(mrh.cbmryearje02, 0) + mrh.cbmrrecje02; --È¥ÄêÍ¬ÆÚÎÛË®·Ñ
-			mrh.cbmryearje03 := nvl(mrh.cbmryearje03, 0) + mrh.cbmrrecje03; --È¥ÄêÍ¬ÆÚË®×ÊÔ´·Ñ
+			mrh.cbmryearsl   := nvl(mrh.cbmryearsl, 0) + mrh.cbmrsl; --å»å¹´åŒæœŸæ°´é‡
+			mrh.cbmryearje01 := nvl(mrh.cbmryearje01, 0) + mrh.cbmrrecje01; --å»å¹´åŒæœŸæ°´è´¹
+			mrh.cbmryearje02 := nvl(mrh.cbmryearje02, 0) + mrh.cbmrrecje02; --å»å¹´åŒæœŸæ±¡æ°´è´¹
+			mrh.cbmryearje03 := nvl(mrh.cbmryearje03, 0) + mrh.cbmrrecje03; --å»å¹´åŒæœŸæ°´èµ„æºè´¹
 			end if;
 			if mrh.cbmrsl > 0 and to_number(substr(mrh.cbmrmonth, 1, 4)) =
 			to_number(substr(p_month, 1, 4)) - 1 then
 			n4 := n4 + 1;
-			mrh.cbmrlastyearsl   := nvl(mrh.cbmrlastyearsl, 0) + mrh.cbmrsl; --È¥Äê¶È´Î¾ùÁ¿
-			mrh.cbmrlastyearje01 := nvl(mrh.cbmrlastyearje01, 0) + mrh.cbmrrecje01; --È¥Äê¶È´Î¾ùË®·Ñ
-			mrh.cbmrlastyearje02 := nvl(mrh.cbmrlastyearje02, 0) + mrh.cbmrrecje02; --È¥Äê¶È´Î¾ùÎÛË®·Ñ
-			mrh.cbmrlastyearje03 := nvl(mrh.cbmrlastyearje03, 0) + mrh.cbmrrecje03; --È¥Äê¶È´Î¾ùË®×ÊÔ´·Ñ
+			mrh.cbmrlastyearsl   := nvl(mrh.cbmrlastyearsl, 0) + mrh.cbmrsl; --å»å¹´åº¦æ¬¡å‡é‡
+			mrh.cbmrlastyearje01 := nvl(mrh.cbmrlastyearje01, 0) + mrh.cbmrrecje01; --å»å¹´åº¦æ¬¡å‡æ°´è´¹
+			mrh.cbmrlastyearje02 := nvl(mrh.cbmrlastyearje02, 0) + mrh.cbmrrecje02; --å»å¹´åº¦æ¬¡å‡æ±¡æ°´è´¹
+			mrh.cbmrlastyearje03 := nvl(mrh.cbmrlastyearje03, 0) + mrh.cbmrrecje03; --å»å¹´åº¦æ¬¡å‡æ°´èµ„æºè´¹
 			end if;
 			o_sl_1 := (case when n1 = 0 then 0 else round(mrh.cbmrthreesl / n1, 0) end); 
 			o_je01_1 := (case when n1 = 0 then 0 else round(mrh.cbmrthreeje01 / n1, 3) end); 
@@ -943,50 +943,50 @@ package pg_cbplan
 			o_je03_4 := (case when n4 = 0 then 0 else round(mrh.cbmrlastyearje03 / n4, 3) end);
 
 package pg_cb_cost
-	----¹ı³ÌÌá½»¿ØÖÆ
-	²»Ìá½» constant number := 0;
-	Ìá½»   constant number := 1;
-	µ÷ÊÔ   constant number := 2;
-	--¼Æ·ÑÊÂÎñ
-	¼Æ»®³­±í   constant char(1) := '1';
-	Óà¶È       constant char(1) := 'q';
-	ÓªÒµÍâÊÕÈë constant char(1) := 't';
-	×·Á¿       constant char(1) := 'o';
-	--Ó¦ÊÕ×ÜÕË°ü
+	----è¿‡ç¨‹æäº¤æ§åˆ¶
+	ä¸æäº¤ constant number := 0;
+	æäº¤   constant number := 1;
+	è°ƒè¯•   constant number := 2;
+	--è®¡è´¹äº‹åŠ¡
+	è®¡åˆ’æŠ„è¡¨   constant char(1) := '1';
+	ä½™åº¦       constant char(1) := 'q';
+	è¥ä¸šå¤–æ”¶å…¥ constant char(1) := 't';
+	è¿½é‡       constant char(1) := 'o';
+	--åº”æ”¶æ€»è´¦åŒ…
 	subtype rl_type is ys_zw_arlist%rowtype;
 	type rl_table is table of rl_type;
-	--Ó¦ÊÕÃ÷Ï¸°ü
+	--åº”æ”¶æ˜ç»†åŒ…
 	subtype rd_type is ys_zw_ardetail%rowtype;
 	type rd_table is table of rd_type;
-	--Ó¦ÊÕÁÙÊ±ÉóÅúÃ÷Ï¸°ü
+	--åº”æ”¶ä¸´æ—¶å®¡æ‰¹æ˜ç»†åŒ…
 	subtype rdt_type is ys_zw_ardetail_budget%rowtype;
 	type rdt_table is table of rdt_type;
-	--¼ÇÕË·½Ïò
-	debit  constant char(2) := 'de'; --½è·½
-	credit constant char(2) := 'cr'; --´û·½
-	--´íÎó´úÂë
+	--è®°è´¦æ–¹å‘
+	debit  constant char(2) := 'de'; --å€Ÿæ–¹
+	credit constant char(2) := 'cr'; --è´·æ–¹
+	--é”™è¯¯ä»£ç 
 	errcode constant integer := -20012;
-	×Ü±í½ØÁ¿     := 'Y';
-	×îµÍËã·ÑË®Á¿ := 0;
+	æ€»è¡¨æˆªé‡     := 'Y';
+	æœ€ä½ç®—è´¹æ°´é‡ := 0;
 
 	procedure costbatch(p_bfid in varchar2);
-		--Ìá¹©Íâ²¿ÅúÁ¿µ÷ÓÃ
-		--²ÎÊıp_bfid Ê¾Àı£º±í²á±àÂë1,ÓªÏú¹«Ë¾±àÂë1|±í²á±àÂë2,ÓªÏú¹«Ë¾±àÂë2|±í²á±àÂë3,ÓªÏú¹«Ë¾±àÂë3|¡£¡£¡£
+		--æä¾›å¤–éƒ¨æ‰¹é‡è°ƒç”¨
+		--å‚æ•°p_bfid ç¤ºä¾‹ï¼šè¡¨å†Œç¼–ç 1,è¥é”€å…¬å¸ç¼–ç 1|è¡¨å†Œç¼–ç 2,è¥é”€å…¬å¸ç¼–ç 2|è¡¨å†Œç¼–ç 3,è¥é”€å…¬å¸ç¼–ç 3|ã€‚ã€‚ã€‚
 		
 	procedure costculate(p_mrid in ys_cb_mtread.id%type, p_commit in number); 
-		--¼Æ»®ÄÚËã·Ñ
-		--ÓÃµ½µÄ±í
-		ys_yh_sbinfo	»§±íĞÅÏ¢¡¾sb¡¿
-		ys_cb_mtread	³­±í¿â¡¾CBMR¡¿
-		--±äÁ¿³õÊ¼»¯
+		--è®¡åˆ’å†…ç®—è´¹
+		--ç”¨åˆ°çš„è¡¨
+		ys_yh_sbinfo	æˆ·è¡¨ä¿¡æ¯ã€sbã€‘
+		ys_cb_mtread	æŠ„è¡¨åº“ã€CBMRã€‘
+		--å˜é‡åˆå§‹åŒ–
 		cursor c_mr is 
 		select * from ys_cb_mtread
 		where id = p_mrid
 			and cbmrifrec = 'n'
-			and cbmrreadok = 'y' --³­¼û
+			and cbmrreadok = 'y' --æŠ„è§
 			and cbmrsl >= 0
 		for update nowait;
-		--ºÏÊÕ×Ó±í³­±í¼ÇÂ¼
+		--åˆæ”¶å­è¡¨æŠ„è¡¨è®°å½•
 		cursor c_mr_pri(p_primcode in varchar2) is
 		select cbmrsl, cbmrifrec, ycm.sbid
 		from ys_yh_sbinfo yys, ys_cb_mtread ycm
@@ -994,7 +994,7 @@ package pg_cb_cost
 			and sbpriflag = 'y'
 			and sbpriid = p_primcode
 			and yys.sbid <> p_primcode;
-		--È¡ºÏÊÕ±íĞÅÏ¢
+		--å–åˆæ”¶è¡¨ä¿¡æ¯
 		cursor c_mi(p_mid in varchar2) is
 		select sbpriflag,
 			sbpriid,
@@ -1018,72 +1018,72 @@ package pg_cb_cost
 		v_mrsl   ys_cb_mtread.cbmrsl%type;
 		vpid     varchar2(10);
 		v_mmtype varchar2(10);
-		--ÅĞ¶ÏÊÇ·ñ³­±í
+		--åˆ¤æ–­æ˜¯å¦æŠ„è¡¨
 		open c_mr;
 		fetch c_mr into mr;
-		if c_mr%notfound or c_mr%notfound is null then raise_application_error(errcode,'³­±íÁ÷Ë®ºÅ:' || p_mrid || 'ÎŞĞ§µÄ³­±í¼Æ»®Á÷Ë®ºÅ£¬»ò²»·ûºÏ¼Æ·ÑÌõ¼ş');
-		--Ô­Ë®Á¿=±¾ÆÚË®Á¿
+		if c_mr%notfound or c_mr%notfound is null then raise_application_error(errcode,'æŠ„è¡¨æµæ°´å·:' || p_mrid || 'æ— æ•ˆçš„æŠ„è¡¨è®¡åˆ’æµæ°´å·ï¼Œæˆ–ä¸ç¬¦åˆè®¡è´¹æ¡ä»¶');
+		--åŸæ°´é‡=æœ¬æœŸæ°´é‡
 		mr.cbmrchksl := mr.cbmrsl;
-		--ÅĞ¶ÏË®±í¼ÇÂ¼ÊÇ·ñÓĞĞ§
+		--åˆ¤æ–­æ°´è¡¨è®°å½•æ˜¯å¦æœ‰æ•ˆ
 		open c_mi(mr.sbid);
 		fetch c_mi
 		into mi.sbpriflag,
-		   mi.sbpriid,		--ºÏÊÕ±íÖ÷±íºÅ
-		   mi.sbrpid,		--¼Æ¼şÀàĞÍ
-		   mi.sbclass,		--Ë®±í¼¶´Î
-		   mi.sbifcharge,	--ÊÇ·ñ¼Æ·Ñ(Y-ÊÇ,N-·ñ )
-		   mi.sbifsl,		--ÊÇ·ñ¼ÆÁ¿(Y-ÊÇ,N-·ñ )
-		   mi.sblb,		--Ë®±íÀà±ğ(D=×Ü±í,H=»§±í)
-		   mi.sbstatus,		--ÓĞĞ§×´Ì¬¡¾sysmeterstatus¡¿(28»ù½¨ÁÙÊ±ÓÃË®/27ÒÆ±íÖĞ/19Ïú»§ÖĞ/21Ç··ÑÍ£Ë®/24¹ÊÕÏ»»±íÖĞ/25ÖÜ¼ìÖĞ/7Ïú»§/1Á¢»§/2Ô¤Á¢»§/29ÎŞ±í/30¹ÊÕÏ±í/31»ù½¨ÕıÊ½ÓÃË®/32»ù½¨²ğÇ¨Ö¹Ë®/34ÓªÏú²¿ÊÕÈëÓÃ»§/36Ô¤´æ³åÕıÖĞ/33²¹½ÉÓÃ»§/35ÖÜÆÚ»»±íÖĞ)
-		   mi.sbifchk;		--ÊÇ·ñ¿¼ºË±í(Y-ÊÇ,N-·ñ )
+		   mi.sbpriid,		--åˆæ”¶è¡¨ä¸»è¡¨å·
+		   mi.sbrpid,		--è®¡ä»¶ç±»å‹
+		   mi.sbclass,		--æ°´è¡¨çº§æ¬¡
+		   mi.sbifcharge,	--æ˜¯å¦è®¡è´¹(Y-æ˜¯,N-å¦ )
+		   mi.sbifsl,		--æ˜¯å¦è®¡é‡(Y-æ˜¯,N-å¦ )
+		   mi.sblb,		--æ°´è¡¨ç±»åˆ«(D=æ€»è¡¨,H=æˆ·è¡¨)
+		   mi.sbstatus,		--æœ‰æ•ˆçŠ¶æ€ã€sysmeterstatusã€‘(28åŸºå»ºä¸´æ—¶ç”¨æ°´/27ç§»è¡¨ä¸­/19é”€æˆ·ä¸­/21æ¬ è´¹åœæ°´/24æ•…éšœæ¢è¡¨ä¸­/25å‘¨æ£€ä¸­/7é”€æˆ·/1ç«‹æˆ·/2é¢„ç«‹æˆ·/29æ— è¡¨/30æ•…éšœè¡¨/31åŸºå»ºæ­£å¼ç”¨æ°´/32åŸºå»ºæ‹†è¿æ­¢æ°´/34è¥é”€éƒ¨æ”¶å…¥ç”¨æˆ·/36é¢„å­˜å†²æ­£ä¸­/33è¡¥ç¼´ç”¨æˆ·/35å‘¨æœŸæ¢è¡¨ä¸­)
+		   mi.sbifchk;		--æ˜¯å¦è€ƒæ ¸è¡¨(Y-æ˜¯,N-å¦ )
 		if c_mi%notfound or c_mi%notfound is null then
-		raise_application_error(errcode, 'ÎŞĞ§µÄË®±í±àºÅ' || mr.sbid);
+		raise_application_error(errcode, 'æ— æ•ˆçš„æ°´è¡¨ç¼–å·' || mr.sbid);
 		end if;
 		close c_mi;
 		
-		--mr.cbmrdatasource:³­±í½á¹ûÀ´Ô´(1-ÊÖ¹¤,5-³­±íÆ÷,9-ÊÖ»ú³­±í,K-¹ÊÕÏ»»±í,L-ÖÜÆÚ»»±í,Z-×·Á¿  I-ÖÇÄÜ±í½Ó¿Ú)(ĞÂ¼Ó£º6-ÊÓÆµÖ±¶Á£¬7-¼¯³­)
-		if mr.cbmrsl > 0 and mr.cbmrsl < ×îµÍËã·ÑË®Á¿ and mr.cbmrdatasource in ('1', '5', '9') then
+		--mr.cbmrdatasource:æŠ„è¡¨ç»“æœæ¥æº(1-æ‰‹å·¥,5-æŠ„è¡¨å™¨,9-æ‰‹æœºæŠ„è¡¨,K-æ•…éšœæ¢è¡¨,L-å‘¨æœŸæ¢è¡¨,Z-è¿½é‡  I-æ™ºèƒ½è¡¨æ¥å£)(æ–°åŠ ï¼š6-è§†é¢‘ç›´è¯»ï¼Œ7-é›†æŠ„)
+		if mr.cbmrsl > 0 and mr.cbmrsl < æœ€ä½ç®—è´¹æ°´é‡ and mr.cbmrdatasource in ('1', '5', '9') then
 			mr.cbmrifrec   := 'y';		
 			mr.cbmrrecdate := trunc(sysdate);
-			mr.cbmrmemo    := mr.cbmrmemo || ',' || ×îµÍËã·ÑË®Á¿ || '¶ÖÒÔÏÂ²»¼Æ·Ñ';
-		elsif ×Ü±í½ØÁ¿ = 'y' then
-			--²éÕÒÊÇ·ñÓĞ¶à¼¶±í¹ØÏµ Ô¤Áô
-			--¼Æ·ÑºËĞÄ----------mr.cbmrifrec:ÒÑ¼Æ·Ñ(Y-ÊÇ N-·ñ), mr.cbmrifsubmit:ÊÇ·ñÌá½»¼Æ·Ñ(Y-ÊÇ N-·ñ)
-			if mr.cbmrifrec = 'n' and (mr.cbmrifsubmit = 'y' or p_commit = µ÷ÊÔ) and mi.sbifcharge = 'y' then
-				costculatecore(mr, ¼Æ»®³­±í, '0', p_commit); --¾ùÒÑµ±Ç°Ë®¼Û½øĞĞ¼Æ·Ñ£¬Ë®¼Û°æ±¾ºÅÄ¬ÈÏ0£¬ºóĞø¿ÉÀ©Õ¹
+			mr.cbmrmemo    := mr.cbmrmemo || ',' || æœ€ä½ç®—è´¹æ°´é‡ || 'å¨ä»¥ä¸‹ä¸è®¡è´¹';
+		elsif æ€»è¡¨æˆªé‡ = 'y' then
+			--æŸ¥æ‰¾æ˜¯å¦æœ‰å¤šçº§è¡¨å…³ç³» é¢„ç•™
+			--è®¡è´¹æ ¸å¿ƒ----------mr.cbmrifrec:å·²è®¡è´¹(Y-æ˜¯ N-å¦), mr.cbmrifsubmit:æ˜¯å¦æäº¤è®¡è´¹(Y-æ˜¯ N-å¦)
+			if mr.cbmrifrec = 'n' and (mr.cbmrifsubmit = 'y' or p_commit = è°ƒè¯•) and mi.sbifcharge = 'y' then
+				costculatecore(mr, è®¡åˆ’æŠ„è¡¨, '0', p_commit); --å‡å·²å½“å‰æ°´ä»·è¿›è¡Œè®¡è´¹ï¼Œæ°´ä»·ç‰ˆæœ¬å·é»˜è®¤0ï¼Œåç»­å¯æ‰©å±•
 			end if;
-			--ÍÆÖ¹Âë------------------------------------------------------------
-			if p_commit != µ÷ÊÔ then
+			--æ¨æ­¢ç ------------------------------------------------------------
+			if p_commit != è°ƒè¯• then
 				update ys_yh_sbinfo
-				   set sbrcode     = mr.cbmrecode,	--±¾ÆÚ³­¼û
-				       sbrecdate   = mr.cbmrrdate,	--³­±íÈÕÆÚ
-				       sbrecsl     = mr.cbmrsl,		--È¡±¾ÆÚË®Á¿£¨³­Á¿£©
-				       sbface      = mr.cbmrface,	--Ë®±í¹ÊÕÏ£¨¹ş¶û±õĞèÇó£º²é±í±íÌ¬£©(01Õı³£/02±íÒì³£/03ÁãË®Á¿)
-				       sbnewflag   = 'n',		--ĞÂ±í±êÖ¾
-				       sbrcodechar = mr.cbmrecodechar	--±¾ÆÚ³­¼û
+				   set sbrcode     = mr.cbmrecode,	--æœ¬æœŸæŠ„è§
+				       sbrecdate   = mr.cbmrrdate,	--æŠ„è¡¨æ—¥æœŸ
+				       sbrecsl     = mr.cbmrsl,		--å–æœ¬æœŸæ°´é‡ï¼ˆæŠ„é‡ï¼‰
+				       sbface      = mr.cbmrface,	--æ°´è¡¨æ•…éšœï¼ˆå“ˆå°”æ»¨éœ€æ±‚ï¼šæŸ¥è¡¨è¡¨æ€ï¼‰(01æ­£å¸¸/02è¡¨å¼‚å¸¸/03é›¶æ°´é‡)
+				       sbnewflag   = 'n',		--æ–°è¡¨æ ‡å¿—
+				       sbrcodechar = mr.cbmrecodechar	--æœ¬æœŸæŠ„è§
 				 where sbid = mr.sbid;
 			end if;
 		else
-			--¼Æ·ÑºËĞÄ----------------------------------------------------------
-			if mr.cbmrifrec = 'n' and (mr.cbmrifsubmit = 'y' or p_commit = µ÷ÊÔ) and mi.sbifcharge = 'y' then
-				costculatecore(mr, ¼Æ»®³­±í, '0', p_commit); --¾ùÒÑµ±Ç°Ë®¼Û½øĞĞ¼Æ·Ñ£¬Ë®¼Û°æ±¾ºÅÄ¬ÈÏ0£¬ºóĞø¿ÉÀ©Õ¹
+			--è®¡è´¹æ ¸å¿ƒ----------------------------------------------------------
+			if mr.cbmrifrec = 'n' and (mr.cbmrifsubmit = 'y' or p_commit = è°ƒè¯•) and mi.sbifcharge = 'y' then
+				costculatecore(mr, è®¡åˆ’æŠ„è¡¨, '0', p_commit); --å‡å·²å½“å‰æ°´ä»·è¿›è¡Œè®¡è´¹ï¼Œæ°´ä»·ç‰ˆæœ¬å·é»˜è®¤0ï¼Œåç»­å¯æ‰©å±•
 			end if;
-			--ÍÆÖ¹Âë------------------------------------------------------------
-			if p_commit != µ÷ÊÔ and mr.cbmrifrec = 'y' then
+			--æ¨æ­¢ç ------------------------------------------------------------
+			if p_commit != è°ƒè¯• and mr.cbmrifrec = 'y' then
 			update ys_yh_sbinfo
 			   set sbrcode     = mr.cbmrecode,
 			       sbrecdate   = mr.cbmrrdate,
-			       sbrecsl     = mr.cbmrsl, --È¡±¾ÆÚË®Á¿£¨³­Á¿£©
+			       sbrecsl     = mr.cbmrsl, --å–æœ¬æœŸæ°´é‡ï¼ˆæŠ„é‡ï¼‰
 			       sbface      = mr.cbmrface,
 			       sbnewflag   = 'n',
 			       sbrcodechar = mr.cbmrecodechar
 			 where sbid = mr.sbid;
 			end if;
 		end if;
-		--¸üĞÂµ±Ç°³­±í¼ÇÂ¼¡¢·´À¡×îºó¼Æ·ÑĞÅÏ¢
-		if p_commit != µ÷ÊÔ and mr.cbmrifrec = 'y' then
+		--æ›´æ–°å½“å‰æŠ„è¡¨è®°å½•ã€åé¦ˆæœ€åè®¡è´¹ä¿¡æ¯
+		if p_commit != è°ƒè¯• and mr.cbmrifrec = 'y' then
 			update ys_cb_mtread
-			 set cbmrifrec   = mr.cbmrifrec,	--ÒÑ¼Æ·Ñ(Y-ÊÇ N-·ñ)
+			 set cbmrifrec   = mr.cbmrifrec,	--å·²è®¡è´¹(Y-æ˜¯ N-å¦)
 			     cbmrrecdate = mr.cbmrrecdate,
 			     cbmrrecsl   = mr.cbmrrecsl,
 			     cbmrrecje01 = mr.cbmrrecje01,
@@ -1103,21 +1103,21 @@ package pg_cb_cost
 			     cbmrrecsl   = mr.cbmrrecsl
 			where current of c_mr;
 		end if;
-		--2¡¢Ìá½»´¦Àí
+		--2ã€æäº¤å¤„ç†
 		begin 
 			close c_mr; 
-			if p_commit = µ÷ÊÔ then null;
+			if p_commit = è°ƒè¯• then null;
 			else 
-				if p_commit = Ìá½» then commit;
-				elsif p_commit = ²»Ìá½» then null;
-				else raise_application_error(errcode, 'ÊÇ·ñÌá½»²ÎÊı²»ÕıÈ·');
+				if p_commit = æäº¤ then commit;
+				elsif p_commit = ä¸æäº¤ then null;
+				else raise_application_error(errcode, 'æ˜¯å¦æäº¤å‚æ•°ä¸æ­£ç¡®');
 				end if;
 			end if;
 		end;
 
 	procedure costculatecore(mr in out ys_cb_mtread%rowtype,p_trans  in char,p_pscid  in number,p_commit in number);
 		
-		--1.±äÁ¿³õÊ¼»¯
+		--1.å˜é‡åˆå§‹åŒ–
 		cursor c_mi(vmiid in ys_yh_sbinfo.sbid%type) is select * from ys_yh_sbinfo where sbid = vmiid;
 		cursor c_ci(vciid in ys_yh_custinfo.yhid%type) is select * from ys_yh_custinfo where yhid = vciid;
 		cursor c_md(vmiid in ys_yh_sbdoc.sbid%type) is select * from ys_yh_sbdoc where sbid = vmiid;
@@ -1127,10 +1127,10 @@ package pg_cb_cost
 		v_odate date;
 		v_rdate date;
 		v_sl    number;
-		--»ìºÏÓÃË®ÏÈ¶¨Á¿ÔÙ¶¨±È
-		cursor c_pmd(vpscid in number, vmid in ys_yh_pricegroup.sbid%type) is select * from (select * from ys_yh_pricegroup where sbid = vmid) order by grptype desc, grpid; --°´Î¬»¤ÏÈºóË³Ğò
+		--æ··åˆç”¨æ°´å…ˆå®šé‡å†å®šæ¯”
+		cursor c_pmd(vpscid in number, vmid in ys_yh_pricegroup.sbid%type) is select * from (select * from ys_yh_pricegroup where sbid = vmid) order by grptype desc, grpid; --æŒ‰ç»´æŠ¤å…ˆåé¡ºåº
 		pmd ys_yh_pricegroup%rowtype;
-		--¼Û¸ñÌåÏµ
+		--ä»·æ ¼ä½“ç³»
 		cursor c_pd(vpscid in number, vpfid in bas_price_detail.price_no%type) is select * from (select * from bas_price_detail t where price_ver = vpscid and price_no = vpfid) order by price_ver desc, price_item asc;
 		pd bas_price_detail%rowtype;
 		cursor c_picount is select distinct nvl(t.item_type, 1) from bas_price_item t;
@@ -1151,37 +1151,37 @@ package pg_cb_cost
 		rdtab     rd_table;
 		n         number;
 		m         number;
-		classctl  char(1) := 'n'; --Ä¬ÈÏ²»È¡Ïû½×Ìİ¼Æ·Ñ·½·¨
+		classctl  char(1) := 'n'; --é»˜è®¤ä¸å–æ¶ˆé˜¶æ¢¯è®¡è´¹æ–¹æ³•
 		i   number;
 		vrd ys_zw_ardetail%rowtype;
 
-		--2.Ë®±í±àºÅÑéÖ¤¼°±äÁ¿×¼±¸
-		--Ëø¶¨Ë®±í¼ÇÂ¼
+		--2.æ°´è¡¨ç¼–å·éªŒè¯åŠå˜é‡å‡†å¤‡
+		--é”å®šæ°´è¡¨è®°å½•
 		open c_mi(mr.sbid);
 		fetch c_mi into mi;
 		if c_mi%notfound or c_mi%notfound is null then
-			raise_application_error(errcode, 'ÎŞĞ§µÄË®±í±àºÅ' || mr.sbid);
+			raise_application_error(errcode, 'æ— æ•ˆçš„æ°´è¡¨ç¼–å·' || mr.sbid);
 		end if;
-		--Ëø¶¨Ë®±íµµ°¸
+		--é”å®šæ°´è¡¨æ¡£æ¡ˆ
 		open c_md(mr.sbid);
 		fetch c_md into md;
 		if c_md%notfound or c_md%notfound is null then
-			raise_application_error(errcode, 'ÎŞĞ§µÄË®±í±àºÅ' || mr.sbid);
+			raise_application_error(errcode, 'æ— æ•ˆçš„æ°´è¡¨ç¼–å·' || mr.sbid);
 		end if;
-		--Ëø¶¨Ë®±íÒøĞĞ
+		--é”å®šæ°´è¡¨é“¶è¡Œ
 		open c_ma(mr.sbid);
 		fetch c_ma into ma;
 		close c_ma;
-		--Ëø¶¨ÓÃ»§¼ÇÂ¼
+		--é”å®šç”¨æˆ·è®°å½•
 		open c_ci(mi.sbid);
 		fetch c_ci into ci;
 		if c_ci%notfound or c_ci%notfound is null then
-			raise_application_error(errcode, 'ÎŞĞ§µÄÓÃ»§±àºÅ' || mi.sbid);
+			raise_application_error(errcode, 'æ— æ•ˆçš„ç”¨æˆ·ç¼–å·' || mi.sbid);
 		end if;
-		--Èç¹ûÊÇ¼Æ·Ñµ÷Õû°´¹¤µ¥Ë®¼Û½øĞĞ¼Æ·Ñ
+		--å¦‚æœæ˜¯è®¡è´¹è°ƒæ•´æŒ‰å·¥å•æ°´ä»·è¿›è¡Œè®¡è´¹
 		if mr.id = '?' or p_trans = 'o' then mi.price_no := mr.price_no; end if;
 
-		--3.»ù±¾ĞÅÏ¢´Ómi¡¢ci×ªÈëµ½rl
+		--3.åŸºæœ¬ä¿¡æ¯ä»miã€ciè½¬å…¥åˆ°rl
 		select sys_guid() into rl.id from dual;
 		rl.hire_code     := mi.hire_code;
 		rl.arid          := lpad(seq_arid.nextval,10,'0');
@@ -1209,17 +1209,17 @@ package pg_cb_cost
 		rl.araccountname := ma.yhaaccountname;
 		rl.ariftax       := mi.sbiftax;
 		rl.artaxno       := mi.sbtaxno;
-		rl.arifinv       := ci.yhifinv; --¿ªÆ±±êÖ¾
+		rl.arifinv       := ci.yhifinv; --å¼€ç¥¨æ ‡å¿—
 		rl.armcode       := mi.sbcode;
 		rl.armpid        := mi.sbpid;
 		rl.armclass      := mi.sbclass;
 		rl.armflag       := mi.sbflag;
 		rl.arday         := mr.cbmrday;
 		rl.arbfid        := mi.book_no; --
-		--·Ö¶ÎËã·¨ÒªÇóÉÏÆÚ³­±íÈÕÆÚºÍ±¾ÆÚ³­±íÈÕÆÚ·Ç¿Õ
+		--åˆ†æ®µç®—æ³•è¦æ±‚ä¸ŠæœŸæŠ„è¡¨æ—¥æœŸå’Œæœ¬æœŸæŠ„è¡¨æ—¥æœŸéç©º
 		rl.arprdate := nvl(nvl(nvl(mr.cbmrprdate, mi.sbinsdate), mi.sbnewdate),trunc(sysdate));
 		rl.arrdate  := nvl(nvl(mr.cbmrrdate, trunc(mr.cbmrinputdate)),trunc(sysdate));
-		--Î¥Ô¼½ğÆğËãÈÕÆÚ£¨×¢ÒâÍ¬²½ĞŞ¸ÄÓªÒµÍâÊÕÈëÉóºË£©
+		--è¿çº¦é‡‘èµ·ç®—æ—¥æœŸï¼ˆæ³¨æ„åŒæ­¥ä¿®æ”¹è¥ä¸šå¤–æ”¶å…¥å®¡æ ¸ï¼‰
 		rl.arzndate       := rl.ardate + 30;
 		rl.arcaliber      := md.mdcaliber;
 		rl.arrtid         := mi.sbrtid;
@@ -1228,16 +1228,16 @@ package pg_cb_cost
 		rl.armno          := md.mdno;
 		rl.arscode        := mr.cbmrscode;
 		rl.arecode        := mr.cbmrecode;
-		rl.arreadsl       := mr.cbmrsl; --±äÁ¿Ôİ´æ£¬×îºó»Ö¸´
-		rl.arinvmemo := case when not (p_pscid = '0000.00' or p_pscid is null) then '[' || p_pscid || ']ÀúÊ·µ¥¼Û' else '' end;
+		rl.arreadsl       := mr.cbmrsl; --å˜é‡æš‚å­˜ï¼Œæœ€åæ¢å¤
+		rl.arinvmemo := case when not (p_pscid = '0000.00' or p_pscid is null) then '[' || p_pscid || ']å†å²å•ä»·' else '' end;
 		rl.arentrustbatch := null;
 		rl.arentrustseqno := null;
 		rl.aroutflag      := 'n';
 		rl.artrans        := p_trans;
 		rl.arcd           := debit;
 		rl.aryschargetype := mi.sbchargetype;
-		rl.arsl           := 0; --Ó¦ÊÕË®·ÑË®Á¿£¬¡¾rlsl = rlreadsl + rladjsl¡¿
-		rl.arje           := 0; --Éú³ÉÕÊÌåºó¼ÆËã,ÏÈ³õÊ¼»¯
+		rl.arsl           := 0; --åº”æ”¶æ°´è´¹æ°´é‡ï¼Œã€rlsl = rlreadsl + rladjslã€‘
+		rl.arje           := 0; --ç”Ÿæˆå¸ä½“åè®¡ç®—,å…ˆåˆå§‹åŒ–
 		rl.araddsl        := nvl(mr.cbmraddsl, 0);
 		rl.arpaidje       := 0;
 		rl.arpaidflag     := 'n';
@@ -1249,41 +1249,41 @@ package pg_cb_cost
 		rl.arlb           := mi.sblb;
 		rl.arpfid         := mi.price_no;
 		rl.ardatetime     := sysdate;
-		rl.arprimcode     := mi.sbpriid; --¼ÇÂ¼ºÏÊÕ×Ó±í´®
+		rl.arprimcode     := mi.sbpriid; --è®°å½•åˆæ”¶å­è¡¨ä¸²
 		rl.arpriflag      := mi.sbpriflag;
 		rl.arrper         := mr.cbmrrper;
 		rl.arscodechar    := mr.cbmrscode;
 		rl.arecodechar    := mr.cbmrecode;
-		rl.argroup        := '1'; --Ó¦ÊÕÕÊ·Ö×é
-		rl.arpid          := null; --ÊµÊÕÁ÷Ë®£¨Óëpayment.pid¶ÔÓ¦£©
-		rl.arpbatch       := null; --½É·Ñ½»Ò×Åú´Î£¨Óëpayment.pbatch¶ÔÓ¦£©
-		rl.arsavingqc     := 0; --ÆÚ³õÔ¤´æ£¨ÏúÕÊÊ±²úÉú£©
-		rl.arsavingbq     := 0; --±¾ÆÚÔ¤´æ·¢Éú£¨ÏúÕÊÊ±²úÉú£©
-		rl.arsavingqm     := 0; --ÆÚÄ©Ô¤´æ£¨ÏúÕÊÊ±²úÉú£©
-		rl.arreverseflag  := 'n'; --  ³åÕı±êÖ¾£¨nÎªÕı³££¬yÎª³åÕı£©
-		rl.arbadflag      := 'n'; --´ôÕÊ±êÖ¾£¨y :´ô»µÕÊ£¬o:´ô»µÕÊÉóÅúÖĞ£¬n:Õı³£ÕÊ£©
-		rl.arznjreducflag := 'n'; --ÖÍÄÉ½ğ¼õÃâ±êÖ¾,Î´¼õÃâÊ±Îªn£¬ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½Ó¼ÆËã£»¼õÃâºóÎªy,ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½ÓÈ¡rlznj
-		rl.arsxf          := 0; --ÊÖĞø·Ñ
-		rl.armiface2      := mi.sbface2; --³­¼û¹ÊÕÏ
-		rl.armiface3      := mi.sbface3; --·Ç³£¼ÆÁ¿
-		rl.armiface4      := mi.sbface4; --±í¾®ÉèÊ©ËµÃ÷
-		rl.armiifckf      := mi.sbifchk; --À¬»ø·Ñ»§Êı
-		rl.armigps        := mi.sbgps; --ÊÇ·ñºÏÆ±
-		rl.armiqfh        := mi.sbqfh; --Ç¦·âºÅ
-		rl.armibox        := mi.sbbox; --Ïû·ÀË®¼Û£¨ÔöÖµË°Ë®¼Û£©
-		rl.arminame2      := mi.sbname2; --ÕĞÅÆÃû³Æ(Ğ¡ÇøÃû£©
-		rl.armiseqno      := mi.sbseqno; --»§ºÅ£¨³õÊ¼»¯Ê±²áºÅ+ĞòºÅ£©
-		rl.arscrarid      := rl.arid; --Ô­Ó¦ÊÕÕÊÁ÷Ë®
-		rl.arscrartrans   := rl.artrans; --Ô­Ó¦ÊÕÕÊÊÂÎñ
-		rl.arscrarmonth   := rl.armonth; --Ô­Ó¦ÊÕÕÊÔÂ·İ
-		rl.arscrardate    := rl.ardate; --Ô­Ó¦ÊÕÕÊÈÕÆÚ
-		--Ó¦ÊÕ×·²¹¹´Ñ¡²»¼Æ½×Ìİ±êÖ¾
+		rl.argroup        := '1'; --åº”æ”¶å¸åˆ†ç»„
+		rl.arpid          := null; --å®æ”¶æµæ°´ï¼ˆä¸payment.pidå¯¹åº”ï¼‰
+		rl.arpbatch       := null; --ç¼´è´¹äº¤æ˜“æ‰¹æ¬¡ï¼ˆä¸payment.pbatchå¯¹åº”ï¼‰
+		rl.arsavingqc     := 0; --æœŸåˆé¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+		rl.arsavingbq     := 0; --æœ¬æœŸé¢„å­˜å‘ç”Ÿï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+		rl.arsavingqm     := 0; --æœŸæœ«é¢„å­˜ï¼ˆé”€å¸æ—¶äº§ç”Ÿï¼‰
+		rl.arreverseflag  := 'n'; --  å†²æ­£æ ‡å¿—ï¼ˆnä¸ºæ­£å¸¸ï¼Œyä¸ºå†²æ­£ï¼‰
+		rl.arbadflag      := 'n'; --å‘†å¸æ ‡å¿—ï¼ˆy :å‘†åå¸ï¼Œo:å‘†åå¸å®¡æ‰¹ä¸­ï¼Œn:æ­£å¸¸å¸ï¼‰
+		rl.arznjreducflag := 'n'; --æ»çº³é‡‘å‡å…æ ‡å¿—,æœªå‡å…æ—¶ä¸ºnï¼Œé”€å¸æ—¶æ»çº³é‡‘ç›´æ¥è®¡ç®—ï¼›å‡å…åä¸ºy,é”€å¸æ—¶æ»çº³é‡‘ç›´æ¥å–rlznj
+		rl.arsxf          := 0; --æ‰‹ç»­è´¹
+		rl.armiface2      := mi.sbface2; --æŠ„è§æ•…éšœ
+		rl.armiface3      := mi.sbface3; --éå¸¸è®¡é‡
+		rl.armiface4      := mi.sbface4; --è¡¨äº•è®¾æ–½è¯´æ˜
+		rl.armiifckf      := mi.sbifchk; --åƒåœ¾è´¹æˆ·æ•°
+		rl.armigps        := mi.sbgps; --æ˜¯å¦åˆç¥¨
+		rl.armiqfh        := mi.sbqfh; --é“…å°å·
+		rl.armibox        := mi.sbbox; --æ¶ˆé˜²æ°´ä»·ï¼ˆå¢å€¼ç¨æ°´ä»·ï¼‰
+		rl.arminame2      := mi.sbname2; --æ‹›ç‰Œåç§°(å°åŒºåï¼‰
+		rl.armiseqno      := mi.sbseqno; --æˆ·å·ï¼ˆåˆå§‹åŒ–æ—¶å†Œå·+åºå·ï¼‰
+		rl.arscrarid      := rl.arid; --åŸåº”æ”¶å¸æµæ°´
+		rl.arscrartrans   := rl.artrans; --åŸåº”æ”¶å¸äº‹åŠ¡
+		rl.arscrarmonth   := rl.armonth; --åŸåº”æ”¶å¸æœˆä»½
+		rl.arscrardate    := rl.ardate; --åŸåº”æ”¶å¸æ—¥æœŸ
+		--åº”æ”¶è¿½è¡¥å‹¾é€‰ä¸è®¡é˜¶æ¢¯æ ‡å¿—
 		if (mr.cbmrnewflag = 'y' and (mr.id = '?' or p_trans = 'o')) then
 			classctl := 'y';
 		else
 			classctl := 'n';
 		end if;
-		--Ëã·ÑÖ®Ç°Ç··Ñ
+		--ç®—è´¹ä¹‹å‰æ¬ è´¹
 		begin
 		select nvl(sum(ardje), 0) into rl.arpriorje
 		  from ys_zw_arlist, ys_zw_ardetail
@@ -1296,7 +1296,7 @@ package pg_cb_cost
 		when others then
 		  rl.arpriorje := 0; 
 		end;
-		rl.armisaving := mi.sbsaving; --Ëã·ÑÊ±Ô¤´æ
+		rl.armisaving := mi.sbsaving; --ç®—è´¹æ—¶é¢„å­˜
 		rl.armicommunity   := mi.sbcommunity;
 		rl.armiremoteno    := mi.sbremoteno;
 		rl.armiremotehubno := mi.sbremotehubno;
@@ -1306,43 +1306,43 @@ package pg_cb_cost
 		rl.armicolumn2     := null;
 		rl.armicolumn3     := null;
 		rl.armicolumn4     := null;
-		rl.arcolumn5       := null; --ÉÏ´ÎÓ¦ÕÊÕÊÈÕÆÚ
-		rl.arcolumn9       := null; --ÉÏ´ÎÓ¦ÊÕÕÊÁ÷Ë®
-		rl.arcolumn10      := null; --ÉÏ´ÎÓ¦ÊÕÕÊÔÂ·İ
-		rl.arcolumn11      := null; --ÉÏ´ÎÓ¦ÊÕÕÊÊÂÎñ
+		rl.arcolumn5       := null; --ä¸Šæ¬¡åº”å¸å¸æ—¥æœŸ
+		rl.arcolumn9       := null; --ä¸Šæ¬¡åº”æ”¶å¸æµæ°´
+		rl.arcolumn10      := null; --ä¸Šæ¬¡åº”æ”¶å¸æœˆä»½
+		rl.arcolumn11      := null; --ä¸Šæ¬¡åº”æ”¶å¸äº‹åŠ¡
 
-		--4.»ñÈ¡¼Û¸ñÌåÏµ ¡®°´¹éµµ¼Û¸ñÏµ·Ö¶Î¡¯»ò¡®Ö¸¶¨¼Û¸ñÏµ¡¯Ç°ÖÃÊı¾İ¼¯×¼±¸
+		--4.è·å–ä»·æ ¼ä½“ç³» â€˜æŒ‰å½’æ¡£ä»·æ ¼ç³»åˆ†æ®µâ€™æˆ–â€˜æŒ‡å®šä»·æ ¼ç³»â€™å‰ç½®æ•°æ®é›†å‡†å¤‡
 		if p_pscid is not null then
-			--Ö¸¶¨¼Û¸ñÏµ
+			--æŒ‡å®šä»·æ ¼ç³»
 			if p_pscid = 0 then
 				select max(price_ver) into rl.armicolumn1 from bas_price_name;
 			end if;
 			rltab := rl_table(rl);
 		else
-			--·Ö¶Î
+			--åˆ†æ®µ
 			open c_ver;
 			fetch c_ver
 			into v_verid, v_odate;
 			if c_ver%notfound or c_ver%notfound is null then
-				raise_application_error(errcode, 'ÎŞ·¨»ñÈ¡ÓĞĞ§µÄ¼Û¸ñÏµ1');
+				raise_application_error(errcode, 'æ— æ³•è·å–æœ‰æ•ˆçš„ä»·æ ¼ç³»1');
 			end if;
 			while c_ver%found loop
 				if v_odate >= rl.arprdate and (rlver.arrdate is null or rlver.arrdate < rl.arrdate) then
 					rlver := rl;
-					--ÉÏ´Î³­±íÈÕÆÚ
+					--ä¸Šæ¬¡æŠ„è¡¨æ—¥æœŸ
 					rlver.arprdate := case when v_rdate is null then rl.arprdate else v_rdate end;
-					--±¾´Î³­±íÈÕÆÚ
+					--æœ¬æ¬¡æŠ„è¡¨æ—¥æœŸ
 					rlver.arrdate := case when rl.arrdate <= v_odate then rl.arrdate else v_odate end;
-					--³­¼ûË®Á¿
+					--æŠ„è§æ°´é‡
 					rlver.arreadsl := round(rlver.arreadsl * case when (rl.arrdate - rl.arprdate) = 0 then 1 else (rlver.arrdate - rlver.arprdate) / (rl.arrdate - rl.arprdate) end, 0);
-					--¼Óµ÷Ë®Á¿
+					--åŠ è°ƒæ°´é‡
 					rlver.araddsl := round(rlver.araddsl * case when (rl.arrdate - rl.arprdate) = 0 then 1 else (rlver.arrdate - rlver.arprdate) / (rl.arrdate - rl.arprdate) end, 0);
-					--Ó¦ÊÕË®Á¿
+					--åº”æ”¶æ°´é‡
 					rlver.arsl := round(rlver.arsl * case when (rl.arrdate - rl.arprdate) = 0 then 1 else (rlver.arrdate - rlver.arprdate) / (rl.arrdate - rl.arprdate) end, 0);
 					v_sl := nvl(v_sl, 0) + rlver.arreadsl;
 					rlver.armicolumn1 := v_verid;
 					v_rdate := rlver.arrdate;
-					--²åÈëËã·ÑÁÙÊ±·Ö¶Î°ü
+					--æ’å…¥ç®—è´¹ä¸´æ—¶åˆ†æ®µåŒ…
 					if rltab is null then
 						rltab := rl_table(rlver);
 					else
@@ -1356,18 +1356,18 @@ package pg_cb_cost
 			close c_ver;
 		end if;
 		if rltab is null then
-			raise_application_error(errcode, 'ÎŞ·¨»ñÈ¡ÓĞĞ§µÄ¼Û¸ñÏµ2');
+			raise_application_error(errcode, 'æ— æ³•è·å–æœ‰æ•ˆçš„ä»·æ ¼ç³»2');
 		end if;
 
 		
-		--5.°´¼Û¸ñÌåÏµ£¨º¬¹éµµ¼Û¸ñ£©
+		--5.æŒ‰ä»·æ ¼ä½“ç³»ï¼ˆå«å½’æ¡£ä»·æ ¼ï¼‰
 		for i in rltab.first .. rltab.last loop
 			rlver := rltab(i);
 			open c_pmd(rlver.armicolumn1, mi.sbid);
 			fetch c_pmd into pmd;
-			--1.1¡¢µ¥Ò»ÓÃË®
+			--1.1ã€å•ä¸€ç”¨æ°´
 			if c_pmd%notfound or c_pmd%notfound is null then
-				--1.1.1¡¢·ÇÌØ±ğµ¥¼Û
+				--1.1.1ã€éç‰¹åˆ«å•ä»·
 				open c_pd(rlver.armicolumn1, mi.price_no);
 				loop
 					fetch c_pd into pd;
@@ -1384,27 +1384,27 @@ package pg_cb_cost
 						   p_commit => p_commit);
 				end loop;
 				close c_pd;
-			--1.2¡¢»ìºÏÓÃË®
+			--1.2ã€æ··åˆç”¨æ°´
 			else
 				select count(grpid) into maxpmdid from (select * from ys_yh_pricegroup where sbid = mi.sbid);
-				v_pmdsl   := 0; --×é·ÖÅäË®Á¿
+				v_pmdsl   := 0; --ç»„åˆ†é…æ°´é‡
 				pmnum     := 0;
-				v_pmddbsl := rlver.arreadsl; --¶¨±ÈÔªË®Á¿
-				tempsl    := rlver.arreadsl; --·ÖÅäºóÊ£ÓàË®Á¿
+				v_pmddbsl := rlver.arreadsl; --å®šæ¯”å…ƒæ°´é‡
+				tempsl    := rlver.arreadsl; --åˆ†é…åå‰©ä½™æ°´é‡
 				while c_pmd%found and tempsl >= 0 loop
 					pmnum := pmnum + 1;
-					--²ğ·ÖÓàÁ¿¼ÇÈë×îºó·ÑÉÏ
+					--æ‹†åˆ†ä½™é‡è®°å…¥æœ€åè´¹ä¸Š
 					if pmnum = maxpmdid then v_pmdsl := tempsl;
 					else 
-						--¶¨±È»ìºÏ
+						--å®šæ¯”æ··åˆ
 						if pmd.grptype = '00' then v_pmdsl := ceil(pmd.grpscale * v_pmddbsl);
-						--¶¨Á¿»ìºÏ
+						--å®šé‡æ··åˆ
 						else 
 							v_pmdsl := (case when tempsl >= trunc(pmd.grpscale) then trunc(pmd.grpscale) else tempsl end);
 							v_pmddbsl := v_pmddbsl - v_pmdsl;
 						end if;
 					end if;
-					--´Ë´¦°´»ù±¾¼Û¸ñÀà±ğÕı³£¼Æ·Ñ--------------------------
+					--æ­¤å¤„æŒ‰åŸºæœ¬ä»·æ ¼ç±»åˆ«æ­£å¸¸è®¡è´¹--------------------------
 					open c_pd(rlver.armicolumn1, pmd.price_no);
 					loop
 						fetch c_pdinto pd;
@@ -1419,21 +1419,21 @@ package pg_cb_cost
 			close c_pmd;
 		end loop;
 
-		--Í³Ò»ÖØËã»ã×ÜÓ¦ÊÕË®Á¿¡¢½ğ¶îµ½×ÜÕËÉÏ
-		rl.arreadsl := mr.cbmrsl; --»¹Ô­
+		--ç»Ÿä¸€é‡ç®—æ±‡æ€»åº”æ”¶æ°´é‡ã€é‡‘é¢åˆ°æ€»è´¦ä¸Š
+		rl.arreadsl := mr.cbmrsl; --è¿˜åŸ
 		rl.arsl     := 0;
 		rl.arje     := 0;
 		if rdtab is not null then
 			for i in rdtab.first .. rdtab.last loop
-				if rdtab(i).ardpiid = '01' then rl.arsl := rl.arsl + rdtab(i).ardsl; end if;--Ó¦ÊÕË®Á¿
-				rl.arje := rl.arje + rdtab(i).ardje;--Ó¦ÊÕ½ğ¶î
+				if rdtab(i).ardpiid = '01' then rl.arsl := rl.arsl + rdtab(i).ardsl; end if;--åº”æ”¶æ°´é‡
+				rl.arje := rl.arje + rdtab(i).ardje;--åº”æ”¶é‡‘é¢
 			end loop;
 		else
-			raise_application_error(errcode,'ÎŞ·¨Éú³ÉÓ¦ÊÕÕÊÎñÃ÷Ï¸£¬¿ÉÄÜÎŞÓÃË®ĞÔÖÊ');
+			raise_application_error(errcode,'æ— æ³•ç”Ÿæˆåº”æ”¶å¸åŠ¡æ˜ç»†ï¼Œå¯èƒ½æ— ç”¨æ°´æ€§è´¨');
 		end if;
 
-		--¸üĞÂÄ¿±ê±í
-		if p_commit != µ÷ÊÔ then
+		--æ›´æ–°ç›®æ ‡è¡¨
+		if p_commit != è°ƒè¯• then
 			insert into ys_zw_arlist values rl;
 		else
 			insert into ys_zw_arlist_budget values rl;
@@ -1443,12 +1443,12 @@ package pg_cb_cost
 		close c_md;
 		close c_ci;
 
-		--·´À¡Ó¦ÊÕË®Á¿Ë®·Ñµ½Ô­Ê¼³­±í¼ÇÂ¼
+		--åé¦ˆåº”æ”¶æ°´é‡æ°´è´¹åˆ°åŸå§‹æŠ„è¡¨è®°å½•
 		mr.cbmrrecsl        := nvl(rl.arsl, 0);
 		mr.cbmrifrec        := 'y';
 		mr.cbmrrecdate      := rl.ardate;
-		mr.cbmrprivilegeper := rl.arid; --½è×Ö¶Î¼ÇÂ¼rlid·µ»Ø£¬¹©¼´Ê±ÏúÕÊ20140507
-		--ÎªÊÊÓ¦³­±íÂ¼ÈëÖĞµÄÕË±¾Ğ¡½á£¬ÕâÀïÏÈ³õÊ¼»¯Îª0
+		mr.cbmrprivilegeper := rl.arid; --å€Ÿå­—æ®µè®°å½•rlidè¿”å›ï¼Œä¾›å³æ—¶é”€å¸20140507
+		--ä¸ºé€‚åº”æŠ„è¡¨å½•å…¥ä¸­çš„è´¦æœ¬å°ç»“ï¼Œè¿™é‡Œå…ˆåˆå§‹åŒ–ä¸º0
 		mr.cbmrrecje01 := 0;
 		mr.cbmrrecje02 := 0;
 		mr.cbmrrecje03 := 0;
@@ -1457,7 +1457,7 @@ package pg_cb_cost
 		if rdtab is not null then
 			for i in rdtab.first .. rdtab.last loop
 				vrd := rdtab(i);
-				--·´À¡×Ü½ğ¶îµ½
+				--åé¦ˆæ€»é‡‘é¢åˆ°
 				case vrd.ardpiid 
 					when '01' then mr.cbmrrecje01 := nvl(mr.cbmrrecje01, 0) + vrd.ardje;
 					when '02' then mr.cbmrrecje02 := nvl(mr.cbmrrecje02, 0) + vrd.ardje;
@@ -1477,10 +1477,10 @@ package pg_cb_cost
 		     p_classctl in char,
 		     p_pscid    in number,
 		     p_commit   in number);
-		--·ÑÂÊÃ÷Ï¸¼ÆËã²½Öè
-		--p_classctl£¨y£ºÇ¿ÖÆ²»Ê¹ÓÃ½×Ìİ¼Æ·Ñ·½·¨£»n£º¼ÆËã½×Ìİ£¬Èç¹ûÊÇµÄ»°£©
+		--è´¹ç‡æ˜ç»†è®¡ç®—æ­¥éª¤
+		--p_classctlï¼ˆyï¼šå¼ºåˆ¶ä¸ä½¿ç”¨é˜¶æ¢¯è®¡è´¹æ–¹æ³•ï¼›nï¼šè®¡ç®—é˜¶æ¢¯ï¼Œå¦‚æœæ˜¯çš„è¯ï¼‰
 
-		²ÎÊı³õÊ¼»¯
+		å‚æ•°åˆå§‹åŒ–
 		rd        ys_zw_ardetail%rowtype;
 		i         integer;
 		v_months  number(10);
@@ -1490,7 +1490,7 @@ package pg_cb_cost
 		vpdmethod bas_price_detail.method%type;
 		bf        ys_bas_book%rowtype;
 
-		--²»¼Æ½×Ìİ¿ØÖÆ²»½øÈë½×Ìİ×Ó¹ı³Ì£¬²»²úÉú1½×½ğ¶î
+		--ä¸è®¡é˜¶æ¢¯æ§åˆ¶ä¸è¿›å…¥é˜¶æ¢¯å­è¿‡ç¨‹ï¼Œä¸äº§ç”Ÿ1é˜¶é‡‘é¢
 		if p_classctl = 'y' and pd.method in ('yjt', 'njt') then
 			vpdmethod := 'dj';
 		else
@@ -1498,7 +1498,7 @@ package pg_cb_cost
 		end if;
 
 		begin
-			select round(months_between(trunc(p_rl.arrdate, 'mm'),trunc(p_rl.arprdate, 'mm'))) into n --¼Æ·ÑÊ±¶ÎÔÂÊı from dual;
+			select round(months_between(trunc(p_rl.arrdate, 'mm'),trunc(p_rl.arprdate, 'mm'))) into n --è®¡è´¹æ—¶æ®µæœˆæ•° from dual;
 			if n <= 0 or n is null then n := 1;end if;
 		exception
 			when others then n := 0;
@@ -1506,12 +1506,12 @@ package pg_cb_cost
 
 		select sys_guid() into rd.id from dual;
 		rd.hire_code     := p_rl.hire_code;
-		rd.ardid         := p_rl.arid; --Á÷Ë®ºÅ
-		rd.ardpmdid      := nvl(pmd.grpid, 0); --»ìºÏÓÃË®·Ö×é
+		rd.ardid         := p_rl.arid; --æµæ°´å·
+		rd.ardpmdid      := nvl(pmd.grpid, 0); --æ··åˆç”¨æ°´åˆ†ç»„
 		rd.ardpmdscale   := nvl(pmd.grpscale, 1);
-		rd.ardpiid       := pd.price_item; --·ÑÓÃÏîÄ¿
-		rd.ardpfid       := pd.price_no; --·ÑÂÊ
-		rd.ardpscid      := pd.price_ver; --·ÑÂÊÃ÷Ï¸·½°¸
+		rd.ardpiid       := pd.price_item; --è´¹ç”¨é¡¹ç›®
+		rd.ardpfid       := pd.price_no; --è´¹ç‡
+		rd.ardpscid      := pd.price_ver; --è´¹ç‡æ˜ç»†æ–¹æ¡ˆ
 		rd.ardmethod     := vpdmethod;
 		rd.ardpaidflag   := 'n';
 		rd.ardysdj       := 0;
@@ -1523,14 +1523,14 @@ package pg_cb_cost
 		rd.ardadjdj      := 0;
 		rd.ardadjsl      := 0;
 		rd.ardadjje      := 0;
-		rd.ardmsmfid     := p_rl.manage_no; --ÓªÏú¹«Ë¾
-		rd.ardmonth      := p_rl.armonth; --ÕÊÎñÔÂ·İ
-		rd.ardmid        := p_rl.sbid; --Ë®±í±àºÅ
-		rd.ardpmdtype    := nvl(pmd.grptype, '01'); --»ìºÏÀà±ğ
-		rd.ardpmdcolumn1 := pmd.grpcolumn1; --±¸ÓÃ×Ö¶Î1
+		rd.ardmsmfid     := p_rl.manage_no; --è¥é”€å…¬å¸
+		rd.ardmonth      := p_rl.armonth; --å¸åŠ¡æœˆä»½
+		rd.ardmid        := p_rl.sbid; --æ°´è¡¨ç¼–å·
+		rd.ardpmdtype    := nvl(pmd.grptype, '01'); --æ··åˆç±»åˆ«
+		rd.ardpmdcolumn1 := pmd.grpcolumn1; --å¤‡ç”¨å­—æ®µ1
 
 		case vpdmethod when 'dj' then
-			--¹Ì¶¨µ¥¼Û  Ä¬ÈÏ·½Ê½£¬Óë³­Á¿ÓĞ¹Ø
+			--å›ºå®šå•ä»·  é»˜è®¤æ–¹å¼ï¼Œä¸æŠ„é‡æœ‰å…³
 			begin
 				rd.ardclass := 0;
 				rd.ardysdj  := pd.price;
@@ -1542,13 +1542,13 @@ package pg_cb_cost
 				rd.ardadjdj := 0;
 				rd.ardadjsl := 0;
 				rd.ardadjje := rd.ardje - rd.ardysje;
-				--²åÈëÃ÷Ï¸°ü
+				--æ’å…¥æ˜ç»†åŒ…
 				if rdtab is null then rdtab := rd_table(rd);
 				else rdtab.extend; rdtab(rdtab.last) := rd;
 				end if;
 			end;
 		when 'je' then
-			--¹Ì¶¨½ğ¶î£¬Óë³­Á¿ÎŞ¹Ø
+			--å›ºå®šé‡‘é¢ï¼Œä¸æŠ„é‡æ— å…³
 			begin
 				rd.ardclass := 0;
 				rd.ardysdj  := 0;
@@ -1567,7 +1567,7 @@ package pg_cb_cost
 					rd.ardysje := 0;
 					rd.ardje   := 0;
 				end if;
-				--²åÈëÃ÷Ï¸°ü
+				--æ’å…¥æ˜ç»†åŒ…
 				if rdtab is null then rdtab := rd_table(rd);
 				else rdtab.extend; rdtab(rdtab.last) := rd;
 				end if;
@@ -1581,7 +1581,7 @@ package pg_cb_cost
 				coststep_year(p_rl,p_sl,0,0,pd,rdtab,p_classctl,pmd,p_pscid);
 			end;
 		else
-			raise_application_error(errcode, '²»Ö§³ÖµÄ¼Æ·Ñ·½·¨' || vpdmethod);
+			raise_application_error(errcode, 'ä¸æ”¯æŒçš„è®¡è´¹æ–¹æ³•' || vpdmethod);
 		end case;
 
 	procedure coststep_mon(p_rl in out ys_zw_arlist%rowtype,
@@ -1593,8 +1593,8 @@ package pg_cb_cost
 			 rdtab      in out rd_table,
 			 p_classctl in char,
 			 pmd        in ys_yh_pricegroup%rowtype);
-		--rd.rdpiid£»rd.rdpfid£»rd.rdpscidÎª±ØÒª²ÎÊı
-		±äÁ¿³õÊ¼»¯
+		--rd.rdpiidï¼›rd.rdpfidï¼›rd.rdpscidä¸ºå¿…è¦å‚æ•°
+		å˜é‡åˆå§‹åŒ–
 		cursor c_ps is select * from (select * from bas_price_step where price_ver = pd.price_ver and price_no = pd.price_no and price_item = pd.price_item) order by step_class;
 		tmpyssl      number;
 		lastpsslpers number := 0;
@@ -1604,9 +1604,9 @@ package pg_cb_cost
 		ps           bas_price_step%rowtype;
 		ps0          bas_price_step%rowtype;
 		minfo        ys_yh_sbinfo%rowtype;
-		n            number(38, 12); --¼Æ·ÑÆÚÊı
+		n            number(38, 12); --è®¡è´¹æœŸæ•°
 		tmpscode     number;
-		--»ù±¾ĞÅÏ¢¸³Öµ
+		--åŸºæœ¬ä¿¡æ¯èµ‹å€¼
 		select sys_guid() into rd.id from dual;
 		rd.hire_code   := p_rl.hire_code;
 		rd.ardid       := p_rl.arid;
@@ -1617,34 +1617,34 @@ package pg_cb_cost
 		rd.ardpscid    := pd.price_ver;
 		rd.ardmethod   := pd.method;
 		rd.ardpaidflag := 'n';
-		rd.ardmsmfid  := p_rl.manage_no; --ÓªÏú¹«Ë¾
-		rd.ardmonth   := p_rl.armonth; --ÕÊÎñÔÂ·İ
-		rd.ardmid     := p_rl.sbid; --Ë®±í±àºÅ
-		rd.ardpmdtype := nvl(pmd.grptype, '01'); --»ìºÏÀà±ğ
-		tmpyssl := p_sl; --½×ÌİÀÛ¼õÓ¦ÊÕË®Á¿Óà¶î
-		tmpsl   := p_sl + p_adjsl; --½×ÌİÀÛ¼õÊµÊÕË®Á¿Óà¶î
-		--ÅĞ¶ÏÊı¾İÊÇ·ñÂú×ãÊÕÈ¡½×ÌİµÄÌõ¼ş
+		rd.ardmsmfid  := p_rl.manage_no; --è¥é”€å…¬å¸
+		rd.ardmonth   := p_rl.armonth; --å¸åŠ¡æœˆä»½
+		rd.ardmid     := p_rl.sbid; --æ°´è¡¨ç¼–å·
+		rd.ardpmdtype := nvl(pmd.grptype, '01'); --æ··åˆç±»åˆ«
+		tmpyssl := p_sl; --é˜¶æ¢¯ç´¯å‡åº”æ”¶æ°´é‡ä½™é¢
+		tmpsl   := p_sl + p_adjsl; --é˜¶æ¢¯ç´¯å‡å®æ”¶æ°´é‡ä½™é¢
+		--åˆ¤æ–­æ•°æ®æ˜¯å¦æ»¡è¶³æ”¶å–é˜¶æ¢¯çš„æ¡ä»¶
 		select mi.* into minfo from ys_yh_sbinfo mi where mi.sbid = p_rl.sbid;
-		--½×Ìİ¼Æ·ÑÖÜÆÚ
-		--¼ä¸ôÔÂ(¼´Ã¿´Î¼Æ·Ñ°´Êµ¼Ê¼ä¸ôÔÂÊı¼Æ·Ñ)
+		--é˜¶æ¢¯è®¡è´¹å‘¨æœŸ
+		--é—´éš”æœˆ(å³æ¯æ¬¡è®¡è´¹æŒ‰å®é™…é—´éš”æœˆæ•°è®¡è´¹)
 		begin
-			select round(months_between(trunc(p_rl.arrdate, 'mm'),trunc(p_rl.arprdate, 'mm')))into n from dual;--¼Æ·ÑÊ±¶ÎÔÂÊı
-			if n <= 0 or n is null then n := 1;  end if;--Òì³£ÖÜÆÚ¶¼ËãÒ»¸öÔÂ½×Ìİ
+			select round(months_between(trunc(p_rl.arrdate, 'mm'),trunc(p_rl.arprdate, 'mm')))into n from dual;--è®¡è´¹æ—¶æ®µæœˆæ•°
+			if n <= 0 or n is null then n := 1;  end if;--å¼‚å¸¸å‘¨æœŸéƒ½ç®—ä¸€ä¸ªæœˆé˜¶æ¢¯
 		exception when others then n := 0;
 		end;
 		/*
-		©°©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´
-		©¦½×Ìİ¹æÔò£¨»§/ÈË¾ùÓÃË®Á¿ÒÔÍ¬Ò»µØÖ·µÄËùÓĞË®±íÓÃË®Á¿Ö®ºÍÎª»ù´¡¼ÆËã£©                      ©¦
-		©¦1¡¢¼ÒÍ¥»§¼®ÈË¿ÚÔÚ4ÈËÒÔÏÂ£¨º¬4ÈË£©µÄÓÃË®»§£¬°´»§ÓÃË®Á¿»®·Ö½×ÌİÊ½¼ÆÁ¿Ë®¼Û¡£                      ©¦
-		©¦2¡¢¼ÒÍ¥»§¼®ÈË¿ÚÔÚ5ÈË£¨º¬5ÈË£©ÒÔÉÏµÄÓÃË®»§£¬°´ÈË¾ùÓÃË®Á¿»®·Ö½×ÌİÊ½¼ÆÁ¿Ë®¼Û¡£                    ©¦
-		©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼
-		*/ --Ò»½×Ö¹¶ş½×ÆğÒªÇóÉèÖÃÖµÏàÍ¬£¬ÒÀ´ËÀàÍÆ
+		â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+		â”‚é˜¶æ¢¯è§„åˆ™ï¼ˆæˆ·/äººå‡ç”¨æ°´é‡ä»¥åŒä¸€åœ°å€çš„æ‰€æœ‰æ°´è¡¨ç”¨æ°´é‡ä¹‹å’Œä¸ºåŸºç¡€è®¡ç®—ï¼‰                      â”‚
+		â”‚1ã€å®¶åº­æˆ·ç±äººå£åœ¨4äººä»¥ä¸‹ï¼ˆå«4äººï¼‰çš„ç”¨æ°´æˆ·ï¼ŒæŒ‰æˆ·ç”¨æ°´é‡åˆ’åˆ†é˜¶æ¢¯å¼è®¡é‡æ°´ä»·ã€‚                      â”‚
+		â”‚2ã€å®¶åº­æˆ·ç±äººå£åœ¨5äººï¼ˆå«5äººï¼‰ä»¥ä¸Šçš„ç”¨æ°´æˆ·ï¼ŒæŒ‰äººå‡ç”¨æ°´é‡åˆ’åˆ†é˜¶æ¢¯å¼è®¡é‡æ°´ä»·ã€‚                    â”‚
+		â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+		*/ --ä¸€é˜¶æ­¢äºŒé˜¶èµ·è¦æ±‚è®¾ç½®å€¼ç›¸åŒï¼Œä¾æ­¤ç±»æ¨
 		p_rl.arusenum := (case when nvl(p_rl.arusenum, 0) < ps.peoples then ps.peoples else p_rl.arusenum end);
 		if ps.step_class > 1 then ps.start_code := tmpscode; end if;
-		ps.end_code  := ceil(n * (ps.end_code + getmax(p_rl.arusenum - ps.peoples, 0) * ps.add_waterqty + lastpsslpers)); --½×Ìİ¶ÎÖ¹ËãÁ¿
+		ps.end_code  := ceil(n * (ps.end_code + getmax(p_rl.arusenum - ps.peoples, 0) * ps.add_waterqty + lastpsslpers)); --é˜¶æ¢¯æ®µæ­¢ç®—é‡
 		tmpscode     := ps.end_code;
 		lastpsslpers := getmax(p_rl.arusenum - ps.peoples, 0) * ps.add_waterqty;
-		--ÒÔÉÏceil±£³ÖÈë£¬¾¡Á¿À­¿î×Ó½×Ìİ¶Î£¬ÈÃÀûÓë¿Í»§
+		--ä»¥ä¸Šceilä¿æŒå…¥ï¼Œå°½é‡æ‹‰æ¬¾å­é˜¶æ¢¯æ®µï¼Œè®©åˆ©ä¸å®¢æˆ·
 		rd.ardclass      := ps.step_class;
 		rd.ardysdj       := ps.price;
 		rd.ardyssl       := getmin(tmpyssl, ps.end_code - ps.start_code);
@@ -1658,7 +1658,7 @@ package pg_cb_cost
 		rd.ardpmdcolumn1 := to_char(round(n, 2));
 		rd.ardpmdcolumn2 := ps.start_code;
 		rd.ardpmdcolumn3 := ps.end_code;
-		--²åÈëÃ÷Ï¸°ü
+		--æ’å…¥æ˜ç»†åŒ…
 		if rdtab is null then rdtab := rd_table(rd);
 		else rdtab.extend; rdtab(rdtab.last) := rd;
 		end if;	
@@ -1672,7 +1672,7 @@ package pg_cb_cost
 			  p_classctl in char,
 			  pmd        ys_yh_pricegroup%rowtype,
 			  pmonth     in varchar2);
-		Âß¼­Óëcoststep_monÏàÍ¬
+		é€»è¾‘ä¸coststep_monç›¸åŒ
 		
 	procedure insrd(rd in rd_table, p_commit in number);
 		vrd ys_zw_ardetail%rowtype;
@@ -1680,7 +1680,7 @@ package pg_cb_cost
 		begin
 			for i in rd.first .. rd.last loop
 				vrd := rd(i);
-				if p_commit != µ÷ÊÔ then insert into ys_zw_ardetail values vrd;
+				if p_commit != è°ƒè¯• then insert into ys_zw_ardetail values vrd;
 				else insert into ys_zw_ardetail_budget values vrd;
 				end if;
 			end loop;
@@ -1688,18 +1688,18 @@ package pg_cb_cost
 		end;
 
 	function getmin
-		--·µ»ØĞ¡Öµ
+		--è¿”å›å°å€¼
 		function getmin(n1 in number, n2 in number) return number; 
 			if nvl(n1, 0) <= nvl(n2, 0) then return nvl(n1, 0); else return nvl(n2, 0);end if;
 	function getmax
-		--·µ»Ø´óÖµ
+		--è¿”å›å¤§å€¼
 		function getmax(n1 in number, n2 in number) return number;
 			if nvl(n1, 0) >= nvl(n2, 0) then return nvl(n1, 0); else return nvl(n2, 0);end if;
 	function fboundpara
-		--·µ»Ø×Ö·û´®ÖĞ¡°|¡±µÄÊıÁ¿
+		--è¿”å›å­—ç¬¦ä¸²ä¸­â€œ|â€çš„æ•°é‡
 		function fboundpara(p_parastr in clob) return integer is
-		--Ò»Î¬Êı×é¹æÔò£º#####,####,####|
-		--¶şÎ¬Êı×é¹æÔò£º#####,####,####|#####,####,#######|##,####,####|
+		--ä¸€ç»´æ•°ç»„è§„åˆ™ï¼š#####,####,####|
+		--äºŒç»´æ•°ç»„è§„åˆ™ï¼š#####,####,####|#####,####,#######|##,####,####|
 		i     integer;
 		n     integer := 0;
 		vchar nchar(1);
@@ -1710,7 +1710,7 @@ package pg_cb_cost
 		end loop;
 		return n;
 	function fgetpara
-		--·µ»Ø×Ö·û´®ÖĞÖ¸¶¨ÔªËØÎ»ÖÃµÄÖµ
+		--è¿”å›å­—ç¬¦ä¸²ä¸­æŒ‡å®šå…ƒç´ ä½ç½®çš„å€¼
 		function fgetpara(p_parastr in varchar2,rown in integer,coln in integer) return varchar2;
 			vchar nchar(1);
 			v     varchar2(10000);
@@ -1720,13 +1720,13 @@ package pg_cb_cost
 			begin
 			v := trim(p_parastr);
 			if length(v) = 0 or substr(v, length(v)) != '|' then
-			raise_application_error(errcode, 'Êı×é×Ö·û´®¸ñÊ½´íÎó' || p_parastr);
+			raise_application_error(errcode, 'æ•°ç»„å­—ç¬¦ä¸²æ ¼å¼é”™è¯¯' || p_parastr);
 			end if;
 			for i in 1 .. length(v) loop
 			vchar := substr(v, i, 1);
 			case vchar
 			when '|' then
-			  --Ò»ĞĞ¶ÁÍê
+			  --ä¸€è¡Œè¯»å®Œ
 			  begin
 			    c := c + 1;
 			    if r = rown and c = coln then
@@ -1737,7 +1737,7 @@ package pg_cb_cost
 			    vstr := '';
 			  end;
 			when ',' then
-			  --Ò»ÁĞ¶ÁÍê
+			  --ä¸€åˆ—è¯»å®Œ
 			  begin
 			    c := c + 1;
 			    if r = rown and c = coln then
@@ -1756,107 +1756,107 @@ package pg_paid
 	-- public type declarations
 	subtype rd_type is ys_zw_ardetail%rowtype;
 	type rd_table is table of rd_type;
-	--´æ´¢ÁÙÊ±±äÁ¿
+	--å­˜å‚¨ä¸´æ—¶å˜é‡
 	subtype pb_type is ysparmtemp%rowtype;
 	type arr_table is table of pb_type;
-	--´íÎó·µ»ØÂë
+	--é”™è¯¯è¿”å›ç 
 	errcode constant integer := -20012;
-	--¡¾´úÂë¹æÔò³£Á¿¡¿£¨¿É×ª»¯ÎªÓÉÏµÍ³²ÎÊı³õÊ¼»¯£©
-	----¹ı³ÌÌá½»¿ØÖÆ
-	²»Ìá½» constant number := 0;
-	Ìá½»   constant number := 1;
-	µ÷ÊÔ   constant number := 2;
-	----¿ÉºöÂÔµÄÓ¦ÊµÊÕ¼ÆÕÊ·½Ïò£¬ÏÖÒÑÓÉ+/-Öµº¬ÒåÌæ´ú
-	½è·½ constant char(2) := 'de';
-	´û·½ constant char(2) := 'cr';
-	--¡¾½É·ÑÒµÎñºËĞÄ¹æÔò¡¿
-	--  È«¾ÖÖØÒª²ÎÊı£¬ÔÊĞí¸÷ÕÊÎñÁ÷³ÌÖĞÔ¤´æ·¢Éú
-	--  ÀıÈç£ºÎŞÔ¤´æÒµÎñµÄÏîÄ¿±¾¿ØÖÆÎ»ÉèÎªfalse
-	--  ×÷ÓÃÓÚ£ºpayreccore
+	--ã€ä»£ç è§„åˆ™å¸¸é‡ã€‘ï¼ˆå¯è½¬åŒ–ä¸ºç”±ç³»ç»Ÿå‚æ•°åˆå§‹åŒ–ï¼‰
+	----è¿‡ç¨‹æäº¤æ§åˆ¶
+	ä¸æäº¤ constant number := 0;
+	æäº¤   constant number := 1;
+	è°ƒè¯•   constant number := 2;
+	----å¯å¿½ç•¥çš„åº”å®æ”¶è®¡å¸æ–¹å‘ï¼Œç°å·²ç”±+/-å€¼å«ä¹‰æ›¿ä»£
+	å€Ÿæ–¹ constant char(2) := 'de';
+	è´·æ–¹ constant char(2) := 'cr';
+	--ã€ç¼´è´¹ä¸šåŠ¡æ ¸å¿ƒè§„åˆ™ã€‘
+	--  å…¨å±€é‡è¦å‚æ•°ï¼Œå…è®¸å„å¸åŠ¡æµç¨‹ä¸­é¢„å­˜å‘ç”Ÿ
+	--  ä¾‹å¦‚ï¼šæ— é¢„å­˜ä¸šåŠ¡çš„é¡¹ç›®æœ¬æ§åˆ¶ä½è®¾ä¸ºfalse
+	--  ä½œç”¨äºï¼špayreccore
 	--          remaincore
 	--          payreversecorebypid
-	ÔÊĞíÔ¤´æ·¢Éú constant boolean := true;
-	--  È«¾ÖÖØÒª²ÎÊı£¬ÔÊĞí¸÷ÕÊÎñÁ÷³ÌÖĞÆÚ³õ¿ÉÒÔÊÇ¸ºÔ¤´æ¡¢ÏúÕÊºóÒ²¿ÉÒÔÊÇ¸ºÔ¤´æ£¬µ«²»ÄÜ·¢Éú¸ü¶àµÄ¸ºÔ¤´æ
-	--  trueÊ±ÒâÎ¶×ÅÎŞÌõ¼şÏúÕÊ³É¹¦£¬²»×ã¶î²¿·ÖÎŞµ×ÏßµÄ×ª¸ºÔ¤´æÓà¶î
-	--  ÀıÈç£ºÄ³Ğ©ÏîÄ¿ÖĞÓĞÏòÏÂÈ¡ÕûÕÒÁãµÄ¹æÔòÊ±´Ë¿ØÖÆÎ»Îªtrue£¬È¡Õû¹æÔòÔÚµ÷ÓÃÇ°¼ÆËãok£¬±¾µØºóÌ¨²»Ğ£Ñé
-	--  ×÷ÓÃÓÚ£ºpayreccore
+	å…è®¸é¢„å­˜å‘ç”Ÿ constant boolean := true;
+	--  å…¨å±€é‡è¦å‚æ•°ï¼Œå…è®¸å„å¸åŠ¡æµç¨‹ä¸­æœŸåˆå¯ä»¥æ˜¯è´Ÿé¢„å­˜ã€é”€å¸åä¹Ÿå¯ä»¥æ˜¯è´Ÿé¢„å­˜ï¼Œä½†ä¸èƒ½å‘ç”Ÿæ›´å¤šçš„è´Ÿé¢„å­˜
+	--  trueæ—¶æ„å‘³ç€æ— æ¡ä»¶é”€å¸æˆåŠŸï¼Œä¸è¶³é¢éƒ¨åˆ†æ— åº•çº¿çš„è½¬è´Ÿé¢„å­˜ä½™é¢
+	--  ä¾‹å¦‚ï¼šæŸäº›é¡¹ç›®ä¸­æœ‰å‘ä¸‹å–æ•´æ‰¾é›¶çš„è§„åˆ™æ—¶æ­¤æ§åˆ¶ä½ä¸ºtrueï¼Œå–æ•´è§„åˆ™åœ¨è°ƒç”¨å‰è®¡ç®—okï¼Œæœ¬åœ°åå°ä¸æ ¡éªŒ
+	--  ä½œç”¨äºï¼špayreccore
 	--          remaincore
 	--          payreversecorebypid
-	ÔÊĞí¾»¼õºó¸ºÔ¤´æ constant boolean := true;
-	----¾»¼õÎª¸ºÔ¤´æÓà¶îÊ±²»ÏúÕÊ×ªÔ¤´æ
-	--  ×÷ÓÃÓÚ£ºpayreccore
-	¾»¼õÎª¸ºÔ¤´æ²»ÏúÕÊ constant boolean := false;
-	´ú¿ÛºóÊÇ·ñ·¢ËÍ¶ÌĞÅ constant boolean := false;
-	--  µ÷¶È×÷Òµ·½Ê½ÏÂÓà¶î×ã¶îµÖ¿Ûµ±Ç°Ç··ÑÊ±¿ØÖÆÊÇ·ñµÖ¿Ûº¬Î¥Ô¼½ğÇ··Ñ¼ÇÂ¼
-	--  ×÷ÓÃÓÚ£ºpg_pay.remainpaycorebycust
-	ÔÊĞíÔ¤´æµÖ¿ÛÎ¥Ô¼Ç··Ñ constant integer := 1;
-	ÔÊĞíÖØ¸´ÏúÕÊ constant integer := 1;
-	----ÊµÊ±´úÊÕµ¥½ÉÔ¤´æ¹æÔò
-	--  ×÷ÓÃÓÚ£ºbpay
-	ÔÊĞíÊµÊ±´úÊÕµ¥½ÉÔ¤´æ constant boolean := false; --20140812 0:30 true->flase
-	--¡¾Ò»Ğ©¿ÉÑ¡µÄÏúÕÊ·½Ê½¡¿
-	----ÔÊĞíÏúÕÊ²ğÕÊ
-	²»ÔÊĞí²ğÕÊ constant integer := 0; --0½ğ¶î·Ç0Ë®Á¿ÏúÕÊ
-	ÔÊĞí²ğÕÊ   constant integer := 1; --Ä¬ÈÏ
-	----´úÊÕ¶ÔÕÊ·½·¨
-	Õı³£¶ÔÕÊ constant integer := 1; --×Ô¶¯»¯µ÷ÓÃÊ±¿É´«´Ë²ÎÊı£¬Èô´æÔÚÒÑ¶ÔÕÊ¼ÇÂ¼£¬ÇÒÓĞÆ½ÕÊ£¬Ôò¶ÔÕÊÊ§°Ü£»
-	ÖØĞÂ¶ÔÕÊ constant integer := 2; --ÊÖ¹¤ÒµÎñµ÷ÓÃÊ±´«´Ë²ÎÊı£¬Èô´æÔÚÒÑ¶ÔÕÊ¼ÇÂ¼£¬ÇÒÓĞÆ½ÕÊ£¬Ôò»¹Ô­Æ½ÕÊ£¨¶ÔÕÊ³åÕı½øĞĞ¶ÔÕÊ²¹Ïú¡¢¶ÔÕÊ²¹Ïú½øĞĞ¶ÔÕÊ³åÕı£©ºó½øĞĞÊ×´Î¶ÔÕÊ£»
-	----Åú¿Û±¾µØ´¦Àí·½Ê½
-	Õı³£Åú¿Û´¦Àí constant integer := 1; --×Ô¶¯»¯µ÷ÓÃÊ±¿É´«´Ë²ÎÊı£¬¶ÔĞÂÒÑÏÂÕË¼ÇÂ¼½øĞĞÏúÕÊ£¬ÆäÓà¸ù¾İÔÚÍ¾Íê½á±êÖ¾È«²¿½âËø£»
-	ÖØĞÂÅú¿Û´¦Àí constant integer := 2; --ÊÖ¹¤ÒµÎñµ÷ÓÃÊ±´«´Ë²ÎÊı£¬Èô´æÔÚÒÑÏúÕÊ¼ÇÂ¼£¬Ôò»¹Ô­ÏúÕÊ£¨´ú¿ÛÏúÕÊ½øĞĞ´ú¿Û³åÕı£©ºó½øĞĞÕı³£´¦Àí£»
-	----Åú´ÎÔÚÍ¾Íê½á·ñ
-	Åú¿ÛÎ´½áÊø constant integer := 0; --±¾´ÎÎÄµµºóÒøĞĞ»¹Î´½áÊø¿Û·Ñ
-	Åú¿Û½áÊø   constant integer := 1; --ÒÑ½áÊø
-	----Åú¿ÛÎÄ±¾ÀàĞÍ
-	³É¹¦Åú¿ÛÎÄ±¾   constant integer := 0; --Ö»ÓĞÊ§°Ü¼ÇÂ¼
-	Ê§°ÜÅú¿ÛÎÄ±¾   constant integer := 1; --Ö»ÓĞ³É¹¦¼ÇÂ¼
-	È«²¿Åú¿ÛÎÄ±¾   constant integer := 2; --ËùÓĞ¼ÇÂ¼
-	ÎŞÎÄ±¾È«²¿³É¹¦ constant integer := 3; --ÎŞÎÄ±¾·µ»Ø£¬ÒøĞĞ¿ÚÍ·Í¨ÖªËùÓĞÅú¿Û³É¹¦
-	----µÖ¼õÔ¤´æÓà¶îºó´ú¿Û
-	µÖ¼õÔ¤´æÓà¶îºó´ú¿Û constant integer := 1; --Åú¿Û·¢°üÊ±Ô¤´æÓà¶î²ÎÓë¼ÆËãÓ¦½É£¬etlje = etlrlje +etlwyj +etlremaind
-	noµÖ¼õÔ¤´æÓà¶î´ú¿Û constant integer := 0; --Åú¿Û·¢°üÊ±Ô¤´æÓà¶î²»²ÎÓë¼ÆËãÓ¦½É£¬etlje = etlrlje +etlwyj
-	----½É·ÑÍ¨Öª
-	È«¾ÖÆÁ±ÎÍ¨Öª constant boolean := false;
-	¾Ö²¿ÆÁ±ÎÍ¨Öª constant integer := 0; --£¨¿ÉÄÜÓÃÓÚÍâ²¿´«²Î£¬¹ÊÊ¹ÓÃÍ¨ÓÃintÀàĞÍ£©
-	¾Ö²¿ÔÊĞíÍ¨Öª constant integer := 1; --£¨¿ÉÄÜÓÃÓÚÍâ²¿´«²Î£¬¹ÊÊ¹ÓÃÍ¨ÓÃintÀàĞÍ£©
-	----ÏúÕÊÎ¥Ô¼½ğ·ÖÕÊ£¬¿ÉÍ¨¹ı²ÎÊı¿ØÖÆÏúÕÊºËĞÄ¹ı³ÌÖĞ¶ÔÎ¥Ô¼½ğºÍ±¾½ğ·ÖÕÊ´¦Àí£¬·ÖÕÊÌõ¼şÄÚÖÃ
-	----¶ÀÁ¢Î¥Ô¼½ğ·¢Æ±ĞèÇó
-	ÔÊĞíÏúÕÊÎ¥Ô¼½ğ·ÖÕÊ constant boolean := true; --
-	--³£Á¿²ÎÊı
-	ptrans_¹ñÌ¨½É·Ñ constant char(1) := 'p'; --×ÔÀ´Ë®¹ñÌ¨½É·Ñ
-	ptrans_´úÊÕÏúÕÊ constant char(1) := 'b'; --ÒøĞĞÊµÊ±´úÊÕ
-	ptrans_´úÊÕ²¹Ïú constant char(1) := 'e'; --ÒøĞĞÊµÊ±´úÊÕµ¥±ßÕÊ²¹Ïú£¨¶ÔÕÊ½á¹û²¹Ïú,¸ôÈÕ·¢Æğ£©
-	ptrans_´ú¿ÛÏúÕÊ constant char(1) := 'd'; --´ú¿ÛÏúÕÊ
-	ptrans_ÍĞÊÕÏúÕÊ constant char(1) := 't'; --ÍĞÊÕÆ±¾İÏúÕÊ
-	ptrans_¶ÀÁ¢Ô¤´æ constant char(1) := 's'; --×ÔÀ´Ë®¹ñÌ¨¶ÀÁ¢Ô¤´æ
-	ptrans_Æ±¾İÏúÕÊ constant char(1) := 'i'; --×ßÊÕÆ±¾İÏúÕÊ
-	ptrans_Ô¤´æµÖ¿Û constant char(1) := 'u'; --Ëã·Ñ¹ı³Ì¼´Ê±Ô¤´æµÖ¿Û
-	ptrans_Ô¤´æµ÷²¦ constant char(1) := 'k'; --ºÏÊÕ±í´´½¨Ê±×Ó±íÔ¤´æÓà¶î×ªµ½Ö÷±íÔ¤´æÓà¶îÖĞ
-	ptrans_³åÕı       constant char(1) := 'c'; --³åÕı
-	ptrans_ÍË·Ñ       constant char(1) := 'v'; --ÍË·Ñ
-	ptrans_´úÊÕ³åÕı   constant char(1) := 'r'; --ÊµÊ±´úÊÕµ¥±ßÕÊ³åÏú
-	ptrans_Ô¤ÊÛ       constant char(1) := 'q'; --Ô¤ÊÛË®
-	ptrans_ÁãÁ¿·ÑÏúÕÊ constant char(1) := 'w'; --ÁãÁ¿·ÑÏúÕÊ
+	å…è®¸å‡€å‡åè´Ÿé¢„å­˜ constant boolean := true;
+	----å‡€å‡ä¸ºè´Ÿé¢„å­˜ä½™é¢æ—¶ä¸é”€å¸è½¬é¢„å­˜
+	--  ä½œç”¨äºï¼špayreccore
+	å‡€å‡ä¸ºè´Ÿé¢„å­˜ä¸é”€å¸ constant boolean := false;
+	ä»£æ‰£åæ˜¯å¦å‘é€çŸ­ä¿¡ constant boolean := false;
+	--  è°ƒåº¦ä½œä¸šæ–¹å¼ä¸‹ä½™é¢è¶³é¢æŠµæ‰£å½“å‰æ¬ è´¹æ—¶æ§åˆ¶æ˜¯å¦æŠµæ‰£å«è¿çº¦é‡‘æ¬ è´¹è®°å½•
+	--  ä½œç”¨äºï¼špg_pay.remainpaycorebycust
+	å…è®¸é¢„å­˜æŠµæ‰£è¿çº¦æ¬ è´¹ constant integer := 1;
+	å…è®¸é‡å¤é”€å¸ constant integer := 1;
+	----å®æ—¶ä»£æ”¶å•ç¼´é¢„å­˜è§„åˆ™
+	--  ä½œç”¨äºï¼šbpay
+	å…è®¸å®æ—¶ä»£æ”¶å•ç¼´é¢„å­˜ constant boolean := false; --20140812 0:30 true->flase
+	--ã€ä¸€äº›å¯é€‰çš„é”€å¸æ–¹å¼ã€‘
+	----å…è®¸é”€å¸æ‹†å¸
+	ä¸å…è®¸æ‹†å¸ constant integer := 0; --0é‡‘é¢é0æ°´é‡é”€å¸
+	å…è®¸æ‹†å¸   constant integer := 1; --é»˜è®¤
+	----ä»£æ”¶å¯¹å¸æ–¹æ³•
+	æ­£å¸¸å¯¹å¸ constant integer := 1; --è‡ªåŠ¨åŒ–è°ƒç”¨æ—¶å¯ä¼ æ­¤å‚æ•°ï¼Œè‹¥å­˜åœ¨å·²å¯¹å¸è®°å½•ï¼Œä¸”æœ‰å¹³å¸ï¼Œåˆ™å¯¹å¸å¤±è´¥ï¼›
+	é‡æ–°å¯¹å¸ constant integer := 2; --æ‰‹å·¥ä¸šåŠ¡è°ƒç”¨æ—¶ä¼ æ­¤å‚æ•°ï¼Œè‹¥å­˜åœ¨å·²å¯¹å¸è®°å½•ï¼Œä¸”æœ‰å¹³å¸ï¼Œåˆ™è¿˜åŸå¹³å¸ï¼ˆå¯¹å¸å†²æ­£è¿›è¡Œå¯¹å¸è¡¥é”€ã€å¯¹å¸è¡¥é”€è¿›è¡Œå¯¹å¸å†²æ­£ï¼‰åè¿›è¡Œé¦–æ¬¡å¯¹å¸ï¼›
+	----æ‰¹æ‰£æœ¬åœ°å¤„ç†æ–¹å¼
+	æ­£å¸¸æ‰¹æ‰£å¤„ç† constant integer := 1; --è‡ªåŠ¨åŒ–è°ƒç”¨æ—¶å¯ä¼ æ­¤å‚æ•°ï¼Œå¯¹æ–°å·²ä¸‹è´¦è®°å½•è¿›è¡Œé”€å¸ï¼Œå…¶ä½™æ ¹æ®åœ¨é€”å®Œç»“æ ‡å¿—å…¨éƒ¨è§£é”ï¼›
+	é‡æ–°æ‰¹æ‰£å¤„ç† constant integer := 2; --æ‰‹å·¥ä¸šåŠ¡è°ƒç”¨æ—¶ä¼ æ­¤å‚æ•°ï¼Œè‹¥å­˜åœ¨å·²é”€å¸è®°å½•ï¼Œåˆ™è¿˜åŸé”€å¸ï¼ˆä»£æ‰£é”€å¸è¿›è¡Œä»£æ‰£å†²æ­£ï¼‰åè¿›è¡Œæ­£å¸¸å¤„ç†ï¼›
+	----æ‰¹æ¬¡åœ¨é€”å®Œç»“å¦
+	æ‰¹æ‰£æœªç»“æŸ constant integer := 0; --æœ¬æ¬¡æ–‡æ¡£åé“¶è¡Œè¿˜æœªç»“æŸæ‰£è´¹
+	æ‰¹æ‰£ç»“æŸ   constant integer := 1; --å·²ç»“æŸ
+	----æ‰¹æ‰£æ–‡æœ¬ç±»å‹
+	æˆåŠŸæ‰¹æ‰£æ–‡æœ¬   constant integer := 0; --åªæœ‰å¤±è´¥è®°å½•
+	å¤±è´¥æ‰¹æ‰£æ–‡æœ¬   constant integer := 1; --åªæœ‰æˆåŠŸè®°å½•
+	å…¨éƒ¨æ‰¹æ‰£æ–‡æœ¬   constant integer := 2; --æ‰€æœ‰è®°å½•
+	æ— æ–‡æœ¬å…¨éƒ¨æˆåŠŸ constant integer := 3; --æ— æ–‡æœ¬è¿”å›ï¼Œé“¶è¡Œå£å¤´é€šçŸ¥æ‰€æœ‰æ‰¹æ‰£æˆåŠŸ
+	----æŠµå‡é¢„å­˜ä½™é¢åä»£æ‰£
+	æŠµå‡é¢„å­˜ä½™é¢åä»£æ‰£ constant integer := 1; --æ‰¹æ‰£å‘åŒ…æ—¶é¢„å­˜ä½™é¢å‚ä¸è®¡ç®—åº”ç¼´ï¼Œetlje = etlrlje +etlwyj +etlremaind
+	noæŠµå‡é¢„å­˜ä½™é¢ä»£æ‰£ constant integer := 0; --æ‰¹æ‰£å‘åŒ…æ—¶é¢„å­˜ä½™é¢ä¸å‚ä¸è®¡ç®—åº”ç¼´ï¼Œetlje = etlrlje +etlwyj
+	----ç¼´è´¹é€šçŸ¥
+	å…¨å±€å±è”½é€šçŸ¥ constant boolean := false;
+	å±€éƒ¨å±è”½é€šçŸ¥ constant integer := 0; --ï¼ˆå¯èƒ½ç”¨äºå¤–éƒ¨ä¼ å‚ï¼Œæ•…ä½¿ç”¨é€šç”¨intç±»å‹ï¼‰
+	å±€éƒ¨å…è®¸é€šçŸ¥ constant integer := 1; --ï¼ˆå¯èƒ½ç”¨äºå¤–éƒ¨ä¼ å‚ï¼Œæ•…ä½¿ç”¨é€šç”¨intç±»å‹ï¼‰
+	----é”€å¸è¿çº¦é‡‘åˆ†å¸ï¼Œå¯é€šè¿‡å‚æ•°æ§åˆ¶é”€å¸æ ¸å¿ƒè¿‡ç¨‹ä¸­å¯¹è¿çº¦é‡‘å’Œæœ¬é‡‘åˆ†å¸å¤„ç†ï¼Œåˆ†å¸æ¡ä»¶å†…ç½®
+	----ç‹¬ç«‹è¿çº¦é‡‘å‘ç¥¨éœ€æ±‚
+	å…è®¸é”€å¸è¿çº¦é‡‘åˆ†å¸ constant boolean := true; --
+	--å¸¸é‡å‚æ•°
+	ptrans_æŸœå°ç¼´è´¹ constant char(1) := 'p'; --è‡ªæ¥æ°´æŸœå°ç¼´è´¹
+	ptrans_ä»£æ”¶é”€å¸ constant char(1) := 'b'; --é“¶è¡Œå®æ—¶ä»£æ”¶
+	ptrans_ä»£æ”¶è¡¥é”€ constant char(1) := 'e'; --é“¶è¡Œå®æ—¶ä»£æ”¶å•è¾¹å¸è¡¥é”€ï¼ˆå¯¹å¸ç»“æœè¡¥é”€,éš”æ—¥å‘èµ·ï¼‰
+	ptrans_ä»£æ‰£é”€å¸ constant char(1) := 'd'; --ä»£æ‰£é”€å¸
+	ptrans_æ‰˜æ”¶é”€å¸ constant char(1) := 't'; --æ‰˜æ”¶ç¥¨æ®é”€å¸
+	ptrans_ç‹¬ç«‹é¢„å­˜ constant char(1) := 's'; --è‡ªæ¥æ°´æŸœå°ç‹¬ç«‹é¢„å­˜
+	ptrans_ç¥¨æ®é”€å¸ constant char(1) := 'i'; --èµ°æ”¶ç¥¨æ®é”€å¸
+	ptrans_é¢„å­˜æŠµæ‰£ constant char(1) := 'u'; --ç®—è´¹è¿‡ç¨‹å³æ—¶é¢„å­˜æŠµæ‰£
+	ptrans_é¢„å­˜è°ƒæ‹¨ constant char(1) := 'k'; --åˆæ”¶è¡¨åˆ›å»ºæ—¶å­è¡¨é¢„å­˜ä½™é¢è½¬åˆ°ä¸»è¡¨é¢„å­˜ä½™é¢ä¸­
+	ptrans_å†²æ­£       constant char(1) := 'c'; --å†²æ­£
+	ptrans_é€€è´¹       constant char(1) := 'v'; --é€€è´¹
+	ptrans_ä»£æ”¶å†²æ­£   constant char(1) := 'r'; --å®æ—¶ä»£æ”¶å•è¾¹å¸å†²é”€
+	ptrans_é¢„å”®       constant char(1) := 'q'; --é¢„å”®æ°´
+	ptrans_é›¶é‡è´¹é”€å¸ constant char(1) := 'w'; --é›¶é‡è´¹é”€å¸
 		
 	function obtwyj(p_sdate in date, p_edate in date, p_je in number) return number;
 		v_result := p_je * (trunc(p_edate) - trunc(p_sdate) + 1) * 0.003;
 
-	--Î¥Ô¼½ğ¼ÆËã
-	function obtwyjadj(p_arid     in varchar2, --Ó¦ÊÕÁ÷Ë®
-		     p_ardpiids in varchar2, --Ó¦ÊÕÃ÷Ï¸·ÑÏî´®'01|02|03'
-		     p_edate    in date --ÖÕËãÈÕ'²»¼ÆÈë'Î¥Ô¼ÈÕ,²ÎÊı¸ñÊ½'yyyy-mm-dd'
+	--è¿çº¦é‡‘è®¡ç®—
+	function obtwyjadj(p_arid     in varchar2, --åº”æ”¶æµæ°´
+		     p_ardpiids in varchar2, --åº”æ”¶æ˜ç»†è´¹é¡¹ä¸²'01|02|03'
+		     p_edate    in date --ç»ˆç®—æ—¥'ä¸è®¡å…¥'è¿çº¦æ—¥,å‚æ•°æ ¼å¼'yyyy-mm-dd'
 		     ) return number is
-		--³õÊ¼»¯±äÁ¿
+		--åˆå§‹åŒ–å˜é‡
 		vresult          number;
-		v_arzndate       ys_zw_arlist.arzndate%type;		--Î¥Ô¼½ğÆğËãÈÕ
-		v_arznj          ys_zw_arlist.arznj%type;		--Î¥Ô¼½ğ
-		v_outflag        ys_zw_arlist.aroutflag%type;		--·¢³ö±êÖ¾(Y-·¢³ö N-Î´·¢³ö)
-		v_sbid           ys_zw_arlist.sbid%type;		--Ë®±í±àºÅ
-		v_arje           ys_zw_arlist.arje%type;		--Ó¦ÊÕ½ğ¶î
-		v_yhifzn         ys_yh_custinfo.yhifzn%type;		--ÊÇ·ñÖÍÄÉ½ğ
-		v_arznjreducflag ys_zw_arlist.arznjreducflag%type;	--ÖÍÄÉ½ğ¼õÃâ±êÖ¾,Î´¼õÃâÊ±ÎªN£¬ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½Ó¼ÆËã£»¼õÃâºóÎªY,ÏúÕÊÊ±ÖÍÄÉ½ğÖ±½ÓÈ¡ARznj
-		v_chargetype     varchar2(10);				--ÊÕ·Ñ·½Ê½(X×øÊÕM×ßÊÕ)
-		--±äÁ¿¸³Öµ
+		v_arzndate       ys_zw_arlist.arzndate%type;		--è¿çº¦é‡‘èµ·ç®—æ—¥
+		v_arznj          ys_zw_arlist.arznj%type;		--è¿çº¦é‡‘
+		v_outflag        ys_zw_arlist.aroutflag%type;		--å‘å‡ºæ ‡å¿—(Y-å‘å‡º N-æœªå‘å‡º)
+		v_sbid           ys_zw_arlist.sbid%type;		--æ°´è¡¨ç¼–å·
+		v_arje           ys_zw_arlist.arje%type;		--åº”æ”¶é‡‘é¢
+		v_yhifzn         ys_yh_custinfo.yhifzn%type;		--æ˜¯å¦æ»çº³é‡‘
+		v_arznjreducflag ys_zw_arlist.arznjreducflag%type;	--æ»çº³é‡‘å‡å…æ ‡å¿—,æœªå‡å…æ—¶ä¸ºNï¼Œé”€å¸æ—¶æ»çº³é‡‘ç›´æ¥è®¡ç®—ï¼›å‡å…åä¸ºY,é”€å¸æ—¶æ»çº³é‡‘ç›´æ¥å–ARznj
+		v_chargetype     varchar2(10);				--æ”¶è´¹æ–¹å¼(Xåæ”¶Mèµ°æ”¶)
+		--å˜é‡èµ‹å€¼
 		select a.sbid,
 		     max(arzndate),
 		     max(arznj),
@@ -1880,7 +1880,7 @@ package pg_paid
 		where a.sbid = d.sbid
 		 and b.yhid = d.yhid
 		 and a.arid = c.ardid
-		 and instr(p_ardpiids, ardpiid) > 0		--ardpiid·ÑÓÃÏîÄ¿
+		 and instr(p_ardpiids, ardpiid) > 0		--ardpiidè´¹ç”¨é¡¹ç›®
 		 and arid = p_arid
 		group by arid, a.sbid;
 
@@ -1888,7 +1888,7 @@ package pg_paid
 		if v_arje < 0 then v_arje := 0;end if;
 		if v_arznjreducflag = 'y' then return v_arznj; end if;
 		vresult := obtwyj(v_arzndate, p_edate, v_arje);
-		--²»µÃ³¬¹ı±¾½ğ
+		--ä¸å¾—è¶…è¿‡æœ¬é‡‘
 		if vresult > v_arje then vresult := v_arje; end if;
 		return trunc(vresult, 2);
 		
@@ -1901,19 +1901,19 @@ package pg_paid
 		 p_payment  in number,
 		 p_batch    in varchar2,
 		 p_pid      out varchar2);
-		--´¦Àíp_arstr
-		--Ë®Ë¾¹ñÌ¨½É·Ñ£¨Ò»±í£©,²ÎÊı¼ò»¯°æ
+		--å¤„ç†p_arstr
+		--æ°´å¸æŸœå°ç¼´è´¹ï¼ˆä¸€è¡¨ï¼‰,å‚æ•°ç®€åŒ–ç‰ˆ
 		--'123456789,Y*01!Y*02!Y*03!,0.10,0,0,0|123456789,Y*01!Y*02!Y*03!,0.10,0,0,0|'
 		v_parm_ar  parm_payar;
 		v_parm_ars parm_payar_tab;
 		v_parm_ar  := parm_payar(null, null, null, null, null, null);
 		v_parm_ars := parm_payar_tab();
 		for i in 1 .. fmid(p_arstr, '|') - 1 loop
-			--Á÷Ë®ºÅ
+			--æµæ°´å·
 			v_parm_ar.arid     := pg_cb_cost.fgetpara(p_arstr, i, 1);
-			--·ÑÓÃÏîÄ¿´®
+			--è´¹ç”¨é¡¹ç›®ä¸²
 			v_parm_ar.ardpiids := replace(replace(pg_cb_cost.fgetpara(p_arstr, i,2),'*',','),'!','|');
-			--Î¥Ô¼½ğ
+			--è¿çº¦é‡‘
 			v_parm_ar.arwyj    := pg_cb_cost.fgetpara(p_arstr, i, 3);
 			v_parm_ar.fee1     := pg_cb_cost.fgetpara(p_arstr, i, 4);
 			v_parm_ar.fee2     := pg_cb_cost.fgetpara(p_arstr, i, 5);
@@ -1940,33 +1940,33 @@ package pg_paid
 		p_payment  in number,
 		p_batch    in varchar2,
 		p_pid      out varchar2) is
-		Ë®Ë¾¹ñÌ¨½É·Ñ£¨Ò»±í£©
-		¡¾ÊäÈë²ÎÊıËµÃ÷¡¿£º
-		p_sbid		in varchar2 :µ¥Ò»Ë®±í±àºÅ
-		p_parm_ars	in out parm_payr_tab :µ¥±í´ıÏúÓ¦ÊÕ°ü³ÉÔ±²ÎÊıÈçÏÂ£º
-				arid  in number :Ó¦ÊÕÁ÷Ë®£¨ÒÀ´Ë³ÉÔ±´ÎĞòÏúÕÊ£©
-				ardpiids in varchar2 :·ÑÓÃÏîÄ¿´®£¨´ıÏú·ÑÓÃÏîÄ¿,ÓÉÇ°Ì¨¹´Ñ¡·ñ(Y/N)+·ÑÏîID×é³ÉµÄ¶şÎ¬Êı×é£¨»ùÓÚPG_CB_COST.FGETPARA¶şÎ¬Êı×é¹æ·¶£©£¬ÀıÈç£ºY,01|Y,02|N,03|,´ÎĞòºÜÖØÒª£©
-				arznj in number :´«ÈëµÄÎ¥Ô¼½ğ£¨±¾¹ı³ÌÄÚ²»¼ÆËã²»Ğ£Ñé£©£¬´«¶àÉÙÏú¶àÉÙ
-				fee1 in number  :ÆäËû·ÇÏµÍ³·ÑÏî1
-		p_position      in varchar2 :½É·Ñµ¥Î»£¬ÓªÏú¼Ü¹¹ÖĞÓªÒµËù±àÂë£¬ÊµÊÕ¼ÆÕÊµ¥Î»
-		p_oper		in varchar2 :ÏúÕÊÔ±£¬¹ñÌ¨½É·ÑÊ±ÏúÕÊÈËÔ±ÓëÊÕ¿îÔ±Í³Ò»
-		p_payway	in varchar2 :¸¶¿î·½Ê½£¬Ã¿½»Ò×ÓĞÇÒ½öÓĞÒ»ÖÖ¸¶¿î·½Ê½
-		p_payment	in number   :ÊµÊÕ£¬¼´Îª£¨¸¶¿î-ÕÒÁã£©£¬¸¶¿îÓëÕÒÁãÔÚÇ°Ì¨¼ÆËãºÍĞ£Ñé
+		æ°´å¸æŸœå°ç¼´è´¹ï¼ˆä¸€è¡¨ï¼‰
+		ã€è¾“å…¥å‚æ•°è¯´æ˜ã€‘ï¼š
+		p_sbid		in varchar2 :å•ä¸€æ°´è¡¨ç¼–å·
+		p_parm_ars	in out parm_payr_tab :å•è¡¨å¾…é”€åº”æ”¶åŒ…æˆå‘˜å‚æ•°å¦‚ä¸‹ï¼š
+				arid  in number :åº”æ”¶æµæ°´ï¼ˆä¾æ­¤æˆå‘˜æ¬¡åºé”€å¸ï¼‰
+				ardpiids in varchar2 :è´¹ç”¨é¡¹ç›®ä¸²ï¼ˆå¾…é”€è´¹ç”¨é¡¹ç›®,ç”±å‰å°å‹¾é€‰å¦(Y/N)+è´¹é¡¹IDç»„æˆçš„äºŒç»´æ•°ç»„ï¼ˆåŸºäºPG_CB_COST.FGETPARAäºŒç»´æ•°ç»„è§„èŒƒï¼‰ï¼Œä¾‹å¦‚ï¼šY,01|Y,02|N,03|,æ¬¡åºå¾ˆé‡è¦ï¼‰
+				arznj in number :ä¼ å…¥çš„è¿çº¦é‡‘ï¼ˆæœ¬è¿‡ç¨‹å†…ä¸è®¡ç®—ä¸æ ¡éªŒï¼‰ï¼Œä¼ å¤šå°‘é”€å¤šå°‘
+				fee1 in number  :å…¶ä»–éç³»ç»Ÿè´¹é¡¹1
+		p_position      in varchar2 :ç¼´è´¹å•ä½ï¼Œè¥é”€æ¶æ„ä¸­è¥ä¸šæ‰€ç¼–ç ï¼Œå®æ”¶è®¡å¸å•ä½
+		p_oper		in varchar2 :é”€å¸å‘˜ï¼ŒæŸœå°ç¼´è´¹æ—¶é”€å¸äººå‘˜ä¸æ”¶æ¬¾å‘˜ç»Ÿä¸€
+		p_payway	in varchar2 :ä»˜æ¬¾æ–¹å¼ï¼Œæ¯äº¤æ˜“æœ‰ä¸”ä»…æœ‰ä¸€ç§ä»˜æ¬¾æ–¹å¼
+		p_payment	in number   :å®æ”¶ï¼Œå³ä¸ºï¼ˆä»˜æ¬¾-æ‰¾é›¶ï¼‰ï¼Œä»˜æ¬¾ä¸æ‰¾é›¶åœ¨å‰å°è®¡ç®—å’Œæ ¡éªŒ
 
-		--ºËĞÄ²¿·ÖĞ£Ñé
+		--æ ¸å¿ƒéƒ¨åˆ†æ ¡éªŒ
 		for i in (select a.aroutflag
 			from ys_zw_arlist a, table(v_parm_ars) b
 		       where a.arid = b.arid) loop
-		if ÔÊĞíÖØ¸´ÏúÕÊ = 0 and i.aroutflag = 'y' then
+		if å…è®¸é‡å¤é”€å¸ = 0 and i.aroutflag = 'y' then
 		raise_application_error(errcode,
-					'µ±Ç°ÏµÍ³¹æÔò²»ÔÊĞí»®¿ÛÖĞ½øĞĞÓ¦ÊÕ³åÕı');
+					'å½“å‰ç³»ç»Ÿè§„åˆ™ä¸å…è®¸åˆ’æ‰£ä¸­è¿›è¡Œåº”æ”¶å†²æ­£');
 		end if;
 		end loop;
 		
 		select count(*) into v_parm_count from table(v_parm_ars) b;
 		if v_parm_count = 0 then
 			if p_payment > 0 then
-				--µ¥½ÉÔ¤´æºËĞÄ
+				--å•ç¼´é¢„å­˜æ ¸å¿ƒ
 				precust(p_sbid        => p_sbid,
 					p_position    => p_position,
 					p_oper        => p_oper,
@@ -1978,7 +1978,7 @@ package pg_paid
 					o_remainafter => vremainafter);
 			else
 				null;
-				--ÍËÔ¤´æºËĞÄ
+				--é€€é¢„å­˜æ ¸å¿ƒ
 				precustback(p_sbid        => p_sbid,
 					    p_position    => p_position,
 					    p_oper        => p_oper,
@@ -1992,7 +1992,7 @@ package pg_paid
 		else
 			paycust(p_sbid,
 			      v_parm_ars,
-			      ptrans_¹ñÌ¨½É·Ñ,
+			      ptrans_æŸœå°ç¼´è´¹,
 			      p_position,
 			      p_paypoint,
 			      null,
@@ -2001,9 +2001,9 @@ package pg_paid
 			      p_payway,
 			      p_payment,
 			      null,
-			      ²»Ìá½»,
-			      ¾Ö²¿ÆÁ±ÎÍ¨Öª,
-			      ÔÊĞí²ğÕÊ,
+			      ä¸æäº¤,
+			      å±€éƒ¨å±è”½é€šçŸ¥,
+			      å…è®¸æ‹†å¸,
 			      vbatch,
 			      vseqno,
 			      p_pid,
@@ -2029,71 +2029,71 @@ package pg_paid
 		    p_pid         out varchar2,
 		    o_remainafter out number);
 		/*==========================================================================
-		Ò»Ë®±í¶àÓ¦ÊÕÏúÕÊ
+		ä¸€æ°´è¡¨å¤šåº”æ”¶é”€å¸
 		paymeter
-		¡¾ÊäÈë²ÎÊıËµÃ÷¡¿£º
-		p_sbid        in varchar2 :µ¥Ò»Ë®±í±àºÅ
-		p_parm_ARs   in out parm_payAR_tab :¿ÉÒÔÎª¿Õ£¨Ô¤´æ³äÖµ£©£¬´ıÏúÓ¦ÊÕ°ü½á¹¹ÈçÏÂ£º
-				    ARid  in number :Ó¦ÊÕÁ÷Ë®£¨ÒÀ´Ë³ÉÔ±´ÎĞòÏúÕÊ£©
-				    Ardpiids in varchar2 :·ÑÓÃÏîÄ¿´®£¬±ØĞëÊÇYS_ZW_ARDETAILµÄÈ«¼¯£¨´ıÏú·ÑÓÃÏîÄ¿,ÓÉÇ°Ì¨¹´Ñ¡·ñ(Y/N)+·ÑÏîID×é³ÉµÄ¶şÎ¬Êı×é£¨»ùÓÚPG_CB_COST.FGETPARA¶şÎ¬Êı×é¹æ·¶£©£¬ÀıÈç£ºY,01|Y,02|N,03|,´ÎĞòºÜÖØÒª£©
-				    ARznj in number :´«ÈëµÄÊµÊÕÎ¥Ô¼½ğ£¨±¾¹ı³ÌÄÚ²»¼ÆËã²»Ğ£Ñé£©£¬´«¶àÉÙÏú¶àÉÙ
-				    fee1 in number  :ÆäËû·ÇÏµÍ³ÊµÊÕ·ÑÏî1
-		p_trans      in varchar2 :½É·ÑÊÂÎñ
-		p_position      in varchar2 :½É·Ñµ¥Î»£¬ÓªÏú¼Ü¹¹ÖĞÓªÒµËù±àÂë£¬ÊµÊÕ¼ÆÕÊµ¥Î»
-		p_paypoint   in varchar2 :½É·Ñµã£¬½É·Ñµ¥Î»ÏÂ¼¶ĞèÒª·ÖÊÕ·ÑÍøµãµãÍ³¼ÆĞèÒª£¬¿ÉÒÔÎª¿Õ
-		p_bdate      in date :Ç°Ì¨ÈÕÆÚ£¬ÒøĞĞ½»Ò×ÈÕÆÚ(yyyy-mm-dd hh24:mi:ss '2014-02-10 13:53:01')
-		p_bseqno     in varchar2 :Ç°Ì¨Á÷Ë®£¬ÒøĞĞ½»Ò×Á÷Ë®
-		p_oper       in varchar2 :ÏúÕÊÔ±£¬¹ñÌ¨½É·ÑÊ±ÏúÕÊÈËÔ±ÓëÊÕ¿îÔ±Í³Ò»
-		p_payee      in varchar2 :ÊÕ¿îÔ±£¬¹ñÌ¨½É·ÑÊ±ÏúÕÊÈËÔ±ÓëÊÕ¿îÔ±Í³Ò»
-		p_payway     in varchar2 :¸¶¿î·½Ê½£¬Ã¿½»Ò×ÓĞÇÒ½öÓĞÒ»ÖÖ¸¶¿î·½Ê½
-		p_payment    in number   :ÊµÊÕ£¬¼´Îª£¨¸¶¿î-ÕÒÁã£©£¬¸¶¿îÓëÕÒÁãÔÚÇ°Ì¨¼ÆËãºÍĞ£Ñé
-		p_pid_source in number   :¿É¿Õ£¬Õı³£ÏúÕÊÊ±Îª¿Õ£¬Ò²¼´Êµ²ÎÎª¿Õ¸³ÖµÎªĞÂµÄÊµÊÕÁ÷Ë®ºÅ£¬²¿·ÖÍË·Ñ×·ÏúÊ±Ğí´«Ô­ÊµÊÕÁ÷Ë®ÓÃÓÚÊµÊÕĞĞ°ó¶¨
-		p_commit     in number   :Ìá½»·½Ê½£¨0:Ö´ĞĞ³É¹¦ºó²»Ìá½»£»
-					      1:Ö´ĞĞ³É¹¦ºóÌá½»£»
-					      2:µ÷ÊÔ£¬»òÖ´ĞĞ³É¹¦ºóÌá½»£¬µ½Ä£Äâ±í£©
-		p_ctl_msg  in number   :È«¾Ö¿ØÖÆ²ÎÊı¡°½ûÖ¹ËùÓĞÍ¨Öª¡±Ìõ¼şÏÂ£¬ÊÇ·ñ·¢ËÍÍ¨Öª·şÎñ£¬×éÖ¯Í³Ò»½É·Ñ½»Ò×Í¨ÖªÄÚÈİ£¬Í¨¹ısendmsg·¢ËÍµ½Íâ²¿½Ó¿Ú£¨¶ÌĞÅ¡¢Î¢ĞÅµÈ£©£¬
-				    Íâ²¿µ÷ÓÃÊ±Ñ¡ÔñÊÇ·ñĞèÒª±¾½É·Ñ½»Ò×ºËĞÄÍ³Ò»×éÖ¯ÄÚÈİ£¨ÍË·ÑÊ±Í¨ÖªÄÚÈİµÃÔÚÍË·ÑÍ·¹ı³ÌÖĞ×éÖ¯£¬µ÷ÓÃÊ±±ÜÃâ±¾¹ı³ÌÖØ¸´·¢ËÍĞèÒªÆÁ±Î£©
-				    Í¨Öª¿Í»§  = 1
-				    ²»Í¨Öª¿Í»§= 0
-		¡¾Êä³ö²ÎÊıËµÃ÷¡¿£º
-		p_batch      in out number£º´«¿ÕÖµÊ±±¾¹ı³ÌÉú³É£¬·Ç¿ÕÊ±ÓÃ´ËÖµ°ó¶¨ÊµÊÕ¼ÇÂ¼£¬·µ»ØÏúÕÊ³É¹¦ºóµÄ½»Ò×Åú´Î£¬¹©´òÓ¡Ê±¶ş´Î²éÑ¯
-		p_seqno      in out number£º´«¿ÕÖµÊ±±¾¹ı³ÌÉú³É£¬·Ç¿ÕÊ±ÓÃ´ËÖµ°ó¶¨ÊµÊÕ¼ÇÂ¼£¬·µ»ØÏúÕÊ³É¹¦ºóµÄ½»Ò×Åú´Î£¬¹©´òÓ¡Ê±¶ş´Î²éÑ¯
-		p_pid        out number£º·µ»ØÏúÕÊ³É¹¦ºóµÄ½»Ò×Á÷Ë®£¬¹©¸¸¹ı³Ìµ÷ÓÃ
-		¡¾¹ı³ÌËµÃ÷¡¿£º
-		1¡¢Ò»Ë®±íÈÎÒâ¶àÔÂÏúÕÊ´ÎºËĞÄ¹ı³Ì£¬Ìá¹©¸÷½É·ÑÊÂÎñ¹ı³Ìµ÷ÓÃ£»
-		2¡¢ÊµÊÕ = ÏúÕÊ+ÊµÊÕÎ¥Ô¼½ğ+Ô¤´æ£¨¾»Ôö£©+Ô¤´æ£¨¾»¼õ£©+ÆäËû·ÇÏµÍ³·ÑÏî123£»
-		3¡¢Ö§³ÖÔ¤´æ¡¢ÆÚÄ©¸ºÔ¤´æ£¨ÒÀÀµÈ«¾Ö°ü³£Á¿£ºÊÇ·ñÔ¤´æ¡¢ÊÇ·ñ¸ºÔ¤´æ£©£»
-		4¡¢Ö§³ÖÓĞÇÒ½öÓĞÎ¥Ô¼½ğÓ¦ÊÕ¼ÇÂ¼£¨ÎŞË®·Ñ¡¢×·²¹Î¥Ô¼½ğ¹¦ÄÜ²úÉú£©£»
-		5¡¢×îĞ¡ÏúÕÊµ¥ÔªÎªÓ¦ÊÕÃ÷Ï¸ĞĞ»ò½öÓ¦ÊÕÎ¥Ô¼½ğ£¬ÏúÕÊÇ°p_parm_rls.rdpiidsÖĞ³ÉÔ±ÈçÓĞN¹´Ñ¡×´Ì¬Ê±ÏÈÖ´ĞĞ¡¾Ó¦ÊÕµ÷Õû.²¿·ÖÏúÕÊ¡¿£¬Ö®ºóÖØ¹¹¡¾´ıÏúÓ¦ÊÕ°ü¡¿
-		6¡¢¡¾ÖØ¹¹´ıÏúÓ¦ÊÕ°ü¡¿»ù´¡ÉÏ¶ÔÆäÖĞÄ¿Ç°ÊÇÎ´Ïú×´Ì¬µÄÈ«²¿ÏúÕÊ
-		7¡¢×îºóÅĞ¶ÏÕûÌåÊµÊÕÒç³öÊ±£¨´ıÏúÖĞ´æÔÚÆäËüÊµÊÕÊÂÎñÒÑÏú¡¢Ç°Ì¨Ô¤´æ£©
-		1£©ÆôÓÃÔ¤´æÊ±£¬ÏúÕÊºó×öÆÚÄ©Ô¤´æ£¬ÇÒ¼ÇÂ¼ÔÚ·Ö½âÖ®ÏúÕÊÔ¤´æµ½×îºóÏúÕÊ¼ÇÂ¼ÉÏ£¨¼´´ıÏúÓ¦ÊÕ°üÄ©Î²ÏúÕÊµ¥Ôª£©£»
-		2£©Î´ÆôÓÃÔ¤´æÊ±£¬Å×³öÒì³££»
-		8¡¢ÕûÌåÊµÊÕ²»×ãÊ±
-		1£©ÆôÓÃ¸ºÔ¤´æÊ±£¬ÏúÕÊºó×öÆÚÄ©¸ºÔ¤´æ£¬ÇÒ¼ÇÂ¼ÔÚ·Ö½âÖ®ÏúÕÊÔ¤´æµ½×îºóÏúÕÊ¼ÇÂ¼ÉÏ£¨¼´´ıÏúÓ¦ÊÕ°üÄ©Î²ÏúÕÊµ¥Ôª£©£»
-		2£©Î´ÆôÓÃ¸ºÔ¤´æÊ±£¬Å×³öÒì³££»
-		9¡¢¹ØÓÚ²¿·Ö¹´Ñ¡·ÑÏî½É·ÑÊ±²¹³äËµÃ÷£¬Î¥Ô¼½ğÔÚÇ°Ì¨ÖØËã£¬²¢ÇÒÎ¥Ô¼½ğÖ»´ÓÊôÓÚÓ¦ÊÕÕÊÍ·ÎŞĞë·Ö½âµ½Ó¦ÊÕÃ÷Ï¸
-		¡¾¸üĞÂÈÕÖ¾¡¿£º
+		ã€è¾“å…¥å‚æ•°è¯´æ˜ã€‘ï¼š
+		p_sbid        in varchar2 :å•ä¸€æ°´è¡¨ç¼–å·
+		p_parm_ARs   in out parm_payAR_tab :å¯ä»¥ä¸ºç©ºï¼ˆé¢„å­˜å……å€¼ï¼‰ï¼Œå¾…é”€åº”æ”¶åŒ…ç»“æ„å¦‚ä¸‹ï¼š
+				    ARid  in number :åº”æ”¶æµæ°´ï¼ˆä¾æ­¤æˆå‘˜æ¬¡åºé”€å¸ï¼‰
+				    Ardpiids in varchar2 :è´¹ç”¨é¡¹ç›®ä¸²ï¼Œå¿…é¡»æ˜¯YS_ZW_ARDETAILçš„å…¨é›†ï¼ˆå¾…é”€è´¹ç”¨é¡¹ç›®,ç”±å‰å°å‹¾é€‰å¦(Y/N)+è´¹é¡¹IDç»„æˆçš„äºŒç»´æ•°ç»„ï¼ˆåŸºäºPG_CB_COST.FGETPARAäºŒç»´æ•°ç»„è§„èŒƒï¼‰ï¼Œä¾‹å¦‚ï¼šY,01|Y,02|N,03|,æ¬¡åºå¾ˆé‡è¦ï¼‰
+				    ARznj in number :ä¼ å…¥çš„å®æ”¶è¿çº¦é‡‘ï¼ˆæœ¬è¿‡ç¨‹å†…ä¸è®¡ç®—ä¸æ ¡éªŒï¼‰ï¼Œä¼ å¤šå°‘é”€å¤šå°‘
+				    fee1 in number  :å…¶ä»–éç³»ç»Ÿå®æ”¶è´¹é¡¹1
+		p_trans      in varchar2 :ç¼´è´¹äº‹åŠ¡
+		p_position      in varchar2 :ç¼´è´¹å•ä½ï¼Œè¥é”€æ¶æ„ä¸­è¥ä¸šæ‰€ç¼–ç ï¼Œå®æ”¶è®¡å¸å•ä½
+		p_paypoint   in varchar2 :ç¼´è´¹ç‚¹ï¼Œç¼´è´¹å•ä½ä¸‹çº§éœ€è¦åˆ†æ”¶è´¹ç½‘ç‚¹ç‚¹ç»Ÿè®¡éœ€è¦ï¼Œå¯ä»¥ä¸ºç©º
+		p_bdate      in date :å‰å°æ—¥æœŸï¼Œé“¶è¡Œäº¤æ˜“æ—¥æœŸ(yyyy-mm-dd hh24:mi:ss '2014-02-10 13:53:01')
+		p_bseqno     in varchar2 :å‰å°æµæ°´ï¼Œé“¶è¡Œäº¤æ˜“æµæ°´
+		p_oper       in varchar2 :é”€å¸å‘˜ï¼ŒæŸœå°ç¼´è´¹æ—¶é”€å¸äººå‘˜ä¸æ”¶æ¬¾å‘˜ç»Ÿä¸€
+		p_payee      in varchar2 :æ”¶æ¬¾å‘˜ï¼ŒæŸœå°ç¼´è´¹æ—¶é”€å¸äººå‘˜ä¸æ”¶æ¬¾å‘˜ç»Ÿä¸€
+		p_payway     in varchar2 :ä»˜æ¬¾æ–¹å¼ï¼Œæ¯äº¤æ˜“æœ‰ä¸”ä»…æœ‰ä¸€ç§ä»˜æ¬¾æ–¹å¼
+		p_payment    in number   :å®æ”¶ï¼Œå³ä¸ºï¼ˆä»˜æ¬¾-æ‰¾é›¶ï¼‰ï¼Œä»˜æ¬¾ä¸æ‰¾é›¶åœ¨å‰å°è®¡ç®—å’Œæ ¡éªŒ
+		p_pid_source in number   :å¯ç©ºï¼Œæ­£å¸¸é”€å¸æ—¶ä¸ºç©ºï¼Œä¹Ÿå³å®å‚ä¸ºç©ºèµ‹å€¼ä¸ºæ–°çš„å®æ”¶æµæ°´å·ï¼Œéƒ¨åˆ†é€€è´¹è¿½é”€æ—¶è®¸ä¼ åŸå®æ”¶æµæ°´ç”¨äºå®æ”¶è¡Œç»‘å®š
+		p_commit     in number   :æäº¤æ–¹å¼ï¼ˆ0:æ‰§è¡ŒæˆåŠŸåä¸æäº¤ï¼›
+					      1:æ‰§è¡ŒæˆåŠŸåæäº¤ï¼›
+					      2:è°ƒè¯•ï¼Œæˆ–æ‰§è¡ŒæˆåŠŸåæäº¤ï¼Œåˆ°æ¨¡æ‹Ÿè¡¨ï¼‰
+		p_ctl_msg  in number   :å…¨å±€æ§åˆ¶å‚æ•°â€œç¦æ­¢æ‰€æœ‰é€šçŸ¥â€æ¡ä»¶ä¸‹ï¼Œæ˜¯å¦å‘é€é€šçŸ¥æœåŠ¡ï¼Œç»„ç»‡ç»Ÿä¸€ç¼´è´¹äº¤æ˜“é€šçŸ¥å†…å®¹ï¼Œé€šè¿‡sendmsgå‘é€åˆ°å¤–éƒ¨æ¥å£ï¼ˆçŸ­ä¿¡ã€å¾®ä¿¡ç­‰ï¼‰ï¼Œ
+				    å¤–éƒ¨è°ƒç”¨æ—¶é€‰æ‹©æ˜¯å¦éœ€è¦æœ¬ç¼´è´¹äº¤æ˜“æ ¸å¿ƒç»Ÿä¸€ç»„ç»‡å†…å®¹ï¼ˆé€€è´¹æ—¶é€šçŸ¥å†…å®¹å¾—åœ¨é€€è´¹å¤´è¿‡ç¨‹ä¸­ç»„ç»‡ï¼Œè°ƒç”¨æ—¶é¿å…æœ¬è¿‡ç¨‹é‡å¤å‘é€éœ€è¦å±è”½ï¼‰
+				    é€šçŸ¥å®¢æˆ·  = 1
+				    ä¸é€šçŸ¥å®¢æˆ·= 0
+		ã€è¾“å‡ºå‚æ•°è¯´æ˜ã€‘ï¼š
+		p_batch      in out numberï¼šä¼ ç©ºå€¼æ—¶æœ¬è¿‡ç¨‹ç”Ÿæˆï¼Œéç©ºæ—¶ç”¨æ­¤å€¼ç»‘å®šå®æ”¶è®°å½•ï¼Œè¿”å›é”€å¸æˆåŠŸåçš„äº¤æ˜“æ‰¹æ¬¡ï¼Œä¾›æ‰“å°æ—¶äºŒæ¬¡æŸ¥è¯¢
+		p_seqno      in out numberï¼šä¼ ç©ºå€¼æ—¶æœ¬è¿‡ç¨‹ç”Ÿæˆï¼Œéç©ºæ—¶ç”¨æ­¤å€¼ç»‘å®šå®æ”¶è®°å½•ï¼Œè¿”å›é”€å¸æˆåŠŸåçš„äº¤æ˜“æ‰¹æ¬¡ï¼Œä¾›æ‰“å°æ—¶äºŒæ¬¡æŸ¥è¯¢
+		p_pid        out numberï¼šè¿”å›é”€å¸æˆåŠŸåçš„äº¤æ˜“æµæ°´ï¼Œä¾›çˆ¶è¿‡ç¨‹è°ƒç”¨
+		ã€è¿‡ç¨‹è¯´æ˜ã€‘ï¼š
+		1ã€ä¸€æ°´è¡¨ä»»æ„å¤šæœˆé”€å¸æ¬¡æ ¸å¿ƒè¿‡ç¨‹ï¼Œæä¾›å„ç¼´è´¹äº‹åŠ¡è¿‡ç¨‹è°ƒç”¨ï¼›
+		2ã€å®æ”¶ = é”€å¸+å®æ”¶è¿çº¦é‡‘+é¢„å­˜ï¼ˆå‡€å¢ï¼‰+é¢„å­˜ï¼ˆå‡€å‡ï¼‰+å…¶ä»–éç³»ç»Ÿè´¹é¡¹123ï¼›
+		3ã€æ”¯æŒé¢„å­˜ã€æœŸæœ«è´Ÿé¢„å­˜ï¼ˆä¾èµ–å…¨å±€åŒ…å¸¸é‡ï¼šæ˜¯å¦é¢„å­˜ã€æ˜¯å¦è´Ÿé¢„å­˜ï¼‰ï¼›
+		4ã€æ”¯æŒæœ‰ä¸”ä»…æœ‰è¿çº¦é‡‘åº”æ”¶è®°å½•ï¼ˆæ— æ°´è´¹ã€è¿½è¡¥è¿çº¦é‡‘åŠŸèƒ½äº§ç”Ÿï¼‰ï¼›
+		5ã€æœ€å°é”€å¸å•å…ƒä¸ºåº”æ”¶æ˜ç»†è¡Œæˆ–ä»…åº”æ”¶è¿çº¦é‡‘ï¼Œé”€å¸å‰p_parm_rls.rdpiidsä¸­æˆå‘˜å¦‚æœ‰Nå‹¾é€‰çŠ¶æ€æ—¶å…ˆæ‰§è¡Œã€åº”æ”¶è°ƒæ•´.éƒ¨åˆ†é”€å¸ã€‘ï¼Œä¹‹åé‡æ„ã€å¾…é”€åº”æ”¶åŒ…ã€‘
+		6ã€ã€é‡æ„å¾…é”€åº”æ”¶åŒ…ã€‘åŸºç¡€ä¸Šå¯¹å…¶ä¸­ç›®å‰æ˜¯æœªé”€çŠ¶æ€çš„å…¨éƒ¨é”€å¸
+		7ã€æœ€ååˆ¤æ–­æ•´ä½“å®æ”¶æº¢å‡ºæ—¶ï¼ˆå¾…é”€ä¸­å­˜åœ¨å…¶å®ƒå®æ”¶äº‹åŠ¡å·²é”€ã€å‰å°é¢„å­˜ï¼‰
+		1ï¼‰å¯ç”¨é¢„å­˜æ—¶ï¼Œé”€å¸ååšæœŸæœ«é¢„å­˜ï¼Œä¸”è®°å½•åœ¨åˆ†è§£ä¹‹é”€å¸é¢„å­˜åˆ°æœ€åé”€å¸è®°å½•ä¸Šï¼ˆå³å¾…é”€åº”æ”¶åŒ…æœ«å°¾é”€å¸å•å…ƒï¼‰ï¼›
+		2ï¼‰æœªå¯ç”¨é¢„å­˜æ—¶ï¼ŒæŠ›å‡ºå¼‚å¸¸ï¼›
+		8ã€æ•´ä½“å®æ”¶ä¸è¶³æ—¶
+		1ï¼‰å¯ç”¨è´Ÿé¢„å­˜æ—¶ï¼Œé”€å¸ååšæœŸæœ«è´Ÿé¢„å­˜ï¼Œä¸”è®°å½•åœ¨åˆ†è§£ä¹‹é”€å¸é¢„å­˜åˆ°æœ€åé”€å¸è®°å½•ä¸Šï¼ˆå³å¾…é”€åº”æ”¶åŒ…æœ«å°¾é”€å¸å•å…ƒï¼‰ï¼›
+		2ï¼‰æœªå¯ç”¨è´Ÿé¢„å­˜æ—¶ï¼ŒæŠ›å‡ºå¼‚å¸¸ï¼›
+		9ã€å…³äºéƒ¨åˆ†å‹¾é€‰è´¹é¡¹ç¼´è´¹æ—¶è¡¥å……è¯´æ˜ï¼Œè¿çº¦é‡‘åœ¨å‰å°é‡ç®—ï¼Œå¹¶ä¸”è¿çº¦é‡‘åªä»å±äºåº”æ”¶å¸å¤´æ— é¡»åˆ†è§£åˆ°åº”æ”¶æ˜ç»†
+		ã€æ›´æ–°æ—¥å¿—ã€‘ï¼š
 		*/
 
-	procedure payzwarpre(p_parm_ars in out parm_payar_tab, p_commit in number default ²»Ìá½»);
-		²¿·Ö·ÑÓÃÏîÄ¿ÏúÕÊÇ°²ğ·ÖÓ¦ÊÕ£¨Ò»Ó¦ÊÕÕÊ£©£ºÖØÒª¹æÔò£ºÏúÕÊ°ü·Ç¿ÕÊ±¾Ü¾ø0½ğ¶îÊµÏú
-		¡¾ÊäÈë²ÎÊıËµÃ÷¡¿£º
-		p_parm_ars in out parm_payar_tab£º¿ÉÒÔÎª¿Õ£¨Ô¤´æ³äÖµ£©£¬´ıÏúÓ¦ÊÕ°ü
-			arid  in number :Ó¦ÊÕÁ÷Ë®£¨ÒÀ´Ë³ÉÔ±´ÎĞòÏúÕÊ£©
-			ardpiids in varchar2 : ´ıÏú·ÑÓÃÏîÄ¿,ÓÉÊÇ·ñÏúÕÊ(Y/N)+·ÑÏîID×é³ÉµÄ¶şÎ¬Êı×é£¨»ùÓÚPG_CB_COST.FGETPARA¶şÎ¬Êı×é¹æ·¶£©£¬ÀıÈç£ºY,01|Y,02|N,03|,´ÎĞòºÜÖØÒª£©
-				Îª¿ÕÊ±£ººöÂÔ£¬²»²ğ
-				·Ç¿ÕÊ±£º1£©±ØĞëÊÇYS_ZW_ARDETAILµÄÈ«¼¯·ÑÓÃÏîÄ¿´®£»
-					2£©YNÁ½¼¯ºÏ±ØĞë¾ùº¬ÓĞ·Ç0½ğ¶î£¬·ñÔòºöÂÔ£¬²»²ğ£»
-			arznj in number :´«ÈëµÄÎ¥Ô¼½ğ£¨±¾¹ı³ÌÄÚ²»¼ÆËã²»Ğ£Ñé£©£¬´«¶àÉÙÏú¶àÉÙ
-			fee1 in number  :ÆäËû·ÇÏµÍ³·ÑÏî1
-		p_commit in number default ²»Ìá½»
-		¡¾Êä³ö²ÎÊıËµÃ÷¡¿£º
-		¡¾¹ı³ÌËµÃ÷¡¿£º
-		1¡¢½âÎöÏúÕÊ°üÍê³ÉĞ£Ñé£»
-		2¡¢Èô´æÔÚ²¿·Ö·ÑÓÃÏúÕÊ±êÖ¾Î»£¨ÇÒ·ÑÏî¶î·Ç0£©Ôò°´Ó¦ÊÕµ÷Õû·½Ê½²ğ·ÖÓ¦ÊÕÕÊ£¬·ñÔòÔ­°ü·µ»Ø£»
-		3¡¢ÖØ¹¹´ıÈ«¶îÏúÕÊ°ü²¢·µ»Ø·ñÔòÔ­°ü·µ»Ø£»
-		¡¾¸üĞÂÈÕÖ¾¡¿£º
+	procedure payzwarpre(p_parm_ars in out parm_payar_tab, p_commit in number default ä¸æäº¤);
+		éƒ¨åˆ†è´¹ç”¨é¡¹ç›®é”€å¸å‰æ‹†åˆ†åº”æ”¶ï¼ˆä¸€åº”æ”¶å¸ï¼‰ï¼šé‡è¦è§„åˆ™ï¼šé”€å¸åŒ…éç©ºæ—¶æ‹’ç»0é‡‘é¢å®é”€
+		ã€è¾“å…¥å‚æ•°è¯´æ˜ã€‘ï¼š
+		p_parm_ars in out parm_payar_tabï¼šå¯ä»¥ä¸ºç©ºï¼ˆé¢„å­˜å……å€¼ï¼‰ï¼Œå¾…é”€åº”æ”¶åŒ…
+			arid  in number :åº”æ”¶æµæ°´ï¼ˆä¾æ­¤æˆå‘˜æ¬¡åºé”€å¸ï¼‰
+			ardpiids in varchar2 : å¾…é”€è´¹ç”¨é¡¹ç›®,ç”±æ˜¯å¦é”€å¸(Y/N)+è´¹é¡¹IDç»„æˆçš„äºŒç»´æ•°ç»„ï¼ˆåŸºäºPG_CB_COST.FGETPARAäºŒç»´æ•°ç»„è§„èŒƒï¼‰ï¼Œä¾‹å¦‚ï¼šY,01|Y,02|N,03|,æ¬¡åºå¾ˆé‡è¦ï¼‰
+				ä¸ºç©ºæ—¶ï¼šå¿½ç•¥ï¼Œä¸æ‹†
+				éç©ºæ—¶ï¼š1ï¼‰å¿…é¡»æ˜¯YS_ZW_ARDETAILçš„å…¨é›†è´¹ç”¨é¡¹ç›®ä¸²ï¼›
+					2ï¼‰YNä¸¤é›†åˆå¿…é¡»å‡å«æœ‰é0é‡‘é¢ï¼Œå¦åˆ™å¿½ç•¥ï¼Œä¸æ‹†ï¼›
+			arznj in number :ä¼ å…¥çš„è¿çº¦é‡‘ï¼ˆæœ¬è¿‡ç¨‹å†…ä¸è®¡ç®—ä¸æ ¡éªŒï¼‰ï¼Œä¼ å¤šå°‘é”€å¤šå°‘
+			fee1 in number  :å…¶ä»–éç³»ç»Ÿè´¹é¡¹1
+		p_commit in number default ä¸æäº¤
+		ã€è¾“å‡ºå‚æ•°è¯´æ˜ã€‘ï¼š
+		ã€è¿‡ç¨‹è¯´æ˜ã€‘ï¼š
+		1ã€è§£æé”€å¸åŒ…å®Œæˆæ ¡éªŒï¼›
+		2ã€è‹¥å­˜åœ¨éƒ¨åˆ†è´¹ç”¨é”€å¸æ ‡å¿—ä½ï¼ˆä¸”è´¹é¡¹é¢é0ï¼‰åˆ™æŒ‰åº”æ”¶è°ƒæ•´æ–¹å¼æ‹†åˆ†åº”æ”¶å¸ï¼Œå¦åˆ™åŸåŒ…è¿”å›ï¼›
+		3ã€é‡æ„å¾…å…¨é¢é”€å¸åŒ…å¹¶è¿”å›å¦åˆ™åŸåŒ…è¿”å›ï¼›
+		ã€æ›´æ–°æ—¥å¿—ã€‘ï¼š
 
 	procedure zwarreversecore(p_arid_source         in varchar2,
 		    p_artrans_reverse     in varchar2,
@@ -2102,7 +2102,7 @@ package pg_paid
 		    p_ppayment_reverse    in number,
 		    p_memo                in varchar2,
 		    p_ctl_mircode         in varchar2,
-		    p_commit              in number default ²»Ìá½»,
+		    p_commit              in number default ä¸æäº¤,
 		    o_arid_reverse        out varchar2,
 		    o_artrans_reverse     out varchar2,
 		    o_arje_reverse        out number,
@@ -2110,45 +2110,45 @@ package pg_paid
 		    o_arsxf_reverse       out number,
 		    o_arsavingbq_reverse  out number,
 		    io_arsavingqm_reverse in out number);
-		Ó¦ÊÕ³åÕıºËĞÄ
-		¡¾ÊäÈë²ÎÊıËµÃ÷¡¿£º
-		p_arid_source  in number £º±»³åµÄÔ­Ó¦ÊÕ¼ÇÂ¼Á÷Ë®ºÅ£»
-		p_pid_reverse  in number £º£¨¿É¿Õ²ÎÊı£©£¬³åÕı¡¢ÍË·Ñµ÷ÓÃÊ±ĞèÒª´«Ç°ÖÃ¹ı³Ì²úÉúµÄ³åÕıÊµÊÕÁ÷Ë®ºÅ£»
-				      ÔÚ´Ë¹ı³ÌÖĞÒÀ´ËÓë³åÕıÓ¦ÊÕ¼ÇÂ¼°ó¶¨
-		p_ppayment_reverse in number £º£¨¿É¿Õ²ÎÊı£©£¬Í¬ÉÏ²ÎÊı³åÕı¡¢ÍË·Ñµ÷ÓÃÊ±ĞèÒª´«Ç°ÖÃ¹ı³Ì²úÉúµÄ³åÕıÊµÊÕ½ğ¶î£¨¸º£©£¬
-					  ¶ÔÒÑÏúÕÊÓ¦ÊÕµÄ³åÕıÊ±£º
-					  1£©ÒÀ´Ë±£³ÖµÄÏúÕÊ¼ÇÂ¼ºÍÊµÊÕ¼ÇÂ¼µÄÕÊÎñÆ½ºâ£»
-					  2£©ÒÀ´Ë¿ØÖÆÏúÕÊÔ¤´æ·¢Éú£¨ÀıÈçÍË·Ñ²»ĞèÒª·¢ÉúÔ¤´æÔö¼õ¡¢ÊµÊÕ³åÕıÊ±¿ÉÄÜÓĞ£©;
-		p_memo £ºÍâ²¿´«ÈëÕÊÎñ±¸×¢ĞÅÏ¢
-		p_commit £º ÊÇ·ñ¹ı³ÌÄÚÌá½»
-		¡¾Êä³ö²ÎÊıËµÃ÷¡¿£º
-		o_arid_reverse out varchar2£º³åÕıÓ¦ÊÕÁ÷Ë®
-		o_artrans_reverse out varchar2£º³åÕıÓ¦ÊÕÊÂÎñ
-		o_arje_reverse out number£º³åÕıÏúÕÊ½ğ¶î
-		o_arznj_reverse out number£º³åÕıÏúÕÊÎ¥Ô¼½ğ
-		o_arsxf_reverse out number£º³åÕıÏúÕÊÆäËû·Ñ1
-		o_arsavingbq_reverse out number£º³åÕıÏúÕÊÔ¤´æ·¢Éú
-		io_arsavingqm_reverse in out number£ºÍâ²¿³åÕı'ÏúÕÊÓ¦ÊÕ'Ñ­»·Ê±µÄÆÚÄ©Ô¤´æ£¨ÀÛ¼õÆ÷£©
-		¡¾¹ı³ÌËµÃ÷¡¿£º
-		»ùÓÚÒ»ÌõÓ¦ÊÕ×ÜÕÊ¼ÇÂ¼È«¶î³åÕı£¬ÈçÓ¦ÊÕ×ÜÕËÍ¬Ê±ÎªÏúÕÊ¼ÇÂ¼£¬»¹Òª¸üĞÂ±¾³åÕıÕÊ¼ÇÂ¼µÄÏúÕÊĞÅÏ¢£»
-		Ìá¹©ÏúÕÊÔ¤´¦Àí¡¢ÊµÊÕ³åÕı¡¢ÍË·Ñ¡¢Ó¦ÊÕµ÷ÕûµÈÒµÎñ¹ı³Ìµ÷ÓÃ£»
+		åº”æ”¶å†²æ­£æ ¸å¿ƒ
+		ã€è¾“å…¥å‚æ•°è¯´æ˜ã€‘ï¼š
+		p_arid_source  in number ï¼šè¢«å†²çš„åŸåº”æ”¶è®°å½•æµæ°´å·ï¼›
+		p_pid_reverse  in number ï¼šï¼ˆå¯ç©ºå‚æ•°ï¼‰ï¼Œå†²æ­£ã€é€€è´¹è°ƒç”¨æ—¶éœ€è¦ä¼ å‰ç½®è¿‡ç¨‹äº§ç”Ÿçš„å†²æ­£å®æ”¶æµæ°´å·ï¼›
+				      åœ¨æ­¤è¿‡ç¨‹ä¸­ä¾æ­¤ä¸å†²æ­£åº”æ”¶è®°å½•ç»‘å®š
+		p_ppayment_reverse in number ï¼šï¼ˆå¯ç©ºå‚æ•°ï¼‰ï¼ŒåŒä¸Šå‚æ•°å†²æ­£ã€é€€è´¹è°ƒç”¨æ—¶éœ€è¦ä¼ å‰ç½®è¿‡ç¨‹äº§ç”Ÿçš„å†²æ­£å®æ”¶é‡‘é¢ï¼ˆè´Ÿï¼‰ï¼Œ
+					  å¯¹å·²é”€å¸åº”æ”¶çš„å†²æ­£æ—¶ï¼š
+					  1ï¼‰ä¾æ­¤ä¿æŒçš„é”€å¸è®°å½•å’Œå®æ”¶è®°å½•çš„å¸åŠ¡å¹³è¡¡ï¼›
+					  2ï¼‰ä¾æ­¤æ§åˆ¶é”€å¸é¢„å­˜å‘ç”Ÿï¼ˆä¾‹å¦‚é€€è´¹ä¸éœ€è¦å‘ç”Ÿé¢„å­˜å¢å‡ã€å®æ”¶å†²æ­£æ—¶å¯èƒ½æœ‰ï¼‰;
+		p_memo ï¼šå¤–éƒ¨ä¼ å…¥å¸åŠ¡å¤‡æ³¨ä¿¡æ¯
+		p_commit ï¼š æ˜¯å¦è¿‡ç¨‹å†…æäº¤
+		ã€è¾“å‡ºå‚æ•°è¯´æ˜ã€‘ï¼š
+		o_arid_reverse out varchar2ï¼šå†²æ­£åº”æ”¶æµæ°´
+		o_artrans_reverse out varchar2ï¼šå†²æ­£åº”æ”¶äº‹åŠ¡
+		o_arje_reverse out numberï¼šå†²æ­£é”€å¸é‡‘é¢
+		o_arznj_reverse out numberï¼šå†²æ­£é”€å¸è¿çº¦é‡‘
+		o_arsxf_reverse out numberï¼šå†²æ­£é”€å¸å…¶ä»–è´¹1
+		o_arsavingbq_reverse out numberï¼šå†²æ­£é”€å¸é¢„å­˜å‘ç”Ÿ
+		io_arsavingqm_reverse in out numberï¼šå¤–éƒ¨å†²æ­£'é”€å¸åº”æ”¶'å¾ªç¯æ—¶çš„æœŸæœ«é¢„å­˜ï¼ˆç´¯å‡å™¨ï¼‰
+		ã€è¿‡ç¨‹è¯´æ˜ã€‘ï¼š
+		åŸºäºä¸€æ¡åº”æ”¶æ€»å¸è®°å½•å…¨é¢å†²æ­£ï¼Œå¦‚åº”æ”¶æ€»è´¦åŒæ—¶ä¸ºé”€å¸è®°å½•ï¼Œè¿˜è¦æ›´æ–°æœ¬å†²æ­£å¸è®°å½•çš„é”€å¸ä¿¡æ¯ï¼›
+		æä¾›é”€å¸é¢„å¤„ç†ã€å®æ”¶å†²æ­£ã€é€€è´¹ã€åº”æ”¶è°ƒæ•´ç­‰ä¸šåŠ¡è¿‡ç¨‹è°ƒç”¨ï¼›
 
-	procedure paywyjpre(p_parm_ars in out parm_payar_tab, p_commit in number default ²»Ìá½»);
-		ÏúÕÊÎ¥Ô¼½ğ·ÖÕÊÏúÕÊ°üÔ¤´¦Àí
-		¡¾ÊäÈë²ÎÊıËµÃ÷¡¿£º
-		p_parm_ars in out parm_payar_tab£º¿ÉÒÔÎª¿Õ£¨Ô¤´æ³äÖµ£©£¬´ıÏúÓ¦ÊÕ°ü
-			arid  in number :Ó¦ÊÕÁ÷Ë®£¨ÒÀ´Ë³ÉÔ±´ÎĞòÏúÕÊ£©
-			ardpiids in varchar2 : ´ıÏú·ÑÓÃÏîÄ¿,ÓÉÊÇ·ñÏúÕÊ(Y/N)+·ÑÏîID×é³ÉµÄ¶şÎ¬Êı×é£¨»ùÓÚPG_CB_COST.FGETPARA¶şÎ¬Êı×é¹æ·¶£©£¬ÀıÈç£ºY,01|Y,02|N,03|,´ÎĞòºÜÖØÒª£©
-				Îª¿ÕÊ±£ººöÂÔ£¬²»²ğ
-				·Ç¿ÕÊ±£º1£©±ØĞëÊÇys_zw_ardetailµÄÈ«¼¯·ÑÓÃÏîÄ¿´®£»
-					2£©YNÁ½¼¯ºÏ±ØĞë¾ùº¬ÓĞ·Ç0½ğ¶î£¬·ñÔòºöÂÔ£¬²»²ğ£»
-			arznj in number :´«ÈëµÄÎ¥Ô¼½ğ£¨±¾¹ı³ÌÄÚ²»¼ÆËã²»Ğ£Ñé£©£¬´«¶àÉÙÏú¶àÉÙ
-			fee1 in number  :ÆäËû·ÇÏµÍ³·ÑÏî1
-		p_commit in number default ²»Ìá½»
-		¡¾Êä³ö²ÎÊıËµÃ÷¡¿£º
-		¡¾¹ı³ÌËµÃ÷¡¿£º
-		1¡¢½âÎöÏúÕÊ°üÍê³ÉĞ£Ñé£»
-		3¡¢ÖØ¹¹´ıÏúÕÊ°ü²¢·µ»Ø·ñÔòÔ­°ü·µ»Ø£»
+	procedure paywyjpre(p_parm_ars in out parm_payar_tab, p_commit in number default ä¸æäº¤);
+		é”€å¸è¿çº¦é‡‘åˆ†å¸é”€å¸åŒ…é¢„å¤„ç†
+		ã€è¾“å…¥å‚æ•°è¯´æ˜ã€‘ï¼š
+		p_parm_ars in out parm_payar_tabï¼šå¯ä»¥ä¸ºç©ºï¼ˆé¢„å­˜å……å€¼ï¼‰ï¼Œå¾…é”€åº”æ”¶åŒ…
+			arid  in number :åº”æ”¶æµæ°´ï¼ˆä¾æ­¤æˆå‘˜æ¬¡åºé”€å¸ï¼‰
+			ardpiids in varchar2 : å¾…é”€è´¹ç”¨é¡¹ç›®,ç”±æ˜¯å¦é”€å¸(Y/N)+è´¹é¡¹IDç»„æˆçš„äºŒç»´æ•°ç»„ï¼ˆåŸºäºPG_CB_COST.FGETPARAäºŒç»´æ•°ç»„è§„èŒƒï¼‰ï¼Œä¾‹å¦‚ï¼šY,01|Y,02|N,03|,æ¬¡åºå¾ˆé‡è¦ï¼‰
+				ä¸ºç©ºæ—¶ï¼šå¿½ç•¥ï¼Œä¸æ‹†
+				éç©ºæ—¶ï¼š1ï¼‰å¿…é¡»æ˜¯ys_zw_ardetailçš„å…¨é›†è´¹ç”¨é¡¹ç›®ä¸²ï¼›
+					2ï¼‰YNä¸¤é›†åˆå¿…é¡»å‡å«æœ‰é0é‡‘é¢ï¼Œå¦åˆ™å¿½ç•¥ï¼Œä¸æ‹†ï¼›
+			arznj in number :ä¼ å…¥çš„è¿çº¦é‡‘ï¼ˆæœ¬è¿‡ç¨‹å†…ä¸è®¡ç®—ä¸æ ¡éªŒï¼‰ï¼Œä¼ å¤šå°‘é”€å¤šå°‘
+			fee1 in number  :å…¶ä»–éç³»ç»Ÿè´¹é¡¹1
+		p_commit in number default ä¸æäº¤
+		ã€è¾“å‡ºå‚æ•°è¯´æ˜ã€‘ï¼š
+		ã€è¿‡ç¨‹è¯´æ˜ã€‘ï¼š
+		1ã€è§£æé”€å¸åŒ…å®Œæˆæ ¡éªŒï¼›
+		3ã€é‡æ„å¾…é”€å¸åŒ…å¹¶è¿”å›å¦åˆ™åŸåŒ…è¿”å›ï¼›
 
 	procedure payzwarcore(p_pid          in varchar2,
 		p_batch        in varchar2,
@@ -2157,34 +2157,34 @@ package pg_paid
 		p_paiddate     in date,
 		p_paidmonth    in varchar2,
 		p_parm_ars     in parm_payar_tab,
-		p_commit       in number default ²»Ìá½»,
+		p_commit       in number default ä¸æäº¤,
 		o_sum_arje     out number,
 		o_sum_arznj    out number,
 		o_sum_arsxf    out number);
-		ÊµÊÕÏúÕÊ´¦ÀíºËĞÄ
-		¡¾ÊäÈë²ÎÊıËµÃ÷¡¿£º
+		å®æ”¶é”€å¸å¤„ç†æ ¸å¿ƒ
+		ã€è¾“å…¥å‚æ•°è¯´æ˜ã€‘ï¼š
 		p_pid in varchar2,
-		p_payment in number£ºÊµÊÕ½ğ¶î
-		p_remainbefore in number£ºÏúÕÊ°ü´¦ÀíÇ°µÄÆÚ³õÓÃ»§Ô¤´æÓà¶î
+		p_payment in numberï¼šå®æ”¶é‡‘é¢
+		p_remainbefore in numberï¼šé”€å¸åŒ…å¤„ç†å‰çš„æœŸåˆç”¨æˆ·é¢„å­˜ä½™é¢
 		p_paiddate in date,
 		p_paidmonth in varchar2,
-		p_parm_rls in parm_pay1rl_tab,¿ÉÒÔÎª¿Õ£¨Ô¤´æ³äÖµÊ±£©£¬ÏúÕÊ°üËµÃ÷
-					±¾¹ı³ÌºöÂÔÆärdpiids³ÉÔ±Öµ£¬Ä¬ÈÏ¡®Õû±ÊÓ¦ÊÕ×ÜÕËºÍ¹ØÁªÓ¦ÊÕÃ÷Ï¸È«¼¯¡¯È«²¿ÏúÕÊ
-					ÆäËü³ÉÔ±Ïê¼ûpaymeterËµÃ÷°ü¹¹Ôì
-		p_commit in number default ²»Ìá½»£ºÊÇ·ñÌá½»
+		p_parm_rls in parm_pay1rl_tab,å¯ä»¥ä¸ºç©ºï¼ˆé¢„å­˜å……å€¼æ—¶ï¼‰ï¼Œé”€å¸åŒ…è¯´æ˜
+					æœ¬è¿‡ç¨‹å¿½ç•¥å…¶rdpiidsæˆå‘˜å€¼ï¼Œé»˜è®¤â€˜æ•´ç¬”åº”æ”¶æ€»è´¦å’Œå…³è”åº”æ”¶æ˜ç»†å…¨é›†â€™å…¨éƒ¨é”€å¸
+					å…¶å®ƒæˆå‘˜è¯¦è§paymeterè¯´æ˜åŒ…æ„é€ 
+		p_commit in number default ä¸æäº¤ï¼šæ˜¯å¦æäº¤
 
-		¡¾Êä³ö²ÎÊıËµÃ÷¡¿£º
-		o_sum_arje out number£ºÀÛ¼ÆÏúÕÊ½ğ¶î£¨Ö»º¬´ıÏúÓ¦ÊÕÃ÷Ï¸ÖĞµÄ½ğ¶î£©
-		o_sum_arsavingbq out number£ºÀÛ¼ÆÔ¤´æ·¢Éú
+		ã€è¾“å‡ºå‚æ•°è¯´æ˜ã€‘ï¼š
+		o_sum_arje out numberï¼šç´¯è®¡é”€å¸é‡‘é¢ï¼ˆåªå«å¾…é”€åº”æ”¶æ˜ç»†ä¸­çš„é‡‘é¢ï¼‰
+		o_sum_arsavingbq out numberï¼šç´¯è®¡é¢„å­˜å‘ç”Ÿ
 
-		¡¾¹ı³ÌËµÃ÷¡¿£º
-		1¡¢Ó¦ÊÕÏúÕÊ°ü¿ÉÒÔÎª¿Õ£¨Ô¤´æ³äÖµÊ±£©£»
-		2¡¢·Ç¿ÕÊ±£¬Ò²ÔÊĞíÏúÕÊ°üº¬²»·ûºÏÏúÕÊÌõ¼şµÄÓ¦ÊÕid£¬ÀıÈç´ú¿Û¸ôÈÕÏúÕÊ±¾µØÒÑÏúÇé¿öÏÂ£»
-		3¡¢°üÄÚÓ¦ÊÕ×ÜÕË¼°Æä¹ØÁªÓ¦ÊÕÃ÷Ï¸È«²¿ÏúÕÊ£»
-		4¡¢ÔÊĞíÓ¦ÊÕ×ÜÕË0½ğ¶îÏúÕÊ£»
-		5¡¢¸üĞÂÓ¦ÊÕÕÊÍ·¡¢Ã÷Ï¸±íÖĞµÄÏúÕÊĞÅÏ¢
-		6¡¢·µ»ØÊµÊÕ½á¹ûĞÅÏ¢
-		7¡¢Ô¤´æÏúÕÊÂß¼­£º°´ÏúÕÊ°üÄÚÓ¦ÊÕ´ÎĞòÏúÕÊ£¬×Ê½ğÏÈ½øÏÈÏú£¬ÏúÕÊºó¡®ÊµÊÕ½ğ¶î¡¯Óà¶î¼ÇÂ¼£¨ÎŞÂÛÕı¸º£©µ½×îºóÒ»±ÊÏúÕÊ¼ÇÂ¼ÉÏ
+		ã€è¿‡ç¨‹è¯´æ˜ã€‘ï¼š
+		1ã€åº”æ”¶é”€å¸åŒ…å¯ä»¥ä¸ºç©ºï¼ˆé¢„å­˜å……å€¼æ—¶ï¼‰ï¼›
+		2ã€éç©ºæ—¶ï¼Œä¹Ÿå…è®¸é”€å¸åŒ…å«ä¸ç¬¦åˆé”€å¸æ¡ä»¶çš„åº”æ”¶idï¼Œä¾‹å¦‚ä»£æ‰£éš”æ—¥é”€å¸æœ¬åœ°å·²é”€æƒ…å†µä¸‹ï¼›
+		3ã€åŒ…å†…åº”æ”¶æ€»è´¦åŠå…¶å…³è”åº”æ”¶æ˜ç»†å…¨éƒ¨é”€å¸ï¼›
+		4ã€å…è®¸åº”æ”¶æ€»è´¦0é‡‘é¢é”€å¸ï¼›
+		5ã€æ›´æ–°åº”æ”¶å¸å¤´ã€æ˜ç»†è¡¨ä¸­çš„é”€å¸ä¿¡æ¯
+		6ã€è¿”å›å®æ”¶ç»“æœä¿¡æ¯
+		7ã€é¢„å­˜é”€å¸é€»è¾‘ï¼šæŒ‰é”€å¸åŒ…å†…åº”æ”¶æ¬¡åºé”€å¸ï¼Œèµ„é‡‘å…ˆè¿›å…ˆé”€ï¼Œé”€å¸åâ€˜å®æ”¶é‡‘é¢â€™ä½™é¢è®°å½•ï¼ˆæ— è®ºæ­£è´Ÿï¼‰åˆ°æœ€åä¸€ç¬”é”€å¸è®°å½•ä¸Š
 	     
 	procedure precust(p_sbid        in varchar2,
 		    p_position    in varchar2,
@@ -2195,7 +2195,7 @@ package pg_paid
 		    p_batch       in out varchar2,
 		    o_pid         out varchar2,
 		    o_remainafter out number);
-		Ô¤´æ³äÖµ£¨Ò»±í£©
+		é¢„å­˜å……å€¼ï¼ˆä¸€è¡¨ï¼‰
 
 	procedure precustback(p_sbid        in varchar2,
 		p_position    in varchar2,
@@ -2206,7 +2206,7 @@ package pg_paid
 		p_batch       in out varchar2,
 		o_pid         out varchar2,
 		o_remainafter out number);
-		Ô¤´æÍË·Ñ£¨Ò»±í£©
+		é¢„å­˜é€€è´¹ï¼ˆä¸€è¡¨ï¼‰
 
 	procedure precore(p_sbid        in varchar2,
 		    p_trans       in varchar2,
@@ -2223,26 +2223,26 @@ package pg_paid
 		    p_seqno       in out varchar2,
 		    o_pid         out varchar2,
 		    o_remainafter out number);
-		Ô¤´æÊµÊÕ´¦ÀíºËĞÄ
-		¡¾ÊäÈë²ÎÊıËµÃ÷¡¿£º
-		p_sbid        in varchar2£ºÖ¸¶¨Ô¤´æ·¢ÉúµÄË®±í±àºÅ
-		p_trans      in varchar2£ºÖ¸¶¨Ô¤´æ·¢Éú¼ÆÕÊÊµÊÕÊÂÎñ
-		p_position      in varchar2£ºÖ¸¶¨Ô¤´æ·¢Éú½É·Ñµ¥Î»
-		p_paypoint   in varchar2£ºÖ¸¶¨Ô¤´æ·¢Éú½É·ÑµØµã
-		p_bdate      in date£ºÖ¸¶¨Ô¤´æ·¢ÉúÒøĞĞÕÊÎñÈÕÆÚ
-		p_bseqno     in varchar2£ºÖ¸¶¨Ô¤´æ·¢ÉúÒøĞĞ½»Ò×Á÷Ë®
-		p_oper       in varchar2£ºÔ¤´æÊÕ¿îÈË
-		p_payway     in varchar2£ºÔ¤´æ·¢Éú¸¶¿î·½Ê½
-		p_payment    in number£ºÔ¤´æ·¢Éú½ğ¶î£¨+/-£©
-		p_commit     in number£ºÊÇ·ñÌá½»
-		p_memo       in varchar2£º±¸×¢ĞÅÏ¢
-		p_batch      in out number£º¿É¿Õ£¬°ó¶¨Åú´Î
-		p_seqno      in out number£º¿É¿Õ£¬°ó¶¨Åú´ÎÁ÷Ë®
-		¡¾Êä³ö²ÎÊıËµÃ÷¡¿£º
-		p_pid        out number£ºÔ¤´æ·¢Éú¼ÇÂ¼¼ÆÕÊ³É¹¦ºó·µ»ØµÄÊµÊÕÁ÷Ë®ºÅ
+		é¢„å­˜å®æ”¶å¤„ç†æ ¸å¿ƒ
+		ã€è¾“å…¥å‚æ•°è¯´æ˜ã€‘ï¼š
+		p_sbid        in varchar2ï¼šæŒ‡å®šé¢„å­˜å‘ç”Ÿçš„æ°´è¡¨ç¼–å·
+		p_trans      in varchar2ï¼šæŒ‡å®šé¢„å­˜å‘ç”Ÿè®¡å¸å®æ”¶äº‹åŠ¡
+		p_position      in varchar2ï¼šæŒ‡å®šé¢„å­˜å‘ç”Ÿç¼´è´¹å•ä½
+		p_paypoint   in varchar2ï¼šæŒ‡å®šé¢„å­˜å‘ç”Ÿç¼´è´¹åœ°ç‚¹
+		p_bdate      in dateï¼šæŒ‡å®šé¢„å­˜å‘ç”Ÿé“¶è¡Œå¸åŠ¡æ—¥æœŸ
+		p_bseqno     in varchar2ï¼šæŒ‡å®šé¢„å­˜å‘ç”Ÿé“¶è¡Œäº¤æ˜“æµæ°´
+		p_oper       in varchar2ï¼šé¢„å­˜æ”¶æ¬¾äºº
+		p_payway     in varchar2ï¼šé¢„å­˜å‘ç”Ÿä»˜æ¬¾æ–¹å¼
+		p_payment    in numberï¼šé¢„å­˜å‘ç”Ÿé‡‘é¢ï¼ˆ+/-ï¼‰
+		p_commit     in numberï¼šæ˜¯å¦æäº¤
+		p_memo       in varchar2ï¼šå¤‡æ³¨ä¿¡æ¯
+		p_batch      in out numberï¼šå¯ç©ºï¼Œç»‘å®šæ‰¹æ¬¡
+		p_seqno      in out numberï¼šå¯ç©ºï¼Œç»‘å®šæ‰¹æ¬¡æµæ°´
+		ã€è¾“å‡ºå‚æ•°è¯´æ˜ã€‘ï¼š
+		p_pid        out numberï¼šé¢„å­˜å‘ç”Ÿè®°å½•è®¡å¸æˆåŠŸåè¿”å›çš„å®æ”¶æµæ°´å·
 
 	function fmid(p_str in varchar2, p_sep in varchar2) return integer;
-		·µ»Øp_strÖĞp_sepµÄ¸öÊı+1
+		è¿”å›p_strä¸­p_sepçš„ä¸ªæ•°+1
 
 package pg_balanceadj_01
 
@@ -2250,47 +2250,47 @@ package pg_balanceadj_01
 		p_person in varchar2,
 		p_billid in varchar2,
 		p_djlb   in varchar2);
-		--µ¥¾İÌá½»Èë¿Ú¹ı³Ì
+		--å•æ®æäº¤å…¥å£è¿‡ç¨‹
 	
-	procedure sp_balanceadj(p_bill_id in varchar2, --Åú´ÎÁ÷Ë®
-		p_per     in varchar2, --²Ù×÷Ô±
-		p_commit  in varchar2 --Ìá½»±êÖ¾;
+	procedure sp_balanceadj(p_bill_id in varchar2, --æ‰¹æ¬¡æµæ°´
+		p_per     in varchar2, --æ“ä½œå‘˜
+		p_commit  in varchar2 --æäº¤æ ‡å¿—;
 		);
-		--¼õÃâµ¥Ìå
+		--å‡å…å•ä½“
 
 package pg_arsplit_01
-	--²ğ·ÖÕËµ¥¹ı³Ì°ü
+	--æ‹†åˆ†è´¦å•è¿‡ç¨‹åŒ…
 
-	--µ¥¾İÌá½»Èë¿Ú¹ı³Ì
+	--å•æ®æäº¤å…¥å£è¿‡ç¨‹
 	procedure approve(p_billno in varchar2,
 		    p_person in varchar2,
 		    p_billid in varchar2,
 		    p_djlb   in varchar2);
 
-	--²ğ·ÖÕËµ¥µ¥Ìå
-	procedure sp_arsplit(p_bill_id in varchar2, --Åú´ÎÁ÷Ë®
-		       p_per     in varchar2, --²Ù×÷Ô±
-		       p_commit  in varchar2 --Ìá½»±êÖ¾;
+	--æ‹†åˆ†è´¦å•å•ä½“
+	procedure sp_arsplit(p_bill_id in varchar2, --æ‰¹æ¬¡æµæ°´
+		       p_per     in varchar2, --æ“ä½œå‘˜
+		       p_commit  in varchar2 --æäº¤æ ‡å¿—;
 		       );
-	--²ğ·ÖÕËµ¥µ¥Ìå
+	--æ‹†åˆ†è´¦å•å•ä½“
 	procedure sp_arsplit_change_one(p_arsplitdt   in ys_gd_arsplitdt%rowtype,  
-		       p_per     in varchar2, --²Ù×÷Ô±
-		       p_commit  in varchar2 --Ìá½»±êÖ¾;
+		       p_per     in varchar2, --æ“ä½œå‘˜
+		       p_commit  in varchar2 --æäº¤æ ‡å¿—;
 		       ); 
 					   
-	--²åÈëµ¥¸ºÓ¦ÊÕÓëÓ¦ÊÕ³åÕı  --µ¥Ìõ                     
-	procedure sp_reccz_one_01(p_arid   in ys_zw_arlist.arid%type, -- ĞĞ±äÁ¿
-			    p_commit in varchar --ÊÇ·ñÌá½»±êÖ¾
+	--æ’å…¥å•è´Ÿåº”æ”¶ä¸åº”æ”¶å†²æ­£  --å•æ¡                     
+	procedure sp_reccz_one_01(p_arid   in ys_zw_arlist.arid%type, -- è¡Œå˜é‡
+			    p_commit in varchar --æ˜¯å¦æäº¤æ ‡å¿—
 			    );
 
-	--Ó¦ÊÕ·ÖÕË´¦Àí  
-	--ÊäÈëÓ¦ÊÕÁ÷Ë®£¬·ÖÕÊ½ğ¶î£¬
-	--·µ»Ø·ÖÕÊË®Á¿
-	--1°´Ë®Á¿³Ëµ¥¼Û·Ö
-	--2·Öµ½²»×ãÒ»¶ÖË®ÎªÖ¹
-	--3´Ó¸ßË®Á¿¼õÆğ¼õµ½Ë®Á¿Îª1¶ÖÎªÖ¹
-	function sf_recfzsl(p_arid in varchar2, --·ÖÕÊÁ÷Ë®
-		      p_arje in number --·ÖÕÊ½ğ¶î
+	--åº”æ”¶åˆ†è´¦å¤„ç†  
+	--è¾“å…¥åº”æ”¶æµæ°´ï¼Œåˆ†å¸é‡‘é¢ï¼Œ
+	--è¿”å›åˆ†å¸æ°´é‡
+	--1æŒ‰æ°´é‡ä¹˜å•ä»·åˆ†
+	--2åˆ†åˆ°ä¸è¶³ä¸€å¨æ°´ä¸ºæ­¢
+	--3ä»é«˜æ°´é‡å‡èµ·å‡åˆ°æ°´é‡ä¸º1å¨ä¸ºæ­¢
+	function sf_recfzsl(p_arid in varchar2, --åˆ†å¸æµæ°´
+		      p_arje in number --åˆ†å¸é‡‘é¢
 		      ) return number;
 
 package pg_sbtrans
@@ -2301,18 +2301,48 @@ package pg_sbtrans
 		    p_billid in varchar2,
 		    p_djlb   in varchar2);
 
-	--¹¤µ¥Ö÷³ÌĞò
+	--å·¥å•ä¸»ç¨‹åº
 	procedure sp_sbtrans(p_hire_code in varchar2,
-			  p_type      in varchar2, --²Ù×÷ÀàĞÍ
-			  p_bill_id   in varchar2, --Åú´ÎÁ÷Ë®
-			  p_per       in varchar2, --²Ù×÷Ô±
-			  p_commit    in varchar2 --Ìá½»±êÖ¾
+			  p_type      in varchar2, --æ“ä½œç±»å‹
+			  p_bill_id   in varchar2, --æ‰¹æ¬¡æµæ°´
+			  p_per       in varchar2, --æ“ä½œå‘˜
+			  p_commit    in varchar2 --æäº¤æ ‡å¿—
 			  );
 
-	--¹¤µ¥µ¥¸öÉóºË¹ı³Ì
-	procedure sp_sbtransone(p_type   in varchar2, --ÀàĞÍ
-			     p_person in varchar2, -- ²Ù×÷Ô±
-			     p_md     in ys_gd_metertransdt%rowtype --µ¥ÌåĞĞ±ä¸ü
+	--å·¥å•å•ä¸ªå®¡æ ¸è¿‡ç¨‹
+	procedure sp_sbtransone(p_type   in varchar2, --ç±»å‹
+			     p_person in varchar2, -- æ“ä½œå‘˜
+			     p_md     in ys_gd_metertransdt%rowtype --å•ä½“è¡Œå˜æ›´
 			     );
 
+package pg_artrans_01
 
+	--å•æ®æäº¤å…¥å£è¿‡ç¨‹
+	procedure approve(p_billno in varchar2,
+		    p_person in varchar2,
+		    p_billid in varchar2,
+		    p_djlb   in varchar2);
+
+	--è¿½é‡æ”¶è´¹ 
+	procedure sp_rectrans(p_no in varchar2, p_per in varchar2);
+	--è¿½æ”¶æ’å…¥æŠ„è¡¨è®¡åˆ’   
+	procedure sp_insertmr(rth         in ys_gd_araddhd%rowtype, --è¿½æ”¶å¤´
+			p_mriftrans in varchar2, --æŠ„è¡¨æ•°æ®äº‹åŠ¡
+			mi          in ys_yh_sbinfo%rowtype, --æ°´è¡¨ä¿¡æ¯
+			omrid       out ys_cb_mtread.id%type);
+
+	--è¿½æ”¶æ’å…¥æŠ„è¡¨è®¡åˆ’åˆ°å†å²åº“
+	procedure sp_insertmrhis(rth         in ys_gd_araddhd%rowtype, --è¿½æ”¶å¤´
+			p_mriftrans in varchar2, --æŠ„è¡¨æ•°æ®äº‹åŠ¡
+			mi          in ys_yh_sbinfo%rowtype, --æ°´è¡¨ä¿¡æ¯
+			omrid       out ys_cb_mtread.id%type);
+
+	--è°ƒæ•´å‡å…
+	procedure recadjust(p_billno in varchar2, --å•æ®ç¼–å·
+		     p_per    in varchar2, --å®Œç»“äºº
+		     p_memo   in varchar2, --å¤‡æ³¨
+		     p_commit in varchar --æ˜¯å¦æäº¤æ ‡å¿—
+		     ); 
+
+	---å®æ”¶å†²æ­£
+	procedure sp_paidbak(p_no in varchar2, p_per in varchar2);

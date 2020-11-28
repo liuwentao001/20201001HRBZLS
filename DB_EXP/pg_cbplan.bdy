@@ -752,11 +752,11 @@
   END;
 
   -- 手工账务月结处理
-  --p_smfid 营业所,售水公司
+  --p_HIRE_CODE  租户
+  --P_ID 营业所,售水公司
   --p_month 当前月份
   --p_per 操作员
-  --p_commit 提交标志
-  --o_ret 返回值 
+  --p_commit 提交标志 
   PROCEDURE month_over_all(p_HIRE_CODE in varchar2,
                            P_ID        IN VARCHAR2,
                            P_MONTH     IN VARCHAR2,
@@ -773,12 +773,99 @@
                  and manage_no like '02%'
                  and last_mark = '1'
                  and (manage_no = P_ID or P_ID = 'ALL')) loop
-      month_over(p_HIRE_CODE  , I.MANAGE_NO, P_MONTH , P_PER ,  P_COMMIT );
+      month_over(p_HIRE_CODE, I.MANAGE_NO, P_MONTH, P_PER, P_COMMIT);
     end loop;
   EXCEPTION
     WHEN OTHERS THEN
       ROLLBACK;
       RAISE_APPLICATION_ERROR(ERRCODE, '账务月结失败' || SQLERRM);
+  END;
+
+  PROCEDURE cb_delete(p_HIRE_CODE in varchar2,
+                      p_MANAGE_NO in varchar2,
+                      P_book_no   IN VARCHAR2,
+                      P_MONTH     IN VARCHAR2,
+                      p_sbid      in varchar2,
+                      P_PER       IN VARCHAR2,
+                      P_COMMIT    IN VARCHAR2) IS
+    V_COUNT     NUMBER;
+    V_TEMPMONTH VARCHAR2(7);
+    VSCRMONTH   VARCHAR2(7);
+    VDESMONTH   VARCHAR2(7);
+    cb          ys_cb_mtread%ROWTYPE;
+  BEGIN
+  
+    if p_sbid = 'ALL' THEN
+    
+      SELECT COUNT(*)
+        INTO V_COUNT
+        FROM YS_CB_MTREAD
+       WHERE HIRE_CODE = p_HIRE_CODE
+         AND CBMRMONTH = P_MONTH
+         and MANAGE_NO = p_MANAGE_NO
+         AND SBID = P_SBID;
+      IF V_COUNT = 0 THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '未有抄表计划，不用取消');
+      ELSE
+        SELECT *
+          into cb
+          FROM YS_CB_MTREAD
+         WHERE HIRE_CODE = p_HIRE_CODE
+           AND CBMRMONTH = P_MONTH
+           and MANAGE_NO = p_MANAGE_NO
+           AND SBID = P_SBID;
+        if cb.cbmrreadok = 'Y' then
+          RAISE_APPLICATION_ERROR(ERRCODE, '已抄表，不用取消');
+        end if;
+        delete YS_CB_MTREAD
+         WHERE HIRE_CODE = p_HIRE_CODE
+           AND CBMRMONTH = P_MONTH
+           and MANAGE_NO = p_MANAGE_NO
+           AND SBID = P_SBID;
+      END IF;
+    
+    ELSE
+       SELECT COUNT(*)
+        INTO V_COUNT
+        FROM YS_CB_MTREAD
+       WHERE HIRE_CODE = p_HIRE_CODE
+         AND CBMRMONTH = P_MONTH
+         and MANAGE_NO = p_MANAGE_NO
+         AND book_no  = P_book_no;
+      IF V_COUNT = 0 THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '未有抄表计划，不用取消');
+      ELSE
+          SELECT COUNT(*)
+        INTO V_COUNT
+        FROM YS_CB_MTREAD
+       WHERE HIRE_CODE = p_HIRE_CODE
+         AND CBMRMONTH = P_MONTH
+         and MANAGE_NO = p_MANAGE_NO
+         AND book_no  = P_book_no
+         and cbmrreadok = 'Y';
+         if V_COUNT > 0 then 
+            RAISE_APPLICATION_ERROR(ERRCODE, '已抄表，不用取消');
+         end if;
+         delete YS_CB_MTREAD
+       WHERE HIRE_CODE = p_HIRE_CODE
+         AND CBMRMONTH = P_MONTH
+         and MANAGE_NO = p_MANAGE_NO
+         AND book_no  = P_book_no;
+         update ys_bas_book k
+       set READ_NMONTH =  P_MONTH
+     where MANAGE_NO = p_MANAGE_NO
+       and BOOK_NO = p_BOOK_NO
+       and hire_code = p_HIRE_CODE;
+      end if;
+    END IF;
+    if P_COMMIT = '1' then
+       commit;
+    end if ;
+    
+  EXCEPTION
+    WHEN OTHERS THEN
+    
+      RAISE_APPLICATION_ERROR(ERRCODE, '取消抄表计划失败' || SQLERRM);
   END;
 end;
 /
