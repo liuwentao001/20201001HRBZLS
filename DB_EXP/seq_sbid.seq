@@ -1,7 +1,7 @@
 ﻿create sequence SEQ_SBID
 minvalue 1
 maxvalue 999999999
-start with 130758220
+start with 130758270
 increment by 1
 cache 50
 order;

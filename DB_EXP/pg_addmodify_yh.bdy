@@ -7,11 +7,11 @@
                   P_PERSON IN VARCHAR2,
                   P_DJLB   IN VARCHAR2) IS
   BEGIN
-    IF P_DJLB IN ('LH' ) THEN
+    IF P_DJLB IN ('LH') THEN
       SP_yhadd(P_DJLB, P_BILLNO, P_PERSON, 'N');
     ELSE
       SP_yhModify(P_DJLB, P_BILLNO, P_PERSON, 'N');
-    END IF; 
+    END IF;
   
     COMMIT;
   EXCEPTION
@@ -111,7 +111,7 @@
       v_sb.sbid      := nvl(i.sbid, f_get_sbid);
       v_sb.id        := i.id;
       v_sb.hire_code := i.hire_code;
-      v_yh.yhid := nvl(i.yhid , v_sb.sbid );
+      v_yh.yhid      := nvl(i.yhid, v_sb.sbid);
       v_sb.yhid      := v_yh.yhid;
       -- v_sb.sbid          := i.sbid;
       v_sb.sbadr     := i.sbadr;
@@ -321,7 +321,7 @@
                where bill_id = P_billno
                  and HIRE_CODE = v_HIRE_CODE) loop
       --更名           
-      if P_DJLB = 'YHXXBG' then
+      if P_DJLB = 'GM' then
         update ys_yh_custinfo
            set yhname       = i.yhname,
                yhadr        = i.yhadr,
@@ -340,6 +340,208 @@
          where sbid = i.sbid;
       end if;
     
+      --更名           
+      if P_DJLB = 'YHXXBG' then
+      
+        update ys_yh_custinfo
+           set yhconid       = I.yhconid,
+               manage_no     = I.manage_no,
+               yhpid         = I.yhpid,
+               yhclass       = I.yhclass,
+               yhflag        = I.yhflag,
+               yhname        = I.yhname,
+               yhname2       = I.yhname2,
+               yhadr         = I.yhadr,
+               yhstatus      = I.yhstatus,
+               yhstatusdate  = I.yhstatusdate,
+               yhstatustrans = I.yhstatustrans,
+               yhnewdate     = I.yhnewdate,
+               yhidentitylb  = I.yhidentitylb,
+               yhidentityno  = I.yhidentityno,
+               yhmtel        = I.yhmtel,
+               yhtel1        = I.yhtel1,
+               yhtel2        = I.yhtel2,
+               yhtel3        = I.yhtel3,
+               yhconnectper  = I.yhconnectper,
+               yhconnecttel  = I.yhconnecttel,
+               yhifinv       = I.yhifinv,
+               yhifsms       = I.yhifsms,
+               yhifzn        = I.yhifzn,
+               yhprojno      = I.yhprojno,
+               yhfileno      = I.yhfileno,
+               yhmemo        = I.yhmemo,
+               yhdeptid      = I.yhdeptid
+         where yhid = I.yhid;
+        update ys_yh_sbinfo
+           set yhid          = I.yhid,
+               sbadr         = I.sbadr,
+               area_no       = I.area_no,
+               manage_no     = I.manage_no,
+               sbprmon       = I.sbprmon,
+               sbrmon        = I.sbrmon,
+               book_no       = I.book_no,
+               sbrorder      = I.sbrorder,
+               sbpid         = I.sbpid,
+               sbclass       = I.sbclass,
+               sbflag        = I.sbflag,
+               sbrtid        = I.sbrtid,
+               sbifmp        = I.sbifmp,
+               sbifsp        = I.sbifsp,
+               trade_no      = I.trade_no,
+               price_no      = I.price_no,
+               sbstatus      = I.sbstatus,
+               sbstatusdate  = I.sbstatusdate,
+               sbstatustrans = I.sbstatustrans,
+               sbface        = I.sbface,
+               sbrpid        = I.sbrpid,
+               sbside        = I.sbside,
+               sbposition    = I.sbposition,
+               sbinscode     = I.sbinscode,
+               sbinsdate     = I.sbinsdate,
+               sbinsper      = I.sbinsper,
+               sbreinscode   = I.sbreinscode,
+               sbreinsdate   = I.sbreinsdate,
+               sbreinsper    = I.sbreinsper,
+               sbtype        = I.sbtype,
+               sbrcode       = I.sbrcode,
+               sbrecdate     = I.sbrecdate,
+               sbrecsl       = I.sbrecsl,
+               sbifcharge    = I.sbifcharge,
+               sbifsl        = I.sbifsl,
+               sbifchk       = I.sbifchk,
+               sbifwatch     = I.sbifwatch,
+               sbicno        = I.sbicno,
+               sbmemo        = I.sbmemo,
+               sbpriid       = I.sbpriid,
+               sbpriflag     = I.sbpriflag,
+               sbusenum      = I.sbusenum,
+               sbchargetype  = I.sbchargetype,
+               sbsaving      = I.sbsaving,
+               sblb          = I.sblb,
+               sbnewflag     = I.sbnewflag,
+               sbcper        = I.sbcper,
+               sbiftax       = I.sbiftax,
+               sbtaxno       = I.sbtaxno,
+               sbuninscode   = I.sbuninscode,
+               sbuninsdate   = I.sbuninsdate,
+               sbuninsper    = I.sbuninsper,
+               sbface2       = I.sbface2,
+               sbface3       = I.sbface3,
+               sbface4       = I.sbface4,
+               sbrcodechar   = I.sbrcodechar,
+               sbifckf       = I.sbifckf,
+               sbgps         = I.sbgps,
+               sbqfh         = I.sbqfh,
+               sbbox         = I.sbbox,
+               sbjfkrow      = I.sbjfkrow,
+               sbname        = I.sbname,
+               sbname2       = I.sbname2,
+               sbseqno       = I.sbseqno,
+               sbnewdate     = I.sbnewdate,
+               sbuiid        = I.sbuiid,
+               sbcommunity   = I.sbcommunity,
+               sbremoteno    = I.sbremoteno,
+               sbremotehubno = I.sbremotehubno,
+               sbemail       = I.sbemail,
+               sbemailflag   = I.sbemailflag,
+               sbdbjmsl1     = I.sbdbjmsl1,
+               sbdbyhbz2     = I.sbdbyhbz2,
+               sbdbjzyf3     = I.sbdbjzyf3,
+               sbyhxz4       = I.sbyhxz4,
+               sbpaymentid   = I.sbpaymentid,
+               sbgdsl5       = I.sbgdsl5,
+               sbftsl6       = I.sbftsl6,
+               sbxjdj7       = I.sbxjdj7,
+               sbcolumn8     = I.sbcolumn8,
+               sbyhlb9       = I.sbyhlb9,
+               sbsfqdht10    = I.sbsfqdht10,
+               sblh          = I.sblh,
+               sbdyh         = I.sbdyh,
+               sbmph         = I.sbmph,
+               sbjd          = I.sbjd,
+               sbyhpj        = I.sbyhpj,
+               sbtax         = I.sbtax,
+               sbifzdh       = I.sbifzdh,
+               sbdbzjh       = I.sbdbzjh,
+               sbdzbz1       = I.sbdzbz1,
+               sbmsbz2       = I.sbmsbz2,
+               sbxkzbz3      = I.sbxkzbz3,
+               sbsbmm4       = I.sbsbmm4,
+               sbmmsz5       = I.sbmmsz5,
+               sbxymm6       = I.sbxymm6,
+               sbmszdsl7     = I.sbmszdsl7,
+               sbyctf8       = I.sbyctf8,
+               sbzdzzs9      = I.sbzdzzs9,
+               sbcbshsj10    = I.sbcbshsj10,
+               sbjtkssj11    = I.sbjtkssj11,
+               sbyl12        = I.sbyl12,
+               sbjdh13       = I.sbjdh13,
+               sbtkbz11      = I.sbtkbz11,
+               sbtkzjh       = I.sbtkzjh,
+               sbhtbh        = I.sbhtbh,
+               sbhtzq        = I.sbhtzq,
+               sbrqxz        = I.sbrqxz,
+               htdate        = I.htdate,
+               zfdate        = I.zfdate,
+               jzdate        = I.jzdate,
+               signper       = I.signper,
+               signid        = I.signid,
+               pocid         = I.pocid,
+               sbcode        = I.sbcode
+         where sbid = I.sbid;
+      
+        update ys_yh_account
+           set yhano          = I.yhano,
+               yhanoname      = I.yhanoname,
+               yhabankid      = I.yhabankid,
+               yhaaccountno   = I.yhaaccountno,
+               yhaaccountname = I.yhaaccountname,
+               yhatsbankid    = I.yhatsbankid,
+               yhatsbankname  = I.yhatsbankname,
+               yhaifxezf      = I.yhaifxezf,
+               yharegdate     = I.yharegdate
+         where sbid = I.sbid;
+      
+        update ys_yh_sbdoc
+           set mdno           = I.mdno,
+               mdcaliber      = I.mdcaliber,
+               mdbrand        = I.mdbrand,
+               mdmodel        = I.mdmodel,
+               mdstatus       = I.mdstatus,
+               mdstatusdate   = I.mdstatusdate,
+               mdcycchkdate   = I.mdcycchkdate,
+               mdstockdate    = I.mdstockdate,
+               mdstore        = I.mdstore,
+               sfh            = I.sfh,
+               dqsfh          = I.dqsfh,
+               dqgfh          = I.dqgfh,
+               jcgfh          = I.jcgfh,
+               qfh            = I.qfh,
+               mdfq1          = I.mdfq1,
+               mdfq2          = I.mdfq2,
+               mdfq3          = I.mdfq3,
+               mdfq4          = I.mdfq4,
+               mdfq5          = I.mdfq5,
+               barcode        = I.barcode,
+               rfid           = I.rfid,
+               ifdzsb         = I.ifdzsb,
+               concentratorid = I.concentratorid,
+               readmetercode  = I.readmetercode,
+               transferstype  = I.transferstype,
+               collenttype    = I.collenttype,
+               iscontrol      = I.iscontrol,
+               readtype       = I.readtype,
+               rkbatch        = I.rkbatch,
+               rkdno          = I.rkdno,
+               storeroomid    = I.storeroomid,
+               rkman          = I.rkman,
+               mainman        = I.mainman,
+               maindate       = I.maindate,
+               sjdate         = I.sjdate,
+               mdmode         = I.mdmode,
+               portno         = I.portno
+         where id = I.id;
+      end if;
       --过户          
       if P_DJLB = 'GH' then
         update ys_yh_custinfo
@@ -366,7 +568,7 @@
       if P_DJLB = 'SJBG' then
       
         update ys_yh_sbinfo O
-          
+        
            set O.PRICE_NO = i.price_no
          where O.sbid = i.sbid
            AND O.HIRE_CODE = I.HIRE_CODE;
@@ -403,7 +605,7 @@
                null);
           
           end if;
-           if i.price_no2 is not null then
+          if i.price_no2 is not null then
             insert into ys_yh_pricegroup
               (id,
                hire_code,
@@ -427,7 +629,7 @@
                i.PMDTYPE2,
                null,
                null,
-               null); 
+               null);
           end if;
           if i.price_no3 is not null then
             insert into ys_yh_pricegroup
@@ -453,7 +655,7 @@
                i.PMDTYPE3,
                null,
                null,
-               null); 
+               null);
           end if;
           if i.price_no4 is not null then
             insert into ys_yh_pricegroup
@@ -479,13 +681,13 @@
                i.PMDTYPE4,
                null,
                null,
-               null); 
+               null);
           end if;
-           update ys_yh_sbinfo O
+          update ys_yh_sbinfo O
           
-           set SBIFMP = 'Y'
-         where O.sbid = i.sbid
-           AND O.HIRE_CODE = I.HIRE_CODE;
+             set SBIFMP = 'Y'
+           where O.sbid = i.sbid
+             AND O.HIRE_CODE = I.HIRE_CODE;
         ELSE
           DELETE ys_yh_pricegroup P
            WHERE P.SBID = I.SBID
