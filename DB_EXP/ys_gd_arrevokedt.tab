@@ -1,0 +1,64 @@
+﻿create table YS_GD_ARREVOKEDT
+(
+  id          VARCHAR2(32) not null,
+  hire_code   VARCHAR2(32),
+  bill_id     VARCHAR2(32),
+  yhid        VARCHAR2(20),
+  arid        VARCHAR2(10),
+  armonth     VARCHAR2(7),
+  ardate      DATE,
+  arscode     NUMBER(10),
+  arecode     NUMBER(10),
+  arreadsl    NUMBER(10),
+  arsl        NUMBER(10),
+  arje        NUMBER(13,3),
+  araddsl     NUMBER(10),
+  arpfid      VARCHAR2(10),
+  check_flag  VARCHAR2(2),
+  fail_reason VARCHAR2(60),
+  rec_id_cr   VARCHAR2(24),
+  rec_id_de   VARCHAR2(24),
+  armemo      VARCHAR2(200)
+)
+;
+comment on table YS_GD_ARREVOKEDT
+  is '应收冲正单体';
+comment on column YS_GD_ARREVOKEDT.id
+  is '主机id';
+comment on column YS_GD_ARREVOKEDT.hire_code
+  is '租户编号';
+comment on column YS_GD_ARREVOKEDT.bill_id
+  is '单据流水号';
+comment on column YS_GD_ARREVOKEDT.yhid
+  is '用户编号';
+comment on column YS_GD_ARREVOKEDT.arid
+  is '应收账流水号';
+comment on column YS_GD_ARREVOKEDT.armonth
+  is '账务月份';
+comment on column YS_GD_ARREVOKEDT.ardate
+  is '账务日期';
+comment on column YS_GD_ARREVOKEDT.arscode
+  is '起码';
+comment on column YS_GD_ARREVOKEDT.arecode
+  is '止码';
+comment on column YS_GD_ARREVOKEDT.arreadsl
+  is '抄见水量';
+comment on column YS_GD_ARREVOKEDT.arsl
+  is '应收水量';
+comment on column YS_GD_ARREVOKEDT.arje
+  is '应收金额';
+comment on column YS_GD_ARREVOKEDT.araddsl
+  is '余量';
+comment on column YS_GD_ARREVOKEDT.arpfid
+  is '主价格类别';
+comment on column YS_GD_ARREVOKEDT.check_flag
+  is '审核标志';
+comment on column YS_GD_ARREVOKEDT.fail_reason
+  is '失败原因';
+comment on column YS_GD_ARREVOKEDT.rec_id_cr
+  is '贷记账务流水（回写）';
+comment on column YS_GD_ARREVOKEDT.rec_id_de
+  is '借记账务流水（回写）';
+comment on column YS_GD_ARREVOKEDT.armemo
+  is '备注';
+

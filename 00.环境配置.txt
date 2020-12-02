@@ -1,0 +1,20 @@
+
+旧版 - 供水营收网址
+http://221.212.191.139:60014/ruoyi-admin/login?username=admin&password=admin123&validateCode=5
+admin
+admin123
+
+旧版 - 供水营收数据库
+10.10.10.72/hrbcs
+HRBZLS
+HRBZLS
+
+外包 - 供水营收源码
+http://49.233.111.79:8888/ 
+hebzls
+hebzls
+
+外包 - 供水营收数据库
+49.233.62.251/orcl
+YYSF
+YYSF

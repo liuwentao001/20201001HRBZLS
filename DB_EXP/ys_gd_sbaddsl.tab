@@ -16,7 +16,7 @@
   addcredate   DATE,
   addcreper    VARCHAR2(15),
   ifrecmk      VARCHAR2(10),
-  addmrid      VARCHAR2(10)
+  addmrid      VARCHAR2(32)
 )
 ;
 comment on table YS_GD_SBADDSL

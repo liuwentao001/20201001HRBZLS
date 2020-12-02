@@ -1,0 +1,49 @@
+﻿create table YS_GD_ARREVOKEHD
+(
+  id          VARCHAR2(32),
+  hire_code   VARCHAR2(20),
+  bill_id     VARCHAR2(32),
+  bill_no     VARCHAR2(32),
+  bill_type   VARCHAR2(32),
+  bill_source VARCHAR2(32),
+  manage_no   VARCHAR2(32),
+  new_dept    VARCHAR2(32),
+  add_date    DATE,
+  add_per     VARCHAR2(32),
+  check_date  DATE,
+  check_per   VARCHAR2(32),
+  check_flag  CHAR(1),
+  flow_id     VARCHAR2(32)
+)
+;
+comment on table YS_GD_ARREVOKEHD
+  is '应收冲正';
+comment on column YS_GD_ARREVOKEHD.id
+  is 'id';
+comment on column YS_GD_ARREVOKEHD.hire_code
+  is '租户编号';
+comment on column YS_GD_ARREVOKEHD.bill_id
+  is '单据流水号';
+comment on column YS_GD_ARREVOKEHD.bill_no
+  is '单据编号';
+comment on column YS_GD_ARREVOKEHD.bill_type
+  is '单据类别';
+comment on column YS_GD_ARREVOKEHD.bill_source
+  is '单据来源';
+comment on column YS_GD_ARREVOKEHD.manage_no
+  is '营销公司';
+comment on column YS_GD_ARREVOKEHD.new_dept
+  is '申请部门';
+comment on column YS_GD_ARREVOKEHD.add_date
+  is '申请日期';
+comment on column YS_GD_ARREVOKEHD.add_per
+  is '申请人员';
+comment on column YS_GD_ARREVOKEHD.check_date
+  is '审核日期';
+comment on column YS_GD_ARREVOKEHD.check_per
+  is '审核人员';
+comment on column YS_GD_ARREVOKEHD.check_flag
+  is '审核标志';
+comment on column YS_GD_ARREVOKEHD.flow_id
+  is '流程ID';
+
