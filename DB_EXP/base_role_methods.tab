@@ -8,4 +8,18 @@
   hire_code   VARCHAR2(32)
 )
 ;
+comment on table BASE_ROLE_METHODS
+  is '角色功能方法对应关系';
+comment on column BASE_ROLE_METHODS.id
+  is '唯一键';
+comment on column BASE_ROLE_METHODS.role_id
+  is '角色编号';
+comment on column BASE_ROLE_METHODS.method_id
+  is '方法编号';
+comment on column BASE_ROLE_METHODS.create_per
+  is '创建人';
+comment on column BASE_ROLE_METHODS.create_date
+  is '创建时间';
+comment on column BASE_ROLE_METHODS.hire_code
+  is '租户编号';
 

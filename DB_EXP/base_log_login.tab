@@ -10,4 +10,22 @@
   hire_code      VARCHAR2(32)
 )
 ;
+comment on table BASE_LOG_LOGIN
+  is '登录日志表';
+comment on column BASE_LOG_LOGIN.id
+  is '唯一键';
+comment on column BASE_LOG_LOGIN.login_ip
+  is '登录IP';
+comment on column BASE_LOG_LOGIN.login_username
+  is '登录用户名';
+comment on column BASE_LOG_LOGIN.login_mac
+  is '登录mac地址';
+comment on column BASE_LOG_LOGIN.login_date
+  is '登录时间';
+comment on column BASE_LOG_LOGIN.login_way
+  is '登录方式|1=电脑端|2=手机端|3=微信小程序|4=支付宝小程序';
+comment on column BASE_LOG_LOGIN.validate_way
+  is '验证方式|1=密码|2=微信扫码登录|3=支付宝扫码登录|短信';
+comment on column BASE_LOG_LOGIN.hire_code
+  is '租户编号';
 

@@ -9,4 +9,20 @@
   hire_code   VARCHAR2(32)
 )
 ;
+comment on table BASE_METHODS
+  is '菜单方法';
+comment on column BASE_METHODS.id
+  is '唯一键';
+comment on column BASE_METHODS.method_code
+  is '方法编码';
+comment on column BASE_METHODS.method_name
+  is '方法名称';
+comment on column BASE_METHODS.menu_id
+  is '菜单编号';
+comment on column BASE_METHODS.create_date
+  is '创建时间';
+comment on column BASE_METHODS.create_per
+  is '创建人';
+comment on column BASE_METHODS.hire_code
+  is '租户编号';
 

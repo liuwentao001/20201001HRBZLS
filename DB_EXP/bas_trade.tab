@@ -11,4 +11,24 @@
   memo        VARCHAR2(200)
 )
 ;
+comment on table BAS_TRADE
+  is '行业分类';
+comment on column BAS_TRADE.id
+  is 'ID';
+comment on column BAS_TRADE.hire_code
+  is '租户编号';
+comment on column BAS_TRADE.trade_no
+  is '行业编码';
+comment on column BAS_TRADE.trade_name
+  is '行业名称';
+comment on column BAS_TRADE.trade_pno
+  is '上级编码';
+comment on column BAS_TRADE.trade_class
+  is '级次';
+comment on column BAS_TRADE.last_mark
+  is '末级标志';
+comment on column BAS_TRADE.status
+  is '状态';
+comment on column BAS_TRADE.memo
+  is '备注';
 

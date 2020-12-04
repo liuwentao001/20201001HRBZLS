@@ -11,6 +11,24 @@
   money      NUMBER(14,4)
 )
 ;
+comment on table BAS_PRICE_DETAIL
+  is '费率明细';
+comment on column BAS_PRICE_DETAIL.id
+  is 'ID';
+comment on column BAS_PRICE_DETAIL.hire_code
+  is '租户编号';
+comment on column BAS_PRICE_DETAIL.price_ver
+  is '水价版本';
+comment on column BAS_PRICE_DETAIL.price_no
+  is '水价编码';
+comment on column BAS_PRICE_DETAIL.price_item
+  is '费率项目';
 comment on column BAS_PRICE_DETAIL.method
-  is '计费方式 dj/je/yjt/njt 单价/固定金额/月阶梯/年阶梯';
+  is '计费方式 ';
+comment on column BAS_PRICE_DETAIL.price
+  is '单价';
+comment on column BAS_PRICE_DETAIL.water_qty
+  is '水量';
+comment on column BAS_PRICE_DETAIL.money
+  is '固定金额';
 

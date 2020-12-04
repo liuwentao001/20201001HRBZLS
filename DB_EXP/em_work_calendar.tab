@@ -6,4 +6,14 @@
   hire_code VARCHAR2(32)
 )
 ;
+comment on table EM_WORK_CALENDAR
+  is '工作日';
+comment on column EM_WORK_CALENDAR.caldate
+  is '日期';
+comment on column EM_WORK_CALENDAR.week
+  is '星期';
+comment on column EM_WORK_CALENDAR.califhol
+  is '是否节假日';
+comment on column EM_WORK_CALENDAR.hire_code
+  is '租户编号';
 

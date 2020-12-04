@@ -20,4 +20,38 @@
   hire_code    VARCHAR2(32)
 )
 ;
+comment on table BASE_SMS_RECORD
+  is '短信记录表';
+comment on column BASE_SMS_RECORD.id
+  is '唯一键';
+comment on column BASE_SMS_RECORD.is_delayed
+  is '是否延迟发送  1是  0否';
+comment on column BASE_SMS_RECORD.delayed_date
+  is '延迟发送时间';
+comment on column BASE_SMS_RECORD.msg_type
+  is '短信类型 1投诉短信  2欠费短信 3水费账单短信';
+comment on column BASE_SMS_RECORD.text
+  is '短信的内容';
+comment on column BASE_SMS_RECORD.encoding
+  is '字符编码，unicode/gsm-7bit, 默认为unicode';
+comment on column BASE_SMS_RECORD.task_id
+  is '该任务 ID 后续可用来中止对应的发送任务';
+comment on column BASE_SMS_RECORD.port
+  is '发送短信的端口，查询返回结果中获取  ';
+comment on column BASE_SMS_RECORD.user_id
+  is '这条短信的 user_id，只有当发送短信的请求带了 user_id，发送结果中才会包含该 user_id';
+comment on column BASE_SMS_RECORD.time
+  is '短信发送时间，查询返回结果中获取';
+comment on column BASE_SMS_RECORD.status
+  is '发送状态，999代表初始状态。查询返回结果中获取 ，包括 FAILED、SENDING、SENT_OK、DELIVERED';
+comment on column BASE_SMS_RECORD.count
+  is '短信被分成了几段';
+comment on column BASE_SMS_RECORD.succ_count
+  is '成功发送了几段';
+comment on column BASE_SMS_RECORD.status_code
+  is '送达状态码，999代表初始状态。这是一个 0 至 255 的值，如0：表示被对端收到';
+comment on column BASE_SMS_RECORD.create_date
+  is '创建时间';
+comment on column BASE_SMS_RECORD.create_per
+  is '创建人';
 

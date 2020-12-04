@@ -12,4 +12,26 @@
   is_root          VARCHAR2(2)
 )
 ;
+comment on table BASE_DEPT
+  is '部门表';
+comment on column BASE_DEPT.id
+  is '唯一键';
+comment on column BASE_DEPT.dept_no
+  is '编码';
+comment on column BASE_DEPT.dept_name
+  is '部门名称';
+comment on column BASE_DEPT.parent_id
+  is '父级编号';
+comment on column BASE_DEPT.contact_telphone
+  is '联系电话';
+comment on column BASE_DEPT.remark
+  is '备注';
+comment on column BASE_DEPT.hire_code
+  is '租户编号';
+comment on column BASE_DEPT.create_date
+  is '创建时间';
+comment on column BASE_DEPT.create_per
+  is '创建人';
+comment on column BASE_DEPT.is_root
+  is '是否根目录';
 

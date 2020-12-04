@@ -9,4 +9,20 @@
   form_step_id VARCHAR2(255)
 )
 ;
+comment on table FLOW_FORM_CONFIG
+  is '流程表单配置';
+comment on column FLOW_FORM_CONFIG.id
+  is '主键ID';
+comment on column FLOW_FORM_CONFIG.hire_code
+  is '租户编号';
+comment on column FLOW_FORM_CONFIG.flow_key
+  is '流程标识';
+comment on column FLOW_FORM_CONFIG.flow_version
+  is '版本号';
+comment on column FLOW_FORM_CONFIG.step_name
+  is '步骤名称';
+comment on column FLOW_FORM_CONFIG.step_id
+  is '步骤ID';
+comment on column FLOW_FORM_CONFIG.form_step_id
+  is '限制查看步骤ID 多个用[,]分隔';
 

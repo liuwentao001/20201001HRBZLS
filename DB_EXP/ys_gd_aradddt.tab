@@ -17,6 +17,8 @@
   fail_reason VARCHAR2(60)
 )
 ;
+comment on table YS_GD_ARADDDT
+  is '应收追补单体';
 comment on column YS_GD_ARADDDT.rec_water
   is '应收水量';
 comment on column YS_GD_ARADDDT.rec_amt

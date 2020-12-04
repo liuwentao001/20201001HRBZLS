@@ -10,4 +10,22 @@
   travel_status  VARCHAR2(2)
 )
 ;
+comment on table BASE_TRAVEL_CALENDAR
+  is '行程日历';
+comment on column BASE_TRAVEL_CALENDAR.id
+  is '主键ID';
+comment on column BASE_TRAVEL_CALENDAR.hire_code
+  is '租户编号';
+comment on column BASE_TRAVEL_CALENDAR.travel_date
+  is '行程日期';
+comment on column BASE_TRAVEL_CALENDAR.travel_time
+  is '时间';
+comment on column BASE_TRAVEL_CALENDAR.travel_title
+  is '标题';
+comment on column BASE_TRAVEL_CALENDAR.travel_content
+  is '内容';
+comment on column BASE_TRAVEL_CALENDAR.user_name
+  is '登录账户';
+comment on column BASE_TRAVEL_CALENDAR.travel_status
+  is '状态';
 

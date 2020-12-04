@@ -12,4 +12,26 @@
   memo       VARCHAR2(255)
 )
 ;
+comment on table BASE_MENU
+  is '菜单';
+comment on column BASE_MENU.id
+  is '唯一键';
+comment on column BASE_MENU.menu_name
+  is '菜单名称';
+comment on column BASE_MENU.menu_image
+  is '菜单图片地址';
+comment on column BASE_MENU.menu_url
+  is '菜单url';
+comment on column BASE_MENU.menu_order
+  is '菜单显示顺序';
+comment on column BASE_MENU.parent_id
+  is '父级编号';
+comment on column BASE_MENU.hire_code
+  is '租户编号';
+comment on column BASE_MENU.sys_code
+  is '系统编号';
+comment on column BASE_MENU.help_path
+  is '功能说明';
+comment on column BASE_MENU.memo
+  is '备注';
 

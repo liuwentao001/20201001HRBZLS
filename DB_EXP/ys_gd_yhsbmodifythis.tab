@@ -228,6 +228,8 @@
   sbcode         VARCHAR2(10)
 )
 ;
+comment on table YS_GD_YHSBMODIFYTHIS
+  is '用户变更单体历史记录表';
 comment on column YS_GD_YHSBMODIFYTHIS.bill_id
   is '单据流水号';
 comment on column YS_GD_YHSBMODIFYTHIS.mddrowno

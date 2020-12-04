@@ -9,4 +9,20 @@
   hire_code                 VARCHAR2(255)
 )
 ;
+comment on table BASE_PRINT_MODEL_VERSION
+  is '打印模板版本';
+comment on column BASE_PRINT_MODEL_VERSION.model_version_id
+  is '模板版本id';
+comment on column BASE_PRINT_MODEL_VERSION.model_id
+  is '模板id(对应sys_print_model)';
+comment on column BASE_PRINT_MODEL_VERSION.model_version_num
+  is '版本号';
+comment on column BASE_PRINT_MODEL_VERSION.model_version_note
+  is '版本内容';
+comment on column BASE_PRINT_MODEL_VERSION.model_version_create_per
+  is '创建人';
+comment on column BASE_PRINT_MODEL_VERSION.model_version_create_time
+  is '创建时间';
+comment on column BASE_PRINT_MODEL_VERSION.hire_code
+  is '租户编号';
 

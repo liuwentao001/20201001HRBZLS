@@ -12,4 +12,26 @@
   manage_no  VARCHAR2(32)
 )
 ;
+comment on table BAS_AREA
+  is '区域';
+comment on column BAS_AREA.id
+  is '主键ID';
+comment on column BAS_AREA.hire_code
+  is '租户编号';
+comment on column BAS_AREA.area_no
+  is '区域编码';
+comment on column BAS_AREA.area_name
+  is '区域名称';
+comment on column BAS_AREA.area_pid
+  is '上级编码';
+comment on column BAS_AREA.area_class
+  is '级次';
+comment on column BAS_AREA.last_mark
+  is '末级标志';
+comment on column BAS_AREA.status
+  is '状态';
+comment on column BAS_AREA.memo
+  is '备注';
+comment on column BAS_AREA.manage_no
+  is '营业所';
 

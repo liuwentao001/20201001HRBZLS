@@ -40,7 +40,7 @@
 )
 ;
 comment on table YS_GD_ARADDHD
-  is '追量';
+  is '应收追补单头';
 comment on column YS_GD_ARADDHD.id
   is 'id';
 comment on column YS_GD_ARADDHD.hire_code

@@ -10,4 +10,22 @@
   step_var     VARCHAR2(255)
 )
 ;
+comment on table FLOW_TIME_OUT_CONFIG
+  is '流程超时设置';
+comment on column FLOW_TIME_OUT_CONFIG.id
+  is '主键ID';
+comment on column FLOW_TIME_OUT_CONFIG.hire_code
+  is '租户编号';
+comment on column FLOW_TIME_OUT_CONFIG.flow_key
+  is '流程标识';
+comment on column FLOW_TIME_OUT_CONFIG.flow_version
+  is '版本号';
+comment on column FLOW_TIME_OUT_CONFIG.step_name
+  is '步骤名称';
+comment on column FLOW_TIME_OUT_CONFIG.step_id
+  is '步骤ID';
+comment on column FLOW_TIME_OUT_CONFIG.due_date
+  is '到期时间';
+comment on column FLOW_TIME_OUT_CONFIG.step_var
+  is '到期时间参数名';
 

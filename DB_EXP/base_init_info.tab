@@ -8,4 +8,18 @@
   effect_status VARCHAR2(2)
 )
 ;
+comment on table BASE_INIT_INFO
+  is '系统初始化信息表';
+comment on column BASE_INIT_INFO.id
+  is '唯一键';
+comment on column BASE_INIT_INFO.hire_code
+  is '租户编号';
+comment on column BASE_INIT_INFO.sys_code
+  is '系统编号';
+comment on column BASE_INIT_INFO.init_date
+  is '初始化时间';
+comment on column BASE_INIT_INFO.op_per
+  is '操作人';
+comment on column BASE_INIT_INFO.effect_status
+  is '有效状态';
 

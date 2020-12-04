@@ -13,4 +13,6 @@
   hire_code    VARCHAR2(32)
 )
 ;
+comment on table BASE_APP_VERSION_LOG
+  is 'APP版本日志表';
 

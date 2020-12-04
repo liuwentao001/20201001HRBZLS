@@ -228,6 +228,8 @@
   pmdcolumn4     VARCHAR2(10)
 )
 ;
+comment on table YS_GD_YHSBMODIFYT
+  is '用户变更单体';
 comment on column YS_GD_YHSBMODIFYT.bill_id
   is '单据流水号';
 comment on column YS_GD_YHSBMODIFYT.mddrowno

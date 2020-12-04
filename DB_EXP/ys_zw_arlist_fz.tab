@@ -119,4 +119,6 @@
   arcolumn12      VARCHAR2(20)
 )
 ;
+comment on table YS_ZW_ARLIST_FZ
+  is '应收总帐明细分账';
 

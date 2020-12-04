@@ -26,6 +26,8 @@
   bfjtsny      VARCHAR2(15)
 )
 ;
+comment on table YS_BAS_BOOK
+  is '用户表册';
 comment on column YS_BAS_BOOK.book_no
   is '编码';
 comment on column YS_BAS_BOOK.manage_no

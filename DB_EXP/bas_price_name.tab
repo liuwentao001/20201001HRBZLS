@@ -13,4 +13,28 @@
   memo        VARCHAR2(50)
 )
 ;
+comment on table BAS_PRICE_NAME
+  is '水价主档';
+comment on column BAS_PRICE_NAME.id
+  is 'ID';
+comment on column BAS_PRICE_NAME.hire_code
+  is '租户编号';
+comment on column BAS_PRICE_NAME.price_ver
+  is '水价版本';
+comment on column BAS_PRICE_NAME.price_no
+  is '水价编码';
+comment on column BAS_PRICE_NAME.price_name
+  is '水价名称';
+comment on column BAS_PRICE_NAME.price_pno
+  is '水价上级编码';
+comment on column BAS_PRICE_NAME.price_class
+  is '水价级次';
+comment on column BAS_PRICE_NAME.last_mark
+  is '末级标志';
+comment on column BAS_PRICE_NAME.status
+  is '有效状态';
+comment on column BAS_PRICE_NAME.price
+  is '综合价格';
+comment on column BAS_PRICE_NAME.memo
+  is '备注';
 

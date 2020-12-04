@@ -6,4 +6,14 @@
   by_share  VARCHAR2(255)
 )
 ;
+comment on table BASE_REPORT_CONDITION_SHARE
+  is '自定义报表';
+comment on column BASE_REPORT_CONDITION_SHARE.id
+  is '主键ID';
+comment on column BASE_REPORT_CONDITION_SHARE.hire_code
+  is '租户编号';
+comment on column BASE_REPORT_CONDITION_SHARE.report_id
+  is '报表ID';
+comment on column BASE_REPORT_CONDITION_SHARE.by_share
+  is '被分享人';
 

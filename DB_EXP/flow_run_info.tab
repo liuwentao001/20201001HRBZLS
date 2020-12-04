@@ -9,4 +9,20 @@
   hire_code      VARCHAR2(32)
 )
 ;
+comment on table FLOW_RUN_INFO
+  is '流程信息';
+comment on column FLOW_RUN_INFO.id
+  is '唯一键';
+comment on column FLOW_RUN_INFO.flow_id
+  is '流程编号';
+comment on column FLOW_RUN_INFO.create_per
+  is '创建人';
+comment on column FLOW_RUN_INFO.create_date
+  is '创建时间';
+comment on column FLOW_RUN_INFO.flow_status
+  is '流程状态 0新单 1待处理 2处理中 3处理完成 4 已回访 5结束';
+comment on column FLOW_RUN_INFO.flow_type_code
+  is '流程类型编号';
+comment on column FLOW_RUN_INFO.hire_code
+  is '租户编号';
 

@@ -21,6 +21,8 @@
   ardpscid     NUMBER
 )
 ;
+comment on table YS_GD_ARADJUSTDDT
+  is '应收调整减免明细';
 comment on column YS_GD_ARADJUSTDDT.id
   is 'ID';
 comment on column YS_GD_ARADJUSTDDT.hire_code

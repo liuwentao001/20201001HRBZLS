@@ -13,4 +13,28 @@
   flow_status VARCHAR2(32)
 )
 ;
+comment on table FLOW_RUN_LOG
+  is '运行日志';
+comment on column FLOW_RUN_LOG.id
+  is '唯一键';
+comment on column FLOW_RUN_LOG.operator
+  is '操作人';
+comment on column FLOW_RUN_LOG.opdate
+  is '操作时间';
+comment on column FLOW_RUN_LOG.op_type
+  is '操作类型|0=创建|1=转单|2=领单|3=取消领单|4=催办|5=回退|6=重办';
+comment on column FLOW_RUN_LOG.flow_id
+  is '流程编号';
+comment on column FLOW_RUN_LOG.from_step
+  is '从某个步骤';
+comment on column FLOW_RUN_LOG.to_step
+  is '转至某个步骤';
+comment on column FLOW_RUN_LOG.hire_code
+  is '租户编号';
+comment on column FLOW_RUN_LOG.remark
+  is '备注';
+comment on column FLOW_RUN_LOG.show_order
+  is '显示顺序';
+comment on column FLOW_RUN_LOG.flow_status
+  is '流程状态';
 

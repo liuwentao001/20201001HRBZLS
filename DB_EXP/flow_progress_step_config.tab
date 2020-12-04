@@ -10,4 +10,22 @@
   show_order         VARCHAR2(4)
 )
 ;
+comment on table FLOW_PROGRESS_STEP_CONFIG
+  is '进度查询步骤配置表';
+comment on column FLOW_PROGRESS_STEP_CONFIG.id
+  is '主键ID';
+comment on column FLOW_PROGRESS_STEP_CONFIG.hire_code
+  is '租户编号';
+comment on column FLOW_PROGRESS_STEP_CONFIG.flow_key
+  is '流程标识';
+comment on column FLOW_PROGRESS_STEP_CONFIG.flow_version
+  is '版本号';
+comment on column FLOW_PROGRESS_STEP_CONFIG.step_name
+  is '步骤名称';
+comment on column FLOW_PROGRESS_STEP_CONFIG.step_id
+  is '步骤ID';
+comment on column FLOW_PROGRESS_STEP_CONFIG.progress_step_name
+  is '流程进度查询显示步骤';
+comment on column FLOW_PROGRESS_STEP_CONFIG.show_order
+  is '显示顺序';
 

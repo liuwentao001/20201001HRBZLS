@@ -9,4 +9,20 @@
   hire_code      VARCHAR2(32)
 )
 ;
+comment on table FLOW_HANDLE_OPINION
+  is '流程处理意见表';
+comment on column FLOW_HANDLE_OPINION.id
+  is 'ID';
+comment on column FLOW_HANDLE_OPINION.flow_id
+  is '流程ID';
+comment on column FLOW_HANDLE_OPINION.step_id
+  is '步骤id';
+comment on column FLOW_HANDLE_OPINION.handle_opinion
+  is '处理意见';
+comment on column FLOW_HANDLE_OPINION.handle_man
+  is '处理人';
+comment on column FLOW_HANDLE_OPINION.status
+  is '0表示正在进行中、1表示正常、2表示回退';
+comment on column FLOW_HANDLE_OPINION.hire_code
+  is '租户编号';
 

@@ -8,4 +8,18 @@
   hire_code   VARCHAR2(32)
 )
 ;
+comment on table BASE_USER_ROLE
+  is '用户角色';
+comment on column BASE_USER_ROLE.id
+  is '唯一键';
+comment on column BASE_USER_ROLE.user_name
+  is '用户编号';
+comment on column BASE_USER_ROLE.role_id
+  is '角色编号';
+comment on column BASE_USER_ROLE.create_per
+  is '创建人';
+comment on column BASE_USER_ROLE.create_date
+  is '创建时间';
+comment on column BASE_USER_ROLE.hire_code
+  is '租户编号';
 

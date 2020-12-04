@@ -7,4 +7,16 @@
   create_date DATE
 )
 ;
+comment on table FLOW_ACT_RIGHT
+  is '租户流程表';
+comment on column FLOW_ACT_RIGHT.id
+  is '唯一键';
+comment on column FLOW_ACT_RIGHT.hire_code
+  is '租户编号';
+comment on column FLOW_ACT_RIGHT.model_id
+  is '流程模型编号';
+comment on column FLOW_ACT_RIGHT.create_per
+  is '创建人';
+comment on column FLOW_ACT_RIGHT.create_date
+  is '创建时间';
 

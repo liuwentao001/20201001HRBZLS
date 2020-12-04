@@ -8,4 +8,18 @@
   sys_code    VARCHAR2(32)
 )
 ;
+comment on table BASE_REPORT_CONFIG
+  is '自定义报表';
+comment on column BASE_REPORT_CONFIG.id
+  is '主键ID';
+comment on column BASE_REPORT_CONFIG.hire_code
+  is '租户编号';
+comment on column BASE_REPORT_CONFIG.report_name
+  is '报表名称';
+comment on column BASE_REPORT_CONFIG.report_key
+  is '报表key';
+comment on column BASE_REPORT_CONFIG.report_sql
+  is '报表SQL';
+comment on column BASE_REPORT_CONFIG.sys_code
+  is '系统编号';
 

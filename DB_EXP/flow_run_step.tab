@@ -12,4 +12,26 @@
   repeat_id    VARCHAR2(32)
 )
 ;
+comment on table FLOW_RUN_STEP
+  is '当前步骤表';
+comment on column FLOW_RUN_STEP.id
+  is '唯一键';
+comment on column FLOW_RUN_STEP.step_code
+  is '当前步骤编号';
+comment on column FLOW_RUN_STEP.turn_per
+  is '转单人';
+comment on column FLOW_RUN_STEP.turn_date
+  is '转单时间';
+comment on column FLOW_RUN_STEP.flow_id
+  is '流程编号';
+comment on column FLOW_RUN_STEP.receive_per
+  is '当前领取人';
+comment on column FLOW_RUN_STEP.receive_date
+  is '领取时间';
+comment on column FLOW_RUN_STEP.dept_id
+  is '处理部门编号';
+comment on column FLOW_RUN_STEP.hire_code
+  is '租户编号';
+comment on column FLOW_RUN_STEP.repeat_id
+  is '重办编号';
 

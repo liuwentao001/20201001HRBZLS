@@ -14,4 +14,30 @@
   hire_code             VARCHAR2(255)
 )
 ;
+comment on table BASE_PRINT_MODEL
+  is '打印模板';
+comment on column BASE_PRINT_MODEL.model_id
+  is '模板id';
+comment on column BASE_PRINT_MODEL.model_code
+  is '模板编码';
+comment on column BASE_PRINT_MODEL.model_name
+  is '模板名称';
+comment on column BASE_PRINT_MODEL.model_create_per
+  is '创建人';
+comment on column BASE_PRINT_MODEL.model_create_time
+  is '创建时间';
+comment on column BASE_PRINT_MODEL.model_current_version
+  is '当前版本号';
+comment on column BASE_PRINT_MODEL.model_current_note
+  is '模板内容';
+comment on column BASE_PRINT_MODEL.model_page_width
+  is '纸张宽度';
+comment on column BASE_PRINT_MODEL.model_page_height
+  is '纸张高度';
+comment on column BASE_PRINT_MODEL.model_intorient
+  is '打印方向';
+comment on column BASE_PRINT_MODEL.model_strpagename
+  is '自定义纸张名称';
+comment on column BASE_PRINT_MODEL.hire_code
+  is '租户编号';
 

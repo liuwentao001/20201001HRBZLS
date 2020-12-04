@@ -10,4 +10,22 @@
   add_time    VARCHAR2(20)
 )
 ;
+comment on table BAS_PRICE_VERSION
+  is '水价归档';
+comment on column BAS_PRICE_VERSION.id
+  is 'id';
+comment on column BAS_PRICE_VERSION.hire_code
+  is '租户编号';
+comment on column BAS_PRICE_VERSION.price_ver
+  is '水价版本';
+comment on column BAS_PRICE_VERSION.start_month
+  is '开始年月';
+comment on column BAS_PRICE_VERSION.end_month
+  is '结束年月（归档时才填写）';
+comment on column BAS_PRICE_VERSION.memo
+  is '备注';
+comment on column BAS_PRICE_VERSION.add_user
+  is '操作人';
+comment on column BAS_PRICE_VERSION.add_time
+  is '操作时间';
 

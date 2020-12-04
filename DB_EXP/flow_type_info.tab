@@ -8,4 +8,18 @@
   hire_code      VARCHAR2(32)
 )
 ;
+comment on table FLOW_TYPE_INFO
+  is '流程类型表';
+comment on column FLOW_TYPE_INFO.id
+  is '主键ID';
+comment on column FLOW_TYPE_INFO.flow_type_code
+  is '流程类型编号';
+comment on column FLOW_TYPE_INFO.flow_type_name
+  is '流程类型名称';
+comment on column FLOW_TYPE_INFO.create_per
+  is '创建人';
+comment on column FLOW_TYPE_INFO.create_date
+  is '创建时间';
+comment on column FLOW_TYPE_INFO.hire_code
+  is '租户编号';
 

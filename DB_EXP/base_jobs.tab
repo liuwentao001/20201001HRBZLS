@@ -12,4 +12,26 @@
   job_status      VARCHAR2(2)
 )
 ;
+comment on table BASE_JOBS
+  is 'JOBS';
+comment on column BASE_JOBS.id
+  is '唯一键';
+comment on column BASE_JOBS.job_name
+  is 'job名称';
+comment on column BASE_JOBS.job_group
+  is 'job分组';
+comment on column BASE_JOBS.start_time
+  is '开始执行时间';
+comment on column BASE_JOBS.cron_expression
+  is 'cron表达式';
+comment on column BASE_JOBS.invoke_param
+  is '传递的参数';
+comment on column BASE_JOBS.hire_code
+  is '租户编号';
+comment on column BASE_JOBS.create_per
+  is '创建人';
+comment on column BASE_JOBS.create_date
+  is '创建时间';
+comment on column BASE_JOBS.job_status
+  is 'job状态';
 

@@ -10,4 +10,22 @@
   share_date     DATE
 )
 ;
+comment on table BASE_REPORT_CONDITION
+  is '自定义报表';
+comment on column BASE_REPORT_CONDITION.id
+  is '主键ID';
+comment on column BASE_REPORT_CONDITION.hire_code
+  is '租户编号';
+comment on column BASE_REPORT_CONDITION.report_code
+  is '报表编号';
+comment on column BASE_REPORT_CONDITION.condition_name
+  is '查询条件名称';
+comment on column BASE_REPORT_CONDITION.collection_per
+  is '收藏人';
+comment on column BASE_REPORT_CONDITION.create_date
+  is '创建时间';
+comment on column BASE_REPORT_CONDITION.share_per
+  is '分享人';
+comment on column BASE_REPORT_CONDITION.share_date
+  is '分享时间';
 

@@ -17,4 +17,34 @@
   file_name_ktl  VARCHAR2(100)
 )
 ;
+comment on table FLOW_AFFIX
+  is '附件信息表';
+comment on column FLOW_AFFIX.id
+  is 'id';
+comment on column FLOW_AFFIX.flow_id
+  is '流程id';
+comment on column FLOW_AFFIX.step_id
+  is '步骤ID';
+comment on column FLOW_AFFIX.file_name
+  is '文件名称';
+comment on column FLOW_AFFIX.file_alis_name
+  is '文件别名';
+comment on column FLOW_AFFIX.file_size
+  is '文件大小';
+comment on column FLOW_AFFIX.file_type
+  is '文件类型';
+comment on column FLOW_AFFIX.upload_per
+  is '上传人';
+comment on column FLOW_AFFIX.upload_date
+  is '上传时间';
+comment on column FLOW_AFFIX.down_path
+  is '下载路径';
+comment on column FLOW_AFFIX.file_path
+  is '文件路径';
+comment on column FLOW_AFFIX.down_times
+  is '下载次数';
+comment on column FLOW_AFFIX.affix_type
+  is '附件类型';
+comment on column FLOW_AFFIX.hire_code
+  is '租户编号';
 

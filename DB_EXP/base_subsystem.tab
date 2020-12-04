@@ -12,4 +12,26 @@
   external_url       VARCHAR2(255)
 )
 ;
+comment on table BASE_SUBSYSTEM
+  is '子系统基本信息';
+comment on column BASE_SUBSYSTEM.id
+  is '唯一键';
+comment on column BASE_SUBSYSTEM.subsystem_code
+  is '子系统编号';
+comment on column BASE_SUBSYSTEM.subsystem_name
+  is '子系统名称';
+comment on column BASE_SUBSYSTEM.create_date
+  is '创建时间';
+comment on column BASE_SUBSYSTEM.create_per
+  is '创建人';
+comment on column BASE_SUBSYSTEM.show_order
+  is '显示顺序';
+comment on column BASE_SUBSYSTEM.subsystem_describe
+  is '子系统描述';
+comment on column BASE_SUBSYSTEM.subsystem_icon
+  is '图片路径';
+comment on column BASE_SUBSYSTEM.is_external
+  is '是否外部链接';
+comment on column BASE_SUBSYSTEM.external_url
+  is '外部url地址';
 

@@ -15,4 +15,32 @@
   hire_code      VARCHAR2(255)
 )
 ;
+comment on table BASE_AFFIX_TEMPLATE_INFO
+  is '系统附件表';
+comment on column BASE_AFFIX_TEMPLATE_INFO.id
+  is '主键ID';
+comment on column BASE_AFFIX_TEMPLATE_INFO.ywid
+  is '业务ID';
+comment on column BASE_AFFIX_TEMPLATE_INFO.file_name
+  is '文件名称';
+comment on column BASE_AFFIX_TEMPLATE_INFO.file_alis_name
+  is '文件别名';
+comment on column BASE_AFFIX_TEMPLATE_INFO.file_size
+  is '文件大小';
+comment on column BASE_AFFIX_TEMPLATE_INFO.file_type
+  is '文件类型';
+comment on column BASE_AFFIX_TEMPLATE_INFO.affix_type
+  is '附件类型（所属模块/功能等,即附件来源）';
+comment on column BASE_AFFIX_TEMPLATE_INFO.upload_per
+  is '上传人';
+comment on column BASE_AFFIX_TEMPLATE_INFO.upload_date
+  is '上传时间';
+comment on column BASE_AFFIX_TEMPLATE_INFO.dowload_path
+  is '下载路径';
+comment on column BASE_AFFIX_TEMPLATE_INFO.file_path
+  is '文件路径';
+comment on column BASE_AFFIX_TEMPLATE_INFO.dowload_nums
+  is '下载次数';
+comment on column BASE_AFFIX_TEMPLATE_INFO.hire_code
+  is '租户编号';
 

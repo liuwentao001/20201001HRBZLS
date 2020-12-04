@@ -24,14 +24,50 @@
   con_phone_number      VARCHAR2(20)
 )
 ;
+comment on table BASE_USER
+  is '登录用户';
 comment on column BASE_USER.id
-  is 'ID';
+  is '唯一键';
 comment on column BASE_USER.user_name
-  is '登录帐号';
+  is '登录账号';
 comment on column BASE_USER.password
   is '登录密码';
 comment on column BASE_USER.true_name
-  is '用户名称';
+  is '账户名称';
 comment on column BASE_USER.dept_id
-  is '所属点';
+  is '部门编号';
+comment on column BASE_USER.dept_parent_ids
+  is '父级部门id(多级时按级次关系用逗号隔开，如：''祖父级id,父级id'')';
+comment on column BASE_USER.user_status
+  is '用户状态';
+comment on column BASE_USER.wx_account
+  is '微信账号';
+comment on column BASE_USER.zfb_account
+  is '支付宝账号';
+comment on column BASE_USER.bank_account
+  is '银行账号';
+comment on column BASE_USER.phone_number
+  is '手机号码';
+comment on column BASE_USER.deposit
+  is '押金';
+comment on column BASE_USER.balance_money
+  is '余额';
+comment on column BASE_USER.alias
+  is '别名';
+comment on column BASE_USER.create_date
+  is '创建时间';
+comment on column BASE_USER.create_per
+  is '创建人';
+comment on column BASE_USER.hire_code
+  is '租户编号';
+comment on column BASE_USER.is_custom_service
+  is '是否座席';
+comment on column BASE_USER.custom_login_name
+  is '阿里云座席登录账号';
+comment on column BASE_USER.custom_login_password
+  is '阿里云座席登录密码（明文密码，用于座席上号时获取token）';
+comment on column BASE_USER.job_no
+  is '职位类别';
+comment on column BASE_USER.con_phone_number
+  is '联系电话';
 

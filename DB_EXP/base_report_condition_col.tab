@@ -6,4 +6,14 @@
   col_name  VARCHAR2(255)
 )
 ;
+comment on table BASE_REPORT_CONDITION_COL
+  is '自定义报表';
+comment on column BASE_REPORT_CONDITION_COL.id
+  is '主键ID';
+comment on column BASE_REPORT_CONDITION_COL.hire_code
+  is '租户编号';
+comment on column BASE_REPORT_CONDITION_COL.parent_id
+  is '主表ID';
+comment on column BASE_REPORT_CONDITION_COL.col_name
+  is '列名称';
 

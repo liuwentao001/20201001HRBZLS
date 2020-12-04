@@ -9,4 +9,20 @@
   is_last_step   VARCHAR2(2)
 )
 ;
+comment on table FLOW_CONFIG_STEP
+  is '流程步骤定义';
+comment on column FLOW_CONFIG_STEP.id
+  is 'ID';
+comment on column FLOW_CONFIG_STEP.step_code
+  is '步骤编号';
+comment on column FLOW_CONFIG_STEP.step_name
+  is '步骤名称';
+comment on column FLOW_CONFIG_STEP.step_run_order
+  is '步骤执行顺序';
+comment on column FLOW_CONFIG_STEP.flow_type_code
+  is '流程类型编号';
+comment on column FLOW_CONFIG_STEP.hire_code
+  is '租户编号';
+comment on column FLOW_CONFIG_STEP.is_last_step
+  is '是否最后一步';
 

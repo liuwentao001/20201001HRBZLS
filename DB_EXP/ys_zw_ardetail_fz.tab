@@ -35,4 +35,6 @@
   ardpmdcolumn3 VARCHAR2(10)
 )
 ;
+comment on table YS_ZW_ARDETAIL_FZ
+  is '应收帐明细';
 

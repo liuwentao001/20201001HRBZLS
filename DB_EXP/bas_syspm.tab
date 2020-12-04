@@ -10,4 +10,22 @@
   hire_code  VARCHAR2(32)
 )
 ;
+comment on table BAS_SYSPM
+  is '系统参数表';
+comment on column BAS_SYSPM.id
+  is 'id';
+comment on column BAS_SYSPM.pm_no
+  is '参数代码';
+comment on column BAS_SYSPM.pm_content
+  is '参数内容';
+comment on column BAS_SYSPM.pm_value
+  is '参数值';
+comment on column BAS_SYSPM.data_type
+  is '数据类型';
+comment on column BAS_SYSPM.status
+  is '状态 1有效 0无效';
+comment on column BAS_SYSPM.explains
+  is '说明';
+comment on column BAS_SYSPM.hire_code
+  is '租户编号';
 

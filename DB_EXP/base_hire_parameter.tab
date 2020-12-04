@@ -8,4 +8,6 @@
   create_per      VARCHAR2(255)
 )
 ;
+comment on table BASE_HIRE_PARAMETER
+  is '租户参数表';
 

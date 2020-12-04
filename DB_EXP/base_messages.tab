@@ -17,4 +17,36 @@
   top_date        DATE
 )
 ;
+comment on table BASE_MESSAGES
+  is '公告信息';
+comment on column BASE_MESSAGES.id
+  is '唯一键';
+comment on column BASE_MESSAGES.notice_title
+  is '公告标题';
+comment on column BASE_MESSAGES.notice_type
+  is '公告类型';
+comment on column BASE_MESSAGES.notice_content
+  is '公告内容';
+comment on column BASE_MESSAGES.key_word
+  is '关键字';
+comment on column BASE_MESSAGES.publish_way
+  is '发布途径';
+comment on column BASE_MESSAGES.publish_per
+  is '发布人';
+comment on column BASE_MESSAGES.publish_date
+  is '发布时间';
+comment on column BASE_MESSAGES.effective_times
+  is '有效时间起';
+comment on column BASE_MESSAGES.effective_timee
+  is '有效时间止';
+comment on column BASE_MESSAGES.notice_status
+  is '公告状态（0：无效  1：有效）';
+comment on column BASE_MESSAGES.hire_code
+  is '租户编号';
+comment on column BASE_MESSAGES.msg_type
+  is '消息类别(01:公告  02:新闻  03：消息)';
+comment on column BASE_MESSAGES.msg_top
+  is '是否置顶(1：是  0：否)';
+comment on column BASE_MESSAGES.top_date
+  is '置顶时间';
 

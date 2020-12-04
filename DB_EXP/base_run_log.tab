@@ -8,4 +8,18 @@
   hire_code   VARCHAR2(32)
 )
 ;
+comment on table BASE_RUN_LOG
+  is '运行日志';
+comment on column BASE_RUN_LOG.id
+  is '唯一键';
+comment on column BASE_RUN_LOG.log_type
+  is '日志类型';
+comment on column BASE_RUN_LOG.log_note
+  is '日志类容';
+comment on column BASE_RUN_LOG.create_date
+  is '创建时间';
+comment on column BASE_RUN_LOG.log_leavel
+  is '日志级别';
+comment on column BASE_RUN_LOG.hire_code
+  is '租户编号';
 

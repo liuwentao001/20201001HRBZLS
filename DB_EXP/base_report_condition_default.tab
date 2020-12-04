@@ -10,4 +10,22 @@
   parent_dic         VARCHAR2(255)
 )
 ;
+comment on table BASE_REPORT_CONDITION_DEFAULT
+  is '自定义报表';
+comment on column BASE_REPORT_CONDITION_DEFAULT.id
+  is '主键ID';
+comment on column BASE_REPORT_CONDITION_DEFAULT.hire_code
+  is '租户编号';
+comment on column BASE_REPORT_CONDITION_DEFAULT.parent_id
+  is '主表ID';
+comment on column BASE_REPORT_CONDITION_DEFAULT.condition_name
+  is '条件名称';
+comment on column BASE_REPORT_CONDITION_DEFAULT.condition_operator
+  is '操作符';
+comment on column BASE_REPORT_CONDITION_DEFAULT.condition_key
+  is '条件值';
+comment on column BASE_REPORT_CONDITION_DEFAULT.data_type
+  is '条件类型';
+comment on column BASE_REPORT_CONDITION_DEFAULT.parent_dic
+  is '参数值';
 

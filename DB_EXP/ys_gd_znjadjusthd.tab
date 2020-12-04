@@ -16,6 +16,8 @@
   flow_id     VARCHAR2(32)
 )
 ;
+comment on table YS_GD_ZNJADJUSTHD
+  is '违约金单头';
 comment on column YS_GD_ZNJADJUSTHD.id
   is 'id';
 comment on column YS_GD_ZNJADJUSTHD.hire_code

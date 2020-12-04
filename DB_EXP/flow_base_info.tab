@@ -18,4 +18,36 @@
   mobile           VARCHAR2(255)
 )
 ;
+comment on table FLOW_BASE_INFO
+  is '流程基本信息表,关联待办任务信息查询';
+comment on column FLOW_BASE_INFO.id
+  is 'id';
+comment on column FLOW_BASE_INFO.flow_id
+  is '流程id';
+comment on column FLOW_BASE_INFO.project_no
+  is '单号';
+comment on column FLOW_BASE_INFO.manage_no
+  is '营业所';
+comment on column FLOW_BASE_INFO.user_no
+  is '用户编号';
+comment on column FLOW_BASE_INFO.state
+  is '数据状态  1正常  2已作废';
+comment on column FLOW_BASE_INFO.examine_state
+  is '审核状态 0未审核  1已审核';
+comment on column FLOW_BASE_INFO.push_date
+  is '推送时间';
+comment on column FLOW_BASE_INFO.create_per
+  is '创建人';
+comment on column FLOW_BASE_INFO.create_date
+  is '创建时间';
+comment on column FLOW_BASE_INFO.hire_code
+  is '租户编号';
+comment on column FLOW_BASE_INFO.bill_no
+  is '单号';
+comment on column FLOW_BASE_INFO.affix_related_id
+  is '附件关联ID';
+comment on column FLOW_BASE_INFO.user_name
+  is '用户名';
+comment on column FLOW_BASE_INFO.mobile
+  is '手机号';
 

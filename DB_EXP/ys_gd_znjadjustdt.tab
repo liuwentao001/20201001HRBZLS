@@ -17,6 +17,8 @@
   fail_reason   VARCHAR2(60)
 )
 ;
+comment on table YS_GD_ZNJADJUSTDT
+  is '违约金单体';
 comment on column YS_GD_ZNJADJUSTDT.id
   is 'id';
 comment on column YS_GD_ZNJADJUSTDT.hire_code

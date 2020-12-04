@@ -11,4 +11,24 @@
   optional_affix_id VARCHAR2(255)
 )
 ;
+comment on table FLOW_AFFIX_CONFIG
+  is '流程步骤上传附件配置表';
+comment on column FLOW_AFFIX_CONFIG.id
+  is '主键ID';
+comment on column FLOW_AFFIX_CONFIG.hire_code
+  is '租户编号';
+comment on column FLOW_AFFIX_CONFIG.flow_key
+  is '流程标识';
+comment on column FLOW_AFFIX_CONFIG.flow_version
+  is '版本号';
+comment on column FLOW_AFFIX_CONFIG.step_name
+  is '步骤名称';
+comment on column FLOW_AFFIX_CONFIG.step_id
+  is '步骤ID';
+comment on column FLOW_AFFIX_CONFIG.upload_affix_id
+  is '附件字典值  多个用【,】分隔 必传附件';
+comment on column FLOW_AFFIX_CONFIG.dowload_affix_id
+  is '下载权限设置  附件字典值  多个用【,】';
+comment on column FLOW_AFFIX_CONFIG.optional_affix_id
+  is '上传附件类型 多个用【,】';
 

@@ -9,4 +9,20 @@
   sys_code   VARCHAR2(255)
 )
 ;
+comment on table BASE_PLATFORM_DICTIONARY
+  is '平台字典';
+comment on column BASE_PLATFORM_DICTIONARY.id
+  is '唯一键';
+comment on column BASE_PLATFORM_DICTIONARY.dic_value
+  is '字典值';
+comment on column BASE_PLATFORM_DICTIONARY.dic_name
+  is '字典名称';
+comment on column BASE_PLATFORM_DICTIONARY.parent_id
+  is '父级ID（当前支持5级关联字典）';
+comment on column BASE_PLATFORM_DICTIONARY.relate_id
+  is '关联字典ID（当前支持5级关联字典）';
+comment on column BASE_PLATFORM_DICTIONARY.show_order
+  is '显示顺序';
+comment on column BASE_PLATFORM_DICTIONARY.sys_code
+  is '系统编号';
 

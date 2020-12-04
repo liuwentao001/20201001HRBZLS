@@ -7,4 +7,16 @@
   dic_type        VARCHAR2(2)
 )
 ;
+comment on table BASE_DICTIONARY_PARAMETER
+  is '字典参数表';
+comment on column BASE_DICTIONARY_PARAMETER.id
+  is '唯一键';
+comment on column BASE_DICTIONARY_PARAMETER.dic_id
+  is '字典id';
+comment on column BASE_DICTIONARY_PARAMETER.parameter_code
+  is '参数code';
+comment on column BASE_DICTIONARY_PARAMETER.parameter_value
+  is '参数值';
+comment on column BASE_DICTIONARY_PARAMETER.dic_type
+  is '字典类型|1=平台|2=用户';
 

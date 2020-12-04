@@ -14,4 +14,30 @@
   if_latefee    VARCHAR2(2)
 )
 ;
+comment on table BAS_PRICE_ITEM
+  is '费率项目';
+comment on column BAS_PRICE_ITEM.id
+  is 'id';
+comment on column BAS_PRICE_ITEM.hire_code
+  is '租户编号';
+comment on column BAS_PRICE_ITEM.price_item
+  is '费用项目';
+comment on column BAS_PRICE_ITEM.item_name
+  is '费用名称';
+comment on column BAS_PRICE_ITEM.item_type
+  is '费用类别';
+comment on column BAS_PRICE_ITEM.tax_code
+  is '税率编码';
+comment on column BAS_PRICE_ITEM.tax_rate
+  is '税率';
+comment on column BAS_PRICE_ITEM.tax_meas_unit
+  is '计量单位';
+comment on column BAS_PRICE_ITEM.is_tax
+  is '是否征税|0=不征税|1=征税';
+comment on column BAS_PRICE_ITEM.tax_specs
+  is '规格型号';
+comment on column BAS_PRICE_ITEM.tax_name
+  is '税票显示名称';
+comment on column BAS_PRICE_ITEM.if_latefee
+  is '是否收取违约金';
 

@@ -23,4 +23,6 @@
   sso_login_url       VARCHAR2(255)
 )
 ;
+comment on table BASE_HIRE_INFO
+  is '租户信息表';
 

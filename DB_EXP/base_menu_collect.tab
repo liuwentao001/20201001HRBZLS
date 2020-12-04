@@ -7,4 +7,16 @@
   menu_url  VARCHAR2(100)
 )
 ;
+comment on table BASE_MENU_COLLECT
+  is '菜单收藏';
+comment on column BASE_MENU_COLLECT.id
+  is '主键ID';
+comment on column BASE_MENU_COLLECT.hire_code
+  is '租户编号';
+comment on column BASE_MENU_COLLECT.user_name
+  is '登录账户';
+comment on column BASE_MENU_COLLECT.menu_name
+  is '菜单名称';
+comment on column BASE_MENU_COLLECT.menu_url
+  is '菜单url';
 

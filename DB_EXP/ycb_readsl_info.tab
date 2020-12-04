@@ -28,6 +28,8 @@
   data_source      VARCHAR2(2) default '01'
 )
 ;
+comment on table YCB_READSL_INFO
+  is '远传表抄表';
 comment on column YCB_READSL_INFO.id
   is '流水号';
 comment on column YCB_READSL_INFO.user_code

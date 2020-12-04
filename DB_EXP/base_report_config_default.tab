@@ -18,4 +18,38 @@
   order_new          VARCHAR2(255)
 )
 ;
+comment on table BASE_REPORT_CONFIG_DEFAULT
+  is '自定义报表';
+comment on column BASE_REPORT_CONFIG_DEFAULT.id
+  is '主键ID';
+comment on column BASE_REPORT_CONFIG_DEFAULT.hire_code
+  is '租户编号';
+comment on column BASE_REPORT_CONFIG_DEFAULT.report_id
+  is '报表ID';
+comment on column BASE_REPORT_CONFIG_DEFAULT.data_name
+  is '数据名称';
+comment on column BASE_REPORT_CONFIG_DEFAULT.data_key
+  is '数据key';
+comment on column BASE_REPORT_CONFIG_DEFAULT.data_type
+  is '数据类型';
+comment on column BASE_REPORT_CONFIG_DEFAULT.min_width
+  is '最小宽度';
+comment on column BASE_REPORT_CONFIG_DEFAULT.data_align
+  is '对齐方式';
+comment on column BASE_REPORT_CONFIG_DEFAULT.is_query_condition
+  is '是否查询条件';
+comment on column BASE_REPORT_CONFIG_DEFAULT.condition_prefix
+  is '条件前缀';
+comment on column BASE_REPORT_CONFIG_DEFAULT.is_summation
+  is '是否合计';
+comment on column BASE_REPORT_CONFIG_DEFAULT.is_show
+  is '是否显示';
+comment on column BASE_REPORT_CONFIG_DEFAULT.parent_dic
+  is '父级字典';
+comment on column BASE_REPORT_CONFIG_DEFAULT.formatter
+  is '时间类型格式化';
+comment on column BASE_REPORT_CONFIG_DEFAULT.order_old
+  is '原始排序';
+comment on column BASE_REPORT_CONFIG_DEFAULT.order_new
+  is '新排序';
 

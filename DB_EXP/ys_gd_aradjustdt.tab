@@ -32,6 +32,8 @@
   rec_id_de      VARCHAR2(24)
 )
 ;
+comment on table YS_GD_ARADJUSTDT
+  is '应收调整减免单体';
 comment on column YS_GD_ARADJUSTDT.hire_code
   is '租户编号';
 comment on column YS_GD_ARADJUSTDT.bill_id

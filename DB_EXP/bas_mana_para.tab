@@ -8,4 +8,18 @@
   content      VARCHAR2(500)
 )
 ;
+comment on table BAS_MANA_PARA
+  is '组织架构参数表';
+comment on column BAS_MANA_PARA.id
+  is '主键ID';
+comment on column BAS_MANA_PARA.hire_code
+  is '租户编号';
+comment on column BAS_MANA_PARA.manage_no
+  is '管理架构编码';
+comment on column BAS_MANA_PARA.parameter_no
+  is '参数编码';
+comment on column BAS_MANA_PARA.bcs_describe
+  is '描述';
+comment on column BAS_MANA_PARA.content
+  is '内容';
 

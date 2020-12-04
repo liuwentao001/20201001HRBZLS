@@ -1,0 +1,22 @@
+﻿create table T01001
+(
+  id     VARCHAR2(34),
+  label  VARCHAR2(60),
+  parent VARCHAR2(100),
+  icon   VARCHAR2(100),
+  color  VARCHAR2(100)
+)
+;
+comment on table T01001
+  is '菜单信息表';
+comment on column T01001.id
+  is '唯一键';
+comment on column T01001.label
+  is '菜单名称';
+comment on column T01001.parent
+  is '菜单图片地址';
+comment on column T01001.icon
+  is '菜单url';
+comment on column T01001.color
+  is '父级编号';
+

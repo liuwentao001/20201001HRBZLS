@@ -9,4 +9,20 @@
   is_dept_role VARCHAR2(32)
 )
 ;
+comment on table BASE_ROLE
+  is '系统角色表';
+comment on column BASE_ROLE.id
+  is '唯一键';
+comment on column BASE_ROLE.role_name
+  is '角色名称';
+comment on column BASE_ROLE.create_per
+  is '创建人';
+comment on column BASE_ROLE.create_date
+  is '创建时间';
+comment on column BASE_ROLE.hire_code
+  is '租户';
+comment on column BASE_ROLE.show_order
+  is '显示顺序';
+comment on column BASE_ROLE.is_dept_role
+  is '是否部门角色';
 

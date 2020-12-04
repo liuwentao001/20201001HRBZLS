@@ -9,4 +9,6 @@
   create_date    DATE
 )
 ;
+comment on table BASE_HIRE_INTERFACE
+  is '租户接口表';
 

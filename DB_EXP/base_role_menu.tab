@@ -9,4 +9,20 @@
   sys_code    VARCHAR2(32)
 )
 ;
+comment on table BASE_ROLE_MENU
+  is '角色权限';
+comment on column BASE_ROLE_MENU.id
+  is '角色权限';
+comment on column BASE_ROLE_MENU.role_id
+  is '角色编号';
+comment on column BASE_ROLE_MENU.menu_id
+  is '菜单编号';
+comment on column BASE_ROLE_MENU.create_per
+  is '创建人';
+comment on column BASE_ROLE_MENU.create_date
+  is '创建时间';
+comment on column BASE_ROLE_MENU.hire_code
+  is '租户编号';
+comment on column BASE_ROLE_MENU.sys_code
+  is '系统编号';
 

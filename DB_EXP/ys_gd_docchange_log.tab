@@ -14,4 +14,30 @@
   examine_date DATE
 )
 ;
+comment on table YS_GD_DOCCHANGE_LOG
+  is '档案变更日志表';
+comment on column YS_GD_DOCCHANGE_LOG.id
+  is '唯一键';
+comment on column YS_GD_DOCCHANGE_LOG.table_name
+  is '表名';
+comment on column YS_GD_DOCCHANGE_LOG.column_name
+  is '字段名称';
+comment on column YS_GD_DOCCHANGE_LOG.old_value
+  is '原值';
+comment on column YS_GD_DOCCHANGE_LOG.new_value
+  is '新值';
+comment on column YS_GD_DOCCHANGE_LOG.yh_id
+  is '用户编号';
+comment on column YS_GD_DOCCHANGE_LOG.hire_code
+  is '租户编号';
+comment on column YS_GD_DOCCHANGE_LOG.change_per
+  is '变更人';
+comment on column YS_GD_DOCCHANGE_LOG.change_date
+  is '变更时间';
+comment on column YS_GD_DOCCHANGE_LOG.change_type
+  is '变更类型';
+comment on column YS_GD_DOCCHANGE_LOG.examine_per
+  is '审核人员';
+comment on column YS_GD_DOCCHANGE_LOG.examine_date
+  is '审核日期';
 

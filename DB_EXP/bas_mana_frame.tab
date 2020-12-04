@@ -11,4 +11,24 @@
   memo         VARCHAR2(200)
 )
 ;
+comment on table BAS_MANA_FRAME
+  is '组织架构';
+comment on column BAS_MANA_FRAME.id
+  is '主键ID';
+comment on column BAS_MANA_FRAME.hire_code
+  is '租户编号';
+comment on column BAS_MANA_FRAME.manage_no
+  is '编码';
+comment on column BAS_MANA_FRAME.manage_name
+  is '名称';
+comment on column BAS_MANA_FRAME.manage_pno
+  is '上级编码';
+comment on column BAS_MANA_FRAME.manage_class
+  is '级次';
+comment on column BAS_MANA_FRAME.last_mark
+  is '末级标志';
+comment on column BAS_MANA_FRAME.status
+  is '状态';
+comment on column BAS_MANA_FRAME.memo
+  is '备注';
 

@@ -8,4 +8,18 @@
   content      CLOB
 )
 ;
+comment on table BAS_AREA_PARA
+  is '区域架构参数';
+comment on column BAS_AREA_PARA.id
+  is '主键ID';
+comment on column BAS_AREA_PARA.hire_code
+  is '租户编号';
+comment on column BAS_AREA_PARA.area_no
+  is '区域编码';
+comment on column BAS_AREA_PARA.parameter_no
+  is '参数编码';
+comment on column BAS_AREA_PARA.bcs_describe
+  is '描述';
+comment on column BAS_AREA_PARA.content
+  is '内容';
 
