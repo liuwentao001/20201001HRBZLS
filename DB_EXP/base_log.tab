@@ -1,0 +1,46 @@
+﻿create table BASE_LOG
+(
+  id               VARCHAR2(32),
+  hire_code        VARCHAR2(32),
+  description      VARCHAR2(255),
+  log_type         VARCHAR2(255),
+  method           VARCHAR2(255),
+  params           BLOB,
+  request_ip       VARCHAR2(255),
+  username         VARCHAR2(255),
+  address          VARCHAR2(255),
+  browser          VARCHAR2(255),
+  exception_detail BLOB,
+  create_time      DATE,
+  time             NUMBER
+)
+;
+comment on table BASE_LOG
+  is '系统日志';
+comment on column BASE_LOG.id
+  is '主键ID';
+comment on column BASE_LOG.hire_code
+  is '租户编号';
+comment on column BASE_LOG.description
+  is '描述';
+comment on column BASE_LOG.log_type
+  is '日志类型';
+comment on column BASE_LOG.method
+  is '请求方法';
+comment on column BASE_LOG.params
+  is '请求参数';
+comment on column BASE_LOG.request_ip
+  is '请求IP';
+comment on column BASE_LOG.username
+  is '用户名';
+comment on column BASE_LOG.address
+  is '地址';
+comment on column BASE_LOG.browser
+  is '浏览器';
+comment on column BASE_LOG.exception_detail
+  is '异常详情';
+comment on column BASE_LOG.create_time
+  is '创建时间';
+comment on column BASE_LOG.time
+  is '请求耗时';
+

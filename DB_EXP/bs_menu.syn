@@ -1,0 +1,3 @@
+﻿create or replace synonym BS_MENU
+  for YYSF.T01001;
+

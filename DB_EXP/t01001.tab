@@ -14,9 +14,7 @@ comment on column T01001.id
 comment on column T01001.label
   is '菜单名称';
 comment on column T01001.parent
-  is '菜单图片地址';
-comment on column T01001.icon
-  is '菜单url';
-comment on column T01001.color
   is '父级编号';
+comment on column T01001.icon
+  is '菜单图片地址';
 
