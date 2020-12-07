@@ -466,21 +466,21 @@
   
     SELECT COUNT(*)
       INTO v_Count
-      FROM (SELECT Ardsl, Ardje
+      FROM (SELECT SUM(decode(ARDPIID, '01',Ardsl,0)), sum(Ardje)
               FROM Ys_Zw_Ardetail_Fz
              WHERE Ardid = p_Arsplitdt.Rec_Id
             MINUS
-            SELECT SUM(Ardsl), SUM(Ardje)
+            SELECT SUM(decode(ARDPIID, '01',Ardsl,0)), SUM(Ardje)
               FROM Ys_Zw_Ardetail
              WHERE Ardid IN (TRIM(v_Arid), TRIM(v_Arid2))
-             GROUP BY Ardpmdid, Ardpiid, Ardpfid, Ardclass);
+             /*GROUP BY Ardpmdid, Ardpiid, Ardpfid, Ardclass*/);
   
     IF v_Count > 0 THEN
       Raise_Application_Error(Errcode, '分账明细金额错误！');
     END IF;
   
     --5冲原应收帐
-    Sp_Reccz_One_01(p_Arsplitdt.Rec_Id, p_Commit);
+     Sp_Reccz_One_01(p_Arsplitdt.Rec_Id, p_Commit);
     --O_RET := 'Y';
   EXCEPTION
     WHEN OTHERS THEN
