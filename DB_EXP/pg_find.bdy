@@ -43,7 +43,7 @@
       md.rfid 电子标签,
       md.mdcaliber 表口径,
       md.mdbrand 表厂家,
-      sb.sbname2 招牌名称,--(小区名，襄阳需求）
+      sb.sbname2 招牌名称,--(小区名）
       sb.sbusenum 户籍人数,
       sb.sbrecdate 本期抄见日期,
       sb.sbrecsl 本期抄见水量,
@@ -81,43 +81,133 @@
     ;
   end findcustmetercomplexdoc;
 
-  procedure findpaymentbase(p_yhid in varchar2,p_yhname in varchar2,p_sbposition in varchar2,p_yhmtel in varchar2 ,out_tab out sys_refcursor) is
+  /*
+  功能：柜台缴费页面基本信息查询
+  参数说明
+  p_yhid          用户id
+  p_yhname        用户名
+  p_sbposition    用水地址
+  p_yhmtel        移动电话
+  out             输出结果集
+  */
+  procedure find_gtjf_jbxx(p_yhid in varchar2,p_yhname in varchar2,p_sbposition in varchar2,p_yhmtel in varchar2 ,out_tab out sys_refcursor) is
     begin
     open out_tab for select
       t.yhname 用户名称,
       t.yhid 客户代码,
-      sb.sbsaving 用户余额,
       t.yhconnecttel 联系电话,
       t.yhmtel 移动电话,
-      sb.sbposition 用水地址,--ys_yh_sbinfo  户表信息【sb】  sbposition  水表接水地址
-      t.yhstatus 用户状态,--yhstatus 用户状态【syscuststatus】(1正常/7销户/2预立户)
-      sb.book_no 表册,--ys_yh_sbinfo 户表信息【sb】  book_no 表册(bookframe)
-      sb.price_no 价格分类,--  ys_yh_sbinfo  户表信息【sb】  price_no  价格分类(priceframe)
-      sb.sbchargetype 收费方式,--  ys_yh_sbinfo  户表信息【sb】  sbchargetype  收费方式(x坐收m走收)
-      t.manage_no 营销公司,--  ys_yh_custinfo  用户信息表【yh】 manage_no 营销公司
-      t.yhifinv 增值税发票,--外包 ys_yh_custinfo  用户信息表【yh】 yhifinv 是否普票（哈尔滨：借用做是否已打印增值税收据，reclist取值，置空）
-      sb.sbpriflag 合收标志,--外包 ys_yh_sbinfo  户表信息【sb】  sbpriflag 合收表标志(y-合收表标志,n-非合收主表 )
-      sb.sbpriflag 合收主表,--外包 ys_yh_sbinfo  户表信息【sb】  sbpriid 合收表主表号
-      sb.sbifmp 混合用水,--外包  ys_yh_sbinfo  户表信息【sb】  sbifmp  混合用水标志(y-是,n-否 )
-      ar.arznj+ar.arje 合计水费,
-      sb.sbsaving 预存余额,--外包  ys_yh_sbinfo  户表信息【sb】  sbsaving  预存款余额
-      ar.arznj 违约金,--外包  ys_zw_arlist  应收总帐明细【ar】  arznj 违约金
-      ar.arje 本次应缴--外包 ys_zw_arlist  应收总帐明细【ar】  arje  应收金额
+      sb.sbposition 用水地址,
+      case t.yhstatus when '1' then '正常' when '7' then '销户' when '2' then '预立户' end 用户状态,--(1正常/7销户/2预立户)
+      sb.book_no 表册,
+      price_name||'('||price||')' 价格分类,
+      case sb.sbchargetype when 'X' then '坐收' when 'M' then '走收' end 收费方式,-- 收费方式(x坐收m走收)
+      dp.dept_name 营销公司, 
+      t.yhifinv 增值税发票,--是否普票（哈尔滨：借用做是否已打印增值税收据，reclist取值，置空）
+      sb.sbpriflag 合收标志,--合收表标志(y-合收表标志,n-非合收主表 )
+      sb.sbpriflag 合收主表,
+      sb.sbifmp 混合用水,--混合用水标志(y-是,n-否 )
+      sum(nvl(sb.sbsaving,0)) 预存余额
     from 
       ys_yh_custinfo t,
       ys_yh_sbinfo sb,
-      ys_zw_arlist ar
+      base_dept dp,
+      (select bas_price_name.price_no,bas_price_name.price_name,sum(bas_price_detail.price) price
+      from bas_price_name,bas_price_detail 
+      where bas_price_name.price_no=bas_price_detail.price_no 
+      group by bas_price_name.price_no,bas_price_name.price_name) p
     where
       t.yhid = sb.yhid
       and sb.hire_code = t.hire_code
-      and t.yhid = ar.yhid
-      and sb.sbid = ar.sbid
-      and (t.yhid = p_yhid or p_yhid is null)
-      and (t.yhname = p_yhname or p_yhname is null)
+      and t.manage_no = dp.dept_no
+      and dp.hire_code = 'kings'
+      and sb.price_no = p.price_no
+      and (t.yhid like '%'||p_yhid||'%' or p_yhid is null)
+      and (t.yhname like '%'||p_yhname||'%' or p_yhname is null)
       and (sb.sbposition like '%'||p_sbposition||'%' or p_sbposition is null)
-      and (t.yhmtel = p_yhmtel or p_yhmtel is null)
+      and (t.yhmtel like '%'||p_yhmtel||'%' or p_yhmtel is null)
+    group by t.yhname,
+      t.yhid,
+      t.yhconnecttel,
+      t.yhmtel,
+      sb.sbposition,
+      t.yhstatus,
+      sb.book_no,
+      price_name||'('||price||')',
+      sb.sbchargetype,
+      dp.dept_name,
+      t.yhifinv,
+      sb.sbpriflag,
+      sb.sbpriflag,
+      sb.sbifmp
       ;
-  end findpaymentbase;
+  end find_gtjf_jbxx;
+  
+  /*
+  功能：柜台缴费页面欠费信息查询
+  参数说明
+  p_yhid          用户id
+  out             输出结果集
+  */
+  procedure find_gtjf_qf(p_yhid in varchar2,out_tab out sys_refcursor) is
+    begin
+    open out_tab for select
+        armonth   账务月份, 
+        ardate    账务日期, 
+        arscode   起数,   
+        arecode   止数,   
+        arsl    应收水量, 
+        arje    应收金额, 
+        arpaidje  销账金额, 
+        arznj   违约金,   
+        arzndate  违约金起算日,
+        price_name||'('||price||')' 价格分类, 
+        artrans   应收事务, 
+        arid    流水号   
+      from ys_zw_arlist,
+          (select bas_price_name.price_no,bas_price_name.price_name,sum(bas_price_detail.price) price
+          from bas_price_name,bas_price_detail 
+          where bas_price_name.price_no=bas_price_detail.price_no 
+          group by bas_price_name.price_no,bas_price_name.price_name) p
+      where arpfid=p.price_no
+        and arreverseflag='N' --冲正标志
+        and (yhid = p_yhid or p_yhid is null)
+      order by ardatetime desc
+      ;
+  end find_gtjf_qf;
+  
+  /*
+  功能：柜台缴费页面欠费信息明细查询
+  参数说明
+  p_arid          流水号
+  out             输出结果集
+  */
+  procedure find_gtjf_qfmx(p_arid in varchar2,out_tab out sys_refcursor) is
+    begin
+    open out_tab for select
+      ardpiid 费用项目,
+      item_name 费用项目名称,
+      ardysje 应收金额,
+      price_name||'('||price||')' 价格分类,
+      ardclass 阶梯级别,
+      ardysdj 单价,
+      ardyssl 水量,
+      ardysje 金额,
+      ardznj 违约金
+    from ys_zw_ardetail ard, 
+       ys_zw_arlist ar,
+      (select bas_price_name.price_no,bas_price_name.price_name,sum(bas_price_detail.price) price
+      from bas_price_name,bas_price_detail 
+      where bas_price_name.price_no=bas_price_detail.price_no 
+      group by bas_price_name.price_no,bas_price_name.price_name) p,
+      bas_price_item pi
+    where ar.arid = ard.ardid
+      and ar.arpfid = p.price_no
+      and ardpiid = pi.price_item
+      and ard.ardid = p_arid
+    ;
+  end find_gtjf_qfmx;
+  
 end;
 /
 

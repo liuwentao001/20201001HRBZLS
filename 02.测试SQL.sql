@@ -282,17 +282,87 @@ where
        and sb.hire_code = t.hire_code
        and t.yhid = ar.yhid
        and sb.sbid = ar.sbid
+       and ar.ardatetime=(select max(ardatetime) from ys_zw_arlist where yhid=p_yhid)
        and (t.yhid = p_yhid or p_yhid is null)
        and (t.yhname = p_yhname or p_yhname is null)
        and (sb.SBPOSITION like '%'||b.p_sbposition||'%' or p_sbposition is null)
        and (t.YHMTEL = p_yhmtel or p_yhmtel is null)
 
+3 朱斌  1307580783  0.000   1232      0201  0101  X 0201    Y Y   80.24 0.000 0.000 80.240
+4 朱斌  1307580783  0.000   1232      0201  0101  X 0201    Y Y   -80.24  0.000 0.000 -80.240
 
 
 
-select * from YS_ZW_PAIDMENT
+select arpid,t.* from ys_zw_arlist t where yhid='1307580783' and arreverseflag='N'
+8 B5B317CD7C794088E053FB3EE931950E  kings 0000012847  0201  2021.01 2020-12-5 1307580783  1307580783      1 Y 4 朱斌  武汉鲁磨路160  武汉鲁磨路160    1232  123567          Y                 0201  1970-1-1  2020-12-5 2021-1-4  20    1   54321 0 100 100 [0]历史单价     N 1 DE  X 100 3291.000  0 0000012847  1 2021.01 0.000 N     B5B317CD7C784088E053FB3EE931950E    0.000     0101  2020-12-5 14:57:18  2020-12-5   Y 0201    0 100     1     0.00  0.00  0.00  N N N   朱斌  0.00                    0.000 174.640           202010.00                     
+
+select sum(arje) from ys_zw_arlist where yhid='1307580783'
+
+select * from ys_zw_ardetail where ardmid='1307580783' and ardid='0000012847'
+
+select * from bas_price_item
+
+select * from bas_price_detail
+
+select *
+from ys_zw_ardetail ard, ys_zw_arlist ar
+where ar.arid=ard.ardid
+
+select
+	ardpiid 费用项目,--外包  ys_zw_ardetail  应收帐明细【ard】  ardpiid 费用项目
+	ardysje 应收金额,--外包  ys_zw_ardetail  应收帐明细【ard】  ardysje 应收金额
+  '' 混合用水,--外包	YS_ZW_ARDETAIL	应收帐明细【ARD】	ardpmdid	混合用水分组
+	price_name||'('||price||')' 价格分类,
+	ardclass 阶梯级别,--外包  ys_zw_ardetail  应收帐明细【ard】  ardclass  阶梯级别
+	ardysdj 单价,--外包  ys_zw_ardetail  应收帐明细【ard】  ardysdj 应收单价
+	ardyssl 水量,--外包  ys_zw_ardetail  应收帐明细【ard】  ardyssl 应收水量
+	ardysje 金额,--外包  ys_zw_ardetail  应收帐明细【ard】  ardysje 应收金额
+	ardznj 违约金--外包  ys_zw_ardetail  应收帐明细【ard】  ardznj  违约金
+from ys_zw_ardetail ard, 
+   ys_zw_arlist ar,
+  (select bas_price_name.price_no,bas_price_name.price_name,sum(bas_price_detail.price) price
+  from bas_price_name,bas_price_detail 
+  where bas_price_name.price_no=bas_price_detail.price_no 
+  group by bas_price_name.price_no,bas_price_name.price_name) p
+where ar.arid=ard.ardid
+and ar.arpfid=p.price_no
+and ard.ardid='0000012847'
 
 
+select sum(arje) from ys_zw_arlist t where yhid='1000005972'
 
+      
+
+ select
+      ardpiid 费用项目,
+      item_name 费用项目名称,
+      ardysje 应收金额,
+      price_name||'('||price||')' 价格分类,
+      ardclass 阶梯级别,
+      ardysdj 单价,
+      ardyssl 水量,
+      ardysje 金额,
+      ardznj 违约金
+    from ys_zw_ardetail ard, 
+       ys_zw_arlist ar,
+      (select bas_price_name.price_no,bas_price_name.price_name,sum(bas_price_detail.price) price
+      from bas_price_name,bas_price_detail 
+      where bas_price_name.price_no=bas_price_detail.price_no 
+      group by bas_price_name.price_no,bas_price_name.price_name) p,
+      bas_price_item pi
+    where ar.arid = ard.ardid
+      and ar.arpfid = p.price_no
+      and ardpiid = pi.price_item
+      and ard.ardid = '0000012847'
+      
+      
+      
+select * from base_user_dictionary
+
+with lv1 as (
+select * from base_user_dictionary where parent_id is null order by dic_value
+)select * from lv1 left join base_user_dictionary lv2 on lv1.id=lv2.parent_id order by lv1.dic_value,lv2.show_order
+
+select dic_value,dic_name from base_user_dictionary where parent_id = (select id from base_user_dictionary where dic_value='SWMS_SYS_CHEQUETYPE') order by show_order
 
 
