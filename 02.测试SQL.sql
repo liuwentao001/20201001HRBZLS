@@ -366,3 +366,62 @@ select * from base_user_dictionary where parent_id is null order by dic_value
 select dic_value,dic_name from base_user_dictionary where parent_id = (select id from base_user_dictionary where dic_value='SWMS_SYS_CHEQUETYPE') order by show_order
 
 
+
+select * from YS_ZW_PAIDMENT t WHERE PID='0000247255' for update 
+
+select * from ys_zw_ardetail where ardid='0000012916'
+select * from ys_zw_arlist where arid='0000012916'
+
+select * from ys_yh_custinfo 
+
+select * from ys_yh_sbinfo where yhid <> sbid
+
+select yhid,sum(1) from ys_yh_sbinfo group by yhid having sum(1)>1
+
+
+select listagg(ardpiid,',') within group(order by ardpiid) from ys_zw_ardetail where ardid='0000012726'
+
+select to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') from ys_zw_ardetail where ardid='0000012726' group by ardid
+
+
+
+WITH tb AS
+ (SELECT '0,1,2,3,4,5,6,7,8' i_name
+    FROM dual)
+SELECT regexp_substr(i_name, '[^,]+', 1, LEVEL) COLUMN_VALUE
+  FROM tb
+CONNECT BY PRIOR dbms_random.value IS NOT NULL
+       AND LEVEL <= length(i_name) - length(REPLACE(i_name, ',', '')) + 1;
+       
+'0000012726,70105341'
+
+
+select regexp_substr('0000012726,70105341,7,77', '[^,]+', 1, level) column_value from dual
+connect by level <= length('0000012726,70105341,7,7') - length(replace('0000012726,70105341,7,7', ',', '')) + 1;
+       
+
+with t as(
+  --select to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') a 
+  select to_char(ardid||',Y*'||replace(regexp_replace(listagg(ardpiid, ',') within group(order by ardpiid),'([^,]+)(,\1)+','\1'),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') a
+  from ys_zw_ardetail 
+  where ardid in ('0000012726','70105341') group by ardid
+)
+select listagg(a,'|') within group(order by a) from t
+
+
+with arstr_tab as(
+  select to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') arstr 
+  from ys_zw_ardetail 
+  where ardid in (select regexp_substr('0000012726,70105341', '[^,]+', 1, level) column_value from dual
+                  connect by prior dbms_random.value is not null
+                    and level <= length('0000012726,70105341') - length(replace('0000012726,70105341', ',', '')) + 1) 
+  group by ardid
+)
+select listagg(arstr,'|') within group(order by arstr) from arstr_tab
+
+
+
+
+
+
+

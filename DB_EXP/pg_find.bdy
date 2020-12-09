@@ -208,6 +208,59 @@
     ;
   end find_gtjf_qfmx;
   
+  /*
+  功能：柜台缴费页面缴费入口
+  参数说明
+  p_yhid          用户编码
+  p_arid          流水号，多个流水号用逗号分隔，例如：0000012726,70105341
+  p_position      缴费单位，营销架构中营业所编码，实收计帐单位
+  p_oper          销帐员，柜台缴费时销帐人员与收款员统一
+  p_payway        资金来源
+  p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
+  p_out           输出缴费流水号
+  */
+  
+  procedure find_gtjf_jf(p_yhid in varchar2,
+            p_arid in varchar2,
+            p_position in varchar2,
+            p_paypoint in varchar2,
+            p_oper     in varchar2,
+            p_payway in varchar2,
+            p_payment in number,
+            p_pid out varchar2) is
+  v_sbid varchar2(10);
+  v_arstr varchar2(1000);
+  begin
+      --获取水表编码
+      select sbid into v_sbid from ys_yh_sbinfo where yhid = p_yhid;
+      
+      if p_arid is not null then
+        --字符串转换
+        --例如：0000012726,70105341 转换成 0000012726,Y*01!Y*02!Y*03!Y*04!,0,0,0,0|70105341,Y*01!Y*02!Y*03!,0,0,0,0|
+        with arstr_tab as(
+          select 
+            --to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') arstr
+            to_char(ardid||',Y*'||replace(regexp_replace(listagg(ardpiid, ',') within group(order by ardpiid),'([^,]+)(,\1)+','\1'),',','!Y*')||'!,'||sum(nvl(ardznj,0))||',0,0,0|') arstr
+          from ys_zw_ardetail 
+          where ardid in (select regexp_substr(p_arid, '[^,]+', 1, level) column_value from dual
+                          connect by --prior dbms_random.value is not null and
+                          level <= length(p_arid) - length(replace(p_arid, ',', '')) + 1) 
+          group by ardid
+        )
+        select listagg(arstr,'|') within group(order by arstr) into v_arstr from arstr_tab;
+      end if;
+      --调用水司柜台缴费      
+      pg_paid.poscustforys(p_sbid => v_sbid,
+           p_arstr => v_arstr,
+           p_position => p_position,
+           p_oper => p_oper,
+           p_paypoint => p_paypoint,
+           p_payway => p_payway,
+           p_payment => p_payment,
+           p_batch => null,
+           p_pid => p_pid);
+  end find_gtjf_jf;
+  
 end;
 /
 
