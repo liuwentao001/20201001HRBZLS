@@ -42,20 +42,19 @@
   参数说明
   p_yhid          用户编码
   p_arid          流水号，多个流水号用逗号分隔，例如：0000012726,70105341
-  p_position      缴费单位，营销架构中营业所编码，实收计帐单位
   p_oper          销帐员，柜台缴费时销帐人员与收款员统一
   p_payway        资金来源
   p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
-  p_out           输出缴费流水号
+  p_gnm           功能码， 正常999 错误000
+  p_cwxx          错误信息
   */
   procedure find_gtjf_jf(p_yhid in varchar2,
             p_arid in varchar2,
-            p_position in varchar2,
-            p_paypoint in varchar2,
             p_oper     in varchar2,
             p_payway in varchar2,
             p_payment in number,
-            p_pid out varchar2);
+            p_gnm out varchar2,
+            p_cwxx out varchar2);
 
 end;
 /

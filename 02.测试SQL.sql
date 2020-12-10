@@ -421,7 +421,31 @@ select listagg(arstr,'|') within group(order by arstr) from arstr_tab
 
 
 
+            reSetPayForm() {
+                this.sbsaving= '0';//上期预存
+                this.arje= '0';//本次水费
+                this.ardznj= '0';//违约金
+                this.arpaidje= '0';//本次应缴
+                this.pysPaidment= '';//收银金额(付款金额)
+                this.pchange= '0';//找零金额
+                this.prcreceived= '0';//实收金额
+                this.psavingbq= '0';//本次预存
 
-
-
+                 case '1'://如果是找零到元
+                                let zlje = subNum(parseFloat(this.payForm.pysPaidment, 10), parseFloat(this.payForm.arpaidje, 10));
+                                this.payForm.pchange = parseFloat((zlje + "").split('.')[0]);//找零金额
+                                this.payForm.psavingbq = parseFloat("0." + (zlje + "").split('.')[1]);//本次预存
+                                this.payForm.prcreceived = subNum(this.payForm.pysPaidment, this.payForm.pchange);//实收金额
+                                break;
+                            case '2': //如果是找零到角
+                                let coin = subNum(parseFloat(this.payForm.pysPaidment, 10), parseFloat(this.payForm.arpaidje, 10));
+                                this.payForm.psavingbq = subNum(coin, (parseInt(coin * 10) / 10));
+                                this.payForm.pchange = (parseInt(coin * 10) / 10);
+                                this.payForm.prcreceived = subNum(this.payForm.pysPaidment, this.payForm.pchange);//实收金额
+                                break;
+                            case '0'://全部预存
+                                this.payForm.pchange = 0;//找零金额
+                                this.payForm.prcreceived = this.payForm.pysPaidment;//实收金额
+                                this.payForm.psavingbq = subNum(this.payForm.pysPaidment, this.payForm.arpaidje);//本次预存
+                                break;
 

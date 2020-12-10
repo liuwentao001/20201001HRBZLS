@@ -152,7 +152,7 @@
   procedure find_gtjf_qf(p_yhid in varchar2,out_tab out sys_refcursor) is
     begin
     open out_tab for select
-        armonth   账务月份, 
+       armonth   账务月份, 
         ardate    账务日期, 
         arscode   起数,   
         arecode   止数,   
@@ -161,17 +161,15 @@
         arpaidje  销账金额, 
         arznj   违约金,   
         arzndate  违约金起算日,
-        price_name||'('||price||')' 价格分类, 
+        arpfid 价格分类, 
         artrans   应收事务, 
         arid    流水号   
-      from ys_zw_arlist,
-          (select bas_price_name.price_no,bas_price_name.price_name,sum(bas_price_detail.price) price
-          from bas_price_name,bas_price_detail 
-          where bas_price_name.price_no=bas_price_detail.price_no 
-          group by bas_price_name.price_no,bas_price_name.price_name) p
-      where arpfid=p.price_no
-        and arreverseflag='N' --冲正标志
-        and (yhid = p_yhid or p_yhid is null)
+      from ys_zw_arlist 
+      where 
+        arpaidflag='N'         --销帐标志(Y:Y，N:N，X:X，V:Y/N，T:Y/X，K:N/X，W:Y/N/X)
+        and arreverseflag='N'  --冲正标志（N为正常，Y为冲正）
+        and aroutflag='N'      --发出标志(Y-发出 N-未发出)
+        and yhid = p_yhid
       order by ardatetime desc
       ;
   end find_gtjf_qf;
@@ -213,26 +211,32 @@
   参数说明
   p_yhid          用户编码
   p_arid          流水号，多个流水号用逗号分隔，例如：0000012726,70105341
-  p_position      缴费单位，营销架构中营业所编码，实收计帐单位
   p_oper          销帐员，柜台缴费时销帐人员与收款员统一
   p_payway        资金来源
   p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
-  p_out           输出缴费流水号
+  p_gnm           功能码， 正常999 错误000
+  p_cwxx          错误信息
   */
-  
   procedure find_gtjf_jf(p_yhid in varchar2,
             p_arid in varchar2,
-            p_position in varchar2,
-            p_paypoint in varchar2,
             p_oper     in varchar2,
             p_payway in varchar2,
             p_payment in number,
-            p_pid out varchar2) is
+            p_gnm out varchar2,
+            p_cwxx out varchar2) is
   v_sbid varchar2(10);
   v_arstr varchar2(1000);
+  v_position varchar(32);
+  v_paypoint varchar(32);
+  v_pid varchar(32);
   begin
       --获取水表编码
       select sbid into v_sbid from ys_yh_sbinfo where yhid = p_yhid;
+      
+      if p_oper is not null then
+	      select base_dept.dept_no into v_position from base_user join base_dept on base_user.dept_id = base_dept.id and base_user.user_name = p_oper;
+        v_paypoint := v_position;
+      end if;
       
       if p_arid is not null then
         --字符串转换
@@ -249,16 +253,24 @@
         )
         select listagg(arstr,'|') within group(order by arstr) into v_arstr from arstr_tab;
       end if;
+      
       --调用水司柜台缴费      
       pg_paid.poscustforys(p_sbid => v_sbid,
            p_arstr => v_arstr,
-           p_position => p_position,
+           p_position => v_position,
            p_oper => p_oper,
-           p_paypoint => p_paypoint,
+           p_paypoint => v_paypoint,
            p_payway => p_payway,
            p_payment => p_payment,
            p_batch => null,
-           p_pid => p_pid);
+           p_pid => v_pid);
+           
+     p_gnm := '999';
+     p_cwxx := '缴费成功';
+  exception
+    when others then
+      p_gnm := '000';
+      p_cwxx := '缴费失败';
   end find_gtjf_jf;
   
 end;
