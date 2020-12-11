@@ -1,9 +1,0 @@
-﻿create table KF_BILL_CHANGE_WORK_RECEIVE
-(
-  id             VARCHAR2(32),
-  change_work_id VARCHAR2(255),
-  receive_id     VARCHAR2(255),
-  receive_type   VARCHAR2(255)
-)
-;
-

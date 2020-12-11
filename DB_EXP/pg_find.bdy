@@ -244,14 +244,14 @@
         with arstr_tab as(
           select 
             --to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') arstr
-            to_char(ardid||',Y*'||replace(regexp_replace(listagg(ardpiid, ',') within group(order by ardpiid),'([^,]+)(,\1)+','\1'),',','!Y*')||'!,'||sum(nvl(ardznj,0))||',0,0,0|') arstr
+            to_char(ardid||',Y*'||replace(regexp_replace(listagg(ardpiid, ',') within group(order by ardpiid),'([^,]+)(,\1)+','\1'),',','!Y*')||'!,'||sum(nvl(ardznj,0))||',0,0,0') arstr
           from ys_zw_ardetail 
           where ardid in (select regexp_substr(p_arid, '[^,]+', 1, level) column_value from dual
                           connect by --prior dbms_random.value is not null and
                           level <= length(p_arid) - length(replace(p_arid, ',', '')) + 1) 
           group by ardid
         )
-        select listagg(arstr,'|') within group(order by arstr) into v_arstr from arstr_tab;
+        select listagg(arstr,'|') within group(order by arstr)||'|' into v_arstr from arstr_tab;
       end if;
       
       --调用水司柜台缴费      

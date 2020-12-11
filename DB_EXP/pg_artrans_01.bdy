@@ -609,7 +609,7 @@
                        p_rlmemo => rah.ADJ_MEMO,
                        p_rlid_source => rad.REC_ID,
                        p_parm_append1rds => vrds,
-                       p_commit => pg_pay.不提交,
+                       p_commit =>0,
                        p_ctl_mircode => case when rah.NCODE_FLAG='Y' then rah.NEXT_CODE else null end,
                        o_rlid_reverse => rad.REC_ID_CR,
                        o_rlid => rad.REC_ID_de);
