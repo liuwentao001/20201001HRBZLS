@@ -1,4 +1,4 @@
-
+﻿
 旧版 - 供水营收网址
 http://221.212.191.139:60014/ruoyi-admin/login?username=admin&password=admin123&validateCode=5
 admin
@@ -18,3 +18,14 @@ hebzls
 49.233.62.251/orcl
 YYSF
 YYSF
+
+凯纳供水数据库
+外网
+111.40.35.152:60023
+administrator
+corner2018@
+数据库
+111.40.35.152:60023
+内网
+192.168.1.253
+
