@@ -18,7 +18,8 @@
   fail_reason VARCHAR2(60),
   rec_id_cr   VARCHAR2(24),
   rec_id_de   VARCHAR2(24),
-  armemo      VARCHAR2(200)
+  armemo      VARCHAR2(200),
+  ncode_flag  VARCHAR2(1)
 )
 ;
 comment on table YS_GD_ARREVOKEDT
@@ -61,4 +62,6 @@ comment on column YS_GD_ARREVOKEDT.rec_id_de
   is '借记账务流水（回写）';
 comment on column YS_GD_ARREVOKEDT.armemo
   is '备注';
+comment on column YS_GD_ARREVOKEDT.ncode_flag
+  is '置下次抄表起度';
 

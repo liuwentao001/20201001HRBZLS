@@ -1,6 +1,5 @@
 ﻿CREATE OR REPLACE PACKAGE BODY Pg_Artrans_01 IS
 
-   
   PROCEDURE Approve(p_Billno IN VARCHAR2,
                     p_Person IN VARCHAR2,
                     p_Billid IN VARCHAR2,
@@ -8,12 +7,16 @@
   BEGIN
     IF p_Djlb IN ('O', 'T', '6', 'N', '13', '14', '21', '23') THEN
       Sp_Rectrans(p_Billno, p_Person); --追量
-    ELSIF p_Djlb = 'G' THEN 
-      RecAdjust(p_Billno, p_Person, '', 'Y'); --调整减免   
+    ELSIF p_Djlb = 'G' THEN
+      Recadjust(p_Billno, p_Person, '', 'Y'); --调整减免   
     ELSIF p_Djlb = '12' THEN
       Sp_Paidbak(p_Billno, p_Person); --实收冲正 
+    ELSIF p_Djlb = 'YSZCZ' THEN
+      Sp_Recreverse(p_Billno, p_Person, '', 'Y'); --应收冲正    
     END IF;
   END;
+  -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------   
   --追量收费 V --保持原有 追量收费
   PROCEDURE Sp_Rectrans(p_No IN VARCHAR2, p_Per IN VARCHAR2) AS
     CURSOR c_Dt IS
@@ -257,7 +260,8 @@
       ROLLBACK;
       Raise_Application_Error(Errcode, SQLERRM);
   END;
-  -----------------------------------
+  -----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- 
   PROCEDURE Sp_Insertmr(Rth         IN Ys_Gd_Araddhd%ROWTYPE, --追收头
                         p_Mriftrans IN VARCHAR2, --抄表数据事务
                         Mi          IN Ys_Yh_Sbinfo%ROWTYPE, --水表信息
@@ -378,12 +382,13 @@
       --OMRID := '';
       Raise_Application_Error(Errcode, '数据库错误!' || SQLERRM);
   END;
------------------------------------------------------------
+  -----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- 
   --追收插入抄表计划到历史库
   PROCEDURE Sp_Insertmrhis(Rth         IN Ys_Gd_Araddhd%ROWTYPE, --追收头
-                        p_Mriftrans IN VARCHAR2, --抄表数据事务
-                        Mi          IN Ys_Yh_Sbinfo%ROWTYPE, --水表信息
-                        Omrid       OUT Ys_Cb_Mtread.Id%TYPE)  AS
+                           p_Mriftrans IN VARCHAR2, --抄表数据事务
+                           Mi          IN Ys_Yh_Sbinfo%ROWTYPE, --水表信息
+                           Omrid       OUT Ys_Cb_Mtread.Id%TYPE) AS
     --抄表流水
     Mrhis Ys_Cb_Mtreadhis%ROWTYPE; --抄表历史库
   BEGIN
@@ -495,176 +500,199 @@
     Mrhis.Cbmrplanje03 := 0; --计划水资源费
     INSERT INTO Ys_Cb_Mtreadhis VALUES Mrhis;
   END;
-
+  -----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- 
   --调整减免
- --应收调整（包含应收冲正、调高、调低、调差价）
-  procedure RecAdjust(p_billno in varchar2, --单据编号
-                      p_per    in varchar2, --完结人
-                      p_memo   in varchar2, --备注
-                      p_commit in varchar --是否提交标志
-                     ) as
-    cursor c_rah is
-    select * from YS_GD_ARADJUSTHD
-    where BILL_ID = p_billno
-    for update;
-
-    cursor c_rad is
-    select * from YS_GD_ARADJUSTDT
-    where BILL_ID = p_billno and CHK_FLAG = 'Y'
-    order by ID
-    for update;
-
-    cursor c_rlsource(vrlid in varchar2) is
-    select * from  ys_zw_arlist
-    where arid = vrlid
-      and arpaidflag='N'
-      and arreverseflag='N'
-      and arbadflag='N'
-      and aroutflag='N';
-
-    cursor c_raddall( vrd_ID in varchar2) is
-    select * from YS_GD_ARADJUSTDDT
-    where rd_ID = vrd_ID
-    order by id
-    for update;
-
-    rah   YS_GD_ARADJUSTHD%rowtype;
-    rad   YS_GD_ARADJUSTDT%rowtype;
-    radd  YS_GD_ARADJUSTDDT%rowtype;
-    rlsource ys_zw_arlist%rowtype;
+  --应收调整（包含应收冲正、调高、调低、调差价）
+  PROCEDURE Recadjust(p_Billno IN VARCHAR2, --单据编号
+                      p_Per    IN VARCHAR2, --完结人
+                      p_Memo   IN VARCHAR2, --备注
+                      p_Commit IN VARCHAR --是否提交标志
+                      ) AS
+    CURSOR c_Rah IS
+      SELECT * FROM Ys_Gd_Aradjusthd WHERE Bill_Id = p_Billno FOR UPDATE;
+  
+    CURSOR c_Rad IS
+      SELECT *
+        FROM Ys_Gd_Aradjustdt
+       WHERE Bill_Id = p_Billno
+         AND Chk_Flag = 'Y'
+       ORDER BY Id
+         FOR UPDATE;
+  
+    CURSOR c_Rlsource(Vrlid IN VARCHAR2) IS
+      SELECT *
+        FROM Ys_Zw_Arlist
+       WHERE Arid = Vrlid
+         AND Arpaidflag = 'N'
+         AND Arreverseflag = 'N'
+         AND Arbadflag = 'N'
+         AND Aroutflag = 'N';
+  
+    CURSOR c_Raddall(Vrd_Id IN VARCHAR2) IS
+      SELECT *
+        FROM Ys_Gd_Aradjustddt
+       WHERE Rd_Id = Vrd_Id
+       ORDER BY Id
+         FOR UPDATE;
+  
+    Rah      Ys_Gd_Aradjusthd%ROWTYPE;
+    Rad      Ys_Gd_Aradjustdt%ROWTYPE;
+    Radd     Ys_Gd_Aradjustddt%ROWTYPE;
+    Rlsource Ys_Zw_Arlist%ROWTYPE;
     --
-    vrd  parm_append1rd:=parm_append1rd(null,null,null,null,null,null,null,null,null,null);
-    vrds parm_append1rd_tab:= parm_append1rd_tab();
-    vsumraddje number:=0;--再次校验单头单体金额相符，很重要
+    Vrd        Parm_Append1rd := Parm_Append1rd(NULL,
+                                                NULL,
+                                                NULL,
+                                                NULL,
+                                                NULL,
+                                                NULL,
+                                                NULL,
+                                                NULL,
+                                                NULL,
+                                                NULL);
+    Vrds       Parm_Append1rd_Tab := Parm_Append1rd_Tab();
+    Vsumraddje NUMBER := 0; --再次校验单头单体金额相符，很重要
   BEGIN
     --单据状态校验
     --检查单是否已完结
-    open c_rah;
-    fetch c_rah into rah;
-    if c_rah%notfound or c_rah%notfound is null then
-      raise_application_error(errcode, '单据不存在');
-    end if;
-    if rah.CHECK_FLAG = 'Y' then
-      raise_application_error(errcode, '单据已审核');
-    end if;
-    if rah.CHECK_FLAG = 'Q' then
-      raise_application_error(errcode, '单据已取消');
-    end if;
-
-    open c_rad;
-    fetch c_rad into rad;
-    if c_rad%notfound or c_rad%notfound is null then
-      raise_application_error(errcode,'单据中不存在选中的调整记录');
-    end if;
-    while c_rad%found loop
-      open c_rlsource(rad.REC_ID);
-      fetch c_rlsource into rlsource;
-      if c_rlsource%notfound or c_rlsource%notfound is null then
-        raise_application_error(errcode, '待调整应收帐务不存在，或已销、已调、划账处理、代收代扣在途等原因！');
-      end if;
-      close c_rlsource;
+    OPEN c_Rah;
+    FETCH c_Rah
+      INTO Rah;
+    IF c_Rah%NOTFOUND OR c_Rah%NOTFOUND IS NULL THEN
+      Raise_Application_Error(Errcode, '单据不存在');
+    END IF;
+    IF Rah.Check_Flag = 'Y' THEN
+      Raise_Application_Error(Errcode, '单据已审核');
+    END IF;
+    IF Rah.Check_Flag = 'Q' THEN
+      Raise_Application_Error(Errcode, '单据已取消');
+    END IF;
+  
+    OPEN c_Rad;
+    FETCH c_Rad
+      INTO Rad;
+    IF c_Rad%NOTFOUND OR c_Rad%NOTFOUND IS NULL THEN
+      Raise_Application_Error(Errcode, '单据中不存在选中的调整记录');
+    END IF;
+    WHILE c_Rad%FOUND LOOP
+      OPEN c_Rlsource(Rad.Rec_Id);
+      FETCH c_Rlsource
+        INTO Rlsource;
+      IF c_Rlsource%NOTFOUND OR c_Rlsource%NOTFOUND IS NULL THEN
+        Raise_Application_Error(Errcode,
+                                '待调整应收帐务不存在，或已销、已调、划账处理、代收代扣在途等原因！');
+      END IF;
+      CLOSE c_Rlsource;
       -------------------------------------------------
-      vsumraddje := 0;
-      vrds       := null;
-      open c_raddall(rad.ID);
-      loop
-        fetch c_raddall into radd;
-        exit when c_raddall%notfound or c_raddall%notfound is null;
-        
-        vrd.HIRE_CODE  := radd.HIRE_CODE;
-        vrd.ardpmdid  := radd.GROUP_NO;
-        vrd.ardpfid   := radd.PRICE_NO;
-        vrd.ardpscid  := radd.ardpscid; --费率明细方案
-        vrd.ardpiid   := radd.PRICE_ITEM;
-        vrd.ardclass  := radd.STEP_CLASS;
-        vrd.arddj     := radd.ADJUST_PRICE;
-       /* vrd.rdsl     := case when rah.rahmemo='减免' then radd.raddyssl
-                             when rah.rahmemo='调整' then radd.raddsl
-                             else radd.raddsl end;*/
-        vrd.ardsl     :=radd.ADJUST_WATER;
-        vrd.ardje     := radd.ADJUST_PRICE;
-        if vrds is null then
-          vrds := parm_append1rd_tab(vrd);
-        else
-          vrds.extend;
-          vrds(vrds.last) := vrd;
-        end if;
-        vsumraddje := vsumraddje + vrd.ardje;
-      end loop;
-      close c_raddall;
-      if vsumraddje<>rad.CHARGE_AMT then
-         raise_application_error(errcode, '单据'||rad.REC_ID||'数据错误，调整后金额'||vsumraddje||'与单体明细合计'||rad.CHARGE_AMT||'不符');
-      end if;
+      Vsumraddje := 0;
+      Vrds       := NULL;
+      OPEN c_Raddall(Rad.Id);
+      LOOP
+        FETCH c_Raddall
+          INTO Radd;
+        EXIT WHEN c_Raddall%NOTFOUND OR c_Raddall%NOTFOUND IS NULL;
+      
+        Vrd.Hire_Code := Radd.Hire_Code;
+        Vrd.Ardpmdid  := Radd.Group_No;
+        Vrd.Ardpfid   := Radd.Price_No;
+        Vrd.Ardpscid  := Radd.Ardpscid; --费率明细方案
+        Vrd.Ardpiid   := Radd.Price_Item;
+        Vrd.Ardclass  := Radd.Step_Class;
+        Vrd.Arddj     := Radd.Adjust_Price;
+        /* vrd.rdsl     := case when rah.rahmemo='减免' then radd.raddyssl
+        when rah.rahmemo='调整' then radd.raddsl
+        else radd.raddsl end;*/
+        Vrd.Ardsl := Radd.Adjust_Water;
+        Vrd.Ardje := Radd.Adjust_Price;
+        IF Vrds IS NULL THEN
+          Vrds := Parm_Append1rd_Tab(Vrd);
+        ELSE
+          Vrds.Extend;
+          Vrds(Vrds.Last) := Vrd;
+        END IF;
+        Vsumraddje := Vsumraddje + Vrd.Ardje;
+      END LOOP;
+      CLOSE c_Raddall;
+      IF Vsumraddje <> Rad.Charge_Amt THEN
+        Raise_Application_Error(Errcode,
+                                '单据' || Rad.Rec_Id || '数据错误，调整后金额' ||
+                                Vsumraddje || '与单体明细合计' || Rad.Charge_Amt || '不符');
+      END IF;
       -------------------------------------------------
-       pg_paid.RecAdjust(p_rlmid => rad.USER_NO,
-                       p_rlcname => rah.USER_NAME,
-                       p_rlpfid => rad.PRICE_NO,
-                       p_rlrdate => rad.READ_DATE,
-                       p_rlscode => rad.READ_SCODE,
-                       p_rlecode => rad.READ_ECODE,
-                       p_rlsl => rad.WATER,
-                       p_rlje => rad.CHARGE_AMT,
-                       p_rlznj => 0,
-                       p_rltrans => 'X',
-                       p_rlmemo => rah.ADJ_MEMO,
-                       p_rlid_source => rad.REC_ID,
-                       p_parm_append1rds => vrds,
-                       p_commit =>0,
-                       p_ctl_mircode => case when rah.NCODE_FLAG='Y' then rah.NEXT_CODE else null end,
-                       o_rlid_reverse => rad.REC_ID_CR,
-                       o_rlid => rad.REC_ID_de);
+      Pg_Paid.Recadjust(p_Rlmid           => Rad.User_No,
+                        p_Rlcname         => Rah.User_Name,
+                        p_Rlpfid          => Rad.Price_No,
+                        p_Rlrdate         => Rad.Read_Date,
+                        p_Rlscode         => Rad.Read_Scode,
+                        p_Rlecode         => Rad.Read_Ecode,
+                        p_Rlsl            => Rad.Water,
+                        p_Rlje            => Rad.Charge_Amt,
+                        p_Rlznj           => 0,
+                        p_Rltrans         => 'X',
+                        p_Rlmemo          => Rah.Adj_Memo,
+                        p_Rlid_Source     => Rad.Rec_Id,
+                        p_Parm_Append1rds => Vrds,
+                        p_Commit          => 0,
+                        p_Ctl_Mircode     => CASE
+                                               WHEN Rah.Ncode_Flag = 'Y' THEN
+                                                Rah.Next_Code
+                                               ELSE
+                                                NULL
+                                             END,
+                        o_Rlid_Reverse    => Rad.Rec_Id_Cr,
+                        o_Rlid            => Rad.Rec_Id_De);
       ----反馈单体
-      update YS_GD_ARADJUSTDT
-         set REC_ID_CR = rad.REC_ID_CR,
-             REC_ID_de = rad.REC_ID_de
-       where current of c_rad; 
-      fetch c_rad into rad;
-    end loop;
-    close c_rad;
-
+      UPDATE Ys_Gd_Aradjustdt
+         SET Rec_Id_Cr = Rad.Rec_Id_Cr, Rec_Id_De = Rad.Rec_Id_De
+       WHERE CURRENT OF c_Rad;
+      FETCH c_Rad
+        INTO Rad;
+    END LOOP;
+    CLOSE c_Rad;
+  
     --审核单头
-    UPDATE YS_GD_ARADJUSTHD
-       SET CHECK_DATE = CURRENTDATE, CHECK_PER = P_PER, CHECK_FLAG = 'Y'
-     WHERE CURRENT OF c_rah;
-    CLOSE c_rah; 
-    IF P_COMMIT = 'Y' THEN
+    UPDATE Ys_Gd_Aradjusthd
+       SET Check_Date = Currentdate, Check_Per = p_Per, Check_Flag = 'Y'
+     WHERE CURRENT OF c_Rah;
+    CLOSE c_Rah;
+    IF p_Commit = 'Y' THEN
       COMMIT;
     END IF;
-
-  exception when others then
-    if c_rah%isopen then
-      close c_rah;
-    end if;
-    if c_rad%isopen then
-      close c_rad;
-    end if;
-    if c_raddall%isopen then
-      close c_raddall;
-    end if;
-    if c_rlsource%isopen then
-      close c_rlsource;
-    end if;
-    rollback;
-    raise_application_error(errcode, sqlerrm);
-  END RecAdjust;
-   
+  
+  EXCEPTION
+    WHEN OTHERS THEN
+      IF c_Rah%ISOPEN THEN
+        CLOSE c_Rah;
+      END IF;
+      IF c_Rad%ISOPEN THEN
+        CLOSE c_Rad;
+      END IF;
+      IF c_Raddall%ISOPEN THEN
+        CLOSE c_Raddall;
+      END IF;
+      IF c_Rlsource%ISOPEN THEN
+        CLOSE c_Rlsource;
+      END IF;
+      ROLLBACK;
+      Raise_Application_Error(Errcode, SQLERRM);
+  END Recadjust;
+  -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------      
   --实收冲正
   PROCEDURE Sp_Paidbak(p_No IN VARCHAR2, p_Per IN VARCHAR2) IS
     Ls_Retstr VARCHAR2(100);
     --单头
     CURSOR c_Hd IS
-      SELECT * FROM YS_GD_PAIDADJUSTHD WHERE BILL_ID = p_No FOR UPDATE;
+      SELECT * FROM Ys_Gd_Paidadjusthd WHERE Bill_Id = p_No FOR UPDATE;
     --单体
     CURSOR c_Dt IS
-      SELECT *
-        FROM YS_GD_PAIDADJUSTDT
-       WHERE BILL_ID = p_No
-         FOR UPDATE;
+      SELECT * FROM Ys_Gd_Paidadjustdt WHERE Bill_Id = p_No FOR UPDATE;
   
-    v_Hd   YS_GD_PAIDADJUSTHD%ROWTYPE;
-    v_Dt   YS_GD_PAIDADJUSTDT %ROWTYPE;
-    v_Temp NUMBER DEFAULT 0;
-    p_pid_reverse  VARCHAR2(50);
+    v_Hd          Ys_Gd_Paidadjusthd%ROWTYPE;
+    v_Dt          Ys_Gd_Paidadjustdt %ROWTYPE;
+    v_Temp        NUMBER DEFAULT 0;
+    p_Pid_Reverse VARCHAR2(50);
   BEGIN
     OPEN c_Hd;
     FETCH c_Hd
@@ -674,10 +702,10 @@
       Raise_Application_Error(Errcode,
                               '单据不存在,可能已经由其他操作员操作！');
     END IF;
-    IF v_Hd.CHECK_FLAG = 'Y' THEN
+    IF v_Hd.Check_Flag = 'Y' THEN
       Raise_Application_Error(Errcode, '单据已经审核！');
     END IF;
-    IF v_Hd.CHECK_FLAG = 'Q' THEN
+    IF v_Hd.Check_Flag = 'Q' THEN
       Raise_Application_Error(Errcode, '单据已取消！');
     END IF;
     /*处理单体*/
@@ -687,25 +715,21 @@
         INTO v_Dt;
       EXIT WHEN c_Dt%NOTFOUND OR c_Dt%NOTFOUND IS NULL;
     
-      IF v_Dt.PAID_TRANS = 'H'  THEN
+      IF v_Dt.Paid_Trans = 'H' THEN
         Raise_Application_Error(Errcode,
-                                '缴费批次号' || v_Dt.PAID_BATCH ||
+                                '缴费批次号' || v_Dt.Paid_Batch ||
                                 '基建调拨实施前缴费,暂时不能冲正!');
       END IF;
-       
+    
       --end!!!
-      pg_paid.PosReverse(v_Dt.Paid_Id ,
-                       p_Per       ,
-                       ''        ,
-                       0    ,
-                       p_pid_reverse );
-     
+      Pg_Paid.Posreverse(v_Dt.Paid_Id, p_Per, '', 0, p_Pid_Reverse);
+    
     END LOOP;
-    UPDATE YS_GD_PAIDADJUSTHD
-       SET CHECK_FLAG = 'Y', CHECK_DATE = SYSDATE, CHECK_PER = p_Per
+    UPDATE Ys_Gd_Paidadjusthd
+       SET Check_Flag = 'Y', Check_Date = SYSDATE, Check_Per = p_Per
     --  PAHSHPER = pahcreper
      WHERE CURRENT OF c_Hd;
-   
+  
     IF c_Hd%ISOPEN THEN
       CLOSE c_Hd;
     END IF;
@@ -722,7 +746,131 @@
         CLOSE c_Dt;
       END IF;
       Raise_Application_Error(Errcode, SQLERRM);
-  END; 
+  END;
+  -----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- 
+  --应收冲正（相当于应收调整到0 ）
+  PROCEDURE Sp_Recreverse(p_Billno IN VARCHAR2, --单据编号
+                          p_Per    IN VARCHAR2, --完结人
+                          p_Memo   IN VARCHAR2, --备注
+                          p_Commit IN VARCHAR --是否提交标志
+                          ) AS
+  
+    CURSOR c_Rch IS
+      SELECT * FROM Ys_Gd_Arrevokehd WHERE Bill_Id = p_Billno FOR UPDATE;
+  
+    CURSOR c_Rcd IS
+      SELECT *
+        FROM Ys_Gd_Arrevokedt
+       WHERE Bill_Id = p_Billno
+       ORDER BY Id
+         FOR UPDATE;
+    Rch  Ys_Gd_Arrevokehd%ROWTYPE;
+    Rcd  Ys_Gd_Arrevokedt%ROWTYPE;
+    Vrd  Parm_Append1rd := Parm_Append1rd(NULL,
+                                          NULL,
+                                          NULL,
+                                          NULL,
+                                          NULL,
+                                          NULL,
+                                          NULL,
+                                          NULL,
+                                          NULL,
+                                          NULL);
+    Vrds Parm_Append1rd_Tab := Parm_Append1rd_Tab();
+  BEGIN
+    --单据状态校验
+    --检查单是否已完结
+    OPEN c_Rch;
+    FETCH c_Rch
+      INTO Rch;
+    IF c_Rch%NOTFOUND OR c_Rch%NOTFOUND IS NULL THEN
+      Raise_Application_Error(Errcode, '单据不存在');
+    END IF;
+    IF Rch.Check_Flag = 'Y' THEN
+      Raise_Application_Error(Errcode, '单据已审核');
+    END IF;
+    IF Rch.Check_Flag = 'Q' THEN
+      Raise_Application_Error(Errcode, '单据已取消');
+    END IF;
+  
+    OPEN c_Rcd;
+    FETCH c_Rcd
+      INTO Rcd;
+    IF c_Rcd%NOTFOUND OR c_Rcd%NOTFOUND IS NULL THEN
+      Raise_Application_Error(Errcode, '单据中不存在选中的冲正记录');
+    END IF;
+    WHILE c_Rcd%FOUND LOOP
+      Pg_Paid.Recadjust(p_Rlmid           => Rcd.Yhid,
+                        p_Rlcname         => NULL,
+                        p_Rlpfid          => Rcd.Arpfid,
+                        p_Rlrdate         => Rcd.Ardate,
+                        p_Rlscode         => Rcd.Arscode,
+                        p_Rlecode         => Rcd.Arecode,
+                        p_Rlsl            => 0,
+                        p_Rlje            => 0,
+                        p_Rlznj           => 0,
+                        p_Rltrans         => 'X',
+                        p_Rlmemo          => Rcd.Armemo,
+                        p_Rlid_Source     => Rcd.Arid,
+                        p_Parm_Append1rds => Vrds,
+                        p_Commit          => 0,
+                        p_Ctl_Mircode     => CASE
+                                               WHEN Rcd.Ncode_Flag = 'Y' THEN
+                                                Rcd.Arscode
+                                               ELSE
+                                                NULL
+                                             END,
+                        o_Rlid_Reverse    => Rcd.Rec_Id_Cr,
+                        o_Rlid            => Rcd.Rec_Id_De);
+    
+      ----反馈单体
+      UPDATE Ys_Gd_Arrevokedt
+         SET Rec_Id_Cr = Rcd.Rec_Id_Cr, Rec_Id_De = Rcd.Rec_Id_De
+       WHERE CURRENT OF c_Rcd;
+    
+      ----如果是冲正当月抄表应收，允许重新抄表
+      BEGIN
+        UPDATE Ys_Cb_Mtread
+           SET Cbmrifrec = 'N', Cbmrifsubmit = 'N', Cbmrifhalt = 'N'
+         WHERE Id = (SELECT Armrid
+                       FROM Ys_Zw_Arlist
+                      WHERE Arid = Rcd.Arid
+                        AND Arcd = 'DE'
+                        AND Artrans = '1'
+                        AND Armrid IS NOT NULL);
+      EXCEPTION
+        WHEN OTHERS THEN
+          NULL;
+      END;
+    
+      FETCH c_Rcd
+        INTO Rcd;
+    END LOOP;
+    CLOSE c_Rcd;
+  
+    --审核单头
+    UPDATE Ys_Gd_Arrevokehd
+       SET Check_Date = Currentdate, Check_Per = p_Per, Check_Flag = 'Y'
+     WHERE CURRENT OF c_Rch;
+    CLOSE c_Rch;
+  
+    IF p_Commit = 'Y' THEN
+      COMMIT;
+    END IF;
+  
+  EXCEPTION
+    WHEN OTHERS THEN
+      IF c_Rch%ISOPEN THEN
+        CLOSE c_Rch;
+      END IF;
+      IF c_Rcd%ISOPEN THEN
+        CLOSE c_Rcd;
+      END IF;
+      ROLLBACK;
+      Raise_Application_Error(Errcode, SQLERRM);
+  END Sp_Recreverse;
+
 END;
 /
 

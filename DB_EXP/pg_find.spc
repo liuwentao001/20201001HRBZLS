@@ -1,6 +1,6 @@
 ﻿create or replace package pg_find is
   /*
-  功能：前台页面综合查询
+  功能：前台页面综合查询_详细信息
   参数说明
   p_yhid          用户id
   p_bookno        表册编码
@@ -8,7 +8,7 @@
   p_manageno      营销公司编码
   out             输出结果集
   */
-  procedure findcustmetercomplexdoc(p_yhid in varchar2,p_bookno in varchar2,p_sbid in varchar2,p_manageno in varchar2 ,out_tab out sys_refcursor);
+  procedure find_zhcx_xxxx(p_yhid in varchar2,p_bookno in varchar2,p_sbid in varchar2,p_manageno in varchar2 ,out_tab out sys_refcursor);
   
   /*
   功能：柜台缴费页面基本信息查询
@@ -55,7 +55,29 @@
             p_payment in number,
             p_gnm out varchar2,
             p_cwxx out varchar2);
-
+  /*
+  功能：柜台缴费页面缴费记录查询
+  参数说明
+  p_yhid          用户id
+  out             输出结果集
+  */
+  procedure find_gtjf_jfjl(p_yhid in varchar2,out_tab out sys_refcursor);
+  
+  /*
+  功能：柜台缴费页面缴费记录明细
+  参数说明
+  p_arpid         实收流水id
+  out             输出结果集
+  */
+  procedure find_gtjf_jfjlmx(p_arpid in varchar2,out_tab out sys_refcursor);
+  
+  /*
+  功能：柜台缴费页面抄表记录查询
+  参数说明
+  p_yhid          用户id
+  out             输出结果集
+  */
+  procedure find_gtjf_cbjl(p_yhid in varchar2,out_tab out sys_refcursor);
 end;
 /
 

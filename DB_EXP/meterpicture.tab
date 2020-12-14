@@ -1,0 +1,41 @@
+﻿create table METERPICTURE
+(
+  mpmiid      VARCHAR2(10) not null,
+  pmsize      NUMBER,
+  pmpath      VARCHAR2(400) not null,
+  pmtime      DATE,
+  pmbz        VARCHAR2(100),
+  pmper       VARCHAR2(10),
+  pmpname     VARCHAR2(30),
+  ciid        VARCHAR2(10),
+  pmfact_path VARCHAR2(400),
+  catalog     VARCHAR2(10)
+)
+;
+comment on table METERPICTURE
+  is '水表图片信息表【PM】';
+comment on column METERPICTURE.mpmiid
+  is '水表编号（meterinfo.miid）';
+comment on column METERPICTURE.pmsize
+  is '图片大小';
+comment on column METERPICTURE.pmpath
+  is '路径';
+comment on column METERPICTURE.pmtime
+  is '上传时间';
+comment on column METERPICTURE.pmbz
+  is '备注';
+comment on column METERPICTURE.pmper
+  is '营销员编号';
+comment on column METERPICTURE.pmpname
+  is '姓名';
+comment on column METERPICTURE.ciid
+  is '客户编号';
+comment on column METERPICTURE.pmfact_path
+  is '真实路径';
+comment on column METERPICTURE.catalog
+  is '(0代表正常抄表拍照1表况异常拍照2水量波动拍照3信息变更拍照4 欠费停水5.恢复供水6.水表维修7.故障换表8.周期换表9大街10单元11表箱12水表13申报拍照14巡线工单拍照)';
+create index IDXS_MPMIID on METERPICTURE (MPMIID);
+create index IDX_METERPICTURE on METERPICTURE (TO_CHAR(PMTIME,'yyyy.mm'));
+alter table METERPICTURE
+  add constraint PK_METERPICTURE primary key (MPMIID, PMPATH);
+

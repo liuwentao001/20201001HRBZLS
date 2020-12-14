@@ -1,136 +1,136 @@
-﻿CREATE OR REPLACE PACKAGE BODY PG_PAID IS
-  CURDATETIME DATE;
+﻿CREATE OR REPLACE PACKAGE BODY Pg_Paid IS
+  Curdatetime DATE;
 
-  FUNCTION OBTWYJ(P_SDATE IN DATE, P_EDATE IN DATE, P_JE IN NUMBER)
+  FUNCTION Obtwyj(p_Sdate IN DATE, p_Edate IN DATE, p_Je IN NUMBER)
     RETURN NUMBER IS
-    V_RESULT NUMBER;
+    v_Result NUMBER;
   BEGIN
-    V_RESULT := P_JE * (TRUNC(P_EDATE) - TRUNC(P_SDATE) + 1) * 0.003;
-    V_RESULT := PG_CB_COST.GETMAX(V_RESULT, 0);
-    RETURN V_RESULT;
+    v_Result := p_Je * (Trunc(p_Edate) - Trunc(p_Sdate) + 1) * 0.003;
+    v_Result := Pg_Cb_Cost.Getmax(v_Result, 0);
+    RETURN v_Result;
   EXCEPTION
     WHEN OTHERS THEN
       RETURN 0;
   END;
   --违约金计算
-  function ObtWyjAdj(p_arid     in varchar2, --应收流水
-                     p_ardpiids in varchar2, --应收明细费项串'01|02|03'
-                     p_edate    in date --终算日'不计入'违约日,参数格式'yyyy-mm-dd'
-                     ) return number is
-    vresult          number;
-    v_arzndate       ys_zw_arlist.arzndate%type;
-    v_arznj          ys_zw_arlist.arznj%type;
-    v_outflag        ys_zw_arlist.aroutflag%type;
-    v_sbid           ys_zw_arlist.sbid%type;
-    v_arje           ys_zw_arlist.arje%type;
-    v_yhifzn         ys_yh_custinfo.yhifzn%type;
-    v_arznjreducflag ys_zw_arlist.arznjreducflag%type;
-    v_chargetype     varchar2(10);
-  begin
+  FUNCTION Obtwyjadj(p_Arid     IN VARCHAR2, --应收流水
+                     p_Ardpiids IN VARCHAR2, --应收明细费项串'01|02|03'
+                     p_Edate    IN DATE --终算日'不计入'违约日,参数格式'yyyy-mm-dd'
+                     ) RETURN NUMBER IS
+    Vresult          NUMBER;
+    v_Arzndate       Ys_Zw_Arlist.Arzndate%TYPE;
+    v_Arznj          Ys_Zw_Arlist.Arznj%TYPE;
+    v_Outflag        Ys_Zw_Arlist.Aroutflag%TYPE;
+    v_Sbid           Ys_Zw_Arlist.Sbid%TYPE;
+    v_Arje           Ys_Zw_Arlist.Arje%TYPE;
+    v_Yhifzn         Ys_Yh_Custinfo.Yhifzn%TYPE;
+    v_Arznjreducflag Ys_Zw_Arlist.Arznjreducflag%TYPE;
+    v_Chargetype     VARCHAR2(10);
+  BEGIN
     BEGIN
-      select a.sbid,
-             max(arzndate),
-             max(arznj),
-             max(aroutflag),
-             sum(ardje),
-             max(yhifzn),
-             max(arznjreducflag),
-             max(NVL(sbchargetype, 'X'))
-        into v_sbid,
-             v_arzndate,
-             v_arznj,
-             v_outflag,
-             v_arje,
-             v_yhifzn,
-             v_arznjreducflag,
-             v_chargetype
-        from ys_zw_arlist   a,
-             ys_yh_custinfo b,
-             ys_zw_ardetail c,
-             ys_yh_sbinfo   d
-       where a.sbid = d.sbid
-         and b.yhid = d.yhid
-         and a.arid = c.ardid
-         and instr(p_ardpiids, ardpiid) > 0
-         and arid = p_arid
-       group by arid, a.sbid;
-    exception
-      when others then
-        raise;
+      SELECT a.Sbid,
+             MAX(Arzndate),
+             MAX(Arznj),
+             MAX(Aroutflag),
+             SUM(Ardje),
+             MAX(Yhifzn),
+             MAX(Arznjreducflag),
+             MAX(Nvl(Sbchargetype, 'X'))
+        INTO v_Sbid,
+             v_Arzndate,
+             v_Arznj,
+             v_Outflag,
+             v_Arje,
+             v_Yhifzn,
+             v_Arznjreducflag,
+             v_Chargetype
+        FROM Ys_Zw_Arlist   a,
+             Ys_Yh_Custinfo b,
+             Ys_Zw_Ardetail c,
+             Ys_Yh_Sbinfo   d
+       WHERE a.Sbid = d.Sbid
+         AND b.Yhid = d.Yhid
+         AND a.Arid = c.Ardid
+         AND Instr(p_Ardpiids, Ardpiid) > 0
+         AND Arid = p_Arid
+       GROUP BY Arid, a.Sbid;
+    EXCEPTION
+      WHEN OTHERS THEN
+        RAISE;
     END;
   
     --暂时屏蔽
     --return 0;
   
-    if v_yhifzn = 'N' or v_chargetype in ('D', 'T') then
-      return 0;
-    end if;
-    if v_arje < 0 then
-      v_arje := 0;
-    end if;
-    if v_arznjreducflag = 'Y' then
-      return v_arznj;
-    end if;
+    IF v_Yhifzn = 'N' OR v_Chargetype IN ('D', 'T') THEN
+      RETURN 0;
+    END IF;
+    IF v_Arje < 0 THEN
+      v_Arje := 0;
+    END IF;
+    IF v_Arznjreducflag = 'Y' THEN
+      RETURN v_Arznj;
+    END IF;
   
-    vresult := ObtWyj(v_arzndate, p_edate, v_arje);
+    Vresult := Obtwyj(v_Arzndate, p_Edate, v_Arje);
     --不得超过本金
-    if vresult > v_arje then
-      vresult := v_arje;
-    end if;
+    IF Vresult > v_Arje THEN
+      Vresult := v_Arje;
+    END IF;
   
-    return trunc(vresult, 2);
-  exception
-    when others then
-      return 0;
-  end;
+    RETURN Trunc(Vresult, 2);
+  EXCEPTION
+    WHEN OTHERS THEN
+      RETURN 0;
+  END;
   /*==========================================================================
   水司柜台缴费（一表）,参数简化版
   '123456789,Y*01!Y*02!Y*03!,0.10,0,0,0|123456789,Y*01!Y*02!Y*03!,0.10,0,0,0|'
   */
-  PROCEDURE POSCUSTFORYS(P_SBID     IN VARCHAR2,
-                         P_ARSTR    IN VARCHAR2,
-                         P_POSITION IN VARCHAR2,
-                         P_OPER     IN VARCHAR2,
-                         P_PAYPOINT IN VARCHAR2,
-                         P_PAYWAY   IN VARCHAR2,
-                         P_PAYMENT  IN NUMBER,
-                         P_BATCH    IN VARCHAR2,
-                         P_PID      OUT VARCHAR2) IS
+  PROCEDURE Poscustforys(p_Sbid     IN VARCHAR2,
+                         p_Arstr    IN VARCHAR2,
+                         p_Position IN VARCHAR2,
+                         p_Oper     IN VARCHAR2,
+                         p_Paypoint IN VARCHAR2,
+                         p_Payway   IN VARCHAR2,
+                         p_Payment  IN NUMBER,
+                         p_Batch    IN VARCHAR2,
+                         p_Pid      OUT VARCHAR2) IS
   
-    V_PARM_AR  PARM_PAYAR;
-    V_PARM_ARS PARM_PAYAR_TAB;
+    v_Parm_Ar  Parm_Payar;
+    v_Parm_Ars Parm_Payar_Tab;
   BEGIN
-    V_PARM_AR  := PARM_PAYAR(NULL, NULL, NULL, NULL, NULL, NULL);
-    V_PARM_ARS := PARM_PAYAR_TAB();
-    FOR I IN 1 .. FMID(P_ARSTR, '|') - 1 LOOP
-      V_PARM_AR.ARID     := PG_CB_COST.FGETPARA(P_ARSTR, I, 1);
-      V_PARM_AR.ARDPIIDS := REPLACE(REPLACE(PG_CB_COST.FGETPARA(P_ARSTR,
-                                                                I,
+    v_Parm_Ar  := Parm_Payar(NULL, NULL, NULL, NULL, NULL, NULL);
+    v_Parm_Ars := Parm_Payar_Tab();
+    FOR i IN 1 .. Fmid(p_Arstr, '|') - 1 LOOP
+      v_Parm_Ar.Arid     := Pg_Cb_Cost.Fgetpara(p_Arstr, i, 1);
+      v_Parm_Ar.Ardpiids := REPLACE(REPLACE(Pg_Cb_Cost.Fgetpara(p_Arstr,
+                                                                i,
                                                                 2),
                                             '*',
                                             ','),
                                     '!',
                                     '|');
-      V_PARM_AR.ARWYJ    := PG_CB_COST.FGETPARA(P_ARSTR, I, 3);
-      V_PARM_AR.FEE1     := PG_CB_COST.FGETPARA(P_ARSTR, I, 4);
-      V_PARM_AR.FEE2     := PG_CB_COST.FGETPARA(P_ARSTR, I, 5);
-      V_PARM_AR.FEE3     := PG_CB_COST.FGETPARA(P_ARSTR, I, 6);
-      V_PARM_ARS.EXTEND;
-      V_PARM_ARS(V_PARM_ARS.LAST) := V_PARM_AR;
+      v_Parm_Ar.Arwyj    := Pg_Cb_Cost.Fgetpara(p_Arstr, i, 3);
+      v_Parm_Ar.Fee1     := Pg_Cb_Cost.Fgetpara(p_Arstr, i, 4);
+      v_Parm_Ar.Fee2     := Pg_Cb_Cost.Fgetpara(p_Arstr, i, 5);
+      v_Parm_Ar.Fee3     := Pg_Cb_Cost.Fgetpara(p_Arstr, i, 6);
+      v_Parm_Ars.Extend;
+      v_Parm_Ars(v_Parm_Ars.Last) := v_Parm_Ar;
     END LOOP;
   
-    POSCUST(P_SBID,
-            V_PARM_ARS,
-            P_POSITION,
-            P_OPER,
-            P_PAYPOINT,
-            P_PAYWAY,
-            P_PAYMENT,
-            P_BATCH,
-            P_PID);
+    Poscust(p_Sbid,
+            v_Parm_Ars,
+            p_Position,
+            p_Oper,
+            p_Paypoint,
+            p_Payway,
+            p_Payment,
+            p_Batch,
+            p_Pid);
   EXCEPTION
     WHEN OTHERS THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   水司柜台缴费（一表）
@@ -146,78 +146,78 @@
   p_payway     in varchar2 :付款方式，每交易有且仅有一种付款方式
   p_payment    in number   :实收，即为（付款-找零），付款与找零在前台计算和校验
   */
-  PROCEDURE POSCUST(P_SBID     IN VARCHAR2,
-                    P_PARM_ARS IN PARM_PAYAR_TAB,
-                    P_POSITION IN VARCHAR2,
-                    P_OPER     IN VARCHAR2,
-                    P_PAYPOINT IN VARCHAR2,
-                    P_PAYWAY   IN VARCHAR2,
-                    P_PAYMENT  IN NUMBER,
-                    P_BATCH    IN VARCHAR2,
-                    P_PID      OUT VARCHAR2) IS
-    VBATCH       VARCHAR2(10);
-    VSEQNO       VARCHAR2(10);
-    V_PARM_ARS   PARM_PAYAR_TAB;
-    VREMAINAFTER NUMBER;
-    V_PARM_COUNT NUMBER;
+  PROCEDURE Poscust(p_Sbid     IN VARCHAR2,
+                    p_Parm_Ars IN Parm_Payar_Tab,
+                    p_Position IN VARCHAR2,
+                    p_Oper     IN VARCHAR2,
+                    p_Paypoint IN VARCHAR2,
+                    p_Payway   IN VARCHAR2,
+                    p_Payment  IN NUMBER,
+                    p_Batch    IN VARCHAR2,
+                    p_Pid      OUT VARCHAR2) IS
+    Vbatch       VARCHAR2(10);
+    Vseqno       VARCHAR2(10);
+    v_Parm_Ars   Parm_Payar_Tab;
+    Vremainafter NUMBER;
+    v_Parm_Count NUMBER;
   BEGIN
-    VBATCH     := P_BATCH;
-    V_PARM_ARS := P_PARM_ARS;
+    Vbatch     := p_Batch;
+    v_Parm_Ars := p_Parm_Ars;
     --核心部分校验
-    FOR I IN (SELECT A.AROUTFLAG
-                FROM YS_ZW_ARLIST A, TABLE(V_PARM_ARS) B
-               WHERE A.ARID = B.ARID) LOOP
-      IF 允许重复销帐 = 0 AND I.AROUTFLAG = 'Y' THEN
-        RAISE_APPLICATION_ERROR(ERRCODE,
+    FOR i IN (SELECT a.Aroutflag
+                FROM Ys_Zw_Arlist a, TABLE(v_Parm_Ars) b
+               WHERE a.Arid = b.Arid) LOOP
+      IF 允许重复销帐 = 0 AND i.Aroutflag = 'Y' THEN
+        Raise_Application_Error(Errcode,
                                 '当前系统规则不允许划扣中进行应收冲正');
       END IF;
     END LOOP;
   
-    SELECT COUNT(*) INTO V_PARM_COUNT FROM TABLE(V_PARM_ARS) B;
-    IF V_PARM_COUNT = 0 THEN
-      IF P_PAYMENT > 0 THEN
+    SELECT COUNT(*) INTO v_Parm_Count FROM TABLE(v_Parm_Ars) b;
+    IF v_Parm_Count = 0 THEN
+      IF p_Payment > 0 THEN
         --单缴预存核心
-        PRECUST(P_SBID        => P_SBID,
-                P_POSITION    => P_POSITION,
-                P_OPER        => P_OPER,
-                P_PAYWAY      => P_PAYWAY,
-                P_PAYMENT     => P_PAYMENT,
-                P_MEMO        => NULL,
-                P_BATCH       => VBATCH,
-                O_PID         => P_PID,
-                O_REMAINAFTER => VREMAINAFTER);
+        Precust(p_Sbid        => p_Sbid,
+                p_Position    => p_Position,
+                p_Oper        => p_Oper,
+                p_Payway      => p_Payway,
+                p_Payment     => p_Payment,
+                p_Memo        => NULL,
+                p_Batch       => Vbatch,
+                o_Pid         => p_Pid,
+                o_Remainafter => Vremainafter);
       ELSE
         NULL;
         --退预存核心
-        PRECUSTBACK(P_SBID        => P_SBID,
-                    P_POSITION    => P_POSITION,
-                    P_OPER        => P_OPER,
-                    P_PAYWAY      => P_PAYWAY,
-                    P_PAYMENT     => P_PAYMENT,
-                    P_MEMO        => NULL,
-                    P_BATCH       => VBATCH,
-                    O_PID         => P_PID,
-                    O_REMAINAFTER => VREMAINAFTER);
+        Precustback(p_Sbid        => p_Sbid,
+                    p_Position    => p_Position,
+                    p_Oper        => p_Oper,
+                    p_Payway      => p_Payway,
+                    p_Payment     => p_Payment,
+                    p_Memo        => NULL,
+                    p_Batch       => Vbatch,
+                    o_Pid         => p_Pid,
+                    o_Remainafter => Vremainafter);
       END IF;
     ELSE
-      PAYCUST(P_SBID,
-              V_PARM_ARS,
-              PTRANS_柜台缴费,
-              P_POSITION,
-              P_PAYPOINT,
+      Paycust(p_Sbid,
+              v_Parm_Ars,
+              Ptrans_柜台缴费,
+              p_Position,
+              p_Paypoint,
               NULL,
               NULL,
-              P_OPER,
-              P_PAYWAY,
-              P_PAYMENT,
+              p_Oper,
+              p_Payway,
+              p_Payment,
               NULL,
               不提交,
               局部屏蔽通知,
               允许拆帐,
-              VBATCH,
-              VSEQNO,
-              P_PID,
-              VREMAINAFTER);
+              Vbatch,
+              Vseqno,
+              p_Pid,
+              Vremainafter);
     END IF;
   
     --提交处理
@@ -226,7 +226,7 @@
     WHEN OTHERS THEN
       ROLLBACK;
       --PG_EWIDE_INTERFACE.ERRLOG(DBMS_UTILITY.FORMAT_CALL_STACK(), P_SBID);
-      raise_application_error(errcode, sqlerrm);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   一水表多应收销帐
@@ -275,64 +275,64 @@
   9、关于部分勾选费项缴费时补充说明，违约金在前台重算，并且违约金只从属于应收帐头无须分解到应收明细
   【更新日志】：
   */
-  PROCEDURE PAYCUST(P_SBID        IN VARCHAR2,
-                    P_PARM_ARS    IN PARM_PAYAR_TAB,
-                    P_TRANS       IN VARCHAR2,
-                    P_POSITION    IN VARCHAR2,
-                    P_PAYPOINT    IN VARCHAR2,
-                    P_BDATE       IN DATE,
-                    P_BSEQNO      IN VARCHAR2,
-                    P_OPER        IN VARCHAR2,
-                    P_PAYWAY      IN VARCHAR2,
-                    P_PAYMENT     IN NUMBER,
-                    P_PID_SOURCE  IN VARCHAR2,
-                    P_COMMIT      IN NUMBER,
-                    P_CTL_MSG     IN NUMBER,
-                    P_CTL_PRE     IN NUMBER,
-                    P_BATCH       IN OUT VARCHAR2,
-                    P_SEQNO       IN OUT VARCHAR2,
-                    P_PID         OUT VARCHAR2,
-                    O_REMAINAFTER OUT NUMBER) IS
-    CURSOR C_MA(VMAMID VARCHAR2) IS
-      SELECT * FROM YS_YH_ACCOUNT WHERE SBID = VMAMID FOR UPDATE NOWAIT; --若被锁直接抛出异常
-    CURSOR C_CI(VCIID VARCHAR2) IS
-      SELECT * FROM YS_YH_CUSTINFO WHERE YHID = VCIID FOR UPDATE NOWAIT; --若被锁直接抛出异常
-    CURSOR C_MI(VMIID VARCHAR2) IS
-      SELECT * FROM YS_YH_SBINFO WHERE SBID = VMIID FOR UPDATE NOWAIT; --若被锁直接抛出异常
+  PROCEDURE Paycust(p_Sbid        IN VARCHAR2,
+                    p_Parm_Ars    IN Parm_Payar_Tab,
+                    p_Trans       IN VARCHAR2,
+                    p_Position    IN VARCHAR2,
+                    p_Paypoint    IN VARCHAR2,
+                    p_Bdate       IN DATE,
+                    p_Bseqno      IN VARCHAR2,
+                    p_Oper        IN VARCHAR2,
+                    p_Payway      IN VARCHAR2,
+                    p_Payment     IN NUMBER,
+                    p_Pid_Source  IN VARCHAR2,
+                    p_Commit      IN NUMBER,
+                    p_Ctl_Msg     IN NUMBER,
+                    p_Ctl_Pre     IN NUMBER,
+                    p_Batch       IN OUT VARCHAR2,
+                    p_Seqno       IN OUT VARCHAR2,
+                    p_Pid         OUT VARCHAR2,
+                    o_Remainafter OUT NUMBER) IS
+    CURSOR c_Ma(Vmamid VARCHAR2) IS
+      SELECT * FROM Ys_Yh_Account WHERE Sbid = Vmamid FOR UPDATE NOWAIT; --若被锁直接抛出异常
+    CURSOR c_Ci(Vciid VARCHAR2) IS
+      SELECT * FROM Ys_Yh_Custinfo WHERE Yhid = Vciid FOR UPDATE NOWAIT; --若被锁直接抛出异常
+    CURSOR c_Mi(Vmiid VARCHAR2) IS
+      SELECT * FROM Ys_Yh_Sbinfo WHERE Sbid = Vmiid FOR UPDATE NOWAIT; --若被锁直接抛出异常
   
-    MI         YS_YH_SBINFO%ROWTYPE;
-    CI         YS_YH_CUSTINFO%ROWTYPE;
-    MA         YS_YH_ACCOUNT%ROWTYPE;
-    P          YS_ZW_PAIDMENT%ROWTYPE;
-    V_PARM_ARS PARM_PAYAR_TAB;
-    P_PARM_AR  parm_payar;
-    v_exists   NUMBER;
+    Mi         Ys_Yh_Sbinfo%ROWTYPE;
+    Ci         Ys_Yh_Custinfo%ROWTYPE;
+    Ma         Ys_Yh_Account%ROWTYPE;
+    p          Ys_Zw_Paidment%ROWTYPE;
+    v_Parm_Ars Parm_Payar_Tab;
+    p_Parm_Ar  Parm_Payar;
+    v_Exists   NUMBER;
   BEGIN
-    V_PARM_ARS := P_PARM_ARS;
+    v_Parm_Ars := p_Parm_Ars;
     --1、实参校验、必要变量准备
     --------------------------------------------------------------------------
     BEGIN
       --取水表信息
-      OPEN C_MI(P_SBID);
-      FETCH C_MI
-        INTO MI;
-      IF C_MI%NOTFOUND OR C_MI%NOTFOUND IS NULL THEN
-        RAISE_APPLICATION_ERROR(ERRCODE,
-                                '水表编码【' || P_SBID || '】不存在！');
+      OPEN c_Mi(p_Sbid);
+      FETCH c_Mi
+        INTO Mi;
+      IF c_Mi%NOTFOUND OR c_Mi%NOTFOUND IS NULL THEN
+        Raise_Application_Error(Errcode,
+                                '水表编码【' || p_Sbid || '】不存在！');
       END IF;
       --取用户信息
-      OPEN C_CI(MI.YHID);
-      FETCH C_CI
-        INTO CI;
-      IF C_CI%NOTFOUND OR C_CI%NOTFOUND IS NULL THEN
-        RAISE_APPLICATION_ERROR(ERRCODE,
-                                '这个水表编码没对应用户！' || P_SBID);
+      OPEN c_Ci(Mi.Yhid);
+      FETCH c_Ci
+        INTO Ci;
+      IF c_Ci%NOTFOUND OR c_Ci%NOTFOUND IS NULL THEN
+        Raise_Application_Error(Errcode,
+                                '这个水表编码没对应用户！' || p_Sbid);
       END IF;
       --取用户银行账户信息
-      OPEN C_MA(MI.SBID);
-      FETCH C_MA
-        INTO MA;
-      IF C_MA%NOTFOUND OR C_MA%NOTFOUND IS NULL THEN
+      OPEN c_Ma(Mi.Sbid);
+      FETCH c_Ma
+        INTO Ma;
+      IF c_Ma%NOTFOUND OR c_Ma%NOTFOUND IS NULL THEN
         NULL;
       END IF;
       --参数校验
@@ -340,18 +340,18 @@
         raise_application_error(errcode, '待销帐包是空的怎么办？');
       end if;*/
       --添加核心校验,避免户号与待销账列表不一致
-      IF P_PARM_ARS.COUNT > 0 THEN
+      IF p_Parm_Ars.Count > 0 THEN
         --可以为空（预存充值时）
-        FOR I IN P_PARM_ARS.FIRST .. P_PARM_ARS.LAST LOOP
-          P_PARM_AR := P_PARM_ARS(I);
+        FOR i IN p_Parm_Ars.First .. p_Parm_Ars.Last LOOP
+          p_Parm_Ar := p_Parm_Ars(i);
           SELECT COUNT(1)
-            INTO V_EXISTS
-            FROM YS_ZW_ARLIST A, YS_YH_SBINFO B
-           WHERE ARID = P_PARM_AR.ARID
-             AND A.SBID = B.SBID
-             AND (B.SBID = P_SBID OR SBPRIID = P_SBID);
-          IF V_EXISTS = 0 THEN
-            RAISE_APPLICATION_ERROR(ERRCODE,
+            INTO v_Exists
+            FROM Ys_Zw_Arlist a, Ys_Yh_Sbinfo b
+           WHERE Arid = p_Parm_Ar.Arid
+             AND a.Sbid = b.Sbid
+             AND (b.Sbid = p_Sbid OR Sbpriid = p_Sbid);
+          IF v_Exists = 0 THEN
+            Raise_Application_Error(Errcode,
                                     '请求参数错误，请刷新页面后重新操作!');
           END IF;
         END LOOP;
@@ -362,101 +362,101 @@
     --2、记录实收
     --------------------------------------------------------------------------
     BEGIN
-      SELECT TRIM(TO_CHAR(SEQ_PAIDMENT.NEXTVAL, '0000000000'))
-        INTO P_PID
-        FROM DUAL;
-      SELECT SYS_GUID() INTO P.ID FROM DUAL;
-      P.HIRE_CODE  := MI.HIRE_CODE;
-      P.PID        := P_PID; --varchar2(10)      流水号
-      P.YHID       := CI.YHID; --varchar2(10)      用户编号
-      P.SBID       := P_SBID; --varchar2(10)  y    水表编号
-      P.PDDATE     := TRUNC(SYSDATE); --date  y    帐务日期
-      P.PDATETIME  := SYSDATE; --date  y    发生日期
-      P.PDMONTH    := FOBTMANAPARA(MI.MANAGE_NO, 'READ_MONTH'); --varchar2(7)  y    缴费月份
-      P.MANAGE_NO  := P_POSITION; --varchar2(10)  y    缴费机构
-      P.PDTRAN     := P_TRANS; --char(1)      缴费事务
-      P.PDPERS     := P_OPER; --varchar2(20)  y    销帐人员
-      P.PDSAVINGQC := NVL(MI.SBSAVING, 0); --number(12,2)  y    期初预存余额
-      P.PDSAVINGBQ := P_PAYMENT; --number(12,2)  y    本期发生预存金额
-      P.PDSAVINGQM := P.PDSAVINGQC + P.PDSAVINGBQ; --number(12,2)  y    期末预存余额
-      P.PAIDMENT   := P_PAYMENT; --number(12,2)  y    付款金额
-      P.PDIFSAVING := NULL; --char(1)  y    找零转预存
-      P.PDCHANGE   := NULL; --number(12,2)  y    找零金额
-      P.PDPAYWAY   := P_PAYWAY; --varchar2(6)  y    付款方式
-      P.PDBSEQNO   := P_BSEQNO; --varchar2(20)  y    银行流水(银行实时收费交易流水)
-      P.PDCSEQNO   := NULL; --varchar2(20)  y    清算中心流水(no use)
-      P.PDBDATE    := P_BDATE; --date  y    银行日期(银行缴费账务日期)
-      P.PDCHKDATE  := NULL; --date  y    对帐日期
-      P.PDCCHKFLAG := 'N'; --char(1)  y    标志(no use)
-      P.PDCDATE    := NULL; --date  y    清算日期
-      IF P_BATCH IS NULL THEN
-        SELECT TRIM(TO_CHAR(SEQ_PAIDBATCH.NEXTVAL, '0000000000'))
-          INTO P.PDBATCH
-          FROM DUAL;
+      SELECT TRIM(To_Char(Seq_Paidment.Nextval, '0000000000'))
+        INTO p_Pid
+        FROM Dual;
+      SELECT Sys_Guid() INTO p.Id FROM Dual;
+      p.Hire_Code  := Mi.Hire_Code;
+      p.Pid        := p_Pid; --varchar2(10)      流水号
+      p.Yhid       := Ci.Yhid; --varchar2(10)      用户编号
+      p.Sbid       := p_Sbid; --varchar2(10)  y    水表编号
+      p.Pddate     := Trunc(SYSDATE); --date  y    帐务日期
+      p.Pdatetime  := SYSDATE; --date  y    发生日期
+      p.Pdmonth    := Fobtmanapara(Mi.Manage_No, 'READ_MONTH'); --varchar2(7)  y    缴费月份
+      p.Manage_No  := p_Position; --varchar2(10)  y    缴费机构
+      p.Pdtran     := p_Trans; --char(1)      缴费事务
+      p.Pdpers     := p_Oper; --varchar2(20)  y    销帐人员
+      p.Pdsavingqc := Nvl(Mi.Sbsaving, 0); --number(12,2)  y    期初预存余额
+      p.Pdsavingbq := p_Payment; --number(12,2)  y    本期发生预存金额
+      p.Pdsavingqm := p.Pdsavingqc + p.Pdsavingbq; --number(12,2)  y    期末预存余额
+      p.Paidment   := p_Payment; --number(12,2)  y    付款金额
+      p.Pdifsaving := NULL; --char(1)  y    找零转预存
+      p.Pdchange   := NULL; --number(12,2)  y    找零金额
+      p.Pdpayway   := p_Payway; --varchar2(6)  y    付款方式
+      p.Pdbseqno   := p_Bseqno; --varchar2(20)  y    银行流水(银行实时收费交易流水)
+      p.Pdcseqno   := NULL; --varchar2(20)  y    清算中心流水(no use)
+      p.Pdbdate    := p_Bdate; --date  y    银行日期(银行缴费账务日期)
+      p.Pdchkdate  := NULL; --date  y    对帐日期
+      p.Pdcchkflag := 'N'; --char(1)  y    标志(no use)
+      p.Pdcdate    := NULL; --date  y    清算日期
+      IF p_Batch IS NULL THEN
+        SELECT TRIM(To_Char(Seq_Paidbatch.Nextval, '0000000000'))
+          INTO p.Pdbatch
+          FROM Dual;
       ELSE
-        P.PDBATCH := P_BATCH;
+        p.Pdbatch := p_Batch;
       END IF;
-      P.PDSEQNO      := P_SEQNO; --varchar2(10)  y    缴费交易流水(no use)
-      P.PDPAYEE      := P_OPER; --varchar2(20)  y    收款员
-      P.PDCHBATCH    := NULL; --varchar2(10)  y    支票交易批次
-      P.PDMEMO       := NULL; --varchar2(200)  y    备注
-      P.PDPAYPOINT   := P_PAYPOINT; --varchar2(10)  y    缴费地点
-      P.PDSXF        := 0; --number(12,2)  y    手续费
-      P.PDILID       := NULL; --varchar2(40)  y    发票流水号
-      P.PDFLAG       := 'Y'; --varchar2(1)  y    实收标志（全部为y.暂无启用）
-      P.PDWYJ        := 0; --number(12,2)  y    实收滞金
-      P.PDRCRECEIVED := P_PAYMENT; --number(12,2)  y      实际收款金额（实际收款金额 =  付款金额 -找零金额；销帐金额 + 实收滞金 + 手续费 + 本期发生预存金额）
-      P.PDSPJE       := 0; --number(12,2)  y    销帐金额(如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0)
-      P.PREVERSEFLAG := 'N'; --varchar2(1)  y    冲正标志（收水费收预存是为n,冲水费冲预存被冲实收和冲实收产生负帐匀为y）
-      IF P_PID_SOURCE IS NULL THEN
-        P.PDSCRID    := P.PID;
-        P.PDSCRTRANS := P.PDTRAN;
-        P.PDSCRMONTH := P.PDMONTH;
-        P.PDSCRDATE  := P.PDDATE;
+      p.Pdseqno      := p_Seqno; --varchar2(10)  y    缴费交易流水(no use)
+      p.Pdpayee      := p_Oper; --varchar2(20)  y    收款员
+      p.Pdchbatch    := NULL; --varchar2(10)  y    支票交易批次
+      p.Pdmemo       := NULL; --varchar2(200)  y    备注
+      p.Pdpaypoint   := p_Paypoint; --varchar2(10)  y    缴费地点
+      p.Pdsxf        := 0; --number(12,2)  y    手续费
+      p.Pdilid       := NULL; --varchar2(40)  y    发票流水号
+      p.Pdflag       := 'Y'; --varchar2(1)  y    实收标志（全部为y.暂无启用）
+      p.Pdwyj        := 0; --number(12,2)  y    实收滞金
+      p.Pdrcreceived := p_Payment; --number(12,2)  y      实际收款金额（实际收款金额 =  付款金额 -找零金额；销帐金额 + 实收滞金 + 手续费 + 本期发生预存金额）
+      p.Pdspje       := 0; --number(12,2)  y    销帐金额(如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0)
+      p.Preverseflag := 'N'; --varchar2(1)  y    冲正标志（收水费收预存是为n,冲水费冲预存被冲实收和冲实收产生负帐匀为y）
+      IF p_Pid_Source IS NULL THEN
+        p.Pdscrid    := p.Pid;
+        p.Pdscrtrans := p.Pdtran;
+        p.Pdscrmonth := p.Pdmonth;
+        p.Pdscrdate  := p.Pddate;
       ELSE
-        SELECT PID, PDTRAN, PDMONTH, PDDATE
-          INTO P.PDSCRID, P.PDSCRTRANS, P.PDSCRMONTH, P.PDSCRDATE
-          FROM YS_ZW_PAIDMENT
-         WHERE PID = P_PID_SOURCE;
+        SELECT Pid, Pdtran, Pdmonth, Pddate
+          INTO p.Pdscrid, p.Pdscrtrans, p.Pdscrmonth, p.Pdscrdate
+          FROM Ys_Zw_Paidment
+         WHERE Pid = p_Pid_Source;
       END IF;
-      P.PDCHKNO  := NULL; --varchar2(10)  y    进账单号
-      P.PDPRIID  := MI.SBPRIID; --varchar2(20)  y    合收主表号  20150105
-      P.TCHKDATE := NULL; --date  y    到账日期
+      p.Pdchkno  := NULL; --varchar2(10)  y    进账单号
+      p.Pdpriid  := Mi.Sbpriid; --varchar2(20)  y    合收主表号  20150105
+      p.Tchkdate := NULL; --date  y    到账日期
     END;
   
     --3、部分费项销帐分帐
     --------------------------------------------------------------------------
-    IF P_CTL_PRE = 允许拆帐 THEN
-      PAYZWARPRE(V_PARM_ARS, 不提交);
+    IF p_Ctl_Pre = 允许拆帐 THEN
+      Payzwarpre(v_Parm_Ars, 不提交);
     END IF;
   
     --3.1、含违约金销帐分帐
     --------------------------------------------------------------------------
     IF 允许销帐违约金分帐 THEN
-      PAYWYJPRE(V_PARM_ARS, 不提交);
+      Paywyjpre(v_Parm_Ars, 不提交);
     END IF;
   
     --4、销帐核心调用（应收记录处理、反馈实收数据）
     --------------------------------------------------------------------------
-    PAYZWARCORE(P.PID,
-                P.PDBATCH,
-                P_PAYMENT,
-                MI.SBSAVING,
-                P.PDDATE,
-                P.PDMONTH,
-                V_PARM_ARS,
+    Payzwarcore(p.Pid,
+                p.Pdbatch,
+                p_Payment,
+                Mi.Sbsaving,
+                p.Pddate,
+                p.Pdmonth,
+                v_Parm_Ars,
                 不提交,
-                P.PDSPJE,
-                P.PDWYJ,
-                P.PDSXF);
+                p.Pdspje,
+                p.Pdwyj,
+                p.Pdsxf);
   
     --5、重算预存发生、预存期末、更新用户预存余额
-    P.PDSAVINGQM := P.PDSAVINGQC + P_PAYMENT - P.PDSPJE - P.PDWYJ - P.PDSXF;
-    P.PDSAVINGBQ := P.PDSAVINGQM - P.PDSAVINGQC;
-    UPDATE YS_YH_SBINFO SET SBSAVING = P.PDSAVINGQM WHERE CURRENT OF C_MI;
+    p.Pdsavingqm := p.Pdsavingqc + p_Payment - p.Pdspje - p.Pdwyj - p.Pdsxf;
+    p.Pdsavingbq := p.Pdsavingqm - p.Pdsavingqc;
+    UPDATE Ys_Yh_Sbinfo SET Sbsaving = p.Pdsavingqm WHERE CURRENT OF c_Mi;
   
     --6、返回预存余额
-    O_REMAINAFTER := P.PDSAVINGQM;
+    o_Remainafter := p.Pdsavingqm;
   
     --7、事务内应实收帐务平衡校验，及校验后分支子过程
     --------------------------------------------------------------------------
@@ -465,36 +465,36 @@
   
     --5、提交处理
     BEGIN
-      CLOSE C_MA;
-      CLOSE C_CI;
-      CLOSE C_MI;
-      IF P_COMMIT = 调试 THEN
+      CLOSE c_Ma;
+      CLOSE c_Ci;
+      CLOSE c_Mi;
+      IF p_Commit = 调试 THEN
         ROLLBACK;
       ELSE
-        INSERT INTO YS_ZW_PAIDMENT VALUES P;
-        IF P_COMMIT = 提交 THEN
+        INSERT INTO Ys_Zw_Paidment VALUES p;
+        IF p_Commit = 提交 THEN
           COMMIT;
-        ELSIF P_COMMIT = 不提交 THEN
+        ELSIF p_Commit = 不提交 THEN
           NULL;
         ELSE
-          RAISE_APPLICATION_ERROR(ERRCODE, '是否提交参数不正确');
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
         END IF;
       END IF;
     END;
   
   EXCEPTION
     WHEN OTHERS THEN
-      IF C_MA%ISOPEN THEN
-        CLOSE C_MA;
+      IF c_Ma%ISOPEN THEN
+        CLOSE c_Ma;
       END IF;
-      IF C_CI%ISOPEN THEN
-        CLOSE C_CI;
+      IF c_Ci%ISOPEN THEN
+        CLOSE c_Ci;
       END IF;
-      IF C_MI%ISOPEN THEN
-        CLOSE C_MI;
+      IF c_Mi%ISOPEN THEN
+        CLOSE c_Mi;
       END IF;
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   部分费用项目销帐前拆分应收（一应收帐）：重要规则：销帐包非空时拒绝0金额实销
@@ -515,21 +515,21 @@
   3、重构待全额销帐包并返回否则原包返回；
   【更新日志】：
   */
-  PROCEDURE PAYZWARPRE(P_PARM_ARS IN OUT PARM_PAYAR_TAB,
-                       P_COMMIT   IN NUMBER DEFAULT 不提交) IS
-    CURSOR C_RL(VARID VARCHAR2) IS
-      SELECT * FROM YS_ZW_ARLIST WHERE ARID = VARID FOR UPDATE NOWAIT; --若被锁直接抛出异常
-    CURSOR C_RD(VARID VARCHAR2, VARDPIID VARCHAR2) IS
+  PROCEDURE Payzwarpre(p_Parm_Ars IN OUT Parm_Payar_Tab,
+                       p_Commit   IN NUMBER DEFAULT 不提交) IS
+    CURSOR c_Rl(Varid VARCHAR2) IS
+      SELECT * FROM Ys_Zw_Arlist WHERE Arid = Varid FOR UPDATE NOWAIT; --若被锁直接抛出异常
+    CURSOR c_Rd(Varid VARCHAR2, Vardpiid VARCHAR2) IS
       SELECT *
-        FROM YS_ZW_ARDETAIL
-       WHERE ARDID = VARID
-         AND ARDPIID = VARDPIID
-       ORDER BY ARDCLASS
+        FROM Ys_Zw_Ardetail
+       WHERE Ardid = Varid
+         AND Ardpiid = Vardpiid
+       ORDER BY Ardclass
          FOR UPDATE NOWAIT; --若被锁直接抛出异常
-    P_PARM_AR          PARM_PAYAR; --销帐包内成员之一
-    I                  INTEGER;
-    J                  INTEGER;
-    K                  INTEGER;
+    p_Parm_Ar          Parm_Payar; --销帐包内成员之一
+    i                  INTEGER;
+    j                  INTEGER;
+    k                  INTEGER;
     一行费项数         INTEGER;
     一行一费项         VARCHAR2(10);
     一行一费项待销标志 CHAR(1);
@@ -541,198 +541,198 @@
     待销金额           NUMBER(13, 3) := 0;
     不销金额           NUMBER(13, 3) := 0;
     --被调整原应收
-    RL YS_ZW_ARLIST%ROWTYPE;
-    RD YS_ZW_ARDETAIL%ROWTYPE;
+    Rl Ys_Zw_Arlist%ROWTYPE;
+    Rd Ys_Zw_Ardetail%ROWTYPE;
     --拆后应收1（要销的）
-    RLY    YS_ZW_ARLIST%ROWTYPE;
-    RDY    YS_ZW_ARDETAIL%ROWTYPE;
-    RDTABY RD_TABLE;
+    Rly    Ys_Zw_Arlist%ROWTYPE;
+    Rdy    Ys_Zw_Ardetail%ROWTYPE;
+    Rdtaby Rd_Table;
     --拆后应收2（不销继续挂欠费的）
-    RLN    YS_ZW_ARLIST%ROWTYPE;
-    RDN    YS_ZW_ARDETAIL%ROWTYPE;
-    RDTABN RD_TABLE;
+    Rln    Ys_Zw_Arlist%ROWTYPE;
+    Rdn    Ys_Zw_Ardetail%ROWTYPE;
+    Rdtabn Rd_Table;
     --
-    O_ARID_REVERSE        YS_ZW_ARLIST.ARID%TYPE;
-    O_ARTRANS_REVERSE     VARCHAR2(10);
-    O_ARJE_REVERSE        NUMBER;
-    O_ARZNJ_REVERSE       NUMBER;
-    O_ARSXF_REVERSE       NUMBER;
-    O_ARSAVINGBQ_REVERSE  NUMBER;
-    IO_ARSAVINGQM_REVERSE NUMBER;
+    o_Arid_Reverse        Ys_Zw_Arlist.Arid%TYPE;
+    o_Artrans_Reverse     VARCHAR2(10);
+    o_Arje_Reverse        NUMBER;
+    o_Arznj_Reverse       NUMBER;
+    o_Arsxf_Reverse       NUMBER;
+    o_Arsavingbq_Reverse  NUMBER;
+    Io_Arsavingqm_Reverse NUMBER;
     --
-    CURRENTDATE DATE;
+    Currentdate DATE;
   BEGIN
-    CURRENTDATE := SYSDATE;
+    Currentdate := SYSDATE;
     --可以为空（预存充值时），空包返回
-    IF P_PARM_ARS.COUNT > 0 THEN
-      FOR I IN P_PARM_ARS.FIRST .. P_PARM_ARS.LAST LOOP
-        P_PARM_AR := P_PARM_ARS(I);
-        IF P_PARM_AR.ARID IS NOT NULL THEN
-          OPEN C_RL(P_PARM_AR.ARID);
-          FETCH C_RL
-            INTO RL;
-          IF C_RL%NOTFOUND OR C_RL%NOTFOUND IS NULL THEN
-            RAISE_APPLICATION_ERROR(ERRCODE,
-                                    '销帐包中应收流水不存在' || P_PARM_AR.ARID);
+    IF p_Parm_Ars.Count > 0 THEN
+      FOR i IN p_Parm_Ars.First .. p_Parm_Ars.Last LOOP
+        p_Parm_Ar := p_Parm_Ars(i);
+        IF p_Parm_Ar.Arid IS NOT NULL THEN
+          OPEN c_Rl(p_Parm_Ar.Arid);
+          FETCH c_Rl
+            INTO Rl;
+          IF c_Rl%NOTFOUND OR c_Rl%NOTFOUND IS NULL THEN
+            Raise_Application_Error(Errcode,
+                                    '销帐包中应收流水不存在' || p_Parm_Ar.Arid);
           END IF;
-          IF P_PARM_AR.ARDPIIDS IS NOT NULL THEN
-            RLY      := RL;
-            RLY.ARJE := 0;
-            RDTABY   := NULL;
+          IF p_Parm_Ar.Ardpiids IS NOT NULL THEN
+            Rly      := Rl;
+            Rly.Arje := 0;
+            Rdtaby   := NULL;
           
-            RLN        := RL;
-            RLN.ARJE   := 0;
-            RLN.ARSXF  := 0; --Rlfee（如有）都放rlY，且必须销帐，暂不支持拆分
-            RDTABN     := NULL;
+            Rln        := Rl;
+            Rln.Arje   := 0;
+            Rln.Arsxf  := 0; --Rlfee（如有）都放rlY，且必须销帐，暂不支持拆分
+            Rdtabn     := NULL;
             待销笔数   := 0;
             不销笔数   := 0;
             待销水量   := 0;
             不销水量   := 0;
             待销金额   := 0;
             不销金额   := 0;
-            一行费项数 := PG_CB_COST.FBOUNDPARA(P_PARM_AR.ARDPIIDS);
-            FOR J IN 1 .. 一行费项数 LOOP
-              一行一费项待销标志 := PG_CB_COST.FGETPARA(P_PARM_AR.ARDPIIDS, J, 1);
-              一行一费项         := PG_CB_COST.FGETPARA(P_PARM_AR.ARDPIIDS, J, 2);
-              OPEN C_RD(P_PARM_AR.ARID, 一行一费项);
+            一行费项数 := Pg_Cb_Cost.Fboundpara(p_Parm_Ar.Ardpiids);
+            FOR j IN 1 .. 一行费项数 LOOP
+              一行一费项待销标志 := Pg_Cb_Cost.Fgetpara(p_Parm_Ar.Ardpiids, j, 1);
+              一行一费项         := Pg_Cb_Cost.Fgetpara(p_Parm_Ar.Ardpiids, j, 2);
+              OPEN c_Rd(p_Parm_Ar.Arid, 一行一费项);
               LOOP
                 --存在阶梯，所以要循环
-                FETCH C_RD
-                  INTO RD;
-                EXIT WHEN C_RD%NOTFOUND OR C_RD%NOTFOUND IS NULL;
-                RDY    := RD;
-                RDN    := RD;
-                总金额 := 总金额 + RD.ARDJE;
+                FETCH c_Rd
+                  INTO Rd;
+                EXIT WHEN c_Rd%NOTFOUND OR c_Rd%NOTFOUND IS NULL;
+                Rdy    := Rd;
+                Rdn    := Rd;
+                总金额 := 总金额 + Rd.Ardje;
                 IF 一行一费项待销标志 = 'Y' THEN
-                  RLY.ARJE     := RLY.ARJE + RDY.ARDJE;
+                  Rly.Arje     := Rly.Arje + Rdy.Ardje;
                   待销笔数     := 待销笔数 + 1;
-                  待销水量     := 待销水量 + RD.ARDSL;
-                  待销金额     := 待销金额 + RD.ARDJE;
-                  RDN.ARDYSSL  := 0;
-                  RDN.ARDYSJE  := 0;
-                  RDN.ARDSL    := 0;
-                  RDN.ARDJE    := 0;
-                  RDN.ARDADJSL := 0;
-                  RDN.ARDADJJE := 0;
+                  待销水量     := 待销水量 + Rd.Ardsl;
+                  待销金额     := 待销金额 + Rd.Ardje;
+                  Rdn.Ardyssl  := 0;
+                  Rdn.Ardysje  := 0;
+                  Rdn.Ardsl    := 0;
+                  Rdn.Ardje    := 0;
+                  Rdn.Ardadjsl := 0;
+                  Rdn.Ardadjje := 0;
                 ELSIF 一行一费项待销标志 = 'N' THEN
-                  RLN.ARJE     := RLN.ARJE + RDN.ARDJE;
+                  Rln.Arje     := Rln.Arje + Rdn.Ardje;
                   不销笔数     := 不销笔数 + 1;
-                  不销水量     := 不销水量 + RD.ARDSL;
-                  不销金额     := 不销金额 + RD.ARDJE;
-                  RDY.ARDYSSL  := 0;
-                  RDY.ARDYSJE  := 0;
-                  RDY.ARDSL    := 0;
-                  RDY.ARDJE    := 0;
-                  RDY.ARDADJSL := 0;
-                  RDY.ARDADJJE := 0;
+                  不销水量     := 不销水量 + Rd.Ardsl;
+                  不销金额     := 不销金额 + Rd.Ardje;
+                  Rdy.Ardyssl  := 0;
+                  Rdy.Ardysje  := 0;
+                  Rdy.Ardsl    := 0;
+                  Rdy.Ardje    := 0;
+                  Rdy.Ardadjsl := 0;
+                  Rdy.Ardadjje := 0;
                 ELSE
-                  RAISE_APPLICATION_ERROR(ERRCODE,
+                  Raise_Application_Error(Errcode,
                                           '无法识别销帐包中待销帐标志');
                 END IF;
                 --复制到rdY
-                IF RDTABY IS NULL THEN
-                  RDTABY := RD_TABLE(RDY);
+                IF Rdtaby IS NULL THEN
+                  Rdtaby := Rd_Table(Rdy);
                 ELSE
-                  RDTABY.EXTEND;
-                  RDTABY(RDTABY.LAST) := RDY;
+                  Rdtaby.Extend;
+                  Rdtaby(Rdtaby.Last) := Rdy;
                 END IF;
                 --复制到rdN
-                IF RDTABN IS NULL THEN
-                  RDTABN := RD_TABLE(RDN);
+                IF Rdtabn IS NULL THEN
+                  Rdtabn := Rd_Table(Rdn);
                 ELSE
-                  RDTABN.EXTEND;
-                  RDTABN(RDTABN.LAST) := RDN;
+                  Rdtabn.Extend;
+                  Rdtabn(Rdtabn.Last) := Rdn;
                 END IF;
               END LOOP;
-              CLOSE C_RD;
+              CLOSE c_Rd;
             END LOOP;
             --某一条应收帐发生部分销帐标志才拆分
             IF 待销笔数 != 0 THEN
               IF 不销笔数 != 0 THEN
                 --应收调整1：在本期全额冲减
-                ZWARREVERSECORE(P_PARM_AR.ARID,
-                                RL.ARTRANS,
+                Zwarreversecore(p_Parm_Ar.Arid,
+                                Rl.Artrans,
                                 NULL,
                                 NULL,
                                 NULL,
                                 NULL,
                                 NULL,
                                 不提交,
-                                O_ARID_REVERSE,
-                                O_ARTRANS_REVERSE,
-                                O_ARJE_REVERSE,
-                                O_ARZNJ_REVERSE,
-                                O_ARSXF_REVERSE,
-                                O_ARSAVINGBQ_REVERSE,
-                                IO_ARSAVINGQM_REVERSE);
+                                o_Arid_Reverse,
+                                o_Artrans_Reverse,
+                                o_Arje_Reverse,
+                                o_Arznj_Reverse,
+                                o_Arsxf_Reverse,
+                                o_Arsavingbq_Reverse,
+                                Io_Arsavingqm_Reverse);
                 --应收调整2.1：在本期追加目标应收（待销帐部分）
-                RLY.ARID       := LPAD(SEQ_ARID.NEXTVAL, 10, '0');
-                RLY.ARMONTH    := FOBTMANAPARA(RLY.MANAGE_NO, 'READ_MONTH');
-                RLY.ARDATE     := TRUNC(SYSDATE);
-                RLY.ARDATETIME := CURRENTDATE;
-                RLY.ARREADSL   := 0;
-                FOR K IN RDTABY.FIRST .. RDTABY.LAST LOOP
-                  SELECT SEQ_ARID.NEXTVAL INTO RDTABY(K).ARDID FROM DUAL;
-                  RDTABY(K).ARDID := RLY.ARID;
+                Rly.Arid       := Lpad(Seq_Arid.Nextval, 10, '0');
+                Rly.Armonth    := Fobtmanapara(Rly.Manage_No, 'READ_MONTH');
+                Rly.Ardate     := Trunc(SYSDATE);
+                Rly.Ardatetime := Currentdate;
+                Rly.Arreadsl   := 0;
+                FOR k IN Rdtaby.First .. Rdtaby.Last LOOP
+                  SELECT Seq_Arid.Nextval INTO Rdtaby(k).Ardid FROM Dual;
+                  Rdtaby(k).Ardid := Rly.Arid;
                 END LOOP;
-                INSERT INTO YS_ZW_ARLIST VALUES RLY;
-                FOR K IN RDTABY.FIRST .. RDTABY.LAST LOOP
-                  INSERT INTO YS_ZW_ARDETAIL VALUES RDTABY (K);
+                INSERT INTO Ys_Zw_Arlist VALUES Rly;
+                FOR k IN Rdtaby.First .. Rdtaby.Last LOOP
+                  INSERT INTO Ys_Zw_Ardetail VALUES Rdtaby (k);
                 END LOOP;
                 --应收调整2.2：在本期追加目标应收（继续挂欠费部分）
-                RLN.ARID       := LPAD(SEQ_ARID.NEXTVAL, 10, '0');
-                RLN.ARMONTH    := FOBTMANAPARA(RLN.MANAGE_NO, 'READ_MONTH');
-                RLN.ARDATE     := TRUNC(SYSDATE);
-                RLN.ARDATETIME := CURRENTDATE;
-                FOR K IN RDTABN.FIRST .. RDTABN.LAST LOOP
-                  SELECT SEQ_ARID.NEXTVAL INTO RDTABN(K).ARDID FROM DUAL;
-                  RDTABN(K).ARDID := RLN.ARID;
+                Rln.Arid       := Lpad(Seq_Arid.Nextval, 10, '0');
+                Rln.Armonth    := Fobtmanapara(Rln.Manage_No, 'READ_MONTH');
+                Rln.Ardate     := Trunc(SYSDATE);
+                Rln.Ardatetime := Currentdate;
+                FOR k IN Rdtabn.First .. Rdtabn.Last LOOP
+                  SELECT Seq_Arid.Nextval INTO Rdtabn(k).Ardid FROM Dual;
+                  Rdtabn(k).Ardid := Rln.Arid;
                 END LOOP;
-                INSERT INTO YS_ZW_ARLIST VALUES RLN;
-                FOR K IN RDTABN.FIRST .. RDTABN.LAST LOOP
-                  INSERT INTO YS_ZW_ARDETAIL VALUES RDTABN (K);
+                INSERT INTO Ys_Zw_Arlist VALUES Rln;
+                FOR k IN Rdtabn.First .. Rdtabn.Last LOOP
+                  INSERT INTO Ys_Zw_Ardetail VALUES Rdtabn (k);
                 END LOOP;
                 --重构销帐包返回
-                P_PARM_ARS(I).ARID := RLY.ARID;
-                P_PARM_ARS(I).ARDPIIDS := REPLACE(P_PARM_ARS(I).ARDPIIDS,
+                p_Parm_Ars(i).Arid := Rly.Arid;
+                p_Parm_Ars(i).Ardpiids := REPLACE(p_Parm_Ars(i).Ardpiids,
                                                   'N',
                                                   'Y');
               END IF;
             ELSE
               --待销笔数=0
-              P_PARM_ARS.DELETE(I);
+              p_Parm_Ars.Delete(i);
             END IF;
           END IF;
-          CLOSE C_RL;
+          CLOSE c_Rl;
         END IF;
       END LOOP;
     
     END IF;
     --5、提交处理
     BEGIN
-      IF P_COMMIT = 调试 THEN
+      IF p_Commit = 调试 THEN
         ROLLBACK;
       ELSE
-        IF P_COMMIT = 提交 THEN
+        IF p_Commit = 提交 THEN
           COMMIT;
-        ELSIF P_COMMIT = 不提交 THEN
+        ELSIF p_Commit = 不提交 THEN
           NULL;
         ELSE
-          RAISE_APPLICATION_ERROR(ERRCODE, '是否提交参数不正确');
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
         END IF;
       END IF;
     END;
   
   EXCEPTION
     WHEN OTHERS THEN
-      IF C_RL%ISOPEN THEN
-        CLOSE C_RL;
+      IF c_Rl%ISOPEN THEN
+        CLOSE c_Rl;
       END IF;
-      IF C_RD%ISOPEN THEN
-        CLOSE C_RD;
+      IF c_Rd%ISOPEN THEN
+        CLOSE c_Rd;
       END IF;
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   应收冲正核心
@@ -759,180 +759,180 @@
   提供销帐预处理、实收冲正、退费、应收调整等业务过程调用；
   【更新日志】：
   */
-  PROCEDURE ZWARREVERSECORE(P_ARID_SOURCE         IN VARCHAR2,
-                            P_ARTRANS_REVERSE     IN VARCHAR2,
-                            P_PBATCH_REVERSE      IN VARCHAR2,
-                            P_PID_REVERSE         IN VARCHAR2,
-                            P_PPAYMENT_REVERSE    IN NUMBER,
-                            P_MEMO                IN VARCHAR2,
-                            P_CTL_MIRCODE         IN VARCHAR2,
-                            P_COMMIT              IN NUMBER DEFAULT 不提交,
-                            O_ARID_REVERSE        OUT VARCHAR2,
-                            O_ARTRANS_REVERSE     OUT VARCHAR2,
-                            O_ARJE_REVERSE        OUT NUMBER,
-                            O_ARZNJ_REVERSE       OUT NUMBER,
-                            O_ARSXF_REVERSE       OUT NUMBER,
-                            O_ARSAVINGBQ_REVERSE  OUT NUMBER,
-                            IO_ARSAVINGQM_REVERSE IN OUT NUMBER) IS
-    CURSOR C_RL(VARID VARCHAR2) IS
-      SELECT * FROM YS_ZW_ARLIST WHERE ARID = VARID FOR UPDATE NOWAIT; --若被锁直接抛出异常
-    CURSOR C_RD(VARID VARCHAR2) IS
+  PROCEDURE Zwarreversecore(p_Arid_Source         IN VARCHAR2,
+                            p_Artrans_Reverse     IN VARCHAR2,
+                            p_Pbatch_Reverse      IN VARCHAR2,
+                            p_Pid_Reverse         IN VARCHAR2,
+                            p_Ppayment_Reverse    IN NUMBER,
+                            p_Memo                IN VARCHAR2,
+                            p_Ctl_Mircode         IN VARCHAR2,
+                            p_Commit              IN NUMBER DEFAULT 不提交,
+                            o_Arid_Reverse        OUT VARCHAR2,
+                            o_Artrans_Reverse     OUT VARCHAR2,
+                            o_Arje_Reverse        OUT NUMBER,
+                            o_Arznj_Reverse       OUT NUMBER,
+                            o_Arsxf_Reverse       OUT NUMBER,
+                            o_Arsavingbq_Reverse  OUT NUMBER,
+                            Io_Arsavingqm_Reverse IN OUT NUMBER) IS
+    CURSOR c_Rl(Varid VARCHAR2) IS
+      SELECT * FROM Ys_Zw_Arlist WHERE Arid = Varid FOR UPDATE NOWAIT; --若被锁直接抛出异常
+    CURSOR c_Rd(Varid VARCHAR2) IS
       SELECT *
-        FROM YS_ZW_ARDETAIL
-       WHERE ARDID = VARID
-       ORDER BY ARDPIID, ARDCLASS
+        FROM Ys_Zw_Ardetail
+       WHERE Ardid = Varid
+       ORDER BY Ardpiid, Ardclass
          FOR UPDATE NOWAIT; --若被锁直接抛出异常
-    CURSOR C_P_REVERSE(VRPID VARCHAR2) IS
-      SELECT * FROM YS_ZW_PAIDMENT WHERE PID = VRPID FOR UPDATE NOWAIT; --若被锁直接抛出异常
+    CURSOR c_p_Reverse(Vrpid VARCHAR2) IS
+      SELECT * FROM Ys_Zw_Paidment WHERE Pid = Vrpid FOR UPDATE NOWAIT; --若被锁直接抛出异常
   
-    SUBTYPE RD_TYPE IS YS_ZW_ARDETAIL%ROWTYPE;
-    TYPE RD_TABLE IS TABLE OF RD_TYPE;
+    SUBTYPE Rd_Type IS Ys_Zw_Ardetail%ROWTYPE;
+    TYPE Rd_Table IS TABLE OF Rd_Type;
     --被冲正原应收
-    RL_SOURCE YS_ZW_ARLIST%ROWTYPE;
-    RD_SOURCE YS_ZW_ARDETAIL%ROWTYPE;
+    Rl_Source Ys_Zw_Arlist%ROWTYPE;
+    Rd_Source Ys_Zw_Ardetail%ROWTYPE;
     --冲正应收
-    RL_REVERSE     YS_ZW_ARLIST%ROWTYPE;
-    RD_REVERSE     YS_ZW_ARDETAIL%ROWTYPE;
-    RD_REVERSE_TAB RD_TABLE;
+    Rl_Reverse     Ys_Zw_Arlist%ROWTYPE;
+    Rd_Reverse     Ys_Zw_Ardetail%ROWTYPE;
+    Rd_Reverse_Tab Rd_Table;
     --
-    P_REVERSE YS_ZW_PAIDMENT%ROWTYPE;
+    p_Reverse Ys_Zw_Paidment%ROWTYPE;
   BEGIN
-    OPEN C_RL(P_ARID_SOURCE);
-    FETCH C_RL
-      INTO RL_SOURCE;
-    IF C_RL%FOUND THEN
+    OPEN c_Rl(p_Arid_Source);
+    FETCH c_Rl
+      INTO Rl_Source;
+    IF c_Rl%FOUND THEN
       --核心部分校验
-      IF 允许重复销帐 = 0 AND RL_SOURCE.AROUTFLAG = 'Y' THEN
-        RAISE_APPLICATION_ERROR(ERRCODE,
+      IF 允许重复销帐 = 0 AND Rl_Source.Aroutflag = 'Y' THEN
+        Raise_Application_Error(Errcode,
                                 '当前系统规则不允许划扣中进行应收冲正');
       END IF;
     
-      RL_REVERSE                := RL_SOURCE;
-      RL_REVERSE.ARID           := LPAD(SEQ_ARID.NEXTVAL, 10, '0');
-      RL_REVERSE.ARDATE         := TRUNC(SYSDATE);
-      RL_REVERSE.ARDATETIME     := SYSDATE; --20140514 add
-      RL_REVERSE.ARMONTH        := FOBTMANAPARA(RL_REVERSE.MANAGE_NO,
+      Rl_Reverse                := Rl_Source;
+      Rl_Reverse.Arid           := Lpad(Seq_Arid.Nextval, 10, '0');
+      Rl_Reverse.Ardate         := Trunc(SYSDATE);
+      Rl_Reverse.Ardatetime     := SYSDATE; --20140514 add
+      Rl_Reverse.Armonth        := Fobtmanapara(Rl_Reverse.Manage_No,
                                                 'READ_MONTH');
-      RL_REVERSE.ARCD           := 贷方;
-      RL_REVERSE.ARREADSL       := -RL_REVERSE.ARREADSL; --20140707 add
-      RL_REVERSE.ARSL           := -RL_REVERSE.ARSL;
-      RL_REVERSE.ARJE           := -RL_REVERSE.ARJE; --须全冲
-      RL_REVERSE.ARZNJREDUCFLAG := RL_REVERSE.ARZNJREDUCFLAG;
-      RL_REVERSE.ARZNJ          := -RL_REVERSE.ARZNJ; --若销帐则冲正原应收销帐违约金,未销则冲应收违约金
-      RL_REVERSE.ARSXF          := -RL_REVERSE.ARSXF; --若销帐则冲正原应收销帐其他费1，,未销则冲应收其他费1
-      RL_REVERSE.ARREVERSEFLAG  := 'Y';
-      RL_REVERSE.ARMEMO         := P_MEMO;
-      RL_REVERSE.ARTRANS        := P_ARTRANS_REVERSE;
+      Rl_Reverse.Arcd           := 贷方;
+      Rl_Reverse.Arreadsl       := -Rl_Reverse.Arreadsl; --20140707 add
+      Rl_Reverse.Arsl           := -Rl_Reverse.Arsl;
+      Rl_Reverse.Arje           := -Rl_Reverse.Arje; --须全冲
+      Rl_Reverse.Arznjreducflag := Rl_Reverse.Arznjreducflag;
+      Rl_Reverse.Arznj          := -Rl_Reverse.Arznj; --若销帐则冲正原应收销帐违约金,未销则冲应收违约金
+      Rl_Reverse.Arsxf          := -Rl_Reverse.Arsxf; --若销帐则冲正原应收销帐其他费1，,未销则冲应收其他费1
+      Rl_Reverse.Arreverseflag  := 'Y';
+      Rl_Reverse.Armemo         := p_Memo;
+      Rl_Reverse.Artrans        := p_Artrans_Reverse;
       --应收冲正父过程调用下，销帐信息继承源帐
       --实收冲正父过程调用下，销帐信息改写，并判断实收冲正方法
       --退款：实收计‘实收冲销’事务C，应收计‘冲正’事务C
       --不退款：继承原实收、应收事务
-      IF P_PID_REVERSE IS NOT NULL THEN
-        OPEN C_P_REVERSE(P_PID_REVERSE);
-        FETCH C_P_REVERSE
-          INTO P_REVERSE;
-        IF C_P_REVERSE%NOTFOUND OR C_P_REVERSE%NOTFOUND IS NULL THEN
-          RAISE_APPLICATION_ERROR(ERRCODE, '冲正负帐不存在');
+      IF p_Pid_Reverse IS NOT NULL THEN
+        OPEN c_p_Reverse(p_Pid_Reverse);
+        FETCH c_p_Reverse
+          INTO p_Reverse;
+        IF c_p_Reverse%NOTFOUND OR c_p_Reverse%NOTFOUND IS NULL THEN
+          Raise_Application_Error(Errcode, '冲正负帐不存在');
         END IF;
-        CLOSE C_P_REVERSE;
+        CLOSE c_p_Reverse;
       
-        RL_REVERSE.ARPAIDDATE  := TRUNC(SYSDATE); --若销帐则记录冲正帐期
-        RL_REVERSE.ARPAIDMONTH := FOBTMANAPARA(RL_REVERSE.MANAGE_NO,
+        Rl_Reverse.Arpaiddate  := Trunc(SYSDATE); --若销帐则记录冲正帐期
+        Rl_Reverse.Arpaidmonth := Fobtmanapara(Rl_Reverse.Manage_No,
                                                'READ_MONTH'); --若销帐则记录冲正帐期
       
-        RL_REVERSE.ARPAIDJE   := P_PPAYMENT_REVERSE; --销帐信息改写
-        RL_REVERSE.ARSAVINGQC := (CASE
-                                   WHEN IO_ARSAVINGQM_REVERSE IS NULL THEN
-                                    P_REVERSE.PDSAVINGQC
+        Rl_Reverse.Arpaidje   := p_Ppayment_Reverse; --销帐信息改写
+        Rl_Reverse.Arsavingqc := (CASE
+                                   WHEN Io_Arsavingqm_Reverse IS NULL THEN
+                                    p_Reverse.Pdsavingqc
                                    ELSE
-                                    IO_ARSAVINGQM_REVERSE
+                                    Io_Arsavingqm_Reverse
                                  END); --销帐信息初改写
-        RL_REVERSE.ARSAVINGBQ := RL_REVERSE.ARPAIDJE - RL_REVERSE.ARJE -
-                                 RL_REVERSE.ARZNJ - RL_REVERSE.ARSXF; --销帐信息改写
-        RL_REVERSE.ARSAVINGQM := RL_REVERSE.ARSAVINGQC +
-                                 RL_REVERSE.ARSAVINGBQ; --销帐信息改写
-        RL_REVERSE.ARPID      := P_PID_REVERSE;
-        RL_REVERSE.ARPBATCH   := P_PBATCH_REVERSE;
-        IO_ARSAVINGQM_REVERSE := RL_REVERSE.ARSAVINGQM;
+        Rl_Reverse.Arsavingbq := Rl_Reverse.Arpaidje - Rl_Reverse.Arje -
+                                 Rl_Reverse.Arznj - Rl_Reverse.Arsxf; --销帐信息改写
+        Rl_Reverse.Arsavingqm := Rl_Reverse.Arsavingqc +
+                                 Rl_Reverse.Arsavingbq; --销帐信息改写
+        Rl_Reverse.Arpid      := p_Pid_Reverse;
+        Rl_Reverse.Arpbatch   := p_Pbatch_Reverse;
+        Io_Arsavingqm_Reverse := Rl_Reverse.Arsavingqm;
       END IF;
       --rlscrrlid    := ;--继承原应收值
       --rlscrrldate  := ;--继承原应收值
       --rlscrrlmonth := ;--继承原应收值
       --rlscrrllb    := ;--继承原应收值
-      OPEN C_RD(P_ARID_SOURCE);
+      OPEN c_Rd(p_Arid_Source);
       LOOP
-        FETCH C_RD
-          INTO RD_SOURCE;
-        EXIT WHEN C_RD%NOTFOUND OR C_RD%NOTFOUND IS NULL;
-        RD_REVERSE := RD_SOURCE;
-        SELECT SEQ_ARID.NEXTVAL INTO RD_REVERSE.ARDID FROM DUAL;
-        RD_REVERSE.ARDID    := RL_REVERSE.ARID;
-        RD_REVERSE.ARDYSSL  := -RD_REVERSE.ARDYSSL;
-        RD_REVERSE.ARDYSJE  := -RD_REVERSE.ARDYSJE;
-        RD_REVERSE.ARDSL    := -RD_REVERSE.ARDSL;
-        RD_REVERSE.ARDJE    := -RD_REVERSE.ARDJE;
-        RD_REVERSE.ARDADJSL := -RD_REVERSE.ARDADJSL;
-        RD_REVERSE.ARDADJJE := -RD_REVERSE.ARDADJJE;
+        FETCH c_Rd
+          INTO Rd_Source;
+        EXIT WHEN c_Rd%NOTFOUND OR c_Rd%NOTFOUND IS NULL;
+        Rd_Reverse := Rd_Source;
+        SELECT Seq_Arid.Nextval INTO Rd_Reverse.Ardid FROM Dual;
+        Rd_Reverse.Ardid    := Rl_Reverse.Arid;
+        Rd_Reverse.Ardyssl  := -Rd_Reverse.Ardyssl;
+        Rd_Reverse.Ardysje  := -Rd_Reverse.Ardysje;
+        Rd_Reverse.Ardsl    := -Rd_Reverse.Ardsl;
+        Rd_Reverse.Ardje    := -Rd_Reverse.Ardje;
+        Rd_Reverse.Ardadjsl := -Rd_Reverse.Ardadjsl;
+        Rd_Reverse.Ardadjje := -Rd_Reverse.Ardadjje;
         --复制到rd_reverse_tab
-        IF RD_REVERSE_TAB IS NULL THEN
-          RD_REVERSE_TAB := RD_TABLE(RD_REVERSE);
+        IF Rd_Reverse_Tab IS NULL THEN
+          Rd_Reverse_Tab := Rd_Table(Rd_Reverse);
         ELSE
-          RD_REVERSE_TAB.EXTEND;
-          RD_REVERSE_TAB(RD_REVERSE_TAB.LAST) := RD_REVERSE;
+          Rd_Reverse_Tab.Extend;
+          Rd_Reverse_Tab(Rd_Reverse_Tab.Last) := Rd_Reverse;
         END IF;
       END LOOP;
-      CLOSE C_RD;
+      CLOSE c_Rd;
     ELSE
-      RAISE_APPLICATION_ERROR(ERRCODE, '无效的应收流水号');
+      Raise_Application_Error(Errcode, '无效的应收流水号');
     END IF;
     --返回值
-    O_ARID_REVERSE       := RL_REVERSE.ARID;
-    O_ARTRANS_REVERSE    := RL_REVERSE.ARTRANS;
-    O_ARJE_REVERSE       := RL_REVERSE.ARJE;
-    O_ARZNJ_REVERSE      := RL_REVERSE.ARZNJ;
-    O_ARSXF_REVERSE      := RL_REVERSE.ARSXF;
-    O_ARSAVINGBQ_REVERSE := RL_REVERSE.ARSAVINGBQ;
+    o_Arid_Reverse       := Rl_Reverse.Arid;
+    o_Artrans_Reverse    := Rl_Reverse.Artrans;
+    o_Arje_Reverse       := Rl_Reverse.Arje;
+    o_Arznj_Reverse      := Rl_Reverse.Arznj;
+    o_Arsxf_Reverse      := Rl_Reverse.Arsxf;
+    o_Arsavingbq_Reverse := Rl_Reverse.Arsavingbq;
     --2、提交处理
     BEGIN
-      CLOSE C_RL;
-      IF P_COMMIT = 调试 THEN
+      CLOSE c_Rl;
+      IF p_Commit = 调试 THEN
         ROLLBACK;
       ELSE
-        INSERT INTO YS_ZW_ARLIST VALUES RL_REVERSE;
-        FOR K IN RD_REVERSE_TAB.FIRST .. RD_REVERSE_TAB.LAST LOOP
-          INSERT INTO YS_ZW_ARDETAIL VALUES RD_REVERSE_TAB (K);
+        INSERT INTO Ys_Zw_Arlist VALUES Rl_Reverse;
+        FOR k IN Rd_Reverse_Tab.First .. Rd_Reverse_Tab.Last LOOP
+          INSERT INTO Ys_Zw_Ardetail VALUES Rd_Reverse_Tab (k);
         END LOOP;
-        UPDATE YS_ZW_ARLIST
-           SET ARREVERSEFLAG = 'Y'
-         WHERE ARID = P_ARID_SOURCE;
+        UPDATE Ys_Zw_Arlist
+           SET Arreverseflag = 'Y'
+         WHERE Arid = p_Arid_Source;
         --其他控制赋值
-        IF P_CTL_MIRCODE IS NOT NULL THEN
-          UPDATE YS_YH_SBINFO
-             SET SBRCODE = TO_NUMBER(P_CTL_MIRCODE)
-           WHERE SBID = RL_SOURCE.SBID;
+        IF p_Ctl_Mircode IS NOT NULL THEN
+          UPDATE Ys_Yh_Sbinfo
+             SET Sbrcode = To_Number(p_Ctl_Mircode)
+           WHERE Sbid = Rl_Source.Sbid;
         END IF;
-        IF P_COMMIT = 提交 THEN
+        IF p_Commit = 提交 THEN
           COMMIT;
-        ELSIF P_COMMIT = 不提交 THEN
+        ELSIF p_Commit = 不提交 THEN
           NULL;
         ELSE
-          RAISE_APPLICATION_ERROR(ERRCODE, '是否提交参数不正确');
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
         END IF;
       END IF;
     END;
   EXCEPTION
     WHEN OTHERS THEN
-      IF C_P_REVERSE%ISOPEN THEN
-        CLOSE C_P_REVERSE;
+      IF c_p_Reverse%ISOPEN THEN
+        CLOSE c_p_Reverse;
       END IF;
-      IF C_RD%ISOPEN THEN
-        CLOSE C_RD;
+      IF c_Rd%ISOPEN THEN
+        CLOSE c_Rd;
       END IF;
-      IF C_RL%ISOPEN THEN
-        CLOSE C_RL;
+      IF c_Rl%ISOPEN THEN
+        CLOSE c_Rl;
       END IF;
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   销帐违约金分帐销帐包预处理
@@ -952,105 +952,105 @@
   3、重构待销帐包并返回否则原包返回；
   【更新日志】：
   */
-  PROCEDURE PAYWYJPRE(P_PARM_ARS IN OUT PARM_PAYAR_TAB,
-                      P_COMMIT   IN NUMBER DEFAULT 不提交) IS
-    CURSOR C_RL(VARID VARCHAR2) IS
-      SELECT * FROM YS_ZW_ARLIST WHERE ARID = VARID;
-    CURSOR C_RD(VARID VARCHAR2) IS
-      SELECT * FROM YS_ZW_ARDETAIL WHERE ARDID = VARID;
-    P_PARM_AR  PARM_PAYAR := PARM_PAYAR(NULL, NULL, NULL, NULL, NULL, NULL);
-    V_PARM_ARS PARM_PAYAR_TAB := PARM_PAYAR_TAB();
+  PROCEDURE Paywyjpre(p_Parm_Ars IN OUT Parm_Payar_Tab,
+                      p_Commit   IN NUMBER DEFAULT 不提交) IS
+    CURSOR c_Rl(Varid VARCHAR2) IS
+      SELECT * FROM Ys_Zw_Arlist WHERE Arid = Varid;
+    CURSOR c_Rd(Varid VARCHAR2) IS
+      SELECT * FROM Ys_Zw_Ardetail WHERE Ardid = Varid;
+    p_Parm_Ar  Parm_Payar := Parm_Payar(NULL, NULL, NULL, NULL, NULL, NULL);
+    v_Parm_Ars Parm_Payar_Tab := Parm_Payar_Tab();
     --被调整原应收
-    RL                 YS_ZW_ARLIST%ROWTYPE;
-    RD                 YS_ZW_ARDETAIL%ROWTYPE;
-    VEXIST             NUMBER := 0;
+    Rl                 Ys_Zw_Arlist%ROWTYPE;
+    Rd                 Ys_Zw_Ardetail%ROWTYPE;
+    Vexist             NUMBER := 0;
     一行费项数         INTEGER;
     一行一费项         VARCHAR2(10);
     一行一费项待销标志 CHAR(1);
   BEGIN
     --可以为空（预存充值时），空包返回
-    IF P_PARM_ARS.COUNT > 0 THEN
-      FOR I IN P_PARM_ARS.FIRST .. P_PARM_ARS.LAST LOOP
-        P_PARM_AR := P_PARM_ARS(I);
-        IF P_PARM_AR.ARWYJ <> 0 AND P_PARM_AR.ARID IS NOT NULL THEN
-          OPEN C_RL(P_PARM_AR.ARID);
-          FETCH C_RL
-            INTO RL;
-          IF C_RL%NOTFOUND OR C_RL%NOTFOUND IS NULL THEN
-            RAISE_APPLICATION_ERROR(ERRCODE,
-                                    '销帐包中应收流水不存在' || P_PARM_AR.ARID);
+    IF p_Parm_Ars.Count > 0 THEN
+      FOR i IN p_Parm_Ars.First .. p_Parm_Ars.Last LOOP
+        p_Parm_Ar := p_Parm_Ars(i);
+        IF p_Parm_Ar.Arwyj <> 0 AND p_Parm_Ar.Arid IS NOT NULL THEN
+          OPEN c_Rl(p_Parm_Ar.Arid);
+          FETCH c_Rl
+            INTO Rl;
+          IF c_Rl%NOTFOUND OR c_Rl%NOTFOUND IS NULL THEN
+            Raise_Application_Error(Errcode,
+                                    '销帐包中应收流水不存在' || p_Parm_Ar.Arid);
           END IF;
-          一行费项数 := PG_CB_COST.FBOUNDPARA(P_PARM_AR.ARDPIIDS);
-          FOR J IN 1 .. 一行费项数 LOOP
-            一行一费项待销标志 := PG_CB_COST.FGETPARA(P_PARM_AR.ARDPIIDS, J, 1);
-            一行一费项         := PG_CB_COST.FGETPARA(P_PARM_AR.ARDPIIDS, J, 2);
-            IF 一行一费项待销标志 = 'N' AND UPPER(一行一费项) = 'ZNJ' THEN
-              VEXIST := 1;
+          一行费项数 := Pg_Cb_Cost.Fboundpara(p_Parm_Ar.Ardpiids);
+          FOR j IN 1 .. 一行费项数 LOOP
+            一行一费项待销标志 := Pg_Cb_Cost.Fgetpara(p_Parm_Ar.Ardpiids, j, 1);
+            一行一费项         := Pg_Cb_Cost.Fgetpara(p_Parm_Ar.Ardpiids, j, 2);
+            IF 一行一费项待销标志 = 'N' AND Upper(一行一费项) = 'ZNJ' THEN
+              Vexist := 1;
             END IF;
           END LOOP;
-          IF VEXIST = 1 THEN
-            RL.ARID           := LPAD(SEQ_ARID.NEXTVAL, 10, '0');
-            RL.ARJE           := 0;
-            RL.ARSL           := 0;
-            RL.ARZNJ          := P_PARM_AR.ARWYJ;
-            RL.ARMEMO         := '违约金追补';
-            RL.ARZNJREDUCFLAG := 'Y';
-            OPEN C_RD(P_PARM_AR.ARID);
+          IF Vexist = 1 THEN
+            Rl.Arid           := Lpad(Seq_Arid.Nextval, 10, '0');
+            Rl.Arje           := 0;
+            Rl.Arsl           := 0;
+            Rl.Arznj          := p_Parm_Ar.Arwyj;
+            Rl.Armemo         := '违约金追补';
+            Rl.Arznjreducflag := 'Y';
+            OPEN c_Rd(p_Parm_Ar.Arid);
             LOOP
-              FETCH C_RD
-                INTO RD;
-              EXIT WHEN C_RD%NOTFOUND OR C_RD%NOTFOUND IS NULL;
-              RD.ARDID    := RL.ARID;
-              RD.ARDSL    := 0;
-              RD.ARDJE    := 0;
-              RD.ARDYSSL  := 0;
-              RD.ARDYSJE  := 0;
-              RD.ARDADJSL := 0;
-              RD.ARDADJJE := 0;
-              INSERT INTO YS_ZW_ARDETAIL VALUES RD;
+              FETCH c_Rd
+                INTO Rd;
+              EXIT WHEN c_Rd%NOTFOUND OR c_Rd%NOTFOUND IS NULL;
+              Rd.Ardid    := Rl.Arid;
+              Rd.Ardsl    := 0;
+              Rd.Ardje    := 0;
+              Rd.Ardyssl  := 0;
+              Rd.Ardysje  := 0;
+              Rd.Ardadjsl := 0;
+              Rd.Ardadjje := 0;
+              INSERT INTO Ys_Zw_Ardetail VALUES Rd;
             END LOOP;
-            INSERT INTO YS_ZW_ARLIST VALUES RL;
-            CLOSE C_RD;
+            INSERT INTO Ys_Zw_Arlist VALUES Rl;
+            CLOSE c_Rd;
             --
-            P_PARM_AR.ARID := RL.ARID;
-            IF V_PARM_ARS IS NULL THEN
-              V_PARM_ARS := PARM_PAYAR_TAB(P_PARM_AR);
+            p_Parm_Ar.Arid := Rl.Arid;
+            IF v_Parm_Ars IS NULL THEN
+              v_Parm_Ars := Parm_Payar_Tab(p_Parm_Ar);
             ELSE
-              V_PARM_ARS.EXTEND;
-              V_PARM_ARS(V_PARM_ARS.LAST) := P_PARM_AR;
+              v_Parm_Ars.Extend;
+              v_Parm_Ars(v_Parm_Ars.Last) := p_Parm_Ar;
             END IF;
             --
-            P_PARM_ARS(I).ARWYJ := 0;
+            p_Parm_Ars(i).Arwyj := 0;
           END IF;
-          CLOSE C_RL;
+          CLOSE c_Rl;
         END IF;
       END LOOP;
     END IF;
     --5、提交处理
     BEGIN
-      IF P_COMMIT = 调试 THEN
+      IF p_Commit = 调试 THEN
         ROLLBACK;
       ELSE
-        IF P_COMMIT = 提交 THEN
+        IF p_Commit = 提交 THEN
           COMMIT;
-        ELSIF P_COMMIT = 不提交 THEN
+        ELSIF p_Commit = 不提交 THEN
           NULL;
         ELSE
-          RAISE_APPLICATION_ERROR(ERRCODE, '是否提交参数不正确');
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
         END IF;
       END IF;
     END;
   
   EXCEPTION
     WHEN OTHERS THEN
-      IF C_RL%ISOPEN THEN
-        CLOSE C_RL;
+      IF c_Rl%ISOPEN THEN
+        CLOSE c_Rl;
       END IF;
-      IF C_RD%ISOPEN THEN
-        CLOSE C_RD;
+      IF c_Rd%ISOPEN THEN
+        CLOSE c_Rd;
       END IF;
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   实收销帐处理核心
@@ -1080,137 +1080,137 @@
   
   【更新日志】：
   */
-  PROCEDURE PAYZWARCORE(P_PID          IN VARCHAR2,
-                        P_BATCH        IN VARCHAR2,
-                        P_PAYMENT      IN NUMBER,
-                        P_REMAINBEFORE IN NUMBER,
-                        P_PAIDDATE     IN DATE,
-                        P_PAIDMONTH    IN VARCHAR2,
-                        P_PARM_ARS     IN PARM_PAYAR_TAB,
-                        P_COMMIT       IN NUMBER DEFAULT 不提交,
-                        O_SUM_ARJE     OUT NUMBER,
-                        O_SUM_ARZNJ    OUT NUMBER,
-                        O_SUM_ARSXF    OUT NUMBER) IS
-    CURSOR C_RL(VARID VARCHAR2) IS
+  PROCEDURE Payzwarcore(p_Pid          IN VARCHAR2,
+                        p_Batch        IN VARCHAR2,
+                        p_Payment      IN NUMBER,
+                        p_Remainbefore IN NUMBER,
+                        p_Paiddate     IN DATE,
+                        p_Paidmonth    IN VARCHAR2,
+                        p_Parm_Ars     IN Parm_Payar_Tab,
+                        p_Commit       IN NUMBER DEFAULT 不提交,
+                        o_Sum_Arje     OUT NUMBER,
+                        o_Sum_Arznj    OUT NUMBER,
+                        o_Sum_Arsxf    OUT NUMBER) IS
+    CURSOR c_Rl(Varid VARCHAR2) IS
       SELECT *
-        FROM YS_ZW_ARLIST
-       WHERE ARID = VARID
-         AND ARPAIDFLAG = 'N'
-         AND ARREVERSEFLAG = 'N' /*and rlje>0*/ /*支持0金额销帐*/
+        FROM Ys_Zw_Arlist
+       WHERE Arid = Varid
+         AND Arpaidflag = 'N'
+         AND Arreverseflag = 'N' /*and rlje>0*/ /*支持0金额销帐*/
          FOR UPDATE NOWAIT; --若被锁直接抛出异常
   
-    RL          YS_ZW_ARLIST%ROWTYPE;
-    P_PARM_AR   PARM_PAYAR;
-    SUMRLPAIDJE NUMBER(13, 3) := 0; --累计实收金额（应收金额+实收违约金+实收其他非系统费项123）
-    P_REMAIND   NUMBER(13, 3); --期初预存累减器
+    Rl          Ys_Zw_Arlist%ROWTYPE;
+    p_Parm_Ar   Parm_Payar;
+    Sumrlpaidje NUMBER(13, 3) := 0; --累计实收金额（应收金额+实收违约金+实收其他非系统费项123）
+    p_Remaind   NUMBER(13, 3); --期初预存累减器
   BEGIN
     --期初预存累减器初始化
-    P_REMAIND := P_REMAINBEFORE;
+    p_Remaind := p_Remainbefore;
     --返回值初始化，若销帐包非空但无游标此值返回
-    O_SUM_ARJE  := 0;
-    O_SUM_ARZNJ := 0;
-    O_SUM_ARSXF := 0;
+    o_Sum_Arje  := 0;
+    o_Sum_Arznj := 0;
+    o_Sum_Arsxf := 0;
     SAVEPOINT 未销状态;
-    IF P_PARM_ARS.COUNT > 0 THEN
+    IF p_Parm_Ars.Count > 0 THEN
       --可以为空（预存充值时）
-      FOR I IN P_PARM_ARS.FIRST .. P_PARM_ARS.LAST LOOP
-        P_PARM_AR := P_PARM_ARS(I);
-        OPEN C_RL(P_PARM_AR.ARID);
+      FOR i IN p_Parm_Ars.First .. p_Parm_Ars.Last LOOP
+        p_Parm_Ar := p_Parm_Ars(i);
+        OPEN c_Rl(p_Parm_Ar.Arid);
         --销帐包非空时，也允许包含不符合销帐条件的应收id，例如代扣隔日销帐本地已销情况下
-        FETCH C_RL
-          INTO RL;
-        IF C_RL%FOUND THEN
+        FETCH c_Rl
+          INTO Rl;
+        IF c_Rl%FOUND THEN
           --组织一条待销应收记录更新变量
-          RL.ARPAIDFLAG  := 'Y'; --varchar2(1)  y  'n'    是否销账标志（全额销帐、不存在中间状态）
-          RL.ARSAVINGQC  := P_REMAIND; --number(13,2)  y  0    销帐期初预存
-          RL.ARSAVINGBQ  := -PG_CB_COST.GETMIN(P_REMAIND,
-                                               RL.ARJE + P_PARM_AR.ARWYJ +
-                                               P_PARM_AR.FEE1); --number(13,2)  y  0    销帐预存发生（净减）
-          RL.ARSAVINGQM  := RL.ARSAVINGQC + RL.ARSAVINGBQ; --number(13,2)  y  0    销帐期末预存
-          RL.ARZNJ       := P_PARM_AR.ARWYJ; --number(13,2)  y  0    实收违约金
-          RL.ARSXF       := P_PARM_AR.FEE1; --number(13,2)  y  0    实收其他非系统费项1
-          RL.ARPAIDDATE  := P_PAIDDATE; --date  y      销帐日期（实收帐务时钟）
-          RL.ARPAIDMONTH := P_PAIDMONTH; --varchar2(7)  y      销帐月份（实收帐务时钟）
-          RL.ARPAIDJE    := RL.ARJE + RL.ARZNJ + RL.ARSXF + RL.ARSAVINGBQ; --number(13,2)  y  0    实收金额（实收金额=应收金额+实收违约金+实收其他非系统费项123+预存发生）；sum(rl.rlpaidje)=p.ppayment
-          RL.ARPID       := P_PID; --
-          RL.ARPBATCH    := P_BATCH;
-          RL.ARMICOLUMN1 := '';
+          Rl.Arpaidflag  := 'Y'; --varchar2(1)  y  'n'    是否销账标志（全额销帐、不存在中间状态）
+          Rl.Arsavingqc  := p_Remaind; --number(13,2)  y  0    销帐期初预存
+          Rl.Arsavingbq  := -Pg_Cb_Cost.Getmin(p_Remaind,
+                                               Rl.Arje + p_Parm_Ar.Arwyj +
+                                               p_Parm_Ar.Fee1); --number(13,2)  y  0    销帐预存发生（净减）
+          Rl.Arsavingqm  := Rl.Arsavingqc + Rl.Arsavingbq; --number(13,2)  y  0    销帐期末预存
+          Rl.Arznj       := p_Parm_Ar.Arwyj; --number(13,2)  y  0    实收违约金
+          Rl.Arsxf       := p_Parm_Ar.Fee1; --number(13,2)  y  0    实收其他非系统费项1
+          Rl.Arpaiddate  := p_Paiddate; --date  y      销帐日期（实收帐务时钟）
+          Rl.Arpaidmonth := p_Paidmonth; --varchar2(7)  y      销帐月份（实收帐务时钟）
+          Rl.Arpaidje    := Rl.Arje + Rl.Arznj + Rl.Arsxf + Rl.Arsavingbq; --number(13,2)  y  0    实收金额（实收金额=应收金额+实收违约金+实收其他非系统费项123+预存发生）；sum(rl.rlpaidje)=p.ppayment
+          Rl.Arpid       := p_Pid; --
+          Rl.Arpbatch    := p_Batch;
+          Rl.Armicolumn1 := '';
           --中间变量运算
-          SUMRLPAIDJE := SUMRLPAIDJE + RL.ARPAIDJE;
+          Sumrlpaidje := Sumrlpaidje + Rl.Arpaidje;
           --末条销帐记录处理，销帐溢出的实收金额计入末笔销帐记录的预存发生中！！！
-          IF I = P_PARM_ARS.LAST THEN
-            RL.ARSAVINGBQ := RL.ARSAVINGBQ + (P_PAYMENT - SUMRLPAIDJE);
-            RL.ARSAVINGQM := RL.ARSAVINGQC + RL.ARSAVINGBQ;
-            RL.ARPAIDJE   := RL.ARJE + RL.ARZNJ + RL.ARSXF + RL.ARSAVINGBQ; --number(13,2)  y  0    实收金额（实收金额=应收金额+实收违约金+实收其他非系统费项123+预存发生）；sum(rl.rlpaidje)=p.ppayment
+          IF i = p_Parm_Ars.Last THEN
+            Rl.Arsavingbq := Rl.Arsavingbq + (p_Payment - Sumrlpaidje);
+            Rl.Arsavingqm := Rl.Arsavingqc + Rl.Arsavingbq;
+            Rl.Arpaidje   := Rl.Arje + Rl.Arznj + Rl.Arsxf + Rl.Arsavingbq; --number(13,2)  y  0    实收金额（实收金额=应收金额+实收违约金+实收其他非系统费项123+预存发生）；sum(rl.rlpaidje)=p.ppayment
           END IF;
           --核心部分校验
-          IF NOT 允许预存发生 AND RL.ARSAVINGBQ != 0 THEN
-            RAISE_APPLICATION_ERROR(ERRCODE,
+          IF NOT 允许预存发生 AND Rl.Arsavingbq != 0 THEN
+            Raise_Application_Error(Errcode,
                                     '当前系统规则为不支持预存发生');
           END IF;
           --反馈实收记录
-          O_SUM_ARJE  := O_SUM_ARJE + RL.ARJE;
-          O_SUM_ARZNJ := O_SUM_ARZNJ + RL.ARZNJ;
-          O_SUM_ARSXF := O_SUM_ARSXF + RL.ARSXF;
-          P_REMAIND   := P_REMAIND + RL.ARSAVINGBQ;
+          o_Sum_Arje  := o_Sum_Arje + Rl.Arje;
+          o_Sum_Arznj := o_Sum_Arznj + Rl.Arznj;
+          o_Sum_Arsxf := o_Sum_Arsxf + Rl.Arsxf;
+          p_Remaind   := p_Remaind + Rl.Arsavingbq;
           --更新待销帐应收记录
-          UPDATE YS_ZW_ARLIST
-             SET ARPAIDFLAG  = RL.ARPAIDFLAG,
-                 ARSAVINGQC  = RL.ARSAVINGQC,
-                 ARSAVINGBQ  = RL.ARSAVINGBQ,
-                 ARSAVINGQM  = RL.ARSAVINGQM,
-                 ARZNJ       = RL.ARZNJ,
-                 ARMICOLUMN1 = RL.ARMICOLUMN1,
-                 ARSXF       = RL.ARSXF,
-                 ARPAIDDATE  = RL.ARPAIDDATE,
-                 ARPAIDMONTH = RL.ARPAIDMONTH,
-                 ARPAIDJE    = RL.ARPAIDJE,
-                 ARPID       = RL.ARPID,
-                 ARPBATCH    = RL.ARPBATCH,
-                 AROUTFLAG   = 'N'
-           WHERE ARID = RL.ARID; --current of c_rl;效率低
+          UPDATE Ys_Zw_Arlist
+             SET Arpaidflag  = Rl.Arpaidflag,
+                 Arsavingqc  = Rl.Arsavingqc,
+                 Arsavingbq  = Rl.Arsavingbq,
+                 Arsavingqm  = Rl.Arsavingqm,
+                 Arznj       = Rl.Arznj,
+                 Armicolumn1 = Rl.Armicolumn1,
+                 Arsxf       = Rl.Arsxf,
+                 Arpaiddate  = Rl.Arpaiddate,
+                 Arpaidmonth = Rl.Arpaidmonth,
+                 Arpaidje    = Rl.Arpaidje,
+                 Arpid       = Rl.Arpid,
+                 Arpbatch    = Rl.Arpbatch,
+                 Aroutflag   = 'N'
+           WHERE Arid = Rl.Arid; --current of c_rl;效率低
         ELSE
-          O_SUM_ARSXF := O_SUM_ARSXF + P_PARM_AR.FEE1;
+          o_Sum_Arsxf := o_Sum_Arsxf + p_Parm_Ar.Fee1;
         END IF;
-        CLOSE C_RL;
+        CLOSE c_Rl;
       END LOOP;
     END IF;
   
     --核心部分校验
-    IF 净减为负预存不销帐 AND P_REMAIND < 0 AND P_REMAIND < P_REMAINBEFORE THEN
-      O_SUM_ARJE  := 0;
-      O_SUM_ARZNJ := 0;
-      O_SUM_ARSXF := 0;
+    IF 净减为负预存不销帐 AND p_Remaind < 0 AND p_Remaind < p_Remainbefore THEN
+      o_Sum_Arje  := 0;
+      o_Sum_Arznj := 0;
+      o_Sum_Arsxf := 0;
       ROLLBACK TO 未销状态;
     END IF;
   
     --核心部分校验
-    IF NOT 允许净减后负预存 AND P_REMAIND < 0 AND P_REMAIND < P_REMAINBEFORE THEN
-      RAISE_APPLICATION_ERROR(ERRCODE,
+    IF NOT 允许净减后负预存 AND p_Remaind < 0 AND p_Remaind < p_Remainbefore THEN
+      Raise_Application_Error(Errcode,
                               '当前系统规则为不支持发生更多期末负预存');
     END IF;
   
     --5、提交处理
     BEGIN
-      IF P_COMMIT = 调试 THEN
+      IF p_Commit = 调试 THEN
         ROLLBACK;
       ELSE
-        IF P_COMMIT = 提交 THEN
+        IF p_Commit = 提交 THEN
           COMMIT;
-        ELSIF P_COMMIT = 不提交 THEN
+        ELSIF p_Commit = 不提交 THEN
           NULL;
         ELSE
-          RAISE_APPLICATION_ERROR(ERRCODE, '是否提交参数不正确');
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
         END IF;
       END IF;
     END;
   EXCEPTION
     WHEN OTHERS THEN
-      IF C_RL%ISOPEN THEN
-        CLOSE C_RL;
+      IF c_Rl%ISOPEN THEN
+        CLOSE c_Rl;
       END IF;
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   预存充值（一表）
@@ -1219,43 +1219,43 @@
   【过程说明】：
   【更新日志】：
   */
-  PROCEDURE PRECUST(P_SBID        IN VARCHAR2,
-                    P_POSITION    IN VARCHAR2,
-                    P_OPER        IN VARCHAR2,
-                    P_PAYWAY      IN VARCHAR2,
-                    P_PAYMENT     IN NUMBER,
-                    P_MEMO        IN VARCHAR2,
-                    P_BATCH       IN OUT VARCHAR2,
-                    O_PID         OUT VARCHAR2,
-                    O_REMAINAFTER OUT NUMBER) IS
+  PROCEDURE Precust(p_Sbid        IN VARCHAR2,
+                    p_Position    IN VARCHAR2,
+                    p_Oper        IN VARCHAR2,
+                    p_Payway      IN VARCHAR2,
+                    p_Payment     IN NUMBER,
+                    p_Memo        IN VARCHAR2,
+                    p_Batch       IN OUT VARCHAR2,
+                    o_Pid         OUT VARCHAR2,
+                    o_Remainafter OUT NUMBER) IS
   
-    P_SEQNO VARCHAR2(10);
+    p_Seqno VARCHAR2(10);
   BEGIN
     --校验
-    IF P_PAYMENT <= 0 THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, '预存充值业务金额必须为正数哦');
+    IF p_Payment <= 0 THEN
+      Raise_Application_Error(Errcode, '预存充值业务金额必须为正数哦');
     END IF;
     --调用核心
-    PRECORE(P_SBID,
-            PTRANS_独立预存,
-            P_POSITION,
+    Precore(p_Sbid,
+            Ptrans_独立预存,
+            p_Position,
             NULL,
             NULL,
             NULL,
-            P_OPER,
-            P_PAYWAY,
-            P_PAYMENT,
+            p_Oper,
+            p_Payway,
+            p_Payment,
             不提交,
-            P_MEMO,
-            P_BATCH,
-            P_SEQNO,
-            O_PID,
-            O_REMAINAFTER);
+            p_Memo,
+            p_Batch,
+            p_Seqno,
+            o_Pid,
+            o_Remainafter);
     COMMIT;
   EXCEPTION
     WHEN OTHERS THEN
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   预存退费（一表）
@@ -1264,43 +1264,43 @@
   【过程说明】：
   【更新日志】：
   */
-  PROCEDURE PRECUSTBACK(P_SBID        IN VARCHAR2,
-                        P_POSITION    IN VARCHAR2,
-                        P_OPER        IN VARCHAR2,
-                        P_PAYWAY      IN VARCHAR2,
-                        P_PAYMENT     IN NUMBER,
-                        P_MEMO        IN VARCHAR2,
-                        P_BATCH       IN OUT VARCHAR2,
-                        O_PID         OUT VARCHAR2,
-                        O_REMAINAFTER OUT NUMBER) IS
+  PROCEDURE Precustback(p_Sbid        IN VARCHAR2,
+                        p_Position    IN VARCHAR2,
+                        p_Oper        IN VARCHAR2,
+                        p_Payway      IN VARCHAR2,
+                        p_Payment     IN NUMBER,
+                        p_Memo        IN VARCHAR2,
+                        p_Batch       IN OUT VARCHAR2,
+                        o_Pid         OUT VARCHAR2,
+                        o_Remainafter OUT NUMBER) IS
   
-    P_SEQNO VARCHAR2(10);
+    p_Seqno VARCHAR2(10);
   BEGIN
     --校验
-    IF P_PAYMENT >= 0 THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, '预存充值业务金额必须为负数哦');
+    IF p_Payment >= 0 THEN
+      Raise_Application_Error(Errcode, '预存充值业务金额必须为负数哦');
     END IF;
     --调用核心
-    PRECORE(P_SBID,
-            PTRANS_独立预存,
-            P_POSITION,
+    Precore(p_Sbid,
+            Ptrans_独立预存,
+            p_Position,
             NULL,
             NULL,
             NULL,
-            P_OPER,
-            P_PAYWAY,
-            P_PAYMENT,
+            p_Oper,
+            p_Payway,
+            p_Payment,
             不提交,
-            P_MEMO,
-            P_BATCH,
-            P_SEQNO,
-            O_PID,
-            O_REMAINAFTER);
+            p_Memo,
+            p_Batch,
+            p_Seqno,
+            o_Pid,
+            o_Remainafter);
     COMMIT;
   EXCEPTION
     WHEN OTHERS THEN
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   /*==========================================================================
   预存实收处理核心
@@ -1323,164 +1323,164 @@
   【过程说明】：
   【更新日志】：
   */
-  PROCEDURE PRECORE(P_SBID        IN VARCHAR2,
-                    P_TRANS       IN VARCHAR2,
-                    P_POSITION    IN VARCHAR2,
-                    P_PAYPOINT    IN VARCHAR2,
-                    P_BDATE       IN DATE,
-                    P_BSEQNO      IN VARCHAR2,
-                    P_OPER        IN VARCHAR2,
-                    P_PAYWAY      IN VARCHAR2,
-                    P_PAYMENT     IN NUMBER,
-                    P_COMMIT      IN NUMBER,
-                    P_MEMO        IN VARCHAR2,
-                    P_BATCH       IN OUT VARCHAR2,
-                    P_SEQNO       IN OUT VARCHAR2,
-                    O_PID         OUT VARCHAR2,
-                    O_REMAINAFTER OUT NUMBER) IS
-    CURSOR C_CI(VCIID VARCHAR2) IS
-      SELECT * FROM YS_YH_CUSTINFO WHERE YHID = VCIID FOR UPDATE NOWAIT; --若被锁直接抛出异常
-    CURSOR C_MI(VMIID VARCHAR2) IS
-      SELECT * FROM YS_YH_SBINFO WHERE SBID = VMIID FOR UPDATE NOWAIT; --若被锁直接抛出异常
+  PROCEDURE Precore(p_Sbid        IN VARCHAR2,
+                    p_Trans       IN VARCHAR2,
+                    p_Position    IN VARCHAR2,
+                    p_Paypoint    IN VARCHAR2,
+                    p_Bdate       IN DATE,
+                    p_Bseqno      IN VARCHAR2,
+                    p_Oper        IN VARCHAR2,
+                    p_Payway      IN VARCHAR2,
+                    p_Payment     IN NUMBER,
+                    p_Commit      IN NUMBER,
+                    p_Memo        IN VARCHAR2,
+                    p_Batch       IN OUT VARCHAR2,
+                    p_Seqno       IN OUT VARCHAR2,
+                    o_Pid         OUT VARCHAR2,
+                    o_Remainafter OUT NUMBER) IS
+    CURSOR c_Ci(Vciid VARCHAR2) IS
+      SELECT * FROM Ys_Yh_Custinfo WHERE Yhid = Vciid FOR UPDATE NOWAIT; --若被锁直接抛出异常
+    CURSOR c_Mi(Vmiid VARCHAR2) IS
+      SELECT * FROM Ys_Yh_Sbinfo WHERE Sbid = Vmiid FOR UPDATE NOWAIT; --若被锁直接抛出异常
   
-    MI YS_YH_SBINFO%ROWTYPE;
-    CI YS_YH_CUSTINFO%ROWTYPE;
-    P  YS_ZW_PAIDMENT%ROWTYPE;
+    Mi Ys_Yh_Sbinfo%ROWTYPE;
+    Ci Ys_Yh_Custinfo%ROWTYPE;
+    p  Ys_Zw_Paidment%ROWTYPE;
   BEGIN
     IF NOT 允许预存发生 THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, '当前系统规则为不支持预存发生');
+      Raise_Application_Error(Errcode, '当前系统规则为不支持预存发生');
     END IF;
     --1、校验及其初始化
     BEGIN
       --取水表信息
-      OPEN C_MI(P_SBID);
-      FETCH C_MI
-        INTO MI;
-      IF C_MI%NOTFOUND OR C_MI%NOTFOUND IS NULL THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, '这是传的水表编码？' || P_SBID);
+      OPEN c_Mi(p_Sbid);
+      FETCH c_Mi
+        INTO Mi;
+      IF c_Mi%NOTFOUND OR c_Mi%NOTFOUND IS NULL THEN
+        Raise_Application_Error(Errcode, '这是传的水表编码？' || p_Sbid);
       END IF;
       --取用户信息
-      OPEN C_CI(MI.YHID);
-      FETCH C_CI
-        INTO CI;
-      IF C_CI%NOTFOUND OR C_CI%NOTFOUND IS NULL THEN
-        RAISE_APPLICATION_ERROR(ERRCODE,
-                                '这个水表编码没对应用户！' || P_SBID);
+      OPEN c_Ci(Mi.Yhid);
+      FETCH c_Ci
+        INTO Ci;
+      IF c_Ci%NOTFOUND OR c_Ci%NOTFOUND IS NULL THEN
+        Raise_Application_Error(Errcode,
+                                '这个水表编码没对应用户！' || p_Sbid);
       END IF;
     END;
   
     --2、记录实收
     BEGIN
-      SELECT TRIM(TO_CHAR(SEQ_PAIDMENT.NEXTVAL, '0000000000'))
-        INTO O_PID
-        FROM DUAL;
-      SELECT SYS_GUID() INTO P.ID FROM DUAL;
-      P.HIRE_CODE    := MI.HIRE_CODE;
-      P.PID          := O_PID;
-      P.YHID         := CI.YHID;
-      P.SBID         := MI.SBID;
-      P.PDRCRECEIVED := P_PAYMENT;
-      P.PDDATE       := TRUNC(SYSDATE);
-      P.PDATETIME    := SYSDATE;
-      P.PDMONTH      := FOBTMANAPARA(MI.MANAGE_NO, 'READ_MONTH');
-      P.MANAGE_NO    := P_POSITION;
-      P.PDPAYPOINT   := P_PAYPOINT;
-      P.PDTRAN       := P_TRANS;
-      P.PDPERS       := P_OPER;
-      P.PDPAYEE      := P_OPER;
-      P.PDPAYWAY     := P_PAYWAY;
-      P.PAIDMENT     := P_PAYMENT;
-      P.PDSPJE       := 0;
-      P.PDWYJ        := 0;
-      P.PDSAVINGQC   := NVL(MI.SBSAVING, 0);
-      P.PDSAVINGBQ   := P_PAYMENT;
-      P.PDSAVINGQM   := P.PDSAVINGQC + P.PDSAVINGBQ;
-      P.PDSXF        := 0; --若为独立押金;
-      P.PREVERSEFLAG := 'N'; --帐务状态（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）
-      P.PDBDATE      := TRUNC(P_BDATE);
-      P.PDBSEQNO     := P_BSEQNO;
-      P.PDCHKDATE    := NULL;
-      P.PDCCHKFLAG   := NULL;
-      P.PDCDATE      := NULL;
-      P.PDCSEQNO     := NULL;
-      P.PDMEMO       := P_MEMO;
-      IF P_BATCH IS NULL THEN
-        SELECT TRIM(TO_CHAR(SEQ_PAIDBATCH.NEXTVAL, '0000000000'))
-          INTO P.PDBATCH
-          FROM DUAL;
+      SELECT TRIM(To_Char(Seq_Paidment.Nextval, '0000000000'))
+        INTO o_Pid
+        FROM Dual;
+      SELECT Sys_Guid() INTO p.Id FROM Dual;
+      p.Hire_Code    := Mi.Hire_Code;
+      p.Pid          := o_Pid;
+      p.Yhid         := Ci.Yhid;
+      p.Sbid         := Mi.Sbid;
+      p.Pdrcreceived := p_Payment;
+      p.Pddate       := Trunc(SYSDATE);
+      p.Pdatetime    := SYSDATE;
+      p.Pdmonth      := Fobtmanapara(Mi.Manage_No, 'READ_MONTH');
+      p.Manage_No    := p_Position;
+      p.Pdpaypoint   := p_Paypoint;
+      p.Pdtran       := p_Trans;
+      p.Pdpers       := p_Oper;
+      p.Pdpayee      := p_Oper;
+      p.Pdpayway     := p_Payway;
+      p.Paidment     := p_Payment;
+      p.Pdspje       := 0;
+      p.Pdwyj        := 0;
+      p.Pdsavingqc   := Nvl(Mi.Sbsaving, 0);
+      p.Pdsavingbq   := p_Payment;
+      p.Pdsavingqm   := p.Pdsavingqc + p.Pdsavingbq;
+      p.Pdsxf        := 0; --若为独立押金;
+      p.Preverseflag := 'N'; --帐务状态（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）
+      p.Pdbdate      := Trunc(p_Bdate);
+      p.Pdbseqno     := p_Bseqno;
+      p.Pdchkdate    := NULL;
+      p.Pdcchkflag   := NULL;
+      p.Pdcdate      := NULL;
+      p.Pdcseqno     := NULL;
+      p.Pdmemo       := p_Memo;
+      IF p_Batch IS NULL THEN
+        SELECT TRIM(To_Char(Seq_Paidbatch.Nextval, '0000000000'))
+          INTO p.Pdbatch
+          FROM Dual;
       ELSE
-        P.PDBATCH := P_BATCH;
+        p.Pdbatch := p_Batch;
       END IF;
-      P.PDSEQNO    := P_SEQNO;
-      P.PDSCRID    := P.PID;
-      P.PDSCRTRANS := P.PDTRAN;
-      P.PDSCRMONTH := P.PDMONTH;
-      P.PDSCRDATE  := P.PDDATE;
+      p.Pdseqno    := p_Seqno;
+      p.Pdscrid    := p.Pid;
+      p.Pdscrtrans := p.Pdtran;
+      p.Pdscrmonth := p.Pdmonth;
+      p.Pdscrdate  := p.Pddate;
     END;
-    P.PDCHKNO     := NULL; --varchar2(10)  y    进账单号
-    P.PDPRIID     := MI.SBPRIID; --varchar2(20)  y    合收主表号  20150105
-    P.TCHKDATE    := NULL; --date  y    到账日期
-    O_REMAINAFTER := P.PDSAVINGQM;
+    p.Pdchkno     := NULL; --varchar2(10)  y    进账单号
+    p.Pdpriid     := Mi.Sbpriid; --varchar2(20)  y    合收主表号  20150105
+    p.Tchkdate    := NULL; --date  y    到账日期
+    o_Remainafter := p.Pdsavingqm;
   
     --校验
-    IF NOT 允许净减后负预存 AND P.PDSAVINGQM < 0 AND P.PDSAVINGQM < P.PDSAVINGQC THEN
-      RAISE_APPLICATION_ERROR(ERRCODE,
+    IF NOT 允许净减后负预存 AND p.Pdsavingqm < 0 AND p.Pdsavingqm < p.Pdsavingqc THEN
+      Raise_Application_Error(Errcode,
                               '当前系统规则为不支持发生更多的期末负预存');
     END IF;
-    INSERT INTO YS_ZW_PAIDMENT VALUES P;
-    UPDATE YS_YH_SBINFO SET SBSAVING = P.PDSAVINGQM WHERE CURRENT OF C_MI;
+    INSERT INTO Ys_Zw_Paidment VALUES p;
+    UPDATE Ys_Yh_Sbinfo SET Sbsaving = p.Pdsavingqm WHERE CURRENT OF c_Mi;
   
     --5、提交处理
     BEGIN
-      CLOSE C_CI;
-      CLOSE C_MI;
-      IF P_COMMIT = 调试 THEN
+      CLOSE c_Ci;
+      CLOSE c_Mi;
+      IF p_Commit = 调试 THEN
         ROLLBACK;
       ELSE
-        IF P_COMMIT = 提交 THEN
+        IF p_Commit = 提交 THEN
           COMMIT;
-        ELSIF P_COMMIT = 不提交 THEN
+        ELSIF p_Commit = 不提交 THEN
           NULL;
         ELSE
-          RAISE_APPLICATION_ERROR(ERRCODE, '是否提交参数不正确');
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
         END IF;
       END IF;
     END;
   EXCEPTION
     WHEN OTHERS THEN
-      IF C_CI%ISOPEN THEN
-        CLOSE C_CI;
+      IF c_Ci%ISOPEN THEN
+        CLOSE c_Ci;
       END IF;
-      IF C_MI%ISOPEN THEN
-        CLOSE C_MI;
+      IF c_Mi%ISOPEN THEN
+        CLOSE c_Mi;
       END IF;
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      Raise_Application_Error(Errcode, SQLERRM);
   END;
   --
-  FUNCTION FMID(P_STR IN VARCHAR2, P_SEP IN VARCHAR2) RETURN INTEGER IS
+  FUNCTION Fmid(p_Str IN VARCHAR2, p_Sep IN VARCHAR2) RETURN INTEGER IS
     --help:
     --tools.fmidn('/123/123/123/','/')=5
     --tools.fmidn(null,'/')=0
     --tools.fmidn('','/')=0
     --tools.fmidn('null','/')=1
-    I INTEGER;
-    N INTEGER := 1;
+    i INTEGER;
+    n INTEGER := 1;
   BEGIN
-    IF TRIM(P_STR) IS NULL THEN
+    IF TRIM(p_Str) IS NULL THEN
       RETURN 0;
     ELSE
-      FOR I IN 1 .. LENGTH(P_STR) LOOP
-        IF SUBSTR(P_STR, I, 1) = P_SEP THEN
-          N := N + 1;
+      FOR i IN 1 .. Length(p_Str) LOOP
+        IF Substr(p_Str, i, 1) = p_Sep THEN
+          n := n + 1;
         END IF;
       END LOOP;
     END IF;
   
-    RETURN N;
+    RETURN n;
   END;
-  
-   --1、实收冲正（当月负实收）
+
+  --1、实收冲正（当月负实收）
   PROCEDURE Payreversecorebypid(p_Pid_Source       IN VARCHAR2,
                                 p_Position         IN VARCHAR2,
                                 p_Paypoint         IN VARCHAR2,
@@ -1628,7 +1628,7 @@
       IF c_p%ISOPEN THEN
         CLOSE c_p;
       END IF;
-       dbms_output.put_line(SQLERRM);
+      Dbms_Output.Put_Line(SQLERRM);
       Raise_Application_Error(Errcode, SQLERRM);
   END Payreversecorebypid;
 
@@ -1657,7 +1657,7 @@
   【更新日志】：
   --   When         Who       What
   --   -----------  --------  -----------------------------------------------
-  --   2014-02-14   jh        制作
+  --   2020-11-12   杨华        制作
   --
   */
   PROCEDURE Recappendcore(p_Rlmid           IN VARCHAR2,
@@ -2201,7 +2201,7 @@
   【更新日志】：
   --   When         Who       What
   --   -----------  --------  -----------------------------------------------
-  --   2014-02-14   jh        制作
+  --   2020-11-12   杨华        制作
   --
   */
   PROCEDURE Recappendinherit(p_Rlid_Source IN VARCHAR2,
@@ -2361,7 +2361,7 @@
   【更新日志】：
   --   When         Who       What
   --   -----------  --------  -----------------------------------------------
-  --   2014-02-14   jh        制作
+  --   2020-11-12   杨华        制作
   --
   */
   PROCEDURE Payreverse(p_Pid_Source       IN VARCHAR2,
@@ -2422,13 +2422,13 @@
                       o_Rlsxf_Reverse,
                       o_Rlsavingbq_Reverse,
                       Io_Rlsavingqm_Reverse); /* O_ARID_REVERSE        OUT VARCHAR2,
-                                O_ARTRANS_REVERSE     OUT VARCHAR2,
-                                O_ARJE_REVERSE        OUT NUMBER,
-                                O_ARZNJ_REVERSE       OUT NUMBER,
-                                O_ARSXF_REVERSE       OUT NUMBER,
-                                O_ARSAVINGBQ_REVERSE  OUT NUMBER,
-                                IO_ARSAVINGQM_REVERSE IN OUT NUMBER
-                                */
+                                        O_ARTRANS_REVERSE     OUT VARCHAR2,
+                                        O_ARJE_REVERSE        OUT NUMBER,
+                                        O_ARZNJ_REVERSE       OUT NUMBER,
+                                        O_ARSXF_REVERSE       OUT NUMBER,
+                                        O_ARSAVINGBQ_REVERSE  OUT NUMBER,
+                                        IO_ARSAVINGQM_REVERSE IN OUT NUMBER
+                                        */
       --应收追补（追加当月全额正帐）
       Recappendinherit(i.Arid,
                        'ALL',
@@ -2458,7 +2458,7 @@
       ROLLBACK;
       Raise_Application_Error(Errcode, SQLERRM);
   END Payreverse;
-  
+
   /*==========================================================================
   水司柜台冲正(不退款)，不记独立实收事务
   【输入参数说明】：
@@ -2476,61 +2476,62 @@
   【更新日志】：
   --   When         Who       What
   --   -----------  --------  -----------------------------------------------
-  --   2014-02-14   jh        制作
+  --   2020-11-12   杨华        制作
   --
   */
-  procedure PosReverse(p_pid_source  in varchar2,
-                       p_oper        in varchar2,
-                       p_memo        in varchar2,
-                       p_commit      in number default 不提交,
-                       p_pid_reverse out varchar2) is
-    p                  ys_zw_paidment%rowtype;
-    vppaymentreverse number(12, 2);
-    vappendrlid      varchar2(10);
-  begin
-    select * into p from ys_zw_paidment  where pid = p_pid_source;
+  PROCEDURE Posreverse(p_Pid_Source  IN VARCHAR2,
+                       p_Oper        IN VARCHAR2,
+                       p_Memo        IN VARCHAR2,
+                       p_Commit      IN NUMBER DEFAULT 不提交,
+                       p_Pid_Reverse OUT VARCHAR2) IS
+    p                Ys_Zw_Paidment%ROWTYPE;
+    Vppaymentreverse NUMBER(12, 2);
+    Vappendrlid      VARCHAR2(10);
+  BEGIN
+    SELECT * INTO p FROM Ys_Zw_Paidment WHERE Pid = p_Pid_Source;
     --校验
-    if not (p.PREVERSEFLAG = 'N' and p.PAIDMENT >= 0) then
-      raise_application_error(errcode,
+    IF NOT (p.Preverseflag = 'N' AND p.Paidment >= 0) THEN
+      Raise_Application_Error(Errcode,
                               '待冲正实收记录无效，必须为未冲正的正常缴费');
-    end if;
-    PayReverse(p_pid_source,
-               p.MANAGE_NO,
-               p.PDPAYPOINT,
-               p.PDTRAN,
-               null,
-               null,
-               p_oper,
-               p.PDPAYWAY,
-               p_memo,
+    END IF;
+    Payreverse(p_Pid_Source,
+               p.Manage_No,
+               p.Pdpaypoint,
+               p.Pdtran,
+               NULL,
+               NULL,
+               p_Oper,
+               p.Pdpayway,
+               p_Memo,
                不提交,
-               p_pid_reverse,
-               vppaymentreverse,
-               vappendrlid);
+               p_Pid_Reverse,
+               Vppaymentreverse,
+               Vappendrlid);
   
     --2、提交处理
-    begin
-      if p_commit = 调试 then
-        rollback;
-      else
-        if p_commit = 提交 then
-          commit;
-        elsif p_commit = 不提交 then
-          null;
-        else
-          raise_application_error(errcode, '是否提交参数不正确');
-        end if;
-      end if;
-    end;
-  exception
-    when others then
-      rollback;
-      raise_application_error(errcode, '是否提交参数不正确' || p_pid_source); 
-      raise;
+    BEGIN
+      IF p_Commit = 调试 THEN
+        ROLLBACK;
+      ELSE
+        IF p_Commit = 提交 THEN
+          COMMIT;
+        ELSIF p_Commit = 不提交 THEN
+          NULL;
+        ELSE
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
+        END IF;
+      END IF;
+    END;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      Raise_Application_Error(Errcode,
+                              '是否提交参数不正确' || p_Pid_Source);
+      RAISE;
       --raise_application_error(errcode, sqlerrm);
-  end PosReverse;
+  END Posreverse;
 
-/*==========================================================================
+  /*==========================================================================
   应收追调
   【输入参数说明】：
   p_rlmid  varchar2(20)  ：非空，水表编号
@@ -2554,76 +2555,76 @@
   【更新日志】：
   --   When         Who       What
   --   -----------  --------  -----------------------------------------------
-  --   2014-02-14   jh        制作
+  --   2020-11-12   杨华        制作
   --
   */
-  procedure RecAppendAdj(p_rlmid           in varchar2,
-                         p_rlcname         in varchar2,
-                         p_rlpfid          in varchar2,
-                         p_rlrdate         in date,
-                         p_rlscode         in number,
-                         p_rlecode         in number,
-                         p_rlsl            in number,
-                         p_rlje            in number,
-                         p_rlznj           in number,
-                         p_rltrans         in varchar2,
-                         p_rlmemo          in varchar2,
-                         p_rlid_source     in varchar2,
-                         p_parm_append1rds parm_append1rd_tab,
-                         p_ctl_mircode     in varchar2,
-                         p_commit          in number default 不提交,
-                         o_rlid            out varchar2) is
-    cursor c_rl(vrlid varchar2) is
-      select * from ys_zw_arlist  where arid = vrlid for update nowait; --若被锁直接抛出异常
-    rl_source ys_zw_arlist%rowtype;
-  begin
+  PROCEDURE Recappendadj(p_Rlmid           IN VARCHAR2,
+                         p_Rlcname         IN VARCHAR2,
+                         p_Rlpfid          IN VARCHAR2,
+                         p_Rlrdate         IN DATE,
+                         p_Rlscode         IN NUMBER,
+                         p_Rlecode         IN NUMBER,
+                         p_Rlsl            IN NUMBER,
+                         p_Rlje            IN NUMBER,
+                         p_Rlznj           IN NUMBER,
+                         p_Rltrans         IN VARCHAR2,
+                         p_Rlmemo          IN VARCHAR2,
+                         p_Rlid_Source     IN VARCHAR2,
+                         p_Parm_Append1rds Parm_Append1rd_Tab,
+                         p_Ctl_Mircode     IN VARCHAR2,
+                         p_Commit          IN NUMBER DEFAULT 不提交,
+                         o_Rlid            OUT VARCHAR2) IS
+    CURSOR c_Rl(Vrlid VARCHAR2) IS
+      SELECT * FROM Ys_Zw_Arlist WHERE Arid = Vrlid FOR UPDATE NOWAIT; --若被锁直接抛出异常
+    Rl_Source Ys_Zw_Arlist%ROWTYPE;
+  BEGIN
     --退费正帐应收事务继承原帐务
-    open c_rl(p_rlid_source);
-    fetch c_rl
-      into rl_source;
-    if c_rl%notfound or c_rl%notfound is null then
-      raise_application_error(errcode, '无原帐务应收记录');
-    end if;
-    close c_rl;
+    OPEN c_Rl(p_Rlid_Source);
+    FETCH c_Rl
+      INTO Rl_Source;
+    IF c_Rl%NOTFOUND OR c_Rl%NOTFOUND IS NULL THEN
+      Raise_Application_Error(Errcode, '无原帐务应收记录');
+    END IF;
+    CLOSE c_Rl;
   
-    RecAppendCore(p_rlmid,
-                  p_rlcname,
-                  p_rlpfid,
-                  p_rlrdate,
-                  p_rlscode,
-                  p_rlecode,
-                  p_rlsl,
-                  p_rlje,
-                  rl_source.arznjreducflag,
-                  rl_source.arzndate,
-                  p_rlznj,
-                  p_rltrans,
-                  p_rlmemo,
-                  p_rlid_source,
-                  p_parm_append1rds,
-                  p_ctl_mircode,
+    Recappendcore(p_Rlmid,
+                  p_Rlcname,
+                  p_Rlpfid,
+                  p_Rlrdate,
+                  p_Rlscode,
+                  p_Rlecode,
+                  p_Rlsl,
+                  p_Rlje,
+                  Rl_Source.Arznjreducflag,
+                  Rl_Source.Arzndate,
+                  p_Rlznj,
+                  p_Rltrans,
+                  p_Rlmemo,
+                  p_Rlid_Source,
+                  p_Parm_Append1rds,
+                  p_Ctl_Mircode,
                   不提交,
-                  o_rlid);
+                  o_Rlid);
     --2、提交处理
-    begin
-      if p_commit = 调试 then
-        rollback;
-      else
-        if p_commit = 提交 then
-          commit;
-        elsif p_commit = 不提交 then
-          null;
-        else
-          raise_application_error(errcode, '是否提交参数不正确');
-        end if;
-      end if;
-    end;
-  exception
-    when others then
-      rollback;
-      raise_application_error(errcode, sqlerrm);
-  end RecAppendAdj;
-/*==========================================================================
+    BEGIN
+      IF p_Commit = 调试 THEN
+        ROLLBACK;
+      ELSE
+        IF p_Commit = 提交 THEN
+          COMMIT;
+        ELSIF p_Commit = 不提交 THEN
+          NULL;
+        ELSE
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
+        END IF;
+      END IF;
+    END;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      Raise_Application_Error(Errcode, SQLERRM);
+  END Recappendadj;
+  /*==========================================================================
   应收调整
   【输入参数说明】：
   p_rlmid  varchar2(20)  ：非空，水表编号
@@ -2649,98 +2650,211 @@
   【更新日志】：
   --   When         Who       What
   --   -----------  --------  -----------------------------------------------
-  --   2014-02-14   jh        制作
+  --   2020-12-12   杨华        制作
   --
   */
-  procedure RecAdjust(p_rlmid           in varchar2,
-                      p_rlcname         in varchar2,
-                      p_rlpfid          in varchar2,
-                      p_rlrdate         in date,
-                      p_rlscode         in number,
-                      p_rlecode         in number,
-                      p_rlsl            in number,
-                      p_rlje            in number,
-                      p_rlznj           in number,
-                      p_rltrans         in varchar2,
-                      p_rlmemo          in varchar2,
-                      p_rlid_source     in varchar2,
-                      p_parm_append1rds parm_append1rd_tab,
-                      p_commit          in number default 不提交,
-                      p_ctl_mircode     in varchar2,
-                      o_rlid_reverse    out varchar2,
-                      o_rlid            out varchar2) is
+  PROCEDURE Recadjust(p_Rlmid           IN VARCHAR2,
+                      p_Rlcname         IN VARCHAR2,
+                      p_Rlpfid          IN VARCHAR2,
+                      p_Rlrdate         IN DATE,
+                      p_Rlscode         IN NUMBER,
+                      p_Rlecode         IN NUMBER,
+                      p_Rlsl            IN NUMBER,
+                      p_Rlje            IN NUMBER,
+                      p_Rlznj           IN NUMBER,
+                      p_Rltrans         IN VARCHAR2,
+                      p_Rlmemo          IN VARCHAR2,
+                      p_Rlid_Source     IN VARCHAR2,
+                      p_Parm_Append1rds Parm_Append1rd_Tab,
+                      p_Commit          IN NUMBER DEFAULT 不提交,
+                      p_Ctl_Mircode     IN VARCHAR2,
+                      o_Rlid_Reverse    OUT VARCHAR2,
+                      o_Rlid            OUT VARCHAR2) IS
     --
-    o_rltrans_reverse     varchar2(10);
-    o_rlje_reverse        number;
-    o_rlznj_reverse       number;
-    o_rlsxf_reverse       number;
-    o_rlsavingbq_reverse  number;
-    io_rlsavingqm_reverse number;
-  begin
-    Zwarreversecore(p_rlid_source,
-                   p_rltrans,
-                   null,
-                   null, --应收调整无关联实收记录p_pid_reverse
-                   null, --应收调整无关联实收记录
-                   p_rlmemo,
-                   null, --此过程不重置止码，让追补核心处理
-                   p_commit,
-                   o_rlid_reverse,
-                   o_rltrans_reverse,
-                   o_rlje_reverse,
-                   o_rlznj_reverse,
-                   o_rlsxf_reverse,
-                   o_rlsavingbq_reverse,
-                   io_rlsavingqm_reverse);
-    if not (p_rlsl = 0 and p_rlje = 0 and p_rlznj = 0) then
-      RecAppendAdj(p_rlmid,
-                   p_rlcname,
-                   p_rlpfid,
-                   p_rlrdate,
-                   p_rlscode,
-                   p_rlecode,
-                   p_rlsl,
-                   p_rlje,
-                   p_rlznj,
-                   o_rltrans_reverse,
-                   p_rlmemo,
-                   p_rlid_source,
-                   p_parm_append1rds,
-                   p_ctl_mircode,
-                   p_commit,
-                   o_rlid);
-    else
+    o_Rltrans_Reverse     VARCHAR2(10);
+    o_Rlje_Reverse        NUMBER;
+    o_Rlznj_Reverse       NUMBER;
+    o_Rlsxf_Reverse       NUMBER;
+    o_Rlsavingbq_Reverse  NUMBER;
+    Io_Rlsavingqm_Reverse NUMBER;
+  BEGIN
+    Zwarreversecore(p_Rlid_Source,
+                    p_Rltrans,
+                    NULL,
+                    NULL, --应收调整无关联实收记录p_pid_reverse
+                    NULL, --应收调整无关联实收记录
+                    p_Rlmemo,
+                    NULL, --此过程不重置止码，让追补核心处理
+                    p_Commit,
+                    o_Rlid_Reverse,
+                    o_Rltrans_Reverse,
+                    o_Rlje_Reverse,
+                    o_Rlznj_Reverse,
+                    o_Rlsxf_Reverse,
+                    o_Rlsavingbq_Reverse,
+                    Io_Rlsavingqm_Reverse);
+    IF NOT (p_Rlsl = 0 AND p_Rlje = 0 AND p_Rlznj = 0) THEN
+      Recappendadj(p_Rlmid,
+                   p_Rlcname,
+                   p_Rlpfid,
+                   p_Rlrdate,
+                   p_Rlscode,
+                   p_Rlecode,
+                   p_Rlsl,
+                   p_Rlje,
+                   p_Rlznj,
+                   o_Rltrans_Reverse,
+                   p_Rlmemo,
+                   p_Rlid_Source,
+                   p_Parm_Append1rds,
+                   p_Ctl_Mircode,
+                   p_Commit,
+                   o_Rlid);
+    ELSE
       --其他控制赋值
-      if p_ctl_mircode is not null then
-        update ys_yh_sbinfo
-           set sbrcode     = to_number(p_ctl_mircode),
-               sbrcodechar = p_ctl_mircode
-         where sbid = p_rlmid;
-      end if;
+      IF p_Ctl_Mircode IS NOT NULL THEN
+        UPDATE Ys_Yh_Sbinfo
+           SET Sbrcode     = To_Number(p_Ctl_Mircode),
+               Sbrcodechar = p_Ctl_Mircode
+         WHERE Sbid = p_Rlmid;
+      END IF;
     
-    end if;
+    END IF;
     --2、提交处理
-    begin
-      if p_commit = 调试 then
-        rollback;
-      else
-        if p_commit = 提交 then
-          commit;
-        elsif p_commit = 不提交 then
-          null;
-        else
-          raise_application_error(errcode, '是否提交参数不正确');
-        end if;
-      end if;
-    end;
-  exception
-    when others then
-      rollback;
+    BEGIN
+      IF p_Commit = 调试 THEN
+        ROLLBACK;
+      ELSE
+        IF p_Commit = 提交 THEN
+          COMMIT;
+        ELSIF p_Commit = 不提交 THEN
+          NULL;
+        ELSE
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
+        END IF;
+      END IF;
+    END;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
       /*pg_ewide_interface.ErrLog(dbms_utility.format_call_stack(),
-                                'RecAdjust,p_rlmid:' || p_rlmid);*/
+      'RecAdjust,p_rlmid:' || p_rlmid);*/
       --raise;
-      raise_application_error(errcode, sqlerrm);
-  end RecAdjust;
+      Raise_Application_Error(Errcode, SQLERRM);
+  END Recadjust;
+  /*==========================================================================
+  预存转账
+  【输入参数说明】：
+  【输出参数说明】：
+  【过程说明】：
+  【更新日志】：
+  --   When         Who       What
+  --   -----------  --------  -----------------------------------------------
+  --   2020-11-12   杨华        制作
+  --
+  */
+  PROCEDURE Remainc2c(p_Mid_Out IN VARCHAR2,
+                      p_Mid_In  IN VARCHAR2,
+                      p_Oper    IN VARCHAR2,
+                      p_Ptrans  IN VARCHAR2,
+                      p_Payment IN NUMBER,
+                      p_Memo    IN VARCHAR2,
+                      p_Commit  IN NUMBER DEFAULT 不提交,
+                      p_Batch   IN OUT VARCHAR2) IS
+    CURSOR c_Mi(Vmiid VARCHAR2) IS
+      SELECT Manage_No, Yhid FROM Ys_Yh_Sbinfo WHERE Yhid = Vmiid;
+  
+    p_Seqno        VARCHAR2(10);
+    o_Pid          VARCHAR2(10);
+    o_Remainafter  NUMBER;
+    p_Position_Out VARCHAR2(10);
+    p_Position_In  VARCHAR2(10);
+    p_Cid_Out      VARCHAR2(20);
+    p_Cid_In       VARCHAR2(20);
+  BEGIN
+    --校验
+    /*    if p_payment <= 0 then
+          raise_application_error(errcode, '预存转账业务金额必须为正数哦');
+        end if;
+    */
+    OPEN c_Mi(p_Mid_Out);
+    FETCH c_Mi
+      INTO p_Position_Out, p_Cid_Out;
+    IF c_Mi%NOTFOUND OR c_Mi%NOTFOUND IS NULL THEN
+      Raise_Application_Error(Errcode, '这是传的水表编码？' || p_Mid_Out);
+    END IF;
+    CLOSE c_Mi;
+  
+    OPEN c_Mi(p_Mid_In);
+    FETCH c_Mi
+      INTO p_Position_In, p_Cid_In;
+    IF c_Mi%NOTFOUND OR c_Mi%NOTFOUND IS NULL THEN
+      Raise_Application_Error(Errcode, '这是传的水表编码？' || p_Mid_In);
+    END IF;
+    CLOSE c_Mi;
+  
+    --校验
+    IF p_Cid_In = p_Cid_Out THEN
+      Raise_Application_Error(Errcode,
+                              '预存转账业务不能在一户多表内进行！');
+    END IF;
+  
+    --调用核心
+    Precore(p_Mid_Out,
+            p_Ptrans,
+            p_Position_Out,
+            NULL,
+            NULL,
+            NULL,
+            p_Oper,
+            '01',
+            p_Payment,
+            不提交,
+            p_Memo,
+            p_Batch,
+            p_Seqno,
+            o_Pid,
+            o_Remainafter);
+    --调用核心
+    Precore(p_Mid_In,
+            p_Ptrans,
+            p_Position_In,
+            NULL,
+            NULL,
+            NULL,
+            p_Oper,
+            '01',
+            -p_Payment,
+            不提交,
+            p_Memo,
+            p_Batch,
+            p_Seqno,
+            o_Pid,
+            o_Remainafter);
+  
+    --2、提交处理
+    BEGIN
+      IF p_Commit = 调试 THEN
+        ROLLBACK;
+      ELSE
+        IF p_Commit = 提交 THEN
+          COMMIT;
+        ELSIF p_Commit = 不提交 THEN
+          NULL;
+        ELSE
+          Raise_Application_Error(Errcode, '是否提交参数不正确');
+        END IF;
+      END IF;
+    END;
+  EXCEPTION
+    WHEN OTHERS THEN
+      IF c_Mi%ISOPEN THEN
+        CLOSE c_Mi;
+      END IF;
+      ROLLBACK;
+      Raise_Application_Error(Errcode, SQLERRM);
+  END Remainc2c;
+
 BEGIN
   NULL;
 

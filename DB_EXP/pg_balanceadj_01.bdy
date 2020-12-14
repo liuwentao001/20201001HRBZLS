@@ -103,7 +103,7 @@
       END IF;
       CLOSE c_Meterinfo;
     
-      IF Mi.Sbsaving + Znjdt.Adjust_Balance < 0 THEN
+      IF Mi.Sbsaving - Znjdt.Adjust_Balance < 0 THEN
         Raise_Application_Error(Errcode,
                                 '在此工单申请后，用户[' || Znjdt.Yhid ||
                                 ']的预存余额不够,会造成负预存,请核查!');
@@ -133,29 +133,35 @@
                                 '在此工单申请后，用户[' || Znjdt.Yhid || ']有欠费,请核查!');
       END IF;
     
-      IF Znjdt.Change_Type = '36' THEN
-        c_Ptrans := 'y';
-        --yc.ycnote := '预存余额退费申请';
-      ELSIF Znjdt.Change_Type = '39' THEN
-        c_Ptrans := 'Y';
-        --yc.ycnote := '预存余额撤表退费申请';
-      END IF;
-    
       SELECT TRIM(To_Char(Seq_Paidbatch.Nextval, '0000000000'))
         INTO v_Batch
         FROM Dual;
     
-      Pg_Paid.Precustback(Znjdt.Yhid, --     IN VARCHAR2,
-                          Znjhd.Manage_No, --   IN VARCHAR2,
-                          p_Per, --       IN VARCHAR2,
-                          c_Ptrans, --    IN VARCHAR2,
-                          Znjdt.Adjust_Balance, --     IN NUMBER,
-                          Znjdt.Adjust_Memo, --      IN VARCHAR2,
-                          v_Batch, --      IN OUT VARCHAR2,
-                          v_Pid, --    OUT VARCHAR2,
-                          Vn_Remainafter --OUT NUMBER
-                          );
-    
+      IF Znjdt.Change_Type = 'T' THEN
+        -- 退预存
+        c_Ptrans := 'T';
+        Pg_Paid.Precustback(Znjdt.Yhid, --     IN VARCHAR2,
+                            Znjhd.Manage_No, --   IN VARCHAR2,
+                            p_Per, --       IN VARCHAR2,
+                            c_Ptrans, --    IN VARCHAR2,
+                            -Znjdt.Adjust_Balance, --     IN NUMBER,
+                            Znjdt.Adjust_Memo, --      IN VARCHAR2,
+                            v_Batch, --      IN OUT VARCHAR2,
+                            v_Pid, --    OUT VARCHAR2,
+                            Vn_Remainafter --OUT NUMBER
+                            );
+      ELSIF Znjdt.Change_Type = 'Z' THEN
+        --转预存
+        c_Ptrans := 'Z';
+        Pg_Paid.Remainc2c(p_Mid_Out => Znjdt.Yhid,
+                          p_Mid_In  => Znjdt.Toyhid,
+                          p_Oper    => p_Per,
+                          p_Ptrans  => c_Ptrans,
+                          p_Payment => -Znjdt.Adjust_Balance,
+                          p_Memo    => Znjdt.Adjust_Memo,
+                          p_Commit  => 0,
+                          p_Batch   => v_Batch);
+      END IF;
     END LOOP;
     CLOSE c_Ys_Gd_Balanceadjdt;
   

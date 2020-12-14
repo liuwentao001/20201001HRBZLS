@@ -113,6 +113,108 @@ select * from base_user_dictionary
 select * from ys_zw_paidment t WHERE PID='0000247255' for update 
 
 
+select * from ys_cb_mtread 
+
+
+ select
+       armonth   账务月份, 
+        ardate    账务日期, 
+        arscode   起数,   
+        arecode   止数,   
+        arsl    应收水量, 
+        arje    应收金额, 
+        arpaidje  销账金额, 
+        arznj   违约金,   
+        arzndate  违约金起算日,
+        arpfid 价格分类, 
+        artrans   应收事务, 
+        arid    流水号   
+      from ys_zw_arlist 
+      where 
+        arpaidflag='N'         --销帐标志(Y:Y，N:N，X:X，V:Y/N，T:Y/X，K:N/X，W:Y/N/X)
+        and arreverseflag='N'  --冲正标志（N为正常，Y为冲正）
+        and aroutflag='N'      --发出标志(Y-发出 N-未发出)
+        and yhid = 
+        
+select * from ys_zw_arlist where arpid='0000247323'
+
+select 
+  yhid 客户代码,
+  arrdate 抄表日期,
+  armonth 账务月份,
+  ardate 账务日期,
+  arscode 起数,
+  arecode 止数,
+  arsl 应收水量,
+  arje 应收金额,
+  arznj 违约金
+from ys_zw_arlist 
+where arpid='0000247323'
+
+
+select * from ys_zw_arlist where aroutflag='Y' and yhid='1000005954'
+select aroutflag,ys_zw_arlist.* from ys_zw_arlist where armonth='2020.11' and yhid='1000005954'
 
 
 
+select * from ys_zw_paidment order by pdatetime desc 
+
+ where yhid='1307580783'
+
+
+
+    select a.pdpers,a.type,a.pdpayway,a.jfNums,a.zfNums,a.paidment,nvl(su.true_name,a.pdpers) paidPerName from (
+    SELECT
+    pdpers as pdpers,
+    '1' type,
+    pdpayway pdpayway,
+    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.paidment > 0 THEN 1 ELSE 0 END ) jfNums,
+    sum( CASE WHEN yzp.preverseflag = 'Y' AND yzp.paidment > 0 THEN 1 ELSE 0 END ) zfNums,
+    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.paidment > 0 THEN yzp.paidment ELSE 0 END ) paidment,
+    yzp.hire_code
+    FROM
+    ys_zw_paidment yzp,ys_yh_custinfo yyc
+    WHERE
+    1 = 1 and yzp.yhid = yyc.yhid and yzp.hire_code = yyc.hire_code
+    AND yzp.pdatetime <![CDATA[>=]]> to_date(#{pdatetimes,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
+    AND yzp.pdatetime <![CDATA[<]]>  to_date( #{pdatetimee,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
+    AND yzp.HIRE_CODE = #{hireCode,jdbcType=VARCHAR}
+    <if test="pdpers  != null and  pdpers !='' ">
+      AND yzp.pdpers = #{pdpers,jdbcType=VARCHAR}
+    </if>
+    <if test="manageNo  != null and  manageNo !='' ">
+      and yzp.manage_No = #{manageNo,jdbcType=VARCHAR}
+    </if>
+    GROUP BY
+    yzp.pdpers,
+    yzp.hire_code,
+    yzp.pdpayway
+    UNION ALL
+    SELECT
+    pdpers as pdpers,
+    '2' type,
+    pdpayway pdpayway,
+    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.pdspje = 0 THEN 1 ELSE 0 END ) jfNums,
+    sum( CASE WHEN yzp.preverseflag = 'Y' AND yzp.pdspje = 0 THEN 1 ELSE 0 END ) zfNums,
+    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.pdspje = 0 THEN yzp.paidment ELSE 0 END ) paidment,
+    yzp.hire_code
+    FROM
+    ys_zw_paidment yzp,ys_yh_custinfo yyc
+    WHERE
+    1 = 1 and yzp.yhid = yyc.yhid and yzp.hire_code = yyc.hire_code
+    AND yzp.pdatetime <![CDATA[>=]]> to_date(#{pdatetimes,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
+    AND yzp.pdatetime <![CDATA[<]]> to_date( #{pdatetimee,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
+    AND yzp.HIRE_CODE = #{hireCode,jdbcType=VARCHAR}
+    <if test="pdpers  != null and  pdpers !='' ">
+      AND yzp.pdpers = #{pdpers,jdbcType=VARCHAR}
+    </if>
+    <if test="manageNo  != null and  manageNo !='' ">
+      and yzp.manage_No = #{manageNo,jdbcType=VARCHAR}
+    </if>
+    GROUP BY
+    yzp.pdpers,
+    yzp.pdpayway,
+    yzp.hire_code
+    ) a  LEFT JOIN base_user su on su.hire_code = a.hire_code and su.user_name = a.pdpers
+    order by pdpers ,type,pdpayway
+        

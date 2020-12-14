@@ -1,0 +1,343 @@
+﻿create table METERINFO
+(
+  micid          VARCHAR2(10),
+  miid           VARCHAR2(10) not null,
+  miadr          VARCHAR2(100),
+  misafid        VARCHAR2(10),
+  micode         VARCHAR2(20),
+  mismfid        VARCHAR2(10),
+  miprmon        VARCHAR2(7),
+  mirmon         VARCHAR2(7),
+  mibfid         VARCHAR2(10),
+  mirorder       NUMBER,
+  mipid          VARCHAR2(10),
+  miclass        NUMBER,
+  miflag         CHAR(1),
+  mirtid         CHAR(1),
+  miifmp         CHAR(1),
+  miifsp         CHAR(1),
+  mistid         VARCHAR2(10),
+  mipfid         VARCHAR2(10),
+  mistatus       VARCHAR2(2),
+  mistatusdate   DATE,
+  mistatustrans  VARCHAR2(10),
+  miface         VARCHAR2(2),
+  mirpid         VARCHAR2(3),
+  miside         VARCHAR2(100),
+  miposition     VARCHAR2(150),
+  miinscode      NUMBER(10),
+  miinsdate      DATE,
+  miinsper       VARCHAR2(64),
+  mireinscode    NUMBER(10),
+  mireinsdate    DATE,
+  mireinsper     VARCHAR2(64),
+  mitype         CHAR(1),
+  mircode        NUMBER(10),
+  mirecdate      DATE,
+  mirecsl        NUMBER(10),
+  miifcharge     CHAR(1),
+  miifsl         CHAR(1),
+  miifchk        CHAR(1),
+  miifwatch      CHAR(1),
+  miicno         VARCHAR2(40),
+  mimemo         VARCHAR2(120),
+  mipriid        VARCHAR2(10) not null,
+  mipriflag      CHAR(1),
+  miusenum       NUMBER(10),
+  michargetype   CHAR(1),
+  misaving       NUMBER(13,3),
+  milb           CHAR(1),
+  minewflag      CHAR(1),
+  micper         VARCHAR2(10),
+  miiftax        CHAR(1),
+  mitaxno        VARCHAR2(20),
+  miuninscode    NUMBER(10),
+  miuninsdate    DATE,
+  miuninsper     VARCHAR2(64),
+  miface2        VARCHAR2(2),
+  miface3        VARCHAR2(2),
+  miface4        VARCHAR2(2),
+  mircodechar    VARCHAR2(10),
+  miifckf        CHAR(1),
+  migps          VARCHAR2(60),
+  miqfh          VARCHAR2(20),
+  mibox          VARCHAR2(10),
+  mijfkrow       NUMBER(10) default 0,
+  miname         VARCHAR2(100),
+  miname2        VARCHAR2(100),
+  miseqno        VARCHAR2(50),
+  minewdate      DATE,
+  miuiid         VARCHAR2(10),
+  micommunity    VARCHAR2(10),
+  miremoteno     VARCHAR2(20),
+  miremotehubno  VARCHAR2(20),
+  miemail        VARCHAR2(64),
+  miemailflag    CHAR(1),
+  micolumn1      NUMBER(12,2),
+  micolumn2      VARCHAR2(10),
+  micolumn3      VARCHAR2(64),
+  micolumn4      VARCHAR2(10),
+  mipaymentid    VARCHAR2(10),
+  micolumn5      NUMBER,
+  micolumn6      NUMBER(12,3),
+  micolumn7      NUMBER(12,3),
+  micolumn8      DATE,
+  micolumn9      VARCHAR2(10),
+  micolumn10     VARCHAR2(10),
+  miljfje        NUMBER(10,2),
+  miremotehubadr VARCHAR2(100),
+  mioldmeterid   VARCHAR2(50),
+  mioldmetercode VARCHAR2(50),
+  migsyx         VARCHAR2(10),
+  mizgs          VARCHAR2(10),
+  mizdh          VARCHAR2(10),
+  mihsflag       CHAR(1),
+  mihspid        VARCHAR2(10),
+  mioldsmfid     VARCHAR2(20),
+  mipriid2       VARCHAR2(10),
+  mipriflag2     CHAR(1),
+  miyearsl       NUMBER(10,2),
+  miifclass      VARCHAR2(10),
+  mickqs         NUMBER(10),
+  miyszs         NUMBER(10),
+  mislzsl        NUMBER(10,2),
+  mislzsl1       NUMBER(10,2),
+  mislzsl2       NUMBER(10,2),
+  mislzsl3       NUMBER(10,2),
+  mislzsl4       NUMBER(10,2),
+  mislzsl5       NUMBER(10,2),
+  mirssdate      DATE,
+  mirsedate      DATE,
+  mihs           NUMBER(10),
+  miconcent      VARCHAR2(20),
+  miareadet      VARCHAR2(20)
+)
+;
+comment on table METERINFO
+  is '户表信息【MI】';
+comment on column METERINFO.micid
+  is '用户编号（对应custinfo.ciid）';
+comment on column METERINFO.miid
+  is '水表编号';
+comment on column METERINFO.miadr
+  is '表地址';
+comment on column METERINFO.misafid
+  is '区域';
+comment on column METERINFO.micode
+  is '客户代码（对应miid）';
+comment on column METERINFO.mismfid
+  is '营销公司';
+comment on column METERINFO.miprmon
+  is '上期抄表月份';
+comment on column METERINFO.mirmon
+  is '本期抄表月份';
+comment on column METERINFO.mibfid
+  is '表册';
+comment on column METERINFO.mirorder
+  is '抄表次序';
+comment on column METERINFO.mipid
+  is '上级水表编号';
+comment on column METERINFO.miclass
+  is '水表级次';
+comment on column METERINFO.miflag
+  is '末级标志';
+comment on column METERINFO.mirtid
+  is '抄表方式';
+comment on column METERINFO.miifmp
+  is '混合用水标志';
+comment on column METERINFO.miifsp
+  is '例外单价标志';
+comment on column METERINFO.mistid
+  is '行业分类';
+comment on column METERINFO.mipfid
+  is '价格分类';
+comment on column METERINFO.mistatus
+  is '有效状态';
+comment on column METERINFO.mistatusdate
+  is '状态日期';
+comment on column METERINFO.mistatustrans
+  is '状态表务';
+comment on column METERINFO.miface
+  is '水表故障';
+comment on column METERINFO.mirpid
+  is '计件类型';
+comment on column METERINFO.miside
+  is '表位';
+comment on column METERINFO.miposition
+  is '水表接水地址';
+comment on column METERINFO.miinscode
+  is '新装起度';
+comment on column METERINFO.miinsdate
+  is '装表日期';
+comment on column METERINFO.miinsper
+  is '安装人';
+comment on column METERINFO.mireinscode
+  is '换表起度';
+comment on column METERINFO.mireinsdate
+  is '换表日期';
+comment on column METERINFO.mireinsper
+  is '换表人';
+comment on column METERINFO.mitype
+  is '类型';
+comment on column METERINFO.mircode
+  is '本期读数';
+comment on column METERINFO.mirecdate
+  is '本期抄见日期';
+comment on column METERINFO.mirecsl
+  is '本期抄见水量';
+comment on column METERINFO.miifcharge
+  is '是否计费';
+comment on column METERINFO.miifsl
+  is '是否计量';
+comment on column METERINFO.miifchk
+  is '是否考核表';
+comment on column METERINFO.miifwatch
+  is '是否节水';
+comment on column METERINFO.miicno
+  is 'IC卡号';
+comment on column METERINFO.mimemo
+  is '备注信息';
+comment on column METERINFO.mipriid
+  is '合收表主表号';
+comment on column METERINFO.mipriflag
+  is '合收表标志';
+comment on column METERINFO.miusenum
+  is '户籍人数';
+comment on column METERINFO.michargetype
+  is '收费方式';
+comment on column METERINFO.misaving
+  is '预存款余额';
+comment on column METERINFO.milb
+  is '水表类别';
+comment on column METERINFO.minewflag
+  is '新表标志';
+comment on column METERINFO.micper
+  is '收费员(入户直收催收员)';
+comment on column METERINFO.miiftax
+  is '是否税票';
+comment on column METERINFO.mitaxno
+  is '税号';
+comment on column METERINFO.miuninscode
+  is '拆表止度';
+comment on column METERINFO.miuninsdate
+  is '拆表日期';
+comment on column METERINFO.miuninsper
+  is '拆表人';
+comment on column METERINFO.miface2
+  is '抄见故障';
+comment on column METERINFO.miface3
+  is '非常计量';
+comment on column METERINFO.miface4
+  is '表井设施说明';
+comment on column METERINFO.mircodechar
+  is '本期读数';
+comment on column METERINFO.miifckf
+  is '垃圾费户数';
+comment on column METERINFO.migps
+  is '是否合票';
+comment on column METERINFO.miqfh
+  is '铅封号';
+comment on column METERINFO.mibox
+  is '消防水价（增值税水价，襄阳需求）';
+comment on column METERINFO.mijfkrow
+  is '消防底度';
+comment on column METERINFO.miname
+  is '票据名称';
+comment on column METERINFO.miname2
+  is '招牌名称(小区名，襄阳需求）';
+comment on column METERINFO.miseqno
+  is '户号（初始化时册号+序号）';
+comment on column METERINFO.minewdate
+  is '立户日期';
+comment on column METERINFO.miuiid
+  is '合收单位编号';
+comment on column METERINFO.micommunity
+  is '远传表小区号(村号)';
+comment on column METERINFO.miremoteno
+  is '远传表号|采集机';
+comment on column METERINFO.miremotehubno
+  is '远传表HUB号|端口';
+comment on column METERINFO.miemail
+  is '电子邮件';
+comment on column METERINFO.miemailflag
+  is '发账是否发邮件';
+comment on column METERINFO.micolumn1
+  is '备用字段1（暂不换表原因）';
+comment on column METERINFO.micolumn2
+  is '备用字段2(微信号)';
+comment on column METERINFO.micolumn3
+  is '备用字段3(柳州工程编号)';
+comment on column METERINFO.micolumn4
+  is '备用字段4(客户代码编码规则)';
+comment on column METERINFO.mipaymentid
+  is '最近一次实收流水';
+comment on column METERINFO.micolumn5
+  is '备用字段5(用于石狮预收水量)';
+comment on column METERINFO.micolumn6
+  is '备用字段6(一表多户分摊主表比例，连云港)';
+comment on column METERINFO.micolumn7
+  is '备用字段7(6位用户卡号，昆山)';
+comment on column METERINFO.micolumn8
+  is '备用字段8（年阶梯起算日期）';
+comment on column METERINFO.micolumn9
+  is '备用字段9(是否农村用水，连云港)';
+comment on column METERINFO.micolumn10
+  is '备用字段10(表号，昆山)';
+comment on column METERINFO.miljfje
+  is '垃圾费金额';
+comment on column METERINFO.miremotehubadr
+  is '远传表HUB地址';
+comment on column METERINFO.mioldmeterid
+  is '【DT】老系统水表ID';
+comment on column METERINFO.mioldmetercode
+  is '【DT】老系统水表代码';
+comment on column METERINFO.migsyx
+  is '【DT】供水沿线，水源到水厂前用水线路';
+comment on column METERINFO.mizgs
+  is '【DT】子公司，用户归属于营业处，但是报表分开统计';
+comment on column METERINFO.mizdh
+  is '【DT】重点户标志（大用水户）';
+comment on column METERINFO.mihsflag
+  is '是否合收表';
+comment on column METERINFO.mihspid
+  is '合收父id';
+comment on column METERINFO.mioldsmfid
+  is '原营销区域（柳州）';
+comment on column METERINFO.mipriid2
+  is '集中通知主表号';
+comment on column METERINFO.mipriflag2
+  is '集中通知表标志';
+comment on column METERINFO.miyearsl
+  is '年阶梯水量';
+comment on column METERINFO.miifclass
+  is '是否阶梯';
+comment on column METERINFO.mickqs
+  is '出库起数';
+comment on column METERINFO.miyszs
+  is '验收止数';
+comment on column METERINFO.mislzsl
+  is '水量征收率';
+comment on column METERINFO.mislzsl1
+  is '污水水量征收率';
+comment on column METERINFO.mislzsl2
+  is '水资源水量征收率';
+comment on column METERINFO.mislzsl3
+  is '水价征收率';
+comment on column METERINFO.mislzsl4
+  is '污水水价征收率';
+comment on column METERINFO.mislzsl5
+  is '水资源水价征收率';
+comment on column METERINFO.mirssdate
+  is '用水人数办理日期';
+comment on column METERINFO.mirsedate
+  is '用水人数截止日期（默认两年）';
+comment on column METERINFO.mihs
+  is '户数';
+comment on column METERINFO.miconcent
+  is '检测集中号';
+comment on column METERINFO.miareadet
+  is '检测区域号';
+create index IDX_MICI on METERINFO (MICID, MIID);
+create index IDX_MICODE on METERINFO (MICODE);
+create index IDX_MICOLUMN10 on METERINFO (MICOLUMN10);
+

@@ -1,7 +1,7 @@
 ﻿create or replace package body pg_find is
 
   /*
-  功能：前台页面综合查询
+  功能：前台页面综合查询_详细信息
   参数说明
   p_yhid          用户id
   p_bookno        表册编码
@@ -9,7 +9,7 @@
   p_manageno      营销公司编码
   out             输出结果集
   */
-  procedure findcustmetercomplexdoc(p_yhid in varchar2,p_bookno in varchar2,p_sbid in varchar2,p_manageno in varchar2 ,out_tab out sys_refcursor) is
+  procedure find_zhcx_xxxx(p_yhid in varchar2,p_bookno in varchar2,p_sbid in varchar2,p_manageno in varchar2 ,out_tab out sys_refcursor) is
     begin
     open out_tab for select
       t.yhid 用户编号,
@@ -79,7 +79,7 @@
       and (sb.sbid = p_sbid or p_sbid is null)
       and (t.manage_no = p_manageno or p_manageno is null)
     ;
-  end findcustmetercomplexdoc;
+  end find_zhcx_xxxx;
 
   /*
   功能：柜台缴费页面基本信息查询
@@ -273,6 +273,134 @@
       p_cwxx := '缴费失败';
   end find_gtjf_jf;
   
+  /*
+  功能：柜台缴费页面缴费记录查询
+  参数说明
+  p_yhid          用户id
+  out             输出结果集
+  */
+  procedure find_gtjf_jfjl(p_yhid in varchar2,out_tab out sys_refcursor) is
+  begin
+    open out_tab for select 
+      pdatetime 缴费时间,  -- ys_zw_paidment  付款交易【p】 pdatetime 发生日期
+      base_user.true_name 销账人员,  --  ys_zw_paidment  付款交易【p】 pdpers  销帐人员
+      paidment 实收金额,  --  ys_zw_paidment  付款交易【p】 paidment  付款金额
+      pdspje 销账金额,  --  ys_zw_paidment  付款交易【p】 pdspje  销帐金额（如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0）
+      pdwyj 违约金,
+      pdsavingqc 期初预存,  --  ys_zw_paidment  付款交易【p】 pdsavingqc  期初预存余额
+      pdsavingbq 本期预存,  --  ys_zw_paidment  付款交易【p】 pdsavingbq  本期发生预存金额
+      pdsavingqm 期末预存,  --  ys_zw_paidment  付款交易【p】 pdsavingqm  期末预存余额
+      swms_sys_paidtrans.dic_name 缴费事务,  --  ys_zw_paidment  付款交易【p】 pdtran  缴费事务(paidtrans)
+      pdpaypoint 缴费地点,  --  ys_zw_paidment  付款交易【p】 pdpaypoint  缴费地点（可细化到窗口）
+      preverseflag 冲正标志,  --  ys_zw_paidment  付款交易【p】 preverseflag  冲正标志（收水费收预存是为n,冲水费冲预存被冲实收和冲实收产生负帐匀为y）
+      coalesce(swms_sys_chequetype.dic_name,pdpayway) 付款方式,  --  ys_zw_paidment  付款交易【p】 pdpayway  付款方式(xj-现金 zp-支票 mz-抹账 dc-倒存)
+      pddate 账务日期,  --  ys_zw_paidment  付款交易【p】 pddate  帐务日期（收费日期）
+      pdmonth 缴费月份,  -- ys_zw_paidment  付款交易【p】 pdmonth 缴费月份
+      pid 实收流水,  -- ys_zw_paidment  付款交易【p】 pid 流水号
+      pdmemo 备注  --  ys_zw_paidment  付款交易【p】 pdmemo  备注
+    from ys_zw_paidment
+      left join (select dic_value,dic_name from base_user_dictionary where parent_id = (select id from base_user_dictionary where dic_value='SWMS_SYS_PAIDTRANS')) swms_sys_paidtrans
+        on swms_sys_paidtrans.dic_value = ys_zw_paidment.pdtran
+      left join (select dic_value,dic_name from base_user_dictionary where parent_id = (select id from base_user_dictionary where dic_value='SWMS_SYS_CHEQUETYPE')) swms_sys_chequetype
+        on swms_sys_chequetype.dic_value = ys_zw_paidment.pdpayway
+      left join base_user 
+        on base_user.user_name = pdpers
+    where yhid=p_yhid
+    ;
+  end find_gtjf_jfjl;
+
+  /*
+  功能：柜台缴费页面缴费记录明细
+  参数说明
+  p_arpid         实收流水id
+  out             输出结果集
+  */
+  procedure find_gtjf_jfjlmx(p_arpid in varchar2,out_tab out sys_refcursor) is
+  begin
+    open out_tab for select 
+      yhid 客户代码,
+      arrdate 抄表日期,
+      armonth 账务月份,
+      ardate 账务日期,
+      arscode 起数,
+      arecode 止数,
+      arsl 应收水量,
+      arje 应收金额,
+      arznj 违约金
+    from ys_zw_arlist 
+    where arpid=p_arpid
+    ;
+  end find_gtjf_jfjlmx;
+  
+  /*
+  功能：柜台缴费页面抄表记录查询
+  参数说明
+  p_yhid          用户id
+  out             输出结果集
+  */
+  procedure find_gtjf_cbjl(p_yhid in varchar2,out_tab out sys_refcursor) is
+  begin
+    open out_tab for select 
+      yhid 客户代码  ,-- ys_cb_mtread  抄表库【cbmr】 yhid  用户编号
+      cbmrmonth 抄表月份  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrmonth 抄表月份
+      cbmrrdate 抄表日期  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrrdate 抄表日期
+      cbmrscode 起码  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrscode 上期抄见
+      cbmrecode 止码  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrecode 本期抄见
+      cbmrsl 抄表水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrsl  本期水量
+      cbmrrecsl 计费水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrrecsl 应收水量
+      cbmrcarrysl 校验水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrcarrysl 校验水量
+      cbmrchkflag 已复核 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrchkflag 复核标志(y-是 n-否)
+      cbmrifhalt 是否停算  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrifhalt  系统停算(y-是 n-否)
+      cbmrlastsl 上次水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrlastsl  上次抄表水量
+      cbmrthreesl 前三次抄表水量 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrthreesl 前三月抄表水量
+      cbmryearsl 去年同期抄表水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmryearsl  去年同期抄表水量
+      case cbmrface when '01' then '正常' when '02' then '表异常' when '03' then '零水量' else cbmrface end 抄表表况  ,-- 外包	YS_CB_MTREAD	抄表库【CBMR】	cbmrface	水表故障（哈尔滨需求：查表表态）(01正常/02表异常/03零水量)
+      case cbmrdatasource 
+        when '1' then '手工' when '5' then '抄表器' when '9' then '手机抄表' 
+        when 'K' then '故障换表' when 'L' then '周期换表' when 'Z' then '追量' when 'I' then '智能表接口'
+        when '6' then '视频直读' when '7' then '集抄'
+        else cbmrdatasource
+      end 抄表来源  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrdatasource  抄表结果来源(1-手工,5-抄表器,9-手机抄表,k-故障换表,l-周期换表,z-追量  i-智能表接口)(新加：6-视频直读，7-集抄)
+      book_no 表册   ,--  ys_cb_mtread  抄表库【cbmr】 book_no 表册
+      cbmrrper 抄表员 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrrper  抄表员
+      cbmrmemo 抄表备注  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrmemo  抄表备注
+      cbmrinputper 入账人员  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrinputper  入账人员
+      cbmrifrec 已计费 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrifrec 已计费(y-是 n-否)
+      cbmrrecdate 计费日期  -- ys_cb_mtread  抄表库【cbmr】 cbmrrecdate 计费日期
+    from ys_cb_mtread
+    where yhid=p_yhid
+    union
+    select 
+      yhid 客户代码  ,-- ys_cb_mtread  抄表库【cbmr】 yhid  用户编号
+      cbmrmonth 抄表月份  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrmonth 抄表月份
+      cbmrrdate 抄表日期  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrrdate 抄表日期
+      cbmrscode 起码  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrscode 上期抄见
+      cbmrecode 止码  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrecode 本期抄见
+      cbmrsl 抄表水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrsl  本期水量
+      cbmrrecsl 计费水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrrecsl 应收水量
+      cbmrcarrysl 校验水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrcarrysl 校验水量
+      cbmrchkflag 已复核 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrchkflag 复核标志(y-是 n-否)
+      cbmrifhalt 是否停算  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrifhalt  系统停算(y-是 n-否)
+      cbmrlastsl 上次水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrlastsl  上次抄表水量
+      cbmrthreesl 前三次抄表水量 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrthreesl 前三月抄表水量
+      cbmryearsl 去年同期抄表水量  ,-- ys_cb_mtread  抄表库【cbmr】 cbmryearsl  去年同期抄表水量
+      case cbmrface when '01' then '正常' when '02' then '表异常' when '03' then '零水量' else cbmrface end 抄表表况  ,-- 外包	YS_CB_MTREAD	抄表库【CBMR】	cbmrface	水表故障（哈尔滨需求：查表表态）(01正常/02表异常/03零水量)
+      case cbmrdatasource 
+        when '1' then '手工' when '5' then '抄表器' when '9' then '手机抄表' 
+        when 'K' then '故障换表' when 'L' then '周期换表' when 'Z' then '追量' when 'I' then '智能表接口'
+        when '6' then '视频直读' when '7' then '集抄'
+        else cbmrdatasource
+      end 抄表来源  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrdatasource  抄表结果来源(1-手工,5-抄表器,9-手机抄表,k-故障换表,l-周期换表,z-追量  i-智能表接口)(新加：6-视频直读，7-集抄)
+      book_no 表册   ,--  ys_cb_mtread  抄表库【cbmr】 book_no 表册
+      cbmrrper 抄表员 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrrper  抄表员
+      cbmrmemo 抄表备注  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrmemo  抄表备注
+      cbmrinputper 入账人员  ,-- ys_cb_mtread  抄表库【cbmr】 cbmrinputper  入账人员
+      cbmrifrec 已计费 ,-- ys_cb_mtread  抄表库【cbmr】 cbmrifrec 已计费(y-是 n-否)
+      cbmrrecdate 计费日期  -- ys_cb_mtread  抄表库【cbmr】 cbmrrecdate 计费日期
+    from ys_cb_mtreadhis
+    where yhid=p_yhid
+    ;
+  end find_gtjf_cbjl;
 end;
 /
 
