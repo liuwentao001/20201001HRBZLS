@@ -1,0 +1,43 @@
+﻿create table PRICEFRAME
+(
+  pfid      VARCHAR2(10) not null,
+  pfname    VARCHAR2(60) not null,
+  pfpid     VARCHAR2(10),
+  pfclass   NUMBER not null,
+  pfflag    CHAR(1) not null,
+  pfstatus  CHAR(1) not null,
+  pfhandles NUMBER,
+  pfprice   NUMBER(12,3),
+  pfmemo    VARCHAR2(60),
+  pfsmfid   VARCHAR2(10),
+  pfpscid   NUMBER
+)
+;
+comment on table PRICEFRAME
+  is '费率结构信息【PF】';
+comment on column PRICEFRAME.pfid
+  is '编码';
+comment on column PRICEFRAME.pfname
+  is '名称';
+comment on column PRICEFRAME.pfpid
+  is '上级编码';
+comment on column PRICEFRAME.pfclass
+  is '级次';
+comment on column PRICEFRAME.pfflag
+  is '末级标志';
+comment on column PRICEFRAME.pfstatus
+  is '有效状态';
+comment on column PRICEFRAME.pfhandles
+  is '下级数量';
+comment on column PRICEFRAME.pfprice
+  is '综合价格';
+comment on column PRICEFRAME.pfmemo
+  is '备注';
+comment on column PRICEFRAME.pfsmfid
+  is '公司';
+comment on column PRICEFRAME.pfpscid
+  is '版本号';
+create index IDX_PRICEFRAME_PFMEMO on PRICEFRAME (PFMEMO);
+alter table PRICEFRAME
+  add constraint PK_PRICEFRAME primary key (PFID);
+

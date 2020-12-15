@@ -325,7 +325,7 @@ comment on column YS_GD_YHSBREGDT.sbiftax
 comment on column YS_GD_YHSBREGDT.sbtaxno
   is '增值税号（增）';
 comment on column YS_GD_YHSBREGDT.sbifckf
-  is '是否磁控阀';
+  is '垃圾费户数';
 comment on column YS_GD_YHSBREGDT.sbgps
   is 'GPS地址';
 comment on column YS_GD_YHSBREGDT.sbqfh

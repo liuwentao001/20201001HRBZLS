@@ -7,7 +7,7 @@ BEGIN
     FROM YS_ZW_ARLIST, YS_ZW_ARDETAIL
    WHERE ARID = ARDID
      AND ARDPIID = '01' --只计水费水量
-     AND ARDMETHOD IN( 'yjt','njt') --年阶梯月结 暂时只通过RLIFYEARCLASS标志判断
+     AND ARDMETHOD =　'04'  --年阶梯月结 暂时只通过RLIFYEARCLASS标志判断
      AND ARSCRARMONTH >= TO_CHAR(P_SDATE, 'YYYY.MM') --大于阶梯起算日
      AND SBID = P_MIID;
   RETURN LRET;

@@ -2422,13 +2422,13 @@
                       o_Rlsxf_Reverse,
                       o_Rlsavingbq_Reverse,
                       Io_Rlsavingqm_Reverse); /* O_ARID_REVERSE        OUT VARCHAR2,
-                                        O_ARTRANS_REVERSE     OUT VARCHAR2,
-                                        O_ARJE_REVERSE        OUT NUMBER,
-                                        O_ARZNJ_REVERSE       OUT NUMBER,
-                                        O_ARSXF_REVERSE       OUT NUMBER,
-                                        O_ARSAVINGBQ_REVERSE  OUT NUMBER,
-                                        IO_ARSAVINGQM_REVERSE IN OUT NUMBER
-                                        */
+                                            O_ARTRANS_REVERSE     OUT VARCHAR2,
+                                            O_ARJE_REVERSE        OUT NUMBER,
+                                            O_ARZNJ_REVERSE       OUT NUMBER,
+                                            O_ARSXF_REVERSE       OUT NUMBER,
+                                            O_ARSAVINGBQ_REVERSE  OUT NUMBER,
+                                            IO_ARSAVINGQM_REVERSE IN OUT NUMBER
+                                            */
       --应收追补（追加当月全额正帐）
       Recappendinherit(i.Arid,
                        'ALL',
@@ -2784,19 +2784,20 @@
       Raise_Application_Error(Errcode, '这是传的水表编码？' || p_Mid_Out);
     END IF;
     CLOSE c_Mi;
-  
-    OPEN c_Mi(p_Mid_In);
-    FETCH c_Mi
-      INTO p_Position_In, p_Cid_In;
-    IF c_Mi%NOTFOUND OR c_Mi%NOTFOUND IS NULL THEN
-      Raise_Application_Error(Errcode, '这是传的水表编码？' || p_Mid_In);
-    END IF;
-    CLOSE c_Mi;
-  
-    --校验
-    IF p_Cid_In = p_Cid_Out THEN
-      Raise_Application_Error(Errcode,
-                              '预存转账业务不能在一户多表内进行！');
+    IF p_Mid_In IS NOT NULL THEN
+      OPEN c_Mi(p_Mid_In);
+      FETCH c_Mi
+        INTO p_Position_In, p_Cid_In;
+      IF c_Mi%NOTFOUND OR c_Mi%NOTFOUND IS NULL THEN
+        Raise_Application_Error(Errcode, '这是传的水表编码？' || p_Mid_In);
+      END IF;
+      CLOSE c_Mi;
+    
+      --校验
+      IF p_Cid_In = p_Cid_Out THEN
+        Raise_Application_Error(Errcode,
+                                '预存转账业务不能在一户多表内进行！');
+      END IF;
     END IF;
   
     --调用核心
@@ -2816,22 +2817,23 @@
             o_Pid,
             o_Remainafter);
     --调用核心
-    Precore(p_Mid_In,
-            p_Ptrans,
-            p_Position_In,
-            NULL,
-            NULL,
-            NULL,
-            p_Oper,
-            '01',
-            -p_Payment,
-            不提交,
-            p_Memo,
-            p_Batch,
-            p_Seqno,
-            o_Pid,
-            o_Remainafter);
-  
+    IF p_Mid_In IS NOT NULL THEN
+      Precore(p_Mid_In,
+              p_Ptrans,
+              p_Position_In,
+              NULL,
+              NULL,
+              NULL,
+              p_Oper,
+              '01',
+              -p_Payment,
+              不提交,
+              p_Memo,
+              p_Batch,
+              p_Seqno,
+              o_Pid,
+              o_Remainafter);
+    END IF;
     --2、提交处理
     BEGIN
       IF p_Commit = 调试 THEN

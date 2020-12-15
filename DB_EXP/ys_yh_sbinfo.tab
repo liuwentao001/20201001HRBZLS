@@ -241,7 +241,7 @@ comment on column YS_YH_SBINFO.sbrcodechar
 comment on column YS_YH_SBINFO.sbifckf
   is '垃圾费户数';
 comment on column YS_YH_SBINFO.sbgps
-  is '是否合票';
+  is 'GPS';
 comment on column YS_YH_SBINFO.sbqfh
   is '铅封号';
 comment on column YS_YH_SBINFO.sbbox
@@ -271,7 +271,7 @@ comment on column YS_YH_SBINFO.sbemailflag
 comment on column YS_YH_SBINFO.sbdbjmsl1
   is '备用字段1(低保减免水量)  SBCOLUMN1';
 comment on column YS_YH_SBINFO.sbdbyhbz2
-  is '备用字段2(低保用户标志)SBCOLUMN2';
+  is '是否低保户';
 comment on column YS_YH_SBINFO.sbdbjzyf3
   is '备用字段3(低保截止月份)SBCOLUMN3';
 comment on column YS_YH_SBINFO.sbyhxz4
@@ -287,7 +287,7 @@ comment on column YS_YH_SBINFO.sbxjdj7
 comment on column YS_YH_SBINFO.sbcolumn8
   is '备用字段8';
 comment on column YS_YH_SBINFO.sbyhlb9
-  is '用户类别2SBCOLUMN9';
+  is '是否农村用水';
 comment on column YS_YH_SBINFO.sbsfqdht10
   is '备用字段10(是否签订供用水合同)SBCOLUMN10';
 comment on column YS_YH_SBINFO.sblh
@@ -315,7 +315,7 @@ comment on column YS_YH_SBINFO.sbxkzbz3
 comment on column YS_YH_SBINFO.sbsbmm4
   is '用户水表密码(限定6位,默为6个888888)SBYL4';
 comment on column YS_YH_SBINFO.sbmmsz5
-  is '预留字段5（用户密码设置：Y=设置密码，N=初始密码；预存冲正：保存sbstatus；手机抄表下载校验：工单申请标志）SBYL5';
+  is '免抄户指定水量';
 comment on column YS_YH_SBINFO.sbxymm6
   is '预留字段6（校验密码）SBYL6';
 comment on column YS_YH_SBINFO.sbmszdsl7
@@ -327,11 +327,11 @@ comment on column YS_YH_SBINFO.sbzdzzs9
 comment on column YS_YH_SBINFO.sbcbshsj10
   is '预留字段10（手机抄表审核：修改时间）SBYL10';
 comment on column YS_YH_SBINFO.sbjtkssj11
-  is '预留字段11（阶梯开始日期）SBYL11';
+  is '阶梯开始日期';
 comment on column YS_YH_SBINFO.sbyl12
   is '预留字段12';
 comment on column YS_YH_SBINFO.sbjdh13
-  is '预留字段13(哈尔滨：街道号)SBYL13';
+  is '街道号';
 comment on column YS_YH_SBINFO.sbtkbz11
   is '特困标志SBCOLUMN11';
 comment on column YS_YH_SBINFO.sbtkzjh

@@ -18,8 +18,7 @@
                     p_Djlb   IN VARCHAR2) IS
   BEGIN
   
-    IF p_Djlb = '36' OR p_Djlb = '39' THEN
-      --36预存余额退费申请  39预存余额撤表退费申请
+    IF p_Djlb = 'YETZ' THEN 
       Sp_Balanceadj(p_Billno, p_Person, 'Y');
     ELSE
       Raise_Application_Error(Errcode, p_Billno || '->1 无效的单据类别！');
@@ -114,7 +113,7 @@
                                 ']的预存余额已被更改,请核查!');
       END IF;
       --判断是否有欠费
-      BEGIN
+       BEGIN
         SELECT 1
           INTO v_Exist
           FROM Ys_Zw_Arlist Ar
@@ -128,7 +127,7 @@
         WHEN No_Data_Found THEN
           NULL;
       END;
-      IF v_Exist > 0 THEN
+     IF v_Exist > 0 THEN
         Raise_Application_Error(Errcode,
                                 '在此工单申请后，用户[' || Znjdt.Yhid || ']有欠费,请核查!');
       END IF;
@@ -139,21 +138,12 @@
     
       IF Znjdt.Change_Type = 'T' THEN
         -- 退预存
-        c_Ptrans := 'T';
-        Pg_Paid.Precustback(Znjdt.Yhid, --     IN VARCHAR2,
-                            Znjhd.Manage_No, --   IN VARCHAR2,
-                            p_Per, --       IN VARCHAR2,
-                            c_Ptrans, --    IN VARCHAR2,
-                            -Znjdt.Adjust_Balance, --     IN NUMBER,
-                            Znjdt.Adjust_Memo, --      IN VARCHAR2,
-                            v_Batch, --      IN OUT VARCHAR2,
-                            v_Pid, --    OUT VARCHAR2,
-                            Vn_Remainafter --OUT NUMBER
-                            );
+        c_Ptrans := 'y'; 
       ELSIF Znjdt.Change_Type = 'Z' THEN
         --转预存
-        c_Ptrans := 'Z';
-        Pg_Paid.Remainc2c(p_Mid_Out => Znjdt.Yhid,
+        c_Ptrans := 'K';       
+      END IF;
+       Pg_Paid.Remainc2c(p_Mid_Out => Znjdt.Yhid,
                           p_Mid_In  => Znjdt.Toyhid,
                           p_Oper    => p_Per,
                           p_Ptrans  => c_Ptrans,
@@ -161,7 +151,6 @@
                           p_Memo    => Znjdt.Adjust_Memo,
                           p_Commit  => 0,
                           p_Batch   => v_Batch);
-      END IF;
     END LOOP;
     CLOSE c_Ys_Gd_Balanceadjdt;
   

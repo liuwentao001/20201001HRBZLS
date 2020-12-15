@@ -68,11 +68,11 @@ comment on column YS_YH_CUSTINFO.yhidentityno
 comment on column YS_YH_CUSTINFO.yhmtel
   is '移动电话';
 comment on column YS_YH_CUSTINFO.yhtel1
-  is '固定电话1';
+  is '住宅电话';
 comment on column YS_YH_CUSTINFO.yhtel2
   is '固定电话2';
 comment on column YS_YH_CUSTINFO.yhtel3
-  is '固定电话3';
+  is '短信号码';
 comment on column YS_YH_CUSTINFO.yhconnectper
   is '联系人';
 comment on column YS_YH_CUSTINFO.yhconnecttel
