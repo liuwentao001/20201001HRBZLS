@@ -1116,7 +1116,7 @@
                           PS.ADD_WATERQTY + LASTPSSLPERS; --阶梯段止算量
       TMPSCODE         := PS.END_CODE;
       LASTPSSLPERS     := GETMAX(P_RL.ARUSENUM - PS.PEOPLES, 0) *
-                          PS.PEOPLES;
+                          PS.ADD_WATERQTY + LASTPSSLPERS;
       RD.ARDPMDCOLUMN1 := PS.START_CODE;
       RD.ARDPMDCOLUMN2 := PS.END_CODE;
       RD.ARDCLASS      := PS.STEP_CLASS;

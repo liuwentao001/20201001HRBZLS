@@ -1,0 +1,66 @@
+﻿create table OPERACCNT
+(
+  oaid      VARCHAR2(15) not null,
+  oapwd     VARCHAR2(32),
+  oapwdtype CHAR(1),
+  oapwdqust VARCHAR2(20),
+  oapwdansw VARCHAR2(20),
+  oaislogin CHAR(1) not null,
+  oamaxdate DATE not null,
+  oagh      VARCHAR2(15),
+  oaname    VARCHAR2(60),
+  oadept    VARCHAR2(10),
+  oaidno    VARCHAR2(20),
+  oaemail   VARCHAR2(40),
+  oatimes   NUMBER(12),
+  oatel     VARCHAR2(100),
+  oadrange  CHAR(1) default 'Y' not null,
+  oasalary1 NUMBER(12,4),
+  oasalary2 NUMBER(12,4),
+  oasalary3 NUMBER(12,4),
+  oasalary4 NUMBER(12,4)
+)
+;
+comment on table OPERACCNT
+  is '用户';
+comment on column OPERACCNT.oaid
+  is '帐号';
+comment on column OPERACCNT.oapwd
+  is '密码';
+comment on column OPERACCNT.oapwdtype
+  is '是否允许修改密码';
+comment on column OPERACCNT.oapwdqust
+  is '密码问题';
+comment on column OPERACCNT.oapwdansw
+  is '密码答案';
+comment on column OPERACCNT.oaislogin
+  is '是否允许登录';
+comment on column OPERACCNT.oamaxdate
+  is '有效期';
+comment on column OPERACCNT.oagh
+  is '工作证号码';
+comment on column OPERACCNT.oaname
+  is '姓名';
+comment on column OPERACCNT.oadept
+  is '部门编码';
+comment on column OPERACCNT.oaidno
+  is '身份证号';
+comment on column OPERACCNT.oaemail
+  is '员工电子邮件地址';
+comment on column OPERACCNT.oatimes
+  is '登录次数';
+comment on column OPERACCNT.oatel
+  is '联系电话';
+comment on column OPERACCNT.oadrange
+  is '操作数据范围';
+comment on column OPERACCNT.oasalary1
+  is '基本工资';
+comment on column OPERACCNT.oasalary2
+  is '岗位工资';
+comment on column OPERACCNT.oasalary3
+  is '绩效工资';
+comment on column OPERACCNT.oasalary4
+  is '抄表难度系数';
+alter table OPERACCNT
+  add constraint PK_OPERACCNT primary key (OAID);
+

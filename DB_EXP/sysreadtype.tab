@@ -1,0 +1,18 @@
+﻿create table SYSREADTYPE
+(
+  srtid   CHAR(1) not null,
+  srtname VARCHAR2(20) not null,
+  srtmemo VARCHAR2(120)
+)
+;
+comment on table SYSREADTYPE
+  is '抄表方式【SRT】';
+comment on column SYSREADTYPE.srtid
+  is '编码';
+comment on column SYSREADTYPE.srtname
+  is '名称';
+comment on column SYSREADTYPE.srtmemo
+  is '描述';
+alter table SYSREADTYPE
+  add constraint PK_SYSREADTYPE primary key (SRTID);
+

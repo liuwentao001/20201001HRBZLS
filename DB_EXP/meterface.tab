@@ -1,0 +1,30 @@
+﻿create table METERFACE
+(
+  mfid         VARCHAR2(2) not null,
+  mfname       VARCHAR2(20),
+  mfifadd      CHAR(1),
+  mfiffault    CHAR(1),
+  mfifguess    CHAR(1),
+  mfifpeccancy CHAR(1),
+  mfmemo       VARCHAR2(64)
+)
+;
+comment on table METERFACE
+  is '水表故障【MF】';
+comment on column METERFACE.mfid
+  is '编码';
+comment on column METERFACE.mfname
+  is '描述';
+comment on column METERFACE.mfifadd
+  is '加调标志';
+comment on column METERFACE.mfiffault
+  is '故障标志';
+comment on column METERFACE.mfifguess
+  is '估表标志';
+comment on column METERFACE.mfifpeccancy
+  is '违章标志';
+comment on column METERFACE.mfmemo
+  is '备注';
+alter table METERFACE
+  add constraint PK_METERFACE primary key (MFID);
+

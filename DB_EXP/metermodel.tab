@@ -1,0 +1,19 @@
+﻿create table METERMODEL
+(
+  mmid   VARCHAR2(2) not null,
+  mmname VARCHAR2(100),
+  mmmemo VARCHAR2(120)
+)
+;
+comment on table METERMODEL
+  is '表型号【MM】';
+comment on column METERMODEL.mmid
+  is '编码';
+comment on column METERMODEL.mmname
+  is '名称';
+comment on column METERMODEL.mmmemo
+  is '描述';
+create index IDX_METERMODEL on METERMODEL (MMNAME);
+alter table METERMODEL
+  add constraint PK_METERMODEL primary key (MMID);
+

@@ -1,0 +1,31 @@
+﻿create table SYSFACELIST2
+(
+  sflid    VARCHAR2(2) not null,
+  sflname  VARCHAR2(20),
+  sflmemo  VARCHAR2(64),
+  sflflag1 VARCHAR2(2),
+  sflflag2 VARCHAR2(2),
+  sflflag3 VARCHAR2(2),
+  sflflag4 VARCHAR2(2)
+)
+;
+comment on table SYSFACELIST2
+  is '抄见故障分类【SFL】';
+comment on column SYSFACELIST2.sflid
+  is '编号';
+comment on column SYSFACELIST2.sflname
+  is '名称';
+comment on column SYSFACELIST2.sflmemo
+  is '描述';
+comment on column SYSFACELIST2.sflflag1
+  is '控制参数1';
+comment on column SYSFACELIST2.sflflag2
+  is '控制参数2';
+comment on column SYSFACELIST2.sflflag3
+  is '控制参数3';
+comment on column SYSFACELIST2.sflflag4
+  is '控制参数4';
+create unique index IDX_SFLNAME2 on SYSFACELIST2 (SFLNAME);
+alter table SYSFACELIST2
+  add constraint PK_SYSFACELIST2 primary key (SFLID);
+
