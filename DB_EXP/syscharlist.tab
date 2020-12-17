@@ -1,0 +1,24 @@
+﻿create table SYSCHARLIST
+(
+  scltype  VARCHAR2(40) not null,
+  sclid    VARCHAR2(50) not null,
+  sclvalue VARCHAR2(80),
+  sclwidth NUMBER(2),
+  sclgroup VARCHAR2(4) not null
+)
+;
+comment on table SYSCHARLIST
+  is '字符列表维护';
+comment on column SYSCHARLIST.scltype
+  is '字符类别';
+comment on column SYSCHARLIST.sclid
+  is '字符编号';
+comment on column SYSCHARLIST.sclvalue
+  is '字符显示值';
+comment on column SYSCHARLIST.sclwidth
+  is '字符编号宽度';
+comment on column SYSCHARLIST.sclgroup
+  is '字符所属分组';
+alter table SYSCHARLIST
+  add constraint PK_SYSCHARLIST primary key (SCLTYPE, SCLID, SCLGROUP);
+

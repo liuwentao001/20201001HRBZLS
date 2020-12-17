@@ -1,0 +1,15 @@
+﻿create table OPERACCNTROLE
+(
+  oaroaid VARCHAR2(15) not null,
+  oarrid  CHAR(2) not null
+)
+;
+comment on table OPERACCNTROLE
+  is '用户角色';
+comment on column OPERACCNTROLE.oaroaid
+  is '用户代码';
+comment on column OPERACCNTROLE.oarrid
+  is '角色代码';
+alter table OPERACCNTROLE
+  add constraint PK_ORID_ID primary key (OARRID, OAROAID);
+
