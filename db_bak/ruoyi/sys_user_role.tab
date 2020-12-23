@@ -1,0 +1,15 @@
+﻿create table SYS_USER_ROLE
+(
+  user_id NUMBER(20) not null,
+  role_id NUMBER(20) not null
+)
+;
+comment on table SYS_USER_ROLE
+  is '用户和角色关联表';
+comment on column SYS_USER_ROLE.user_id
+  is '用户ID';
+comment on column SYS_USER_ROLE.role_id
+  is '角色ID';
+alter table SYS_USER_ROLE
+  add constraint PK_SYS_USER_ROLE primary key (USER_ID, ROLE_ID);
+

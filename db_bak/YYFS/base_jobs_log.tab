@@ -1,0 +1,28 @@
+﻿create table BASE_JOBS_LOG
+(
+  id           VARCHAR2(32),
+  hire_code    VARCHAR2(32),
+  jobs_id      VARCHAR2(32),
+  invoke_param VARCHAR2(500),
+  result_msg   VARCHAR2(500),
+  start_date   DATE,
+  end_date     DATE
+)
+;
+comment on table BASE_JOBS_LOG
+  is '调度任务执行日志';
+comment on column BASE_JOBS_LOG.id
+  is '主键ID';
+comment on column BASE_JOBS_LOG.hire_code
+  is '租户编号';
+comment on column BASE_JOBS_LOG.jobs_id
+  is '调度任务ID';
+comment on column BASE_JOBS_LOG.invoke_param
+  is '传递的参数';
+comment on column BASE_JOBS_LOG.result_msg
+  is '返回结果';
+comment on column BASE_JOBS_LOG.start_date
+  is '执行开始时间';
+comment on column BASE_JOBS_LOG.end_date
+  is '执行结束时间';
+

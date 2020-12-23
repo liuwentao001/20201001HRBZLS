@@ -1,0 +1,12 @@
+﻿create table QRTZ_CRON_TRIGGERS
+(
+  sched_name      VARCHAR2(120) not null,
+  trigger_name    VARCHAR2(200) not null,
+  trigger_group   VARCHAR2(200) not null,
+  cron_expression VARCHAR2(120) not null,
+  time_zone_id    VARCHAR2(80)
+)
+;
+alter table QRTZ_CRON_TRIGGERS
+  add constraint QRTZ_CRON_TRIG_PK primary key (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP);
+

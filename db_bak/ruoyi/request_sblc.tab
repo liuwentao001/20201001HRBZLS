@@ -1,0 +1,107 @@
+﻿create table REQUEST_SBLC
+(
+  reno           VARCHAR2(50) not null,
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  ciadr          VARCHAR2(100),
+  cimtel         VARCHAR2(30),
+  ciconnectper   VARCHAR2(60),
+  michargetype   CHAR(1),
+  miid           VARCHAR2(10),
+  mipfid         VARCHAR2(10),
+  mdno           VARCHAR2(40),
+  miside         VARCHAR2(100),
+  mdcaliber      NUMBER(10),
+  mdbrand        VARCHAR2(30),
+  ifdzsb         VARCHAR2(2),
+  barcode        VARCHAR2(20),
+  rfid           VARCHAR2(20),
+  miyl9          NUMBER,
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_SBLC
+  is '水表量程维护表';
+comment on column REQUEST_SBLC.reno
+  is '单据流水号';
+comment on column REQUEST_SBLC.resmfid
+  is '营销公司';
+comment on column REQUEST_SBLC.ciid
+  is '用户号';
+comment on column REQUEST_SBLC.ciname
+  is '用户名';
+comment on column REQUEST_SBLC.ciadr
+  is '用户地址';
+comment on column REQUEST_SBLC.cimtel
+  is '移动电话';
+comment on column REQUEST_SBLC.ciconnectper
+  is '联系人';
+comment on column REQUEST_SBLC.michargetype
+  is '类型（1=坐收，2=走收）';
+comment on column REQUEST_SBLC.miid
+  is '水表档案号';
+comment on column REQUEST_SBLC.mipfid
+  is '用水性质(priceframe)';
+comment on column REQUEST_SBLC.mdno
+  is '表身码';
+comment on column REQUEST_SBLC.miside
+  is '表位【syscharlist】';
+comment on column REQUEST_SBLC.mdcaliber
+  is '表口径(METERCALIBER)';
+comment on column REQUEST_SBLC.mdbrand
+  is '表厂家(meterbrand)';
+comment on column REQUEST_SBLC.ifdzsb
+  is '是否倒表（倒表=Y 正常表=''N''）';
+comment on column REQUEST_SBLC.barcode
+  is '条形码';
+comment on column REQUEST_SBLC.rfid
+  is '电子标签';
+comment on column REQUEST_SBLC.miyl9
+  is '水表最大指针数';
+comment on column REQUEST_SBLC.reappnote
+  is '申请说明';
+comment on column REQUEST_SBLC.restaus
+  is '当前审批环节';
+comment on column REQUEST_SBLC.reper
+  is '当前审批人';
+comment on column REQUEST_SBLC.reflag
+  is '当前审批状';
+comment on column REQUEST_SBLC.sortcode
+  is '序号';
+comment on column REQUEST_SBLC.deletemark
+  is '删除标识';
+comment on column REQUEST_SBLC.createdate
+  is '创建时间';
+comment on column REQUEST_SBLC.createuserid
+  is '创建人ID';
+comment on column REQUEST_SBLC.createusername
+  is '创建人';
+comment on column REQUEST_SBLC.modifydate
+  is '修改时间';
+comment on column REQUEST_SBLC.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_SBLC.modifyusername
+  is '修改人';
+comment on column REQUEST_SBLC.remark
+  is '备注';
+comment on column REQUEST_SBLC.workno
+  is '单据编号';
+comment on column REQUEST_SBLC.workbatch
+  is '批次号';
+

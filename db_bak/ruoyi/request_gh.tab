@@ -1,0 +1,191 @@
+﻿create table REQUEST_GH
+(
+  reno            VARCHAR2(50),
+  resmfid         VARCHAR2(10),
+  ciid            VARCHAR2(10),
+  ciname          VARCHAR2(100),
+  ciadr           VARCHAR2(100),
+  cimtel          VARCHAR2(30),
+  ciconnectper    VARCHAR2(60),
+  ciifinv         CHAR(1),
+  ciname1         VARCHAR2(100),
+  citaxno         VARCHAR2(20),
+  cibankname      VARCHAR2(100),
+  cibankno        VARCHAR2(50),
+  ciadr1          VARCHAR2(100),
+  citel4          VARCHAR2(30),
+  ciifsms         CHAR(2),
+  ciidentitylb    CHAR(2),
+  ciidentityno    VARCHAR2(60),
+  accessoryflag2  VARCHAR2(10),
+  accessoryflag3  VARCHAR2(10),
+  accessoryflag4  VARCHAR2(10),
+  accessoryflag5  VARCHAR2(10),
+  accessoryflag6  VARCHAR2(10),
+  accessoryflag7  VARCHAR2(10),
+  accessoryflag8  VARCHAR2(10),
+  accessoryflag9  VARCHAR2(10),
+  accessoryflag10 VARCHAR2(10),
+  ciwxno          VARCHAR2(50),
+  cicqno          VARCHAR2(50),
+  micardno        VARCHAR2(50),
+  ociname         VARCHAR2(100),
+  ociadr          VARCHAR2(100),
+  ocimtel         VARCHAR2(30),
+  ociconnectper   VARCHAR2(60),
+  ociifinv        CHAR(1),
+  ociname1        VARCHAR2(100),
+  ocitaxno        VARCHAR2(20),
+  ocibankname     VARCHAR2(100),
+  ocibankno       VARCHAR2(50),
+  ociadr1         VARCHAR2(100),
+  ocitel4         VARCHAR2(30),
+  ociifsms        CHAR(2),
+  ociidentitylb   CHAR(2),
+  ociidentityno   VARCHAR2(60),
+  ociwxno         VARCHAR2(50),
+  ocicqno         VARCHAR2(50),
+  omicardno       VARCHAR2(50),
+  reappnote       VARCHAR2(400),
+  restaus         VARCHAR2(2),
+  reper           VARCHAR2(10),
+  reflag          CHAR(2),
+  enabled         NUMBER,
+  sortcode        NUMBER,
+  deletemark      NUMBER,
+  createdate      DATE,
+  createuserid    VARCHAR2(50),
+  createusername  VARCHAR2(50),
+  modifydate      DATE,
+  modifyuserid    VARCHAR2(50),
+  modifyusername  VARCHAR2(50),
+  remark          VARCHAR2(200),
+  workno          VARCHAR2(30),
+  workbatch       VARCHAR2(30)
+)
+;
+comment on table REQUEST_GH
+  is '过户表';
+comment on column REQUEST_GH.reno
+  is '单据流水号';
+comment on column REQUEST_GH.resmfid
+  is '营销公司';
+comment on column REQUEST_GH.ciid
+  is '用户号';
+comment on column REQUEST_GH.ciname
+  is '用户名';
+comment on column REQUEST_GH.ciadr
+  is '用户地址';
+comment on column REQUEST_GH.cimtel
+  is '移动电话';
+comment on column REQUEST_GH.ciconnectper
+  is '联系人';
+comment on column REQUEST_GH.ciifinv
+  is '增值税标志';
+comment on column REQUEST_GH.ciname1
+  is '票据名称';
+comment on column REQUEST_GH.citaxno
+  is '税号';
+comment on column REQUEST_GH.cibankname
+  is '开户行名称(电票)';
+comment on column REQUEST_GH.cibankno
+  is '开户行账号(电票)';
+comment on column REQUEST_GH.ciadr1
+  is '票据地址';
+comment on column REQUEST_GH.citel4
+  is '票据电话';
+comment on column REQUEST_GH.ciifsms
+  is '是否提供短信服务（短信号码同移动电话）';
+comment on column REQUEST_GH.ciidentitylb
+  is '证件类型(1-身份证 2-营业执照  0-无)';
+comment on column REQUEST_GH.ciidentityno
+  is '证件号码';
+comment on column REQUEST_GH.accessoryflag2
+  is '企业法人营业执照（或组织机构代码证）标识';
+comment on column REQUEST_GH.accessoryflag3
+  is '用户申请书标识';
+comment on column REQUEST_GH.accessoryflag4
+  is '原户主身份证复印件标识';
+comment on column REQUEST_GH.accessoryflag5
+  is '新户主身份证复印件标识';
+comment on column REQUEST_GH.accessoryflag6
+  is '代办人身份证复印件标识';
+comment on column REQUEST_GH.accessoryflag7
+  is '水费担保书标识';
+comment on column REQUEST_GH.accessoryflag8
+  is '租赁合同复印件标识';
+comment on column REQUEST_GH.accessoryflag9
+  is '房产证或购房合同复印件标识';
+comment on column REQUEST_GH.accessoryflag10
+  is '其他标识';
+comment on column REQUEST_GH.ciwxno
+  is '微信号码';
+comment on column REQUEST_GH.cicqno
+  is '产权证号';
+comment on column REQUEST_GH.micardno
+  is '卡片图号';
+comment on column REQUEST_GH.ociname
+  is '原用户名';
+comment on column REQUEST_GH.ociadr
+  is '原用户地址';
+comment on column REQUEST_GH.ocimtel
+  is '原移动电话';
+comment on column REQUEST_GH.ociconnectper
+  is '原联系人';
+comment on column REQUEST_GH.ociifinv
+  is '原增值税标志';
+comment on column REQUEST_GH.ociname1
+  is '原票据名称';
+comment on column REQUEST_GH.ocitaxno
+  is '原税号';
+comment on column REQUEST_GH.ocibankname
+  is '原开户行名称(电票)';
+comment on column REQUEST_GH.ocibankno
+  is '原开户行账号(电票)';
+comment on column REQUEST_GH.ociadr1
+  is '原票据地址';
+comment on column REQUEST_GH.ocitel4
+  is '原票据电话';
+comment on column REQUEST_GH.ociifsms
+  is '原是否提供短信服务（短信号码同移动电话）';
+comment on column REQUEST_GH.ociidentitylb
+  is '原证件类型(1-身份证 2-营业执照  0-无)';
+comment on column REQUEST_GH.ociidentityno
+  is '原证件号码';
+comment on column REQUEST_GH.ociwxno
+  is '原微信号码';
+comment on column REQUEST_GH.ocicqno
+  is '原产权证号';
+comment on column REQUEST_GH.omicardno
+  is '原卡片图号';
+comment on column REQUEST_GH.reappnote
+  is '申请说明';
+comment on column REQUEST_GH.restaus
+  is '当前审批环节';
+comment on column REQUEST_GH.reper
+  is '当前审批人';
+comment on column REQUEST_GH.reflag
+  is '当前审批状';
+comment on column REQUEST_GH.sortcode
+  is '序号';
+comment on column REQUEST_GH.deletemark
+  is '删除标识';
+comment on column REQUEST_GH.createdate
+  is '创建时间';
+comment on column REQUEST_GH.createuserid
+  is '创建人ID';
+comment on column REQUEST_GH.createusername
+  is '创建人';
+comment on column REQUEST_GH.modifydate
+  is '修改时间';
+comment on column REQUEST_GH.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_GH.modifyusername
+  is '修改人';
+comment on column REQUEST_GH.remark
+  is '备注';
+comment on column REQUEST_GH.workno
+  is '单据编号';
+comment on column REQUEST_GH.workbatch
+  is '批次号';
+

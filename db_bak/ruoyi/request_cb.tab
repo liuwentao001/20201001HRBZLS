@@ -1,0 +1,131 @@
+﻿create table REQUEST_CB
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  cimtel         VARCHAR2(30),
+  ciconnectper   VARCHAR2(60),
+  ciadr          VARCHAR2(100),
+  ciidentitylb   CHAR(1),
+  ciidentityno   VARCHAR2(60),
+  miid           VARCHAR2(10),
+  mdno           VARCHAR2(40),
+  miadr          VARCHAR2(100),
+  ciifinv        CHAR(1),
+  miside         VARCHAR2(100),
+  mdcaliber      NUMBER(10),
+  mdbrand        VARCHAR2(30),
+  ifdzsb         VARCHAR2(2),
+  barcode        VARCHAR2(20),
+  rfid           VARCHAR2(20),
+  dqsfh          VARCHAR2(40),
+  dqgfh          VARCHAR2(40),
+  jcgfh          VARCHAR2(40),
+  qfh            VARCHAR2(40),
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30),
+  workid         VARCHAR2(50),
+  groupid        VARCHAR2(50),
+  trackid        VARCHAR2(50)
+)
+;
+comment on table REQUEST_CB
+  is '撤表管理';
+comment on column REQUEST_CB.reno
+  is '单据流水号';
+comment on column REQUEST_CB.resmfid
+  is '营销公司';
+comment on column REQUEST_CB.ciid
+  is '用户号';
+comment on column REQUEST_CB.ciname
+  is '用户名';
+comment on column REQUEST_CB.cimtel
+  is '移动电话';
+comment on column REQUEST_CB.ciconnectper
+  is '联系人';
+comment on column REQUEST_CB.ciadr
+  is '用户地址';
+comment on column REQUEST_CB.ciidentitylb
+  is '证件类型(1-身份证 2-营业执照  0-无)';
+comment on column REQUEST_CB.ciidentityno
+  is '证件号码';
+comment on column REQUEST_CB.miid
+  is '水表档案号';
+comment on column REQUEST_CB.mdno
+  is '表身码';
+comment on column REQUEST_CB.miadr
+  is '表地址';
+comment on column REQUEST_CB.ciifinv
+  is '是否普票';
+comment on column REQUEST_CB.miside
+  is '表位【syscharlist】';
+comment on column REQUEST_CB.mdcaliber
+  is '表口径(METERCALIBER)';
+comment on column REQUEST_CB.mdbrand
+  is '表厂家(meterbrand)';
+comment on column REQUEST_CB.ifdzsb
+  is '是否倒表（倒表=Y 正常表=''N''）';
+comment on column REQUEST_CB.barcode
+  is '条形码';
+comment on column REQUEST_CB.rfid
+  is '电子标签';
+comment on column REQUEST_CB.dqsfh
+  is '塑封号';
+comment on column REQUEST_CB.dqgfh
+  is '钢封号';
+comment on column REQUEST_CB.jcgfh
+  is '稽查刚封号';
+comment on column REQUEST_CB.qfh
+  is '铅封号';
+comment on column REQUEST_CB.reappnote
+  is '申请说明';
+comment on column REQUEST_CB.restaus
+  is '当前审批环节';
+comment on column REQUEST_CB.reper
+  is '当前审批人';
+comment on column REQUEST_CB.reflag
+  is '当前审批状';
+comment on column REQUEST_CB.sortcode
+  is '序号';
+comment on column REQUEST_CB.deletemark
+  is '删除标识';
+comment on column REQUEST_CB.createdate
+  is '创建时间';
+comment on column REQUEST_CB.createuserid
+  is '创建人ID';
+comment on column REQUEST_CB.createusername
+  is '创建人';
+comment on column REQUEST_CB.modifydate
+  is '修改时间';
+comment on column REQUEST_CB.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_CB.modifyusername
+  is '修改人';
+comment on column REQUEST_CB.remark
+  is '备注';
+comment on column REQUEST_CB.workno
+  is '单据编号';
+comment on column REQUEST_CB.workbatch
+  is '批次号';
+comment on column REQUEST_CB.workid
+  is 'WORKID';
+comment on column REQUEST_CB.groupid
+  is 'GROUPID';
+comment on column REQUEST_CB.trackid
+  is 'TRACKID';
+

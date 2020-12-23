@@ -1,0 +1,8 @@
+﻿create table QRTZ_CALENDARS
+(
+  sched_name    NVARCHAR2(120) not null,
+  calendar_name NVARCHAR2(200) not null,
+  calendar      BLOB not null
+)
+;
+

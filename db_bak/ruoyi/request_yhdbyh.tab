@@ -1,0 +1,95 @@
+﻿create table REQUEST_YHDBYH
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciida          VARCHAR2(10),
+  cinamea        VARCHAR2(100),
+  ciadra         VARCHAR2(100),
+  misavinga      NUMBER(13,3),
+  ciidb          VARCHAR2(10),
+  cinameb        VARCHAR2(100),
+  ciadrb         VARCHAR2(100),
+  misavingb      NUMBER(13,3),
+  reappnote      VARCHAR2(400),
+  reclass        CHAR(1),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30),
+  workid         VARCHAR2(50),
+  groupid        VARCHAR2(50),
+  trackid        VARCHAR2(50)
+)
+;
+comment on table REQUEST_YHDBYH
+  is '一户多表用户表';
+comment on column REQUEST_YHDBYH.reno
+  is '单据流水号';
+comment on column REQUEST_YHDBYH.resmfid
+  is '营销公司';
+comment on column REQUEST_YHDBYH.ciida
+  is '用户号A';
+comment on column REQUEST_YHDBYH.cinamea
+  is '用户名A';
+comment on column REQUEST_YHDBYH.ciadra
+  is '用户地址A';
+comment on column REQUEST_YHDBYH.misavinga
+  is '预存款余额A';
+comment on column REQUEST_YHDBYH.ciidb
+  is '用户号B';
+comment on column REQUEST_YHDBYH.cinameb
+  is '用户名B';
+comment on column REQUEST_YHDBYH.ciadrb
+  is '用户地址B';
+comment on column REQUEST_YHDBYH.misavingb
+  is '预存款余额B';
+comment on column REQUEST_YHDBYH.reappnote
+  is '申请说明';
+comment on column REQUEST_YHDBYH.reclass
+  is '工单分类';
+comment on column REQUEST_YHDBYH.restaus
+  is '当前审批环节';
+comment on column REQUEST_YHDBYH.reper
+  is '当前审批人';
+comment on column REQUEST_YHDBYH.reflag
+  is '当前审批状';
+comment on column REQUEST_YHDBYH.sortcode
+  is '序号';
+comment on column REQUEST_YHDBYH.deletemark
+  is '删除标识';
+comment on column REQUEST_YHDBYH.createdate
+  is '创建时间';
+comment on column REQUEST_YHDBYH.createuserid
+  is '创建人ID';
+comment on column REQUEST_YHDBYH.createusername
+  is '创建人';
+comment on column REQUEST_YHDBYH.modifydate
+  is '修改时间';
+comment on column REQUEST_YHDBYH.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_YHDBYH.modifyusername
+  is '修改人';
+comment on column REQUEST_YHDBYH.remark
+  is '备注';
+comment on column REQUEST_YHDBYH.workno
+  is '单据编号';
+comment on column REQUEST_YHDBYH.workbatch
+  is '批次号';
+comment on column REQUEST_YHDBYH.workid
+  is 'WORKID';
+comment on column REQUEST_YHDBYH.groupid
+  is 'GROUPID';
+comment on column REQUEST_YHDBYH.trackid
+  is 'TRACKID';
+

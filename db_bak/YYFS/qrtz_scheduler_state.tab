@@ -1,0 +1,9 @@
+﻿create table QRTZ_SCHEDULER_STATE
+(
+  sched_name        NVARCHAR2(120) not null,
+  instance_name     NVARCHAR2(200) not null,
+  last_checkin_time NUMBER(20) not null,
+  checkin_interval  NUMBER(20) not null
+)
+;
+

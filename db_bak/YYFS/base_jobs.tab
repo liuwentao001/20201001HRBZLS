@@ -1,0 +1,40 @@
+﻿create table BASE_JOBS
+(
+  id              VARCHAR2(32),
+  job_name        VARCHAR2(100),
+  job_class_name  VARCHAR2(100),
+  start_time      DATE,
+  cron_expression VARCHAR2(100),
+  invoke_param    VARCHAR2(500),
+  hire_code       VARCHAR2(32),
+  create_per      VARCHAR2(32),
+  create_date     DATE,
+  job_status      VARCHAR2(2),
+  execute_sql     VARCHAR2(500)
+)
+;
+comment on table BASE_JOBS
+  is '系统jobs任务表';
+comment on column BASE_JOBS.id
+  is '主键ID';
+comment on column BASE_JOBS.job_name
+  is 'job名称';
+comment on column BASE_JOBS.job_class_name
+  is 'job类全名';
+comment on column BASE_JOBS.start_time
+  is '开始执行时间';
+comment on column BASE_JOBS.cron_expression
+  is 'cron表达式';
+comment on column BASE_JOBS.invoke_param
+  is '传递的参数';
+comment on column BASE_JOBS.hire_code
+  is '租户编号';
+comment on column BASE_JOBS.create_per
+  is '创建人';
+comment on column BASE_JOBS.create_date
+  is '创建时间';
+comment on column BASE_JOBS.job_status
+  is 'job状态';
+comment on column BASE_JOBS.execute_sql
+  is '执行SQL';
+

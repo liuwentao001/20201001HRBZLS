@@ -1,0 +1,42 @@
+﻿create table SYS_USER_ONLINE
+(
+  sessionid        VARCHAR2(50) default '' not null,
+  login_name       VARCHAR2(50) default '',
+  dept_name        VARCHAR2(50) default '',
+  ipaddr           VARCHAR2(50) default '',
+  login_location   VARCHAR2(255) default '',
+  browser          VARCHAR2(50) default '',
+  os               VARCHAR2(50) default '',
+  status           VARCHAR2(10) default '',
+  start_timestamp  DATE,
+  last_access_time DATE,
+  expire_time      NUMBER(10) default 0
+)
+;
+comment on table SYS_USER_ONLINE
+  is '在线用户记录';
+comment on column SYS_USER_ONLINE.sessionid
+  is '用户会话id';
+comment on column SYS_USER_ONLINE.login_name
+  is '登录账号';
+comment on column SYS_USER_ONLINE.dept_name
+  is '部门名称';
+comment on column SYS_USER_ONLINE.ipaddr
+  is '登录IP地址';
+comment on column SYS_USER_ONLINE.login_location
+  is '登录地点';
+comment on column SYS_USER_ONLINE.browser
+  is '浏览器类型';
+comment on column SYS_USER_ONLINE.os
+  is '操作系统';
+comment on column SYS_USER_ONLINE.status
+  is '在线状态on_line在线off_line离线';
+comment on column SYS_USER_ONLINE.start_timestamp
+  is 'session创建时间';
+comment on column SYS_USER_ONLINE.last_access_time
+  is 'session最后访问时间';
+comment on column SYS_USER_ONLINE.expire_time
+  is '超时时间，单位为分钟';
+alter table SYS_USER_ONLINE
+  add constraint PK_SYS_USER_ONLINE primary key (SESSIONID);
+

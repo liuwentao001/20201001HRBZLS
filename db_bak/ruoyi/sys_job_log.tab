@@ -1,0 +1,33 @@
+﻿create table SYS_JOB_LOG
+(
+  job_log_id     NUMBER(20) not null,
+  job_name       VARCHAR2(64) not null,
+  job_group      VARCHAR2(64) not null,
+  invoke_target  VARCHAR2(500) not null,
+  job_message    VARCHAR2(500),
+  status         CHAR(1) default '0',
+  exception_info VARCHAR2(2000) default '',
+  create_time    DATE
+)
+;
+comment on table SYS_JOB_LOG
+  is '定时任务调度日志表';
+comment on column SYS_JOB_LOG.job_log_id
+  is '日志主键seq_sys_job_log.nextval';
+comment on column SYS_JOB_LOG.job_name
+  is '任务名称';
+comment on column SYS_JOB_LOG.job_group
+  is '任务组名';
+comment on column SYS_JOB_LOG.invoke_target
+  is '调用目标字符串';
+comment on column SYS_JOB_LOG.job_message
+  is '日志信息';
+comment on column SYS_JOB_LOG.status
+  is '执行状态（0正常 1失败）';
+comment on column SYS_JOB_LOG.exception_info
+  is '异常信息';
+comment on column SYS_JOB_LOG.create_time
+  is '创建时间';
+alter table SYS_JOB_LOG
+  add constraint PK_SYS_JOB_LOG primary key (JOB_LOG_ID);
+

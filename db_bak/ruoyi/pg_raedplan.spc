@@ -1,0 +1,19 @@
+﻿CREATE OR REPLACE PACKAGE "PG_RAEDPLAN" IS
+
+  -- AUTHOR  : ADMIN
+  -- CREATED : 2020-12-22
+  -- PURPOSE : 表册管理
+
+  --错误代码
+
+  ERRCODE CONSTANT INTEGER := -20012;
+
+  NO_DATA_FOUND EXCEPTION;
+
+  -- 月终处理
+  PROCEDURE CARRYFORWARD_MR(P_SMFID  IN VARCHAR2,
+                            P_MONTH  IN VARCHAR2,
+                            P_COMMIT IN VARCHAR2);
+END ;
+/
+

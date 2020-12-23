@@ -1,0 +1,11 @@
+﻿create table QRTZ_SIMPLE_TRIGGERS
+(
+  sched_name      NVARCHAR2(120) not null,
+  trigger_name    NVARCHAR2(200) not null,
+  trigger_group   NVARCHAR2(200) not null,
+  repeat_count    NUMBER(20) not null,
+  repeat_interval NUMBER(20) not null,
+  times_triggered NUMBER(20) not null
+)
+;
+

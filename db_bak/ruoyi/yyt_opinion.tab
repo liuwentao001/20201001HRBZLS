@@ -1,0 +1,63 @@
+﻿create table YYT_OPINION
+(
+  o_id        VARCHAR2(50) default SYS_GUID() not null,
+  name        VARCHAR2(50),
+  o_sex       VARCHAR2(20),
+  phone       VARCHAR2(50),
+  o_content   VARCHAR2(2000),
+  states      VARCHAR2(10),
+  seeat       VARCHAR2(64),
+  create_by   VARCHAR2(64),
+  create_time DATE,
+  update_by   VARCHAR2(64),
+  update_time DATE,
+  posion      VARCHAR2(200),
+  type        VARCHAR2(20),
+  filepath1   VARCHAR2(200),
+  filepath2   VARCHAR2(200),
+  filepath3   VARCHAR2(200),
+  filepath4   VARCHAR2(200),
+  filepath5   VARCHAR2(200)
+)
+;
+comment on table YYT_OPINION
+  is '投诉建议_窃水举报_管线报修';
+comment on column YYT_OPINION.o_id
+  is '主键';
+comment on column YYT_OPINION.name
+  is '姓名';
+comment on column YYT_OPINION.o_sex
+  is '性别';
+comment on column YYT_OPINION.phone
+  is '联系电话';
+comment on column YYT_OPINION.o_content
+  is '内容';
+comment on column YYT_OPINION.states
+  is '是否已读';
+comment on column YYT_OPINION.seeat
+  is '系统已读用户';
+comment on column YYT_OPINION.create_by
+  is '创建者';
+comment on column YYT_OPINION.create_time
+  is '创建时间';
+comment on column YYT_OPINION.update_by
+  is '更新者';
+comment on column YYT_OPINION.update_time
+  is '更新时间';
+comment on column YYT_OPINION.posion
+  is '位置';
+comment on column YYT_OPINION.type
+  is '类别（投诉建议、窃水举报、市政管线报修）';
+comment on column YYT_OPINION.filepath1
+  is '附件1';
+comment on column YYT_OPINION.filepath2
+  is '附件2';
+comment on column YYT_OPINION.filepath3
+  is '附件3';
+comment on column YYT_OPINION.filepath4
+  is '附件4';
+comment on column YYT_OPINION.filepath5
+  is '附件5';
+alter table YYT_OPINION
+  add constraint OPINION_PK primary key (O_ID);
+

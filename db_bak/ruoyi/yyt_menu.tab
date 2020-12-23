@@ -1,0 +1,54 @@
+﻿create table YYT_MENU
+(
+  menu_id     NUMBER(20) not null,
+  menu_name   VARCHAR2(50) not null,
+  parent_id   NUMBER(20) default 0,
+  order_num   NUMBER(4) default 0,
+  url         VARCHAR2(200) default '#',
+  target      VARCHAR2(20) default '',
+  menu_type   CHAR(1) default '',
+  visible     CHAR(1) default 0,
+  perms       VARCHAR2(100),
+  icon        VARCHAR2(100) default '#',
+  create_by   VARCHAR2(64) default '',
+  create_time DATE,
+  update_by   VARCHAR2(64) default '',
+  update_time DATE,
+  remark      VARCHAR2(500) default ''
+)
+;
+comment on table YYT_MENU
+  is '菜单权限表';
+comment on column YYT_MENU.menu_id
+  is '菜单主键seq_sys_post.nextval';
+comment on column YYT_MENU.menu_name
+  is '菜单名称';
+comment on column YYT_MENU.parent_id
+  is '父菜单ID';
+comment on column YYT_MENU.order_num
+  is '显示顺序';
+comment on column YYT_MENU.url
+  is '请求地址';
+comment on column YYT_MENU.target
+  is '打开方式（menuItem页签 menuBlank新窗口）';
+comment on column YYT_MENU.menu_type
+  is '菜单类型（M目录 C菜单 F按钮）';
+comment on column YYT_MENU.visible
+  is '菜单状态（0显示 1隐藏）';
+comment on column YYT_MENU.perms
+  is '权限标识';
+comment on column YYT_MENU.icon
+  is '菜单图标';
+comment on column YYT_MENU.create_by
+  is '创建者';
+comment on column YYT_MENU.create_time
+  is '创建时间';
+comment on column YYT_MENU.update_by
+  is '更新者';
+comment on column YYT_MENU.update_time
+  is '更新时间';
+comment on column YYT_MENU.remark
+  is '备注';
+alter table YYT_MENU
+  add constraint PK_YYT_MENU primary key (MENU_ID);
+

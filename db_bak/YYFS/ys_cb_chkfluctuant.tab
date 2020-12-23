@@ -1,0 +1,51 @@
+﻿create table YS_CB_CHKFLUCTUANT
+(
+  id               VARCHAR2(32) not null,
+  hire_code        VARCHAR2(32) not null,
+  compare_type     VARCHAR2(32) not null,
+  start_value      VARCHAR2(20),
+  end_value        VARCHAR2(20),
+  operate_symbol   VARCHAR2(20),
+  compare_value    VARCHAR2(10),
+  effective_state  VARCHAR2(2) not null,
+  refer_value_type VARCHAR2(32),
+  value_type       VARCHAR2(2),
+  read_cycle       VARCHAR2(10),
+  mrsmfid          VARCHAR2(2000),
+  mrcaliber        VARCHAR2(2000),
+  mrpfid           VARCHAR2(2000)
+)
+;
+comment on table YS_CB_CHKFLUCTUANT
+  is '抄表复核波动规则';
+comment on column YS_CB_CHKFLUCTUANT.id
+  is '主键';
+comment on column YS_CB_CHKFLUCTUANT.hire_code
+  is '租户编号';
+comment on column YS_CB_CHKFLUCTUANT.compare_type
+  is '比较值类型';
+comment on column YS_CB_CHKFLUCTUANT.start_value
+  is '开始值';
+comment on column YS_CB_CHKFLUCTUANT.end_value
+  is '结束值';
+comment on column YS_CB_CHKFLUCTUANT.operate_symbol
+  is '操作符';
+comment on column YS_CB_CHKFLUCTUANT.compare_value
+  is '比较值';
+comment on column YS_CB_CHKFLUCTUANT.effective_state
+  is '有效状态|0=无效1=有效';
+comment on column YS_CB_CHKFLUCTUANT.refer_value_type
+  is '参考值类型';
+comment on column YS_CB_CHKFLUCTUANT.value_type
+  is '01=比例|02=定量';
+comment on column YS_CB_CHKFLUCTUANT.read_cycle
+  is '抄表间隔周期';
+comment on column YS_CB_CHKFLUCTUANT.mrsmfid
+  is '数据范围营业所纬度';
+comment on column YS_CB_CHKFLUCTUANT.mrcaliber
+  is '数据范围口径纬度';
+comment on column YS_CB_CHKFLUCTUANT.mrpfid
+  is '数据范围用水性质纬度';
+alter table YS_CB_CHKFLUCTUANT
+  add constraint PK_YS_CB_CHKFLUCTUANT primary key (ID);
+

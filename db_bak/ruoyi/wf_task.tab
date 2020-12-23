@@ -1,0 +1,35 @@
+﻿create table WF_TASK
+(
+  flowtaskid       VARCHAR2(50 CHAR) not null,
+  instanceid       VARCHAR2(50 CHAR),
+  flowmainid       VARCHAR2(50 CHAR),
+  frmmainid        VARCHAR2(50 CHAR),
+  taskid           VARCHAR2(50 CHAR),
+  stepid           VARCHAR2(50 CHAR),
+  excuteobjectid   CLOB,
+  excuteobjectname CLOB,
+  taststarttime    DATE,
+  taskendtime      DATE,
+  beforestepid     VARCHAR2(50 CHAR),
+  laststepid       VARCHAR2(50 CHAR),
+  laststepuserid   CLOB,
+  excuteuserid     VARCHAR2(50 CHAR),
+  excutetime       DATE,
+  excuteresult     NUMBER(11),
+  remark           VARCHAR2(200 CHAR),
+  enabled          NUMBER(11),
+  deletemark       NUMBER(11),
+  createdate       DATE,
+  createuserid     VARCHAR2(50 CHAR),
+  createusername   VARCHAR2(50 CHAR),
+  modifydate       DATE,
+  modifyuserid     VARCHAR2(50 CHAR),
+  modifyusername   VARCHAR2(50 CHAR),
+  flowtitle        VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_TASK
+  is '流程任务';
+comment on column WF_TASK.flowtitle
+  is '流程标题';
+

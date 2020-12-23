@@ -1,0 +1,28 @@
+﻿create table WECHAT_USER
+(
+  wuid       VARCHAR2(50) default SYS_GUID(),
+  openid     VARCHAR2(50),
+  usercode   VARCHAR2(50),
+  chargetype VARCHAR2(5),
+  iftax      VARCHAR2(5),
+  status     VARCHAR2(2),
+  username   VARCHAR2(50)
+)
+;
+comment on table WECHAT_USER
+  is '微信用户openid与表号关联';
+comment on column WECHAT_USER.wuid
+  is '主键';
+comment on column WECHAT_USER.openid
+  is '微信OPENID';
+comment on column WECHAT_USER.usercode
+  is '用户水表号';
+comment on column WECHAT_USER.chargetype
+  is '收费方式(X坐收M走收)';
+comment on column WECHAT_USER.iftax
+  is '是否税票';
+comment on column WECHAT_USER.status
+  is '有效状态【sysmeterstatus】(28基建临时用水/27移表中/19销户中/21欠费停水/24故障换表中/25周检中/7销户/1立户/2预立户/29无表/30故障表/31基建正式用水/32基建拆迁止水/34营销部收入用户/36预存冲正中/33补缴用户/35周期换表中)';
+comment on column WECHAT_USER.username
+  is '用户名';
+

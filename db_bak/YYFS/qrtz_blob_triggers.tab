@@ -1,0 +1,11 @@
+﻿create table QRTZ_BLOB_TRIGGERS
+(
+  sched_name    NVARCHAR2(120) not null,
+  trigger_name  NVARCHAR2(200) not null,
+  trigger_group NVARCHAR2(200) not null,
+  blob_data     BLOB
+)
+;
+alter table QRTZ_BLOB_TRIGGERS
+  add primary key (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP);
+

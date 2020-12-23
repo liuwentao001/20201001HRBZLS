@@ -1,0 +1,18 @@
+﻿create table METERCALIBER
+(
+  mcid   NUMBER(10) not null,
+  mcname VARCHAR2(10),
+  mclc   NUMBER(20)
+)
+;
+comment on table METERCALIBER
+  is '口径【MC】';
+comment on column METERCALIBER.mcid
+  is '口径值';
+comment on column METERCALIBER.mcname
+  is '口径名称';
+comment on column METERCALIBER.mclc
+  is '量程';
+alter table METERCALIBER
+  add constraint PK_METERCALIBER primary key (MCID);
+

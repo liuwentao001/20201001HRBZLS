@@ -1,0 +1,63 @@
+﻿create table SMS_LOGLIST
+(
+  l_id            VARCHAR2(50) default SYS_GUID() not null,
+  sendtime        DATE,
+  smstype         VARCHAR2(10),
+  s_usercode      VARCHAR2(20),
+  s_userid        VARCHAR2(20),
+  smsusername     VARCHAR2(100),
+  usermobile      VARCHAR2(20),
+  involvedmoney   NUMBER(7,2),
+  send_success    VARCHAR2(10),
+  sms_context     VARCHAR2(1000),
+  serialno        VARCHAR2(25),
+  yyfgs_code      VARCHAR2(10),
+  yyfgs_name      VARCHAR2(20),
+  action_username VARCHAR2(20),
+  action_phone    VARCHAR2(25),
+  sms_usernumber  VARCHAR2(64),
+  send_states     VARCHAR2(10),
+  accountingmonth VARCHAR2(20)
+)
+;
+comment on table SMS_LOGLIST
+  is '短信日志';
+comment on column SMS_LOGLIST.l_id
+  is '主键';
+comment on column SMS_LOGLIST.sendtime
+  is '发送时间';
+comment on column SMS_LOGLIST.smstype
+  is '短信类型';
+comment on column SMS_LOGLIST.s_usercode
+  is '发送人工号';
+comment on column SMS_LOGLIST.s_userid
+  is '用户表号';
+comment on column SMS_LOGLIST.smsusername
+  is '用户姓名';
+comment on column SMS_LOGLIST.usermobile
+  is '用户电话';
+comment on column SMS_LOGLIST.involvedmoney
+  is '涉及金额';
+comment on column SMS_LOGLIST.send_success
+  is '发送结果';
+comment on column SMS_LOGLIST.sms_context
+  is '发送短信内容';
+comment on column SMS_LOGLIST.serialno
+  is '短信流水号';
+comment on column SMS_LOGLIST.yyfgs_code
+  is '营业分公司编码';
+comment on column SMS_LOGLIST.yyfgs_name
+  is '营业分公司名称';
+comment on column SMS_LOGLIST.action_username
+  is '抄表员';
+comment on column SMS_LOGLIST.action_phone
+  is '抄表员电话';
+comment on column SMS_LOGLIST.sms_usernumber
+  is '账卡号';
+comment on column SMS_LOGLIST.send_states
+  is '发送状态';
+comment on column SMS_LOGLIST.accountingmonth
+  is '账务月份';
+alter table SMS_LOGLIST
+  add constraint LL_ID primary key (L_ID);
+

@@ -1,0 +1,51 @@
+﻿create table WF_FRMNODERELATION
+(
+  frmnoderelationid VARCHAR2(50 CHAR) not null,
+  flownodeid        VARCHAR2(50 CHAR),
+  frmtable          VARCHAR2(50 CHAR),
+  frmfield          VARCHAR2(50 CHAR),
+  displaymark       NUMBER(11),
+  opertype          NUMBER(11),
+  enabled           NUMBER(11),
+  deletemark        NUMBER(11),
+  createdate        DATE,
+  createuserid      VARCHAR2(50 CHAR),
+  createusername    VARCHAR2(50 CHAR),
+  modifydate        DATE,
+  modifyuserid      VARCHAR2(50 CHAR),
+  modifyusername    VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_FRMNODERELATION
+  is '表单节点关系表';
+comment on column WF_FRMNODERELATION.frmnoderelationid
+  is '关系ID';
+comment on column WF_FRMNODERELATION.flownodeid
+  is '节点ID';
+comment on column WF_FRMNODERELATION.frmtable
+  is '表';
+comment on column WF_FRMNODERELATION.frmfield
+  is '表';
+comment on column WF_FRMNODERELATION.displaymark
+  is '表';
+comment on column WF_FRMNODERELATION.opertype
+  is '操作类型（0-只读，1-读写）';
+comment on column WF_FRMNODERELATION.enabled
+  is '有效';
+comment on column WF_FRMNODERELATION.deletemark
+  is '删除标记';
+comment on column WF_FRMNODERELATION.createdate
+  is '创建时间';
+comment on column WF_FRMNODERELATION.createuserid
+  is '创建用户主键';
+comment on column WF_FRMNODERELATION.createusername
+  is '创建用户';
+comment on column WF_FRMNODERELATION.modifydate
+  is '修改时间';
+comment on column WF_FRMNODERELATION.modifyuserid
+  is '修改用户主键';
+comment on column WF_FRMNODERELATION.modifyusername
+  is '修改用户';
+alter table WF_FRMNODERELATION
+  add primary key (FRMNODERELATIONID);
+

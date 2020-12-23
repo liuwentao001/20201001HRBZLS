@@ -1,0 +1,49 @@
+﻿create table YYT_WATERCUTOFF
+(
+  cut_id      VARCHAR2(50) default SYS_GUID(),
+  publishtime DATE default sysdate,
+  content     VARCHAR2(4000),
+  sources     VARCHAR2(20),
+  create_by   VARCHAR2(64),
+  create_time DATE,
+  update_by   VARCHAR2(64),
+  update_time DATE,
+  remark      VARCHAR2(50),
+  title       VARCHAR2(50),
+  type        VARCHAR2(50),
+  states      VARCHAR2(50),
+  titleimg    VARCHAR2(200),
+  introduce   VARCHAR2(200)
+)
+;
+comment on table YYT_WATERCUTOFF
+  is '网上营业厅_停水通知';
+comment on column YYT_WATERCUTOFF.cut_id
+  is '停水通知主键';
+comment on column YYT_WATERCUTOFF.publishtime
+  is '发布时间';
+comment on column YYT_WATERCUTOFF.content
+  is '具体通知内容';
+comment on column YYT_WATERCUTOFF.sources
+  is '信息来源';
+comment on column YYT_WATERCUTOFF.create_by
+  is '创建者';
+comment on column YYT_WATERCUTOFF.create_time
+  is '创建时间';
+comment on column YYT_WATERCUTOFF.update_by
+  is '更新者';
+comment on column YYT_WATERCUTOFF.update_time
+  is '更新时间';
+comment on column YYT_WATERCUTOFF.remark
+  is '备注';
+comment on column YYT_WATERCUTOFF.title
+  is '标题';
+comment on column YYT_WATERCUTOFF.type
+  is '类型';
+comment on column YYT_WATERCUTOFF.states
+  is '状态';
+comment on column YYT_WATERCUTOFF.titleimg
+  is '标题图片';
+comment on column YYT_WATERCUTOFF.introduce
+  is '简介';
+

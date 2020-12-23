@@ -1,0 +1,57 @@
+﻿create table WF_FRMDETAIL
+(
+  frmdetailid    VARCHAR2(50 CHAR) not null,
+  frmattrid      VARCHAR2(50 CHAR),
+  controlname    VARCHAR2(50 CHAR),
+  bindfeild      VARCHAR2(50 CHAR),
+  description    VARCHAR2(50 CHAR),
+  defval         VARCHAR2(200 CHAR),
+  controltype    VARCHAR2(50 CHAR),
+  enabled        NUMBER(11),
+  sortcode       NUMBER(11),
+  deletemark     NUMBER(11),
+  createdate     DATE,
+  createuserid   VARCHAR2(50 CHAR),
+  createusername VARCHAR2(50 CHAR),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50 CHAR),
+  modifyusername VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_FRMDETAIL
+  is '表单明细表';
+comment on column WF_FRMDETAIL.frmdetailid
+  is '表单明细ID';
+comment on column WF_FRMDETAIL.frmattrid
+  is '表单属性ID';
+comment on column WF_FRMDETAIL.controlname
+  is '控件名称';
+comment on column WF_FRMDETAIL.bindfeild
+  is '绑定字段';
+comment on column WF_FRMDETAIL.description
+  is '描述';
+comment on column WF_FRMDETAIL.defval
+  is '默认值';
+comment on column WF_FRMDETAIL.controltype
+  is '控件类型';
+comment on column WF_FRMDETAIL.enabled
+  is '有效';
+comment on column WF_FRMDETAIL.sortcode
+  is '排序码';
+comment on column WF_FRMDETAIL.deletemark
+  is '删除标记';
+comment on column WF_FRMDETAIL.createdate
+  is '创建时间';
+comment on column WF_FRMDETAIL.createuserid
+  is '创建用户主键';
+comment on column WF_FRMDETAIL.createusername
+  is '创建用户';
+comment on column WF_FRMDETAIL.modifydate
+  is '修改时间';
+comment on column WF_FRMDETAIL.modifyuserid
+  is '修改用户主键';
+comment on column WF_FRMDETAIL.modifyusername
+  is '修改用户';
+alter table WF_FRMDETAIL
+  add primary key (FRMDETAILID);
+

@@ -1,4 +1,4 @@
-﻿
+
 旧版 - 供水营收网址
 http://221.212.191.139:60014/ruoyi-admin/login?username=admin&password=admin123&validateCode=5
 admin
@@ -29,7 +29,13 @@ corner2018@
 内网
 192.168.1.253
 
-凯纳供水生产备份
+凯纳供水生产备份--35楼云平台
 221.212.191.142:16421
 administrator
 密码：Admin@123
+
+凯纳供水生产备份--龙岗大屏
+//192.168.1.116/d
+hrbzls
+hrbzls
+sqlplus test/test@192.168.1.116/orcl

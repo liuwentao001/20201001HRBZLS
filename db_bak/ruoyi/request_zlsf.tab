@@ -1,0 +1,110 @@
+﻿create table REQUEST_ZLSF
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  ciadr          VARCHAR2(100),
+  ciifinv        CHAR(1),
+  ciname1        VARCHAR2(100),
+  ciadr1         VARCHAR2(100),
+  miid           VARCHAR2(10),
+  mipfid         VARCHAR2(10),
+  miadr          VARCHAR2(100),
+  mibfid         VARCHAR2(10),
+  mircode        NUMBER(10),
+  mirecdate      DATE,
+  reifreset      CHAR(1),
+  rercode        NUMBER(10),
+  recdate        DATE,
+  retype         VARCHAR2(50),
+  reifstep       CHAR(1),
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_ZLSF
+  is '追量收费表';
+comment on column REQUEST_ZLSF.reno
+  is '单据流水号';
+comment on column REQUEST_ZLSF.resmfid
+  is '营销公司';
+comment on column REQUEST_ZLSF.ciid
+  is '用户号';
+comment on column REQUEST_ZLSF.ciname
+  is '用户名';
+comment on column REQUEST_ZLSF.ciadr
+  is '用户地址';
+comment on column REQUEST_ZLSF.ciifinv
+  is '是否普票';
+comment on column REQUEST_ZLSF.ciname1
+  is '票据名称';
+comment on column REQUEST_ZLSF.ciadr1
+  is '票据地址';
+comment on column REQUEST_ZLSF.miid
+  is '水表档案号';
+comment on column REQUEST_ZLSF.mipfid
+  is '用水性质(priceframe)';
+comment on column REQUEST_ZLSF.miadr
+  is '表地址';
+comment on column REQUEST_ZLSF.mibfid
+  is '表册(bookframe)';
+comment on column REQUEST_ZLSF.mircode
+  is '上期指针';
+comment on column REQUEST_ZLSF.mirecdate
+  is '上期抄见日期';
+comment on column REQUEST_ZLSF.reifreset
+  is '是否重置指针';
+comment on column REQUEST_ZLSF.rercode
+  is '本期指针';
+comment on column REQUEST_ZLSF.recdate
+  is '本期抄见日期';
+comment on column REQUEST_ZLSF.retype
+  is '追补类别';
+comment on column REQUEST_ZLSF.reifstep
+  is '是否纳入阶梯';
+comment on column REQUEST_ZLSF.reappnote
+  is '申请说明';
+comment on column REQUEST_ZLSF.restaus
+  is '当前审批环节';
+comment on column REQUEST_ZLSF.reper
+  is '当前审批人';
+comment on column REQUEST_ZLSF.reflag
+  is '当前审批状';
+comment on column REQUEST_ZLSF.sortcode
+  is '序号';
+comment on column REQUEST_ZLSF.deletemark
+  is '删除标识';
+comment on column REQUEST_ZLSF.createdate
+  is '创建时间';
+comment on column REQUEST_ZLSF.createuserid
+  is '创建人ID';
+comment on column REQUEST_ZLSF.createusername
+  is '创建人';
+comment on column REQUEST_ZLSF.modifydate
+  is '修改时间';
+comment on column REQUEST_ZLSF.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_ZLSF.modifyusername
+  is '修改人';
+comment on column REQUEST_ZLSF.remark
+  is '备注';
+comment on column REQUEST_ZLSF.workno
+  is '单据编号';
+comment on column REQUEST_ZLSF.workbatch
+  is '批次号';
+

@@ -1,0 +1,23 @@
+﻿create table QRTZ_TRIGGERS
+(
+  sched_name     NVARCHAR2(120) not null,
+  trigger_name   NVARCHAR2(200) not null,
+  trigger_group  NVARCHAR2(200) not null,
+  job_name       NVARCHAR2(200) not null,
+  job_group      NVARCHAR2(200) not null,
+  description    NVARCHAR2(250),
+  next_fire_time NUMBER(20),
+  prev_fire_time NUMBER(20),
+  priority       NUMBER(11),
+  trigger_state  NVARCHAR2(16) not null,
+  trigger_type   NVARCHAR2(8) not null,
+  start_time     NUMBER(20) not null,
+  end_time       NUMBER(20),
+  calendar_name  NVARCHAR2(200),
+  misfire_instr  NUMBER(6),
+  job_data       BLOB
+)
+;
+alter table QRTZ_TRIGGERS
+  add primary key (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP);
+

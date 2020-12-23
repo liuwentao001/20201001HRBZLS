@@ -1,0 +1,48 @@
+﻿create table WF_FLOWNODEROLE
+(
+  flownoderoleid VARCHAR2(50 CHAR) not null,
+  flownodeid     VARCHAR2(50 CHAR),
+  objectid       VARCHAR2(50 CHAR),
+  objecttype     NUMBER(11),
+  enabled        NUMBER(11),
+  deletemark     NUMBER(11),
+  createdate     DATE,
+  createuserid   VARCHAR2(50 CHAR),
+  createusername VARCHAR2(50 CHAR),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50 CHAR),
+  modifyusername VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_FLOWNODEROLE
+  is '节点权限表';
+comment on column WF_FLOWNODEROLE.flownoderoleid
+  is '节点权限ID';
+comment on column WF_FLOWNODEROLE.flownodeid
+  is '流程节点ID';
+comment on column WF_FLOWNODEROLE.objectid
+  is '对象ID';
+comment on column WF_FLOWNODEROLE.objecttype
+  is '对象类型';
+comment on column WF_FLOWNODEROLE.enabled
+  is '有效';
+comment on column WF_FLOWNODEROLE.deletemark
+  is '删除标记';
+comment on column WF_FLOWNODEROLE.createdate
+  is '创建时间';
+comment on column WF_FLOWNODEROLE.createuserid
+  is '创建用户主键';
+comment on column WF_FLOWNODEROLE.createusername
+  is '创建用户';
+comment on column WF_FLOWNODEROLE.modifydate
+  is '修改时间';
+comment on column WF_FLOWNODEROLE.modifyuserid
+  is '修改用户主键';
+comment on column WF_FLOWNODEROLE.modifyusername
+  is '修改用户';
+alter table WF_FLOWNODEROLE
+  add primary key (FLOWNODEROLEID);
+alter table WF_FLOWNODEROLE
+  add foreign key (FLOWNODEID)
+  references WF_FLOWNODE (FLOWNODEID);
+

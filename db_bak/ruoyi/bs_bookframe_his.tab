@@ -1,0 +1,85 @@
+﻿create table BS_BOOKFRAME_HIS
+(
+  bfid       VARCHAR2(10) not null,
+  bfsmfid    VARCHAR2(10) not null,
+  bfbatch    NUMBER(2),
+  bfname     VARCHAR2(60),
+  bfpid      VARCHAR2(10),
+  bfclass    NUMBER,
+  bfflag     CHAR(1),
+  bfstatus   CHAR(1),
+  bfhandles  NUMBER(10),
+  bfmemo     VARCHAR2(60),
+  bforder    NUMBER,
+  bfcreper   VARCHAR2(15),
+  bfcredate  DATE,
+  bfrcyc     NUMBER(2),
+  bflb       CHAR(1),
+  bfrper     VARCHAR2(15),
+  bfsafid    VARCHAR2(10),
+  bfnrmonth  VARCHAR2(7),
+  bfday      NUMBER,
+  bfsdate    DATE,
+  bfedate    DATE,
+  bfmonth    VARCHAR2(7),
+  bfpper     VARCHAR2(15),
+  bfjtsny    VARCHAR2(15),
+  bfoperator VARCHAR2(15),
+  bfopertime DATE
+)
+;
+comment on table BS_BOOKFRAME_HIS
+  is '表册历史修改记录';
+comment on column BS_BOOKFRAME_HIS.bfid
+  is '编码';
+comment on column BS_BOOKFRAME_HIS.bfsmfid
+  is '营销公司';
+comment on column BS_BOOKFRAME_HIS.bfbatch
+  is '抄表批次';
+comment on column BS_BOOKFRAME_HIS.bfname
+  is '名称';
+comment on column BS_BOOKFRAME_HIS.bfpid
+  is '上级编码';
+comment on column BS_BOOKFRAME_HIS.bfclass
+  is '级次';
+comment on column BS_BOOKFRAME_HIS.bfflag
+  is '末级标志';
+comment on column BS_BOOKFRAME_HIS.bfstatus
+  is '有效状态';
+comment on column BS_BOOKFRAME_HIS.bfhandles
+  is '下级数量';
+comment on column BS_BOOKFRAME_HIS.bfmemo
+  is '备注';
+comment on column BS_BOOKFRAME_HIS.bforder
+  is '册间次序';
+comment on column BS_BOOKFRAME_HIS.bfcreper
+  is '创建人';
+comment on column BS_BOOKFRAME_HIS.bfcredate
+  is '创建日期';
+comment on column BS_BOOKFRAME_HIS.bfrcyc
+  is '抄表周期';
+comment on column BS_BOOKFRAME_HIS.bflb
+  is '表册类别';
+comment on column BS_BOOKFRAME_HIS.bfrper
+  is '抄表员';
+comment on column BS_BOOKFRAME_HIS.bfsafid
+  is '区域';
+comment on column BS_BOOKFRAME_HIS.bfnrmonth
+  is '下次抄表月份';
+comment on column BS_BOOKFRAME_HIS.bfday
+  is '偏移天数';
+comment on column BS_BOOKFRAME_HIS.bfsdate
+  is '计划起始日期';
+comment on column BS_BOOKFRAME_HIS.bfedate
+  is '计划结束日期';
+comment on column BS_BOOKFRAME_HIS.bfmonth
+  is '本期抄表月份';
+comment on column BS_BOOKFRAME_HIS.bfpper
+  is '收费员';
+comment on column BS_BOOKFRAME_HIS.bfjtsny
+  is '阶梯开始月';
+comment on column BS_BOOKFRAME_HIS.bfoperator
+  is '操作人';
+comment on column BS_BOOKFRAME_HIS.bfopertime
+  is '操作时间';
+

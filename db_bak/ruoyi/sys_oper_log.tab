@@ -1,0 +1,54 @@
+﻿create table SYS_OPER_LOG
+(
+  oper_id        NUMBER(20) not null,
+  title          VARCHAR2(50) default '',
+  business_type  NUMBER(2) default 0,
+  method         VARCHAR2(100) default '',
+  request_method VARCHAR2(10) default '',
+  operator_type  NUMBER(1) default 0,
+  oper_name      VARCHAR2(50) default '',
+  dept_name      VARCHAR2(50) default '',
+  oper_url       VARCHAR2(255) default '',
+  oper_ip        VARCHAR2(50) default '',
+  oper_location  VARCHAR2(255) default '',
+  oper_param     VARCHAR2(4000) default '',
+  status         NUMBER(1) default 0,
+  error_msg      VARCHAR2(4000) default '',
+  oper_time      DATE
+)
+;
+comment on table SYS_OPER_LOG
+  is '操作日志记录';
+comment on column SYS_OPER_LOG.oper_id
+  is '日志主键seq_sys_oper_log.nextval';
+comment on column SYS_OPER_LOG.title
+  is '模块标题';
+comment on column SYS_OPER_LOG.business_type
+  is '业务类型（0其它 1新增 2修改 3删除）';
+comment on column SYS_OPER_LOG.method
+  is '方法名称';
+comment on column SYS_OPER_LOG.request_method
+  is '请求方式';
+comment on column SYS_OPER_LOG.operator_type
+  is '操作类别（0其它 1后台用户 2手机端用户）';
+comment on column SYS_OPER_LOG.oper_name
+  is '操作人员';
+comment on column SYS_OPER_LOG.dept_name
+  is '部门名称';
+comment on column SYS_OPER_LOG.oper_url
+  is '请求URL';
+comment on column SYS_OPER_LOG.oper_ip
+  is '主机地址';
+comment on column SYS_OPER_LOG.oper_location
+  is '操作地点';
+comment on column SYS_OPER_LOG.oper_param
+  is '请求参数';
+comment on column SYS_OPER_LOG.status
+  is '操作状态（0正常 1异常）';
+comment on column SYS_OPER_LOG.error_msg
+  is '错误消息';
+comment on column SYS_OPER_LOG.oper_time
+  is '操作时间';
+alter table SYS_OPER_LOG
+  add constraint PK_SYS_OPER_LOG primary key (OPER_ID);
+

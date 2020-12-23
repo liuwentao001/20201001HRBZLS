@@ -1,0 +1,34 @@
+﻿create table ZD_INVOICE
+(
+  id       VARCHAR2(10),
+  ciid     VARCHAR2(10),
+  name     VARCHAR2(100),
+  isflag   CHAR(1),
+  taxno    VARCHAR2(20),
+  tax      NUMBER(12,3),
+  bankname VARCHAR2(100),
+  bankno   VARCHAR2(50),
+  code     VARCHAR2(50)
+)
+;
+comment on table ZD_INVOICE
+  is '发票信息';
+comment on column ZD_INVOICE.id
+  is '发票Id';
+comment on column ZD_INVOICE.ciid
+  is '用户编号';
+comment on column ZD_INVOICE.name
+  is '票据名称';
+comment on column ZD_INVOICE.isflag
+  is '是否税票';
+comment on column ZD_INVOICE.taxno
+  is '发票代码';
+comment on column ZD_INVOICE.tax
+  is '税额比例';
+comment on column ZD_INVOICE.bankname
+  is '开户行名称';
+comment on column ZD_INVOICE.bankno
+  is '开户行账号';
+comment on column ZD_INVOICE.code
+  is '发票代码';
+

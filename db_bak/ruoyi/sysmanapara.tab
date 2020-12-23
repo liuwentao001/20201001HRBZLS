@@ -1,0 +1,24 @@
+﻿create table SYSMANAPARA
+(
+  smpid     VARCHAR2(10) not null,
+  smppid    VARCHAR2(10) not null,
+  smppdesc  VARCHAR2(100),
+  smppvalue VARCHAR2(4000),
+  smpptype  CHAR(1)
+)
+;
+comment on table SYSMANAPARA
+  is '管理架构参数【SMP】找到类似功能表后删除';
+comment on column SYSMANAPARA.smpid
+  is '管理架构编码';
+comment on column SYSMANAPARA.smppid
+  is '参数编码';
+comment on column SYSMANAPARA.smppdesc
+  is '参数描述';
+comment on column SYSMANAPARA.smppvalue
+  is '参数内容';
+comment on column SYSMANAPARA.smpptype
+  is '参数数据类型';
+alter table SYSMANAPARA
+  add constraint PK_SYSMANAPARA primary key (SMPID, SMPPID);
+

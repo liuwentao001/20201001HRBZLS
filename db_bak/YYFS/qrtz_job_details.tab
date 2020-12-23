@@ -1,0 +1,15 @@
+﻿create table QRTZ_JOB_DETAILS
+(
+  sched_name        NVARCHAR2(120) not null,
+  job_name          NVARCHAR2(200) not null,
+  job_group         NVARCHAR2(200) not null,
+  description       NVARCHAR2(250),
+  job_class_name    NVARCHAR2(250) not null,
+  is_durable        NVARCHAR2(1) not null,
+  is_nonconcurrent  NVARCHAR2(1) not null,
+  is_update_data    NVARCHAR2(1) not null,
+  requests_recovery NVARCHAR2(1) not null,
+  job_data          BLOB
+)
+;
+

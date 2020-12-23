@@ -1,0 +1,10 @@
+﻿create table QRTZ_CALENDARS
+(
+  sched_name    VARCHAR2(120) not null,
+  calendar_name VARCHAR2(200) not null,
+  calendar      BLOB not null
+)
+;
+alter table QRTZ_CALENDARS
+  add constraint QRTZ_CALENDARS_PK primary key (SCHED_NAME, CALENDAR_NAME);
+

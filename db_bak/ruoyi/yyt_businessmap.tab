@@ -1,0 +1,42 @@
+﻿create table YYT_BUSINESSMAP
+(
+  m_id        VARCHAR2(50) default SYS_GUID() not null,
+  posion      VARCHAR2(50),
+  longitude   VARCHAR2(50),
+  latitude    VARCHAR2(50),
+  name        VARCHAR2(50),
+  office      VARCHAR2(50),
+  create_by   VARCHAR2(64),
+  create_time DATE,
+  update_by   VARCHAR2(64),
+  update_time DATE,
+  dt          VARCHAR2(50)
+)
+;
+comment on table YYT_BUSINESSMAP
+  is '营业网点';
+comment on column YYT_BUSINESSMAP.m_id
+  is '主键';
+comment on column YYT_BUSINESSMAP.posion
+  is '详细地址';
+comment on column YYT_BUSINESSMAP.longitude
+  is '经度';
+comment on column YYT_BUSINESSMAP.latitude
+  is '纬度';
+comment on column YYT_BUSINESSMAP.name
+  is '营业厅名称';
+comment on column YYT_BUSINESSMAP.office
+  is '办公地址';
+comment on column YYT_BUSINESSMAP.create_by
+  is '创建者';
+comment on column YYT_BUSINESSMAP.create_time
+  is '创建时间';
+comment on column YYT_BUSINESSMAP.update_by
+  is '更新者';
+comment on column YYT_BUSINESSMAP.update_time
+  is '更新时间';
+comment on column YYT_BUSINESSMAP.dt
+  is '售水大厅';
+alter table YYT_BUSINESSMAP
+  add constraint MAP_PK primary key (M_ID);
+

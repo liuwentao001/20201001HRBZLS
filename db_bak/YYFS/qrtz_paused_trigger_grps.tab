@@ -1,0 +1,7 @@
+﻿create table QRTZ_PAUSED_TRIGGER_GRPS
+(
+  sched_name    NVARCHAR2(120) not null,
+  trigger_group NVARCHAR2(200) not null
+)
+;
+

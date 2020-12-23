@@ -1,0 +1,99 @@
+﻿create table WF_FLOWMAIN
+(
+  flowmainid     VARCHAR2(50 CHAR) not null,
+  flowcode       VARCHAR2(50 CHAR),
+  fullname       VARCHAR2(200 CHAR),
+  runway         VARCHAR2(50 CHAR),
+  flowjson       CLOB,
+  remark         VARCHAR2(200 CHAR),
+  linkurl        VARCHAR2(200 CHAR),
+  frmtype        VARCHAR2(50 CHAR),
+  category       VARCHAR2(50 CHAR),
+  runsql         CLOB,
+  isbill         NUMBER(11),
+  isjointable    NUMBER(11),
+  iscc           NUMBER(11),
+  ccrole         CLOB,
+  validdays      NUMBER,
+  versionno      NUMBER(11),
+  enabled        NUMBER(11),
+  sortcode       NUMBER(11),
+  deletemark     NUMBER(11),
+  createdate     DATE default sysdate,
+  createuserid   VARCHAR2(50 CHAR),
+  createusername VARCHAR2(50 CHAR),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50 CHAR),
+  modifyusername VARCHAR2(50 CHAR),
+  bindtable      VARCHAR2(50 CHAR),
+  flowjoinkey    VARCHAR2(50 CHAR),
+  sp_frmtype     VARCHAR2(50 CHAR),
+  validstart     DATE,
+  validend       DATE
+)
+;
+comment on table WF_FLOWMAIN
+  is '自定义流程模板';
+comment on column WF_FLOWMAIN.flowmainid
+  is '流程模板ID';
+comment on column WF_FLOWMAIN.flowcode
+  is '流程编号';
+comment on column WF_FLOWMAIN.fullname
+  is '流程模板名称';
+comment on column WF_FLOWMAIN.runway
+  is '运行方式,枚举类型:0 手工启动;1 指定人员按时启动;2 数据集按时启动;3 触发式启动;';
+comment on column WF_FLOWMAIN.flowjson
+  is '流程Json';
+comment on column WF_FLOWMAIN.remark
+  is '备注';
+comment on column WF_FLOWMAIN.linkurl
+  is '导航URL';
+comment on column WF_FLOWMAIN.frmtype
+  is '表单类型';
+comment on column WF_FLOWMAIN.category
+  is '流程分类';
+comment on column WF_FLOWMAIN.runsql
+  is '流程完成后执行的SQL';
+comment on column WF_FLOWMAIN.isbill
+  is '是否有单据';
+comment on column WF_FLOWMAIN.isjointable
+  is '是否有关联表';
+comment on column WF_FLOWMAIN.iscc
+  is '结束后抄送参与人员';
+comment on column WF_FLOWMAIN.ccrole
+  is '要抄送的岗位';
+comment on column WF_FLOWMAIN.validdays
+  is '流程有效天数';
+comment on column WF_FLOWMAIN.versionno
+  is '版本号';
+comment on column WF_FLOWMAIN.enabled
+  is '有效';
+comment on column WF_FLOWMAIN.sortcode
+  is '排序码';
+comment on column WF_FLOWMAIN.deletemark
+  is '删除标记';
+comment on column WF_FLOWMAIN.createdate
+  is '创建时间';
+comment on column WF_FLOWMAIN.createuserid
+  is '创建用户主键';
+comment on column WF_FLOWMAIN.createusername
+  is '创建用户';
+comment on column WF_FLOWMAIN.modifydate
+  is '修改时间';
+comment on column WF_FLOWMAIN.modifyuserid
+  is '修改用户主键';
+comment on column WF_FLOWMAIN.modifyusername
+  is '修改用户';
+comment on column WF_FLOWMAIN.bindtable
+  is '绑定表名';
+comment on column WF_FLOWMAIN.flowjoinkey
+  is '绑定字段';
+comment on column WF_FLOWMAIN.sp_frmtype
+  is '关联模块';
+comment on column WF_FLOWMAIN.validstart
+  is '有效日期开始时间';
+comment on column WF_FLOWMAIN.validend
+  is '有效日期结束时间';
+alter table WF_FLOWMAIN
+  add primary key (FLOWMAINID);
+

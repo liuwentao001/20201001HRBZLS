@@ -1,0 +1,38 @@
+﻿create table BS_METERPICTURE
+(
+  mpmiid      VARCHAR2(10) not null,
+  pmsize      NUMBER,
+  pmpath      VARCHAR2(400) not null,
+  pmtime      DATE,
+  pmbz        VARCHAR2(100),
+  pmper       VARCHAR2(10),
+  pmpname     VARCHAR2(30),
+  ciid        VARCHAR2(10),
+  pmfact_path VARCHAR2(400),
+  tspmtime    DATE
+)
+;
+comment on table BS_METERPICTURE
+  is '水表图片信息表【PM】';
+comment on column BS_METERPICTURE.mpmiid
+  is '水表编号（meterinfo.miid）';
+comment on column BS_METERPICTURE.pmsize
+  is '图片大小';
+comment on column BS_METERPICTURE.pmpath
+  is '路径';
+comment on column BS_METERPICTURE.pmtime
+  is '上传时间';
+comment on column BS_METERPICTURE.pmbz
+  is '备注';
+comment on column BS_METERPICTURE.pmper
+  is '营销员编号';
+comment on column BS_METERPICTURE.pmpname
+  is '姓名';
+comment on column BS_METERPICTURE.ciid
+  is '客户编号';
+comment on column BS_METERPICTURE.pmfact_path
+  is '真实路径';
+comment on column BS_METERPICTURE.tspmtime
+  is '图片上传';
+create index IDXS_MPMIID on BS_METERPICTURE (MPMIID);
+

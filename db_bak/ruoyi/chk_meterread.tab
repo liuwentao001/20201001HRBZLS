@@ -1,0 +1,32 @@
+﻿create table CHK_METERREAD
+(
+  id        NUMBER,
+  usetype   VARCHAR2(10) not null,
+  chk_field VARCHAR2(20),
+  scale_h   NUMBER,
+  scale_l   NUMBER,
+  use_h     NUMBER,
+  use_l     NUMBER,
+  total_h   NUMBER,
+  total_l   NUMBER
+)
+;
+comment on column CHK_METERREAD.id
+  is '序号';
+comment on column CHK_METERREAD.usetype
+  is '用水类别';
+comment on column CHK_METERREAD.chk_field
+  is '比较字段';
+comment on column CHK_METERREAD.scale_h
+  is '超上限比例';
+comment on column CHK_METERREAD.scale_l
+  is '超下限比例';
+comment on column CHK_METERREAD.use_h
+  is '超上限相对用量';
+comment on column CHK_METERREAD.use_l
+  is '超下限相对用量';
+comment on column CHK_METERREAD.total_h
+  is '超上限绝对用量';
+comment on column CHK_METERREAD.total_l
+  is '超下限绝对用量';
+

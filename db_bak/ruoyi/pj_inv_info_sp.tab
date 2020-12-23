@@ -1,0 +1,325 @@
+﻿create table PJ_INV_INFO_SP
+(
+  id          VARCHAR2(10) not null,
+  isid        VARCHAR2(10),
+  ispcisno    VARCHAR2(40),
+  dyfs        VARCHAR2(10),
+  printnum    NUMBER(10),
+  status      CHAR(1),
+  fkfs        VARCHAR2(2),
+  cplx        VARCHAR2(2),
+  cpfs        CHAR(2),
+  ppbatch     VARCHAR2(10),
+  batch       VARCHAR2(10),
+  flag        CHAR(1),
+  fkje        NUMBER(12,4),
+  xzje        NUMBER(12,4),
+  znj         NUMBER(12,4),
+  sxf         NUMBER(12,4),
+  jmje        NUMBER(12,4) not null,
+  qcsaving    NUMBER(12,4),
+  qmsaving    NUMBER(12,4),
+  bqsaving    NUMBER(12,4),
+  czper       VARCHAR2(10),
+  czdate      DATE,
+  jzdid       VARCHAR2(20),
+  reverseflag VARCHAR2(1),
+  statusmemo  VARCHAR2(600),
+  dj          NUMBER(12,4),
+  dj1         NUMBER(12,4),
+  dj2         NUMBER(12,4),
+  dj3         NUMBER(12,4),
+  dj4         NUMBER(12,4),
+  dj5         NUMBER(12,4),
+  dj6         NUMBER(12,4),
+  dj7         NUMBER(12,4),
+  dj8         NUMBER(12,4),
+  dj9         NUMBER(12,4),
+  memo03      VARCHAR2(1000),
+  memo04      VARCHAR2(1000),
+  memo05      VARCHAR2(1000),
+  memo06      VARCHAR2(1000),
+  memo07      VARCHAR2(1000),
+  memo08      VARCHAR2(1000),
+  memo09      VARCHAR2(1000),
+  memo10      VARCHAR2(1000),
+  memo11      VARCHAR2(1000),
+  memo12      VARCHAR2(1000),
+  memo13      VARCHAR2(1000),
+  memo14      VARCHAR2(1000),
+  memo15      VARCHAR2(1000),
+  memo16      VARCHAR2(1000),
+  memo17      VARCHAR2(1000),
+  memo18      VARCHAR2(1000),
+  memo19      VARCHAR2(1000),
+  memo20      VARCHAR2(2000),
+  n1          NUMBER(12,4),
+  n2          NUMBER(12,4),
+  n3          NUMBER(12,4),
+  n4          NUMBER(12,4),
+  n5          NUMBER(12,4),
+  n6          NUMBER(12,4),
+  n7          NUMBER(12,4),
+  n8          NUMBER(12,4),
+  n9          NUMBER(12,4),
+  micode      VARCHAR2(20),
+  kpname      VARCHAR2(300),
+  miuiid      VARCHAR2(10),
+  kpdz        VARCHAR2(300),
+  kpzh        VARCHAR2(300),
+  kpkhm       VARCHAR2(300),
+  kpkhyh      VARCHAR2(300),
+  kpskzh      VARCHAR2(300),
+  kpskhm      VARCHAR2(300),
+  kpskyh      VARCHAR2(300),
+  kpcbjq      DATE,
+  kprq        DATE,
+  kpzwmonth   VARCHAR2(20),
+  kpmonth     VARCHAR2(10),
+  kpsfy       VARCHAR2(100),
+  kpcby       VARCHAR2(100),
+  kpdyy       VARCHAR2(100),
+  kpqm        NUMBER,
+  kpzm        NUMBER,
+  kpcbsl      NUMBER,
+  kptzsl      NUMBER,
+  kpsssl      NUMBER,
+  kpje        NUMBER,
+  kpjtdj1     NUMBER(12,4),
+  kpjtdj2     NUMBER(12,4),
+  kpjtdj3     NUMBER(12,4),
+  kpjtsl1     NUMBER,
+  kpjtsl2     NUMBER,
+  kpjtsl3     NUMBER,
+  kpjtje1     NUMBER(12,4),
+  kpjtje2     NUMBER(12,4),
+  kpjtje3     NUMBER(12,4),
+  kpje1       NUMBER(12,4),
+  kpje2       NUMBER(12,4),
+  kpje3       NUMBER(12,4),
+  kpje4       NUMBER(12,4),
+  kpje5       NUMBER(12,4),
+  kpje6       NUMBER(12,4),
+  kpje7       NUMBER(12,4),
+  kpje8       NUMBER(12,4),
+  kpje9       NUMBER(12,4),
+  rlid        VARCHAR2(10),
+  pid         VARCHAR2(10),
+  kpsqcbrq    DATE
+)
+;
+comment on table PJ_INV_INFO_SP
+  is '票据';
+comment on column PJ_INV_INFO_SP.id
+  is '出票流水号';
+comment on column PJ_INV_INFO_SP.isid
+  is '发票流水号';
+comment on column PJ_INV_INFO_SP.ispcisno
+  is '票据批次||号码';
+comment on column PJ_INV_INFO_SP.dyfs
+  is '打印方式(0.柜台正常，1. 柜台补打，2.微信申领，3.门户网站申领)';
+comment on column PJ_INV_INFO_SP.printnum
+  is '打印次数';
+comment on column PJ_INV_INFO_SP.status
+  is '状态(0，正常、1, 作废、2,红票、3,蓝票';
+comment on column PJ_INV_INFO_SP.fkfs
+  is '付款类型(xj 现金,zp,支票';
+comment on column PJ_INV_INFO_SP.cplx
+  is '出票类型（p,实收出账,l，应收出账）';
+comment on column PJ_INV_INFO_SP.cpfs
+  is '出票方式（合票、分票、预存票、存折，稽查,.......）';
+comment on column PJ_INV_INFO_SP.ppbatch
+  is '打印批次';
+comment on column PJ_INV_INFO_SP.batch
+  is '实收批次';
+comment on column PJ_INV_INFO_SP.flag
+  is '销账标志';
+comment on column PJ_INV_INFO_SP.fkje
+  is '付款金额';
+comment on column PJ_INV_INFO_SP.xzje
+  is '销账金额';
+comment on column PJ_INV_INFO_SP.znj
+  is '滞纳金';
+comment on column PJ_INV_INFO_SP.sxf
+  is '手续费';
+comment on column PJ_INV_INFO_SP.jmje
+  is '减免金额';
+comment on column PJ_INV_INFO_SP.qcsaving
+  is '上次结存';
+comment on column PJ_INV_INFO_SP.qmsaving
+  is '本次结存';
+comment on column PJ_INV_INFO_SP.bqsaving
+  is '本期预存发生';
+comment on column PJ_INV_INFO_SP.czper
+  is '冲正人员';
+comment on column PJ_INV_INFO_SP.czdate
+  is '冲正日期';
+comment on column PJ_INV_INFO_SP.jzdid
+  is '进账单流水';
+comment on column PJ_INV_INFO_SP.reverseflag
+  is '冲正标志（N为正常，Y为冲正）';
+comment on column PJ_INV_INFO_SP.statusmemo
+  is '状态原因';
+comment on column PJ_INV_INFO_SP.dj
+  is '单价';
+comment on column PJ_INV_INFO_SP.dj1
+  is '单价1';
+comment on column PJ_INV_INFO_SP.dj2
+  is '单价2';
+comment on column PJ_INV_INFO_SP.dj3
+  is '单价3';
+comment on column PJ_INV_INFO_SP.dj4
+  is '单价4';
+comment on column PJ_INV_INFO_SP.dj5
+  is '单价5';
+comment on column PJ_INV_INFO_SP.dj6
+  is '单价6';
+comment on column PJ_INV_INFO_SP.dj7
+  is '单价7';
+comment on column PJ_INV_INFO_SP.dj8
+  is '单价8';
+comment on column PJ_INV_INFO_SP.dj9
+  is '单价9';
+comment on column PJ_INV_INFO_SP.memo03
+  is '备注3';
+comment on column PJ_INV_INFO_SP.memo04
+  is '备注4';
+comment on column PJ_INV_INFO_SP.memo05
+  is '备注5';
+comment on column PJ_INV_INFO_SP.memo06
+  is '备注6';
+comment on column PJ_INV_INFO_SP.memo07
+  is '备注7';
+comment on column PJ_INV_INFO_SP.memo08
+  is '备注8';
+comment on column PJ_INV_INFO_SP.memo09
+  is '备注9';
+comment on column PJ_INV_INFO_SP.memo10
+  is '备注10';
+comment on column PJ_INV_INFO_SP.memo11
+  is '备注11';
+comment on column PJ_INV_INFO_SP.memo12
+  is '备注12';
+comment on column PJ_INV_INFO_SP.memo13
+  is '备注13';
+comment on column PJ_INV_INFO_SP.memo14
+  is '备注14';
+comment on column PJ_INV_INFO_SP.memo15
+  is '备注15';
+comment on column PJ_INV_INFO_SP.memo16
+  is '备注16';
+comment on column PJ_INV_INFO_SP.memo17
+  is '备注17';
+comment on column PJ_INV_INFO_SP.memo18
+  is '备注18';
+comment on column PJ_INV_INFO_SP.memo19
+  is '备注19';
+comment on column PJ_INV_INFO_SP.memo20
+  is '备注20';
+comment on column PJ_INV_INFO_SP.n1
+  is '数值1';
+comment on column PJ_INV_INFO_SP.n2
+  is '数值2';
+comment on column PJ_INV_INFO_SP.n3
+  is '数值3';
+comment on column PJ_INV_INFO_SP.n4
+  is '数值4';
+comment on column PJ_INV_INFO_SP.n5
+  is '数值5';
+comment on column PJ_INV_INFO_SP.n6
+  is '数值6';
+comment on column PJ_INV_INFO_SP.n7
+  is '数值7';
+comment on column PJ_INV_INFO_SP.n8
+  is '数值8';
+comment on column PJ_INV_INFO_SP.n9
+  is '数值9';
+comment on column PJ_INV_INFO_SP.micode
+  is '客户代码';
+comment on column PJ_INV_INFO_SP.kpname
+  is '票据名称';
+comment on column PJ_INV_INFO_SP.miuiid
+  is '托收号';
+comment on column PJ_INV_INFO_SP.kpdz
+  is '开票地址';
+comment on column PJ_INV_INFO_SP.kpzh
+  is '账号';
+comment on column PJ_INV_INFO_SP.kpkhm
+  is '开户名';
+comment on column PJ_INV_INFO_SP.kpkhyh
+  is '开户银行';
+comment on column PJ_INV_INFO_SP.kpskzh
+  is '公司收款账号';
+comment on column PJ_INV_INFO_SP.kpskhm
+  is '公司收款名';
+comment on column PJ_INV_INFO_SP.kpskyh
+  is '公司收款银行';
+comment on column PJ_INV_INFO_SP.kpcbjq
+  is '抄表日期';
+comment on column PJ_INV_INFO_SP.kprq
+  is '开票日期';
+comment on column PJ_INV_INFO_SP.kpzwmonth
+  is '账务月份';
+comment on column PJ_INV_INFO_SP.kpmonth
+  is '开票月份';
+comment on column PJ_INV_INFO_SP.kpsfy
+  is '收费员';
+comment on column PJ_INV_INFO_SP.kpcby
+  is '抄表员';
+comment on column PJ_INV_INFO_SP.kpdyy
+  is '打印员';
+comment on column PJ_INV_INFO_SP.kpqm
+  is '起码';
+comment on column PJ_INV_INFO_SP.kpzm
+  is '止码';
+comment on column PJ_INV_INFO_SP.kpcbsl
+  is '抄表水量';
+comment on column PJ_INV_INFO_SP.kptzsl
+  is '调整水量';
+comment on column PJ_INV_INFO_SP.kpsssl
+  is '实收水量';
+comment on column PJ_INV_INFO_SP.kpje
+  is '应收总金额';
+comment on column PJ_INV_INFO_SP.kpjtdj1
+  is '一阶单价';
+comment on column PJ_INV_INFO_SP.kpjtdj2
+  is '二阶单价';
+comment on column PJ_INV_INFO_SP.kpjtdj3
+  is '三阶单价';
+comment on column PJ_INV_INFO_SP.kpjtsl1
+  is '一阶水量';
+comment on column PJ_INV_INFO_SP.kpjtsl2
+  is '二阶水量';
+comment on column PJ_INV_INFO_SP.kpjtsl3
+  is '三阶水量';
+comment on column PJ_INV_INFO_SP.kpjtje1
+  is '一阶金额';
+comment on column PJ_INV_INFO_SP.kpjtje2
+  is '二阶金额';
+comment on column PJ_INV_INFO_SP.kpjtje3
+  is '三阶金额';
+comment on column PJ_INV_INFO_SP.kpje1
+  is '金额1';
+comment on column PJ_INV_INFO_SP.kpje2
+  is '金额2';
+comment on column PJ_INV_INFO_SP.kpje3
+  is '金额3';
+comment on column PJ_INV_INFO_SP.kpje4
+  is '金额4';
+comment on column PJ_INV_INFO_SP.kpje5
+  is '金额5';
+comment on column PJ_INV_INFO_SP.kpje6
+  is '金额6';
+comment on column PJ_INV_INFO_SP.kpje7
+  is '金额7';
+comment on column PJ_INV_INFO_SP.kpje8
+  is '金额8';
+comment on column PJ_INV_INFO_SP.kpje9
+  is '金额9';
+comment on column PJ_INV_INFO_SP.rlid
+  is 'rlid';
+comment on column PJ_INV_INFO_SP.pid
+  is 'pid';
+comment on column PJ_INV_INFO_SP.kpsqcbrq
+  is '上期抄表日期';
+

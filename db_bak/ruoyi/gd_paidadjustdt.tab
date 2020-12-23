@@ -1,0 +1,133 @@
+﻿create table GD_PAIDADJUSTDT
+(
+  padno         VARCHAR2(10) not null,
+  padrowno      NUMBER not null,
+  padchkflag    CHAR(1) not null,
+  padpdate      DATE,
+  padpdatetime  DATE,
+  padpmonth     VARCHAR2(7),
+  padpposition  VARCHAR2(10),
+  padptrans     CHAR(1),
+  padpcd        CHAR(2),
+  padppayee     VARCHAR2(20),
+  padpper       VARCHAR2(20),
+  padppayway    VARCHAR2(6),
+  padpbatch     VARCHAR2(10) not null,
+  padplpid      VARCHAR2(10),
+  padplrlid     VARCHAR2(10),
+  padplpfid     VARCHAR2(10),
+  padplpricedj  NUMBER,
+  padplpfidn    VARCHAR2(10),
+  padplpricedjn NUMBER,
+  padplsl       NUMBER,
+  padplje       NUMBER,
+  padplznj      NUMBER,
+  padplscrplid  VARCHAR2(10),
+  padrlmonth    VARCHAR2(7),
+  padrldate     DATE,
+  padmemo       VARCHAR2(100),
+  padcrsl       NUMBER,
+  padcrznj      NUMBER,
+  padmrsl       NUMBER,
+  padmrdate     DATE,
+  padshflag     CHAR(1),
+  padcrje       NUMBER,
+  padcrje1      NUMBER,
+  padcrje2      NUMBER,
+  padcrje3      NUMBER,
+  padcrje4      NUMBER,
+  padcrje5      NUMBER,
+  padcrje6      NUMBER,
+  padcrje7      NUMBER,
+  padnrlid      VARCHAR2(10),
+  padnpid       VARCHAR2(10),
+  padnbatch     VARCHAR2(10)
+)
+;
+comment on table GD_PAIDADJUSTDT
+  is '实收冲正单体【PAD】';
+comment on column GD_PAIDADJUSTDT.padno
+  is '单据流水号';
+comment on column GD_PAIDADJUSTDT.padrowno
+  is '行号';
+comment on column GD_PAIDADJUSTDT.padchkflag
+  is '选中标志';
+comment on column GD_PAIDADJUSTDT.padpdate
+  is '帐务日期';
+comment on column GD_PAIDADJUSTDT.padpdatetime
+  is '发生日期';
+comment on column GD_PAIDADJUSTDT.padpmonth
+  is '缴费月份';
+comment on column GD_PAIDADJUSTDT.padpposition
+  is '缴费地点';
+comment on column GD_PAIDADJUSTDT.padptrans
+  is '缴费事务';
+comment on column GD_PAIDADJUSTDT.padpcd
+  is '借贷方向';
+comment on column GD_PAIDADJUSTDT.padppayee
+  is '收款员';
+comment on column GD_PAIDADJUSTDT.padpper
+  is '销帐人员';
+comment on column GD_PAIDADJUSTDT.padppayway
+  is '付款方式';
+comment on column GD_PAIDADJUSTDT.padpbatch
+  is '缴费交易批次';
+comment on column GD_PAIDADJUSTDT.padplpid
+  is '交易流水号';
+comment on column GD_PAIDADJUSTDT.padplrlid
+  is '应收流水';
+comment on column GD_PAIDADJUSTDT.padplpfid
+  is '价格类别';
+comment on column GD_PAIDADJUSTDT.padplpricedj
+  is '原史单价';
+comment on column GD_PAIDADJUSTDT.padplpfidn
+  is '新价格类别';
+comment on column GD_PAIDADJUSTDT.padplpricedjn
+  is '新单价';
+comment on column GD_PAIDADJUSTDT.padplsl
+  is '销帐水量';
+comment on column GD_PAIDADJUSTDT.padplje
+  is '销帐金额';
+comment on column GD_PAIDADJUSTDT.padplznj
+  is '实收违约金';
+comment on column GD_PAIDADJUSTDT.padplscrplid
+  is '冲销原帐流水';
+comment on column GD_PAIDADJUSTDT.padrlmonth
+  is '应收帐月份';
+comment on column GD_PAIDADJUSTDT.padrldate
+  is '应收帐日期';
+comment on column GD_PAIDADJUSTDT.padmemo
+  is '备注';
+comment on column GD_PAIDADJUSTDT.padcrsl
+  is '减退水量';
+comment on column GD_PAIDADJUSTDT.padcrznj
+  is '减退滞纳金';
+comment on column GD_PAIDADJUSTDT.padmrsl
+  is '抄表水量';
+comment on column GD_PAIDADJUSTDT.padmrdate
+  is '抄表时间';
+comment on column GD_PAIDADJUSTDT.padshflag
+  is '审核标志';
+comment on column GD_PAIDADJUSTDT.padcrje
+  is '减退金额';
+comment on column GD_PAIDADJUSTDT.padcrje1
+  is '减退金额1';
+comment on column GD_PAIDADJUSTDT.padcrje2
+  is '减退金额2';
+comment on column GD_PAIDADJUSTDT.padcrje3
+  is '减退金额3';
+comment on column GD_PAIDADJUSTDT.padcrje4
+  is '减退金额4';
+comment on column GD_PAIDADJUSTDT.padcrje5
+  is '减退金额5';
+comment on column GD_PAIDADJUSTDT.padcrje6
+  is '减退金额6';
+comment on column GD_PAIDADJUSTDT.padcrje7
+  is '减退金额7';
+comment on column GD_PAIDADJUSTDT.padnrlid
+  is '新应收账ID';
+comment on column GD_PAIDADJUSTDT.padnpid
+  is '新实收账ID';
+comment on column GD_PAIDADJUSTDT.padnbatch
+  is '新实收批次';
+

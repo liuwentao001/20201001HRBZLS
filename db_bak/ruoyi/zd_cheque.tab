@@ -1,0 +1,94 @@
+﻿create table ZD_CHEQUE
+(
+  chequeid        NVARCHAR2(20) not null,
+  enteringtime    DATE not null,
+  payername       NVARCHAR2(128),
+  payertel        NVARCHAR2(60),
+  chequetype      NVARCHAR2(60),
+  chequemoney     NUMBER(22),
+  chargelocation  NVARCHAR2(60),
+  chargename      NVARCHAR2(60),
+  chargetime      DATE,
+  chequecode      NVARCHAR2(200),
+  chequename      NVARCHAR2(200),
+  chequebankname  NVARCHAR2(200),
+  chequechargerid NVARCHAR2(200),
+  chequememo      NVARCHAR2(1000),
+  chequestatus    VARCHAR2(5),
+  chequeoper      VARCHAR2(10),
+  chequesdate     DATE,
+  chequemcode     VARCHAR2(10),
+  chequeflag      VARCHAR2(1),
+  chequebankid    VARCHAR2(20),
+  chequebankno    VARCHAR2(100),
+  chequeyxno      VARCHAR2(20),
+  chequecwno      VARCHAR2(20),
+  chequecrflag    VARCHAR2(1),
+  chequecrdate    DATE,
+  chequecroper    VARCHAR2(10),
+  cbankid         VARCHAR2(50),
+  cbankname       VARCHAR2(100),
+  cbankno         VARCHAR2(50)
+)
+;
+comment on table ZD_CHEQUE
+  is '支票表';
+comment on column ZD_CHEQUE.chequeid
+  is '支票流水';
+comment on column ZD_CHEQUE.enteringtime
+  is '进账时间';
+comment on column ZD_CHEQUE.payername
+  is '联系人';
+comment on column ZD_CHEQUE.payertel
+  is '联系电话';
+comment on column ZD_CHEQUE.chequetype
+  is '资金类别';
+comment on column ZD_CHEQUE.chequemoney
+  is '金额（本次使用金额）';
+comment on column ZD_CHEQUE.chargelocation
+  is '缴费营业所';
+comment on column ZD_CHEQUE.chargename
+  is '录入人';
+comment on column ZD_CHEQUE.chargetime
+  is '录入时间';
+comment on column ZD_CHEQUE.chequecode
+  is '支票账号';
+comment on column ZD_CHEQUE.chequename
+  is '付款人全称';
+comment on column ZD_CHEQUE.chequebankname
+  is '付款开户行名称';
+comment on column ZD_CHEQUE.chequechargerid
+  is '收款人编号';
+comment on column ZD_CHEQUE.chequememo
+  is '备注';
+comment on column ZD_CHEQUE.chequestatus
+  is '(到账标志)支票状态';
+comment on column ZD_CHEQUE.chequeoper
+  is '确认到账人员';
+comment on column ZD_CHEQUE.chequesdate
+  is '确认到账日期';
+comment on column ZD_CHEQUE.chequemcode
+  is '客户代码';
+comment on column ZD_CHEQUE.chequeflag
+  is '支票勾票';
+comment on column ZD_CHEQUE.chequebankid
+  is '行号';
+comment on column ZD_CHEQUE.chequebankno
+  is '开户账号';
+comment on column ZD_CHEQUE.chequeyxno
+  is '营销对账单号';
+comment on column ZD_CHEQUE.chequecwno
+  is '财务对账单号';
+comment on column ZD_CHEQUE.chequecrflag
+  is '作废标志';
+comment on column ZD_CHEQUE.chequecrdate
+  is '支票退票(作废)时间';
+comment on column ZD_CHEQUE.chequecroper
+  is '支票退票(作废)人';
+comment on column ZD_CHEQUE.cbankid
+  is '分公司开户行号';
+comment on column ZD_CHEQUE.cbankname
+  is '分公司开户行名';
+comment on column ZD_CHEQUE.cbankno
+  is '分公司开户账号';
+

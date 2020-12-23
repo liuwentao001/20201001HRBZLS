@@ -1,0 +1,115 @@
+﻿create table DP_INVOICE_LOG
+(
+  dipid         VARCHAR2(50) default SYS_GUID(),
+  buyername     VARCHAR2(200),
+  taxnum        VARCHAR2(50),
+  phone         VARCHAR2(20),
+  address       VARCHAR2(200),
+  account       VARCHAR2(30),
+  orderno       VARCHAR2(30),
+  invoicedate   VARCHAR2(30),
+  clerk         VARCHAR2(20),
+  saleaccount   VARCHAR2(50),
+  salephone     VARCHAR2(20),
+  saleaddress   VARCHAR2(100),
+  saletaxnum    VARCHAR2(20),
+  kptype        VARCHAR2(10),
+  message       VARCHAR2(500),
+  payee         VARCHAR2(20),
+  checker       VARCHAR2(20),
+  fpdm          VARCHAR2(20),
+  fphm          VARCHAR2(20),
+  tsfs          VARCHAR2(10),
+  email         VARCHAR2(100),
+  qdbz          VARCHAR2(20),
+  qdxmmc        VARCHAR2(20),
+  telephone     VARCHAR2(20),
+  dkbz          VARCHAR2(20),
+  deptid        VARCHAR2(20),
+  clerkid       VARCHAR2(20),
+  invoiceline   VARCHAR2(20),
+  cpybz         VARCHAR2(20),
+  createtime    DATE default sysdate,
+  status        VARCHAR2(20),
+  mssage        VARCHAR2(200),
+  fpqqlsh       VARCHAR2(50),
+  filepath      VARCHAR2(200),
+  resultcode    VARCHAR2(10),
+  resultmessage VARCHAR2(200)
+)
+;
+comment on table DP_INVOICE_LOG
+  is '发票中间件日志';
+comment on column DP_INVOICE_LOG.dipid
+  is '主键';
+comment on column DP_INVOICE_LOG.buyername
+  is '购方名称';
+comment on column DP_INVOICE_LOG.taxnum
+  is '购方税号，企业必填，个人可空';
+comment on column DP_INVOICE_LOG.phone
+  is '购方手机（开票成功会短信提供购方）';
+comment on column DP_INVOICE_LOG.address
+  is '购方地址,企业必填，个人可空';
+comment on column DP_INVOICE_LOG.account
+  is '银行账号,企业必填，个人可空';
+comment on column DP_INVOICE_LOG.orderno
+  is '订单号 每个企业唯一 ';
+comment on column DP_INVOICE_LOG.invoicedate
+  is '开票时间 yyyy-MM-dd HH:mm:ss';
+comment on column DP_INVOICE_LOG.clerk
+  is '开票员';
+comment on column DP_INVOICE_LOG.saleaccount
+  is '开户行及账号';
+comment on column DP_INVOICE_LOG.salephone
+  is '销方电话';
+comment on column DP_INVOICE_LOG.saleaddress
+  is '销方地址';
+comment on column DP_INVOICE_LOG.saletaxnum
+  is '销方税号';
+comment on column DP_INVOICE_LOG.kptype
+  is '开票类型:1,正票;2,红票';
+comment on column DP_INVOICE_LOG.message
+  is '备注';
+comment on column DP_INVOICE_LOG.payee
+  is '收款人';
+comment on column DP_INVOICE_LOG.checker
+  is '复核人';
+comment on column DP_INVOICE_LOG.fpdm
+  is '对应蓝票发票代码';
+comment on column DP_INVOICE_LOG.fphm
+  is '对应蓝票发票号码';
+comment on column DP_INVOICE_LOG.tsfs
+  is '推 送 方 式 :-1, 不 推送;0,邮箱;1,手机(默认);2,邮箱、手机';
+comment on column DP_INVOICE_LOG.email
+  is '推送邮箱（tsfs 为 0或 2 时，此项为必填）';
+comment on column DP_INVOICE_LOG.qdbz
+  is '清单标志:0,根据项目名称数，自动产生清单;1,将项目信息打印至清单';
+comment on column DP_INVOICE_LOG.qdxmmc
+  is ' 清单项目名称:打印清单时对应发票票面项目名称，注意：税总要求清单项目名称为（详见销货清单）';
+comment on column DP_INVOICE_LOG.telephone
+  is '购方电话';
+comment on column DP_INVOICE_LOG.dkbz
+  is '代开标志';
+comment on column DP_INVOICE_LOG.deptid
+  is '部门门店 id（诺诺系统中的 id）';
+comment on column DP_INVOICE_LOG.clerkid
+  is '开票员 id（诺诺系统中的 id）';
+comment on column DP_INVOICE_LOG.invoiceline
+  is '默认p，发票种类， p 电子增值税普通发票， c 增值 税普通发票(纸票)， s 增值税专用发票';
+comment on column DP_INVOICE_LOG.cpybz
+  is '成品油标志： 0 非成品油， 1 成品油';
+comment on column DP_INVOICE_LOG.createtime
+  is '创建时间';
+comment on column DP_INVOICE_LOG.status
+  is '开票状态';
+comment on column DP_INVOICE_LOG.mssage
+  is '结果详细信息';
+comment on column DP_INVOICE_LOG.fpqqlsh
+  is '发票请求流水号';
+comment on column DP_INVOICE_LOG.filepath
+  is '文件地址';
+comment on column DP_INVOICE_LOG.resultcode
+  is '开票结果代码';
+comment on column DP_INVOICE_LOG.resultmessage
+  is '开票结果信息';
+

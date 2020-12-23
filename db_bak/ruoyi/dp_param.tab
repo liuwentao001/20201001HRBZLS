@@ -1,0 +1,79 @@
+﻿create table DP_PARAM
+(
+  dpid        VARCHAR2(50) default SYS_GUID(),
+  companyname VARCHAR2(50),
+  saletaxnum  VARCHAR2(50),
+  address     VARCHAR2(100),
+  salephone   VARCHAR2(20),
+  saleaccount VARCHAR2(50),
+  checker     VARCHAR2(20),
+  identity    VARCHAR2(50),
+  message     VARCHAR2(100),
+  companyid   VARCHAR2(50),
+  taxratesfpp VARCHAR2(20),
+  taxratewspp VARCHAR2(20),
+  taxratesfzp VARCHAR2(50),
+  taxratewszp VARCHAR2(50),
+  state       VARCHAR2(20),
+  backup1     VARCHAR2(50),
+  backup2     VARCHAR2(50),
+  backup3     VARCHAR2(50),
+  backup4     VARCHAR2(50),
+  backup5     VARCHAR2(50),
+  create_by   VARCHAR2(64),
+  create_time DATE,
+  update_by   VARCHAR2(64),
+  update_time DATE
+)
+;
+comment on table DP_PARAM
+  is '电子发票参数表';
+comment on column DP_PARAM.dpid
+  is '主键';
+comment on column DP_PARAM.companyname
+  is '公司名称';
+comment on column DP_PARAM.saletaxnum
+  is '公司税号';
+comment on column DP_PARAM.address
+  is '公司地址';
+comment on column DP_PARAM.salephone
+  is '公司电话';
+comment on column DP_PARAM.saleaccount
+  is '开户行及账号';
+comment on column DP_PARAM.checker
+  is '复核人';
+comment on column DP_PARAM.identity
+  is '开票接口';
+comment on column DP_PARAM.message
+  is '备注信息';
+comment on column DP_PARAM.companyid
+  is '公司编码';
+comment on column DP_PARAM.taxratesfpp
+  is '普票水费税率';
+comment on column DP_PARAM.taxratewspp
+  is '普票污水税率';
+comment on column DP_PARAM.taxratesfzp
+  is '流水查询接口';
+comment on column DP_PARAM.taxratewszp
+  is '订单查询接口';
+comment on column DP_PARAM.state
+  is '是否全开';
+comment on column DP_PARAM.backup1
+  is 'ftp地址';
+comment on column DP_PARAM.backup2
+  is 'ftp用户名';
+comment on column DP_PARAM.backup3
+  is 'ftp密码';
+comment on column DP_PARAM.backup4
+  is '备用字段4';
+comment on column DP_PARAM.backup5
+  is '备用字段5';
+comment on column DP_PARAM.create_by
+  is '创建者';
+comment on column DP_PARAM.create_time
+  is '创建时间';
+comment on column DP_PARAM.update_by
+  is '更新者';
+comment on column DP_PARAM.update_time
+  is '更新时间';
+

@@ -1,0 +1,40 @@
+﻿create table BS_PRICEDETAIL
+(
+  pdpscid  NUMBER not null,
+  pdpfid   VARCHAR2(10) not null,
+  pdpiid   CHAR(2) not null,
+  pddj     NUMBER(12,3),
+  pdsl     NUMBER(10),
+  pdje     NUMBER(12,2),
+  pdmethod VARCHAR2(3) not null,
+  pdsdate  DATE,
+  pdedate  DATE,
+  pdsmonth VARCHAR2(7),
+  pdemonth VARCHAR2(7)
+)
+;
+comment on table BS_PRICEDETAIL
+  is '费率明细';
+comment on column BS_PRICEDETAIL.pdpscid
+  is '方案编码';
+comment on column BS_PRICEDETAIL.pdpfid
+  is '费率编码';
+comment on column BS_PRICEDETAIL.pdpiid
+  is '费率项目';
+comment on column BS_PRICEDETAIL.pddj
+  is '单价';
+comment on column BS_PRICEDETAIL.pdsl
+  is '水量';
+comment on column BS_PRICEDETAIL.pdje
+  is '金额';
+comment on column BS_PRICEDETAIL.pdmethod
+  is '计费方法';
+comment on column BS_PRICEDETAIL.pdsdate
+  is '开始日期';
+comment on column BS_PRICEDETAIL.pdedate
+  is '结束日期';
+comment on column BS_PRICEDETAIL.pdsmonth
+  is '开始月份';
+comment on column BS_PRICEDETAIL.pdemonth
+  is '结束月份';
+

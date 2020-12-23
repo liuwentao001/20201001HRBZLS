@@ -1,0 +1,19 @@
+﻿create table QRTZ_SIMPROP_TRIGGERS
+(
+  sched_name    NVARCHAR2(120) not null,
+  trigger_name  NVARCHAR2(200) not null,
+  trigger_group NVARCHAR2(200) not null,
+  str_prop_1    NVARCHAR2(512),
+  str_prop_2    NVARCHAR2(512),
+  str_prop_3    NVARCHAR2(512),
+  int_prop_1    NUMBER(11),
+  int_prop_2    NUMBER(11),
+  long_prop_1   NUMBER(20),
+  long_prop_2   NUMBER(20),
+  dec_prop_1    NUMBER,
+  dec_prop_2    NUMBER,
+  bool_prop_1   NVARCHAR2(1),
+  bool_prop_2   NVARCHAR2(1)
+)
+;
+

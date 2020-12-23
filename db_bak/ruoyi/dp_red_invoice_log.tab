@@ -1,0 +1,55 @@
+﻿create table DP_RED_INVOICE_LOG
+(
+  dripid           VARCHAR2(50) default SYS_GUID(),
+  invoiceline      VARCHAR2(10),
+  billno           VARCHAR2(50),
+  oriinvoicecode   VARCHAR2(50),
+  oriinvoicenumber VARCHAR2(50),
+  billtime         VARCHAR2(50),
+  sellertaxno      VARCHAR2(50),
+  sellername       VARCHAR2(50),
+  buyertaxno       VARCHAR2(50),
+  buyername        VARCHAR2(100),
+  operator         VARCHAR2(20),
+  applyremark      VARCHAR2(50),
+  productoilflag   VARCHAR2(10),
+  createtime       DATE,
+  status           VARCHAR2(20),
+  mssage           VARCHAR2(200)
+)
+;
+comment on table DP_RED_INVOICE_LOG
+  is '专票日志';
+comment on column DP_RED_INVOICE_LOG.dripid
+  is '主键';
+comment on column DP_RED_INVOICE_LOG.invoiceline
+  is '发票种类: s 增值税专 用发票 ';
+comment on column DP_RED_INVOICE_LOG.billno
+  is '24 位申请单号:12 位 金税盘编号+12 位该 红字信息表请求时间 (YYMMDDHHMMSS) ';
+comment on column DP_RED_INVOICE_LOG.oriinvoicecode
+  is '对应蓝票代码 。不满 12 位请左 补 0。 ';
+comment on column DP_RED_INVOICE_LOG.oriinvoicenumber
+  is '对应蓝票号码 。不满 8 位请左 补 0。 ';
+comment on column DP_RED_INVOICE_LOG.billtime
+  is '填开时间，默认为当前时间。 ';
+comment on column DP_RED_INVOICE_LOG.sellertaxno
+  is '销方税号';
+comment on column DP_RED_INVOICE_LOG.sellername
+  is '销方名称';
+comment on column DP_RED_INVOICE_LOG.buyertaxno
+  is '购方税号';
+comment on column DP_RED_INVOICE_LOG.buyername
+  is '购方名称';
+comment on column DP_RED_INVOICE_LOG.operator
+  is '经办人';
+comment on column DP_RED_INVOICE_LOG.applyremark
+  is '申请说明： 1100000000,购方申 请-已抵扣; 1010000000,购方申 请-未抵扣; 0000000100,销方申 请';
+comment on column DP_RED_INVOICE_LOG.productoilflag
+  is '成品油标志:0,非成 品油;1,成品油 ';
+comment on column DP_RED_INVOICE_LOG.createtime
+  is '创建时间';
+comment on column DP_RED_INVOICE_LOG.status
+  is '开票状态';
+comment on column DP_RED_INVOICE_LOG.mssage
+  is '结果详细信息';
+

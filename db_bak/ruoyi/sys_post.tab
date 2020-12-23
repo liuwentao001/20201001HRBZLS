@@ -1,0 +1,39 @@
+﻿create table SYS_POST
+(
+  post_id     NUMBER(20) not null,
+  post_code   VARCHAR2(64) not null,
+  post_name   VARCHAR2(50) not null,
+  post_sort   NUMBER(4) not null,
+  status      CHAR(1) not null,
+  create_by   VARCHAR2(64) default '',
+  create_time DATE,
+  update_by   VARCHAR2(64) default '',
+  update_time DATE,
+  remark      VARCHAR2(500)
+)
+;
+comment on table SYS_POST
+  is '岗位信息表';
+comment on column SYS_POST.post_id
+  is '岗位主键seq_sys_post.nextval';
+comment on column SYS_POST.post_code
+  is '岗位编码';
+comment on column SYS_POST.post_name
+  is '岗位名称';
+comment on column SYS_POST.post_sort
+  is '显示顺序';
+comment on column SYS_POST.status
+  is '状态（0正常 1停用）';
+comment on column SYS_POST.create_by
+  is '创建者';
+comment on column SYS_POST.create_time
+  is '创建时间';
+comment on column SYS_POST.update_by
+  is '更新者';
+comment on column SYS_POST.update_time
+  is '更新时间';
+comment on column SYS_POST.remark
+  is '备注';
+alter table SYS_POST
+  add constraint PK_SYS_POST primary key (POST_ID);
+

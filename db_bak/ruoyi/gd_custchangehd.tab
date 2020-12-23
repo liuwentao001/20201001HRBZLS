@@ -1,0 +1,43 @@
+﻿create table GD_CUSTCHANGEHD
+(
+  cchno      VARCHAR2(10) not null,
+  cchbh      VARCHAR2(10),
+  cchlb      VARCHAR2(10),
+  cchsource  CHAR(1),
+  cchsmfid   VARCHAR2(10),
+  cchdept    VARCHAR2(10),
+  cchcredate DATE,
+  cchcreper  VARCHAR2(10),
+  cchshdate  DATE,
+  cchshper   VARCHAR2(10),
+  cchshflag  CHAR(1),
+  cchwfid    NUMBER
+)
+;
+comment on table GD_CUSTCHANGEHD
+  is '用户变更单头【CCH】';
+comment on column GD_CUSTCHANGEHD.cchno
+  is '单据流水号';
+comment on column GD_CUSTCHANGEHD.cchbh
+  is '单据编号';
+comment on column GD_CUSTCHANGEHD.cchlb
+  is '单据类别';
+comment on column GD_CUSTCHANGEHD.cchsource
+  is '单据来源';
+comment on column GD_CUSTCHANGEHD.cchsmfid
+  is '营销公司';
+comment on column GD_CUSTCHANGEHD.cchdept
+  is '受理部门';
+comment on column GD_CUSTCHANGEHD.cchcredate
+  is '受理日期';
+comment on column GD_CUSTCHANGEHD.cchcreper
+  is '受理人员';
+comment on column GD_CUSTCHANGEHD.cchshdate
+  is '审核日期';
+comment on column GD_CUSTCHANGEHD.cchshper
+  is '审核人员';
+comment on column GD_CUSTCHANGEHD.cchshflag
+  is '审核标志';
+comment on column GD_CUSTCHANGEHD.cchwfid
+  is '工作流实例';
+

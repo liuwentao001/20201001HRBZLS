@@ -1,0 +1,34 @@
+﻿create table PJ_INV_DETAIL_SP
+(
+  invid  NUMBER not null,
+  isid   NUMBER,
+  rlid   VARCHAR2(10),
+  pid    VARCHAR2(10),
+  mcode  VARCHAR2(20),
+  cname  VARCHAR2(100),
+  pbatch VARCHAR2(10),
+  ptype  VARCHAR2(10),
+  memo   VARCHAR2(100)
+)
+;
+comment on table PJ_INV_DETAIL_SP
+  is '打印发票详细信息';
+comment on column PJ_INV_DETAIL_SP.invid
+  is '发票信息流水';
+comment on column PJ_INV_DETAIL_SP.isid
+  is '发票库存流水';
+comment on column PJ_INV_DETAIL_SP.rlid
+  is '应收id';
+comment on column PJ_INV_DETAIL_SP.pid
+  is '实收id';
+comment on column PJ_INV_DETAIL_SP.mcode
+  is '客户代码';
+comment on column PJ_INV_DETAIL_SP.cname
+  is '用户名称';
+comment on column PJ_INV_DETAIL_SP.pbatch
+  is '实收批次';
+comment on column PJ_INV_DETAIL_SP.ptype
+  is '打印方式';
+comment on column PJ_INV_DETAIL_SP.memo
+  is '备注';
+

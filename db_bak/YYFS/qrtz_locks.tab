@@ -1,0 +1,7 @@
+﻿create table QRTZ_LOCKS
+(
+  sched_name NVARCHAR2(120) not null,
+  lock_name  NVARCHAR2(40) not null
+)
+;
+

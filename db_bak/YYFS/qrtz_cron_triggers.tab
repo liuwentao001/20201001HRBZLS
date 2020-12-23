@@ -1,0 +1,10 @@
+﻿create table QRTZ_CRON_TRIGGERS
+(
+  sched_name      NVARCHAR2(120) not null,
+  trigger_name    NVARCHAR2(200) not null,
+  trigger_group   NVARCHAR2(200) not null,
+  cron_expression NVARCHAR2(120) not null,
+  time_zone_id    NVARCHAR2(80)
+)
+;
+

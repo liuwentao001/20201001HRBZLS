@@ -1,0 +1,9 @@
+﻿create table QRTZ_LOCKS
+(
+  sched_name VARCHAR2(120) not null,
+  lock_name  VARCHAR2(40) not null
+)
+;
+alter table QRTZ_LOCKS
+  add constraint QRTZ_LOCKS_PK primary key (SCHED_NAME, LOCK_NAME);
+

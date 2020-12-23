@@ -1,0 +1,48 @@
+﻿create table WF_NODEBUTTONRELATION
+(
+  nodebuttonrelationid VARCHAR2(50 CHAR) not null,
+  flownodeid           VARCHAR2(50 CHAR),
+  buttonid             VARCHAR2(50 CHAR),
+  isback               NUMBER(11),
+  enabled              NUMBER(11),
+  deletemark           NUMBER(11),
+  createdate           DATE,
+  createuserid         VARCHAR2(50 CHAR),
+  createusername       VARCHAR2(50 CHAR),
+  modifydate           DATE,
+  modifyuserid         VARCHAR2(50 CHAR),
+  modifyusername       VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_NODEBUTTONRELATION
+  is '节点按钮关系表';
+comment on column WF_NODEBUTTONRELATION.nodebuttonrelationid
+  is '节点按钮关系ID';
+comment on column WF_NODEBUTTONRELATION.flownodeid
+  is '流程节点ID';
+comment on column WF_NODEBUTTONRELATION.buttonid
+  is '按钮ID';
+comment on column WF_NODEBUTTONRELATION.isback
+  is '是否驳回(0-通过，1-驳回)';
+comment on column WF_NODEBUTTONRELATION.enabled
+  is '有效';
+comment on column WF_NODEBUTTONRELATION.deletemark
+  is '删除标记';
+comment on column WF_NODEBUTTONRELATION.createdate
+  is '创建时间';
+comment on column WF_NODEBUTTONRELATION.createuserid
+  is '创建用户主键';
+comment on column WF_NODEBUTTONRELATION.createusername
+  is '创建用户';
+comment on column WF_NODEBUTTONRELATION.modifydate
+  is '修改时间';
+comment on column WF_NODEBUTTONRELATION.modifyuserid
+  is '修改用户主键';
+comment on column WF_NODEBUTTONRELATION.modifyusername
+  is '修改用户';
+alter table WF_NODEBUTTONRELATION
+  add primary key (NODEBUTTONRELATIONID);
+alter table WF_NODEBUTTONRELATION
+  add foreign key (FLOWNODEID)
+  references WF_FLOWNODE (FLOWNODEID);
+

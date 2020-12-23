@@ -1,0 +1,274 @@
+﻿create table BS_METERREAD_HIS
+(
+  mrid            VARCHAR2(10) not null,
+  mrmonth         VARCHAR2(7),
+  mrsmfid         VARCHAR2(10),
+  mrbfid          VARCHAR2(10),
+  mrbatch         NUMBER(20),
+  mrday           DATE,
+  mrrorder        NUMBER(10),
+  mrccode         VARCHAR2(10),
+  mrmid           VARCHAR2(10),
+  mrstid          VARCHAR2(10),
+  mrmpid          VARCHAR2(10),
+  mrmclass        NUMBER,
+  mrmflag         CHAR(1),
+  mrcreadate      DATE,
+  mrinputdate     DATE,
+  mrreadok        CHAR(1),
+  mrrdate         DATE,
+  mrrper          VARCHAR2(15),
+  mrprdate        DATE,
+  mrscode         NUMBER(10),
+  mrecode         NUMBER(10),
+  mrsl            NUMBER(10),
+  mrface          VARCHAR2(2),
+  mrifsubmit      CHAR(1),
+  mrifhalt        CHAR(1),
+  mrdatasource    CHAR(1),
+  mrpdardate      DATE,
+  mroutflag       CHAR(1),
+  mroutid         VARCHAR2(10),
+  mroutdate       DATE,
+  mrinorder       NUMBER(4),
+  mrindate        DATE,
+  mrmemo          VARCHAR2(120),
+  mrifgu          CHAR(1),
+  mrifrec         CHAR(1),
+  mrrecdate       DATE,
+  mrrecsl         NUMBER(10),
+  mraddsl         NUMBER(10),
+  mrcarrysl       NUMBER(10),
+  mrctrl1         VARCHAR2(10),
+  mrctrl2         VARCHAR2(10),
+  mrctrl3         VARCHAR2(10),
+  mrctrl4         VARCHAR2(10),
+  mrctrl5         VARCHAR2(10),
+  mrchkflag       CHAR(1),
+  mrchkdate       DATE,
+  mrchkper        VARCHAR2(10),
+  mrchkscode      NUMBER(10),
+  mrchkecode      NUMBER(10),
+  mrchksl         NUMBER(10),
+  mrchkaddsl      NUMBER(10),
+  mrchkrdate      DATE,
+  mrchkface       VARCHAR2(2),
+  mrchkresult     VARCHAR2(100),
+  mrchkresultmemo VARCHAR2(100),
+  mrprimid        VARCHAR2(200),
+  mrprimflag      CHAR(1),
+  mrface2         VARCHAR2(2),
+  mrscodechar     VARCHAR2(10),
+  mrecodechar     VARCHAR2(10),
+  mriftrans       VARCHAR2(5),
+  mrrequisition   NUMBER(2),
+  mrifchk         CHAR(1),
+  mrinputper      VARCHAR2(10),
+  mrpfid          VARCHAR2(10),
+  mrcaliber       NUMBER(10),
+  mrside          VARCHAR2(100),
+  mrlastsl        NUMBER(10),
+  mrthreesl       NUMBER(10),
+  mryearsl        NUMBER(10),
+  mrrecje01       NUMBER(13,3),
+  mrrecje02       NUMBER(13,3),
+  mrrecje03       NUMBER(13,3),
+  mrrecje04       NUMBER(13,3),
+  mrnullcont      NUMBER(10),
+  mrnulltotal     NUMBER(10),
+  mrbfsdate       DATE,
+  mrbfedate       DATE,
+  mrbfday         NUMBER(10),
+  mrifmch         CHAR(1),
+  mrifzbsm        CHAR(1),
+  mrifyscz        CHAR(1),
+  mrdzsl          NUMBER(10),
+  mrdzflag        CHAR(1),
+  mrdzsyscode     NUMBER(10),
+  mrdzcurcode     NUMBER(10),
+  mrdztgl         NUMBER(10),
+  mrzkh           VARCHAR2(30),
+  mrsffs          VARCHAR2(30)
+)
+;
+comment on table BS_METERREAD_HIS
+  is '历史抄表库';
+comment on column BS_METERREAD_HIS.mrid
+  is '流水号';
+comment on column BS_METERREAD_HIS.mrmonth
+  is '抄表月份';
+comment on column BS_METERREAD_HIS.mrsmfid
+  is '营销公司';
+comment on column BS_METERREAD_HIS.mrbfid
+  is '表册(bookframe)';
+comment on column BS_METERREAD_HIS.mrbatch
+  is '抄表批次';
+comment on column BS_METERREAD_HIS.mrday
+  is '计划抄表日';
+comment on column BS_METERREAD_HIS.mrrorder
+  is '抄表次序';
+comment on column BS_METERREAD_HIS.mrccode
+  is '用户号';
+comment on column BS_METERREAD_HIS.mrmid
+  is '水表编号';
+comment on column BS_METERREAD_HIS.mrstid
+  is '行业分类';
+comment on column BS_METERREAD_HIS.mrmpid
+  is '上级水表';
+comment on column BS_METERREAD_HIS.mrmclass
+  is '水表级次';
+comment on column BS_METERREAD_HIS.mrmflag
+  is '末级标志';
+comment on column BS_METERREAD_HIS.mrcreadate
+  is '创建日期';
+comment on column BS_METERREAD_HIS.mrinputdate
+  is '编辑日期';
+comment on column BS_METERREAD_HIS.mrreadok
+  is '抄见标志(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrrdate
+  is '抄表日期';
+comment on column BS_METERREAD_HIS.mrrper
+  is '抄表员';
+comment on column BS_METERREAD_HIS.mrprdate
+  is '上次抄见日期';
+comment on column BS_METERREAD_HIS.mrscode
+  is '上期抄见';
+comment on column BS_METERREAD_HIS.mrecode
+  is '本期抄见';
+comment on column BS_METERREAD_HIS.mrsl
+  is '本期水量';
+comment on column BS_METERREAD_HIS.mrface
+  is '水表故障（查表表态，01正常/02表异常/03零水量)';
+comment on column BS_METERREAD_HIS.mrifsubmit
+  is '是否提交计费(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrifhalt
+  is '系统停算(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrdatasource
+  is '抄表结果来源(1-手工,5-抄表器,9-手机抄表,K-故障换表,L-周期换表,Z-追量  I-智能表接口，6-视频直读，7-集抄)';
+comment on column BS_METERREAD_HIS.mrpdardate
+  is '抄表机抄表时间';
+comment on column BS_METERREAD_HIS.mroutflag
+  is '发出到抄表机标志';
+comment on column BS_METERREAD_HIS.mroutid
+  is '发出到抄表机流水号';
+comment on column BS_METERREAD_HIS.mroutdate
+  is '发出到抄表机日期';
+comment on column BS_METERREAD_HIS.mrinorder
+  is '抄表机接收次序';
+comment on column BS_METERREAD_HIS.mrindate
+  is '抄表机接受日期';
+comment on column BS_METERREAD_HIS.mrmemo
+  is '抄表备注';
+comment on column BS_METERREAD_HIS.mrifgu
+  is '估表标志(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrifrec
+  is '已计费(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrrecdate
+  is '计费日期';
+comment on column BS_METERREAD_HIS.mrrecsl
+  is '应收水量';
+comment on column BS_METERREAD_HIS.mraddsl
+  is '余量';
+comment on column BS_METERREAD_HIS.mrcarrysl
+  is '校验水量';
+comment on column BS_METERREAD_HIS.mrctrl1
+  is '抄表机控制位1';
+comment on column BS_METERREAD_HIS.mrctrl2
+  is '抄表机控制位2';
+comment on column BS_METERREAD_HIS.mrctrl3
+  is '抄表机控制位3';
+comment on column BS_METERREAD_HIS.mrctrl4
+  is '抄表机控制位4';
+comment on column BS_METERREAD_HIS.mrctrl5
+  is '抄表机控制位5';
+comment on column BS_METERREAD_HIS.mrchkflag
+  is '复核标志(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrchkdate
+  is '复核日期';
+comment on column BS_METERREAD_HIS.mrchkper
+  is '复核人员';
+comment on column BS_METERREAD_HIS.mrchkscode
+  is '原起数';
+comment on column BS_METERREAD_HIS.mrchkecode
+  is '原止数';
+comment on column BS_METERREAD_HIS.mrchksl
+  is '原水量';
+comment on column BS_METERREAD_HIS.mrchkaddsl
+  is '原余量';
+comment on column BS_METERREAD_HIS.mrchkrdate
+  is '原抄见日期';
+comment on column BS_METERREAD_HIS.mrchkface
+  is '原表况';
+comment on column BS_METERREAD_HIS.mrchkresult
+  is '手机抄表退审原因';
+comment on column BS_METERREAD_HIS.mrchkresultmemo
+  is '手机抄表待通过';
+comment on column BS_METERREAD_HIS.mrprimid
+  is '合收表主表';
+comment on column BS_METERREAD_HIS.mrprimflag
+  is '合收表标志(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrface2
+  is '抄见故障【sysfacelist2】';
+comment on column BS_METERREAD_HIS.mrscodechar
+  is '上期抄见';
+comment on column BS_METERREAD_HIS.mrecodechar
+  is '本期抄见';
+comment on column BS_METERREAD_HIS.mriftrans
+  is '抄表事务';
+comment on column BS_METERREAD_HIS.mrrequisition
+  is '通知单打印次数';
+comment on column BS_METERREAD_HIS.mrifchk
+  is '考核表(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrinputper
+  is '入账人员';
+comment on column BS_METERREAD_HIS.mrpfid
+  is '用水类别';
+comment on column BS_METERREAD_HIS.mrcaliber
+  is '口径(METERCALIBER)';
+comment on column BS_METERREAD_HIS.mrside
+  is '表位';
+comment on column BS_METERREAD_HIS.mrlastsl
+  is '上次抄表水量';
+comment on column BS_METERREAD_HIS.mrthreesl
+  is '前三月抄表水量';
+comment on column BS_METERREAD_HIS.mryearsl
+  is '去年同期抄表水量';
+comment on column BS_METERREAD_HIS.mrrecje01
+  is '应收金额费用项目01';
+comment on column BS_METERREAD_HIS.mrrecje02
+  is '应收金额费用项目02';
+comment on column BS_METERREAD_HIS.mrrecje03
+  is '应收金额费用项目03';
+comment on column BS_METERREAD_HIS.mrrecje04
+  is '应收金额费用项目04';
+comment on column BS_METERREAD_HIS.mrnullcont
+  is '连续几月未抄见';
+comment on column BS_METERREAD_HIS.mrnulltotal
+  is '累计几月未抄见';
+comment on column BS_METERREAD_HIS.mrbfsdate
+  is '计划起始日期';
+comment on column BS_METERREAD_HIS.mrbfedate
+  is '计划结束日期';
+comment on column BS_METERREAD_HIS.mrbfday
+  is '偏移天数';
+comment on column BS_METERREAD_HIS.mrifmch
+  is '是否免抄户(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrifzbsm
+  is '总表收免标志(0=普通表，1=总表收免，2=多级表)';
+comment on column BS_METERREAD_HIS.mrifyscz
+  is '是否应收冲正(Y-是 N-否)';
+comment on column BS_METERREAD_HIS.mrdzsl
+  is '等针用量';
+comment on column BS_METERREAD_HIS.mrdzflag
+  is '等针标志';
+comment on column BS_METERREAD_HIS.mrdzsyscode
+  is '等针';
+comment on column BS_METERREAD_HIS.mrdzcurcode
+  is '等针读数';
+comment on column BS_METERREAD_HIS.mrdztgl
+  is '推估量';
+comment on column BS_METERREAD_HIS.mrzkh
+  is '账卡号(表册 + 抄表次序)';
+comment on column BS_METERREAD_HIS.mrsffs
+  is '收费方式（走收，坐收 ）';
+

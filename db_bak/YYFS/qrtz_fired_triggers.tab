@@ -1,0 +1,18 @@
+﻿create table QRTZ_FIRED_TRIGGERS
+(
+  sched_name        NVARCHAR2(120) not null,
+  entry_id          NVARCHAR2(95) not null,
+  trigger_name      NVARCHAR2(200) not null,
+  trigger_group     NVARCHAR2(200) not null,
+  instance_name     NVARCHAR2(200) not null,
+  fired_time        NUMBER(20) not null,
+  sched_time        NUMBER(20) not null,
+  priority          NUMBER(11) not null,
+  state             NVARCHAR2(16) not null,
+  job_name          NVARCHAR2(200),
+  job_group         NVARCHAR2(200),
+  is_nonconcurrent  NVARCHAR2(1),
+  requests_recovery NVARCHAR2(1)
+)
+;
+

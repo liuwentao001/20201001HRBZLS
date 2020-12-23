@@ -1,0 +1,15 @@
+﻿create table SYS_ROLE_DEPT
+(
+  role_id NUMBER(20) not null,
+  dept_id NUMBER(20) not null
+)
+;
+comment on table SYS_ROLE_DEPT
+  is '角色和部门关联表';
+comment on column SYS_ROLE_DEPT.role_id
+  is '角色ID';
+comment on column SYS_ROLE_DEPT.dept_id
+  is '部门ID';
+alter table SYS_ROLE_DEPT
+  add constraint PK_SYS_ROLE_DEPT primary key (ROLE_ID, DEPT_ID);
+

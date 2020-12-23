@@ -1,0 +1,38 @@
+﻿create table SYS_DICT_TYPE
+(
+  dict_id     NUMBER(20) not null,
+  dict_name   VARCHAR2(100) default '',
+  dict_type   VARCHAR2(100) default '',
+  status      CHAR(1) default '0',
+  create_by   VARCHAR2(64) default '',
+  create_time DATE,
+  update_by   VARCHAR2(64) default '',
+  update_time DATE,
+  remark      VARCHAR2(500),
+  parent_id   NUMBER(20)
+)
+;
+comment on table SYS_DICT_TYPE
+  is '字典类型表';
+comment on column SYS_DICT_TYPE.dict_id
+  is '字典主键seq_sys_dict_type.nextval';
+comment on column SYS_DICT_TYPE.dict_name
+  is '字典名称';
+comment on column SYS_DICT_TYPE.dict_type
+  is '字典类型';
+comment on column SYS_DICT_TYPE.status
+  is '状态（0正常 1停用）';
+comment on column SYS_DICT_TYPE.create_by
+  is '创建者';
+comment on column SYS_DICT_TYPE.create_time
+  is '创建时间';
+comment on column SYS_DICT_TYPE.update_by
+  is '更新者';
+comment on column SYS_DICT_TYPE.update_time
+  is '更新时间';
+comment on column SYS_DICT_TYPE.remark
+  is '备注';
+create unique index SYS_DICT_TYPE_INDEX1 on SYS_DICT_TYPE (DICT_TYPE);
+alter table SYS_DICT_TYPE
+  add constraint PK_SYS_DICT_TYPE primary key (DICT_ID);
+

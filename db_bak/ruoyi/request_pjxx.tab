@@ -1,0 +1,122 @@
+﻿create table REQUEST_PJXX
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  ciadr          VARCHAR2(100),
+  cimtel         VARCHAR2(30),
+  ciconnectper   VARCHAR2(60),
+  ciifinv        CHAR(1),
+  ciname1        VARCHAR2(100),
+  citaxno        VARCHAR2(20),
+  cibankname     VARCHAR2(100),
+  cibankno       VARCHAR2(50),
+  ciadr1         VARCHAR2(100),
+  citel4         VARCHAR2(30),
+  ocimtel        VARCHAR2(30),
+  ociconnectper  VARCHAR2(60),
+  ociifinv       CHAR(1),
+  ociname1       VARCHAR2(100),
+  ocitaxno       VARCHAR2(20),
+  ocibankname    VARCHAR2(100),
+  ocibankno      VARCHAR2(50),
+  ociadr1        VARCHAR2(100),
+  ocitel4        VARCHAR2(30),
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_PJXX
+  is '票据信息维护表';
+comment on column REQUEST_PJXX.reno
+  is '单据流水号';
+comment on column REQUEST_PJXX.resmfid
+  is '营销公司';
+comment on column REQUEST_PJXX.ciid
+  is '用户号';
+comment on column REQUEST_PJXX.ciname
+  is '用户名';
+comment on column REQUEST_PJXX.ciadr
+  is '用户地址';
+comment on column REQUEST_PJXX.cimtel
+  is '移动电话';
+comment on column REQUEST_PJXX.ciconnectper
+  is '联系人';
+comment on column REQUEST_PJXX.ciifinv
+  is '是否普票';
+comment on column REQUEST_PJXX.ciname1
+  is '票据名称';
+comment on column REQUEST_PJXX.citaxno
+  is '税号';
+comment on column REQUEST_PJXX.cibankname
+  is '开户行名称(电票)';
+comment on column REQUEST_PJXX.cibankno
+  is '开户行账号(电票)';
+comment on column REQUEST_PJXX.ciadr1
+  is '票据地址';
+comment on column REQUEST_PJXX.citel4
+  is '票据电话';
+comment on column REQUEST_PJXX.ocimtel
+  is '原移动电话';
+comment on column REQUEST_PJXX.ociconnectper
+  is '原联系人';
+comment on column REQUEST_PJXX.ociifinv
+  is '原是否普票';
+comment on column REQUEST_PJXX.ociname1
+  is '原票据名称';
+comment on column REQUEST_PJXX.ocitaxno
+  is '原税号';
+comment on column REQUEST_PJXX.ocibankname
+  is '原开户行名称(电票)';
+comment on column REQUEST_PJXX.ocibankno
+  is '原开户行账号(电票)';
+comment on column REQUEST_PJXX.ociadr1
+  is '原票据地址';
+comment on column REQUEST_PJXX.ocitel4
+  is '原票据电话';
+comment on column REQUEST_PJXX.reappnote
+  is '申请说明';
+comment on column REQUEST_PJXX.restaus
+  is '当前审批环节';
+comment on column REQUEST_PJXX.reper
+  is '当前审批人';
+comment on column REQUEST_PJXX.reflag
+  is '当前审批状';
+comment on column REQUEST_PJXX.sortcode
+  is '序号';
+comment on column REQUEST_PJXX.deletemark
+  is '删除标识';
+comment on column REQUEST_PJXX.createdate
+  is '创建时间';
+comment on column REQUEST_PJXX.createuserid
+  is '创建人ID';
+comment on column REQUEST_PJXX.createusername
+  is '创建人';
+comment on column REQUEST_PJXX.modifydate
+  is '修改时间';
+comment on column REQUEST_PJXX.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_PJXX.modifyusername
+  is '修改人';
+comment on column REQUEST_PJXX.remark
+  is '备注';
+comment on column REQUEST_PJXX.workno
+  is '单据编号';
+comment on column REQUEST_PJXX.workbatch
+  is '批次号';
+

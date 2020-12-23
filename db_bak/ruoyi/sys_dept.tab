@@ -1,0 +1,52 @@
+﻿create table SYS_DEPT
+(
+  dept_id     NUMBER(20) not null,
+  parent_id   NUMBER(20) default 0,
+  ancestors   VARCHAR2(50) default '',
+  dept_name   VARCHAR2(30) default '',
+  order_num   NUMBER(4) default 0,
+  leader      VARCHAR2(20),
+  phone       VARCHAR2(11),
+  email       VARCHAR2(50),
+  status      CHAR(1) default '0',
+  del_flag    CHAR(1) default '0',
+  create_by   VARCHAR2(64) default '',
+  create_time DATE,
+  update_by   VARCHAR2(64) default '',
+  update_time DATE,
+  dept_code   VARCHAR2(50)
+)
+;
+comment on table SYS_DEPT
+  is '部门信息表';
+comment on column SYS_DEPT.dept_id
+  is '部门主键seq_sys_dept.nextval';
+comment on column SYS_DEPT.parent_id
+  is '父部门id';
+comment on column SYS_DEPT.ancestors
+  is '祖级列表';
+comment on column SYS_DEPT.dept_name
+  is '部门名称';
+comment on column SYS_DEPT.order_num
+  is '显示顺序';
+comment on column SYS_DEPT.leader
+  is '负责人';
+comment on column SYS_DEPT.phone
+  is '联系电话';
+comment on column SYS_DEPT.email
+  is '邮箱';
+comment on column SYS_DEPT.status
+  is '部门状态（0正常 1停用）';
+comment on column SYS_DEPT.del_flag
+  is '删除标志（0代表存在 2代表删除）';
+comment on column SYS_DEPT.create_by
+  is '创建者';
+comment on column SYS_DEPT.create_time
+  is '创建时间';
+comment on column SYS_DEPT.update_by
+  is '更新者';
+comment on column SYS_DEPT.update_time
+  is '更新时间';
+alter table SYS_DEPT
+  add constraint PK_SYS_DEPT primary key (DEPT_ID);
+

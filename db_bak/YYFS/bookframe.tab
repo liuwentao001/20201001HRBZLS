@@ -1,0 +1,74 @@
+﻿create table BOOKFRAME
+(
+  bfid      VARCHAR2(10) not null,
+  bfsmfid   VARCHAR2(10) not null,
+  bfbatch   NUMBER(2),
+  bfname    VARCHAR2(60),
+  bfpid     VARCHAR2(10),
+  bfclass   NUMBER,
+  bfflag    CHAR(1),
+  bfstatus  CHAR(1),
+  bfhandles NUMBER(10),
+  bfmemo    VARCHAR2(60),
+  bforder   NUMBER default 0,
+  bfcreper  VARCHAR2(15),
+  bfcredate DATE,
+  bfrcyc    NUMBER(2),
+  bflb      CHAR(1),
+  bfrper    VARCHAR2(15),
+  bfsafid   VARCHAR2(10),
+  bfnrmonth VARCHAR2(7),
+  bfday     NUMBER default 0,
+  bfdcday   NUMBER default 0,
+  bfcper    VARCHAR2(15)
+)
+;
+comment on table BOOKFRAME
+  is '表册信息【BF】';
+comment on column BOOKFRAME.bfid
+  is '编码';
+comment on column BOOKFRAME.bfsmfid
+  is '营业所';
+comment on column BOOKFRAME.bfbatch
+  is '抄表批次';
+comment on column BOOKFRAME.bfname
+  is '名称';
+comment on column BOOKFRAME.bfpid
+  is '上级编码';
+comment on column BOOKFRAME.bfclass
+  is '级次';
+comment on column BOOKFRAME.bfflag
+  is '末级标志';
+comment on column BOOKFRAME.bfstatus
+  is '有效状态';
+comment on column BOOKFRAME.bfhandles
+  is '下级数量';
+comment on column BOOKFRAME.bfmemo
+  is '备注';
+comment on column BOOKFRAME.bforder
+  is '册间次序';
+comment on column BOOKFRAME.bfcreper
+  is '创建人';
+comment on column BOOKFRAME.bfcredate
+  is '创建日期';
+comment on column BOOKFRAME.bfrcyc
+  is '抄表周期';
+comment on column BOOKFRAME.bflb
+  is '表册类别';
+comment on column BOOKFRAME.bfrper
+  is '抄表员';
+comment on column BOOKFRAME.bfsafid
+  is '区域';
+comment on column BOOKFRAME.bfnrmonth
+  is '下次抄表月份';
+comment on column BOOKFRAME.bfday
+  is '抄表天数';
+comment on column BOOKFRAME.bfdcday
+  is '导出日期';
+comment on column BOOKFRAME.bfcper
+  is '催费员';
+create index PK_BFID on BOOKFRAME (BFID);
+create index PK_BFMEMO on BOOKFRAME (BFMEMO);
+alter table BOOKFRAME
+  add constraint PK_BOOKFRAME primary key (BFID, BFSMFID);
+

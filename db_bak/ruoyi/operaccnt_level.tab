@@ -1,0 +1,25 @@
+﻿create table OPERACCNT_LEVEL
+(
+  oaid    VARCHAR2(15) not null,
+  oaname  VARCHAR2(60) not null,
+  oapid   VARCHAR2(15),
+  oapname VARCHAR2(60),
+  oaclass NUMBER,
+  oanote  VARCHAR2(200)
+)
+;
+comment on table OPERACCNT_LEVEL
+  is '操作用户层级关系';
+comment on column OPERACCNT_LEVEL.oaid
+  is '帐号（【哈尔滨】工号）';
+comment on column OPERACCNT_LEVEL.oaname
+  is '姓名';
+comment on column OPERACCNT_LEVEL.oapid
+  is '上级归属工号';
+comment on column OPERACCNT_LEVEL.oapname
+  is '上级归属姓名';
+comment on column OPERACCNT_LEVEL.oaclass
+  is '级次';
+comment on column OPERACCNT_LEVEL.oanote
+  is '备注';
+

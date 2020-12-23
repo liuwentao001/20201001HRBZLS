@@ -1,0 +1,39 @@
+﻿create table SYS_CONFIG
+(
+  config_id    NUMBER(20) not null,
+  config_name  VARCHAR2(100) default '',
+  config_key   VARCHAR2(100) default '',
+  config_value VARCHAR2(100) default '',
+  config_type  CHAR(1) default 'N',
+  create_by    VARCHAR2(64) default '',
+  create_time  DATE,
+  update_by    VARCHAR2(64) default '',
+  update_time  DATE,
+  remark       VARCHAR2(500)
+)
+;
+comment on table SYS_CONFIG
+  is '参数配置表';
+comment on column SYS_CONFIG.config_id
+  is '参数主键seq_sys_config.nextval';
+comment on column SYS_CONFIG.config_name
+  is '参数名称';
+comment on column SYS_CONFIG.config_key
+  is '参数键名';
+comment on column SYS_CONFIG.config_value
+  is '参数键值';
+comment on column SYS_CONFIG.config_type
+  is '系统内置（Y是 N否）';
+comment on column SYS_CONFIG.create_by
+  is '创建者';
+comment on column SYS_CONFIG.create_time
+  is '创建时间';
+comment on column SYS_CONFIG.update_by
+  is '更新者';
+comment on column SYS_CONFIG.update_time
+  is '更新时间';
+comment on column SYS_CONFIG.remark
+  is '备注';
+alter table SYS_CONFIG
+  add constraint PK_SYS_CONFIG primary key (CONFIG_ID);
+

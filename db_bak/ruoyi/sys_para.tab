@@ -1,0 +1,13 @@
+﻿create table SYS_PARA
+(
+  spid         CHAR(4) not null,
+  sptitle      VARCHAR2(80) not null,
+  spisvisible  CHAR(1),
+  spisedit     CHAR(1),
+  spdatatype   VARCHAR2(16),
+  spvalue      VARCHAR2(2000),
+  spblob       BLOB,
+  spreferrence VARCHAR2(80)
+)
+;
+
