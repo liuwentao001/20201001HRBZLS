@@ -875,8 +875,9 @@
       WHEN '04' THEN
         BEGIN
           NULL;
-          COSTSTEP_YEAR(P_RL,
+          COSTSTEP_YEARhrb(P_RL,
                         P_SL,
+                        0,
                         0,
                         0,
                         PD,
@@ -1457,7 +1458,7 @@
          and ARSCRARTRANS not in ('14', '21')
          and ARDPMDCOLUMN3 = substr(V_jtqzny, 1, 4)
          and ARDPIID = '01'
-         and ARDMETHOD = 'sl3'
+         and ARDMETHOD = '04'
          and ARSCRARMONTH <= P_RL.Armonth
          and ARSCRARMONTH > v_yyyymm
          and SBPRIID = MINFO.SBPRIID;
@@ -1613,7 +1614,7 @@
          and ARSCRARTRANS not in ('14', '21')
          and ARDPMDCOLUMN3 = substr(v_RLJTSRQold, 1, 4)
          and ARDPIID = '01'
-         and ARDMETHOD = 'sl3'
+         and ARDMETHOD = '04'
          and ARSCRARMONTH <= P_RL.Armonth
          and ARSCRARMONTH > v_yyyymm
          and SBPRIID = MINFO.SBPRIID;
@@ -1758,7 +1759,7 @@
          and ARSCRARTRANS not in ('14', '21')
          and ARDPMDCOLUMN3 = substr(P_RL.Armonth, 1, 4)
          and ARDPIID = '01'
-         and ARDMETHOD = 'sl3'
+         and ARDMETHOD = '04'
          and ARSCRARMONTH <= P_RL.Armonth
          and ARSCRARMONTH > v_yyyymm
          and SBPRIID = MINFO.SBPRIID;

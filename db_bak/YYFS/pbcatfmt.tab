@@ -1,0 +1,10 @@
+﻿create table PBCATFMT
+(
+  pbf_name VARCHAR2(60),
+  pbf_frmt VARCHAR2(254),
+  pbf_type INTEGER not null,
+  pbf_cntr INTEGER
+)
+;
+create unique index PBSYSCATFRMTS_IDX on PBCATFMT (PBF_NAME);
+

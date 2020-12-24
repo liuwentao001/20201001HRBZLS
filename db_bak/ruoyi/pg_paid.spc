@@ -74,12 +74,7 @@
 -----------------------------------------------------------------------------------------------------
 参数：pm 负实收 。
 *******************************************************************************************/
-  function f_set_cr_reclist(pm in bs_payment%rowtype) return number;
-  
-  
-  
-  procedure test(p_payid in varchar2);
-  
+  function f_set_cr_reclist(pm in bs_payment%rowtype) return number;  
   
 end;
 /

@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user YYSF@49.233.62.251/ORCL
-prompt Created by xss on 2020骞?2鏈?3鏃?
+prompt Created by xss on 2020骞?2鏈?4鏃?
 set define off
 spool db_exp.log
 
@@ -538,6 +538,31 @@ prompt Creating table OPERACCNTROLE
 prompt ============================
 prompt
 @@operaccntrole.tab
+prompt
+prompt Creating table PBCATCOL
+prompt =======================
+prompt
+@@pbcatcol.tab
+prompt
+prompt Creating table PBCATEDT
+prompt =======================
+prompt
+@@pbcatedt.tab
+prompt
+prompt Creating table PBCATFMT
+prompt =======================
+prompt
+@@pbcatfmt.tab
+prompt
+prompt Creating table PBCATTBL
+prompt =======================
+prompt
+@@pbcattbl.tab
+prompt
+prompt Creating table PBCATVLD
+prompt =======================
+prompt
+@@pbcatvld.tab
 prompt
 prompt Creating table PRICEFRAME
 prompt =========================

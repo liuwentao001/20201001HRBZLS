@@ -1,0 +1,12 @@
+﻿create table SYSMETERTYPE
+(
+  smtid        CHAR(1) not null,
+  smtname      VARCHAR2(20) not null,
+  smtifdefault CHAR(1) not null,
+  smtifread    CHAR(1) not null,
+  smtmemo      VARCHAR2(120),
+  smtifsl      CHAR(1) not null,
+  smtifcharge  CHAR(1) not null
+)
+;
+

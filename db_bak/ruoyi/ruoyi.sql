@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@192.168.1.116/OLDGS
-prompt Created by xss on 2020年12月23日
+prompt Created by xss on 2020年12月24日
 set define off
 spool ruoyi.log
 
@@ -123,6 +123,11 @@ prompt Creating table BS_RECDETAIL
 prompt ===========================
 prompt
 @@bs_recdetail.tab
+prompt
+prompt Creating table BS_RECDETAIL_TEMP
+prompt ================================
+prompt
+@@bs_recdetail_temp.tab
 prompt
 prompt Creating table BS_RECLIST
 prompt =========================
@@ -268,6 +273,11 @@ prompt Creating table OPERACCNT_TEAM
 prompt =============================
 prompt
 @@operaccnt_team.tab
+prompt
+prompt Creating table PAY_PARA_TMP
+prompt ===========================
+prompt
+@@pay_para_tmp.tab
 prompt
 prompt Creating table PJ_INVSTOCK
 prompt ==========================
@@ -549,6 +559,11 @@ prompt ==========================
 prompt
 @@sysmanapara.tab
 prompt
+prompt Creating table SYSMETERTYPE
+prompt ===========================
+prompt
+@@sysmetertype.tab
+prompt
 prompt Creating table SYS_CONFIG
 prompt =========================
 prompt
@@ -628,6 +643,11 @@ prompt Creating table SYS_ROLE_MENU
 prompt ============================
 prompt
 @@sys_role_menu.tab
+prompt
+prompt Creating table SYS_SEQLIST
+prompt ==========================
+prompt
+@@sys_seqlist.tab
 prompt
 prompt Creating table SYS_STREETMANAGE
 prompt ===============================
@@ -804,6 +824,11 @@ prompt ======================================
 prompt
 @@seq_gen_table_column.seq
 prompt
+prompt Creating sequence SEQ_METERREADM
+prompt ================================
+prompt
+@@seq_meterreadm.seq
+prompt
 prompt Creating sequence SEQ_PAIDBATCH
 prompt ===============================
 prompt
@@ -894,10 +919,10 @@ prompt ===========================
 prompt
 @@pg_cb_cost.spc
 prompt
-prompt Creating package PG_EWIDE_RAEDPLAN_01
-prompt =====================================
+prompt Creating package PG_METER_READ
+prompt ==============================
 prompt
-@@pg_ewide_raedplan_01.spc
+@@pg_meter_read.spc
 prompt
 prompt Creating package PG_PAID
 prompt ========================
@@ -924,10 +949,25 @@ prompt =========================
 prompt
 @@connstr.fnc
 prompt
+prompt Creating function FCHKMETERNEEDCHARGE
+prompt =====================================
+prompt
+@@fchkmeterneedcharge.fnc
+prompt
 prompt Creating function FCHKMETERNEEDREAD
 prompt ===================================
 prompt
 @@fchkmeterneedread.fnc
+prompt
+prompt Creating function FGETCUSTNAME
+prompt ==============================
+prompt
+@@fgetcustname.fnc
+prompt
+prompt Creating function FGETSEQUENCE
+prompt ==============================
+prompt
+@@fgetsequence.fnc
 prompt
 prompt Creating function FPARA
 prompt =======================
@@ -939,10 +979,10 @@ prompt ================================
 prompt
 @@pg_cb_cost.bdy
 prompt
-prompt Creating package body PG_EWIDE_RAEDPLAN_01
-prompt ==========================================
+prompt Creating package body PG_METER_READ
+prompt ===================================
 prompt
-@@pg_ewide_raedplan_01.bdy
+@@pg_meter_read.bdy
 prompt
 prompt Creating package body PG_PAID
 prompt =============================

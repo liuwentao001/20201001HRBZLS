@@ -1,35 +1,35 @@
-ï»¿--ç³»ç»Ÿè¡¨æŸ¥è¯¢----------------------------------------------------------------------------------------------------
---æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨
+--ÏµÍ³±í²éÑ¯----------------------------------------------------------------------------------------------------
+--²éÑ¯ËùÓÐÓÃ»§±í
 select * from user_tables
---æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨å­—æ®µ
+--²éÑ¯ËùÓÐÓÃ»§±í×Ö¶Î
 select * from user_tab_columns order by table_name,column_id
---æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨å­—æ®µå¤‡æ³¨
+--²éÑ¯ËùÓÐÓÃ»§±í×Ö¶Î±¸×¢
 select * from user_col_comments;
---æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨å¤‡æ³¨
+--²éÑ¯ËùÓÐÓÃ»§±í±¸×¢
 select * from user_tab_comments;
---æŸ¥è¯¢æ‰€æœ‰åŒä¹‰è¯
+--²éÑ¯ËùÓÐÍ¬Òå´Ê
 SELECT * FROM SYS.ALL_SYNONYMS t WHERE t.owner in ('YYSF')
---æ­£åˆ™è¡¨è¾¾å¼
+--ÕýÔò±í´ïÊ½
 select case when regexp_like( 'T0101','^T[0-9]*$') then 1 else 0 end from dual
---æŸ¥è¯¢æ‰€æœ‰è¡¨è¯´æ˜Žã€å­—æ®µè¯´æ˜Ž
-select case when regexp_like(user_tab_columns.table_name,'^T[0-9]*$') then 'å¤§ç»ç†ä¸“ç”¨' else 'å¤–åŒ…' end æ€§è´¨,
-       user_tab_columns.table_name è¡¨å,
-       user_tab_comments.comments è¡¨è¯´æ˜Ž,
-       user_tab_columns.column_name å­—æ®µå,
-       user_col_comments.comments å­—æ®µè¯´æ˜Ž
+--²éÑ¯ËùÓÐ±íËµÃ÷¡¢×Ö¶ÎËµÃ÷
+select case when regexp_like(user_tab_columns.table_name,'^T[0-9]*$') then '´ó¾­Àí×¨ÓÃ' else 'Íâ°ü' end ÐÔÖÊ,
+       user_tab_columns.table_name ±íÃû,
+       user_tab_comments.comments ±íËµÃ÷,
+       user_tab_columns.column_name ×Ö¶ÎÃû,
+       user_col_comments.comments ×Ö¶ÎËµÃ÷
 from user_tab_columns 
      left join user_tab_comments on user_tab_columns.table_name=user_tab_comments.table_name 
      left join user_col_comments on user_tab_columns.column_name=user_col_comments.column_name and user_tab_columns.table_name=user_col_comments.table_name
 order by user_tab_columns.table_name,user_tab_columns.column_id
---åˆ›å»ºåŒä¹‰è¯
+--´´½¨Í¬Òå´Ê
 create or replace synonym bs_menu for t01001
---åŒä¹‰è¯æµ‹è¯•è„šæœ¬
+--Í¬Òå´Ê²âÊÔ½Å±¾
 select * from bs_menu
-insert into bs_menu (ID, LABEL, PARENT, ICON, COLOR) values ('002001222222222', 'ç»¼åˆæŸ¥è¯¢', '002', 'images/mainMenu/m_000.png', null);
+insert into bs_menu (ID, LABEL, PARENT, ICON, COLOR) values ('002001222222222', '×ÛºÏ²éÑ¯', '002', 'images/mainMenu/m_000.png', null);
 delete from bs_menu where id='002001222222222'
 alter table T01001 add test VARCHAR2(100);
 alter table T01001 drop column test;
---SQLæ‰§è¡ŒåŽ†å²
+--SQLÖ´ÐÐÀúÊ·
 SELECT t.sql_text, t.last_load_time,t.*
 FROM v$sql t
 WHERE t.last_load_time IS NOT NULL
@@ -43,11 +43,11 @@ where sql_text like '%1307580923%'
 --where b.FIRST_LOAD_TIME between '2009-10-15/09:24:47' and '2009-10-15/09:24:47' 
 order by b.FIRST_LOAD_TIME 
 
---å­—ç¬¦ä¸²è½¬table----------------------------------------------------------------------------------------------------
---æ‹¼æŽ¥å­—ç¬¦ä¸²
+--×Ö·û´®×ªtable----------------------------------------------------------------------------------------------------
+--Æ´½Ó×Ö·û´®
 select listagg(ardpiid,',') within group(order by ardpiid) from ys_zw_ardetail where ardid='0000012726'
 select to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') from ys_zw_ardetail where ardid='0000012726' group by ardid
---å­—ç¬¦ä¸²è½¬table
+--×Ö·û´®×ªtable
 WITH tb AS
  (SELECT '0,1,2,3,4,5,6,7,8' i_name
     FROM dual)
@@ -67,28 +67,28 @@ with t as(
 )
 select listagg(a,'|') within group(order by a) from t
 
---å¤–åŒ…ä¾›æ°´æ•°æ®åº“åŸºç¡€ä¿¡æ¯è¡¨æŸ¥è¯¢----------------------------------------------------------------------------------------------------
---æˆªå–å­—ç¬¦ä¸²
+--Íâ°ü¹©Ë®Êý¾Ý¿â»ù´¡ÐÅÏ¢±í²éÑ¯----------------------------------------------------------------------------------------------------
+--½ØÈ¡×Ö·û´®
 select PG_CB_COST.FBOUNDPARA('111,112,113|221,222,223|331,332,333|') from dual
 select PG_CB_COST.FGETPARA('111,112,113|221,222,223|331,332,333|', 2, 3) from dual
 select PG_CB_COST.FBOUNDPARA('111,112,113|221,222,223|331,332,333|') from dual
 /*
-ç”¨æˆ·å­—å…¸	        base_user_dictionary
-éƒ¨é—¨è¡¨	           base_dept
-è´¹çŽ‡é¡¹ç›®	        bas_price_item
-è´¹çŽ‡æ˜Žç»†	        bas_price_detail
-ç”¨æˆ·ä¿¡æ¯è¡¨ã€yhã€‘	 ys_yh_custinfo
-æ°´è¡¨æ¡£æ¡ˆ	        ys_yh_sbdoc
-æˆ·è¡¨ä¿¡æ¯ã€sbã€‘	  ys_yh_sbinfo
-åº”æ”¶å¸æ˜Žç»†ã€ardã€‘     ys_zw_ardetail
-åº”æ”¶æ€»å¸æ˜Žç»†ã€arã€‘	  ys_zw_arlist
-ä»˜æ¬¾äº¤æ˜“ã€pã€‘	        ys_zw_paidment
+ÓÃ»§×Öµä	        base_user_dictionary
+²¿ÃÅ±í	           base_dept
+·ÑÂÊÏîÄ¿	        bas_price_item
+·ÑÂÊÃ÷Ï¸	        bas_price_detail
+ÓÃ»§ÐÅÏ¢±í¡¾yh¡¿	 ys_yh_custinfo
+Ë®±íµµ°¸	        ys_yh_sbdoc
+»§±íÐÅÏ¢¡¾sb¡¿	  ys_yh_sbinfo
+Ó¦ÊÕÕÊÃ÷Ï¸¡¾ard¡¿     ys_zw_ardetail
+Ó¦ÊÕ×ÜÕÊÃ÷Ï¸¡¾ar¡¿	  ys_zw_arlist
+¸¶¿î½»Ò×¡¾p¡¿	        ys_zw_paidment
 */
 
 select dic_value,dic_name from base_user_dictionary where parent_id = (select id from base_user_dictionary where dic_value='SWMS_SYS_CHEQUETYPE') order by show_order
 
 select * from ys_yh_custinfo where yhid='1307580923'
---1 B4ADF12CF98E6179E053FB3EE931ED82  kings 1307580923    0201    1 Y æŽå››3   æ­¦æ±‰å¸‚æ­¦æ˜ŒåŒºxxxè·¯        2020-11-22 15:22:37                   Y           
+--1 B4ADF12CF98E6179E053FB3EE931ED82  kings 1307580923    0201    1 Y ÀîËÄ3   ÎäººÊÐÎä²ýÇøxxxÂ·        2020-11-22 15:22:37                   Y           
 select * from base_dept where dept_no='0201' and hire_code='kings'
 
 select * from ys_yh_sbdoc where sbid='1307580923'
@@ -97,9 +97,9 @@ select * from ys_yh_sbdoc where sbid='1307580923'
 select * from ys_yh_sbinfo where yhid='1307580923'
 --1 B4ADF12CF9886179E053FB3EE931ED82  kings 1307580923  1307580923      0201  2020.11 2020.12 0200101 2               0103        01        0 2020-11-22    0       300 2020-12-1 15:38:39  300 Y             Y 4 X 12332.000   N   Y                 1                   123123      2020-11-22 15:22:37             0.00          0 0.000 0.000     Y                                                                 
 select * from ys_zw_ardetail where ARDYSJE>0
---1 70105341  kings 70105341  0 01  030201  0 0 6.700 21.00 140.700 6.700 21.00 140.700 0.000 0.00  0.000           0.00    0.00  æ•°æ®è¿ç§»  0201  2010.06 1000000920        
+--1 70105341  kings 70105341  0 01  030201  0 0 6.700 21.00 140.700 6.700 21.00 140.700 0.000 0.00  0.000           0.00    0.00  Êý¾ÝÇ¨ÒÆ  0201  2010.06 1000000920        
 select * from ys_zw_arlist where arid='70105342'
---1 70105341  kings 70105341  0201  2010.06 2010-6-2 10:22:38 1000000920  1000000920      1 Y 1 ä¹å·é™¢ç‚­ç«é”…      1             N   Y 1000000920    1 Y H 2010-6-2 10:22:38 21011   2010-6-2 10:22:38 2019-11-1   1 1 1   309 330 46        N 1   DE  X 46  381.340 0 70105341  1   2010.06 381.340 Y   2010-6-11 14:30:05  77763905  1000296694  0.000 H   030201  2010-6-2 10:22:38 2010-6-2 10:22:38 1000000920  Y 5682  21011         0 71535168  1000296694  0.00  0.00  0.00  N N N 01    0.00          N       210111  0.000 0.000         N                       
+--1 70105341  kings 70105341  0201  2010.06 2010-6-2 10:22:38 1000000920  1000000920      1 Y 1 ¾ÅºÅÔºÌ¿»ð¹ø      1             N   Y 1000000920    1 Y H 2010-6-2 10:22:38 21011   2010-6-2 10:22:38 2019-11-1   1 1 1   309 330 46        N 1   DE  X 46  381.340 0 70105341  1   2010.06 381.340 Y   2010-6-11 14:30:05  77763905  1000296694  0.000 H   030201  2010-6-2 10:22:38 2010-6-2 10:22:38 1000000920  Y 5682  21011         0 71535168  1000296694  0.00  0.00  0.00  N N N 01    0.00          N       210111  0.000 0.000         N                       
 select *
 from ys_zw_ardetail ard, ys_zw_arlist ar
 where ar.arid=ard.ardid
@@ -112,109 +112,54 @@ select * from base_user_dictionary
 
 select * from ys_zw_paidment t WHERE PID='0000247255' for update 
 
-
 select * from ys_cb_mtread 
-
-
- select
-       armonth   è´¦åŠ¡æœˆä»½, 
-        ardate    è´¦åŠ¡æ—¥æœŸ, 
-        arscode   èµ·æ•°,   
-        arecode   æ­¢æ•°,   
-        arsl    åº”æ”¶æ°´é‡, 
-        arje    åº”æ”¶é‡‘é¢, 
-        arpaidje  é”€è´¦é‡‘é¢, 
-        arznj   è¿çº¦é‡‘,   
-        arzndate  è¿çº¦é‡‘èµ·ç®—æ—¥,
-        arpfid ä»·æ ¼åˆ†ç±», 
-        artrans   åº”æ”¶äº‹åŠ¡, 
-        arid    æµæ°´å·   
-      from ys_zw_arlist 
-      where 
-        arpaidflag='N'         --é”€å¸æ ‡å¿—(Y:Yï¼ŒN:Nï¼ŒX:Xï¼ŒV:Y/Nï¼ŒT:Y/Xï¼ŒK:N/Xï¼ŒW:Y/N/X)
-        and arreverseflag='N'  --å†²æ­£æ ‡å¿—ï¼ˆNä¸ºæ­£å¸¸ï¼ŒYä¸ºå†²æ­£ï¼‰
-        and aroutflag='N'      --å‘å‡ºæ ‡å¿—(Y-å‘å‡º N-æœªå‘å‡º)
-        and yhid = 
-        
-select * from ys_zw_arlist where arpid='0000247323'
-
-select 
-  yhid å®¢æˆ·ä»£ç ,
-  arrdate æŠ„è¡¨æ—¥æœŸ,
-  armonth è´¦åŠ¡æœˆä»½,
-  ardate è´¦åŠ¡æ—¥æœŸ,
-  arscode èµ·æ•°,
-  arecode æ­¢æ•°,
-  arsl åº”æ”¶æ°´é‡,
-  arje åº”æ”¶é‡‘é¢,
-  arznj è¿çº¦é‡‘
-from ys_zw_arlist 
-where arpid='0000247323'
-
 
 select * from ys_zw_arlist where aroutflag='Y' and yhid='1000005954'
 select aroutflag,ys_zw_arlist.* from ys_zw_arlist where armonth='2020.11' and yhid='1000005954'
 
+-------------------------------------------------
+--½É·Ñ²âÊÔ
+select rlje, t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje > 0 and rlcid='8091680510'
+
+select misaving,t.* from bs_custinfo t where ciid = '8091680510'
+
+select * from bs_payment where pid='0000247441'
+select * from bs_payment where pid='0000247438'
+
+--³åÕýÖØÖÃ
+delete from bs_reclist_sscz_temp;
+update bs_payment set preverseflag='N' where pid='0000247400';
+delete from bs_payment where pid='0000247408';
+commit;
+
+--³åÕý²âÊÔ
+select rlje, t.* from bs_reclist t where rlid='0325058150'
+select rlje, t.* from bs_reclist t where rlcid='7031434576' order by rlid desc;
+select rlje, t.* from bs_reclist t where rlcid='7031434576' and rlpaidflag = 'N' and rlreverseflag='N'
+
+delete from bs_reclist_sscz_temp
+select * from bs_reclist_sscz_temp
+
+select * from bs_reclist where rlpid = '0000247400'
+select * from bs_reclist where rlid = '0000200007'
+
+insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = '0000247400' and rlpaidflag = 'Y'
+insert into bs_reclist_temp (select t.* from bs_reclist t where rlpid = '0000247400' and rlpaidflag = 'Y');
+
+delete from bs_reclist_sscz_temp where rlpid = '0000247400' and rlpaidflag = 'Y';
+insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = '0000247400' and rlpaidflag = 'Y';
 
 
-select * from ys_zw_paidment order by pdatetime desc 
-
- where yhid='1307580783'
 
 
 
-    select a.pdpers,a.type,a.pdpayway,a.jfNums,a.zfNums,a.paidment,nvl(su.true_name,a.pdpers) paidPerName from (
-    SELECT
-    pdpers as pdpers,
-    '1' type,
-    pdpayway pdpayway,
-    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.paidment > 0 THEN 1 ELSE 0 END ) jfNums,
-    sum( CASE WHEN yzp.preverseflag = 'Y' AND yzp.paidment > 0 THEN 1 ELSE 0 END ) zfNums,
-    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.paidment > 0 THEN yzp.paidment ELSE 0 END ) paidment,
-    yzp.hire_code
-    FROM
-    ys_zw_paidment yzp,ys_yh_custinfo yyc
-    WHERE
-    1 = 1 and yzp.yhid = yyc.yhid and yzp.hire_code = yyc.hire_code
-    AND yzp.pdatetime <![CDATA[>=]]> to_date(#{pdatetimes,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
-    AND yzp.pdatetime <![CDATA[<]]>  to_date( #{pdatetimee,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
-    AND yzp.HIRE_CODE = #{hireCode,jdbcType=VARCHAR}
-    <if test="pdpers  != null and  pdpers !='' ">
-      AND yzp.pdpers = #{pdpers,jdbcType=VARCHAR}
-    </if>
-    <if test="manageNo  != null and  manageNo !='' ">
-      and yzp.manage_No = #{manageNo,jdbcType=VARCHAR}
-    </if>
-    GROUP BY
-    yzp.pdpers,
-    yzp.hire_code,
-    yzp.pdpayway
-    UNION ALL
-    SELECT
-    pdpers as pdpers,
-    '2' type,
-    pdpayway pdpayway,
-    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.pdspje = 0 THEN 1 ELSE 0 END ) jfNums,
-    sum( CASE WHEN yzp.preverseflag = 'Y' AND yzp.pdspje = 0 THEN 1 ELSE 0 END ) zfNums,
-    sum( CASE WHEN yzp.preverseflag = 'N' AND yzp.pdspje = 0 THEN yzp.paidment ELSE 0 END ) paidment,
-    yzp.hire_code
-    FROM
-    ys_zw_paidment yzp,ys_yh_custinfo yyc
-    WHERE
-    1 = 1 and yzp.yhid = yyc.yhid and yzp.hire_code = yyc.hire_code
-    AND yzp.pdatetime <![CDATA[>=]]> to_date(#{pdatetimes,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
-    AND yzp.pdatetime <![CDATA[<]]> to_date( #{pdatetimee,jdbcType=VARCHAR}, 'yyyy-MM-dd' )
-    AND yzp.HIRE_CODE = #{hireCode,jdbcType=VARCHAR}
-    <if test="pdpers  != null and  pdpers !='' ">
-      AND yzp.pdpers = #{pdpers,jdbcType=VARCHAR}
-    </if>
-    <if test="manageNo  != null and  manageNo !='' ">
-      and yzp.manage_No = #{manageNo,jdbcType=VARCHAR}
-    </if>
-    GROUP BY
-    yzp.pdpers,
-    yzp.pdpayway,
-    yzp.hire_code
-    ) a  LEFT JOIN base_user su on su.hire_code = a.hire_code and su.user_name = a.pdpers
-    order by pdpers ,type,pdpayway
-        
+
+
+
+
+
+
+
+
+
+

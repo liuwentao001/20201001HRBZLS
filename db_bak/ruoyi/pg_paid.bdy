@@ -384,13 +384,13 @@
     insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
     --冲正时应收帐负数据
     v_call := f_set_cr_reclist(p_reverse);
+
     --将应收冲正负记录插入到应收总账中
-    insert into bs_reclist t (select * from bs_reclist_sscz_temp where rlpid = p_payid);
-    
+    insert into bs_reclist t (select * from bs_reclist_sscz_temp where rlpid = p_reverse.pid);
     
     -----STEP 20: 增加正应收记录--------------------------------------------------------------
     ---保存需要冲正处理的应收总账记录
-    delete from bs_reclist_sscz_temp where rlpid = p_payid;
+    delete from bs_reclist_sscz_temp where rlpid = p_reverse.pid;
     insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
     ---在应收总账临时表中做正记录的调整
     update bs_reclist_sscz_temp t
@@ -411,8 +411,8 @@
            t.rlsavingqm    = 0, --无
            t.rlreverseflag = 'N';
     --将应收冲正正记录插入到应收总账中
-    insert into bs_reclist t (select * from bs_reclist_sscz_temp where rlpid = p_payid);
-    --delete from bs_reclist where rlpid = p_payid ;
+    insert into bs_reclist t (select * from bs_reclist_sscz_temp where rlscrrlid in (select rlid from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y'));
+    delete from bs_reclist where rlpid = p_payid ;
     ----STEP 30 原应收记录打冲正标记
     update bs_reclist t set t.rlreverseflag = 'Y' where t.rlpid = p_payid and t.rlpaidflag = 'Y';
 
@@ -502,12 +502,6 @@
     when others then return 0;
   end;
 
-  procedure test(p_payid in varchar2) is
-    v_sql varchar(200);
-  begin
-    insert into bs_reclist t (select * from bs_reclist_sscz_temp where rlid='0000200007');
-    commit;
-  end;
 end;
 /
 
