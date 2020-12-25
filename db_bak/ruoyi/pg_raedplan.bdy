@@ -6,11 +6,15 @@
         P_MONTH: 目标营业所
         P_BOOK_NO:  目标表册 
   处理：生成抄表资料
-  输出：无
+  输出：返回  0  执行成功
+        返回 -1 执行失败
   */
+
   PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
                      P_MONTH     IN VARCHAR2, /*抄表月份*/
-                     P_BOOK_NO   IN VARCHAR2) IS
+                     P_BOOK_NO   IN VARCHAR2, /*表册*/
+                     O_STATE     OUT VARCHAR2) /*执行状态*/
+   IS
     /*表册*/
     YH  BS_CUSTINFO%ROWTYPE;
     SB  BS_METERINFO%ROWTYPE;
@@ -52,9 +56,8 @@
          AND B.MIBFID = D.BFID
          AND B.MISMFID = P_MANAGE_NO
          AND B.MIBFID = P_BOOK_NO
-            --AND (TO_CHAR(ADD_MONTHS(TO_DATE(MIRMON,'yyyy.mm'),BFRCYC),'yyyy.mm') = P_MONTH OR MIRMON IS NULL)
          AND D.BFNRMONTH = P_MONTH /*
-                     AND FCHKCBMK(B.MRMID) = 'Y'*/
+                                       AND FCHKCBMK(B.MRMID) = 'Y'*/
       ;
   BEGIN
     OPEN C_BKSB;
@@ -152,20 +155,25 @@
        AND BFID = P_BOOK_NO;
   
     COMMIT;
+    O_STATE := '0';
   EXCEPTION
     WHEN OTHERS THEN
-      RAISE;
+      O_STATE := '-1';
   END;
+
   /*
   单户月初
   进行生成抄码表
   参数：P_MANAGE_NO：营业所
         P_MONTH: 
   处理：生成抄表资料
-  输出：无
+  输出：返回 0  执行成功
+        返回 -1 执行失败
   */
-  PROCEDURE CREATECBSB(P_MONTH /*抄表月份*/ IN VARCHAR2,
-                       P_SBID /*水表档案编号*/  IN VARCHAR2) IS
+  PROCEDURE CREATECBSB(P_MONTH IN VARCHAR2, /*抄表月份*/
+                       P_SBID  IN VARCHAR2, /*水表档案编号*/
+                       O_STATE OUT VARCHAR2) /*执行状态*/
+   IS
     YH  BS_CUSTINFO%ROWTYPE;
     SB  BS_METERINFO%ROWTYPE;
     MD  BS_METERDOC%ROWTYPE;
@@ -296,18 +304,22 @@
       END IF;
     END LOOP;
     CLOSE C_BKSB;
-  
     COMMIT;
+    O_STATE := '0';
   EXCEPTION
     WHEN OTHERS THEN
-      RAISE;
+      O_STATE := '-1';
   END;
 
   -- 月终
   --TIME 2020-12-22  BY WL
-  PROCEDURE CARRYFORWARD_MR(P_SMFID  IN VARCHAR2, -- 营业所,售水公司
-                            P_MONTH  IN VARCHAR2, -- 当前月份
-                            P_COMMIT IN VARCHAR2) IS
+  --返回 0  执行成功
+  --返回 -1 执行失败
+  PROCEDURE CARRYFORWARD_MR(P_SMFID  IN VARCHAR2, /*营业所,售水公司*/
+                            P_MONTH  IN VARCHAR2, /*当前月份*/
+                            P_COMMIT IN VARCHAR2, /*提交标识*/
+                            O_STATE  OUT VARCHAR2) /*执行状态*/
+   IS
     --提交标识
     --P_COMMIT 提交标志
     V_TEMPMONTH VARCHAR2(7);
@@ -438,11 +450,89 @@
     --提交标志
     IF P_COMMIT = 'Y' THEN
       COMMIT;
+      O_STATE := '0';
     END IF;
   EXCEPTION
     WHEN OTHERS THEN
       ROLLBACK;
       RAISE_APPLICATION_ERROR(ERRCODE, '月终失败' || SQLERRM);
+      O_STATE := '-1';
+  END;
+
+  -- 抄表审核
+  --TIME 2020-12-24  BY WL
+  --返回 0  执行成功
+  --返回 -1 执行失败
+  PROCEDURE SP_MRMRIFSUBMIT(P_MRID  IN VARCHAR2,     /*流水号*/
+                            P_OPER  IN VARCHAR2,     /*操作人姓名*/
+                            P_FLAG  IN VARCHAR2,     /*是否通过*/
+                            O_STATE OUT VARCHAR2) AS /*执行状态*/
+    MR BS_METERREAD%ROWTYPE;
+  BEGIN
+    BEGIN
+      SELECT * INTO MR FROM BS_METERREAD WHERE MRID = P_MRID;
+      IF MR.MRIFSUBMIT = 'Y' THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '无需审核');
+      END IF;
+      IF MR.MRSL IS NULL THEN
+        RAISE_APPLICATION_ERROR(ERRCODE,
+                                '用户号【' || MR.MRCCODE || '】抄表水量为空');
+      END IF;
+      IF MR.MRIFREC = 'Y' THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '已计费无需审核');
+      END IF;
+      /*    EXCEPTION
+      WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '无效的抄表记录');*/
+    END;
+  
+    UPDATE BS_METERREAD
+       SET MRIFSUBMIT = 'Y',
+           MRCHKFLAG  = 'Y', --复核标志
+           MRCHKDATE  = SYSDATE, --复核日期
+           MRCHKPER   = P_OPER, --复核人员
+           --MRCHKSCODE      = MR.MRSCODE, --原起数
+           --MRCHKECODE      = MR.MRECODE, --原止数
+           --MRCHKSL         = MR.MRSL, --原水量
+           --MRCHKADDSL      = MR.MRADDSL, --原余量
+           --MRCHKCARRYSL    = MR.MRCARRYSL, --原进位水量
+           --MRCHKRDATE      = MR.MRRDATE, --原抄见日期
+           --MRCHKFACE       = MR.MRFACE, --原表况
+           MRCHKRESULT = (CASE
+                           WHEN P_FLAG = '0' THEN
+                            '确认通过'
+                           ELSE
+                            '退回重入帐'
+                         END), --检查结果类型
+           MRCHKRESULTMEMO = (CASE
+                               WHEN P_FLAG = '0' THEN
+                                '确认通过'
+                               ELSE
+                                '退回重入帐'
+                             END) --检查结果说明
+     WHERE MRID = P_MRID;
+  
+    IF P_FLAG = '-1' THEN
+      --审批不通过
+      UPDATE BS_METERREAD
+         SET MRREADOK   = 'N',
+             MRIFSUBMIT = 'N',
+             MRRDATE    = NULL,
+             MRECODE    = NULL,
+             MRSL       = NULL,
+             MRFACE     = NULL,
+             MRFACE2    = NULL,
+             --MRFACE3      = NULL,
+             --MRFACE4      = NULL,
+             --MRECODECHAR  = NULL,
+             MRDATASOURCE = NULL
+       WHERE MRID = P_MRID;
+    END IF;
+    O_STATE := '0';
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      O_STATE := '-1';
   END;
   /*
   均量（费）算法

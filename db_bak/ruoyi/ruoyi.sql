@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@192.168.1.116/OLDGS
-prompt Created by xss on 2020年12月24日
+prompt Created by xss on 2020年12月25日
 set define off
 spool ruoyi.log
 
@@ -914,10 +914,20 @@ prompt ==============================
 prompt
 @@seq_sys_user.seq
 prompt
+prompt Creating view VIEW_PAYMENT
+prompt ==========================
+prompt
+@@view_payment.vw
+prompt
 prompt Creating package PG_CB_COST
 prompt ===========================
 prompt
 @@pg_cb_cost.spc
+prompt
+prompt Creating package PG_EWIDE_RAEDPLAN_01
+prompt =====================================
+prompt
+@@pg_ewide_raedplan_01.spc
 prompt
 prompt Creating package PG_METER_READ
 prompt ==============================
@@ -978,6 +988,11 @@ prompt Creating package body PG_CB_COST
 prompt ================================
 prompt
 @@pg_cb_cost.bdy
+prompt
+prompt Creating package body PG_EWIDE_RAEDPLAN_01
+prompt ==========================================
+prompt
+@@pg_ewide_raedplan_01.bdy
 prompt
 prompt Creating package body PG_METER_READ
 prompt ===================================

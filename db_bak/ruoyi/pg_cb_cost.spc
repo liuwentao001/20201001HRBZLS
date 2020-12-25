@@ -19,7 +19,21 @@
   procedure calculate(mr      in out bs_meterread%rowtype,
                       p_trans in char,
                       p_ny    in varchar2);
-                      
+  --自来水单笔算费，只用于记账不计费（哈尔滨）
+  procedure calculatenp(mr      in out bs_meterread%rowtype,
+                        p_trans in char,
+                        p_ny    in varchar2);
+  --费率计算步骤
+  procedure calpiid(p_rl             in out bs_reclist%rowtype,
+                  p_sl             in number,
+                  pd               in bs_pricedetail%rowtype,
+                  rdtab            in out rd_table)  ;
+  --阶梯计费步骤
+  procedure calstep(p_rl       in out bs_reclist%rowtype,
+                    p_sl       in number,
+                    pd         in bs_pricedetail%rowtype,
+                    rdtab      in out rd_table);
+                        
   procedure insrd(rd in rd_table);
 end;
 /

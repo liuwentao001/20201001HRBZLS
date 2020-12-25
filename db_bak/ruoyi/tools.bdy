@@ -15,6 +15,27 @@
       FROM DUAL;
     RETURN XTRQ;
   END;
+  
+  function  getmax(n1 in number,n2 in number) return number
+  is
+  begin
+      if nvl(n1,0) >= nvl(n2,0) then
+         return nvl(n1,0);
+      else
+         return nvl(n2,0);
+      end if;
+  end getmax;
+  
+  function  getmin(n1 in number,n2 in number) return number
+  is
+  begin
+      if nvl(n1,0) <= nvl(n2,0) then
+         return nvl(n1,0);
+      else
+         return nvl(n2,0);
+      end if;
+  end getmin;
+  
 END TOOLS;
 /
 

@@ -11,21 +11,39 @@
   NO_DATA_FOUND EXCEPTION;
 
   --生成抄表计划
-  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2,  /*营销公司*/
-                     P_MONTH     IN VARCHAR2,  /*抄表月份*/
-                     P_BOOK_NO   IN VARCHAR2); /*表册*/
+  --返回 0  执行成功
+  --返回 -1 执行失败
+  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
+                     P_MONTH     IN VARCHAR2, /*抄表月份*/
+                     P_BOOK_NO   IN VARCHAR2, /*表册*/
+                     O_STATE     OUT VARCHAR2); /*执行状态*/
 
   --单户月初
-  PROCEDURE CREATECBSB(P_MONTH  IN VARCHAR2,  /*抄表月份*/
-                       P_SBID   IN VARCHAR2); /*水表档案编号*/
+  --返回 0  执行成功
+  --返回 -1 执行失败
+  PROCEDURE CREATECBSB(P_MONTH IN VARCHAR2, /*抄表月份*/
+                       P_SBID  IN VARCHAR2, /*水表档案编号*/
+                       O_STATE OUT VARCHAR2); /*执行状态*/
 
   -- 月终
-  PROCEDURE CARRYFORWARD_MR(P_SMFID  IN VARCHAR2,  /*营业所,售水公司*/
-                            P_MONTH  IN VARCHAR2,  /*当前月份*/
-                            P_COMMIT IN VARCHAR2); /*提交标识*/
+  --返回 0  执行成功
+  --返回 -1 执行失败
+  PROCEDURE CARRYFORWARD_MR(P_SMFID  IN VARCHAR2, /*营业所,售水公司*/
+                            P_MONTH  IN VARCHAR2, /*当前月份*/
+                            P_COMMIT IN VARCHAR2, /*提交标识*/
+                            O_STATE  OUT VARCHAR2); /*执行状态*/
 
-  --生成抄表调用()
-  --单户月初调用()
+  -- 抄表审核
+  --TIME 2020-12-24  BY WL
+  --返回 0  执行成功
+  --返回 -1 执行失败
+  PROCEDURE SP_MRMRIFSUBMIT(P_MRID  IN VARCHAR2,  /*流水号*/
+                            P_OPER  IN VARCHAR2,  /*操作人姓名*/
+                            P_FLAG  IN VARCHAR2,  /*是否通过*/
+                            O_STATE OUT VARCHAR2);/*执行状态*/
+
+  --生成抄表调用
+  --单户月初调用
   PROCEDURE GETMRHIS(P_SBID  IN VARCHAR2,
                      P_MONTH IN VARCHAR2,
                      O_SL_1  OUT NUMBER,
