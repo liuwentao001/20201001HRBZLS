@@ -150,6 +150,93 @@ delete from bs_reclist_sscz_temp where rlpid = '0000247400' and rlpaidflag = 'Y'
 insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = '0000247400' and rlpaidflag = 'Y';
 
 
+---------------------------------------------------
+--算费测试
+select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,t.* from bs_meterread t where mrifrec='N' and mrid='2372463611';
+/*
+MRID	2372463611	varchar2(10), mandatory, 流水号
+MRCCODE	0100172364	varchar2(10), optional, 用户号
+MRMID	0100172364	varchar2(10), optional, 水表编号
+MRSCODE	1861	number(10), optional, 上期抄见
+MRECODE	1961	number(10), optional, 本期抄见
+
+*/
+--          if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('m','l') then
+select mircode,mipfid,t.* from bs_meterinfo t where miid='0100172364';
+/*
+MIRCODE	1861	number(10), optional, 本期读数
+MIPFID	D0102	varchar2(10), optional, 用水性质(priceframe)
+*/
+
+--无效的阶梯计费设置
+select *
+from bs_pricestep
+where pspscid = pd.pdpscid
+and pspfid = pd.pdpfid
+and pspiid = pd.pdpiid
+order by psclass;
+
+select * from bs_pricedetail
+
+update bs_meterinfo set mipfid='D0102' where miid='0100172364';--固定水价
+update bs_meterinfo set mipfid='A0103' where miid='0100172364';--阶梯水价
+update bs_meterinfo set mircode=1861 where miid='0100172364';
+update bs_meterread set mrscode=1861 where mrid='2372463611';
+update bs_meterread set mrecode=2861 where mrid='2372463611';
+update bs_meterread set mrsl=1000 where mrid='2372463611';
+update bs_meterread set mrifrec='N' where mrid='2372463611';
+commit;
+
+select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,mrifrec,t.* from bs_meterread t where mrid='2372463611';
+
+select * from bs_reclist where rlmid='0100172364'
+select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlmid='0100172364' );
+
+select * from bs_pricedetail where pdpfid='A0103' for update;
+
+select * from bs_pricedetail t where pdpfid = 'A0103'
+/*
+PDPSCID 0 number, mandatory, 方案编码
+PDPFID  A0103 varchar2(10), mandatory, 费率编码
+PDPIID  01  char(2), mandatory, 费率项目
+PDDJ  1.000 number(12,3), optional, 单价
+PDSL  10  number(10), optional, 水量
+PDJE  10.00 number(12,2), optional, 金额
+PDMETHOD  02  varchar2(3), mandatory, 计费方法
+PDSDATE   date, optional, 开始日期
+PDEDATE   date, optional, 结束日期
+PDSMONTH    varchar2(7), optional, 开始月份
+PDEMONTH    varchar2(7), optional, 结束月份
+*/
+
+select * from bs_pricestep where pspscid = 0 and pspfid = 'A0103' for update
+--and pspiid = 03
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -189,24 +189,24 @@
     FOUND BOOLEAN;
     --计划
     CURSOR C_BKSB IS
-      SELECT A.CIID,
-             B.MIID,
-             B.MISMFID,
-             B.MIRORDER,
-             MISTID,
-             MIPID,
-             MICLASS,
-             MIFLAG,
-             MIRECDATE,
-             MIRCODE,
-             MDMODEL,
-             MIPRIFLAG,
-             BFBATCH,
-             BFRPER,
-             MIRMON,
-             B.MISAFID,
-             MIIFCHK,
-             MDCALIBER,
+      SELECT A.CIID,    --用户号
+             B.MIID,    --水表档案编号
+             B.MISMFID, --营销公司
+             B.MIRORDER, --抄表次序
+             B.MISTID, --行业分类
+             B.MIPID,    --上级水表编号
+             B.MICLASS,  --水表级次
+             B.MIFLAG, --末级标志
+             B.MIRECDATE, --本期抄见日期
+             B.MIRCODE, --本期读数
+             S.MDMODEL, --计量方式
+             B.MIPRIFLAG,  --合收表标志
+             D.BFBATCH, --抄表批次
+             D.BFRPER,  --抄表员
+             B.MIRMON,  --本期抄表月份
+             B.MISAFID, --区域
+             B.MIIFCHK, --是否考核表(Y-是,N-否 )
+             S.MDCALIBER, --表口径(METERCALIBER)
              B.MISIDE,
              B.MIBFID
         FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
@@ -247,7 +247,7 @@
       FOUND := C_CB%FOUND;
       CLOSE C_CB;
       IF NOT FOUND THEN
-        SBR.MRID          := SYS_GUID(); --流水号
+        SBR.MRID          := SUBSTR(SYS_GUID(),1,10); --流水号
         SBR.MRMONTH       := P_MONTH; --抄表月份
         SBR.MRSMFID       := SB.MISMFID; --管辖公司
         SBR.MRBFID        := SB.MIBFID; --表册

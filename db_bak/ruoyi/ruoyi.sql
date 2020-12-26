@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@192.168.1.116/OLDGS
-prompt Created by xss on 2020年12月25日
+prompt Created by xss on 2020年12月26日
 set define off
 spool ruoyi.log
 
@@ -829,6 +829,11 @@ prompt ================================
 prompt
 @@seq_meterreadm.seq
 prompt
+prompt Creating sequence SEQ_MRID
+prompt ==========================
+prompt
+@@seq_mrid.seq
+prompt
 prompt Creating sequence SEQ_PAIDBATCH
 prompt ===============================
 prompt
@@ -1018,11 +1023,6 @@ prompt Creating type body CONNSTRIMPL
 prompt ==============================
 prompt
 @@connstrimpl.tpb
-prompt
-prompt Creating trigger INCREASE_SEQ_METERREAD
-prompt =======================================
-prompt
-@@increase_seq_meterread.trg
 prompt
 prompt Creating trigger SMS_SEND_INSERT
 prompt ================================

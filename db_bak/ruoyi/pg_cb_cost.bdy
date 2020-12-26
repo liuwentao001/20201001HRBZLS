@@ -151,12 +151,12 @@
     end if;
     close c_mi;
   
-    if mi.mistatus = '24' and mr.mrdatasource <> 'm' then
+    if mi.mistatus = '24' and mr.mrdatasource <> 'M' then
       --如果表状态为故障换表中且此抄表记录来源不是故障抄表余量，则提示不能算费，有故障换表
       wlog('此水表编号正在故障换表中,不能进行算费,如需算费请先审核故障换表或删除故障换表单据.' || mr.mrmid);
       raise_application_error(errcode, '此水表编号[' || mr.mrmid ||']正在故障换表中,不能进行算费,如需算费请先审核故障换表或删除故障换表单据.');
     end if;
-    if mi.mistatus = '35' and mr.mrdatasource <> 'l' then
+    if mi.mistatus = '35' and mr.mrdatasource <> 'L' then
       --如果表状态为周期换表中且此抄表记录来源不是周期抄表余量，则提示不能算费，有周期换表
       wlog('此水表编号正在周期换表中,不能进行算费,如需算费请先审核周期换表或删除周期换表单据.' || mr.mrmid);
       raise_application_error(errcode,'此水表编号[' || mr.mrmid ||']正在周期换表中,不能进行算费,如需算费请先审核周期换表或删除周期换表单据.');
@@ -171,7 +171,7 @@
       wlog('此水表编号正在预存撤表退费中,不能进行算费,如需算费请先审核或删除预存冲正单据.' || mr.mrmid);
       raise_application_error(errcode, '此水表编号[' || mr.mrmid ||']正在预存冲正中,不能进行算费,如需算费请先审核或删除预存冲正单据.');
     end if;
-    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('m','l') then
+    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L') then
        --水表起码已经改变
        wlog('此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！' || mr.mrmid);
        raise_application_error(errcode,'此水表编号[' || mr.mrmid || ']此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！');
@@ -308,13 +308,11 @@
         if mrl.mrifrec = 'Y' and --mrl.mrifsubmit = 'Y' and
            mrl.mrifhalt = 'Y' and mil.miifcharge = 'Y' and
            fchkmeterneedcharge(mil.mistatus, mil.miifchk, '1') = 'Y' then
-           null;
           --正常算费
           calculate(mrl, '1', '0000.00');
         elsif mil.miifcharge = 'Y' or mrl.mrifhalt = 'Y' then
           --计量不计费,将数据记录到费用库
-          --calculatenp(mrl, '1', '0000.00');
-          null;
+          calculatenp(mrl, '1', '0000.00');
         end if;
       end loop;
       mr.mrifrec   := 'Y';
@@ -356,6 +354,7 @@
        where current of c_mr;
     end if;
     close c_mr;
+    commit;
   exception
     when others then
       if c_mr_pr%isopen then close c_mr_pr; end if;
