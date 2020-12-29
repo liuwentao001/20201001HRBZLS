@@ -89,7 +89,7 @@
       FOUND := C_CB%FOUND;
       CLOSE C_CB;
       IF NOT FOUND THEN
-        SBR.MRID          := SYS_GUID(); --流水号
+        SBR.MRID          := FGETSEQUENCE('METERREAD'); --流水号
         SBR.MRMONTH       := P_MONTH; --抄表月份
         SBR.MRSMFID       := SB.MISMFID; --管辖公司
         SBR.MRBFID        := P_BOOK_NO; --表册
@@ -247,7 +247,7 @@
       FOUND := C_CB%FOUND;
       CLOSE C_CB;
       IF NOT FOUND THEN
-        SBR.MRID          := SUBSTR(SYS_GUID(),1,10); --流水号
+        SBR.MRID          := FGETSEQUENCE('METERREAD'); --流水号
         SBR.MRMONTH       := P_MONTH; --抄表月份
         SBR.MRSMFID       := SB.MISMFID; --管辖公司
         SBR.MRBFID        := SB.MIBFID; --表册

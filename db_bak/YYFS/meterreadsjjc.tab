@@ -1,0 +1,368 @@
+﻿create table METERREADSJJC
+(
+  mrid            VARCHAR2(10) not null,
+  mrmonth         VARCHAR2(7),
+  mrsmfid         VARCHAR2(10),
+  mrbfid          VARCHAR2(10),
+  mrbatch         NUMBER(20),
+  mrday           DATE,
+  mrrorder        NUMBER(10),
+  mrcid           VARCHAR2(10),
+  mrccode         VARCHAR2(20),
+  mrmid           VARCHAR2(10),
+  mrmcode         VARCHAR2(20),
+  mrstid          VARCHAR2(10),
+  mrmpid          VARCHAR2(10),
+  mrmclass        NUMBER,
+  mrmflag         CHAR(1),
+  mrcreadate      DATE,
+  mrinputdate     DATE,
+  mrreadok        CHAR(1),
+  mrrdate         DATE,
+  mrrper          VARCHAR2(15),
+  mrprdate        DATE,
+  mrscode         NUMBER(10),
+  mrecode         NUMBER(10),
+  mrsl            NUMBER(10),
+  mrface          VARCHAR2(2),
+  mrifsubmit      CHAR(1),
+  mrifhalt        CHAR(1),
+  mrdatasource    CHAR(1),
+  mrifignoreminsl CHAR(1),
+  mrpdardate      DATE,
+  mroutflag       CHAR(1) default 'N',
+  mroutid         VARCHAR2(10),
+  mroutdate       DATE,
+  mrinorder       NUMBER(4),
+  mrindate        DATE,
+  mrrpid          VARCHAR2(3),
+  mrmemo          VARCHAR2(120),
+  mrifgu          CHAR(1),
+  mrifrec         CHAR(1),
+  mrrecdate       DATE,
+  mrrecsl         NUMBER(10),
+  mraddsl         NUMBER(10),
+  mrcarrysl       NUMBER(10) default 0,
+  mrctrl1         VARCHAR2(10),
+  mrctrl2         VARCHAR2(10),
+  mrctrl3         VARCHAR2(10),
+  mrctrl4         VARCHAR2(10),
+  mrctrl5         VARCHAR2(10),
+  mrchkflag       CHAR(1) default 'N',
+  mrchkdate       DATE,
+  mrchkper        VARCHAR2(10),
+  mrchkscode      NUMBER(10),
+  mrchkecode      NUMBER(10),
+  mrchksl         NUMBER(10),
+  mrchkaddsl      NUMBER(10),
+  mrchkcarrysl    NUMBER(10),
+  mrchkrdate      DATE,
+  mrchkface       VARCHAR2(2),
+  mrchkresult     VARCHAR2(500),
+  mrchkresultmemo VARCHAR2(500),
+  mrprimid        VARCHAR2(200),
+  mrprimflag      CHAR(1),
+  mrlb            CHAR(1),
+  mrnewflag       CHAR(1),
+  mrface2         VARCHAR2(2),
+  mrface3         VARCHAR2(2),
+  mrface4         VARCHAR2(2),
+  mrscodechar     VARCHAR2(10),
+  mrecodechar     VARCHAR2(10),
+  mrprivilegeflag VARCHAR2(1),
+  mrprivilegeper  VARCHAR2(10),
+  mrprivilegememo VARCHAR2(200),
+  mrprivilegedate DATE,
+  mrsafid         VARCHAR2(10),
+  mriftrans       VARCHAR2(2),
+  mrrequisition   NUMBER(2),
+  mrifchk         CHAR(1),
+  mrinputper      VARCHAR2(10),
+  mrpfid          VARCHAR2(10),
+  mrcaliber       NUMBER(10),
+  mrside          VARCHAR2(100),
+  mrlastsl        NUMBER(10),
+  mrthreesl       NUMBER(10),
+  mryearsl        NUMBER(10),
+  mrrecje01       NUMBER(13,3),
+  mrrecje02       NUMBER(13,3),
+  mrrecje03       NUMBER(13,3),
+  mrrecje04       NUMBER(13,3),
+  mrmtype         VARCHAR2(10),
+  mrnullcont      NUMBER(10),
+  mrnulltotal     NUMBER(10),
+  mrplansl        NUMBER(18,8),
+  mrplanje01      NUMBER(18,8),
+  mrplanje02      NUMBER(18,8),
+  mrplanje03      NUMBER(18,8),
+  mrlastje01      NUMBER(13,3),
+  mrthreeje01     NUMBER(13,3),
+  mryearje01      NUMBER(13,3),
+  mrlastje02      NUMBER(13,3),
+  mrthreeje02     NUMBER(13,3),
+  mryearje02      NUMBER(13,3),
+  mrlastje03      NUMBER(13,3),
+  mrthreeje03     NUMBER(13,3),
+  mryearje03      NUMBER(13,3),
+  mrlastyearsl    NUMBER(10),
+  mrlastyearje01  NUMBER(13,3),
+  mrlastyearje02  NUMBER(13,3),
+  mrlastyearje03  NUMBER(13,3),
+  mrbddsl         NUMBER(10),
+  mrexpljfdate    DATE,
+  mrexpflag       CHAR(1),
+  mrexpoper       VARCHAR2(10),
+  mrimpljfdate    DATE,
+  mrimpljfje      NUMBER(13,3),
+  mrimpoper       VARCHAR2(10),
+  mrhbflag        CHAR(1),
+  mrbddslqc       NUMBER(10),
+  mrbddslbq       NUMBER(10),
+  mrbddslqm       NUMBER(10),
+  mrusenum        NUMBER(10),
+  mrpfverid       NUMBER(10)
+)
+;
+comment on table METERREADSJJC
+  is '抄表库【MR】';
+comment on column METERREADSJJC.mrid
+  is '流水号';
+comment on column METERREADSJJC.mrmonth
+  is '抄表月份';
+comment on column METERREADSJJC.mrsmfid
+  is '营销公司';
+comment on column METERREADSJJC.mrbfid
+  is '表册';
+comment on column METERREADSJJC.mrbatch
+  is '抄表批次';
+comment on column METERREADSJJC.mrday
+  is '计划抄表日';
+comment on column METERREADSJJC.mrrorder
+  is '抄表次序';
+comment on column METERREADSJJC.mrcid
+  is '用户编号';
+comment on column METERREADSJJC.mrccode
+  is '用户号';
+comment on column METERREADSJJC.mrmid
+  is '水表编号';
+comment on column METERREADSJJC.mrmcode
+  is '水表手工编号';
+comment on column METERREADSJJC.mrstid
+  is '行业分类';
+comment on column METERREADSJJC.mrmpid
+  is '上级水表';
+comment on column METERREADSJJC.mrmclass
+  is '水表级次';
+comment on column METERREADSJJC.mrmflag
+  is '末级标志';
+comment on column METERREADSJJC.mrcreadate
+  is '创建日期';
+comment on column METERREADSJJC.mrinputdate
+  is '编辑日期';
+comment on column METERREADSJJC.mrreadok
+  is '抄见标志';
+comment on column METERREADSJJC.mrrdate
+  is '抄表日期';
+comment on column METERREADSJJC.mrrper
+  is '抄表员';
+comment on column METERREADSJJC.mrprdate
+  is '上次抄见日期';
+comment on column METERREADSJJC.mrscode
+  is '上期抄见';
+comment on column METERREADSJJC.mrecode
+  is '本期抄见';
+comment on column METERREADSJJC.mrsl
+  is '本期水量';
+comment on column METERREADSJJC.mrface
+  is '水表故障(查表表态)';
+comment on column METERREADSJJC.mrifsubmit
+  is '是否提交计费';
+comment on column METERREADSJJC.mrifhalt
+  is '系统停算';
+comment on column METERREADSJJC.mrdatasource
+  is '抄表结果来源';
+comment on column METERREADSJJC.mrifignoreminsl
+  is '停算最低抄量';
+comment on column METERREADSJJC.mrpdardate
+  is '抄表机抄表时间';
+comment on column METERREADSJJC.mroutflag
+  is '发出到抄表机标志';
+comment on column METERREADSJJC.mroutid
+  is '发出到抄表机流水号';
+comment on column METERREADSJJC.mroutdate
+  is '发出到抄表机日期';
+comment on column METERREADSJJC.mrinorder
+  is '抄表机接收次序';
+comment on column METERREADSJJC.mrindate
+  is '抄表机接受日期';
+comment on column METERREADSJJC.mrrpid
+  is '计件类型';
+comment on column METERREADSJJC.mrmemo
+  is '抄表备注';
+comment on column METERREADSJJC.mrifgu
+  is '估表标志';
+comment on column METERREADSJJC.mrifrec
+  is '已计费';
+comment on column METERREADSJJC.mrrecdate
+  is '计费日期';
+comment on column METERREADSJJC.mrrecsl
+  is '应收水量';
+comment on column METERREADSJJC.mraddsl
+  is '余量';
+comment on column METERREADSJJC.mrcarrysl
+  is '校验水量';
+comment on column METERREADSJJC.mrctrl1
+  is '抄表机控制位1';
+comment on column METERREADSJJC.mrctrl2
+  is '抄表机控制位2';
+comment on column METERREADSJJC.mrctrl3
+  is '抄表机控制位3';
+comment on column METERREADSJJC.mrctrl4
+  is '抄表机控制位4';
+comment on column METERREADSJJC.mrctrl5
+  is '换表单据号';
+comment on column METERREADSJJC.mrchkflag
+  is '复核标志';
+comment on column METERREADSJJC.mrchkdate
+  is '复核日期';
+comment on column METERREADSJJC.mrchkper
+  is '复核人员';
+comment on column METERREADSJJC.mrchkscode
+  is '原起数';
+comment on column METERREADSJJC.mrchkecode
+  is '原止数';
+comment on column METERREADSJJC.mrchksl
+  is '原水量';
+comment on column METERREADSJJC.mrchkaddsl
+  is '原余量';
+comment on column METERREADSJJC.mrchkcarrysl
+  is '原进位水量';
+comment on column METERREADSJJC.mrchkrdate
+  is '原抄见日期';
+comment on column METERREADSJJC.mrchkface
+  is '原表况';
+comment on column METERREADSJJC.mrchkresult
+  is '检查结果类型';
+comment on column METERREADSJJC.mrchkresultmemo
+  is '检查结果说明';
+comment on column METERREADSJJC.mrprimid
+  is '合收表主表';
+comment on column METERREADSJJC.mrprimflag
+  is '合收表标志';
+comment on column METERREADSJJC.mrlb
+  is '水表类别';
+comment on column METERREADSJJC.mrnewflag
+  is '新表标志';
+comment on column METERREADSJJC.mrface2
+  is '抄见故障(检表表态)';
+comment on column METERREADSJJC.mrface3
+  is '非常计量';
+comment on column METERREADSJJC.mrface4
+  is '表井设施说明';
+comment on column METERREADSJJC.mrscodechar
+  is '上期抄见';
+comment on column METERREADSJJC.mrecodechar
+  is '本期抄见';
+comment on column METERREADSJJC.mrprivilegeflag
+  is '特权标志(Y/N)';
+comment on column METERREADSJJC.mrprivilegeper
+  is '特权操作人';
+comment on column METERREADSJJC.mrprivilegememo
+  is '特权操作备注';
+comment on column METERREADSJJC.mrprivilegedate
+  is '特权操作时间';
+comment on column METERREADSJJC.mrsafid
+  is '管理区域';
+comment on column METERREADSJJC.mriftrans
+  is '抄表事务';
+comment on column METERREADSJJC.mrrequisition
+  is '通知单打印次数';
+comment on column METERREADSJJC.mrifchk
+  is '考核表';
+comment on column METERREADSJJC.mrinputper
+  is '入账人员';
+comment on column METERREADSJJC.mrpfid
+  is '用水类别';
+comment on column METERREADSJJC.mrcaliber
+  is '口径';
+comment on column METERREADSJJC.mrside
+  is '表位';
+comment on column METERREADSJJC.mrlastsl
+  is '上次抄表水量';
+comment on column METERREADSJJC.mrthreesl
+  is '前三月抄表水量';
+comment on column METERREADSJJC.mryearsl
+  is '去年同期抄表水量';
+comment on column METERREADSJJC.mrrecje01
+  is '应收金额费用项目01';
+comment on column METERREADSJJC.mrrecje02
+  is '应收金额费用项目02';
+comment on column METERREADSJJC.mrrecje03
+  is '应收金额费用项目03';
+comment on column METERREADSJJC.mrrecje04
+  is '应收金额费用项目04';
+comment on column METERREADSJJC.mrmtype
+  is '表型';
+comment on column METERREADSJJC.mrnullcont
+  is '连续几月未抄见';
+comment on column METERREADSJJC.mrnulltotal
+  is '累计几月未抄见';
+comment on column METERREADSJJC.mrplansl
+  is '计划水量';
+comment on column METERREADSJJC.mrplanje01
+  is '计划水费';
+comment on column METERREADSJJC.mrplanje02
+  is '计划污水处理费';
+comment on column METERREADSJJC.mrplanje03
+  is '计划水资源费';
+comment on column METERREADSJJC.mrlastje01
+  is '上次水费';
+comment on column METERREADSJJC.mrthreeje01
+  is '前n次均水费';
+comment on column METERREADSJJC.mryearje01
+  is '去年同期水费';
+comment on column METERREADSJJC.mrlastje02
+  is '上次污水费';
+comment on column METERREADSJJC.mrthreeje02
+  is '前n次均污水费';
+comment on column METERREADSJJC.mryearje02
+  is '去年同期污水费';
+comment on column METERREADSJJC.mrlastje03
+  is '上次水资源费';
+comment on column METERREADSJJC.mrthreeje03
+  is '前n次均水资源费';
+comment on column METERREADSJJC.mryearje03
+  is '去年同期水资源费';
+comment on column METERREADSJJC.mrlastyearsl
+  is '去年度次均量';
+comment on column METERREADSJJC.mrlastyearje01
+  is '去年度次均水费';
+comment on column METERREADSJJC.mrlastyearje02
+  is '去年度次均污水费';
+comment on column METERREADSJJC.mrlastyearje03
+  is '去年度次均水资源费';
+comment on column METERREADSJJC.mrbddsl
+  is '估抄水量';
+comment on column METERREADSJJC.mrexpljfdate
+  is '导出垃圾费信息时间';
+comment on column METERREADSJJC.mrexpflag
+  is '垃圾费处理标志 0 未导出 1 已导出 2 已经返回 2时才可算费';
+comment on column METERREADSJJC.mrexpoper
+  is '导出人员';
+comment on column METERREADSJJC.mrimpljfdate
+  is '导入垃圾费信息时间';
+comment on column METERREADSJJC.mrimpljfje
+  is '导入金额';
+comment on column METERREADSJJC.mrimpoper
+  is '导入人员';
+comment on column METERREADSJJC.mrhbflag
+  is '换表标志(在抄表计划期间是否换表)';
+comment on column METERREADSJJC.mrbddslqc
+  is '上期预售量';
+comment on column METERREADSJJC.mrbddslbq
+  is '本期发生量';
+comment on column METERREADSJJC.mrbddslqm
+  is '期末预售量';
+comment on column METERREADSJJC.mrusenum
+  is '用户人数';
+

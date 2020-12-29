@@ -123,8 +123,8 @@ select rlje, t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N
 
 select misaving,t.* from bs_custinfo t where ciid = '8091680510'
 
-select * from bs_payment where pid='0000247441'
-select * from bs_payment where pid='0000247438'
+select * from bs_payment where pid='0000247515'
+select * from bs_payment where pid='0000247516'
 
 --冲正重置
 delete from bs_reclist_sscz_temp;
@@ -134,7 +134,7 @@ commit;
 
 --冲正测试
 select rlje, t.* from bs_reclist t where rlid='0325058150'
-select rlje, t.* from bs_reclist t where rlcid='7031434576' order by rlid desc;
+select rlje, t.* from bs_reclist t where rlcid='8091680510' order by rlid desc;
 select rlje, t.* from bs_reclist t where rlcid='7031434576' and rlpaidflag = 'N' and rlreverseflag='N'
 
 delete from bs_reclist_sscz_temp
@@ -149,6 +149,8 @@ insert into bs_reclist_temp (select t.* from bs_reclist t where rlpid = '0000247
 delete from bs_reclist_sscz_temp where rlpid = '0000247400' and rlpaidflag = 'Y';
 insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = '0000247400' and rlpaidflag = 'Y';
 
+select * from bs_recdetail where rdid='1000200434'
+select * from bs_recdetail where rdid='1000200096'
 
 ---------------------------------------------------
 --算费测试
@@ -177,19 +179,31 @@ and pspiid = pd.pdpiid
 order by psclass;
 
 select * from bs_pricedetail
+select * from bs_custinfo where ciid='0100172364'
 
+update bs_custinfo set misaving='10000000' where ciid='0100172364';--预存
 update bs_meterinfo set mipfid='D0102' where miid='0100172364';--固定水价
 update bs_meterinfo set mipfid='A0103' where miid='0100172364';--阶梯水价
-update bs_meterinfo set mircode=1861 where miid='0100172364';
-update bs_meterread set mrscode=1861 where mrid='2372463611';
-update bs_meterread set mrecode=2861 where mrid='2372463611';
+update bs_meterinfo set mircode=2861 where miid='0100172364';
+update bs_meterread set mrscode=2861 where mrid='2372463611';
+update bs_meterread set mrecode=3861 where mrid='2372463611';
 update bs_meterread set mrsl=1000 where mrid='2372463611';
 update bs_meterread set mrifrec='N' where mrid='2372463611';
+update bs_meterread set mrrecje01=null where mrid='2372463611';
+update bs_meterread set mrrecje02=null where mrid='2372463611';
+update bs_meterread set mrrecje03=null where mrid='2372463611';
+update bs_reclist set rlscrrlmonth='2020.11' where rlmid='0100172364';
+update bs_reclist set rlmonth='2020.11' where rlmid='0100172364';
 commit;
+delete from bs_reclist where rlcid='0100172364';
+delete from bs_recdetail where rdid not in (select rlid from bs_reclist);
+delete from bs_payment where pcid='0100172364';
+commit;
+
 
 select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,mrifrec,t.* from bs_meterread t where mrid='2372463611';
 
-select * from bs_reclist where rlmid='0100172364'
+select * from bs_reclist where rlmid='0100172364' --for update
 select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlmid='0100172364' );
 
 select * from bs_pricedetail where pdpfid='A0103' for update;
@@ -214,33 +228,19 @@ select * from bs_pricestep where pspscid = 0 and pspfid = 'A0103' for update
 
 
 
+    
 
+select * from bs_meterread where mrccode='0100172364';
+select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,t.* from bs_meterread t where mrid='2372463611';
+select rlje, t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje > 0 and rlcid='0100172364'
+select rlje, t.* from bs_reclist t where rlcid='0100172364' and rlpaidflag = 'N'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select rlje, t.* from bs_reclist t where rlcid='0100172364'
+select t.* from bs_recdetail t where rdid='1000200452'
+select * from bs_payment where pcid='0100172364';
+--1 0000247527  0100172364  0100172364  2020-12-29  2020-12-29 9:28:11  2020-12 1 P 10000000.00 -39600.00 9960400.00  0.00  XJ        0000247485  1   N 0000247527  P 2020-12 2020-12-29                          
+--0000247528     --冲正后payment.id
+select rlje, t.* from bs_reclist t where rlcid='0100172364' or rlid='1000200448'
 
 
 

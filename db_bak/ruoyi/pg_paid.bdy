@@ -382,16 +382,39 @@
     ---保存需要冲正处理的应收总账记录
     delete from bs_reclist_sscz_temp where rlpid = p_payid and rlpaidflag = 'Y';
     insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
+    --保存需要冲正处理的应收明细帐记录
+    delete from bs_recdetail_sscz_temp where rdid in (select rdid from bs_reclist_sscz_temp where rlpid = p_payid and rlpaidflag = 'Y');
+    insert into bs_recdetail_sscz_temp t (select a.* from bs_recdetail a, bs_reclist_sscz_temp b where a.rdid = b.rlid and b.rlpid = p_payid and rlpaidflag = 'Y');
+    
     --冲正时应收帐负数据
     v_call := f_set_cr_reclist(p_reverse);
 
     --将应收冲正负记录插入到应收总账中
     insert into bs_reclist t (select * from bs_reclist_sscz_temp where rlpid = p_reverse.pid);
     
+    ---在应收明细临时表中做负记录的调整
+    --一般字段调整
+    update bs_recdetail_sscz_temp t
+       set t.rdsl  = 0 - t.rdsl,
+           t.rdje  = 0 - t.rdje;
+    --流水id调整
+    update bs_recdetail_sscz_temp t
+       set t.rdid =
+           (select s.rlid
+              from bs_reclist_sscz_temp s
+             where t.rdid = s.rlcolumn9)
+     where t.rdid in (select rlcolumn9 from bs_reclist_sscz_temp);
+    --插入到应收明细表
+    insert into bs_recdetail t (select s.* from bs_recdetail_sscz_temp s);
+    
     -----STEP 20: 增加正应收记录--------------------------------------------------------------
     ---保存需要冲正处理的应收总账记录
     delete from bs_reclist_sscz_temp where rlpid = p_reverse.pid;
     insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
+    ---保存需要冲正处理的应收明细帐记录
+    delete from bs_recdetail_sscz_temp where rdid in (select rdid from bs_reclist_sscz_temp where rlpid = p_reverse.pid);
+    insert into bs_recdetail_sscz_temp t(select a.* from bs_recdetail a, bs_reclist_sscz_temp b where a.rdid = b.rlid and rlpid = p_payid and rlpaidflag = 'Y');
+    
     ---在应收总账临时表中做正记录的调整
     update bs_reclist_sscz_temp t
        set t.rlid    = trim(to_char(seq_reclist.nextval, '0000000000')), --新生成
@@ -413,6 +436,17 @@
     --将应收冲正正记录插入到应收总账中
     insert into bs_reclist t (select * from bs_reclist_sscz_temp where rlscrrlid in (select rlid from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y'));
     delete from bs_reclist where rlpid = p_payid ;
+    
+    ---在应收明细临时表中做正记录的调整
+    update bs_recdetail_sscz_temp t
+       set t.rdid =
+           (select s.rlid
+              from bs_reclist_sscz_temp s
+             where t.rdid = s.rlcolumn9)
+     where t.rdid in (select rlcolumn9 from bs_reclist_sscz_temp);
+    --插入到应收明细表
+    insert into bs_recdetail t (select s.* from bs_recdetail_sscz_temp s);
+    
     ----STEP 30 原应收记录打冲正标记
     update bs_reclist t set t.rlreverseflag = 'Y' where t.rlpid = p_payid and t.rlpaidflag = 'Y';
 

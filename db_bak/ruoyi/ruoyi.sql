@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@192.168.1.116/OLDGS
-prompt Created by xss on 2020年12月26日
+prompt Created by xss on 2020年12月29日
 set define off
 spool ruoyi.log
 
@@ -123,6 +123,11 @@ prompt Creating table BS_RECDETAIL
 prompt ===========================
 prompt
 @@bs_recdetail.tab
+prompt
+prompt Creating table BS_RECDETAIL_SSCZ_TEMP
+prompt =====================================
+prompt
+@@bs_recdetail_sscz_temp.tab
 prompt
 prompt Creating table BS_RECDETAIL_TEMP
 prompt ================================
@@ -934,6 +939,11 @@ prompt =====================================
 prompt
 @@pg_ewide_raedplan_01.spc
 prompt
+prompt Creating package PG_METERTRANS
+prompt ==============================
+prompt
+@@pg_metertrans.spc
+prompt
 prompt Creating package PG_METER_READ
 prompt ==============================
 prompt
@@ -998,6 +1008,11 @@ prompt Creating package body PG_EWIDE_RAEDPLAN_01
 prompt ==========================================
 prompt
 @@pg_ewide_raedplan_01.bdy
+prompt
+prompt Creating package body PG_METERTRANS
+prompt ===================================
+prompt
+@@pg_metertrans.bdy
 prompt
 prompt Creating package body PG_METER_READ
 prompt ===================================

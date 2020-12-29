@@ -35,6 +35,10 @@
        and mrifrec = 'N' --抄见状态
      order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc;
      vmrid bs_meterread.mrid%type;
+     o_mrrecje01 number;
+     o_mrrecje02 number;
+     o_mrrecje03 number;
+     o_mrrecje04 number;
   begin
     callogtxt := null;
     wlog('正在算费表册号：' || p_mrbfid || ' ...');
@@ -44,7 +48,7 @@
       exit when c_mr%notfound or c_mr%notfound is null;
       --单条抄表记录处理
       begin
-        calculate(vmrid);
+        calculate(vmrid,o_mrrecje01,o_mrrecje02,o_mrrecje03,o_mrrecje04,log);
         commit;
       exception
         when others then rollback; wlog('抄表记录' || vmrid || '算费失败，已被忽略');
@@ -62,7 +66,12 @@
   end;
   
   --计划抄表单笔算费
-  procedure calculate(p_mrid in bs_meterread.mrid%type) is
+  procedure calculate(p_mrid in bs_meterread.mrid%type,
+             o_mrrecje01 out bs_meterread.mrrecje01%type,
+             o_mrrecje02 out bs_meterread.mrrecje02%type,
+             o_mrrecje03 out bs_meterread.mrrecje03%type,
+             o_mrrecje04 out bs_meterread.mrrecje04%type,
+             err_log out varchar2) is
    cursor c_mr is
       select * from bs_meterread
        where mrid = p_mrid
@@ -135,10 +144,12 @@
     open c_mr;
     fetch c_mr into mr;
     if c_mr%notfound or c_mr%notfound is null then
+      wlog('无效的抄表计划流水号');
       raise_application_error(errcode, '无效的抄表计划流水号');
     end if;
     --抄表数据来源  1表示计划抄表   5表示远传抄表   9表示抄表机抄表
     if mr.mrsl < 最低算费水量 and mr.mrdatasource in ('1', '5', '9', '2') /*and (mr.mrrpid = '00' or mr.mrrpid is null) --计件类型*/ then
+      wlog('抄表水量小于最低算费水量，不需要算费');
       raise_application_error(errcode, '抄表水量小于最低算费水量，不需要算费');
     end if;
     
@@ -355,15 +366,27 @@
     end if;
     close c_mr;
     commit;
-  exception
-    when others then
+    o_mrrecje01 := mr.mrrecje01;
+    o_mrrecje02 := mr.mrrecje02;
+    o_mrrecje03 := mr.mrrecje03;
+    o_mrrecje04 := mr.mrrecje04;
+    
       if c_mr_pr%isopen then close c_mr_pr; end if;
       if c_mr_pri%isopen then close c_mr_pri; end if;
       if c_mr_child%isopen then close c_mr_child; end if;
       if c_mr%isopen then close c_mr; end if;
       if c_mi%isopen then close c_mi; end if;
       if c_mi_class%isopen then close c_mi_class; end if;
-      raise_application_error(errcode, sqlerrm);
+  exception
+    when others then
+      err_log := callogtxt;
+      if c_mr_pr%isopen then close c_mr_pr; end if;
+      if c_mr_pri%isopen then close c_mr_pri; end if;
+      if c_mr_child%isopen then close c_mr_child; end if;
+      if c_mr%isopen then close c_mr; end if;
+      if c_mi%isopen then close c_mi; end if;
+      if c_mi_class%isopen then close c_mi_class; end if;
+      --raise_application_error(errcode, sqlerrm);
   end;
   
   procedure calculate(mr in out bs_meterread%rowtype,p_trans in char, p_ny    in varchar2) is
@@ -419,6 +442,7 @@
              (mi.mipriflag = 'N' or mi.mipid is null)))
        group by rlmid, t.miid, t.mipid, rlmonth, rlid, rlsmfid
        order by  rlmonth, rlid, mipid, miid;
+    v_retstr varchar2(40); 
   begin
     --锁定水表记录
     open c_mi(mr.mrmid);
@@ -669,23 +693,14 @@
               v_rlidlist := substr(v_rlidlist,
                                    1,
                                    length(v_rlidlist) - 1);
-              /*v_retstr   := pg_ewide_pay_01.pos('02', --销帐方式 01 单表缴费 02 合收表缴费 03 多表缴费
-                                                mi.mismfid, --缴费机构
-                                                'system', --收款员
-                                                v_rlidlist || '|', --应收流水串
-                                                nvl(v_rljes, 0), --应收总金额
-                                                nvl(v_znjs, 0), --销帐违约金
-                                                0, --手续费
-                                                0, --实际收款
-                                                pg_ewide_pay_01.paytrans_预存抵扣, --缴费事务
-                                                mi.mipriid, --水表资料号
-                                                'XJ', --付款方式
-                                                mi.mismfid, --缴费地点
-                                                fgetsequence('entrustlog'), --销帐批次
-                                                'N', --是否打票  y 打票，n不打票， r 应收票
-                                                null, --发票号
-                                                'N' --控制是否提交（y/n）
-                                                );*/
+               pg_paid.poscustforys(
+                      p_yhid   => ci.ciid,    --用户编码
+                      p_arstr  => v_rlidlist, --欠费流水号，多个流水号用逗号分隔，例如：0000012726,70105341
+                      p_oper   => 1,          --销帐员，柜台缴费时销帐人员与收款员统一
+                      p_payway => 'XJ',       --付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
+                      p_payment=> 0,          --实收，即为（付款-找零），付款与找零在前台计算和校验
+                      p_pid    => v_retstr       --返回交易流水号
+                );
             end if;
           end if;
         end if;
@@ -713,23 +728,14 @@
         --单表
         if length(v_rlidlist) > 0 then
           v_rlidlist := substr(v_rlidlist, 1, length(v_rlidlist) - 1);
-          /*v_retstr   := pg_ewide_pay_01.pos('01', --销帐方式 01 单表缴费 02 合收表缴费 03 多表缴费
-                                            mi.mismfid, --缴费机构
-                                            'system', --收款员
-                                            v_rlidlist || '|', --应收流水串
-                                            nvl(v_rljes, 0), --应收总金额
-                                            nvl(v_znjs, 0), --销帐违约金
-                                            0, --手续费
-                                            0, --实际收款
-                                            pg_ewide_pay_01.paytrans_预存抵扣, --缴费事务
-                                            mi.miid, --水表资料号
-                                            'XJ', --付款方式
-                                            mi.mismfid, --缴费地点
-                                            fgetsequence('entrustlog'), --销帐批次
-                                            'N', --是否打票  y 打票，n不打票， r 应收票
-                                            null, --发票号
-                                            'N' --控制是否提交（y/n）
-                                            );*/
+          pg_paid.poscustforys(
+                p_yhid   => ci.ciid,    --用户编码
+                p_arstr  => v_rlidlist, --欠费流水号，多个流水号用逗号分隔，例如：0000012726,70105341
+                p_oper   => 1,          --销帐员，柜台缴费时销帐人员与收款员统一
+                p_payway => 'XJ',       --付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
+                p_payment=> 0,          --实收，即为（付款-找零），付款与找零在前台计算和校验
+                p_pid    => v_retstr       --返回交易流水号
+          );
         end if;
       end if;
     end if;
@@ -759,6 +765,11 @@
         end case;
       end loop;
     end if;
+      if c_mi%isopen then close c_mi; end if;
+      if c_misaving%isopen then close c_misaving; end if;
+      if c_md%isopen then close c_md; end if;
+      if c_ci%isopen then close c_ci; end if;
+      if c_pd%isopen then close c_pd; end if;
   exception
     when others then
       if c_mi%isopen then close c_mi; end if;
@@ -791,8 +802,9 @@
     mi    bs_meterinfo%rowtype;
     ci    bs_custinfo%rowtype;
     rl    bs_reclist%rowtype;
-    md          bs_meterdoc%rowtype;
-    rdtab       rd_table;
+    md    bs_meterdoc%rowtype;
+    pd    bs_pricedetail%rowtype;
+    rdtab         rd_table;
     i             number;
     vrd           bs_recdetail%rowtype;
   begin  
@@ -913,7 +925,17 @@
       end if;
       rl.rlcolumn9       := rl.rlid; --上次应收帐流水
     end if;
-      
+
+    -------------调用算费过程-------------
+    open c_pd(mi.mipfid);
+    loop
+      fetch c_pd into pd;
+      exit when c_pd%notfound;
+      calpiid(rl, rl.rlreadsl, pd, rdtab);
+    end loop;
+    close c_pd;
+    --------------------------------------
+
     if mi.miclass = '2' then
       --合收表
       rl.rlreadsl := mr.mrsl + nvl(mr.mrcarrysl, 0); --如果为合收表，则rl的抄见水量为mr抄表水量+mr校验水量
@@ -947,7 +969,11 @@
         end case;
       end loop;
     end if;
-  
+      if c_mi%isopen then close c_mi; end if;
+      if c_misaving%isopen then close c_misaving; end if;
+      if c_md%isopen then close c_md; end if;
+      if c_ci%isopen then close c_ci; end if;
+      if c_pd%isopen then close c_pd; end if;
   exception
     when others then
       if c_mi%isopen then close c_mi; end if;
@@ -1038,7 +1064,7 @@
     bk             bs_bookframe%rowtype;
     v_rlscrrlmonth bs_reclist.rlmonth%type;
     v_rlmonth      bs_reclist.rlmonth%type;
-    v_rljtsrq      bs_reclist.rljtsrq%type;
+    v_rljtsrq      bs_reclist.rljtsrq%type; 
     v_rljtsrqold   bs_reclist.rljtsrq%type;
     v_jgyf         number;
     v_jtny         number;
@@ -1056,7 +1082,7 @@
     v_newmk := 'N';
     --取上次算费月份，以及阶梯开始月份
    select nvl(max(rlscrrlmonth), 'a'), nvl(max(rljtsrq), 'a'),nvl(max(rlmonth),'2015.12')
-      into v_rlscrrlmonth, v_rljtsrqold,v_rlmonth
+      into v_rlscrrlmonth, v_rljtsrqold,v_rlmonth        --rlscrrlmonth	原应收帐月份   rljtsrq	本周期阶梯开始日期    rlmonth	帐务月份
       from bs_reclist
      where rlmid = p_rl.rlmid
        and rlreverseflag = 'N';
@@ -1073,8 +1099,8 @@
     if usenum <= 5 then
       usenum := 5;
     end if;
-    bk.bfjtsny := nvl(bk.bfjtsny, '01');
-    bk.bfjtsny := to_char(to_number(bk.bfjtsny), 'fm00');
+    bk.bfjtsny := nvl(bk.bfjtsny, '01');              --bfjtsny	阶梯开始月
+    bk.bfjtsny := to_char(to_number(bk.bfjtsny), 'FM00');
     if substr(p_rl.rlmonth, 6, 2) >= bk.bfjtsny then
       v_rljtsrq := substr(p_rl.rlmonth, 1, 4) || '.' || bk.bfjtsny;
     else
@@ -1095,7 +1121,7 @@
       if substr(v_rljtsrq, 1, 4) <> to_char(v_dateold, 'yyyy') then
         if v_rljtsrq < to_char(v_dateold, 'yyyy.mm') then
           if v_rljtsrq = p_rl.rlmonth then
-            p_rl.rljtmk  := 'Y';
+            p_rl.rljtmk  := 'Y';          --rljtmk	不记阶梯注记
             p_rl.rljtsrq := v_rljtsrq;
           else
             p_rl.rljtsrq := v_rljtsrqold;
@@ -1166,7 +1192,6 @@
        and gd_custchangehd.cchlb in ('D')
        and gd_custchangedt.pmdmid = p_rl.rlmid;
     if v_monbet = 100 or v_yyyymm <= v_jtqzny then
-    
       v_yyyymm := v_jtqzny;
     else
       v_yyyymm := v_yyyymm;
@@ -1189,10 +1214,10 @@
          and rlscrrltrans not in ('14', '21')
          and rdpmdcolumn3 = substr(v_jtqzny, 1, 4)
          and rdpiid = '01'
-         and rdmethod = 'sl3'
+         and rdmethod = '02'
          and rlscrrlmonth <= p_rl.rlmonth
          and rlscrrlmonth > v_yyyymm
-         and mipid = minfo.mipid;
+         and micode = minfo.micode;
       rd.rdpmdcolumn3 := substr(v_jtqzny, 1, 4);
       年累计水量      := case when p_rl.rlcolumn12<0 then 0 else to_number(nvl(p_rl.rlcolumn12, 0)) end + p_sl;
       
@@ -1225,25 +1250,6 @@
                         end
                      end;
         rd.rdje  := rd.rddj * rd.rdsl;
-        rd.rddj    := ps.psprice;
-        rd.rdsl := case
-                     when v_rljtmk = 'Y' then
-                      tmpsl
-                     else
-                      case
-                        when 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
-                         年累计水量 -
-                         tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), ps.psscode)
-                        when 年累计水量 > ps.psecode then
-                         tools.getmax(0,
-                                      tools.getmin(ps.psecode -
-                                                   to_number(nvl(p_rl.rlcolumn12, 0)),
-                                                   ps.psecode - ps.psscode))
-                        else
-                         0
-                      end
-                   end;
-        rd.rdje    := rd.rddj * rd.rdsl;
         if v_rljtmk <> 'Y' then
           rd.rdpmdcolumn1 := ps.psecode - ps.psscode;
           if 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
@@ -1253,7 +1259,6 @@
           else
             rd.rdpmdcolumn2 := 0;
           end if;
-          --end if;
         end if;
         
         if rd.rdsl > 0 then
@@ -1305,10 +1310,10 @@
            and rlscrrltrans not in ('14', '21')
            and rdpmdcolumn3 = substr(v_rljtsrqold, 1, 4)
            and rdpiid = '01'
-           and rdmethod = 'sl3'
+           and rdmethod = '02'
            and rlscrrlmonth <= p_rl.rlmonth
            and rlscrrlmonth > v_yyyymm
-           and rlmid in (select miid from bs_meterinfo where mipid = minfo.mipid);
+           and rlcid = minfo.micode;
       end if;
       rd.rdpmdcolumn3 := substr(v_rljtsrqold, 1, 4);
       年累计水量      := tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), 0) + (p_sl - round(p_sl * v_jgyf / v_jtny));
@@ -1402,10 +1407,10 @@
            and rlscrrltrans not in ('14', '21')
            and rdpmdcolumn3 = substr(p_rl.rlmonth, 1, 4)
            and rdpiid = '01'
-           and rdmethod = 'sl3'
+           and rdmethod = '02'
            and rlscrrlmonth <= p_rl.rlmonth
            and rlscrrlmonth > v_yyyymm
-           and rlmid in (select miid from bs_meterinfo where mipid = minfo.mipid);
+           and rlcid = minfo.micode;
         rd.rdpmdcolumn3 := substr(p_rl.rlmonth, 1, 4);
         年累计水量      := tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), 0) + (round(p_sl * v_jgyf / v_jtny));
         
@@ -1480,6 +1485,7 @@
     else
       p_rl.rljtmk := 'Y';
     end if;
+      if c_ps%isopen then close c_ps; end if;
   exception
     when others then
       if c_ps%isopen then close c_ps; end if;

@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user YYSF@49.233.62.251/ORCL
-prompt Created by xss on 2020骞?2鏈?6鏃?
+prompt Created by xss on 2020骞?2鏈?9鏃?
 set define off
 spool db_exp.log
 
@@ -513,6 +513,11 @@ prompt Creating table METERREAD
 prompt ========================
 prompt
 @@meterread.tab
+prompt
+prompt Creating table METERREADSJJC
+prompt ============================
+prompt
+@@meterreadsjjc.tab
 prompt
 prompt Creating table OAUTH_ACCESS_TOKEN
 prompt =================================
@@ -1103,6 +1108,11 @@ prompt Creating function 是否含年阶梯水价
 prompt ==========================
 prompt
 @@是否含年阶梯水价.fnc
+prompt
+prompt Creating procedure PRO_JCSL
+prompt ===========================
+prompt
+@@pro_jcsl.prc
 prompt
 prompt Creating package body PG_ADDMODIFY_YH
 prompt =====================================
