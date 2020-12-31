@@ -14,7 +14,7 @@
   miflag         CHAR(1),
   mirtid         CHAR(1),
   mistid         VARCHAR2(10),
-  mipfid         VARCHAR2(10),
+  mipfid         VARCHAR2(50),
   mistatus       VARCHAR2(2),
   mistatusdate   DATE,
   mistatustrans  VARCHAR2(3),

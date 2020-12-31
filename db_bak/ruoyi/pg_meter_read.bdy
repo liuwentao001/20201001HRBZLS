@@ -56,26 +56,24 @@
       MRCHKRESULT = null, --重抄时检查结果类型重置为空
       MRINPUTPER = gs_oper_id ,--入账人员，取系统登录人员
       mrinputdate = SYSDATE,
-      mrmemo = '免抄户',
+      --mrmemo = '',
       mrface = '01',
       mrface2 = '01',
       mrcarrysl = 0,
-      mrifmch = 'Y',
       MRRPER = ls_BFRPER
       where MRMID =smiid ;         
     else
       update bs_meterread set
       mrreadok = 'N',
-      mrifsubmit = 'Y',  --重抄时是否提交计费标志重置为'Y'
+      mrifsubmit = 'N',  --重抄时是否提交计费标志重置为'Y'
       MRCHKFLAG = 'Y',    --重抄时是复核标志重置为'N'
-      MRCHKRESULT = null, --重抄时检查结果类型重置为空
+      MRCHKRESULT = NULL, --重抄时检查结果类型重置为空
       MRINPUTPER = gs_oper_id ,--入账人员，取系统登录人员
       mrinputdate = SYSDATE,
       mrmemo = null,
       mrface = '01',
       mrface2 = '01',
       mrcarrysl = 0,
-      mrifmch = 'Y',
       MRRPER = ls_BFRPER,
       mrecode = null,
       mrsl = null

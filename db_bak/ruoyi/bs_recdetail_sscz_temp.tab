@@ -1,4 +1,4 @@
-﻿create table BS_RECDETAIL_SSCZ_TEMP
+﻿create global temporary table BS_RECDETAIL_SSCZ_TEMP
 (
   rdid         VARCHAR2(10) not null,
   rdpiid       CHAR(2) not null,
@@ -14,5 +14,5 @@
   rdpmdcolumn2 VARCHAR2(10),
   rdpmdcolumn3 VARCHAR2(10)
 )
-;
+on commit delete rows;
 

@@ -211,4 +211,8 @@ comment on column BS_METERREAD.mrzkh
   is '账卡号(表册 + 抄表次序)';
 comment on column BS_METERREAD.mrsffs
   is '收费方式（走收，坐收 ）';
+create index PK_BS_METERREAD_MRBFID on BS_METERREAD (MRBFID);
+create index PK_BS_METERREAD_MRCCODE on BS_METERREAD (MRCCODE);
+create index PK_BS_METERREAD_MRMID on BS_METERREAD (MRMID);
+create unique index PK_METERREAD on BS_METERREAD (MRID);
 

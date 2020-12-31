@@ -51,7 +51,10 @@
                     p_memo        in varchar2,
                     p_pid         out varchar2,
                     o_remainafter out number);
-                    
+
+  --实收冲正，多流水号批量冲正
+  procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
+                     
   --实收冲正
   /*
   p_payid           交易流水号

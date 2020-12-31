@@ -49,7 +49,7 @@ select listagg(ardpiid,',') within group(order by ardpiid) from ys_zw_ardetail w
 select to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') from ys_zw_ardetail where ardid='0000012726' group by ardid
 --字符串转table
 WITH tb AS
- (SELECT '0,1,2,3,4,5,6,7,8' i_name
+ (SELECT '00,19,2,3,4,5,6,7,8' i_name
     FROM dual)
 SELECT regexp_substr(i_name, '[^,]+', 1, LEVEL) COLUMN_VALUE
   FROM tb
@@ -151,6 +151,13 @@ insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = '0000247
 
 select * from bs_recdetail where rdid='1000200434'
 select * from bs_recdetail where rdid='1000200096'
+--批量冲正测试
+select * from bs_payment where preverseflag <> 'Y';
+/*
+119 123 1300522001  1300522001  2020-6-18 2020-6-18 10:22:06  2020.06 0201  P       100.00  XJ        2020061801  5455    N 123 P 2020.06 2020-6-18               
+120 124 1300522001  1300522001  2020-6-18 2020-6-18 10:27:35  2020.06 0201  P 0.00  100.00  100.00  100.00  XJ        2020061802  5455    N 124 P 2020.06 2020-6-18               
+*/
+select * from bs_payment where pid in('123','124','0000247546','0000247547')
 
 ---------------------------------------------------
 --算费测试
@@ -201,7 +208,7 @@ delete from bs_payment where pcid='0100172364';
 commit;
 
 
-select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,mrifrec,t.* from bs_meterread t where mrid='2372463611';
+select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,mrifrec,t.* from bs_meterread t where mrid='2372463611' ;
 
 select * from bs_reclist where rlmid='0100172364' --for update
 select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlmid='0100172364' );
@@ -227,8 +234,8 @@ select * from bs_pricestep where pspscid = 0 and pspfid = 'A0103' for update
 --and pspiid = 03
 
 
-
-    
+select miclass, mipid from bs_meterinfo where micode = 0100172364;
+select * from bs_meterinfo
 
 select * from bs_meterread where mrccode='0100172364';
 select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,t.* from bs_meterread t where mrid='2372463611';
@@ -236,7 +243,7 @@ select rlje, t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N
 select rlje, t.* from bs_reclist t where rlcid='0100172364' and rlpaidflag = 'N'
 
 select rlje, t.* from bs_reclist t where rlcid='0100172364'
-select t.* from bs_recdetail t where rdid='1000200452'
+select t.* from bs_recdetail t where rdid='1000200456'
 select * from bs_payment where pcid='0100172364';
 --1 0000247527  0100172364  0100172364  2020-12-29  2020-12-29 9:28:11  2020-12 1 P 10000000.00 -39600.00 9960400.00  0.00  XJ        0000247485  1   N 0000247527  P 2020-12 2020-12-29                          
 --0000247528     --冲正后payment.id
@@ -244,9 +251,33 @@ select rlje, t.* from bs_reclist t where rlcid='0100172364' or rlid='1000200448'
 
 
 
-
-
-
-
-
+    select mrid
+      from bs_meterread, bs_meterinfo
+     where mrmid = miid
+       and mrbfid = vbfid
+       and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费
+       and mrifrec = 'N' --是否已计费
+     order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc;
+     
+select * from bs_meterread 
+01002001,01002003,01003003
+     
+      select * from bs_meterread
+       where mrid = '2372386260'
+         and mrifrec = 'N'   --已计费(Y-是 N-否)
+         and mrsl >= 0
+         
+         
+    select mrid
+      from bs_meterread, bs_meterinfo
+     where mrmid = miid
+       and mrbfid = '01002001'
+       and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费
+       and mrifrec = 'N' --是否已计费 
+       and mrsl >= 0
+     order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc
+     
+select regexp_substr('01002001,01002003', '[^,]+', 1, level) mrbfid from dual connect by level <= length('01002001,01002003') - length(replace('01002001,01002003', ',', '')) + 1
+     
+应收冲正pg_ewide_rectrans_01.sp_reccz
 

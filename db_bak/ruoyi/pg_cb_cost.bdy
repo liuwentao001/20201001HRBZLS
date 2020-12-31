@@ -1,5 +1,5 @@
 ﻿create or replace package body pg_cb_cost is
-  callogtxt clob;
+  callogtxt varchar2(20000);
   最低算费水量        number(10);
   总表截量            char(1);
   是否审批算费        char(1);
@@ -13,65 +13,121 @@
   
   --外部调用，自动算费
   procedure autosubmit is
-    vlog clob;
   begin
     for i in (select mrbfid from bs_meterread
                where mrreadok = 'Y' and mrifrec = 'N'
                group by mrsmfid, mrbfid) loop
-      submit(i.mrbfid , vlog);
+      submit(i.mrbfid , callogtxt);
     end loop;
   exception
     when others then raise;
   end;
   
   --计划内抄表提交算费
-  procedure submit(p_mrbfid in varchar2, log out clob) is
+  procedure submit(p_mrbfids in varchar2, log out varchar2) is
     cursor c_mr(vbfid in varchar2) is
     select mrid
       from bs_meterread, bs_meterinfo
      where mrmid = miid
-       and mrbfid = vbfid
-       and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费 20140628
-       and mrifrec = 'N' --抄见状态
+       and mrbfid in (select regexp_substr(vbfid, '[^,]+', 1, level) mrbfid from dual connect by level <= length(vbfid) - length(replace(vbfid, ',', '')) + 1)
+       and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费
+       and mrifrec = 'N' --是否已计费
+       and mrsl >= 0
      order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc;
      vmrid bs_meterread.mrid%type;
-     o_mrrecje01 number;
-     o_mrrecje02 number;
-     o_mrrecje03 number;
-     o_mrrecje04 number;
+     v_mrrecje01 bs_meterread.mrrecje01%type;
+     v_mrrecje02 bs_meterread.mrrecje02%type;
+     v_mrrecje03 bs_meterread.mrrecje03%type;
+     v_mrrecje04 bs_meterread.mrrecje04%type;
   begin
     callogtxt := null;
-    wlog('正在算费表册号：' || p_mrbfid || ' ...');
-    open c_mr(p_mrbfid);
+    wlog('正在算费表册号：' || p_mrbfids || ' ...');
+    open c_mr(p_mrbfids);
     loop
       fetch c_mr into vmrid;
       exit when c_mr%notfound or c_mr%notfound is null;
       --单条抄表记录处理
       begin
-        calculate(vmrid,o_mrrecje01,o_mrrecje02,o_mrrecje03,o_mrrecje04,log);
+        calculatebf(vmrid, '02',v_mrrecje01, v_mrrecje02, v_mrrecje03, v_mrrecje04, log);
+        wlog('抄表流水：'||vmrid || ' 算费完成'|| ' ' || v_mrrecje01 || ' ' ||  v_mrrecje02 || ' ' ||  v_mrrecje03 || ' ' ||  v_mrrecje04 );
         commit;
       exception
         when others then rollback; wlog('抄表记录' || vmrid || '算费失败，已被忽略');
       end;
     end loop;
     close c_mr;
-    wlog('算费过程处理完毕');
+    wlog('算费过程处理完毕：'||p_mrbfids);
     log := callogtxt;
   exception
     when others then
       rollback;
       log := callogtxt;
       if c_mr%isopen then close c_mr; end if;
-      raise_application_error(errcode, sqlerrm);
+      --raise_application_error(errcode, sqlerrm);
   end;
   
-  --计划抄表单笔算费
-  procedure calculate(p_mrid in bs_meterread.mrid%type,
+  --算费前虚拟算费，供月抄表明细调用
+  procedure calculatebf(p_mrid in bs_meterread.mrid%type,
+             p_caltype in varchar2,    -- 01 虚拟算费; 02 正式算费
              o_mrrecje01 out bs_meterread.mrrecje01%type,
              o_mrrecje02 out bs_meterread.mrrecje02%type,
              o_mrrecje03 out bs_meterread.mrrecje03%type,
              o_mrrecje04 out bs_meterread.mrrecje04%type,
              err_log out varchar2) is
+    mr bs_meterread%rowtype;
+  begin
+    select * into mr from bs_meterread where mrid = p_mrid;
+    
+    if mr.mrifrec = 'N' then 
+
+      --重置水表信息
+      if p_caltype = '01' then
+        update bs_meterinfo mi 
+        set    mi.miifcharge = 'N',
+               mi.mircode = mr.mrscode
+        where  mi.miid = mr.mrmid;
+      elsif p_caltype = '02' then
+        update bs_meterinfo mi 
+        set    mi.miifcharge = 'Y',
+               mi.mircode = mr.mrscode
+        where  mi.miid = mr.mrmid;
+      else
+        wlog('请正确输入算费类型：01 虚拟算费，02 正式算费');
+        err_log := callogtxt;
+        return;
+      end if;
+      
+      --重置抄表库
+      update bs_meterread
+      set    mrrecje01 = null,
+             mrrecje02 = null,
+             mrrecje03 = null,
+             mrrecje04 = null
+      where  mrid = p_mrid and mrifrec = 'N';
+      
+      --删除应收账务信息
+      delete from bs_recdetail where rdid in (select rlid from bs_reclist where rlmrid = p_mrid);
+      delete from bs_reclist where rlmrid = p_mrid;
+      
+      commit;
+      calculate(p_mrid);
+      commit;
+      select mrrecje01,mrrecje02,mrrecje03,mrrecje04 into o_mrrecje01,o_mrrecje02,o_mrrecje03,o_mrrecje04 from bs_meterread where mrid = p_mrid;
+      err_log := callogtxt;
+    else
+      wlog('当前抄表计划流水号已正式算费，无法重算');
+      err_log := callogtxt;
+    end if;
+  exception
+    when others then
+      rollback;
+      wlog('无效的抄表计划流水号：'|| p_mrid );
+      err_log := callogtxt;
+      --raise_application_error(errcode, sqlerrm);
+  end;
+  
+  --计划抄表单笔算费
+  procedure calculate(p_mrid in bs_meterread.mrid%type) is
    cursor c_mr is
       select * from bs_meterread
        where mrid = p_mrid
@@ -140,12 +196,11 @@
     v_mdhis_addsl bs_meterread_his.mraddsl%type;
     v_pd_addsl    bs_meterread_his.mraddsl%type;
   begin
-    
     open c_mr;
     fetch c_mr into mr;
     if c_mr%notfound or c_mr%notfound is null then
-      wlog('无效的抄表计划流水号');
-      raise_application_error(errcode, '无效的抄表计划流水号');
+      wlog('无效的抄表计划流水号：'|| p_mrid);
+      raise_application_error(errcode, '无效的抄表计划流水号：'||p_mrid);
     end if;
     --抄表数据来源  1表示计划抄表   5表示远传抄表   9表示抄表机抄表
     if mr.mrsl < 最低算费水量 and mr.mrdatasource in ('1', '5', '9', '2') /*and (mr.mrrpid = '00' or mr.mrrpid is null) --计件类型*/ then
@@ -207,7 +262,7 @@
       */
       --MICLASS：普通表=1，总表=2，分表=3
       --STEP1 检查是否总表
-      select miclass, mipid into v_miclass, v_mipid from bs_meterinfo where micode = mr.mrmid;
+      select miclass, mipid into v_miclass, v_mipid from bs_meterinfo where micode = mr.mrccode;
       if v_miclass = 2 then
         --是总表
         v_mrmcode := mr.mrmid; --赋值为总表号
@@ -340,6 +395,7 @@
       elsif mi.miifcharge = 'N' or mr.mrifhalt = 'Y' then
         --计量不计费,将数据记录到费用库
         calculatenp(mr, '1', '0000.00');
+        mr.mrifrec := 'N';
       end if;
     end if;
     -----------------------------------------------------------------------------
@@ -366,10 +422,6 @@
     end if;
     close c_mr;
     commit;
-    o_mrrecje01 := mr.mrrecje01;
-    o_mrrecje02 := mr.mrrecje02;
-    o_mrrecje03 := mr.mrrecje03;
-    o_mrrecje04 := mr.mrrecje04;
     
       if c_mr_pr%isopen then close c_mr_pr; end if;
       if c_mr_pri%isopen then close c_mr_pri; end if;
@@ -379,14 +431,13 @@
       if c_mi_class%isopen then close c_mi_class; end if;
   exception
     when others then
-      err_log := callogtxt;
       if c_mr_pr%isopen then close c_mr_pr; end if;
       if c_mr_pri%isopen then close c_mr_pri; end if;
       if c_mr_child%isopen then close c_mr_child; end if;
       if c_mr%isopen then close c_mr; end if;
       if c_mi%isopen then close c_mi; end if;
       if c_mi_class%isopen then close c_mi_class; end if;
-      --raise_application_error(errcode, sqlerrm);
+      raise_application_error(errcode, sqlerrm);
   end;
   
   procedure calculate(mr in out bs_meterread%rowtype,p_trans in char, p_ny    in varchar2) is
@@ -466,7 +517,7 @@
       raise_application_error(errcode, '无效的用户编号' || mi.micode);
     end if;
     --判断起码是否改变
-    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('m','l') then
+    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L') then
        --水表起码已经改变
        wlog('此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！' || mr.mrmid);
        raise_application_error(errcode, '此水表编号[' || mr.mrmid ||']此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！');
@@ -835,7 +886,7 @@
     --非计费表执行空过程，不抛异常
     --合收子表
     if true then
-     rl.rlid          := to_char(seq_reclist.nextval, '0000000000');
+      rl.rlid          := trim(to_char(seq_reclist.nextval,'0000000000'));
       rl.rlsmfid       := mr.mrsmfid;
       rl.rlmonth       := to_char(sysdate,'yyyy.mm');
       rl.rldate        := sysdate;

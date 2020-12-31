@@ -1,4 +1,4 @@
-﻿create table BS_RECLIST_SSCZ_TEMP
+﻿create global temporary table BS_RECLIST_SSCZ_TEMP
 (
   rlid           VARCHAR2(10) not null,
   rlsmfid        VARCHAR2(10),
@@ -60,5 +60,5 @@
   rlcolumn12     VARCHAR2(20),
   isprintfp      CHAR(1)
 )
-;
+on commit delete rows;
 

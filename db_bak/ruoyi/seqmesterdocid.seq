@@ -1,0 +1,7 @@
+﻿create sequence SEQMESTERDOCID
+minvalue 3000000
+maxvalue 9999999
+start with 3000020
+increment by 1
+cache 20;
+

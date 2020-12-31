@@ -1,0 +1,7 @@
+﻿create sequence SEQUSERNO
+minvalue 2200000001
+maxvalue 9999999999
+start with 2200000486
+increment by 1
+cache 20;
+
