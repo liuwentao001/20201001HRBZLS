@@ -172,7 +172,8 @@
         返回 -1 执行失败
   */
 
-  PROCEDURE CREATECB(P_MONTH     IN VARCHAR2, /*抄表月份*/
+  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
+                     P_MONTH     IN VARCHAR2, /*抄表月份*/
                      P_BOOK_NO   IN VARCHAR2, /*表册*/
                      O_STATE     OUT VARCHAR2) /*执行状态*/
    IS
@@ -213,6 +214,7 @@
              MISTATUS
         FROM BS_CBJH_TEMP A
        WHERE A.MIBFID = P_BOOK_NO
+         AND A.MISMFID = P_MANAGE_NO
          AND A.BFNRMONTH = P_MONTH 
          /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
   BEGIN

@@ -1,5 +1,4 @@
-﻿CREATE OR REPLACE PROCEDURE LIN(V_DATE IN VARCHAR2)
-AS
+﻿CREATE OR REPLACE PROCEDURE LIN(V_DATE IN VARCHAR2) AS
   O_STATE VARCHAR2(10);
   O_DATE  DATE;
 BEGIN
@@ -9,9 +8,8 @@ BEGIN
               FROM SYS_DEPT
              WHERE PARENT_ID = '2'
              ORDER BY DEPT_ID) LOOP
-    IF O_STATE = '0' THEN
-      INSERT INTO BS_CBJH_TEMP
-            SELECT A.CIID,
+    INSERT INTO BS_CBJH_TEMP
+      SELECT A.CIID,
              B.MIID,
              B.MISMFID,
              B.MIRORDER,
@@ -39,6 +37,8 @@ BEGIN
          AND B.MIBFID = D.BFID
          AND B.MISMFID = I.DEPT_CODE
          AND D.BFNRMONTH = TO_CHAR(O_DATE, 'YYYY.MM');
+    COMMIT;
+    IF O_STATE = '0' THEN
       FOR B IN (SELECT BFID
                   FROM BS_BOOKFRAME A
                  WHERE A.BFSTATUS = 'Y'
@@ -47,14 +47,15 @@ BEGIN
                        (SELECT TO_CHAR(O_DATE, 'YYYY.MM') FROM DUAL)) LOOP
         IF B.BFID IS NOT NULL THEN
           BEGIN
-            PG_RAEDPLAN.CREATECB(TO_CHAR(O_DATE, 'YYYY.MM'),
+            PG_RAEDPLAN.CREATECB(I.DEPT_CODE,
+                                 TO_CHAR(O_DATE, 'YYYY.MM'),
                                  B.BFID,
                                  O_STATE);
           END;
         END IF;
       END LOOP;
-      EXECUTE IMMEDIATE 'TRUNCATE TABLE BS_CBJH_TEMP;';
     END IF;
+    EXECUTE IMMEDIATE 'TRUNCATE TABLE BS_CBJH_TEMP';
   END LOOP;
 END;
 /

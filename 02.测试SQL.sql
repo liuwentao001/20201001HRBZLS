@@ -281,3 +281,60 @@ select regexp_substr('01002001,01002003', '[^,]+', 1, level) mrbfid from dual co
      
 应收冲正pg_ewide_rectrans_01.sp_reccz
 
+
+
+select * from bs_custinfo where ciid='2200000470'
+
+select * from bs_meterread where mrccode = '2200000470'
+/*
+3 2372855011  2019.05 0201  01004003  1     2200000470  2200000471  1   1   2020-12-30 9:06:46  2020-12-31 15:06:41 Y 2020-12-31  010542    200 1000  800 01  N N 1 测试  N N 2020-12-31 15:06:52 800 0 0 Y     确认通过        01  0   1   0 BF  0 0 0 2080.000  760.000 0.000             N                 
+1 2372996611  2019.09 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 8:15:30  2020-12-31 14:51:30 Y 2020-12-31  010542  2020-12-30  8000  800   01  N N 1 测试  N N     0 0 Y     确认通过        01  0   1   0 BF  0 0 0                   N                 
+5 2373741789  2019.10 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 10:03:45   Y 2020-12-31  010542  2020-12-30  8000  10000 2000  01  Y N 1 测试  N N     0   N     确认通过        01  0       0 BF  0 0 0                   N                 
+4 2374481193  2019.11 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 11:02:14   Y 2020-12-31  010542  2020-12-30  8000  10000 2000  01  Y N 1 测试  N N     0   N     确认通过        01  0       0 BF  0 0 0                   N                 
+2 2375286615  2019.12 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 14:16:46   Y 2020-12-31  010542  2020-12-30  8000  10000 2000  01  Y N 1 测试  N N     0   N     确认通过        01  0       0 BF  0 0 0                   N                 
+*/
+select * from bs_meterread where mrid = '2372855011'
+
+
+select * from bs_reclist 
+
+
+select * from bs_bookframe
+
+
+select * from bs_meterread, bs_meterinfo
+     where mrmid = miid and mrbfid='01004003'  and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费
+       and mrifrec = 'N' --是否已计费
+       and mrsl >= 0
+       
+       
+       
+
+01-04 09:16:46 >> 正在算费表册号：01004003 ...
+01-04 09:17:35 >> 抄表流水：2375286615 算费完成 5200 1900 0 
+01-04 09:19:19 >> 抄表流水：2373741789 算费完成 5200 1900 0 
+01-04 09:21:09 >> 抄表流水：2374481193 算费完成 5200 1900 0 
+01-04 09:22:43 >> 抄表流水：2372855011 算费完成 2080 760 0 
+01-04 09:22:43 >> 算费过程处理完毕：01004003
+
+update bs_meterread set mrifrec='N' where mrid='2372855011';
+
+select * from bs_meterread where mrid='2372855011';
+
+
+
+select * from bs_reclist  where rlcid='2200000470'
+select sum(1) from bs_reclist
+delete from bs_reclist  where rlcid='2200000470'
+
+
+update bs_meterinfo set mircode=2861 where miid='2200000471';
+update bs_meterread set mrscode=2861 where mrid='2372855011';
+update bs_meterread set mrecode=3861 where mrid='2372855011';
+update bs_meterread set mrsl=1000 where mrid='2372855011';
+update bs_meterread set mrifrec='N' where mrid='2372855011';
+update bs_meterread set mrrecje01=null where mrid='2372855011';
+update bs_meterread set mrrecje02=null where mrid='2372855011';
+update bs_meterread set mrrecje03=null where mrid='2372855011';
+commit;
+
