@@ -539,7 +539,7 @@
     if true then
       rl.rlid          := trim(to_char(seq_reclist.nextval,'0000000000'));
       rl.rlsmfid       := mr.mrsmfid;
-      rl.rlmonth       := to_char(sysdate,'yyyy.mm');
+      rl.rlmonth       := mr.mrmonth;
       rl.rldate        := sysdate;
       rl.rlcid         := mr.mrccode;
       rl.rlmid         := mr.mrmid;
@@ -553,7 +553,6 @@
       rl.rlmtel        := ci.cimtel;
       rl.rltel         := ci.citel1;
       rl.rlifinv       := 'N'; --ci.ciifinv; --开票标志
-      rl.rlmid       := mi.micode;
       rl.rlmpid        := mi.mipid;
       rl.rlmclass      := mi.miclass;
       rl.rlmflag       := mi.miflag;
@@ -888,7 +887,7 @@
     if true then
       rl.rlid          := trim(to_char(seq_reclist.nextval,'0000000000'));
       rl.rlsmfid       := mr.mrsmfid;
-      rl.rlmonth       := to_char(sysdate,'yyyy.mm');
+      rl.rlmonth       := mr.mrmonth;
       rl.rldate        := sysdate;
       rl.rlcid         := mr.mrccode;
       rl.rlmid         := mr.mrmid;
@@ -902,7 +901,6 @@
       rl.rlmtel        := ci.cimtel;
       rl.rltel         := ci.citel1;
       rl.rlifinv       := 'N'; --ci.ciifinv; --开票标志
-      rl.rlmid       := mi.micode;
       rl.rlmpid        := mi.mipid;
       rl.rlmclass      := mi.miclass;
       rl.rlmflag       := mi.miflag;
@@ -1364,7 +1362,7 @@
            and rdmethod = '02'
            and rlscrrlmonth <= p_rl.rlmonth
            and rlscrrlmonth > v_yyyymm
-           and rlcid = minfo.micode;
+           and rlmid = minfo.micode;
       end if;
       rd.rdpmdcolumn3 := substr(v_rljtsrqold, 1, 4);
       年累计水量      := tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), 0) + (p_sl - round(p_sl * v_jgyf / v_jtny));
@@ -1461,7 +1459,7 @@
            and rdmethod = '02'
            and rlscrrlmonth <= p_rl.rlmonth
            and rlscrrlmonth > v_yyyymm
-           and rlcid = minfo.micode;
+           and rlmid = minfo.micode;
         rd.rdpmdcolumn3 := substr(p_rl.rlmonth, 1, 4);
         年累计水量      := tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), 0) + (round(p_sl * v_jgyf / v_jtny));
         
@@ -1561,6 +1559,32 @@
   exception
     when others then
       raise_application_error(errcode, sqlerrm);
+  end;
+  
+  --应收冲正
+  procedure yscz(p_reno   in varchar2, --单据编号
+                 p_per    in varchar2, --完结人
+                 p_memo   in varchar2 --备注
+                 ) is
+    cursor c_rcch is select * from request_yscz t where t.reno = p_reno for update;
+    cursor c_rlde(vrlid in varchar2) is select * from bs_reclist t where t.rlid = vrlid for update;
+    rcch request_yscz%rowtype;
+  begin
+    null;
+    --单据状态校验
+    --   检查单是否已完结
+    open c_rcch;
+    fetch c_rcch
+      into rcch;
+    if c_rcch%notfound or c_rcch%notfound is null then
+      raise_application_error(errcode, '单据不存在');
+    end if;
+    if rcch.reflag = 'Y' then
+      raise_application_error(errcode, '单据已审核');
+    end if;
+    if rcch.reflag = 'Q' then
+      raise_application_error(errcode, '单据已取消');
+    end if;
   end;
   
 begin

@@ -303,6 +303,7 @@
         UPDATE BS_METERINFO
            SET MIPRMON = MIRMON, MIRMON = P_MONTH
          WHERE MIID = SB.MIID;
+         --COMMIT;
       END IF;
     END LOOP;
     CLOSE C_BKSB;

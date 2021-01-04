@@ -23,6 +23,4 @@
   mibfid    VARCHAR2(10)
 )
 on commit preserve rows;
-alter table BS_CBJH_TEMP
-  add constraint PK_BS_CBJH_TEMP primary key (CIID);
 

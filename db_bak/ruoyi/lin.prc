@@ -1,9 +1,9 @@
 ﻿CREATE OR REPLACE PROCEDURE LIN(V_DATE IN VARCHAR2) AS
   O_STATE VARCHAR2(10);
-  O_DATE  DATE;
+  O_DATE  VARCHAR2(10);
 BEGIN
   O_STATE := '0';
-  O_DATE  := TO_DATE(V_DATE, 'YYYY/MM/DD');
+  O_DATE  := V_DATE;
   FOR I IN (SELECT DEPT_CODE
               FROM SYS_DEPT
              WHERE PARENT_ID = '2'
@@ -35,20 +35,19 @@ BEGIN
          AND B.MIID = S.MDID
          AND B.MISMFID = D.BFSMFID
          AND B.MIBFID = D.BFID
-         AND B.MISMFID = I.DEPT_CODE
-         AND D.BFNRMONTH = TO_CHAR(O_DATE, 'YYYY.MM');
+         AND B.MISMFID = I.DEPT_CODE;
+         --AND D.BFNRMONTH = TO_CHAR(O_DATE, 'YYYY.MM');
     COMMIT;
     IF O_STATE = '0' THEN
       FOR B IN (SELECT BFID
                   FROM BS_BOOKFRAME A
                  WHERE A.BFSTATUS = 'Y'
                    AND A.BFSMFID = I.DEPT_CODE
-                   AND BFNRMONTH =
-                       (SELECT TO_CHAR(O_DATE, 'YYYY.MM') FROM DUAL)) LOOP
+                   AND BFNRMONTH =O_DATE) LOOP
         IF B.BFID IS NOT NULL THEN
           BEGIN
             PG_RAEDPLAN.CREATECB(I.DEPT_CODE,
-                                 TO_CHAR(O_DATE, 'YYYY.MM'),
+                                 O_DATE,
                                  B.BFID,
                                  O_STATE);
           END;

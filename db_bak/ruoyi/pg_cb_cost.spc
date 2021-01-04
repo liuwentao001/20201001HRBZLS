@@ -43,6 +43,12 @@
                     rdtab      in out rd_table);
                         
   procedure insrd(rd in rd_table);
+  
+  --应收冲正
+  procedure yscz(p_reno   in varchar2, --单据编号
+                 p_per    in varchar2, --完结人
+                 p_memo   in varchar2 --备注
+                 );
 end;
 /
 

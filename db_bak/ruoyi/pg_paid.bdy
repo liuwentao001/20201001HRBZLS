@@ -341,7 +341,7 @@
     cursor c_p(vpid varchar2) is
       select * from bs_payment where pid = vpid and preverseflag <> 'Y' for update nowait;
     cursor c_mi(vmiid varchar2) is
-      select * from bs_meterinfo where micode = vmiid for update nowait; 
+      select * from bs_meterinfo where miid = vmiid for update nowait; 
     mi        bs_meterinfo%rowtype;
     p_source  bs_payment%rowtype;
     p_reverse bs_payment%rowtype;
