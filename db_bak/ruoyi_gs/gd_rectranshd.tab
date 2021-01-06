@@ -1,0 +1,194 @@
+﻿create table GD_RECTRANSHD
+(
+  rthno         VARCHAR2(10) not null,
+  rthbh         VARCHAR2(10) not null,
+  rthlb         VARCHAR2(5) not null,
+  rthsmfid      VARCHAR2(10) not null,
+  rthdept       VARCHAR2(10),
+  rthsource     CHAR(1) not null,
+  rthcredate    DATE not null,
+  rthcreper     VARCHAR2(10) not null,
+  rthshdate     DATE,
+  rthdate       DATE,
+  rthshper      VARCHAR2(10),
+  rthshflag     CHAR(1) not null,
+  rthmemo       VARCHAR2(60),
+  rthcid        VARCHAR2(10),
+  rthmid        VARCHAR2(10),
+  rthccode      VARCHAR2(10),
+  rthmcode      VARCHAR2(10),
+  rthmlb        CHAR(1),
+  rthcper       VARCHAR2(10),
+  rthbfid       VARCHAR2(10),
+  rthifmp       CHAR(1) not null,
+  rthpfid       VARCHAR2(10),
+  rthcname      VARCHAR2(64) not null,
+  rthmname      VARCHAR2(64) not null,
+  rthcadr       VARCHAR2(100),
+  rthmadr       VARCHAR2(100) not null,
+  rthrtid       CHAR(1),
+  rthmface      VARCHAR2(2),
+  rthmrpid      VARCHAR2(3),
+  rthmside      CHAR(10),
+  rthmposition  VARCHAR2(100),
+  rthmtype      CHAR(1),
+  rthchargetype CHAR(1),
+  rthsaving     NUMBER,
+  rthscode      NUMBER,
+  rthecode      NUMBER,
+  rthecodeflag  CHAR(1) not null,
+  rthreadsl     NUMBER,
+  rthaddsl      NUMBER,
+  rthsl         NUMBER not null,
+  rthje         NUMBER,
+  rthusenum     NUMBER,
+  rthprdate     DATE,
+  rthrdate      DATE,
+  rthznj        NUMBER,
+  rthzndate     DATE,
+  rthpriflag    CHAR(1),
+  rthpriid      VARCHAR2(10),
+  rthifpay      CHAR(1) not null,
+  rthpid        VARCHAR2(10),
+  rthmrid       VARCHAR2(10),
+  rthrlid       VARCHAR2(10),
+  rthilid       VARCHAR2(10),
+  rthifinv      CHAR(1),
+  rthinvmemo    VARCHAR2(60),
+  rthscodechar  VARCHAR2(10),
+  rthecodechar  VARCHAR2(10),
+  ifrec         CHAR(1),
+  ifrechis      CHAR(1),
+  pricemonth    DATE,
+  ifslmk        CHAR(1),
+  rtmitaxno     VARCHAR2(50),
+  rtcitel1      VARCHAR2(50),
+  rtmibankname  VARCHAR2(50),
+  rtmibankno    VARCHAR2(50)
+)
+;
+comment on table GD_RECTRANSHD
+  is '应收计费单头【RTH】';
+comment on column GD_RECTRANSHD.rthno
+  is '单据流水号';
+comment on column GD_RECTRANSHD.rthbh
+  is '单据编号';
+comment on column GD_RECTRANSHD.rthlb
+  is '单据类别';
+comment on column GD_RECTRANSHD.rthsmfid
+  is '营业所';
+comment on column GD_RECTRANSHD.rthdept
+  is '部门';
+comment on column GD_RECTRANSHD.rthsource
+  is '单据来源';
+comment on column GD_RECTRANSHD.rthcredate
+  is '创建日期';
+comment on column GD_RECTRANSHD.rthcreper
+  is '创建人员';
+comment on column GD_RECTRANSHD.rthshdate
+  is '审核日期';
+comment on column GD_RECTRANSHD.rthdate
+  is '审核帐务日期';
+comment on column GD_RECTRANSHD.rthshper
+  is '审核人员';
+comment on column GD_RECTRANSHD.rthshflag
+  is '审核标志';
+comment on column GD_RECTRANSHD.rthmemo
+  is '备注';
+comment on column GD_RECTRANSHD.rthcid
+  is '用户编号';
+comment on column GD_RECTRANSHD.rthmid
+  is '水表编号';
+comment on column GD_RECTRANSHD.rthccode
+  is '用户号';
+comment on column GD_RECTRANSHD.rthmcode
+  is '资料号';
+comment on column GD_RECTRANSHD.rthmlb
+  is '水表类别';
+comment on column GD_RECTRANSHD.rthcper
+  is '收费员';
+comment on column GD_RECTRANSHD.rthbfid
+  is '表册';
+comment on column GD_RECTRANSHD.rthifmp
+  is '混合用水';
+comment on column GD_RECTRANSHD.rthpfid
+  is '主价格类别';
+comment on column GD_RECTRANSHD.rthcname
+  is '用户名称';
+comment on column GD_RECTRANSHD.rthmname
+  is '票据名称';
+comment on column GD_RECTRANSHD.rthcadr
+  is '用户地址';
+comment on column GD_RECTRANSHD.rthmadr
+  is '水表地址';
+comment on column GD_RECTRANSHD.rthrtid
+  is '抄表方式';
+comment on column GD_RECTRANSHD.rthmface
+  is '表况';
+comment on column GD_RECTRANSHD.rthmrpid
+  is '计件类型';
+comment on column GD_RECTRANSHD.rthmside
+  is '表位';
+comment on column GD_RECTRANSHD.rthmposition
+  is '接水地址';
+comment on column GD_RECTRANSHD.rthmtype
+  is '水表类型';
+comment on column GD_RECTRANSHD.rthchargetype
+  is '应收收费方式';
+comment on column GD_RECTRANSHD.rthsaving
+  is '预存余额';
+comment on column GD_RECTRANSHD.rthscode
+  is '起数';
+comment on column GD_RECTRANSHD.rthecode
+  is '止数';
+comment on column GD_RECTRANSHD.rthecodeflag
+  is '置下次抄表起度';
+comment on column GD_RECTRANSHD.rthreadsl
+  is '抄见水量';
+comment on column GD_RECTRANSHD.rthaddsl
+  is '余量';
+comment on column GD_RECTRANSHD.rthsl
+  is '应收水量';
+comment on column GD_RECTRANSHD.rthje
+  is '应收金额';
+comment on column GD_RECTRANSHD.rthusenum
+  is '户用水人数';
+comment on column GD_RECTRANSHD.rthprdate
+  is '上次抄表日期';
+comment on column GD_RECTRANSHD.rthrdate
+  is '本次抄表日期';
+comment on column GD_RECTRANSHD.rthznj
+  is '违约金';
+comment on column GD_RECTRANSHD.rthzndate
+  is '违约金起算日';
+comment on column GD_RECTRANSHD.rthpriflag
+  is '合收表标志';
+comment on column GD_RECTRANSHD.rthpriid
+  is '合收表主表号';
+comment on column GD_RECTRANSHD.rthifpay
+  is '是否销帐';
+comment on column GD_RECTRANSHD.rthpid
+  is '实收交易流水（回写）';
+comment on column GD_RECTRANSHD.rthmrid
+  is '抄表流水（回写）';
+comment on column GD_RECTRANSHD.rthrlid
+  is '流水号（回写）';
+comment on column GD_RECTRANSHD.rthilid
+  is '票据流水（回写）';
+comment on column GD_RECTRANSHD.rthifinv
+  is '是否出票';
+comment on column GD_RECTRANSHD.rthinvmemo
+  is '发票备注';
+comment on column GD_RECTRANSHD.rthscodechar
+  is '起数（带表位）';
+comment on column GD_RECTRANSHD.rthecodechar
+  is '止数（带表位）';
+comment on column GD_RECTRANSHD.ifrec
+  is '是否走算费过程(不走可认为营业外)';
+comment on column GD_RECTRANSHD.ifrechis
+  is '是否按历史水价算费(选择归档价格版本)';
+comment on column GD_RECTRANSHD.pricemonth
+  is '价格月份';
+comment on column GD_RECTRANSHD.ifslmk
+  is '是否不进阶梯';
+

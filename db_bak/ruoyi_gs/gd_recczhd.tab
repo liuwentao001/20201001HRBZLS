@@ -1,0 +1,40 @@
+﻿create table GD_RECCZHD
+(
+  rchno      VARCHAR2(10) not null,
+  rchbh      VARCHAR2(10) not null,
+  rchlb      CHAR(1) not null,
+  rchsource  CHAR(1) not null,
+  rchsmfid   VARCHAR2(10) not null,
+  rchdept    VARCHAR2(10) not null,
+  rchcredate DATE not null,
+  rchcreper  VARCHAR2(10) not null,
+  rchshdate  DATE,
+  rchshper   VARCHAR2(10),
+  rchshflag  CHAR(1) not null
+)
+;
+comment on table GD_RECCZHD
+  is '应收调整单头【RCH】';
+comment on column GD_RECCZHD.rchno
+  is '单据流水号';
+comment on column GD_RECCZHD.rchbh
+  is '单据编号';
+comment on column GD_RECCZHD.rchlb
+  is '单据类别';
+comment on column GD_RECCZHD.rchsource
+  is '单据来源';
+comment on column GD_RECCZHD.rchsmfid
+  is '营业所';
+comment on column GD_RECCZHD.rchdept
+  is '创建部门';
+comment on column GD_RECCZHD.rchcredate
+  is '创建日期';
+comment on column GD_RECCZHD.rchcreper
+  is '创建人员';
+comment on column GD_RECCZHD.rchshdate
+  is '单据完成日期';
+comment on column GD_RECCZHD.rchshper
+  is '单据完成人员';
+comment on column GD_RECCZHD.rchshflag
+  is '单据完成标志';
+

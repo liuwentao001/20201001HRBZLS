@@ -1,0 +1,58 @@
+﻿create table GD_RECTRANSDT
+(
+  rtdno     VARCHAR2(10) not null,
+  rtdrowno  NUMBER not null,
+  rtdpmdid  NUMBER,
+  rtdpiid   VARCHAR2(10),
+  rtdpfid   VARCHAR2(10),
+  rtdpscid  NUMBER,
+  rtdyssl   NUMBER not null,
+  rtdysdj   NUMBER not null,
+  rtdysje   NUMBER not null,
+  rtdsl     NUMBER not null,
+  rtddj     NUMBER not null,
+  rtdje     NUMBER not null,
+  rtdadjsl  NUMBER not null,
+  rtdadjdj  NUMBER not null,
+  rtdadjje  NUMBER not null,
+  rtdscale  NUMBER,
+  rtdpiname VARCHAR2(10)
+)
+;
+comment on table GD_RECTRANSDT
+  is '应收计费单体【RTD】';
+comment on column GD_RECTRANSDT.rtdno
+  is '单据流水';
+comment on column GD_RECTRANSDT.rtdrowno
+  is '行号';
+comment on column GD_RECTRANSDT.rtdpmdid
+  is '混合用水分组';
+comment on column GD_RECTRANSDT.rtdpiid
+  is '费用项目';
+comment on column GD_RECTRANSDT.rtdpfid
+  is '价格类别';
+comment on column GD_RECTRANSDT.rtdpscid
+  is '费率明细方案';
+comment on column GD_RECTRANSDT.rtdyssl
+  is '应收水量';
+comment on column GD_RECTRANSDT.rtdysdj
+  is '应收单价';
+comment on column GD_RECTRANSDT.rtdysje
+  is '应收金额';
+comment on column GD_RECTRANSDT.rtdsl
+  is '水量';
+comment on column GD_RECTRANSDT.rtddj
+  is '单价';
+comment on column GD_RECTRANSDT.rtdje
+  is '金额';
+comment on column GD_RECTRANSDT.rtdadjsl
+  is '调整水量';
+comment on column GD_RECTRANSDT.rtdadjdj
+  is '调整单价';
+comment on column GD_RECTRANSDT.rtdadjje
+  is '调整金额';
+comment on column GD_RECTRANSDT.rtdscale
+  is '混合比例';
+comment on column GD_RECTRANSDT.rtdpiname
+  is '费用项目说明';
+

@@ -1,0 +1,103 @@
+﻿create table BS_PAYMENT
+(
+  pid          VARCHAR2(10) not null,
+  pcid         VARCHAR2(10) not null,
+  pmid         VARCHAR2(10),
+  pdate        DATE,
+  pdatetime    DATE,
+  pmonth       VARCHAR2(7),
+  pposition    VARCHAR2(10),
+  ptrans       CHAR(1) not null,
+  psavingqc    NUMBER(12,2),
+  psavingbq    NUMBER(12,2),
+  psavingqm    NUMBER(12,2),
+  ppayment     NUMBER(12,2),
+  ppayway      VARCHAR2(6),
+  pbseqno      VARCHAR2(20),
+  pbdate       DATE,
+  pchkdate     DATE,
+  pbatch       VARCHAR2(10),
+  ppayee       VARCHAR2(20),
+  pmemo        VARCHAR2(200),
+  preverseflag VARCHAR2(1),
+  pscrid       VARCHAR2(10),
+  pscrtrans    VARCHAR2(1),
+  pscrmonth    VARCHAR2(7),
+  pscrdate     DATE,
+  pchkno       VARCHAR2(10),
+  tchkdate     DATE,
+  pdzdate      DATE,
+  pcseqno      VARCHAR2(20),
+  pcchkflag    CHAR(1),
+  pcdate       DATE,
+  pwseqno      VARCHAR2(50),
+  pwdate       VARCHAR2(20)
+)
+;
+comment on table BS_PAYMENT
+  is '付款交易';
+comment on column BS_PAYMENT.pid
+  is '流水号';
+comment on column BS_PAYMENT.pcid
+  is '用户编号';
+comment on column BS_PAYMENT.pmid
+  is '水表编号';
+comment on column BS_PAYMENT.pdate
+  is '帐务日期（收费日期）';
+comment on column BS_PAYMENT.pdatetime
+  is '发生时间';
+comment on column BS_PAYMENT.pmonth
+  is '缴费月份';
+comment on column BS_PAYMENT.pposition
+  is '缴费机构（营业所或银行）【SYSMANAFRAME】';
+comment on column BS_PAYMENT.ptrans
+  is '缴费事务(paidtrans)';
+comment on column BS_PAYMENT.psavingqc
+  is '期初预存余额';
+comment on column BS_PAYMENT.psavingbq
+  is '本期发生预存金额';
+comment on column BS_PAYMENT.psavingqm
+  is '期末预存余额';
+comment on column BS_PAYMENT.ppayment
+  is '付款金额';
+comment on column BS_PAYMENT.ppayway
+  is '付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)';
+comment on column BS_PAYMENT.pbseqno
+  is '缴费机构流水(银行实时收费交易流水)';
+comment on column BS_PAYMENT.pbdate
+  is '银行日期(银行缴费账务日期)';
+comment on column BS_PAYMENT.pchkdate
+  is '扎帐日期（收费员结账后回写审核日期）';
+comment on column BS_PAYMENT.pbatch
+  is '缴费交易批次';
+comment on column BS_PAYMENT.ppayee
+  is '收款员';
+comment on column BS_PAYMENT.pmemo
+  is '备注';
+comment on column BS_PAYMENT.preverseflag
+  is '冲正标志（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）';
+comment on column BS_PAYMENT.pscrid
+  is '原实收帐流水（应收冲实产生的负帐时Payment.PSCRID不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况Payment.PSCRID为空）';
+comment on column BS_PAYMENT.pscrtrans
+  is '原实收缴费事务（实收冲正产生的负帐时Payment.PSCRTRANS不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况Payment.PSCRTRANS为空）';
+comment on column BS_PAYMENT.pscrmonth
+  is '原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：A用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）';
+comment on column BS_PAYMENT.pscrdate
+  is '原实收日期';
+comment on column BS_PAYMENT.pchkno
+  is '进账单号（收费员结账后回写营销单号）';
+comment on column BS_PAYMENT.tchkdate
+  is '到账日期（财务到账确认后回写到账日期）';
+comment on column BS_PAYMENT.pdzdate
+  is '财务对账日期（财务对账审核后回写）';
+comment on column BS_PAYMENT.pcseqno
+  is '清算中心流水(NO USE 到账确认)';
+comment on column BS_PAYMENT.pcchkflag
+  is '标志(NO USE到账确认)';
+comment on column BS_PAYMENT.pcdate
+  is '清算日期(到账确认)';
+comment on column BS_PAYMENT.pwseqno
+  is '微信流水';
+comment on column BS_PAYMENT.pwdate
+  is '微信申请日期';
+

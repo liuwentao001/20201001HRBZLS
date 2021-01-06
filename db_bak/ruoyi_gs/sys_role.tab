@@ -1,0 +1,45 @@
+﻿create table SYS_ROLE
+(
+  role_id     NUMBER(20) not null,
+  role_name   VARCHAR2(30) not null,
+  role_key    VARCHAR2(100) not null,
+  role_sort   NUMBER(4) not null,
+  data_scope  CHAR(1) default '1',
+  status      CHAR(1) not null,
+  del_flag    CHAR(1) default '0',
+  create_by   VARCHAR2(64) default '',
+  create_time DATE,
+  update_by   VARCHAR2(64) default '',
+  update_time DATE,
+  remark      VARCHAR2(500)
+)
+;
+comment on table SYS_ROLE
+  is '角色信息表';
+comment on column SYS_ROLE.role_id
+  is '角色主键seq_sys_post.nextval';
+comment on column SYS_ROLE.role_name
+  is '角色名称';
+comment on column SYS_ROLE.role_key
+  is '角色权限字符串';
+comment on column SYS_ROLE.role_sort
+  is '显示顺序';
+comment on column SYS_ROLE.data_scope
+  is '数据范围（1：全部数据权限 2：自定数据权限）';
+comment on column SYS_ROLE.status
+  is '角色状态（0正常 1停用）';
+comment on column SYS_ROLE.del_flag
+  is '删除标志（0代表存在 2代表删除）';
+comment on column SYS_ROLE.create_by
+  is '创建者';
+comment on column SYS_ROLE.create_time
+  is '创建时间';
+comment on column SYS_ROLE.update_by
+  is '更新者';
+comment on column SYS_ROLE.update_time
+  is '更新时间';
+comment on column SYS_ROLE.remark
+  is '备注';
+alter table SYS_ROLE
+  add constraint PK_SYS_ROLE primary key (ROLE_ID);
+

@@ -1,0 +1,31 @@
+﻿create table BS_PMDETAIL
+(
+  pmdid      VARCHAR2(10),
+  pmdiid     CHAR(2) not null,
+  pmddj      NUMBER(12,3),
+  pmzph      VARCHAR2(10),
+  pmzpje     NUMBER(12,3),
+  pmjyls     VARCHAR2(12),
+  pmkhname   VARCHAR2(50),
+  pmkhaccont VARCHAR2(50)
+)
+;
+comment on table BS_PMDETAIL
+  is '付款交易明细';
+comment on column BS_PMDETAIL.pmdid
+  is '流水号';
+comment on column BS_PMDETAIL.pmdiid
+  is '分类编码';
+comment on column BS_PMDETAIL.pmddj
+  is '金额';
+comment on column BS_PMDETAIL.pmzph
+  is '支票号';
+comment on column BS_PMDETAIL.pmzpje
+  is '支票金额';
+comment on column BS_PMDETAIL.pmjyls
+  is '交易流水';
+comment on column BS_PMDETAIL.pmkhname
+  is '开户行名称';
+comment on column BS_PMDETAIL.pmkhaccont
+  is '开户行账号';
+

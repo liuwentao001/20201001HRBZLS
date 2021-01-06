@@ -1,0 +1,16 @@
+﻿create table WECHAT_ACCESS_TOKEN
+(
+  watid      VARCHAR2(50) default SYS_GUID(),
+  token      VARCHAR2(200),
+  createtime DATE
+)
+;
+comment on table WECHAT_ACCESS_TOKEN
+  is '微信token';
+comment on column WECHAT_ACCESS_TOKEN.watid
+  is '主键';
+comment on column WECHAT_ACCESS_TOKEN.token
+  is '微信access_token，默认有效期7200秒';
+comment on column WECHAT_ACCESS_TOKEN.createtime
+  is '创建时间';
+

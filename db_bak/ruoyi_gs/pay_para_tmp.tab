@@ -1,0 +1,10 @@
+﻿create table PAY_PARA_TMP
+(
+  mid   VARCHAR2(10) not null,
+  plids VARCHAR2(1280),
+  rlje  NUMBER(10,2),
+  rlsxf NUMBER(10,2),
+  rlznj NUMBER(10,2)
+)
+;
+

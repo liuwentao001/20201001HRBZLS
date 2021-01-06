@@ -1,0 +1,39 @@
+﻿create table SYS_NOTICE
+(
+  notice_id      NUMBER(20) not null,
+  notice_title   VARCHAR2(50) not null,
+  notice_type    CHAR(1) not null,
+  notice_content VARCHAR2(2000),
+  status         CHAR(1) default '0',
+  create_by      VARCHAR2(64) default '',
+  create_time    DATE,
+  update_by      VARCHAR2(64) default '',
+  update_time    DATE,
+  remark         VARCHAR2(255)
+)
+;
+comment on table SYS_NOTICE
+  is '通知公告表';
+comment on column SYS_NOTICE.notice_id
+  is '公告主键seq_sys_notice.nextval';
+comment on column SYS_NOTICE.notice_title
+  is '公告标题';
+comment on column SYS_NOTICE.notice_type
+  is '公告类型（1通知 2公告）';
+comment on column SYS_NOTICE.notice_content
+  is '公告内容';
+comment on column SYS_NOTICE.status
+  is '公告状态（0正常 1关闭）';
+comment on column SYS_NOTICE.create_by
+  is '创建者';
+comment on column SYS_NOTICE.create_time
+  is '创建时间';
+comment on column SYS_NOTICE.update_by
+  is '更新者';
+comment on column SYS_NOTICE.update_time
+  is '更新时间';
+comment on column SYS_NOTICE.remark
+  is '备注';
+alter table SYS_NOTICE
+  add constraint PK_SYS_NOTICE primary key (NOTICE_ID);
+

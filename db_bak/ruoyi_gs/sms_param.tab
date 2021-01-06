@@ -1,0 +1,40 @@
+﻿create table SMS_PARAM
+(
+  p_id          VARCHAR2(50) default SYS_GUID(),
+  companynumber VARCHAR2(30),
+  username      VARCHAR2(30),
+  userpassword  VARCHAR2(30),
+  action        VARCHAR2(100),
+  daymax        NUMBER,
+  monthmax      NUMBER,
+  create_by     VARCHAR2(64),
+  create_time   DATE,
+  update_by     VARCHAR2(64),
+  update_time   DATE
+)
+;
+comment on table SMS_PARAM
+  is '短信参数';
+comment on column SMS_PARAM.p_id
+  is '主键';
+comment on column SMS_PARAM.companynumber
+  is '企业编号';
+comment on column SMS_PARAM.username
+  is '用户名称';
+comment on column SMS_PARAM.userpassword
+  is '用户密码';
+comment on column SMS_PARAM.action
+  is '请求地址';
+comment on column SMS_PARAM.daymax
+  is '日发送上限';
+comment on column SMS_PARAM.monthmax
+  is '月发送上限';
+comment on column SMS_PARAM.create_by
+  is '创建者';
+comment on column SMS_PARAM.create_time
+  is '创建时间';
+comment on column SMS_PARAM.update_by
+  is '更新者';
+comment on column SMS_PARAM.update_time
+  is '更新时间';
+

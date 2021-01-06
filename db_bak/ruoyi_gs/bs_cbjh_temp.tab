@@ -1,0 +1,26 @@
+﻿create global temporary table BS_CBJH_TEMP
+(
+  ciid      VARCHAR2(10) not null,
+  miid      VARCHAR2(10),
+  mismfid   VARCHAR2(10),
+  mirorder  NUMBER,
+  mistid    VARCHAR2(10),
+  mipid     VARCHAR2(10),
+  miclass   NUMBER,
+  miflag    CHAR(1),
+  mirecdate DATE,
+  mircode   NUMBER(10),
+  mdmodel   VARCHAR2(2),
+  mipriflag CHAR(1),
+  bfbatch   NUMBER(2),
+  bfrper    VARCHAR2(15),
+  misafid   VARCHAR2(10),
+  miifchk   CHAR(1),
+  mdcaliber NUMBER(10),
+  miside    VARCHAR2(100),
+  mistatus  VARCHAR2(2),
+  bfnrmonth VARCHAR2(7),
+  mibfid    VARCHAR2(10)
+)
+on commit preserve rows;
+

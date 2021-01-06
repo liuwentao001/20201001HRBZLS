@@ -1,0 +1,43 @@
+﻿create table GD_CUSTREGHD
+(
+  crhwfid    NUMBER,
+  crhshflag  CHAR(1),
+  crhshper   VARCHAR2(10),
+  crhshdate  DATE,
+  crhcreper  VARCHAR2(10),
+  crhcredate DATE,
+  crhdept    VARCHAR2(10),
+  crhsmfid   VARCHAR2(10),
+  crhsource  CHAR(1),
+  crhlb      CHAR(1),
+  crhbh      VARCHAR2(10),
+  crhno      VARCHAR2(10)
+)
+;
+comment on table GD_CUSTREGHD
+  is '立户单头【H】';
+comment on column GD_CUSTREGHD.crhwfid
+  is '工作流实例';
+comment on column GD_CUSTREGHD.crhshflag
+  is '审核标志';
+comment on column GD_CUSTREGHD.crhshper
+  is '审核人员';
+comment on column GD_CUSTREGHD.crhshdate
+  is '审核日期';
+comment on column GD_CUSTREGHD.crhcreper
+  is '创建人员';
+comment on column GD_CUSTREGHD.crhcredate
+  is '创建日期';
+comment on column GD_CUSTREGHD.crhdept
+  is '立户部门';
+comment on column GD_CUSTREGHD.crhsmfid
+  is '营销公司';
+comment on column GD_CUSTREGHD.crhsource
+  is '单据来源';
+comment on column GD_CUSTREGHD.crhlb
+  is '单据类别';
+comment on column GD_CUSTREGHD.crhbh
+  is '单据编号';
+comment on column GD_CUSTREGHD.crhno
+  is '单据流水号';
+

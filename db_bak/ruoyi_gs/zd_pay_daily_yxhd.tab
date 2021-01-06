@@ -1,0 +1,13 @@
+﻿create table ZD_PAY_DAILY_YXHD
+(
+  pddid VARCHAR2(20),
+  pdhid VARCHAR2(20)
+)
+;
+comment on table ZD_PAY_DAILY_YXHD
+  is '财务对账中间表';
+comment on column ZD_PAY_DAILY_YXHD.pddid
+  is '营销单号';
+comment on column ZD_PAY_DAILY_YXHD.pdhid
+  is '财务单号';
+

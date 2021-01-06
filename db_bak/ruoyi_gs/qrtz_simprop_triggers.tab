@@ -1,0 +1,24 @@
+﻿create table QRTZ_SIMPROP_TRIGGERS
+(
+  sched_name    VARCHAR2(120) not null,
+  trigger_name  VARCHAR2(200) not null,
+  trigger_group VARCHAR2(200) not null,
+  str_prop_1    VARCHAR2(512),
+  str_prop_2    VARCHAR2(512),
+  str_prop_3    VARCHAR2(512),
+  int_prop_1    NUMBER(10),
+  int_prop_2    NUMBER(10),
+  long_prop_1   NUMBER(13),
+  long_prop_2   NUMBER(13),
+  dec_prop_1    NUMBER(13,4),
+  dec_prop_2    NUMBER(13,4),
+  bool_prop_1   VARCHAR2(1),
+  bool_prop_2   VARCHAR2(1)
+)
+;
+alter table QRTZ_SIMPROP_TRIGGERS
+  add constraint QRTZ_SIMPROP_TRIG_PK primary key (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP);
+alter table QRTZ_SIMPROP_TRIGGERS
+  add constraint QRTZ_SIMPROP_TRIG_TO_TRIG_FK foreign key (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP)
+  references QRTZ_TRIGGERS (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP);
+

@@ -1,0 +1,31 @@
+﻿create table BANK_CHARGE_TRAN_LOG
+(
+  id        VARCHAR2(50) not null,
+  tran_code VARCHAR2(50),
+  bank_id   VARCHAR2(50),
+  bank_pwd  VARCHAR2(50),
+  tran_type VARCHAR2(50),
+  tran_date VARCHAR2(50),
+  pkg_req   VARCHAR2(4000),
+  pkg_ans   VARCHAR2(4000)
+)
+;
+comment on column BANK_CHARGE_TRAN_LOG.id
+  is '唯一标识';
+comment on column BANK_CHARGE_TRAN_LOG.tran_code
+  is '交易代码';
+comment on column BANK_CHARGE_TRAN_LOG.bank_id
+  is '银行代码';
+comment on column BANK_CHARGE_TRAN_LOG.bank_pwd
+  is '银行密码';
+comment on column BANK_CHARGE_TRAN_LOG.tran_type
+  is '交易类型';
+comment on column BANK_CHARGE_TRAN_LOG.tran_date
+  is '交易日期';
+comment on column BANK_CHARGE_TRAN_LOG.pkg_req
+  is '接收报文';
+comment on column BANK_CHARGE_TRAN_LOG.pkg_ans
+  is '回复报文';
+alter table BANK_CHARGE_TRAN_LOG
+  add constraint TRAN_ID primary key (ID);
+

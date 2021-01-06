@@ -1,0 +1,84 @@
+﻿create table WF_FLOWLINE
+(
+  flowlineid         VARCHAR2(50 CHAR) not null,
+  flowmainid         VARCHAR2(50 CHAR),
+  flowlinecode       VARCHAR2(50 CHAR),
+  sourcenodeid       VARCHAR2(50 CHAR),
+  gonodeid           VARCHAR2(50 CHAR),
+  conditiontype      NUMBER(11),
+  conditionstring    CLOB,
+  conditionjson      CLOB,
+  conditionvaluejson CLOB,
+  createinclude      CLOB,
+  createwithout      CLOB,
+  excuteinclude      CLOB,
+  excutewithout      CLOB,
+  usermethod         VARCHAR2(200 CHAR),
+  remark             VARCHAR2(200 CHAR),
+  enabled            NUMBER(11),
+  sortcode           NUMBER(11),
+  deletemark         NUMBER(11),
+  createdate         DATE,
+  createuserid       VARCHAR2(50 CHAR),
+  createusername     VARCHAR2(50 CHAR),
+  modifydate         DATE,
+  modifyuserid       VARCHAR2(50 CHAR),
+  modifyusername     VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_FLOWLINE
+  is '流程连线表';
+comment on column WF_FLOWLINE.flowlineid
+  is '连线ID';
+comment on column WF_FLOWLINE.flowmainid
+  is '流程模板ID';
+comment on column WF_FLOWLINE.flowlinecode
+  is '流程连线编码';
+comment on column WF_FLOWLINE.sourcenodeid
+  is '来源节点';
+comment on column WF_FLOWLINE.gonodeid
+  is '转向节点';
+comment on column WF_FLOWLINE.conditiontype
+  is 'SQL条件类型';
+comment on column WF_FLOWLINE.conditionstring
+  is 'SQL条件';
+comment on column WF_FLOWLINE.conditionjson
+  is 'SQL条件JSON';
+comment on column WF_FLOWLINE.conditionvaluejson
+  is 'SQL条件Json值';
+comment on column WF_FLOWLINE.createinclude
+  is '发起人包含';
+comment on column WF_FLOWLINE.createwithout
+  is '发起人不含';
+comment on column WF_FLOWLINE.excuteinclude
+  is '执行人包含';
+comment on column WF_FLOWLINE.excutewithout
+  is '执行人不含';
+comment on column WF_FLOWLINE.usermethod
+  is '自定义方法';
+comment on column WF_FLOWLINE.remark
+  is '备注';
+comment on column WF_FLOWLINE.enabled
+  is '有效';
+comment on column WF_FLOWLINE.sortcode
+  is '排序码';
+comment on column WF_FLOWLINE.deletemark
+  is '删除标记';
+comment on column WF_FLOWLINE.createdate
+  is '创建时间';
+comment on column WF_FLOWLINE.createuserid
+  is '创建用户主键';
+comment on column WF_FLOWLINE.createusername
+  is '创建用户';
+comment on column WF_FLOWLINE.modifydate
+  is '修改时间';
+comment on column WF_FLOWLINE.modifyuserid
+  is '修改用户主键';
+comment on column WF_FLOWLINE.modifyusername
+  is '修改用户';
+alter table WF_FLOWLINE
+  add primary key (FLOWLINEID);
+alter table WF_FLOWLINE
+  add foreign key (FLOWMAINID)
+  references WF_FLOWMAIN (FLOWMAINID);
+

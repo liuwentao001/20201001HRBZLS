@@ -1,0 +1,9 @@
+﻿create table QRTZ_PAUSED_TRIGGER_GRPS
+(
+  sched_name    VARCHAR2(120) not null,
+  trigger_group VARCHAR2(200) not null
+)
+;
+alter table QRTZ_PAUSED_TRIGGER_GRPS
+  add constraint QRTZ_PAUSED_TRIG_GRPS_PK primary key (SCHED_NAME, TRIGGER_GROUP);
+

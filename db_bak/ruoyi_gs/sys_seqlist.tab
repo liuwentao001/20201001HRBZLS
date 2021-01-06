@@ -1,0 +1,27 @@
+﻿create table SYS_SEQLIST
+(
+  ssltblname VARCHAR2(60) not null,
+  sslseqname VARCHAR2(60) not null,
+  sslprefix  VARCHAR2(10),
+  sslwidth   NUMBER(2) not null,
+  sslcname   VARCHAR2(60),
+  sslstartno NUMBER(10)
+)
+;
+comment on table SYS_SEQLIST
+  is '序列列表【SSL】';
+comment on column SYS_SEQLIST.ssltblname
+  is '表名';
+comment on column SYS_SEQLIST.sslseqname
+  is '序列名';
+comment on column SYS_SEQLIST.sslprefix
+  is '前缀';
+comment on column SYS_SEQLIST.sslwidth
+  is '序列宽度';
+comment on column SYS_SEQLIST.sslcname
+  is '中文名称';
+comment on column SYS_SEQLIST.sslstartno
+  is '初始值';
+alter table SYS_SEQLIST
+  add constraint PK_SYS_SEQLIST primary key (SSLTBLNAME);
+

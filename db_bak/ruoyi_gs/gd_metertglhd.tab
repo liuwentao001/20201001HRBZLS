@@ -1,0 +1,40 @@
+﻿create table GD_METERTGLHD
+(
+  mthno      VARCHAR2(10) not null,
+  mthbh      VARCHAR2(10) not null,
+  mthlb      CHAR(2),
+  mthsource  CHAR(2),
+  mthsmfid   VARCHAR2(10),
+  mthdept    VARCHAR2(10),
+  mthcredate DATE not null,
+  mthcreper  VARCHAR2(10) not null,
+  mthshflag  CHAR(2) not null,
+  mthshdate  DATE,
+  mthshper   VARCHAR2(10)
+)
+;
+comment on table GD_METERTGLHD
+  is '推估量维护单头【MTH】';
+comment on column GD_METERTGLHD.mthno
+  is '单据流水号';
+comment on column GD_METERTGLHD.mthbh
+  is '单据编号';
+comment on column GD_METERTGLHD.mthlb
+  is '单据类别';
+comment on column GD_METERTGLHD.mthsource
+  is '单据来源';
+comment on column GD_METERTGLHD.mthsmfid
+  is '营销公司';
+comment on column GD_METERTGLHD.mthdept
+  is '受理部门';
+comment on column GD_METERTGLHD.mthcredate
+  is '受理日期';
+comment on column GD_METERTGLHD.mthcreper
+  is '受理人员';
+comment on column GD_METERTGLHD.mthshflag
+  is '审核标志';
+comment on column GD_METERTGLHD.mthshdate
+  is '审核日期';
+comment on column GD_METERTGLHD.mthshper
+  is '审核人员';
+

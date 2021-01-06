@@ -1,0 +1,15 @@
+﻿create table SYS_USER_POST
+(
+  user_id NUMBER(20) not null,
+  post_id NUMBER(20) not null
+)
+;
+comment on table SYS_USER_POST
+  is '用户与岗位关联表';
+comment on column SYS_USER_POST.user_id
+  is '用户ID';
+comment on column SYS_USER_POST.post_id
+  is '岗位ID';
+alter table SYS_USER_POST
+  add constraint PK_SYS_USER_POST primary key (USER_ID, POST_ID);
+

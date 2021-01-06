@@ -1,0 +1,51 @@
+﻿create table SYS_DICT_DATA
+(
+  dict_code   NUMBER(20) not null,
+  dict_sort   NUMBER(4) default 0,
+  dict_label  VARCHAR2(100) default '',
+  dict_value  VARCHAR2(100) default '',
+  dict_type   VARCHAR2(100) default '',
+  css_class   VARCHAR2(100),
+  list_class  VARCHAR2(100),
+  is_default  CHAR(1) default 'N',
+  status      CHAR(1) default '0',
+  create_by   VARCHAR2(64) default '',
+  create_time DATE,
+  update_by   VARCHAR2(64) default '',
+  update_time DATE,
+  remark      VARCHAR2(500)
+)
+;
+comment on table SYS_DICT_DATA
+  is '字典数据表';
+comment on column SYS_DICT_DATA.dict_code
+  is '字典主键seq_sys_dict_data.nextval';
+comment on column SYS_DICT_DATA.dict_sort
+  is '字典排序';
+comment on column SYS_DICT_DATA.dict_label
+  is '字典标签';
+comment on column SYS_DICT_DATA.dict_value
+  is '字典键值';
+comment on column SYS_DICT_DATA.dict_type
+  is '字典类型';
+comment on column SYS_DICT_DATA.css_class
+  is '样式属性（其他样式扩展）';
+comment on column SYS_DICT_DATA.list_class
+  is '表格回显样式';
+comment on column SYS_DICT_DATA.is_default
+  is '是否默认（Y是 N否）';
+comment on column SYS_DICT_DATA.status
+  is '状态（0正常 1停用）';
+comment on column SYS_DICT_DATA.create_by
+  is '创建者';
+comment on column SYS_DICT_DATA.create_time
+  is '创建时间';
+comment on column SYS_DICT_DATA.update_by
+  is '更新者';
+comment on column SYS_DICT_DATA.update_time
+  is '更新时间';
+comment on column SYS_DICT_DATA.remark
+  is '备注';
+alter table SYS_DICT_DATA
+  add constraint PK_SYS_DICT_DATA primary key (DICT_CODE);
+

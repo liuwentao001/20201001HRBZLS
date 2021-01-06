@@ -1,0 +1,8 @@
+﻿create sequence SEQ_MRID
+minvalue 1
+maxvalue 9999999999
+start with 2379516101
+increment by 1
+cache 50
+order;
+

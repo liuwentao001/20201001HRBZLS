@@ -1,0 +1,27 @@
+﻿create table SMS_EXCLUDE
+(
+  userid      VARCHAR2(50) not null,
+  exclude     VARCHAR2(50),
+  create_by   VARCHAR2(50),
+  create_time DATE,
+  update_by   VARCHAR2(64),
+  update_time DATE
+)
+;
+comment on table SMS_EXCLUDE
+  is '短信白名单';
+comment on column SMS_EXCLUDE.userid
+  is '用户编号';
+comment on column SMS_EXCLUDE.exclude
+  is '排除原因';
+comment on column SMS_EXCLUDE.create_by
+  is '创建者';
+comment on column SMS_EXCLUDE.create_time
+  is '创建时间';
+comment on column SMS_EXCLUDE.update_by
+  is '更新者';
+comment on column SMS_EXCLUDE.update_time
+  is '更新时间';
+alter table SMS_EXCLUDE
+  add constraint PK_EXCLUDE primary key (USERID);
+

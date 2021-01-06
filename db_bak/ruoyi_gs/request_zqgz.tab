@@ -1,0 +1,203 @@
+﻿create table REQUEST_ZQGZ
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  ciadr          VARCHAR2(100),
+  cimtel         VARCHAR2(30),
+  ciconnectper   VARCHAR2(60),
+  miid           VARCHAR2(10),
+  mipfid         VARCHAR2(10),
+  mirtid         CHAR(1),
+  miadr          VARCHAR2(100),
+  mdno           VARCHAR2(40),
+  miside         VARCHAR2(100),
+  mdcaliber      NUMBER(10),
+  dqsfh          VARCHAR2(40),
+  dqgfh          VARCHAR2(40),
+  jcgfh          VARCHAR2(40),
+  qfh            VARCHAR2(40),
+  mdmodel        VARCHAR2(2),
+  mdmode         VARCHAR2(50),
+  newmdno        VARCHAR2(40),
+  newmiside      VARCHAR2(100),
+  newmdcaliber   NUMBER(10),
+  newsfh         VARCHAR2(40),
+  newgfh         VARCHAR2(40),
+  newjcgfh       VARCHAR2(40),
+  newqfh         VARCHAR2(40),
+  mtdsl          VARCHAR2(40),
+  mtdaddsl       NUMBER(10),
+  miyl9          NUMBER,
+  rebg           VARCHAR2(10),
+  recarrysl      NUMBER(10),
+  recause        VARCHAR2(400),
+  miinscode      NUMBER(10),
+  mircode        NUMBER(10),
+  newinscode     NUMBER(10),
+  reinsper       VARCHAR2(15),
+  reinsdate      DATE,
+  rehsr          VARCHAR2(10),
+  rehsdate       DATE,
+  rehsnote       VARCHAR2(400),
+  redccl         NUMBER(10),
+  redcdate       DATE,
+  redcnote       VARCHAR2(400),
+  reclmemo       VARCHAR2(400),
+  reclmemobak    VARCHAR2(400),
+  resqly         VARCHAR2(10),
+  sjflag         VARCHAR2(10),
+  sjdate         DATE,
+  micardno       VARCHAR2(50),
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_ZQGZ
+  is '周期改造';
+comment on column REQUEST_ZQGZ.reno
+  is '单据流水号';
+comment on column REQUEST_ZQGZ.resmfid
+  is '营销公司';
+comment on column REQUEST_ZQGZ.ciid
+  is '用户号';
+comment on column REQUEST_ZQGZ.ciname
+  is '用户名';
+comment on column REQUEST_ZQGZ.ciadr
+  is '用户地址';
+comment on column REQUEST_ZQGZ.cimtel
+  is '移动电话';
+comment on column REQUEST_ZQGZ.ciconnectper
+  is '联系人';
+comment on column REQUEST_ZQGZ.miid
+  is '水表档案号';
+comment on column REQUEST_ZQGZ.mipfid
+  is '用水性质(priceframe)';
+comment on column REQUEST_ZQGZ.mirtid
+  is '采集类型（原抄表方式【sysreadtype】）';
+comment on column REQUEST_ZQGZ.miadr
+  is '表地址';
+comment on column REQUEST_ZQGZ.mdno
+  is '表身码';
+comment on column REQUEST_ZQGZ.miside
+  is '表位【syscharlist】';
+comment on column REQUEST_ZQGZ.mdcaliber
+  is '表口径(METERCALIBER)';
+comment on column REQUEST_ZQGZ.dqsfh
+  is '塑封号';
+comment on column REQUEST_ZQGZ.dqgfh
+  is '钢封号';
+comment on column REQUEST_ZQGZ.jcgfh
+  is '稽查刚封号';
+comment on column REQUEST_ZQGZ.qfh
+  is '铅封号';
+comment on column REQUEST_ZQGZ.mdmodel
+  is '计量方式';
+comment on column REQUEST_ZQGZ.mdmode
+  is '基电转换方式';
+comment on column REQUEST_ZQGZ.newmdno
+  is '新表身码';
+comment on column REQUEST_ZQGZ.newmiside
+  is '新表位【syscharlist】';
+comment on column REQUEST_ZQGZ.newmdcaliber
+  is '新表口径(METERCALIBER)';
+comment on column REQUEST_ZQGZ.newsfh
+  is '新塑封号';
+comment on column REQUEST_ZQGZ.newgfh
+  is '新钢封号';
+comment on column REQUEST_ZQGZ.newjcgfh
+  is '新稽查刚封号';
+comment on column REQUEST_ZQGZ.newqfh
+  is '新铅封号';
+comment on column REQUEST_ZQGZ.mtdsl
+  is '月量';
+comment on column REQUEST_ZQGZ.mtdaddsl
+  is '余量';
+comment on column REQUEST_ZQGZ.miyl9
+  is '水表最大指针数';
+comment on column REQUEST_ZQGZ.rebg
+  is '表工';
+comment on column REQUEST_ZQGZ.recarrysl
+  is '调整水量（对应meterreadhis的mrcarrysl）';
+comment on column REQUEST_ZQGZ.recause
+  is '换表原因';
+comment on column REQUEST_ZQGZ.miinscode
+  is '旧表起码';
+comment on column REQUEST_ZQGZ.mircode
+  is '旧表止码';
+comment on column REQUEST_ZQGZ.newinscode
+  is '新表起数';
+comment on column REQUEST_ZQGZ.reinsper
+  is '拆表员';
+comment on column REQUEST_ZQGZ.reinsdate
+  is '拆表日期';
+comment on column REQUEST_ZQGZ.rehsr
+  is '核实人';
+comment on column REQUEST_ZQGZ.rehsdate
+  is '核实时间';
+comment on column REQUEST_ZQGZ.rehsnote
+  is '核实意见';
+comment on column REQUEST_ZQGZ.redccl
+  is '督查差量';
+comment on column REQUEST_ZQGZ.redcdate
+  is '督查核实时间';
+comment on column REQUEST_ZQGZ.redcnote
+  is '督查核实意见';
+comment on column REQUEST_ZQGZ.reclmemo
+  is '材料使用情况';
+comment on column REQUEST_ZQGZ.reclmemobak
+  is '材料返回情况';
+comment on column REQUEST_ZQGZ.resqly
+  is '诉求来源（正常、12319热线、诉求、二次供水）';
+comment on column REQUEST_ZQGZ.sjflag
+  is '是否首检';
+comment on column REQUEST_ZQGZ.sjdate
+  is '首检日期';
+comment on column REQUEST_ZQGZ.micardno
+  is '卡片图号';
+comment on column REQUEST_ZQGZ.reappnote
+  is '申请说明';
+comment on column REQUEST_ZQGZ.restaus
+  is '当前审批环节';
+comment on column REQUEST_ZQGZ.reper
+  is '当前审批人';
+comment on column REQUEST_ZQGZ.reflag
+  is '当前审批状';
+comment on column REQUEST_ZQGZ.sortcode
+  is '序号';
+comment on column REQUEST_ZQGZ.deletemark
+  is '删除标识';
+comment on column REQUEST_ZQGZ.createdate
+  is '创建时间';
+comment on column REQUEST_ZQGZ.createuserid
+  is '创建人ID';
+comment on column REQUEST_ZQGZ.createusername
+  is '创建人';
+comment on column REQUEST_ZQGZ.modifydate
+  is '修改时间';
+comment on column REQUEST_ZQGZ.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_ZQGZ.modifyusername
+  is '修改人';
+comment on column REQUEST_ZQGZ.remark
+  is '备注';
+comment on column REQUEST_ZQGZ.workno
+  is '单据编号';
+comment on column REQUEST_ZQGZ.workbatch
+  is '批次号';
+

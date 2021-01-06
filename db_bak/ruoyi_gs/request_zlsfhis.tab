@@ -1,0 +1,116 @@
+﻿create table REQUEST_ZLSFHIS
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  ciadr          VARCHAR2(100),
+  ciifinv        CHAR(1),
+  ciname1        VARCHAR2(100),
+  ciadr1         VARCHAR2(100),
+  miid           VARCHAR2(10),
+  mipfid         VARCHAR2(10),
+  mipfidhis      VARCHAR2(10),
+  pfedate        DATE,
+  miadr          VARCHAR2(100),
+  mibfid         VARCHAR2(10),
+  mircode        NUMBER(10),
+  mirecdate      DATE,
+  reifreset      CHAR(1),
+  rercode        NUMBER(10),
+  recdate        DATE,
+  retype         VARCHAR2(50),
+  reifstep       CHAR(1),
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_ZLSFHIS
+  is '历史水价追量收费表';
+comment on column REQUEST_ZLSFHIS.reno
+  is '单据流水号';
+comment on column REQUEST_ZLSFHIS.resmfid
+  is '营销公司';
+comment on column REQUEST_ZLSFHIS.ciid
+  is '用户号';
+comment on column REQUEST_ZLSFHIS.ciname
+  is '用户名';
+comment on column REQUEST_ZLSFHIS.ciadr
+  is '用户地址';
+comment on column REQUEST_ZLSFHIS.ciifinv
+  is '是否普票';
+comment on column REQUEST_ZLSFHIS.ciname1
+  is '票据名称';
+comment on column REQUEST_ZLSFHIS.ciadr1
+  is '票据地址';
+comment on column REQUEST_ZLSFHIS.miid
+  is '水表档案号';
+comment on column REQUEST_ZLSFHIS.mipfid
+  is '用水性质(priceframe)';
+comment on column REQUEST_ZLSFHIS.mipfidhis
+  is '历史用水性质(priceframehis)';
+comment on column REQUEST_ZLSFHIS.pfedate
+  is '结束日期';
+comment on column REQUEST_ZLSFHIS.miadr
+  is '表地址';
+comment on column REQUEST_ZLSFHIS.mibfid
+  is '表册(bookframe)';
+comment on column REQUEST_ZLSFHIS.mircode
+  is '上期指针';
+comment on column REQUEST_ZLSFHIS.mirecdate
+  is '上期抄见日期';
+comment on column REQUEST_ZLSFHIS.reifreset
+  is '是否重置指针';
+comment on column REQUEST_ZLSFHIS.rercode
+  is '本期指针';
+comment on column REQUEST_ZLSFHIS.recdate
+  is '本期抄见日期';
+comment on column REQUEST_ZLSFHIS.retype
+  is '追补类别';
+comment on column REQUEST_ZLSFHIS.reifstep
+  is '是否纳入阶梯';
+comment on column REQUEST_ZLSFHIS.reappnote
+  is '申请说明';
+comment on column REQUEST_ZLSFHIS.restaus
+  is '当前审批环节';
+comment on column REQUEST_ZLSFHIS.reper
+  is '当前审批人';
+comment on column REQUEST_ZLSFHIS.reflag
+  is '当前审批状';
+comment on column REQUEST_ZLSFHIS.sortcode
+  is '序号';
+comment on column REQUEST_ZLSFHIS.deletemark
+  is '删除标识';
+comment on column REQUEST_ZLSFHIS.createdate
+  is '创建时间';
+comment on column REQUEST_ZLSFHIS.createuserid
+  is '创建人ID';
+comment on column REQUEST_ZLSFHIS.createusername
+  is '创建人';
+comment on column REQUEST_ZLSFHIS.modifydate
+  is '修改时间';
+comment on column REQUEST_ZLSFHIS.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_ZLSFHIS.modifyusername
+  is '修改人';
+comment on column REQUEST_ZLSFHIS.remark
+  is '备注';
+comment on column REQUEST_ZLSFHIS.workno
+  is '单据编号';
+comment on column REQUEST_ZLSFHIS.workbatch
+  is '批次号';
+

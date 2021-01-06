@@ -1,0 +1,184 @@
+﻿create table BS_RECLIST
+(
+  rlid           VARCHAR2(10) not null,
+  rlsmfid        VARCHAR2(10),
+  rlmonth        VARCHAR2(7),
+  rldate         DATE,
+  rlcid          VARCHAR2(10),
+  rlmid          VARCHAR2(10),
+  rlchargeper    VARCHAR2(15),
+  rlcname        VARCHAR2(100),
+  rlcadr         VARCHAR2(100),
+  rlmadr         VARCHAR2(100),
+  rlcstatus      VARCHAR2(2),
+  rlmtel         VARCHAR2(30),
+  rltel          VARCHAR2(30),
+  rliftax        CHAR(1),
+  rltaxno        VARCHAR2(30),
+  rlifinv        CHAR(1),
+  rlmpid         VARCHAR2(10),
+  rlmclass       NUMBER,
+  rlmflag        CHAR(1),
+  rlmsfid        VARCHAR2(10),
+  rlday          DATE,
+  rlbfid         VARCHAR2(10),
+  rlscode        NUMBER(10),
+  rlecode        NUMBER(10),
+  rlreadsl       NUMBER(10),
+  rltrans        VARCHAR2(5),
+  rlyschargetype CHAR(1),
+  rlsl           NUMBER(10),
+  rlje           NUMBER(13,3),
+  rlscrrlid      VARCHAR2(10),
+  rlscrrltrans   VARCHAR2(5),
+  rlscrrlmonth   VARCHAR2(7),
+  rlpaidje       NUMBER(13,3),
+  rlpaidflag     CHAR(1),
+  rlpaidper      VARCHAR2(20),
+  rlpaiddate     DATE,
+  rlmrid         VARCHAR2(100),
+  rlmemo         VARCHAR2(200),
+  rlpfid         VARCHAR2(10),
+  rldatetime     DATE,
+  rlscrrldate    DATE,
+  rlpriflag      CHAR(1),
+  rlrper         VARCHAR2(10),
+  rlpid          VARCHAR2(10),
+  rlpbatch       VARCHAR2(10),
+  rlsavingqc     NUMBER(12,2),
+  rlsavingbq     NUMBER(12,2),
+  rlsavingqm     NUMBER(12,2),
+  rlreverseflag  VARCHAR2(1),
+  rlbadflag      VARCHAR2(1),
+  rlmigps        VARCHAR2(60),
+  rlmisaving     NUMBER(13,3),
+  rlpriorje      NUMBER(13,3),
+  rlpaidmonth    VARCHAR2(7),
+  rlcolumn9      VARCHAR2(10),
+  rljtmk         CHAR(1),
+  rljtsrq        VARCHAR2(20),
+  rlcolumn12     VARCHAR2(20),
+  isprintfp      CHAR(1)
+)
+;
+comment on table BS_RECLIST
+  is '应收总帐明细';
+comment on column BS_RECLIST.rlid
+  is '总账编号';
+comment on column BS_RECLIST.rlsmfid
+  is '营销公司(SYSMANAFRAME )';
+comment on column BS_RECLIST.rlmonth
+  is '帐务月份';
+comment on column BS_RECLIST.rldate
+  is '帐务日期';
+comment on column BS_RECLIST.rlcid
+  is '用户编号';
+comment on column BS_RECLIST.rlmid
+  is '水表编号';
+comment on column BS_RECLIST.rlchargeper
+  is '收费员';
+comment on column BS_RECLIST.rlcname
+  is '用户名称';
+comment on column BS_RECLIST.rlcadr
+  is '用户地址';
+comment on column BS_RECLIST.rlmadr
+  is '水表地址';
+comment on column BS_RECLIST.rlcstatus
+  is '用户状态【syscuststatus】(1正常/7销户/2预立户)';
+comment on column BS_RECLIST.rlmtel
+  is '移动电话';
+comment on column BS_RECLIST.rltel
+  is '固定电话';
+comment on column BS_RECLIST.rliftax
+  is '是否税票';
+comment on column BS_RECLIST.rltaxno
+  is '增殖税号';
+comment on column BS_RECLIST.rlifinv
+  is '收据标志';
+comment on column BS_RECLIST.rlmpid
+  is '上级水表';
+comment on column BS_RECLIST.rlmclass
+  is '水表级次';
+comment on column BS_RECLIST.rlmflag
+  is '末级标志';
+comment on column BS_RECLIST.rlmsfid
+  is '水表类别（总分表标识）';
+comment on column BS_RECLIST.rlday
+  is '抄表日';
+comment on column BS_RECLIST.rlbfid
+  is '表册(bookframe)';
+comment on column BS_RECLIST.rlscode
+  is '起数';
+comment on column BS_RECLIST.rlecode
+  is '止数';
+comment on column BS_RECLIST.rlreadsl
+  is '抄见水量';
+comment on column BS_RECLIST.rltrans
+  is '应收事务(rectrans)';
+comment on column BS_RECLIST.rlyschargetype
+  is '应收方式';
+comment on column BS_RECLIST.rlsl
+  is '应收水量';
+comment on column BS_RECLIST.rlje
+  is '应收金额';
+comment on column BS_RECLIST.rlscrrlid
+  is '原应收帐流水';
+comment on column BS_RECLIST.rlscrrltrans
+  is '原应收帐事务';
+comment on column BS_RECLIST.rlscrrlmonth
+  is '原应收帐月份';
+comment on column BS_RECLIST.rlpaidje
+  is '销帐金额';
+comment on column BS_RECLIST.rlpaidflag
+  is '销帐标志(Y/N)';
+comment on column BS_RECLIST.rlpaidper
+  is '销帐人员';
+comment on column BS_RECLIST.rlpaiddate
+  is '销帐日期';
+comment on column BS_RECLIST.rlmrid
+  is '抄表流水';
+comment on column BS_RECLIST.rlmemo
+  is '备注';
+comment on column BS_RECLIST.rlpfid
+  is '用水性质(priceframe)';
+comment on column BS_RECLIST.rldatetime
+  is '发生日期';
+comment on column BS_RECLIST.rlscrrldate
+  is '原帐务日期';
+comment on column BS_RECLIST.rlpriflag
+  is '多表标志(Y-是 N-否)';
+comment on column BS_RECLIST.rlrper
+  is '抄表员';
+comment on column BS_RECLIST.rlpid
+  is '实收流水（与payment.pid对应）';
+comment on column BS_RECLIST.rlpbatch
+  is '缴费交易批次（与payment.PBATCH对应）';
+comment on column BS_RECLIST.rlsavingqc
+  is '期初预存（销帐时产生）';
+comment on column BS_RECLIST.rlsavingbq
+  is '本期预存发生（销帐时产生）';
+comment on column BS_RECLIST.rlsavingqm
+  is '期末预存（销帐时产生）';
+comment on column BS_RECLIST.rlreverseflag
+  is '冲正标志（N为正常，Y为冲正）';
+comment on column BS_RECLIST.rlbadflag
+  is '呆帐标志（Y :呆坏帐，O:呆坏帐审批中，N:正常帐）';
+comment on column BS_RECLIST.rlmigps
+  is '是否合票(Y-是 N-否)';
+comment on column BS_RECLIST.rlmisaving
+  is '算费时预存';
+comment on column BS_RECLIST.rlpriorje
+  is '算费之后欠费';
+comment on column BS_RECLIST.rlpaidmonth
+  is '销账月份';
+comment on column BS_RECLIST.rlcolumn9
+  is '上次应收帐流水';
+comment on column BS_RECLIST.rljtmk
+  is '不记阶梯注记';
+comment on column BS_RECLIST.rljtsrq
+  is '本周期阶梯开始日期';
+comment on column BS_RECLIST.rlcolumn12
+  is '年度累计量';
+comment on column BS_RECLIST.isprintfp
+  is '是否打印发票';
+

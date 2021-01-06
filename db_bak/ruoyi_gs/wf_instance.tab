@@ -1,0 +1,66 @@
+﻿create table WF_INSTANCE
+(
+  instanceid     VARCHAR2(50 CHAR) not null,
+  flowmainid     VARCHAR2(50 CHAR),
+  frmmainid      VARCHAR2(50 CHAR),
+  taskid         VARCHAR2(50 CHAR),
+  firststepid    VARCHAR2(50 CHAR),
+  startuserid    VARCHAR2(50 CHAR),
+  currentstepid  VARCHAR2(50 CHAR),
+  flowstatus     NUMBER(11),
+  completetime   DATE,
+  remark         VARCHAR2(200 CHAR),
+  enabled        NUMBER(11),
+  deletemark     NUMBER(11),
+  createdate     DATE,
+  createuserid   VARCHAR2(50 CHAR),
+  createusername VARCHAR2(50 CHAR),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50 CHAR),
+  modifyusername VARCHAR2(50 CHAR),
+  flowtitle      VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_INSTANCE
+  is '流程实例表';
+comment on column WF_INSTANCE.instanceid
+  is '流程实例ID';
+comment on column WF_INSTANCE.flowmainid
+  is '流程模板ID';
+comment on column WF_INSTANCE.frmmainid
+  is '表单模板ID';
+comment on column WF_INSTANCE.taskid
+  is '任务ID';
+comment on column WF_INSTANCE.firststepid
+  is '第一步ID';
+comment on column WF_INSTANCE.startuserid
+  is '流程发起人';
+comment on column WF_INSTANCE.currentstepid
+  is '当前步骤';
+comment on column WF_INSTANCE.flowstatus
+  is '当前状态（0-正常，1-暂停，2-取消，3-完成）';
+comment on column WF_INSTANCE.completetime
+  is '完成时间';
+comment on column WF_INSTANCE.remark
+  is '备注';
+comment on column WF_INSTANCE.enabled
+  is '有效';
+comment on column WF_INSTANCE.deletemark
+  is '删除标记';
+comment on column WF_INSTANCE.createdate
+  is '创建时间';
+comment on column WF_INSTANCE.createuserid
+  is '创建用户主键';
+comment on column WF_INSTANCE.createusername
+  is '创建用户';
+comment on column WF_INSTANCE.modifydate
+  is '修改时间';
+comment on column WF_INSTANCE.modifyuserid
+  is '修改用户主键';
+comment on column WF_INSTANCE.modifyusername
+  is '修改用户';
+comment on column WF_INSTANCE.flowtitle
+  is '流程标题';
+alter table WF_INSTANCE
+  add primary key (INSTANCEID);
+

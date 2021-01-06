@@ -1,0 +1,10 @@
+﻿create table SYS_USERNO
+(
+  num LONG
+)
+;
+comment on table SYS_USERNO
+  is '用户编号';
+comment on column SYS_USERNO.num
+  is '用户编号';
+

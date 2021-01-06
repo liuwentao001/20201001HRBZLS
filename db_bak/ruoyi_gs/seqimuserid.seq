@@ -1,0 +1,7 @@
+﻿create sequence SEQIMUSERID
+minvalue 1
+maxvalue 99999999
+start with 178
+increment by 1
+nocache;
+

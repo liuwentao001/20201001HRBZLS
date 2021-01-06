@@ -1,0 +1,13 @@
+﻿create table GD_PAY_DAILY_PID
+(
+  pdpid VARCHAR2(10) not null,
+  pdhid VARCHAR2(10)
+)
+;
+comment on table GD_PAY_DAILY_PID
+  is '扎帐单中间表(账务和单据关联)';
+comment on column GD_PAY_DAILY_PID.pdpid
+  is '账务表PID';
+comment on column GD_PAY_DAILY_PID.pdhid
+  is '进账单号';
+

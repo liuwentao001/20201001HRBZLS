@@ -1,0 +1,65 @@
+﻿create table REQUEST_YHDBSB
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  rexflag        CHAR(1),
+  rerowno        NUMBER,
+  miid           VARCHAR2(10),
+  mdno           VARCHAR2(40),
+  miadr          VARCHAR2(100),
+  reqfje         NUMBER(13,3),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_YHDBSB
+  is '一户多表水表表';
+comment on column REQUEST_YHDBSB.reno
+  is '单据流水号';
+comment on column REQUEST_YHDBSB.resmfid
+  is '营销公司';
+comment on column REQUEST_YHDBSB.ciid
+  is '用户号';
+comment on column REQUEST_YHDBSB.rexflag
+  is '选择标识';
+comment on column REQUEST_YHDBSB.rerowno
+  is '表序号';
+comment on column REQUEST_YHDBSB.miid
+  is '水表档案号';
+comment on column REQUEST_YHDBSB.mdno
+  is '表身码';
+comment on column REQUEST_YHDBSB.miadr
+  is '表地址';
+comment on column REQUEST_YHDBSB.reqfje
+  is '欠费金额';
+comment on column REQUEST_YHDBSB.sortcode
+  is '序号';
+comment on column REQUEST_YHDBSB.deletemark
+  is '删除标识';
+comment on column REQUEST_YHDBSB.createdate
+  is '创建时间';
+comment on column REQUEST_YHDBSB.createuserid
+  is '创建人ID';
+comment on column REQUEST_YHDBSB.createusername
+  is '创建人';
+comment on column REQUEST_YHDBSB.modifydate
+  is '修改时间';
+comment on column REQUEST_YHDBSB.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_YHDBSB.modifyusername
+  is '修改人';
+comment on column REQUEST_YHDBSB.workno
+  is '单据编号';
+comment on column REQUEST_YHDBSB.workbatch
+  is '批次号';
+

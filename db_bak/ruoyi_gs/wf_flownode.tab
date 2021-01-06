@@ -1,0 +1,135 @@
+﻿create table WF_FLOWNODE
+(
+  flownodeid      VARCHAR2(50 CHAR) not null,
+  flownodecode    VARCHAR2(50 CHAR),
+  flowmainid      VARCHAR2(50 CHAR),
+  flowstep        VARCHAR2(50 CHAR),
+  whoexec         VARCHAR2(50 CHAR),
+  frmtype         VARCHAR2(50 CHAR),
+  turntodealdoc   VARCHAR2(200 CHAR),
+  incondition     CLOB,
+  outcondition    CLOB,
+  sendjs          CLOB,
+  timelimit       NUMBER(11),
+  warningdays     NUMBER,
+  outtimedeal     VARCHAR2(50 CHAR),
+  doouttime       CLOB,
+  nodetype        VARCHAR2(50 CHAR),
+  iscancc         NUMBER(11),
+  iscanover       NUMBER(11),
+  issecret        NUMBER(11),
+  isfinish        NUMBER(11),
+  nextnodeid      VARCHAR2(200 CHAR),
+  billtypeid      VARCHAR2(50 CHAR),
+  bindform        VARCHAR2(50 CHAR),
+  moduleid        VARCHAR2(50 CHAR),
+  modulename      VARCHAR2(50 CHAR),
+  bindtable       VARCHAR2(50 CHAR),
+  flowjoinkey     VARCHAR2(50 CHAR),
+  backtype        NUMBER(11),
+  backflownodeid  VARCHAR2(50 CHAR),
+  alloweditattach NUMBER(11),
+  remark          VARCHAR2(200 CHAR),
+  enabled         NUMBER(11),
+  deletemark      NUMBER(11),
+  createdate      DATE,
+  createuserid    VARCHAR2(50 CHAR),
+  createusername  VARCHAR2(50 CHAR),
+  modifydate      DATE,
+  modifyuserid    VARCHAR2(50 CHAR),
+  modifyusername  VARCHAR2(50 CHAR),
+  excuteusertype  NUMBER(11),
+  signstrategy    NUMBER(11),
+  signpercent     NUMBER(11)
+)
+;
+comment on table WF_FLOWNODE
+  is '流程节点表';
+comment on column WF_FLOWNODE.flownodeid
+  is '流程节点ID';
+comment on column WF_FLOWNODE.flownodecode
+  is '流程节点编号';
+comment on column WF_FLOWNODE.flowmainid
+  is '流程模板ID';
+comment on column WF_FLOWNODE.flowstep
+  is '流程步骤';
+comment on column WF_FLOWNODE.whoexec
+  is '由谁执行(0 操作员执行;1 机器执行;2 混合执行;)';
+comment on column WF_FLOWNODE.frmtype
+  is '表单类型,枚举类型:1 自由表单;2 自定义表单;3 SDK表单;9 禁用(对多表单流程有效);';
+comment on column WF_FLOWNODE.turntodealdoc
+  is '发送后提示信息';
+comment on column WF_FLOWNODE.incondition
+  is '转入条件';
+comment on column WF_FLOWNODE.outcondition
+  is '转出条件';
+comment on column WF_FLOWNODE.sendjs
+  is '按钮JS函数';
+comment on column WF_FLOWNODE.timelimit
+  is '处理期限（天数）';
+comment on column WF_FLOWNODE.warningdays
+  is '警告期限';
+comment on column WF_FLOWNODE.outtimedeal
+  is '超时处理,枚举类型:0 不处理;1 自动转入下一步;2 自动转到指定的人员;3 向指定的人员发送消息;4 删除流程;5 执行SQL;';
+comment on column WF_FLOWNODE.doouttime
+  is '处理内容';
+comment on column WF_FLOWNODE.nodetype
+  is '节点类型';
+comment on column WF_FLOWNODE.iscancc
+  is '是否可以抄送';
+comment on column WF_FLOWNODE.iscanover
+  is '是否可以终止流程';
+comment on column WF_FLOWNODE.issecret
+  is '是否是保密步骤';
+comment on column WF_FLOWNODE.isfinish
+  is '是否有流程完成条件';
+comment on column WF_FLOWNODE.nextnodeid
+  is '转到的节点（下一节点）';
+comment on column WF_FLOWNODE.billtypeid
+  is '单据（模块）ID';
+comment on column WF_FLOWNODE.bindform
+  is '显示的表单';
+comment on column WF_FLOWNODE.moduleid
+  is '对应模块ID';
+comment on column WF_FLOWNODE.modulename
+  is '模块名称';
+comment on column WF_FLOWNODE.bindtable
+  is '绑定的后台表';
+comment on column WF_FLOWNODE.flowjoinkey
+  is '流程关联字段';
+comment on column WF_FLOWNODE.backtype
+  is '是否允许回退(0-不允许,1-允许回退上一步骤,2-回退到指定步骤)';
+comment on column WF_FLOWNODE.backflownodeid
+  is '回退节点';
+comment on column WF_FLOWNODE.alloweditattach
+  is '是否允许本步骤经办人编辑附件';
+comment on column WF_FLOWNODE.remark
+  is '备注';
+comment on column WF_FLOWNODE.enabled
+  is '有效';
+comment on column WF_FLOWNODE.deletemark
+  is '删除标记';
+comment on column WF_FLOWNODE.createdate
+  is '创建时间';
+comment on column WF_FLOWNODE.createuserid
+  is '创建用户主键';
+comment on column WF_FLOWNODE.createusername
+  is '创建用户';
+comment on column WF_FLOWNODE.modifydate
+  is '修改时间';
+comment on column WF_FLOWNODE.modifyuserid
+  is '修改用户主键';
+comment on column WF_FLOWNODE.modifyusername
+  is '修改用户';
+comment on column WF_FLOWNODE.excuteusertype
+  is '处理者类型';
+comment on column WF_FLOWNODE.signstrategy
+  is '会签策略(1-所有步骤通过，2-一个步骤通过即可，3-按百分比计算)';
+comment on column WF_FLOWNODE.signpercent
+  is '会签百分比';
+alter table WF_FLOWNODE
+  add primary key (FLOWNODEID);
+alter table WF_FLOWNODE
+  add foreign key (FLOWMAINID)
+  references WF_FLOWMAIN (FLOWMAINID);
+

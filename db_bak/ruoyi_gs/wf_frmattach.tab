@@ -1,0 +1,63 @@
+﻿create table WF_FRMATTACH
+(
+  frmattachid    VARCHAR2(50 CHAR) not null,
+  frmattrid      VARCHAR2(200 CHAR),
+  attachname     VARCHAR2(50 CHAR),
+  attachcode     VARCHAR2(50 CHAR),
+  filetype       VARCHAR2(50 CHAR),
+  filepath       VARCHAR2(200 CHAR),
+  isupload       NUMBER(11),
+  isdelete       NUMBER(11),
+  isdownload     NUMBER(11),
+  enabled        NUMBER(11),
+  sortcode       NUMBER(11),
+  deletemark     NUMBER(11),
+  createdate     DATE,
+  createuserid   VARCHAR2(50 CHAR),
+  createusername VARCHAR2(50 CHAR),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50 CHAR),
+  modifyusername VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_FRMATTACH
+  is '表单附件表';
+comment on column WF_FRMATTACH.frmattachid
+  is '表单附件ID';
+comment on column WF_FRMATTACH.frmattrid
+  is '表单属性ID';
+comment on column WF_FRMATTACH.attachname
+  is '附件名称';
+comment on column WF_FRMATTACH.attachcode
+  is '附件编号';
+comment on column WF_FRMATTACH.filetype
+  is '文件类型';
+comment on column WF_FRMATTACH.filepath
+  is '存放路径';
+comment on column WF_FRMATTACH.isupload
+  is '是否可以上传';
+comment on column WF_FRMATTACH.isdelete
+  is '是否可以删除';
+comment on column WF_FRMATTACH.isdownload
+  is '是否可以下载';
+comment on column WF_FRMATTACH.enabled
+  is '有效';
+comment on column WF_FRMATTACH.sortcode
+  is '排序码';
+comment on column WF_FRMATTACH.deletemark
+  is '删除标记';
+comment on column WF_FRMATTACH.createdate
+  is '创建时间';
+comment on column WF_FRMATTACH.createuserid
+  is '创建用户主键';
+comment on column WF_FRMATTACH.createusername
+  is '创建用户';
+comment on column WF_FRMATTACH.modifydate
+  is '修改时间';
+comment on column WF_FRMATTACH.modifyuserid
+  is '修改用户主键';
+comment on column WF_FRMATTACH.modifyusername
+  is '修改用户';
+alter table WF_FRMATTACH
+  add primary key (FRMATTACHID);
+

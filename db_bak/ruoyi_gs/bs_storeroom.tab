@@ -1,0 +1,40 @@
+﻿create table BS_STOREROOM
+(
+  storeid     VARCHAR2(10) not null,
+  romeid      VARCHAR2(10) not null,
+  roomname    VARCHAR2(80),
+  roomaddress VARCHAR2(80),
+  contrast    VARCHAR2(40),
+  tel1        VARCHAR2(20),
+  tel2        VARCHAR2(20),
+  mainman     VARCHAR2(20),
+  maindate    DATE,
+  roomstatus  VARCHAR2(1) default 'Y',
+  stmemo      VARCHAR2(200)
+)
+;
+comment on table BS_STOREROOM
+  is '水表库房信息';
+comment on column BS_STOREROOM.storeid
+  is '仓库编号';
+comment on column BS_STOREROOM.romeid
+  is '库房编号';
+comment on column BS_STOREROOM.roomname
+  is '库房名称';
+comment on column BS_STOREROOM.roomaddress
+  is '库房地址';
+comment on column BS_STOREROOM.contrast
+  is '联系人';
+comment on column BS_STOREROOM.tel1
+  is '联系电话1';
+comment on column BS_STOREROOM.tel2
+  is '联系电话2';
+comment on column BS_STOREROOM.mainman
+  is '最后编辑人员';
+comment on column BS_STOREROOM.maindate
+  is '最后编辑日期';
+comment on column BS_STOREROOM.roomstatus
+  is '有效标志';
+comment on column BS_STOREROOM.stmemo
+  is '备注';
+

@@ -1,0 +1,119 @@
+﻿create table REQUEST_BJSF
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  ciadr          VARCHAR2(100),
+  ciifinv        CHAR(1),
+  ciname1        VARCHAR2(100),
+  ciadr1         VARCHAR2(100),
+  miid           VARCHAR2(10),
+  mipfid         VARCHAR2(10),
+  repfid         VARCHAR2(10),
+  resfdj         NUMBER(12,3),
+  rewsfdj        NUMBER(12,3),
+  miadr          VARCHAR2(100),
+  mibfid         VARCHAR2(10),
+  mircode        NUMBER(10),
+  mirecdate      DATE,
+  reifreset      CHAR(1),
+  rercode        NUMBER(10),
+  recdate        DATE,
+  retype         VARCHAR2(50),
+  reifstep       CHAR(1),
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_BJSF
+  is '补缴收费表';
+comment on column REQUEST_BJSF.reno
+  is '单据流水号';
+comment on column REQUEST_BJSF.resmfid
+  is '营销公司';
+comment on column REQUEST_BJSF.ciid
+  is '用户号';
+comment on column REQUEST_BJSF.ciname
+  is '用户名';
+comment on column REQUEST_BJSF.ciadr
+  is '用户地址';
+comment on column REQUEST_BJSF.ciifinv
+  is '是否普票';
+comment on column REQUEST_BJSF.ciname1
+  is '票据名称';
+comment on column REQUEST_BJSF.ciadr1
+  is '票据地址';
+comment on column REQUEST_BJSF.miid
+  is '水表档案号';
+comment on column REQUEST_BJSF.mipfid
+  is '用水性质(priceframe)当前单价';
+comment on column REQUEST_BJSF.repfid
+  is '标准单价';
+comment on column REQUEST_BJSF.resfdj
+  is '水费单价';
+comment on column REQUEST_BJSF.rewsfdj
+  is '污水费单价';
+comment on column REQUEST_BJSF.miadr
+  is '表地址';
+comment on column REQUEST_BJSF.mibfid
+  is '表册(bookframe)';
+comment on column REQUEST_BJSF.mircode
+  is '上期指针';
+comment on column REQUEST_BJSF.mirecdate
+  is '上期抄见日期';
+comment on column REQUEST_BJSF.reifreset
+  is '是否重置指针';
+comment on column REQUEST_BJSF.rercode
+  is '本期指针';
+comment on column REQUEST_BJSF.recdate
+  is '本期抄见日期';
+comment on column REQUEST_BJSF.retype
+  is '追补类别';
+comment on column REQUEST_BJSF.reifstep
+  is '是否纳入阶梯';
+comment on column REQUEST_BJSF.reappnote
+  is '申请说明';
+comment on column REQUEST_BJSF.restaus
+  is '当前审批环节';
+comment on column REQUEST_BJSF.reper
+  is '当前审批人';
+comment on column REQUEST_BJSF.reflag
+  is '当前审批状';
+comment on column REQUEST_BJSF.sortcode
+  is '序号';
+comment on column REQUEST_BJSF.deletemark
+  is '删除标识';
+comment on column REQUEST_BJSF.createdate
+  is '创建时间';
+comment on column REQUEST_BJSF.createuserid
+  is '创建人ID';
+comment on column REQUEST_BJSF.createusername
+  is '创建人';
+comment on column REQUEST_BJSF.modifydate
+  is '修改时间';
+comment on column REQUEST_BJSF.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_BJSF.modifyusername
+  is '修改人';
+comment on column REQUEST_BJSF.remark
+  is '备注';
+comment on column REQUEST_BJSF.workno
+  is '单据编号';
+comment on column REQUEST_BJSF.workbatch
+  is '批次号';
+

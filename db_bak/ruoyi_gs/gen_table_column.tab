@@ -1,0 +1,75 @@
+﻿create table GEN_TABLE_COLUMN
+(
+  column_id      NUMBER(20) not null,
+  table_id       VARCHAR2(64),
+  column_name    VARCHAR2(200),
+  column_comment VARCHAR2(500),
+  column_type    VARCHAR2(100),
+  java_type      VARCHAR2(500),
+  java_field     VARCHAR2(200),
+  is_pk          CHAR(1),
+  is_increment   CHAR(1),
+  is_required    CHAR(1),
+  is_insert      CHAR(1),
+  is_edit        CHAR(1),
+  is_list        CHAR(1),
+  is_query       CHAR(1),
+  query_type     VARCHAR2(200) default 'EQ',
+  html_type      VARCHAR2(200),
+  dict_type      VARCHAR2(200) default '',
+  sort           NUMBER(4),
+  create_by      VARCHAR2(64) default '',
+  create_time    DATE,
+  update_by      VARCHAR2(64) default '',
+  update_time    DATE
+)
+;
+comment on table GEN_TABLE_COLUMN
+  is '代码生成业务表字段';
+comment on column GEN_TABLE_COLUMN.column_id
+  is '编号';
+comment on column GEN_TABLE_COLUMN.table_id
+  is '归属表编号';
+comment on column GEN_TABLE_COLUMN.column_name
+  is '列名称';
+comment on column GEN_TABLE_COLUMN.column_comment
+  is '列描述';
+comment on column GEN_TABLE_COLUMN.column_type
+  is '列类型';
+comment on column GEN_TABLE_COLUMN.java_type
+  is 'JAVA类型';
+comment on column GEN_TABLE_COLUMN.java_field
+  is 'JAVA字段名';
+comment on column GEN_TABLE_COLUMN.is_pk
+  is '是否主键（1是）';
+comment on column GEN_TABLE_COLUMN.is_increment
+  is '是否自增（1是）';
+comment on column GEN_TABLE_COLUMN.is_required
+  is '是否必填（1是）';
+comment on column GEN_TABLE_COLUMN.is_insert
+  is '是否为插入字段（1是）';
+comment on column GEN_TABLE_COLUMN.is_edit
+  is '是否编辑字段（1是）';
+comment on column GEN_TABLE_COLUMN.is_list
+  is '是否列表字段（1是）';
+comment on column GEN_TABLE_COLUMN.is_query
+  is '是否查询字段（1是）';
+comment on column GEN_TABLE_COLUMN.query_type
+  is '查询方式（等于、不等于、大于、小于、范围）';
+comment on column GEN_TABLE_COLUMN.html_type
+  is '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）';
+comment on column GEN_TABLE_COLUMN.dict_type
+  is '字典类型';
+comment on column GEN_TABLE_COLUMN.sort
+  is '排序';
+comment on column GEN_TABLE_COLUMN.create_by
+  is '创建者';
+comment on column GEN_TABLE_COLUMN.create_time
+  is '创建时间';
+comment on column GEN_TABLE_COLUMN.update_by
+  is '更新者';
+comment on column GEN_TABLE_COLUMN.update_time
+  is '更新时间';
+alter table GEN_TABLE_COLUMN
+  add constraint PK_GEN_TABLE_COLUMN primary key (COLUMN_ID);
+

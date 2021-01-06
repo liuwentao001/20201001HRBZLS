@@ -1,0 +1,52 @@
+﻿create table BS_PRICEFRAME_HIS
+(
+  pfid      VARCHAR2(10) not null,
+  pfname    VARCHAR2(60) not null,
+  pfpid     VARCHAR2(10),
+  pfclass   NUMBER not null,
+  pfflag    CHAR(1) not null,
+  pfstatus  CHAR(1) not null,
+  pfhandles NUMBER,
+  pfprice   NUMBER(12,3),
+  pftype    VARCHAR2(10) not null,
+  pfname1   VARCHAR2(60),
+  pfmemo    VARCHAR2(60),
+  pfsdate   DATE,
+  pfedate   DATE,
+  pfsmonth  VARCHAR2(7),
+  pfemonth  VARCHAR2(7)
+)
+;
+comment on table BS_PRICEFRAME_HIS
+  is '费率结构信息历史表';
+comment on column BS_PRICEFRAME_HIS.pfid
+  is '编码';
+comment on column BS_PRICEFRAME_HIS.pfname
+  is '名称';
+comment on column BS_PRICEFRAME_HIS.pfpid
+  is '上级编码';
+comment on column BS_PRICEFRAME_HIS.pfclass
+  is '级次';
+comment on column BS_PRICEFRAME_HIS.pfflag
+  is '末级标志';
+comment on column BS_PRICEFRAME_HIS.pfstatus
+  is '有效状态';
+comment on column BS_PRICEFRAME_HIS.pfhandles
+  is '下级数量';
+comment on column BS_PRICEFRAME_HIS.pfprice
+  is '综合价格';
+comment on column BS_PRICEFRAME_HIS.pftype
+  is '分类(1居民/2非居民)';
+comment on column BS_PRICEFRAME_HIS.pfname1
+  is '别名';
+comment on column BS_PRICEFRAME_HIS.pfmemo
+  is '备注';
+comment on column BS_PRICEFRAME_HIS.pfsdate
+  is '开始日期';
+comment on column BS_PRICEFRAME_HIS.pfedate
+  is '结束日期';
+comment on column BS_PRICEFRAME_HIS.pfsmonth
+  is '开始月份';
+comment on column BS_PRICEFRAME_HIS.pfemonth
+  is '结束月份';
+

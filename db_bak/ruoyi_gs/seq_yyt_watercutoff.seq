@@ -1,0 +1,7 @@
+﻿create sequence SEQ_YYT_WATERCUTOFF
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 50
+increment by 1
+cache 20;
+

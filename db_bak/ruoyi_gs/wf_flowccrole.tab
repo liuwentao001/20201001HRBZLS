@@ -1,0 +1,45 @@
+﻿create table WF_FLOWCCROLE
+(
+  flowccroleid   VARCHAR2(50 CHAR) not null,
+  flowmainid     VARCHAR2(50 CHAR),
+  controlname    VARCHAR2(50 CHAR),
+  enabled        NUMBER(11),
+  deletemark     NUMBER(11),
+  createdate     DATE,
+  createuserid   VARCHAR2(50 CHAR),
+  createusername VARCHAR2(50 CHAR),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50 CHAR),
+  modifyusername VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_FLOWCCROLE
+  is '流程完成抄送岗位表';
+comment on column WF_FLOWCCROLE.flowccroleid
+  is '流程完成抄送ID';
+comment on column WF_FLOWCCROLE.flowmainid
+  is '流程模板ID';
+comment on column WF_FLOWCCROLE.controlname
+  is '岗位ID';
+comment on column WF_FLOWCCROLE.enabled
+  is '有效';
+comment on column WF_FLOWCCROLE.deletemark
+  is '删除标记';
+comment on column WF_FLOWCCROLE.createdate
+  is '创建时间';
+comment on column WF_FLOWCCROLE.createuserid
+  is '创建用户主键';
+comment on column WF_FLOWCCROLE.createusername
+  is '创建用户';
+comment on column WF_FLOWCCROLE.modifydate
+  is '修改时间';
+comment on column WF_FLOWCCROLE.modifyuserid
+  is '修改用户主键';
+comment on column WF_FLOWCCROLE.modifyusername
+  is '修改用户';
+alter table WF_FLOWCCROLE
+  add primary key (FLOWCCROLEID);
+alter table WF_FLOWCCROLE
+  add foreign key (FLOWMAINID)
+  references WF_FLOWMAIN (FLOWMAINID);
+

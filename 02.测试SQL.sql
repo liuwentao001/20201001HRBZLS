@@ -1,35 +1,35 @@
---ÏµÍ³±í²éÑ¯----------------------------------------------------------------------------------------------------
---²éÑ¯ËùÓĞÓÃ»§±í
+--ç³»ç»Ÿè¡¨æŸ¥è¯¢----------------------------------------------------------------------------------------------------
+--æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨
 select * from user_tables
---²éÑ¯ËùÓĞÓÃ»§±í×Ö¶Î
+--æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨å­—æ®µ
 select * from user_tab_columns order by table_name,column_id
---²éÑ¯ËùÓĞÓÃ»§±í×Ö¶Î±¸×¢
+--æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨å­—æ®µå¤‡æ³¨
 select * from user_col_comments;
---²éÑ¯ËùÓĞÓÃ»§±í±¸×¢
+--æŸ¥è¯¢æ‰€æœ‰ç”¨æˆ·è¡¨å¤‡æ³¨
 select * from user_tab_comments;
---²éÑ¯ËùÓĞÍ¬Òå´Ê
+--æŸ¥è¯¢æ‰€æœ‰åŒä¹‰è¯
 SELECT * FROM SYS.ALL_SYNONYMS t WHERE t.owner in ('YYSF')
---ÕıÔò±í´ïÊ½
+--æ­£åˆ™è¡¨è¾¾å¼
 select case when regexp_like( 'T0101','^T[0-9]*$') then 1 else 0 end from dual
---²éÑ¯ËùÓĞ±íËµÃ÷¡¢×Ö¶ÎËµÃ÷
-select case when regexp_like(user_tab_columns.table_name,'^T[0-9]*$') then '´ó¾­Àí×¨ÓÃ' else 'Íâ°ü' end ĞÔÖÊ,
-       user_tab_columns.table_name ±íÃû,
-       user_tab_comments.comments ±íËµÃ÷,
-       user_tab_columns.column_name ×Ö¶ÎÃû,
-       user_col_comments.comments ×Ö¶ÎËµÃ÷
+--æŸ¥è¯¢æ‰€æœ‰è¡¨è¯´æ˜ã€å­—æ®µè¯´æ˜
+select case when regexp_like(user_tab_columns.table_name,'^T[0-9]*$') then 'å¤§ç»ç†ä¸“ç”¨' else 'å¤–åŒ…' end æ€§è´¨,
+       user_tab_columns.table_name è¡¨å,
+       user_tab_comments.comments è¡¨è¯´æ˜,
+       user_tab_columns.column_name å­—æ®µå,
+       user_col_comments.comments å­—æ®µè¯´æ˜
 from user_tab_columns 
      left join user_tab_comments on user_tab_columns.table_name=user_tab_comments.table_name 
      left join user_col_comments on user_tab_columns.column_name=user_col_comments.column_name and user_tab_columns.table_name=user_col_comments.table_name
 order by user_tab_columns.table_name,user_tab_columns.column_id
---´´½¨Í¬Òå´Ê
+--åˆ›å»ºåŒä¹‰è¯
 create or replace synonym bs_menu for t01001
---Í¬Òå´Ê²âÊÔ½Å±¾
+--åŒä¹‰è¯æµ‹è¯•è„šæœ¬
 select * from bs_menu
-insert into bs_menu (ID, LABEL, PARENT, ICON, COLOR) values ('002001222222222', '×ÛºÏ²éÑ¯', '002', 'images/mainMenu/m_000.png', null);
+insert into bs_menu (ID, LABEL, PARENT, ICON, COLOR) values ('002001222222222', 'ç»¼åˆæŸ¥è¯¢', '002', 'images/mainMenu/m_000.png', null);
 delete from bs_menu where id='002001222222222'
 alter table T01001 add test VARCHAR2(100);
 alter table T01001 drop column test;
---SQLÖ´ĞĞÀúÊ·
+--SQLæ‰§è¡Œå†å²
 SELECT t.sql_text, t.last_load_time,t.*
 FROM v$sql t
 WHERE t.last_load_time IS NOT NULL
@@ -43,11 +43,11 @@ where sql_text like '%1307580923%'
 --where b.FIRST_LOAD_TIME between '2009-10-15/09:24:47' and '2009-10-15/09:24:47' 
 order by b.FIRST_LOAD_TIME 
 
---×Ö·û´®×ªtable----------------------------------------------------------------------------------------------------
---Æ´½Ó×Ö·û´®
+--å­—ç¬¦ä¸²è½¬table----------------------------------------------------------------------------------------------------
+--æ‹¼æ¥å­—ç¬¦ä¸²
 select listagg(ardpiid,',') within group(order by ardpiid) from ys_zw_ardetail where ardid='0000012726'
 select to_char(ardid||',Y*'||replace(wm_concat(distinct ardpiid),',','!Y*')||','||sum(nvl(ardznj,0))||',0,0,0') from ys_zw_ardetail where ardid='0000012726' group by ardid
---×Ö·û´®×ªtable
+--å­—ç¬¦ä¸²è½¬table
 WITH tb AS
  (SELECT '00,19,2,3,4,5,6,7,8' i_name
     FROM dual)
@@ -67,28 +67,28 @@ with t as(
 )
 select listagg(a,'|') within group(order by a) from t
 
---Íâ°ü¹©Ë®Êı¾İ¿â»ù´¡ĞÅÏ¢±í²éÑ¯----------------------------------------------------------------------------------------------------
---½ØÈ¡×Ö·û´®
+--å¤–åŒ…ä¾›æ°´æ•°æ®åº“åŸºç¡€ä¿¡æ¯è¡¨æŸ¥è¯¢----------------------------------------------------------------------------------------------------
+--æˆªå–å­—ç¬¦ä¸²
 select PG_CB_COST.FBOUNDPARA('111,112,113|221,222,223|331,332,333|') from dual
 select PG_CB_COST.FGETPARA('111,112,113|221,222,223|331,332,333|', 2, 3) from dual
 select PG_CB_COST.FBOUNDPARA('111,112,113|221,222,223|331,332,333|') from dual
 /*
-ÓÃ»§×Öµä	        base_user_dictionary
-²¿ÃÅ±í	           base_dept
-·ÑÂÊÏîÄ¿	        bas_price_item
-·ÑÂÊÃ÷Ï¸	        bas_price_detail
-ÓÃ»§ĞÅÏ¢±í¡¾yh¡¿	 ys_yh_custinfo
-Ë®±íµµ°¸	        ys_yh_sbdoc
-»§±íĞÅÏ¢¡¾sb¡¿	  ys_yh_sbinfo
-Ó¦ÊÕÕÊÃ÷Ï¸¡¾ard¡¿     ys_zw_ardetail
-Ó¦ÊÕ×ÜÕÊÃ÷Ï¸¡¾ar¡¿	  ys_zw_arlist
-¸¶¿î½»Ò×¡¾p¡¿	        ys_zw_paidment
+ç”¨æˆ·å­—å…¸	        base_user_dictionary
+éƒ¨é—¨è¡¨	           base_dept
+è´¹ç‡é¡¹ç›®	        bas_price_item
+è´¹ç‡æ˜ç»†	        bas_price_detail
+ç”¨æˆ·ä¿¡æ¯è¡¨ã€yhã€‘	 ys_yh_custinfo
+æ°´è¡¨æ¡£æ¡ˆ	        ys_yh_sbdoc
+æˆ·è¡¨ä¿¡æ¯ã€sbã€‘	  ys_yh_sbinfo
+åº”æ”¶å¸æ˜ç»†ã€ardã€‘     ys_zw_ardetail
+åº”æ”¶æ€»å¸æ˜ç»†ã€arã€‘	  ys_zw_arlist
+ä»˜æ¬¾äº¤æ˜“ã€pã€‘	        ys_zw_paidment
 */
 
 select dic_value,dic_name from base_user_dictionary where parent_id = (select id from base_user_dictionary where dic_value='SWMS_SYS_CHEQUETYPE') order by show_order
 
 select * from ys_yh_custinfo where yhid='1307580923'
---1 B4ADF12CF98E6179E053FB3EE931ED82  kings 1307580923    0201    1 Y ÀîËÄ3   ÎäººÊĞÎä²ıÇøxxxÂ·        2020-11-22 15:22:37                   Y           
+--1 B4ADF12CF98E6179E053FB3EE931ED82  kings 1307580923    0201    1 Y æå››3   æ­¦æ±‰å¸‚æ­¦æ˜ŒåŒºxxxè·¯        2020-11-22 15:22:37                   Y           
 select * from base_dept where dept_no='0201' and hire_code='kings'
 
 select * from ys_yh_sbdoc where sbid='1307580923'
@@ -97,9 +97,9 @@ select * from ys_yh_sbdoc where sbid='1307580923'
 select * from ys_yh_sbinfo where yhid='1307580923'
 --1 B4ADF12CF9886179E053FB3EE931ED82  kings 1307580923  1307580923      0201  2020.11 2020.12 0200101 2               0103        01        0 2020-11-22    0       300 2020-12-1 15:38:39  300 Y             Y 4 X 12332.000   N   Y                 1                   123123      2020-11-22 15:22:37             0.00          0 0.000 0.000     Y                                                                 
 select * from ys_zw_ardetail where ARDYSJE>0
---1 70105341  kings 70105341  0 01  030201  0 0 6.700 21.00 140.700 6.700 21.00 140.700 0.000 0.00  0.000           0.00    0.00  Êı¾İÇ¨ÒÆ  0201  2010.06 1000000920        
+--1 70105341  kings 70105341  0 01  030201  0 0 6.700 21.00 140.700 6.700 21.00 140.700 0.000 0.00  0.000           0.00    0.00  æ•°æ®è¿ç§»  0201  2010.06 1000000920        
 select * from ys_zw_arlist where arid='70105342'
---1 70105341  kings 70105341  0201  2010.06 2010-6-2 10:22:38 1000000920  1000000920      1 Y 1 ¾ÅºÅÔºÌ¿»ğ¹ø      1             N   Y 1000000920    1 Y H 2010-6-2 10:22:38 21011   2010-6-2 10:22:38 2019-11-1   1 1 1   309 330 46        N 1   DE  X 46  381.340 0 70105341  1   2010.06 381.340 Y   2010-6-11 14:30:05  77763905  1000296694  0.000 H   030201  2010-6-2 10:22:38 2010-6-2 10:22:38 1000000920  Y 5682  21011         0 71535168  1000296694  0.00  0.00  0.00  N N N 01    0.00          N       210111  0.000 0.000         N                       
+--1 70105341  kings 70105341  0201  2010.06 2010-6-2 10:22:38 1000000920  1000000920      1 Y 1 ä¹å·é™¢ç‚­ç«é”…      1             N   Y 1000000920    1 Y H 2010-6-2 10:22:38 21011   2010-6-2 10:22:38 2019-11-1   1 1 1   309 330 46        N 1   DE  X 46  381.340 0 70105341  1   2010.06 381.340 Y   2010-6-11 14:30:05  77763905  1000296694  0.000 H   030201  2010-6-2 10:22:38 2010-6-2 10:22:38 1000000920  Y 5682  21011         0 71535168  1000296694  0.00  0.00  0.00  N N N 01    0.00          N       210111  0.000 0.000         N                       
 select *
 from ys_zw_ardetail ard, ys_zw_arlist ar
 where ar.arid=ard.ardid
@@ -118,40 +118,42 @@ select * from ys_zw_arlist where aroutflag='Y' and yhid='1000005954'
 select aroutflag,ys_zw_arlist.* from ys_zw_arlist where armonth='2020.11' and yhid='1000005954'
 
 -------------------------------------------------
---½É·Ñ²âÊÔ
+--ç¼´è´¹æµ‹è¯•
 select rlje, t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje > 0 and rlcid='8091680510'
+/*
+1 42.600  0319688896  0201  2019.07 2019-7-10 8091680510  8091680510  010541  å¾å¥‡å¿— æ–°é˜³è·¯51å·2å•å…ƒ202  æ–°é˜³è·¯51å·2å•å…ƒ202  1     N   N   1 Y 1 2019-6-30 1:46:41 01202113  150 162 12  1 X 12  42.600  0319688896  1 2019.07 0.000 N     2373978676  å…æŠ„æˆ·   [0000.00å†å²å•ä»·] A0107 2019-7-10 9:09:22 2019-7-10 N 010541      0.00  0.00  0.00  N N   15.800  0.000   0319688896        
+2 42.600  0321498775  0201  2019.10 2019-10-10  8091680510  8091680510  010541  å¾å¥‡å¿— æ–°é˜³è·¯51å·2å•å…ƒ202  æ–°é˜³è·¯51å·2å•å…ƒ202  1     N   N   1 Y 1 2019-9-30 1:44:08 01202113  162 174 12  1 X 12  42.600  0321498775  1 2019.10 0.000 N     2376294324  å…æŠ„æˆ·   [0000.00å†å²å•ä»·] A0107 2019-10-10 9:27:41  2019-10-10  N 010541      0.00  0.00  0.00  N N   15.800  0.000   0321498775        
+3 42.600  0323262960  0201  2020.01 2020-1-6  8091680510  8091680510  010541  å¾å¥‡å¿— æ–°é˜³è·¯51å·2å•å…ƒ202  æ–°é˜³è·¯51å·2å•å…ƒ202  1     N   N   1 Y 1 2019-12-31 2:13:22  01202113  174 186 12  1 X 12  42.600  0323262960  1 2020.01 0.000 N     2378770063  å…æŠ„æˆ·   [0000.00å†å²å•ä»·] A0107 2020-1-6 11:02:14 2020-1-6  N 010541      0.00  0.00  0.00  N N   15.800  0.000   0323262960        
+*/
 
 select misaving,t.* from bs_custinfo t where ciid = '8091680510'
 
-select * from bs_payment where pid='0000247515'
-select * from bs_payment where pid='0000247516'
+select * from bs_payment where pid='0000247643'
 
---³åÕıÖØÖÃ
-delete from bs_reclist_sscz_temp;
+select rlje, t.* from bs_reclist t where rlcid='8091680510' and rlid in ('0319688896','0321498775','0323262960')
+
+
+--å†²æ­£é‡ç½®
 update bs_payment set preverseflag='N' where pid='0000247400';
 delete from bs_payment where pid='0000247408';
 commit;
 
---³åÕı²âÊÔ
+--å†²æ­£æµ‹è¯•
+select * from bs_payment where pid='0000247644'
+
 select rlje, t.* from bs_reclist t where rlid='0325058150'
 select rlje, t.* from bs_reclist t where rlcid='8091680510' order by rlid desc;
 select rlje, t.* from bs_reclist t where rlcid='7031434576' and rlpaidflag = 'N' and rlreverseflag='N'
 
-delete from bs_reclist_sscz_temp
-select * from bs_reclist_sscz_temp
-
 select * from bs_reclist where rlpid = '0000247400'
 select * from bs_reclist where rlid = '0000200007'
-
-insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = '0000247400' and rlpaidflag = 'Y'
-insert into bs_reclist_temp (select t.* from bs_reclist t where rlpid = '0000247400' and rlpaidflag = 'Y');
 
 delete from bs_reclist_sscz_temp where rlpid = '0000247400' and rlpaidflag = 'Y';
 insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = '0000247400' and rlpaidflag = 'Y';
 
-select * from bs_recdetail where rdid='1000200434'
+select * from bs_recdetail where rdid='0319688896'
 select * from bs_recdetail where rdid='1000200096'
---ÅúÁ¿³åÕı²âÊÔ
+--æ‰¹é‡å†²æ­£æµ‹è¯•
 select * from bs_payment where preverseflag <> 'Y';
 /*
 119 123 1300522001  1300522001  2020-6-18 2020-6-18 10:22:06  2020.06 0201  P       100.00  XJ        2020061801  5455    N 123 P 2020.06 2020-6-18               
@@ -160,37 +162,41 @@ select * from bs_payment where preverseflag <> 'Y';
 select * from bs_payment where pid in('123','124','0000247546','0000247547')
 
 ---------------------------------------------------
---Ëã·Ñ²âÊÔ
+--ç®—è´¹æµ‹è¯•
 select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,t.* from bs_meterread t where mrifrec='N' and mrid='2372463611';
 /*
-MRID	2372463611	varchar2(10), mandatory, Á÷Ë®ºÅ
-MRCCODE	0100172364	varchar2(10), optional, ÓÃ»§ºÅ
-MRMID	0100172364	varchar2(10), optional, Ë®±í±àºÅ
-MRSCODE	1861	number(10), optional, ÉÏÆÚ³­¼û
-MRECODE	1961	number(10), optional, ±¾ÆÚ³­¼û
+MRID	2372463611	varchar2(10), mandatory, æµæ°´å·
+MRCCODE	0100172364	varchar2(10), optional, ç”¨æˆ·å·
+MRMID	0100172364	varchar2(10), optional, æ°´è¡¨ç¼–å·
+MRSCODE	1861	number(10), optional, ä¸ŠæœŸæŠ„è§
+MRECODE	1961	number(10), optional, æœ¬æœŸæŠ„è§
 
 */
 --          if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('m','l') then
 select mircode,mipfid,t.* from bs_meterinfo t where miid='0100172364';
 /*
-MIRCODE	1861	number(10), optional, ±¾ÆÚ¶ÁÊı
-MIPFID	D0102	varchar2(10), optional, ÓÃË®ĞÔÖÊ(priceframe)
+MIRCODE	1861	number(10), optional, æœ¬æœŸè¯»æ•°
+MIPFID	D0102	varchar2(10), optional, ç”¨æ°´æ€§è´¨(priceframe)
 */
 
---ÎŞĞ§µÄ½×Ìİ¼Æ·ÑÉèÖÃ
-select *
-from bs_pricestep
-where pspscid = pd.pdpscid
-and pspfid = pd.pdpfid
-and pspiid = pd.pdpiid
-order by psclass;
+æ–°æµ‹è¯•ç”¨æˆ·å· 2200000480
+æ°´è¡¨å· 2200000481
+
+select * from bs_custinfo where ciid='2200000480'
+select * from bs_meterinfo where micode='2200000480';
+select * from bs_meterread where mrccode='2200000480'
+
+
+
+
 
 select * from bs_pricedetail
 select * from bs_custinfo where ciid='0100172364'
+select * from bs_meterinfo where micode='0100172364';
 
-update bs_custinfo set misaving='10000000' where ciid='0100172364';--Ô¤´æ
-update bs_meterinfo set mipfid='D0102' where miid='0100172364';--¹Ì¶¨Ë®¼Û
-update bs_meterinfo set mipfid='A0103' where miid='0100172364';--½×ÌİË®¼Û
+update bs_custinfo set misaving='10000000' where ciid='0100172364';--é¢„å­˜
+update bs_meterinfo set mipfid='D0102' where miid='0100172364';--å›ºå®šæ°´ä»·
+update bs_meterinfo set mipfid='A0103' where miid='0100172364';--é˜¶æ¢¯æ°´ä»·
 update bs_meterinfo set mircode=2861 where miid='0100172364';
 update bs_meterread set mrscode=2861 where mrid='2372463611';
 update bs_meterread set mrecode=3861 where mrid='2372463611';
@@ -207,6 +213,11 @@ delete from bs_recdetail where rdid not in (select rlid from bs_reclist);
 delete from bs_payment where pcid='0100172364';
 commit;
 
+select * from bs_reclist where rlcid='0100172364' for update ;
+
+
+
+select * from bs_meterread where mrid='2372463611';
 
 select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,mrifrec,t.* from bs_meterread t where mrid='2372463611' ;
 
@@ -217,17 +228,17 @@ select * from bs_pricedetail where pdpfid='A0103' for update;
 
 select * from bs_pricedetail t where pdpfid = 'A0103'
 /*
-PDPSCID 0 number, mandatory, ·½°¸±àÂë
-PDPFID  A0103 varchar2(10), mandatory, ·ÑÂÊ±àÂë
-PDPIID  01  char(2), mandatory, ·ÑÂÊÏîÄ¿
-PDDJ  1.000 number(12,3), optional, µ¥¼Û
-PDSL  10  number(10), optional, Ë®Á¿
-PDJE  10.00 number(12,2), optional, ½ğ¶î
-PDMETHOD  02  varchar2(3), mandatory, ¼Æ·Ñ·½·¨
-PDSDATE   date, optional, ¿ªÊ¼ÈÕÆÚ
-PDEDATE   date, optional, ½áÊøÈÕÆÚ
-PDSMONTH    varchar2(7), optional, ¿ªÊ¼ÔÂ·İ
-PDEMONTH    varchar2(7), optional, ½áÊøÔÂ·İ
+PDPSCID 0 number, mandatory, æ–¹æ¡ˆç¼–ç 
+PDPFID  A0103 varchar2(10), mandatory, è´¹ç‡ç¼–ç 
+PDPIID  01  char(2), mandatory, è´¹ç‡é¡¹ç›®
+PDDJ  1.000 number(12,3), optional, å•ä»·
+PDSL  10  number(10), optional, æ°´é‡
+PDJE  10.00 number(12,2), optional, é‡‘é¢
+PDMETHOD  02  varchar2(3), mandatory, è®¡è´¹æ–¹æ³•
+PDSDATE   date, optional, å¼€å§‹æ—¥æœŸ
+PDEDATE   date, optional, ç»“æŸæ—¥æœŸ
+PDSMONTH    varchar2(7), optional, å¼€å§‹æœˆä»½
+PDEMONTH    varchar2(7), optional, ç»“æŸæœˆä»½
 */
 
 select * from bs_pricestep where pspscid = 0 and pspfid = 'A0103' for update
@@ -246,95 +257,7 @@ select rlje, t.* from bs_reclist t where rlcid='0100172364'
 select t.* from bs_recdetail t where rdid='1000200456'
 select * from bs_payment where pcid='0100172364';
 --1 0000247527  0100172364  0100172364  2020-12-29  2020-12-29 9:28:11  2020-12 1 P 10000000.00 -39600.00 9960400.00  0.00  XJ        0000247485  1   N 0000247527  P 2020-12 2020-12-29                          
---0000247528     --³åÕıºópayment.id
+--0000247528     --å†²æ­£åpayment.id
 select rlje, t.* from bs_reclist t where rlcid='0100172364' or rlid='1000200448'
 
-
-
-    select mrid
-      from bs_meterread, bs_meterinfo
-     where mrmid = miid
-       and mrbfid = vbfid
-       and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --Ëã·ÑÊ±£¬¹ÊÕÏ»»±íÖĞ¡¢ÖÜÆÚ»»±íÖĞ¡¢Ô¤´æ³åÏúÖĞ¡¢Ïú»§ÖĞµÄ²»½øĞĞËã·Ñ,Ğè°Ñ¹ÊÕÏ»»±íÖĞ¡¢ÖÜÆÚ»»±íÖĞµ¥¾İÉóºËÍê²ÅÄÜËã·Ñ
-       and mrifrec = 'N' --ÊÇ·ñÒÑ¼Æ·Ñ
-     order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc;
-     
-select * from bs_meterread 
-01002001,01002003,01003003
-     
-      select * from bs_meterread
-       where mrid = '2372386260'
-         and mrifrec = 'N'   --ÒÑ¼Æ·Ñ(Y-ÊÇ N-·ñ)
-         and mrsl >= 0
-         
-         
-    select mrid
-      from bs_meterread, bs_meterinfo
-     where mrmid = miid
-       and mrbfid = '01002001'
-       and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --Ëã·ÑÊ±£¬¹ÊÕÏ»»±íÖĞ¡¢ÖÜÆÚ»»±íÖĞ¡¢Ô¤´æ³åÏúÖĞ¡¢Ïú»§ÖĞµÄ²»½øĞĞËã·Ñ,Ğè°Ñ¹ÊÕÏ»»±íÖĞ¡¢ÖÜÆÚ»»±íÖĞµ¥¾İÉóºËÍê²ÅÄÜËã·Ñ
-       and mrifrec = 'N' --ÊÇ·ñÒÑ¼Æ·Ñ 
-       and mrsl >= 0
-     order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc
-     
-select regexp_substr('01002001,01002003', '[^,]+', 1, level) mrbfid from dual connect by level <= length('01002001,01002003') - length(replace('01002001,01002003', ',', '')) + 1
-     
-Ó¦ÊÕ³åÕıpg_ewide_rectrans_01.sp_reccz
-
-
-
-select * from bs_custinfo where ciid='2200000470'
-
-select * from bs_meterread where mrccode = '2200000470'
-/*
-3 2372855011  2019.05 0201  01004003  1     2200000470  2200000471  1   1   2020-12-30 9:06:46  2020-12-31 15:06:41 Y 2020-12-31  010542    200 1000  800 01  N N 1 ²âÊÔ  N N 2020-12-31 15:06:52 800 0 0 Y     È·ÈÏÍ¨¹ı        01  0   1   0 BF  0 0 0 2080.000  760.000 0.000             N                 
-1 2372996611  2019.09 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 8:15:30  2020-12-31 14:51:30 Y 2020-12-31  010542  2020-12-30  8000  800   01  N N 1 ²âÊÔ  N N     0 0 Y     È·ÈÏÍ¨¹ı        01  0   1   0 BF  0 0 0                   N                 
-5 2373741789  2019.10 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 10:03:45   Y 2020-12-31  010542  2020-12-30  8000  10000 2000  01  Y N 1 ²âÊÔ  N N     0   N     È·ÈÏÍ¨¹ı        01  0       0 BF  0 0 0                   N                 
-4 2374481193  2019.11 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 11:02:14   Y 2020-12-31  010542  2020-12-30  8000  10000 2000  01  Y N 1 ²âÊÔ  N N     0   N     È·ÈÏÍ¨¹ı        01  0       0 BF  0 0 0                   N                 
-2 2375286615  2019.12 0201  01004003  1     2200000470  2200000471  1   1   2020-12-31 14:16:46   Y 2020-12-31  010542  2020-12-30  8000  10000 2000  01  Y N 1 ²âÊÔ  N N     0   N     È·ÈÏÍ¨¹ı        01  0       0 BF  0 0 0                   N                 
-*/
-select * from bs_meterread where mrid = '2372855011'
-
-
-select * from bs_reclist 
-
-
-select * from bs_bookframe
-
-
-select * from bs_meterread, bs_meterinfo
-     where mrmid = miid and mrbfid='01004003'  and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --Ëã·ÑÊ±£¬¹ÊÕÏ»»±íÖĞ¡¢ÖÜÆÚ»»±íÖĞ¡¢Ô¤´æ³åÏúÖĞ¡¢Ïú»§ÖĞµÄ²»½øĞĞËã·Ñ,Ğè°Ñ¹ÊÕÏ»»±íÖĞ¡¢ÖÜÆÚ»»±íÖĞµ¥¾İÉóºËÍê²ÅÄÜËã·Ñ
-       and mrifrec = 'N' --ÊÇ·ñÒÑ¼Æ·Ñ
-       and mrsl >= 0
-       
-       
-       
-
-01-04 09:16:46 >> ÕıÔÚËã·Ñ±í²áºÅ£º01004003 ...
-01-04 09:17:35 >> ³­±íÁ÷Ë®£º2375286615 Ëã·ÑÍê³É 5200 1900 0 
-01-04 09:19:19 >> ³­±íÁ÷Ë®£º2373741789 Ëã·ÑÍê³É 5200 1900 0 
-01-04 09:21:09 >> ³­±íÁ÷Ë®£º2374481193 Ëã·ÑÍê³É 5200 1900 0 
-01-04 09:22:43 >> ³­±íÁ÷Ë®£º2372855011 Ëã·ÑÍê³É 2080 760 0 
-01-04 09:22:43 >> Ëã·Ñ¹ı³Ì´¦ÀíÍê±Ï£º01004003
-
-update bs_meterread set mrifrec='N' where mrid='2372855011';
-
-select * from bs_meterread where mrid='2372855011';
-
-
-
-select * from bs_reclist  where rlcid='2200000470'
-select sum(1) from bs_reclist
-delete from bs_reclist  where rlcid='2200000470'
-
-
-update bs_meterinfo set mircode=2861 where miid='2200000471';
-update bs_meterread set mrscode=2861 where mrid='2372855011';
-update bs_meterread set mrecode=3861 where mrid='2372855011';
-update bs_meterread set mrsl=1000 where mrid='2372855011';
-update bs_meterread set mrifrec='N' where mrid='2372855011';
-update bs_meterread set mrrecje01=null where mrid='2372855011';
-update bs_meterread set mrrecje02=null where mrid='2372855011';
-update bs_meterread set mrrecje03=null where mrid='2372855011';
-commit;
 

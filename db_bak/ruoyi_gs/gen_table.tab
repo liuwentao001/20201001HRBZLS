@@ -1,0 +1,57 @@
+﻿create table GEN_TABLE
+(
+  table_id        NUMBER(20) not null,
+  table_name      VARCHAR2(200) default '',
+  table_comment   VARCHAR2(500) default '',
+  class_name      VARCHAR2(100) default '',
+  tpl_category    VARCHAR2(200) default 'crud',
+  package_name    VARCHAR2(100),
+  module_name     VARCHAR2(30),
+  business_name   VARCHAR2(30),
+  function_name   VARCHAR2(50),
+  function_author VARCHAR2(50),
+  options         VARCHAR2(1000),
+  create_by       VARCHAR2(64) default '',
+  create_time     DATE,
+  update_by       VARCHAR2(64) default '',
+  update_time     DATE,
+  remark          VARCHAR2(500)
+)
+;
+comment on table GEN_TABLE
+  is '代码生成业务表';
+comment on column GEN_TABLE.table_id
+  is '编号';
+comment on column GEN_TABLE.table_name
+  is '表名称';
+comment on column GEN_TABLE.table_comment
+  is '表描述';
+comment on column GEN_TABLE.class_name
+  is '实体类名称';
+comment on column GEN_TABLE.tpl_category
+  is '使用的模板（crud单表操作 tree树表操作）';
+comment on column GEN_TABLE.package_name
+  is '生成包路径';
+comment on column GEN_TABLE.module_name
+  is '生成模块名';
+comment on column GEN_TABLE.business_name
+  is '生成业务名';
+comment on column GEN_TABLE.function_name
+  is '生成功能名';
+comment on column GEN_TABLE.function_author
+  is '生成功能作者';
+comment on column GEN_TABLE.options
+  is '其它生成选项';
+comment on column GEN_TABLE.create_by
+  is '创建者';
+comment on column GEN_TABLE.create_time
+  is '创建时间';
+comment on column GEN_TABLE.update_by
+  is '更新者';
+comment on column GEN_TABLE.update_time
+  is '更新时间';
+comment on column GEN_TABLE.remark
+  is '备注';
+alter table GEN_TABLE
+  add constraint PK_GEN_TABLE primary key (TABLE_ID);
+

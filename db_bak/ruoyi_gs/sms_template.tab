@@ -1,0 +1,34 @@
+﻿create table SMS_TEMPLATE
+(
+  t_id        VARCHAR2(50) default SYS_GUID(),
+  smstype     VARCHAR2(20),
+  smscontent  VARCHAR2(1000),
+  create_by   VARCHAR2(64),
+  create_time DATE,
+  update_by   VARCHAR2(64),
+  update_time DATE,
+  daymax      NUMBER,
+  monthmax    NUMBER
+)
+;
+comment on table SMS_TEMPLATE
+  is '短信发送模板';
+comment on column SMS_TEMPLATE.t_id
+  is '主键';
+comment on column SMS_TEMPLATE.smstype
+  is '模板类型';
+comment on column SMS_TEMPLATE.smscontent
+  is '模板内容';
+comment on column SMS_TEMPLATE.create_by
+  is '创建者';
+comment on column SMS_TEMPLATE.create_time
+  is '创建时间';
+comment on column SMS_TEMPLATE.update_by
+  is '更新者';
+comment on column SMS_TEMPLATE.update_time
+  is '更新时间';
+comment on column SMS_TEMPLATE.daymax
+  is '日发送上限';
+comment on column SMS_TEMPLATE.monthmax
+  is '月发送上限';
+

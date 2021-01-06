@@ -1,0 +1,25 @@
+﻿create table BS_PRINT_NOTICE
+(
+  pnno       VARCHAR2(40),
+  cismfid    VARCHAR2(10),
+  ciid       VARCHAR2(10),
+  pnsaving   NUMBER(12,2),
+  pndatetime DATE,
+  pnper      VARCHAR2(20)
+)
+;
+comment on table BS_PRINT_NOTICE
+  is '欠费通知打印记录';
+comment on column BS_PRINT_NOTICE.pnno
+  is '流水号';
+comment on column BS_PRINT_NOTICE.cismfid
+  is '营业所';
+comment on column BS_PRINT_NOTICE.ciid
+  is '客户号';
+comment on column BS_PRINT_NOTICE.pnsaving
+  is '金额';
+comment on column BS_PRINT_NOTICE.pndatetime
+  is '打印时间';
+comment on column BS_PRINT_NOTICE.pnper
+  is '人员';
+

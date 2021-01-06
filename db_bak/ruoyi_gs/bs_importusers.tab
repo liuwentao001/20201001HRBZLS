@@ -1,0 +1,49 @@
+﻿create table BS_IMPORTUSERS
+(
+  userid      VARCHAR2(50) not null,
+  companyid   VARCHAR2(10),
+  username    VARCHAR2(50),
+  address     VARCHAR2(100),
+  bsid        VARCHAR2(50) not null,
+  type        VARCHAR2(2000),
+  contact     VARCHAR2(15),
+  tel         VARCHAR2(20),
+  description VARCHAR2(255),
+  flag        CHAR(1),
+  cjr         CHAR(6),
+  cjsj        DATE,
+  xgr         CHAR(6),
+  xgsj        DATE
+)
+;
+comment on table BS_IMPORTUSERS
+  is '重点用户';
+comment on column BS_IMPORTUSERS.userid
+  is '重点用户号';
+comment on column BS_IMPORTUSERS.companyid
+  is '营业分公司ID';
+comment on column BS_IMPORTUSERS.username
+  is '重点用户名';
+comment on column BS_IMPORTUSERS.address
+  is '地址';
+comment on column BS_IMPORTUSERS.bsid
+  is '主键';
+comment on column BS_IMPORTUSERS.type
+  is '用水类型';
+comment on column BS_IMPORTUSERS.contact
+  is '联系人';
+comment on column BS_IMPORTUSERS.tel
+  is '联系电话';
+comment on column BS_IMPORTUSERS.description
+  is '描述';
+comment on column BS_IMPORTUSERS.flag
+  is '有效标志';
+comment on column BS_IMPORTUSERS.cjr
+  is '创建人';
+comment on column BS_IMPORTUSERS.cjsj
+  is '创建时间';
+comment on column BS_IMPORTUSERS.xgr
+  is '修改人';
+comment on column BS_IMPORTUSERS.xgsj
+  is '修改时间';
+

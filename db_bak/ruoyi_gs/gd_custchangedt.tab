@@ -1,0 +1,657 @@
+﻿create table GD_CUSTCHANGEDT
+(
+  ccdno           VARCHAR2(10) not null,
+  ccdrowno        NUMBER not null,
+  ciid            VARCHAR2(10),
+  cicode          VARCHAR2(10),
+  ciconid         VARCHAR2(20),
+  cismfid         VARCHAR2(10),
+  cipid           VARCHAR2(10),
+  ciclass         NUMBER,
+  ciflag          CHAR(1),
+  ciname          VARCHAR2(100),
+  ciname2         VARCHAR2(100),
+  ciadr           VARCHAR2(100),
+  cistatus        VARCHAR2(2),
+  cistatusdate    DATE,
+  cistatustrans   CHAR(1),
+  cinewdate       DATE,
+  ciidentitylb    CHAR(1),
+  ciidentityno    VARCHAR2(60),
+  cimtel          VARCHAR2(30),
+  citel1          VARCHAR2(30),
+  citel2          VARCHAR2(30),
+  citel3          VARCHAR2(30),
+  ciconnectper    VARCHAR2(60),
+  ciconnecttel    VARCHAR2(30),
+  ciifinv         CHAR(1),
+  ciifsms         CHAR(1),
+  ciifzn          CHAR(1),
+  ciprojno        VARCHAR2(25),
+  cifileno        VARCHAR2(20),
+  cimemo          VARCHAR2(120),
+  cideptid        VARCHAR2(10),
+  micid           VARCHAR2(10),
+  miid            VARCHAR2(10),
+  miadr           VARCHAR2(100),
+  misafid         VARCHAR2(10),
+  micode          VARCHAR2(10),
+  mismfid         VARCHAR2(10),
+  miprmon         VARCHAR2(7),
+  mirmon          VARCHAR2(7),
+  mibfid          VARCHAR2(10),
+  mirorder        NUMBER,
+  mipid           VARCHAR2(10),
+  miclass         NUMBER,
+  miflag          CHAR(1),
+  mirtid          CHAR(1),
+  miifmp          CHAR(1),
+  miifsp          CHAR(1),
+  mistid          VARCHAR2(10),
+  mipfid          VARCHAR2(10),
+  mistatus        VARCHAR2(2),
+  mistatusdate    DATE,
+  mistatustrans   CHAR(1),
+  miface          VARCHAR2(2),
+  mirpid          VARCHAR2(3),
+  miside          VARCHAR2(100),
+  miposition      VARCHAR2(64),
+  miinscode       NUMBER,
+  miinsdate       DATE,
+  miinsper        VARCHAR2(64),
+  mireinscode     NUMBER,
+  mireinsdate     DATE,
+  mireinsper      VARCHAR2(64),
+  mitype          CHAR(1),
+  mircode         NUMBER,
+  mirecdate       DATE,
+  mirecsl         NUMBER,
+  miifcharge      CHAR(1),
+  miifsl          CHAR(1),
+  miifchk         VARCHAR2(10),
+  miifwatch       CHAR(1),
+  miicno          VARCHAR2(40),
+  mimemo          VARCHAR2(120),
+  mipriid         VARCHAR2(10),
+  mipriflag       CHAR(1),
+  miusenum        NUMBER,
+  michargetype    CHAR(1),
+  misaving        NUMBER(22),
+  milb            CHAR(1),
+  minewflag       CHAR(1),
+  micper          VARCHAR2(10),
+  miiftax         CHAR(1),
+  mitaxno         VARCHAR2(20),
+  pmdcid          VARCHAR2(10),
+  pmdmid          VARCHAR2(10),
+  pmdid           NUMBER,
+  pmdpfid         VARCHAR2(10),
+  pmdscale        NUMBER,
+  mdmid           VARCHAR2(10),
+  mdno            VARCHAR2(40),
+  mdcaliber       NUMBER,
+  mdbrand         VARCHAR2(2),
+  mdmodel         VARCHAR2(2),
+  mdstatus        VARCHAR2(8),
+  mdstatusdate    DATE,
+  mamid           VARCHAR2(10),
+  mano            VARCHAR2(64),
+  manoname        VARCHAR2(60),
+  mabankid        VARCHAR2(20),
+  maaccountno     VARCHAR2(32),
+  maaccountname   VARCHAR2(64),
+  matsbankid      VARCHAR2(12),
+  matsbankname    VARCHAR2(64),
+  maifxezf        CHAR(1),
+  pmdid2          NUMBER,
+  pmdpfid2        VARCHAR2(10),
+  pmdscale2       NUMBER,
+  pmdid3          NUMBER,
+  pmdpfid3        VARCHAR2(10),
+  pmdscale3       NUMBER,
+  pmdid4          NUMBER,
+  pmdpfid4        VARCHAR2(10),
+  pmdscale4       NUMBER,
+  ccdshflag       CHAR(1) not null,
+  ccdshdate       DATE,
+  ccdshper        VARCHAR2(10),
+  miifckf         CHAR(10),
+  migps           VARCHAR2(60),
+  miqfh           VARCHAR2(20),
+  mibox           VARCHAR2(10),
+  ccdappnote      VARCHAR2(400),
+  ccdfilashnote   VARCHAR2(400),
+  ccdmemo         VARCHAR2(400),
+  maregdate       DATE,
+  miname          VARCHAR2(100),
+  miname2         VARCHAR2(100),
+  accessoryflag01 CHAR(1),
+  accessoryflag02 CHAR(1),
+  accessoryflag03 CHAR(1),
+  accessoryflag04 CHAR(1),
+  accessoryflag05 CHAR(1),
+  accessoryflag06 CHAR(1),
+  accessoryflag07 CHAR(1),
+  accessoryflag08 CHAR(1),
+  accessoryflag09 CHAR(1),
+  accessoryflag10 CHAR(1),
+  accessoryflag11 CHAR(1),
+  accessoryflag12 CHAR(1),
+  mabankcode      VARCHAR2(64),
+  mabankname      VARCHAR2(64),
+  miseqno         VARCHAR2(20),
+  mijfkrow        NUMBER,
+  miuiid          VARCHAR2(10),
+  micommunity     VARCHAR2(10),
+  miremoteno      VARCHAR2(20),
+  miremotehubno   VARCHAR2(20),
+  miemail         VARCHAR2(64),
+  miemailflag     CHAR(1),
+  micolumn1       NUMBER,
+  micolumn2       VARCHAR2(10),
+  micolumn3       VARCHAR2(64),
+  micolumn4       VARCHAR2(10),
+  pmdtype         VARCHAR2(2),
+  pmdcolumn1      VARCHAR2(10),
+  pmdcolumn2      VARCHAR2(10),
+  pmdcolumn3      VARCHAR2(10),
+  pmdtype2        VARCHAR2(2),
+  pmdcolumn12     VARCHAR2(10),
+  pmdcolumn22     VARCHAR2(10),
+  pmdcolumn32     VARCHAR2(10),
+  pmdtype3        VARCHAR2(2),
+  pmdcolumn13     VARCHAR2(10),
+  pmdcolumn23     VARCHAR2(10),
+  pmdcolumn33     VARCHAR2(10),
+  pmdtype4        VARCHAR2(2),
+  pmdcolumn14     VARCHAR2(10),
+  pmdcolumn24     VARCHAR2(10),
+  pmdcolumn34     VARCHAR2(10),
+  mipaymentid     VARCHAR2(10),
+  micolumn5       NUMBER,
+  micolumn6       NUMBER,
+  micolumn7       NUMBER,
+  micolumn8       DATE,
+  micolumn9       VARCHAR2(10),
+  micolumn10      VARCHAR2(10),
+  lh              VARCHAR2(10),
+  dyh             VARCHAR2(10),
+  mph             VARCHAR2(10),
+  sfh             VARCHAR2(40),
+  dqsfh           VARCHAR2(40),
+  dqgfh           VARCHAR2(40),
+  jcgfh           VARCHAR2(40),
+  qhf             VARCHAR2(40),
+  miyhpj          VARCHAR2(10),
+  mijd            VARCHAR2(120),
+  miface2         VARCHAR2(3),
+  barcode         VARCHAR2(20),
+  rfid            VARCHAR2(20),
+  ifdzsb          VARCHAR2(2),
+  miifzdh         NUMBER,
+  midbzjh         VARCHAR2(64),
+  miyl1           VARCHAR2(2),
+  miyl2           VARCHAR2(2),
+  miyl3           VARCHAR2(2),
+  miyl4           VARCHAR2(40),
+  miyl5           VARCHAR2(20),
+  miyl6           VARCHAR2(20),
+  miyl7           NUMBER,
+  miyl8           NUMBER,
+  miyl9           NUMBER,
+  miyl10          DATE,
+  miyl11          DATE,
+  miyl12          DATE,
+  miyl13          VARCHAR2(50),
+  micolumn11      VARCHAR2(10),
+  mitkzjh         VARCHAR2(64),
+  mihtbh          VARCHAR2(50),
+  mihtzq          VARCHAR2(50),
+  mirqxz          VARCHAR2(50),
+  htdate          DATE,
+  zfdate          DATE,
+  jzdate          DATE,
+  signper         VARCHAR2(10),
+  signid          VARCHAR2(20),
+  pocid           VARCHAR2(50),
+  mibankname      VARCHAR2(100),
+  mibankno        VARCHAR2(50)
+)
+;
+comment on table GD_CUSTCHANGEDT
+  is '用户变更单体【CCD】';
+comment on column GD_CUSTCHANGEDT.ccdno
+  is '单据流水号';
+comment on column GD_CUSTCHANGEDT.ccdrowno
+  is '行号';
+comment on column GD_CUSTCHANGEDT.ciid
+  is '用户编号';
+comment on column GD_CUSTCHANGEDT.cicode
+  is '用户号';
+comment on column GD_CUSTCHANGEDT.ciconid
+  is '报装合同编号';
+comment on column GD_CUSTCHANGEDT.cismfid
+  is '营销公司';
+comment on column GD_CUSTCHANGEDT.cipid
+  is '上级用户编号';
+comment on column GD_CUSTCHANGEDT.ciclass
+  is '用户级次';
+comment on column GD_CUSTCHANGEDT.ciflag
+  is '末级标志';
+comment on column GD_CUSTCHANGEDT.ciname
+  is '产权名';
+comment on column GD_CUSTCHANGEDT.ciname2
+  is '曾用名';
+comment on column GD_CUSTCHANGEDT.ciadr
+  is '用户地址';
+comment on column GD_CUSTCHANGEDT.cistatus
+  is '用户状态';
+comment on column GD_CUSTCHANGEDT.cistatusdate
+  is '状态日期';
+comment on column GD_CUSTCHANGEDT.cistatustrans
+  is '状态表务';
+comment on column GD_CUSTCHANGEDT.cinewdate
+  is '立户日期';
+comment on column GD_CUSTCHANGEDT.ciidentitylb
+  is '证件类型';
+comment on column GD_CUSTCHANGEDT.ciidentityno
+  is '证件号码';
+comment on column GD_CUSTCHANGEDT.cimtel
+  is '移动电话';
+comment on column GD_CUSTCHANGEDT.citel1
+  is '固定电话1';
+comment on column GD_CUSTCHANGEDT.citel2
+  is '固定电话2';
+comment on column GD_CUSTCHANGEDT.citel3
+  is '固定电话3';
+comment on column GD_CUSTCHANGEDT.ciconnectper
+  is '联系人';
+comment on column GD_CUSTCHANGEDT.ciconnecttel
+  is '联系电话';
+comment on column GD_CUSTCHANGEDT.ciifinv
+  is '是否普票';
+comment on column GD_CUSTCHANGEDT.ciifsms
+  is '是否提供短信服务';
+comment on column GD_CUSTCHANGEDT.ciifzn
+  is '是否滞纳金';
+comment on column GD_CUSTCHANGEDT.ciprojno
+  is '工程编号';
+comment on column GD_CUSTCHANGEDT.cifileno
+  is '档案号';
+comment on column GD_CUSTCHANGEDT.cimemo
+  is '备注信息';
+comment on column GD_CUSTCHANGEDT.cideptid
+  is '立户部门';
+comment on column GD_CUSTCHANGEDT.micid
+  is '用户编号';
+comment on column GD_CUSTCHANGEDT.miid
+  is '水表编号';
+comment on column GD_CUSTCHANGEDT.miadr
+  is '表地址';
+comment on column GD_CUSTCHANGEDT.misafid
+  is '区域';
+comment on column GD_CUSTCHANGEDT.micode
+  is '水表手工编号';
+comment on column GD_CUSTCHANGEDT.mismfid
+  is '营销公司';
+comment on column GD_CUSTCHANGEDT.miprmon
+  is '上期抄表月份';
+comment on column GD_CUSTCHANGEDT.mirmon
+  is '本期抄表月份';
+comment on column GD_CUSTCHANGEDT.mibfid
+  is '表册';
+comment on column GD_CUSTCHANGEDT.mirorder
+  is '抄表次序';
+comment on column GD_CUSTCHANGEDT.mipid
+  is '上级水表编号';
+comment on column GD_CUSTCHANGEDT.miclass
+  is '水表级次';
+comment on column GD_CUSTCHANGEDT.miflag
+  is '末级标志';
+comment on column GD_CUSTCHANGEDT.mirtid
+  is '抄表方式';
+comment on column GD_CUSTCHANGEDT.miifmp
+  is '混合用水标志';
+comment on column GD_CUSTCHANGEDT.miifsp
+  is '例外单价标志';
+comment on column GD_CUSTCHANGEDT.mistid
+  is '行业分类';
+comment on column GD_CUSTCHANGEDT.mipfid
+  is '价格分类';
+comment on column GD_CUSTCHANGEDT.mistatus
+  is '状态';
+comment on column GD_CUSTCHANGEDT.mistatusdate
+  is '状态日期';
+comment on column GD_CUSTCHANGEDT.mistatustrans
+  is '状态表务';
+comment on column GD_CUSTCHANGEDT.miface
+  is '表况';
+comment on column GD_CUSTCHANGEDT.mirpid
+  is '计件类型';
+comment on column GD_CUSTCHANGEDT.miside
+  is '表位';
+comment on column GD_CUSTCHANGEDT.miposition
+  is '水表接水地址';
+comment on column GD_CUSTCHANGEDT.miinscode
+  is '新装起度';
+comment on column GD_CUSTCHANGEDT.miinsdate
+  is '装日期';
+comment on column GD_CUSTCHANGEDT.miinsper
+  is '安装人';
+comment on column GD_CUSTCHANGEDT.mireinscode
+  is '换表起度';
+comment on column GD_CUSTCHANGEDT.mireinsdate
+  is '换表日期';
+comment on column GD_CUSTCHANGEDT.mireinsper
+  is '换表人';
+comment on column GD_CUSTCHANGEDT.mitype
+  is '类型';
+comment on column GD_CUSTCHANGEDT.mircode
+  is '本期读数';
+comment on column GD_CUSTCHANGEDT.mirecdate
+  is '本期抄见日期';
+comment on column GD_CUSTCHANGEDT.mirecsl
+  is '本期抄见水量';
+comment on column GD_CUSTCHANGEDT.miifcharge
+  is '是否计费';
+comment on column GD_CUSTCHANGEDT.miifsl
+  is '是否计量';
+comment on column GD_CUSTCHANGEDT.miifchk
+  is '垃圾费户数';
+comment on column GD_CUSTCHANGEDT.miifwatch
+  is '是否节水';
+comment on column GD_CUSTCHANGEDT.miicno
+  is 'IC卡号';
+comment on column GD_CUSTCHANGEDT.mimemo
+  is '备注信息';
+comment on column GD_CUSTCHANGEDT.mipriid
+  is '合收表主表号';
+comment on column GD_CUSTCHANGEDT.mipriflag
+  is '合收表标志';
+comment on column GD_CUSTCHANGEDT.miusenum
+  is '户籍人数';
+comment on column GD_CUSTCHANGEDT.michargetype
+  is '收费方式';
+comment on column GD_CUSTCHANGEDT.misaving
+  is '预存款余额';
+comment on column GD_CUSTCHANGEDT.milb
+  is '水表类别';
+comment on column GD_CUSTCHANGEDT.minewflag
+  is '新表标志';
+comment on column GD_CUSTCHANGEDT.micper
+  is '收费员';
+comment on column GD_CUSTCHANGEDT.miiftax
+  is '是否税票';
+comment on column GD_CUSTCHANGEDT.mitaxno
+  is '增值税号（增）';
+comment on column GD_CUSTCHANGEDT.pmdcid
+  is '用户编号';
+comment on column GD_CUSTCHANGEDT.pmdmid
+  is '水表编号';
+comment on column GD_CUSTCHANGEDT.pmdid
+  is '分组号';
+comment on column GD_CUSTCHANGEDT.pmdpfid
+  is '价格类别';
+comment on column GD_CUSTCHANGEDT.pmdscale
+  is '比例';
+comment on column GD_CUSTCHANGEDT.mdmid
+  is '水表号';
+comment on column GD_CUSTCHANGEDT.mdno
+  is '表身码';
+comment on column GD_CUSTCHANGEDT.mdcaliber
+  is '表口径';
+comment on column GD_CUSTCHANGEDT.mdbrand
+  is '表厂家';
+comment on column GD_CUSTCHANGEDT.mdmodel
+  is '表型号';
+comment on column GD_CUSTCHANGEDT.mdstatus
+  is '表状态';
+comment on column GD_CUSTCHANGEDT.mdstatusdate
+  is '表状态发生时间';
+comment on column GD_CUSTCHANGEDT.mamid
+  is '水表资料号';
+comment on column GD_CUSTCHANGEDT.mano
+  is '委托授权号';
+comment on column GD_CUSTCHANGEDT.manoname
+  is '签约户名';
+comment on column GD_CUSTCHANGEDT.mabankid
+  is '开户行（代托）';
+comment on column GD_CUSTCHANGEDT.maaccountno
+  is '开户帐号（代托）';
+comment on column GD_CUSTCHANGEDT.maaccountname
+  is '开户名（代托）';
+comment on column GD_CUSTCHANGEDT.matsbankid
+  is '接收行号（托）';
+comment on column GD_CUSTCHANGEDT.matsbankname
+  is '凭证银行（托）';
+comment on column GD_CUSTCHANGEDT.maifxezf
+  is '小额支付（托）';
+comment on column GD_CUSTCHANGEDT.pmdid2
+  is '分组号';
+comment on column GD_CUSTCHANGEDT.pmdpfid2
+  is '价格类别';
+comment on column GD_CUSTCHANGEDT.pmdscale2
+  is '比例';
+comment on column GD_CUSTCHANGEDT.pmdid3
+  is '分组号';
+comment on column GD_CUSTCHANGEDT.pmdpfid3
+  is '价格类别';
+comment on column GD_CUSTCHANGEDT.pmdscale3
+  is '比例';
+comment on column GD_CUSTCHANGEDT.pmdid4
+  is '分组号';
+comment on column GD_CUSTCHANGEDT.pmdpfid4
+  is '价格类别';
+comment on column GD_CUSTCHANGEDT.pmdscale4
+  is '比例';
+comment on column GD_CUSTCHANGEDT.ccdshflag
+  is '行审核标志';
+comment on column GD_CUSTCHANGEDT.ccdshdate
+  is '行审核日期';
+comment on column GD_CUSTCHANGEDT.ccdshper
+  is '行审核人';
+comment on column GD_CUSTCHANGEDT.miifckf
+  is '垃圾费户数';
+comment on column GD_CUSTCHANGEDT.migps
+  is 'GPS地址';
+comment on column GD_CUSTCHANGEDT.miqfh
+  is '铅封号';
+comment on column GD_CUSTCHANGEDT.mibox
+  is '表箱规格';
+comment on column GD_CUSTCHANGEDT.ccdappnote
+  is '申请说明';
+comment on column GD_CUSTCHANGEDT.ccdfilashnote
+  is '领导意见';
+comment on column GD_CUSTCHANGEDT.ccdmemo
+  is '备注';
+comment on column GD_CUSTCHANGEDT.maregdate
+  is '签约日期';
+comment on column GD_CUSTCHANGEDT.miname
+  is '票据名称';
+comment on column GD_CUSTCHANGEDT.miname2
+  is '招牌名称';
+comment on column GD_CUSTCHANGEDT.accessoryflag01
+  is '原户主身份证复印件';
+comment on column GD_CUSTCHANGEDT.accessoryflag02
+  is '新户主身份证复印件';
+comment on column GD_CUSTCHANGEDT.accessoryflag03
+  is '代办人身份证复印件';
+comment on column GD_CUSTCHANGEDT.accessoryflag04
+  is '水费担保书';
+comment on column GD_CUSTCHANGEDT.accessoryflag05
+  is '赁合同复印件';
+comment on column GD_CUSTCHANGEDT.accessoryflag06
+  is '房产证或购房合同复印件';
+comment on column GD_CUSTCHANGEDT.accessoryflag07
+  is '企业法人营业执照（或组织机构代码证）复印件一份';
+comment on column GD_CUSTCHANGEDT.accessoryflag08
+  is '其他';
+comment on column GD_CUSTCHANGEDT.accessoryflag09
+  is '身份证复印件';
+comment on column GD_CUSTCHANGEDT.accessoryflag10
+  is '用户申请书';
+comment on column GD_CUSTCHANGEDT.accessoryflag11
+  is '附件标志11';
+comment on column GD_CUSTCHANGEDT.accessoryflag12
+  is '附件标志12';
+comment on column GD_CUSTCHANGEDT.mabankcode
+  is '用户行号（托）';
+comment on column GD_CUSTCHANGEDT.mabankname
+  is '用户行名（托）';
+comment on column GD_CUSTCHANGEDT.miseqno
+  is '户号（初始化时册号+序号）';
+comment on column GD_CUSTCHANGEDT.mijfkrow
+  is '消防底度';
+comment on column GD_CUSTCHANGEDT.miuiid
+  is '合收单位编号';
+comment on column GD_CUSTCHANGEDT.micommunity
+  is '小区';
+comment on column GD_CUSTCHANGEDT.miremoteno
+  is '远传表号';
+comment on column GD_CUSTCHANGEDT.miremotehubno
+  is '远传表HUB号';
+comment on column GD_CUSTCHANGEDT.miemail
+  is '电子邮件';
+comment on column GD_CUSTCHANGEDT.miemailflag
+  is '发账是否发邮件';
+comment on column GD_CUSTCHANGEDT.micolumn1
+  is '备用字段1';
+comment on column GD_CUSTCHANGEDT.micolumn2
+  is '备用字段2';
+comment on column GD_CUSTCHANGEDT.micolumn3
+  is '备用字段3';
+comment on column GD_CUSTCHANGEDT.micolumn4
+  is '备用字段4';
+comment on column GD_CUSTCHANGEDT.pmdtype
+  is '混合类别(01比例，02定量)';
+comment on column GD_CUSTCHANGEDT.pmdcolumn1
+  is '备用字段1';
+comment on column GD_CUSTCHANGEDT.pmdcolumn2
+  is '备用字段2';
+comment on column GD_CUSTCHANGEDT.pmdcolumn3
+  is '备用字段3';
+comment on column GD_CUSTCHANGEDT.pmdtype2
+  is '混合类别(01比例，02定量)';
+comment on column GD_CUSTCHANGEDT.pmdcolumn12
+  is '备用字段1';
+comment on column GD_CUSTCHANGEDT.pmdcolumn22
+  is '备用字段2';
+comment on column GD_CUSTCHANGEDT.pmdcolumn32
+  is '备用字段3';
+comment on column GD_CUSTCHANGEDT.pmdtype3
+  is '混合类别(01比例，02定量)';
+comment on column GD_CUSTCHANGEDT.pmdcolumn13
+  is '备用字段1';
+comment on column GD_CUSTCHANGEDT.pmdcolumn23
+  is '备用字段2';
+comment on column GD_CUSTCHANGEDT.pmdcolumn33
+  is '备用字段3';
+comment on column GD_CUSTCHANGEDT.pmdtype4
+  is '混合类别(01比例，02定量)';
+comment on column GD_CUSTCHANGEDT.pmdcolumn14
+  is '备用字段1';
+comment on column GD_CUSTCHANGEDT.pmdcolumn24
+  is '备用字段2';
+comment on column GD_CUSTCHANGEDT.pmdcolumn34
+  is '备用字段3';
+comment on column GD_CUSTCHANGEDT.mipaymentid
+  is '最近一次实收流水';
+comment on column GD_CUSTCHANGEDT.micolumn5
+  is '备用字段5';
+comment on column GD_CUSTCHANGEDT.micolumn6
+  is '备用字段6';
+comment on column GD_CUSTCHANGEDT.micolumn7
+  is '备用字段7';
+comment on column GD_CUSTCHANGEDT.micolumn8
+  is '备用字段8';
+comment on column GD_CUSTCHANGEDT.micolumn9
+  is '备用字段9';
+comment on column GD_CUSTCHANGEDT.micolumn10
+  is '备用字段10';
+comment on column GD_CUSTCHANGEDT.lh
+  is '楼号';
+comment on column GD_CUSTCHANGEDT.dyh
+  is '单元号';
+comment on column GD_CUSTCHANGEDT.mph
+  is '门牌号';
+comment on column GD_CUSTCHANGEDT.sfh
+  is '首封号';
+comment on column GD_CUSTCHANGEDT.dqsfh
+  is '地区塑封号';
+comment on column GD_CUSTCHANGEDT.dqgfh
+  is '地区钢封号';
+comment on column GD_CUSTCHANGEDT.jcgfh
+  is '稽查刚封号';
+comment on column GD_CUSTCHANGEDT.qhf
+  is '铅封号【哈尔滨】';
+comment on column GD_CUSTCHANGEDT.miyhpj
+  is '用户信用评级';
+comment on column GD_CUSTCHANGEDT.mijd
+  is '街道';
+comment on column GD_CUSTCHANGEDT.miface2
+  is '表故障';
+comment on column GD_CUSTCHANGEDT.barcode
+  is '条形码';
+comment on column GD_CUSTCHANGEDT.rfid
+  is '电子标签';
+comment on column GD_CUSTCHANGEDT.ifdzsb
+  is '是否倒表（倒表=Y 正常表=''N''）';
+comment on column GD_CUSTCHANGEDT.miifzdh
+  is '重点户标志（Y=重点户，N=非重点户）';
+comment on column GD_CUSTCHANGEDT.midbzjh
+  is '低保证件号';
+comment on column GD_CUSTCHANGEDT.miyl1
+  is '预留字段1';
+comment on column GD_CUSTCHANGEDT.miyl2
+  is '预留字段2';
+comment on column GD_CUSTCHANGEDT.miyl3
+  is '预留字段3';
+comment on column GD_CUSTCHANGEDT.miyl4
+  is '预留字段4';
+comment on column GD_CUSTCHANGEDT.miyl5
+  is '预留字段5';
+comment on column GD_CUSTCHANGEDT.miyl6
+  is '预留字段6';
+comment on column GD_CUSTCHANGEDT.miyl7
+  is '总表收免水量最大值';
+comment on column GD_CUSTCHANGEDT.miyl8
+  is '预留字段8';
+comment on column GD_CUSTCHANGEDT.miyl9
+  is '预留字段9';
+comment on column GD_CUSTCHANGEDT.miyl10
+  is '预留字段10';
+comment on column GD_CUSTCHANGEDT.miyl11
+  is '预留字段11';
+comment on column GD_CUSTCHANGEDT.miyl12
+  is '预留字段12';
+comment on column GD_CUSTCHANGEDT.miyl13
+  is '预留字段13(哈尔滨：街道号)';
+comment on column GD_CUSTCHANGEDT.micolumn11
+  is '特困标志';
+comment on column GD_CUSTCHANGEDT.mitkzjh
+  is '特困证件号';
+comment on column GD_CUSTCHANGEDT.mihtbh
+  is '合同编号';
+comment on column GD_CUSTCHANGEDT.mihtzq
+  is '周期（合同用）';
+comment on column GD_CUSTCHANGEDT.mirqxz
+  is '日期限制（合同用）';
+comment on column GD_CUSTCHANGEDT.htdate
+  is '合同签订日期（合同用）';
+comment on column GD_CUSTCHANGEDT.zfdate
+  is '合同作废日期（合同用）';
+comment on column GD_CUSTCHANGEDT.jzdate
+  is '合同签订截止日期（合同用）';
+comment on column GD_CUSTCHANGEDT.signper
+  is '签订人（合同用）';
+comment on column GD_CUSTCHANGEDT.signid
+  is '签订人身份证号（合同用）';
+comment on column GD_CUSTCHANGEDT.pocid
+  is '房产证号（合同用）';
+comment on column GD_CUSTCHANGEDT.mibankname
+  is '开户行名(电票)';
+comment on column GD_CUSTCHANGEDT.mibankno
+  is '开户行账号(电票)';
+alter table GD_CUSTCHANGEDT
+  add primary key (CCDNO);
+

@@ -1,0 +1,48 @@
+﻿create table SYS_JOB
+(
+  job_id          NUMBER(20) not null,
+  job_name        VARCHAR2(64) default '' not null,
+  job_group       VARCHAR2(64) default '' not null,
+  invoke_target   VARCHAR2(500) not null,
+  cron_expression VARCHAR2(255) default '',
+  misfire_policy  VARCHAR2(20) default '3',
+  concurrent      CHAR(1) default '1',
+  status          CHAR(1) default '0',
+  create_by       VARCHAR2(64) default '',
+  create_time     DATE,
+  update_by       VARCHAR2(64) default '',
+  update_time     DATE,
+  remark          VARCHAR2(500) default ''
+)
+;
+comment on table SYS_JOB
+  is '定时任务调度表';
+comment on column SYS_JOB.job_id
+  is '任务主键seq_sys_job.nextval';
+comment on column SYS_JOB.job_name
+  is '任务名称';
+comment on column SYS_JOB.job_group
+  is '任务组名';
+comment on column SYS_JOB.invoke_target
+  is '调用目标字符串';
+comment on column SYS_JOB.cron_expression
+  is 'cron执行表达式';
+comment on column SYS_JOB.misfire_policy
+  is '计划执行错误策略（1立即执行 2执行一次 3放弃执行）';
+comment on column SYS_JOB.concurrent
+  is '是否并发执行（0允许 1禁止）';
+comment on column SYS_JOB.status
+  is '状态（0正常 1暂停）';
+comment on column SYS_JOB.create_by
+  is '创建者';
+comment on column SYS_JOB.create_time
+  is '创建时间';
+comment on column SYS_JOB.update_by
+  is '更新者';
+comment on column SYS_JOB.update_time
+  is '更新时间';
+comment on column SYS_JOB.remark
+  is '备注信息';
+alter table SYS_JOB
+  add constraint PK_SYS_JOB primary key (JOB_ID, JOB_NAME, JOB_GROUP);
+

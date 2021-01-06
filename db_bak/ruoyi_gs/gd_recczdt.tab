@@ -1,0 +1,115 @@
+﻿create table GD_RECCZDT
+(
+  rcdno        VARCHAR2(10) not null,
+  rcdrowno     NUMBER not null,
+  rcdmrid      VARCHAR2(10),
+  rcdrlid      VARCHAR2(10) not null,
+  rcdcid       VARCHAR2(10) not null,
+  rcdccode     VARCHAR2(10) not null,
+  rcdmid       VARCHAR2(10),
+  rcdmcode     VARCHAR2(10),
+  rcdprdate    DATE,
+  rcdrdate     DATE,
+  rcdscode     NUMBER,
+  rcdecode     NUMBER,
+  rcdscodechar VARCHAR2(10),
+  rcdecodechar VARCHAR2(10),
+  rcdreadsl    NUMBER,
+  rcdaddsl     NUMBER,
+  rcdsl        NUMBER not null,
+  rcdadjsl     NUMBER,
+  rcdpfid      VARCHAR2(10),
+  rcdje        NUMBER not null,
+  rcdcname     VARCHAR2(64),
+  rcdcadr      VARCHAR2(64),
+  rcdmadr      VARCHAR2(64),
+  rcdrtid      CHAR(1),
+  rcdusenum    NUMBER,
+  rcdznj       NUMBER,
+  rcdzndate    DATE,
+  rcdpriflag   CHAR(1),
+  rcdpriid     VARCHAR2(10),
+  rcdrlidcr    VARCHAR2(10),
+  rcdrcodeflag CHAR(1) not null,
+  rcdmemo      VARCHAR2(200),
+  rcdflashdate DATE,
+  rcdflashper  VARCHAR2(10),
+  rcdflashflag VARCHAR2(1),
+  rcifsubmit   VARCHAR2(2)
+)
+;
+comment on table GD_RECCZDT
+  is '应收调整单体【RCD】';
+comment on column GD_RECCZDT.rcdno
+  is '单据流水号';
+comment on column GD_RECCZDT.rcdrowno
+  is '行号';
+comment on column GD_RECCZDT.rcdmrid
+  is '原抄表流水号';
+comment on column GD_RECCZDT.rcdrlid
+  is '原流水号';
+comment on column GD_RECCZDT.rcdcid
+  is '用户编号';
+comment on column GD_RECCZDT.rcdccode
+  is '用户号';
+comment on column GD_RECCZDT.rcdmid
+  is '水表编号';
+comment on column GD_RECCZDT.rcdmcode
+  is '资料号';
+comment on column GD_RECCZDT.rcdprdate
+  is '上次抄表日期';
+comment on column GD_RECCZDT.rcdrdate
+  is '本次抄表日期';
+comment on column GD_RECCZDT.rcdscode
+  is '上期抄见';
+comment on column GD_RECCZDT.rcdecode
+  is '本期抄见';
+comment on column GD_RECCZDT.rcdscodechar
+  is '上期抄见';
+comment on column GD_RECCZDT.rcdecodechar
+  is '本期抄见';
+comment on column GD_RECCZDT.rcdreadsl
+  is '抄见水量';
+comment on column GD_RECCZDT.rcdaddsl
+  is '余量';
+comment on column GD_RECCZDT.rcdsl
+  is '应收水量';
+comment on column GD_RECCZDT.rcdadjsl
+  is '调整水量';
+comment on column GD_RECCZDT.rcdpfid
+  is '价格类别';
+comment on column GD_RECCZDT.rcdje
+  is '应收金额';
+comment on column GD_RECCZDT.rcdcname
+  is '用户名称';
+comment on column GD_RECCZDT.rcdcadr
+  is '用户地址';
+comment on column GD_RECCZDT.rcdmadr
+  is '水表地址';
+comment on column GD_RECCZDT.rcdrtid
+  is '抄表方式';
+comment on column GD_RECCZDT.rcdusenum
+  is '户用水人数';
+comment on column GD_RECCZDT.rcdznj
+  is '违约金';
+comment on column GD_RECCZDT.rcdzndate
+  is '违约金起算日';
+comment on column GD_RECCZDT.rcdpriflag
+  is '合收表标志';
+comment on column GD_RECCZDT.rcdpriid
+  is '合收表主表号';
+comment on column GD_RECCZDT.rcdrlidcr
+  is '贷记应收流水号（回写）';
+comment on column GD_RECCZDT.rcdrcodeflag
+  is '置下次抄表起度';
+comment on column GD_RECCZDT.rcdmemo
+  is '备注';
+comment on column GD_RECCZDT.rcdflashdate
+  is '审核时间';
+comment on column GD_RECCZDT.rcdflashper
+  is '审核人';
+comment on column GD_RECCZDT.rcdflashflag
+  is '审核标志';
+comment on column GD_RECCZDT.rcifsubmit
+  is '是否提交';
+

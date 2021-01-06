@@ -1,0 +1,78 @@
+﻿create table WF_FRMMAIN
+(
+  frmmainid      VARCHAR2(50 CHAR) not null,
+  frmcode        VARCHAR2(50 CHAR),
+  fullname       VARCHAR2(200 CHAR),
+  category       VARCHAR2(50 CHAR),
+  frmversion     VARCHAR2(50 CHAR),
+  frmtable       VARCHAR2(50 CHAR),
+  primarykey     VARCHAR2(50 CHAR),
+  heading        VARCHAR2(200 CHAR),
+  frmhtml        CLOB,
+  frmeventjson   CLOB,
+  frmdept        VARCHAR2(50 CHAR),
+  remark         VARCHAR2(200 CHAR),
+  enabled        NUMBER(11),
+  sortcode       NUMBER(11),
+  deletemark     NUMBER(11),
+  createdate     DATE default sysdate,
+  createuserid   VARCHAR2(50 CHAR),
+  createusername VARCHAR2(50 CHAR),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50 CHAR),
+  modifyusername VARCHAR2(50 CHAR),
+  frmtype        NUMBER(11),
+  frmurl         VARCHAR2(50 CHAR)
+)
+;
+comment on table WF_FRMMAIN
+  is '表单模板表';
+comment on column WF_FRMMAIN.frmmainid
+  is '表单模板ID';
+comment on column WF_FRMMAIN.frmcode
+  is '表单编号';
+comment on column WF_FRMMAIN.fullname
+  is '表单名称';
+comment on column WF_FRMMAIN.category
+  is '表单分类';
+comment on column WF_FRMMAIN.frmversion
+  is '表单版本';
+comment on column WF_FRMMAIN.frmtable
+  is '数据表';
+comment on column WF_FRMMAIN.primarykey
+  is '主键ID';
+comment on column WF_FRMMAIN.heading
+  is '标题字段';
+comment on column WF_FRMMAIN.frmhtml
+  is '表单html';
+comment on column WF_FRMMAIN.frmeventjson
+  is '控件事件Json';
+comment on column WF_FRMMAIN.frmdept
+  is '所属部门';
+comment on column WF_FRMMAIN.remark
+  is '备注';
+comment on column WF_FRMMAIN.enabled
+  is '有效';
+comment on column WF_FRMMAIN.sortcode
+  is '排序码';
+comment on column WF_FRMMAIN.deletemark
+  is '删除标记';
+comment on column WF_FRMMAIN.createdate
+  is '创建时间';
+comment on column WF_FRMMAIN.createuserid
+  is '创建用户主键';
+comment on column WF_FRMMAIN.createusername
+  is '创建用户';
+comment on column WF_FRMMAIN.modifydate
+  is '修改时间';
+comment on column WF_FRMMAIN.modifyuserid
+  is '修改用户主键';
+comment on column WF_FRMMAIN.modifyusername
+  is '修改用户';
+comment on column WF_FRMMAIN.frmtype
+  is '表单类型（1-自定义表单，2-自由表单VS中建立）';
+comment on column WF_FRMMAIN.frmurl
+  is '表单URL';
+alter table WF_FRMMAIN
+  add primary key (FRMMAINID);
+

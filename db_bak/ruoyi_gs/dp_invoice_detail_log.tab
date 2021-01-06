@@ -1,0 +1,64 @@
+﻿create table DP_INVOICE_DETAIL_LOG
+(
+  didlid     VARCHAR2(50) default SYS_GUID(),
+  dipid      VARCHAR2(50),
+  goodsname  VARCHAR2(50),
+  num        VARCHAR2(20),
+  price      VARCHAR2(20),
+  hsbz       VARCHAR2(20),
+  taxrate    VARCHAR2(10),
+  spec       VARCHAR2(10),
+  unit       VARCHAR2(10),
+  spbm       VARCHAR2(20),
+  zsbm       VARCHAR2(20),
+  fphxz      VARCHAR2(20),
+  yhzcbs     VARCHAR2(20),
+  zzstsgl    VARCHAR2(20),
+  lslbs      VARCHAR2(20),
+  kce        VARCHAR2(20),
+  taxfreeamt VARCHAR2(20),
+  tax        VARCHAR2(20),
+  taxamt     VARCHAR2(20)
+)
+;
+comment on table DP_INVOICE_DETAIL_LOG
+  is '发票明细日志';
+comment on column DP_INVOICE_DETAIL_LOG.didlid
+  is '主键';
+comment on column DP_INVOICE_DETAIL_LOG.dipid
+  is '发票ID';
+comment on column DP_INVOICE_DETAIL_LOG.goodsname
+  is '商品名称';
+comment on column DP_INVOICE_DETAIL_LOG.num
+  is '数量；数量、单价必须都不填，或者都必填，不可只填一个；当数量、单价都不填时，不含税金额、税额、含税金额都必填';
+comment on column DP_INVOICE_DETAIL_LOG.price
+  is '单价；数量、单价必须都不填，或者都必填，不可只填一个；当数量、单价都不填时，不含税金额、税额、含税金额都必填';
+comment on column DP_INVOICE_DETAIL_LOG.hsbz
+  is '单价含税标志， 0:不含税,1:含税';
+comment on column DP_INVOICE_DETAIL_LOG.taxrate
+  is '税率';
+comment on column DP_INVOICE_DETAIL_LOG.spec
+  is '规格型号';
+comment on column DP_INVOICE_DETAIL_LOG.unit
+  is '单位';
+comment on column DP_INVOICE_DETAIL_LOG.spbm
+  is '商品编码';
+comment on column DP_INVOICE_DETAIL_LOG.zsbm
+  is '自行编码';
+comment on column DP_INVOICE_DETAIL_LOG.fphxz
+  is '发票行性质 :0,正常行;1,折扣行;2,被折扣行';
+comment on column DP_INVOICE_DETAIL_LOG.yhzcbs
+  is '优惠政策标识:0,不使用;1,使用';
+comment on column DP_INVOICE_DETAIL_LOG.zzstsgl
+  is '增值税特殊管理，如：即征即退、免税、简易征收 等。当 yhzcbs 为 1 时，此项必填';
+comment on column DP_INVOICE_DETAIL_LOG.lslbs
+  is '零税率标识:空,非零税率 ;1,免税 ;2,不征税;3,普通零税率';
+comment on column DP_INVOICE_DETAIL_LOG.kce
+  is '扣除额，小数点后两位。差额征收的发票目前 只支持一行 明细。不含税差额 = 不含税金额 - 扣除额；税额 = 不含税差额*税率。';
+comment on column DP_INVOICE_DETAIL_LOG.taxfreeamt
+  is ' 不含税金额';
+comment on column DP_INVOICE_DETAIL_LOG.tax
+  is '税额 ';
+comment on column DP_INVOICE_DETAIL_LOG.taxamt
+  is '含税金额';
+

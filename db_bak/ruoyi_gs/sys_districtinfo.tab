@@ -1,0 +1,31 @@
+﻿create table SYS_DISTRICTINFO
+(
+  diid     VARCHAR2(10) not null,
+  diname   VARCHAR2(100) not null,
+  dicreper VARCHAR2(15),
+  didate   DATE,
+  dijm     VARCHAR2(20) not null,
+  dimemo   VARCHAR2(264),
+  dimfid   VARCHAR2(20),
+  distmid  VARCHAR2(10) not null
+)
+;
+comment on table SYS_DISTRICTINFO
+  is '小区管理';
+comment on column SYS_DISTRICTINFO.diid
+  is '小区编号';
+comment on column SYS_DISTRICTINFO.diname
+  is '小区名称';
+comment on column SYS_DISTRICTINFO.dicreper
+  is '创建人';
+comment on column SYS_DISTRICTINFO.didate
+  is '创建时间';
+comment on column SYS_DISTRICTINFO.dijm
+  is '拼音简码';
+comment on column SYS_DISTRICTINFO.dimemo
+  is '备注';
+comment on column SYS_DISTRICTINFO.dimfid
+  is '营业所';
+comment on column SYS_DISTRICTINFO.distmid
+  is '街道ID（关联STREETMANAGE.STMID）';
+

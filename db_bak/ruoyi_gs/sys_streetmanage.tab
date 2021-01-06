@@ -1,0 +1,28 @@
+﻿create table SYS_STREETMANAGE
+(
+  stmid     VARCHAR2(10) not null,
+  stmname   VARCHAR2(100) not null,
+  stmcreper VARCHAR2(15),
+  stmdate   DATE,
+  stmjm     VARCHAR2(20) not null,
+  stmmemo   VARCHAR2(264),
+  stmfid    VARCHAR2(20)
+)
+;
+comment on table SYS_STREETMANAGE
+  is '街道管理';
+comment on column SYS_STREETMANAGE.stmid
+  is '街道编号';
+comment on column SYS_STREETMANAGE.stmname
+  is '街道名称';
+comment on column SYS_STREETMANAGE.stmcreper
+  is '创建人';
+comment on column SYS_STREETMANAGE.stmdate
+  is '创建时间';
+comment on column SYS_STREETMANAGE.stmjm
+  is '拼音简码';
+comment on column SYS_STREETMANAGE.stmmemo
+  is '备注';
+comment on column SYS_STREETMANAGE.stmfid
+  is '营业所';
+

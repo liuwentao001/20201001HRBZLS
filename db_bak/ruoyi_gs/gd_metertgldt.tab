@@ -1,0 +1,49 @@
+﻿create table GD_METERTGLDT
+(
+  mtdno         VARCHAR2(10) not null,
+  mtdrowno      NUMBER not null,
+  mtdsmfid      VARCHAR2(10),
+  mtdtel        VARCHAR2(30),
+  mtdconper     VARCHAR2(100),
+  mtdcontel     VARCHAR2(90),
+  mtdmid        VARCHAR2(10),
+  mtdcname      VARCHAR2(100),
+  mtdmadr       VARCHAR2(100),
+  mtdpfid       VARCHAR2(10),
+  mtdchargetype CHAR(1),
+  mtdsyscode    NUMBER not null,
+  mtdrealcode   NUMBER not null,
+  mtdtgl        NUMBER not null
+)
+;
+comment on table GD_METERTGLDT
+  is '表务工单体【MTD】';
+comment on column GD_METERTGLDT.mtdno
+  is '单据流水';
+comment on column GD_METERTGLDT.mtdrowno
+  is '行号';
+comment on column GD_METERTGLDT.mtdsmfid
+  is '营业所';
+comment on column GD_METERTGLDT.mtdtel
+  is '电话';
+comment on column GD_METERTGLDT.mtdconper
+  is '联系人';
+comment on column GD_METERTGLDT.mtdcontel
+  is '联系电话';
+comment on column GD_METERTGLDT.mtdmid
+  is '水表编号';
+comment on column GD_METERTGLDT.mtdcname
+  is '用户名称';
+comment on column GD_METERTGLDT.mtdmadr
+  is '用水地址';
+comment on column GD_METERTGLDT.mtdpfid
+  is '用水类别';
+comment on column GD_METERTGLDT.mtdchargetype
+  is '收费方式';
+comment on column GD_METERTGLDT.mtdsyscode
+  is '系统读数';
+comment on column GD_METERTGLDT.mtdrealcode
+  is '实际读数';
+comment on column GD_METERTGLDT.mtdtgl
+  is '推估量';
+

@@ -1,0 +1,98 @@
+﻿create table REQUEST_HTGL
+(
+  reno           VARCHAR2(50),
+  resmfid        VARCHAR2(10),
+  ciid           VARCHAR2(10),
+  ciname         VARCHAR2(100),
+  cihtbh         VARCHAR2(50),
+  cihtzq         VARCHAR2(50),
+  cirqxz         VARCHAR2(50),
+  htdate         DATE,
+  zfdate         DATE,
+  jzdate         DATE,
+  signper        VARCHAR2(10),
+  signid         VARCHAR2(20),
+  pocid          VARCHAR2(50),
+  ciidentitylb   CHAR(5),
+  ciidentityno   VARCHAR2(60),
+  reappnote      VARCHAR2(400),
+  restaus        VARCHAR2(2),
+  reper          VARCHAR2(10),
+  reflag         CHAR(1),
+  enabled        NUMBER,
+  sortcode       NUMBER,
+  deletemark     NUMBER,
+  createdate     DATE,
+  createuserid   VARCHAR2(50),
+  createusername VARCHAR2(50),
+  modifydate     DATE,
+  modifyuserid   VARCHAR2(50),
+  modifyusername VARCHAR2(50),
+  remark         VARCHAR2(200),
+  workno         VARCHAR2(30),
+  workbatch      VARCHAR2(30)
+)
+;
+comment on table REQUEST_HTGL
+  is '合同管理';
+comment on column REQUEST_HTGL.reno
+  is '单据流水号';
+comment on column REQUEST_HTGL.resmfid
+  is '营销公司';
+comment on column REQUEST_HTGL.ciid
+  is '用户号';
+comment on column REQUEST_HTGL.ciname
+  is '用户名';
+comment on column REQUEST_HTGL.cihtbh
+  is '合同编号';
+comment on column REQUEST_HTGL.cihtzq
+  is '周期（合同用）';
+comment on column REQUEST_HTGL.cirqxz
+  is '日期限制（合同用）';
+comment on column REQUEST_HTGL.htdate
+  is '合同签订日期';
+comment on column REQUEST_HTGL.zfdate
+  is '合同作废日期';
+comment on column REQUEST_HTGL.jzdate
+  is '合同签订截止日期';
+comment on column REQUEST_HTGL.signper
+  is '签订人';
+comment on column REQUEST_HTGL.signid
+  is '签订人身份证号';
+comment on column REQUEST_HTGL.pocid
+  is '房产证号';
+comment on column REQUEST_HTGL.ciidentitylb
+  is '证件类型(1-身份证 2-营业执照  0-无)';
+comment on column REQUEST_HTGL.ciidentityno
+  is '证件号码';
+comment on column REQUEST_HTGL.reappnote
+  is '申请说明';
+comment on column REQUEST_HTGL.restaus
+  is '当前审批环节';
+comment on column REQUEST_HTGL.reper
+  is '当前审批人';
+comment on column REQUEST_HTGL.reflag
+  is '当前审批状';
+comment on column REQUEST_HTGL.sortcode
+  is '序号';
+comment on column REQUEST_HTGL.deletemark
+  is '删除标识';
+comment on column REQUEST_HTGL.createdate
+  is '创建时间';
+comment on column REQUEST_HTGL.createuserid
+  is '创建人ID';
+comment on column REQUEST_HTGL.createusername
+  is '创建人';
+comment on column REQUEST_HTGL.modifydate
+  is '修改时间';
+comment on column REQUEST_HTGL.modifyuserid
+  is '修改人ID';
+comment on column REQUEST_HTGL.modifyusername
+  is '修改人';
+comment on column REQUEST_HTGL.remark
+  is '备注';
+comment on column REQUEST_HTGL.workno
+  is '单据编号';
+comment on column REQUEST_HTGL.workbatch
+  is '批次号';
+

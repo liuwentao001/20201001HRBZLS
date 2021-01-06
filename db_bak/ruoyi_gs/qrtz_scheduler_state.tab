@@ -1,0 +1,11 @@
+﻿create table QRTZ_SCHEDULER_STATE
+(
+  sched_name        VARCHAR2(120) not null,
+  instance_name     VARCHAR2(200) not null,
+  last_checkin_time NUMBER(13) not null,
+  checkin_interval  NUMBER(13) not null
+)
+;
+alter table QRTZ_SCHEDULER_STATE
+  add constraint QRTZ_SCHEDULER_STATE_PK primary key (SCHED_NAME, INSTANCE_NAME);
+
