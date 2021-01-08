@@ -81,18 +81,25 @@
   完工   CONSTANT CHAR(1) := 'Y';
   退单   CONSTANT CHAR(1) := 'Q';
 
-  --工单主程序
+  --工单主程序-用户变更审核
   PROCEDURE SP_METERTRANS(P_TYPE   IN VARCHAR2, --操作类型
                           P_MTHNO  IN VARCHAR2, --批次流水
                           P_PER    IN VARCHAR2, --操作员
                           P_COMMIT IN VARCHAR2 --提交标志
                           );
-
-  --工单单个审核过程
+                          
+   --工单主程序-周期换表
+  PROCEDURE SP_METERTRANS_ZQHB(P_TYPE   IN VARCHAR2, --操作类型
+                          P_MTHNO  IN VARCHAR2, --批次流水
+                          P_PER    IN VARCHAR2, --操作员
+                          P_COMMIT IN VARCHAR2 --提交标志
+                          );
+                          
+/*  --工单单个审核过程
   PROCEDURE SP_METERTRANSONE(P_TYPE   IN VARCHAR2, --类型
                              P_PERSON IN VARCHAR2, -- 操作员
                              P_MD     IN GD_METERTGLDT%ROWTYPE --单体行变更
-                             );
+                             );*/
 
 /*  PROCEDURE SUM$DAY$METER(P_MIID   VARCHAR2,
                           P_TYPE   VARCHAR2,

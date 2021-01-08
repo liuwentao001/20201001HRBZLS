@@ -45,17 +45,19 @@
   procedure insrd(rd in rd_table);
 
   --应收冲正_按工单
-  procedure yscz_gd(p_rchno   in varchar2,--应收账流水号
+  procedure yscz_gd(p_reno   in varchar2,--工单流水号
                  p_per    in varchar2,--完结人
                  p_memo   in varchar2 --备注
                  );
                  
   --应收冲正_按应收账流水
+  
   procedure yscz_rl(p_rlid   in varchar2, --应收账流水号
                  p_per    in varchar2,    --完结人
                  p_memo   in varchar2,    --备注
                  o_rlcrid out varchar2    --返回负应收账流水号
                  );
+  
 end;
 /
 

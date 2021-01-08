@@ -1,7 +1,28 @@
 ﻿create or replace package pg_paid is
   --错误返回码
   errcode constant integer := -20012;
-
+  --常量参数
+  paytrans_pos      constant char(1) := 'P'; --自来水柜台缴费
+  paytrans_ds       constant char(1) := 'B'; --银行实时代收
+  paytrans_bsav     constant char(1) := 'W'; --银行实时单缴预存
+  paytrans_dsde     constant char(1) := 'E'; --银行实时代收单边帐补销（对帐结果补销隔日发起）
+  paytrans_dk       constant char(1) := 'D'; --代扣销帐
+  paytrans_ts       constant char(1) := 'T'; --托收票据销帐
+  paytrans_sav      constant char(1) := 'S'; --自来水柜台独立预存
+  paytrans_inv      constant char(1) := 'I'; --走收票据销帐
+  paytrans_预存抵扣 constant char(1) := 'U'; --算费过程即时预存抵扣
+  paytrans_ycdb     constant char(1) := 'K'; --预存调拨
+  paytrans_cr     constant char(1) := 'C'; --其它所有未独立业务冲销（销帐冲正单据发起）
+  paytrans_bankcr constant char(1) := 'X'; --实时代收冲销（银行当日冲销发起）
+  paytrans_dscr   constant char(1) := 'R'; --实时代收单边帐冲销
+  paytrans_adj    constant char(1) := 'V'; --减量退费：退费贷帐事务(cr)、借帐补销事务(de)
+  paytrans_稽查   constant char(1) := 'F'; --稽查罚款
+  paytrans_追量   constant char(1) := 'Z'; --追量
+  paytrans_预留   constant char(1) := 'Y'; --预留
+  paytrans_余度   constant char(1) := 'A'; --余度
+  paytrans_工程款 constant char(1) := 'G'; --工程款
+  paytrans_价差   constant char(1) := 'J'; --价差
+  paytrans_水损   constant char(1) := 'K'; --水损
   --缴费入口
   /*
   p_yhid          用户编码
@@ -20,6 +41,7 @@
   --一水表多应收销帐
   procedure paycust(p_yhid     in varchar2,
              p_arstr    in varchar2,
+             p_pbatch   in varchar2,
              p_position in varchar2,
              p_trans    in varchar2,
              p_oper     in varchar2,
@@ -42,9 +64,20 @@
               o_sum_arznj    out number,
               o_sum_arsxf    out number);
 
+  --批量预存充值
+  procedure precust_pl(p_yhids     in varchar2,
+                    p_position     in varchar2,
+                    p_oper        in varchar2,
+                    p_payway      in varchar2,
+                    p_payment     in number,
+                    p_memo        in varchar2,
+                    o_pid_reverse out varchar2);
+                    
   --预存充值
   procedure precust(p_yhid        in varchar2,
                     p_position    in varchar2,
+                    p_pbatch      in varchar2,
+                    p_trans       in varchar2,
                     p_oper        in varchar2,
                     p_payway      in varchar2,
                     p_payment     in number,
@@ -54,7 +87,13 @@
 
   --实收冲正，多流水号批量冲正
   procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
+  
+  --实收冲正，按缴费批次
+  procedure pay_back_by_pbatch(p_pbatch in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
 
+  --实收冲正，按发生时间，冲掉发生时间之后所有的实收
+  procedure pay_back_by_pdate_desc(p_pid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
+    
   --实收冲正
   /*
   p_payid           交易流水号
@@ -79,6 +118,8 @@
 *******************************************************************************************/
   function f_set_cr_reclist(pm in bs_payment%rowtype) return number;
 
+
+                    
 end;
 /
 
