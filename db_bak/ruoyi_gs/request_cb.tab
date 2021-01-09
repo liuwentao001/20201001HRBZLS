@@ -41,7 +41,8 @@
   workbatch      VARCHAR2(30),
   workid         VARCHAR2(50),
   groupid        VARCHAR2(50),
-  trackid        VARCHAR2(50)
+  trackid        VARCHAR2(50),
+  mtdflag        CHAR(1) default 'N'
 )
 ;
 comment on table REQUEST_CB
@@ -128,4 +129,6 @@ comment on column REQUEST_CB.groupid
   is 'GROUPID';
 comment on column REQUEST_CB.trackid
   is 'TRACKID';
+comment on column REQUEST_CB.mtdflag
+  is '完工标志';
 

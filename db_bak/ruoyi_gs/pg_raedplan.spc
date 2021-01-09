@@ -55,6 +55,12 @@
                      O_SL_1  OUT NUMBER,
                      O_SL_2  OUT NUMBER,
                      O_SL_3  OUT NUMBER);
+                     
+  --工单抄表库回写
+  --返回 0  执行成功
+  --返回 -1 执行失败
+  PROCEDURE CREATECBGD(P_RENO   IN VARCHAR2, /*单据流水号*/
+                       O_STATE OUT VARCHAR2); /*执行状态*/
 END;
 /
 

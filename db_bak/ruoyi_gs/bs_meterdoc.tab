@@ -38,7 +38,8 @@
   maindate       DATE,
   sjdate         DATE,
   mdmode         VARCHAR2(50),
-  portno         VARCHAR2(50)
+  portno         VARCHAR2(50),
+  ifold          CHAR(1) default 'N'
 )
 ;
 comment on table BS_METERDOC
@@ -56,7 +57,7 @@ comment on column BS_METERDOC.mdbrand
 comment on column BS_METERDOC.mdmodel
   is '计量方式';
 comment on column BS_METERDOC.mdstatus
-  is '表状态（0=未使用，1=已使用，2=作废，3=二级库，4=旧表）';
+  is '表状态（0=未使用，1=已使用，2=作废）';
 comment on column BS_METERDOC.mdstatusdate
   is '表状态发生时间';
 comment on column BS_METERDOC.mdcycchkdate
@@ -121,5 +122,8 @@ comment on column BS_METERDOC.mdmode
   is '基电转换方式';
 comment on column BS_METERDOC.portno
   is '上传端口号';
-create index PK_METERDOC on BS_METERDOC (MDID);
+comment on column BS_METERDOC.ifold
+  is '是否表历史（历史记录=Y 正常表=N）';
+create bitmap index IDX_METERDOC_IFOLD on BS_METERDOC (IFOLD);
+create index IDX_METERDOC_MDID on BS_METERDOC (MDID);
 

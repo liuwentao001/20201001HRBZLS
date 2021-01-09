@@ -26,14 +26,16 @@
   --计划内抄表提交算费
   procedure submit(p_mrbfids in varchar2, log out varchar2) is
     cursor c_mr(vbfid in varchar2) is
-    select mrid
-      from bs_meterread, bs_meterinfo
-     where mrmid = miid
-       and mrbfid in (select regexp_substr(vbfid, '[^,]+', 1, level) mrbfid from dual connect by level <= length(vbfid) - length(replace(vbfid, ',', '')) + 1)
-       and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费
-       and mrifrec = 'N' --是否已计费
-       and mrsl >= 0
-     order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc;
+      select mr.mrid
+        from bs_meterread mr
+             left join bs_meterinfo mi on mr.mrmid = mi.miid
+             left join bs_custinfo ci on ci.ciid = mr.mrccode
+       where ((mr.mrdatasource in ('1','5','6','7','9') and ci.reflag <> 'Y') or (mr.mrdatasource not in ('1','5','6','7','9') and ci.reflag = 'Y')) --有审核状态的工单按工单状态算费
+         and mr.mrbfid in (select regexp_substr(vbfid, '[^,]+', 1, level) mrbfid from dual connect by level <= length(vbfid) - length(replace(vbfid, ',', '')) + 1)
+         --and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费
+         and mr.mrifrec = 'N' --是否已计费
+         and mr.mrsl >= 0
+       order by miclass desc,(case when mipriflag = 'Y' and miid <> mipid then 1 else 2 end) asc;
      vmrid bs_meterread.mrid%type;
      v_mrrecje01 bs_meterread.mrrecje01%type;
      v_mrrecje02 bs_meterread.mrrecje02%type;
@@ -75,11 +77,18 @@
              o_mrrecje04 out bs_meterread.mrrecje04%type,
              err_log out varchar2) is
     mr bs_meterread%rowtype;
+    v_reflag varchar(10);          --工单状态(Y:存在审批过程中的工单；N:不存在)
   begin
     select * into mr from bs_meterread where mrid = p_mrid;
+    select reflag into v_reflag from bs_custinfo where ciid = mr.mrccode;
+
+    if mr.mrdatasource in ('1','5','6','7','9') and v_reflag = 'Y' then
+      wlog('存在审批过程中的工单，无法算费');
+      err_log := callogtxt;
+      return;
+    end if;
 
     if mr.mrifrec = 'N' then
-
       --重置水表信息
       --dbms_output.put_line(systimestamp ||'：重置水表信息开始');
       if p_caltype = '01' then
@@ -111,8 +120,13 @@
       delete from bs_reclist where rlmrid = p_mrid and rlreverseflag <> 'Y';
 
       commit;
-      --dbms_output.put_line(systimestamp ||'：重置水表信息完成');
       calculate(p_mrid);
+      
+      --更改 用户 有审核状态的工单 状态
+      if v_reflag = 'Y' then 
+        update bs_custinfo set reflag = 'N' where ciid = mr.mrccode;
+      end if;
+      
       commit;
       select mrrecje01,mrrecje02,mrrecje03,mrrecje04 into o_mrrecje01,o_mrrecje02,o_mrrecje03,o_mrrecje04 from bs_meterread where mrid = p_mrid;
       err_log := callogtxt;
@@ -220,6 +234,13 @@
     end if;
     close c_mi;
 
+
+    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L') then
+       --水表起码已经改变
+       wlog('此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！' || mr.mrmid);
+       raise_application_error(errcode,'此水表编号[' || mr.mrmid || ']此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！');
+    end if;
+    /*
     if mi.mistatus = '24' and mr.mrdatasource <> 'M' then
       --如果表状态为故障换表中且此抄表记录来源不是故障抄表余量，则提示不能算费，有故障换表
       wlog('此水表编号正在故障换表中,不能进行算费,如需算费请先审核故障换表或删除故障换表单据.' || mr.mrmid);
@@ -240,17 +261,12 @@
       wlog('此水表编号正在预存撤表退费中,不能进行算费,如需算费请先审核或删除预存冲正单据.' || mr.mrmid);
       raise_application_error(errcode, '此水表编号[' || mr.mrmid ||']正在预存冲正中,不能进行算费,如需算费请先审核或删除预存冲正单据.');
     end if;
-    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L') then
-       --水表起码已经改变
-       wlog('此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！' || mr.mrmid);
-       raise_application_error(errcode,'此水表编号[' || mr.mrmid || ']此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！');
-    end if;
     if mi.mistatus = '19' then
       --销户中
       wlog('此水表编号正在销户中,不能进行算费,如需算费请先审核销户单据或删除销户单据.' || mr.mrmid);
       raise_application_error(errcode, '此水表编号[' || mr.mrmid || ']正在销户中,不能进行算费,如需算费请先审核销户或删除销户单据.');
     end if;
-    --dbms_output.put_line(systimestamp ||'：验证抄表信息完成');
+    */
 
     mr.mrrecsl := mr.mrsl; --本期水量
     -----------------------------------------------------------------------------
@@ -1575,7 +1591,6 @@
     o_rerid        varchar2(20);
     r_yscz         request_yscz%rowtype;
     o_pid_reverse  bs_reclist.rlpid%type;
-    rlde bs_reclist%rowtype;
     rlcr bs_reclist%rowtype;
   begin
     select * into r_yscz from request_yscz where reno = p_reno;
@@ -1584,121 +1599,128 @@
     if r_yscz.reshbz <> 'Y' then raise_application_error(errcode, '单据未审核'); end if;
     if r_yscz.rewcbz = 'Y' then raise_application_error(errcode, '单据已冲正'); end if;
     
-    select * into rlde from bs_reclist t where t.rlid = r_yscz.rerlid;
-    
-    if rlde.rlid is null then
-      wlog('无效的应收账流水号：'|| r_yscz.rerlid);
-      raise_application_error(errcode, '无效的应收账流水号：'||r_yscz.rerlid);
-    end if;
-    if rlde.rlreverseflag <> 'N' then
-      raise_application_error(errcode, '应收' || rlde.rlid || '已经冲正！');
-    end if;
-    if rlde.rlpaidflag <> 'N' then
-      raise_application_error(errcode,'应收' || rlde.rlid || '不是欠费状态，状态标志为' ||rlde.rlpaidflag);
-    end if;
-    if rlde.rlje < 0 then
-      raise_application_error(errcode,'应收' || rlde.rlid || '应收帐金额应该大于等于零！');
-    end if; 
-    if rlde.rlpaidje > 0 then
-      raise_application_error(errcode, '应收' || rlde.rlid || '已部分销帐不能冲正');
-    end if;
-    
-    rlcr := rlde;
-    rlcr.rlcolumn9  := rlcr.rlid; --上次应收帐流水
-    rlcr.rlid       := trim(to_char(seq_reclist.nextval,'0000000000'));
-    rlcr.rlmonth    := to_char(sysdate, 'yyyy.mm');
-    rlcr.rldate     := trunc(sysdate);
-    rlcr.rldatetime := sysdate;
-    rlcr.rlpaidflag := 'N';
-    rlcr.rlsl       := 0 - rlcr.rlsl;
-    rlcr.rlje       := 0 - rlcr.rlje;
-    rlcr.rlpaidje   := 0 - rlcr.rlpaidje;
-    rlcr.rlsavingqc := 0 - rlcr.rlsavingqc;
-    rlcr.rlsavingbq := 0 - rlcr.rlsavingbq;
-    rlcr.rlsavingqm := 0 - rlcr.rlsavingqm;
-    rlcr.rlmemo        := p_memo;
-    rlcr.rlreverseflag := 'Y';
-    --插入负应收记录
-    insert into bs_reclist values rlcr;
-
-    rlde.rlpaidflag    := rlcr.rlpaidflag;
-    rlde.rlpaiddate    := rlcr.rldate;
-    rlde.rlpaidper     := p_per;
-    rlde.rlpaidje      := rlde.rlpaidje + rlcr.rlje;
-    rlde.rlreverseflag := rlcr.rlreverseflag;
-    --更新标记源帐
-    update bs_reclist
-       set rlpaidflag    = rlcr.rlpaidflag,
-           rlpaiddate    = rlcr.rldate,
-           rlpaidper     = p_per,
-           rlreverseflag = rlde.rlreverseflag
-     where rlid = rlde.rlid;
-     
-    insert into bs_recdetail(rdid, rdpiid, rdpfid, rdpscid, rdclass, rddj, rdsl, rdje, rdmethod, rdmemo, rdpmdcolumn1, rdpmdcolumn2, rdpmdcolumn3)
-    select rlcr.rlid,
-           rdpiid,
-           rdpfid,
-           rdpscid,
-           rdclass,
-           rddj,
-           0 - rdsl,
-           0 - rdje,
-           rdmethod,
-           rdmemo,
-           rdpmdcolumn1,
-           rdpmdcolumn2,
-           rdpmdcolumn3
-    from bs_recdetail
-    where rdid = rlcr.rlid;
-    
-    update request_yscz 
-    set rewcbz = 'Y',
-        rerlid_rev = o_rerid,
-        modifydate = sysdate,
-        modifyuserid = p_per,
-        modifyusername = (select user_name from sys_user where user_id = p_per),
-        remark = p_memo
-    where reno = p_reno;
-    
-    --rercodeflag      是否重置抄表指针
-    if r_yscz.rercodeflag = 'Y' then       
-      update bs_meterinfo
-         set mircode   = rlde.rlscode,
-             mirecdate = rlde.rlday, --本期抄见日期 =应收账抄表日期
-             mirecsl   = rlde.rlreadsl
-       where miid = rlde.rlmid;
-             
-      update bs_meterread
-         set mrifsubmit = 'N',
-             mrifrec    = 'N',
-             mrifyscz   = 'Y',
-             mrreadok   = 'N',  --抄见标志
-             mrrecje01  = null,
-             mrrecje02  = null,
-             mrrecje03  = null,
-             mrrecje04  = null,
-             mrscode    = rlde.rlscode, --上期抄见 
-             mrecode    = null , --本期抄见 
-             mrsl       = null  --本期水量 
-       where mrid = rlde.rlmrid;
-    else
-      update bs_meterinfo
-         set mirecsl = 0
-       where miid = rlde.rlmid;
+    for rlde in (select * from bs_reclist t where t.rlid in
+                     (select regexp_substr(r_yscz.rerlid, '[^,]+', 1, level) pid from dual connect by level <= length(r_yscz.rerlid) - length(replace(r_yscz.rerlid, ',', '')) + 1)
+                 order by rlday desc) loop
+      if rlde.rlid is null then
+        wlog('无效的应收账流水号：'|| r_yscz.rerlid);
+        raise_application_error(errcode, '无效的应收账流水号：'||r_yscz.rerlid);
+      end if;
+      if rlde.rlreverseflag <> 'N' then
+        raise_application_error(errcode, '应收' || rlde.rlid || '已经冲正！');
+      end if;
+      if rlde.rlpaidflag <> 'N' then
+        raise_application_error(errcode,'应收' || rlde.rlid || '不是欠费状态，状态标志为' ||rlde.rlpaidflag);
+      end if;
+      if rlde.rlje < 0 then
+        raise_application_error(errcode,'应收' || rlde.rlid || '应收帐金额应该大于等于零！');
+      end if; 
+      /*
+      if rlde.rlpaidje > 0 then
+        raise_application_error(errcode, '应收' || rlde.rlid || '已部分销帐不能冲正');
+      end if;
+      */
       
-      update bs_meterread
-         set mrifsubmit = 'N',
-             mrifrec    = 'N',
-             mrifyscz   = 'Y',
-             mrreadok   = 'N',  --抄见标志
-             mrrecje01  = null,
-             mrrecje02  = null,
-             mrrecje03  = null,
-             mrrecje04  = null
-       where mrid       = rlde.rlmrid;
-    end if;
-    
-    commit;
+      rlcr := rlde;
+      rlcr.rlcolumn9  := rlcr.rlid; --上次应收帐流水
+      rlcr.rlid       := trim(to_char(seq_reclist.nextval,'0000000000'));
+      rlcr.rlmonth    := to_char(sysdate, 'yyyy.mm');
+      rlcr.rldate     := trunc(sysdate);
+      rlcr.rldatetime := sysdate;
+      rlcr.rlpaidflag := 'N';
+      rlcr.rlsl       := 0 - rlcr.rlsl;
+      rlcr.rlje       := 0 - rlcr.rlje;
+      rlcr.rlpaidje   := 0 - rlcr.rlpaidje;
+      rlcr.rlsavingqc := 0 - rlcr.rlsavingqc;
+      rlcr.rlsavingbq := 0 - rlcr.rlsavingbq;
+      rlcr.rlsavingqm := 0 - rlcr.rlsavingqm;
+      rlcr.rlmemo        := p_memo;
+      rlcr.rlreverseflag := 'Y';
+      --插入负应收记录
+      insert into bs_reclist values rlcr;
+
+      rlde.rlpaidflag    := rlcr.rlpaidflag;
+      rlde.rlpaiddate    := rlcr.rldate;
+      rlde.rlpaidper     := p_per;
+      rlde.rlpaidje      := rlde.rlpaidje + rlcr.rlje;
+      rlde.rlreverseflag := rlcr.rlreverseflag;
+      --更新标记源帐
+      update bs_reclist
+         set rlpaidflag    = rlcr.rlpaidflag,
+             rlpaiddate    = rlcr.rldate,
+             rlpaidper     = p_per,
+             rlreverseflag = rlde.rlreverseflag
+       where rlid = rlde.rlid;
+       
+      insert into bs_recdetail(rdid, rdpiid, rdpfid, rdpscid, rdclass, rddj, rdsl, rdje, rdmethod, rdmemo, rdpmdcolumn1, rdpmdcolumn2, rdpmdcolumn3)
+      select rlcr.rlid,
+             rdpiid,
+             rdpfid,
+             rdpscid,
+             rdclass,
+             rddj,
+             0 - rdsl,
+             0 - rdje,
+             rdmethod,
+             rdmemo,
+             rdpmdcolumn1,
+             rdpmdcolumn2,
+             rdpmdcolumn3
+      from bs_recdetail
+      where rdid = rlde.rlid;
+      
+      update request_yscz 
+      set rewcbz = 'Y',
+          rerlid_rev = o_rerid,
+          modifydate = sysdate,
+          modifyuserid = p_per,
+          modifyusername = (select user_name from sys_user where user_id = p_per),
+          remark = p_memo
+      where reno = p_reno;
+      
+      --rercodeflag      是否重置抄表指针
+      if r_yscz.rercodeflag = 'Y' then       
+        update bs_meterinfo
+           set mircode   = rlde.rlscode,
+               mirecdate = rlde.rlday, --本期抄见日期 =应收账抄表日期
+               mirecsl   = rlde.rlreadsl
+         where miid = rlde.rlmid;   
+         
+        if to_char(rlde.rlday,'yyyymm') = to_char(sysdate,'yyyymm') then
+          update bs_meterread
+             set mrifsubmit = 'N',
+                 mrifrec    = 'N',
+                 mrifyscz   = 'Y',
+                 mrreadok   = 'N',  --抄见标志
+                 mrrecje01  = null,
+                 mrrecje02  = null,
+                 mrrecje03  = null,
+                 mrrecje04  = null,
+                 mrscode    = rlde.rlscode, --上期抄见 
+                 mrecode    = null , --本期抄见 
+                 mrsl       = null  --本期水量 
+           where mrid = rlde.rlmrid;
+         end if;
+      else
+        update bs_meterinfo
+           set mirecsl = 0
+         where miid = rlde.rlmid;
+         
+        if to_char(rlde.rlday,'yyyymm') = to_char(sysdate,'yyyymm') then
+          update bs_meterread
+             set mrifsubmit = 'N',
+                 mrifrec    = 'N',
+                 mrifyscz   = 'Y',
+                 mrreadok   = 'N',  --抄见标志
+                 mrrecje01  = null,
+                 mrrecje02  = null,
+                 mrrecje03  = null,
+                 mrrecje04  = null
+           where mrid       = rlde.rlmrid;
+         end if;
+      end if;
+      commit;
+    end loop;
   exception
     when others then 
       rollback;
@@ -1731,10 +1753,11 @@
     if rlde.rlje < 0 then
       raise_application_error(errcode,'应收' || rlde.rlid || '应收帐金额应该大于等于零！');
     end if; 
+    /*
     if rlde.rlpaidje > 0 then
       raise_application_error(errcode, '应收' || rlde.rlid || '已部分销帐不能冲正');
     end if;
-    
+    */
     rlcr := rlde;
     rlcr.rlcolumn9  := rlcr.rlid; --上次应收帐流水
     rlcr.rlid       := trim(to_char(seq_reclist.nextval,'0000000000'));
@@ -1782,7 +1805,7 @@
            rdpmdcolumn2,
            rdpmdcolumn3
     from bs_recdetail
-    where rdid = rlcr.rlid;
+    where rdid = rlde.rlid;
     
     update bs_meterinfo
        set mirecsl = 0

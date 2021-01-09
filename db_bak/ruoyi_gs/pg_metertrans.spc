@@ -43,23 +43,19 @@
   --应收事务
   计划抄表   CONSTANT CHAR(1) := '1';
   消防表底度 CONSTANT CHAR(1) := '5';
-
   营业外收入 CONSTANT CHAR(1) := 'T';
   追量       CONSTANT CHAR(1) := 'O';
   减欠       CONSTANT CHAR(1) := 'V';
 
   --单据类别,表务类别
   BT立户单 CONSTANT CHAR(1) := 'R';
-
   BT基础资料变更 CONSTANT CHAR(1) := 'B';
   BT银行信息变更 CONSTANT CHAR(1) := 'C';
   BT过户         CONSTANT CHAR(1) := 'D';
   BT水价变更     CONSTANT CHAR(1) := 'E';
-  --
   BT水表升移       CONSTANT CHAR(1) := '3';
   BT水表整改       CONSTANT CHAR(1) := '4';
   BT改装总表       CONSTANT CHAR(2) := 'NA'; --报装类
-  BT销户拆表       CONSTANT CHAR(1) := 'F';
   BT口径变更       CONSTANT CHAR(1) := 'G';
   BT欠费停水       CONSTANT CHAR(1) := 'H';
   BT恢复供水       CONSTANT CHAR(1) := '9';
@@ -67,8 +63,6 @@
   BT复装           CONSTANT CHAR(1) := 'I';
   BT换阀门         CONSTANT CHAR(1) := 'P';
   BT校表           CONSTANT CHAR(1) := 'A';
-  BT故障换表       CONSTANT CHAR(1) := 'K';
-  BT周期换表       CONSTANT CHAR(1) := 'L';
   BT复查工单       CONSTANT CHAR(2) := 'NM';
   BT安装分类计量表 CONSTANT CHAR(2) := 'NP'; --报装类
   BT补装户表       CONSTANT CHAR(2) := 'NQ'; --报装类
@@ -80,34 +74,33 @@
   已解决 CONSTANT CHAR(1) := 'Z';
   完工   CONSTANT CHAR(1) := 'Y';
   退单   CONSTANT CHAR(1) := 'Q';
-
-  --工单主程序-用户变更审核
+  
+  BT拆表           CONSTANT CHAR(1) := 'F';
+  BT故障换表       CONSTANT CHAR(1) := 'K';
+  BT周期换表       CONSTANT CHAR(1) := 'L';
+                          
+   --周期换表、拆表、故障换表
   PROCEDURE SP_METERTRANS(P_TYPE   IN VARCHAR2, --操作类型
                           P_MTHNO  IN VARCHAR2, --批次流水
                           P_PER    IN VARCHAR2, --操作员
                           P_COMMIT IN VARCHAR2 --提交标志
                           );
                           
-   --工单主程序-周期换表
-  PROCEDURE SP_METERTRANS_ZQHB(P_TYPE   IN VARCHAR2, --操作类型
-                          P_MTHNO  IN VARCHAR2, --批次流水
-                          P_PER    IN VARCHAR2, --操作员
-                          P_COMMIT IN VARCHAR2 --提交标志
-                          );
-                          
-/*  --工单单个审核过程
+  --工单单个审核过程
   PROCEDURE SP_METERTRANSONE(P_TYPE   IN VARCHAR2, --类型
                              P_PERSON IN VARCHAR2, -- 操作员
                              P_MD     IN GD_METERTGLDT%ROWTYPE --单体行变更
-                             );*/
+                             );
 
 /*  PROCEDURE SUM$DAY$METER(P_MIID   VARCHAR2,
                           P_TYPE   VARCHAR2,
-                          P_COMMIT VARCHAR2);
-
-  PROCEDURE SUM$DAY$METER(P_MI     IN BS_METERINFO%ROWTYPE,
-                          P_TYPE   VARCHAR2,
                           P_COMMIT VARCHAR2);*/
+  --工单流程未通过
+  PROCEDURE SP_WORKNOTPASS(P_TYPE   IN VARCHAR2, --操作类型
+                           P_MTHNO  IN VARCHAR2, --批次流水
+                           P_PER    IN VARCHAR2, --操作员
+                           P_REMARK IN VARCHAR2,--备注、拒绝原因
+                           P_COMMIT IN VARCHAR2);--提交标志
 END;
 /
 

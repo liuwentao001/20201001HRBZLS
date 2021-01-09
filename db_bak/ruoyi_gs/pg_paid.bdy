@@ -3,11 +3,14 @@
   --缴费入口
   /*
   p_yhid          用户编码
-  p_arstr          欠费流水号，多个流水号用逗号分隔，例如：0000012726,70105341
+  p_arstr         （已废弃）欠费流水号，多个流水号用逗号分隔，例如：0000012726,70105341
   p_oper          销帐员，柜台缴费时销帐人员与收款员统一
   p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
   p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
-  p_pid           返回交易流水号*/
+  p_pid           返回交易流水号
+  1. 先单缴预存
+  2. 按照抄表日期扣费
+  */
   procedure poscustforys(p_yhid     in varchar2,
              p_arstr    in varchar2,
              p_oper     in varchar2,
@@ -18,6 +21,8 @@
   v_payment number;
   v_position varchar(32);
   v_pbatch varchar2(10);
+  v_misaving number;
+  v_reflag varchar2(10);
   begin
     select trim(to_char(seq_paidbatch.nextval,'0000000000')) into v_pbatch from dual; --缴费交易批次
 
@@ -25,7 +30,8 @@
     if p_oper is not null then
       select dept_id into v_position from sys_user where to_char(user_id) = p_oper;
     end if;
-
+    
+    /*
     if p_arstr is null then
       --单缴预存
       precust(p_yhid        => p_yhid,
@@ -65,7 +71,40 @@
                p_pid,
                v_remainafter);
       end loop;
-      
+    end if;
+    */
+
+    --1. 先单缴预存
+    precust(p_yhid        => p_yhid,
+            p_position    => v_position,
+            p_pbatch      => v_pbatch,
+            p_trans       => 'P',
+            p_oper        => p_oper,
+            p_payway      => p_payway,
+            p_payment     => v_payment,
+            p_memo        => null,
+            p_pid         => p_pid,
+            o_remainafter => v_remainafter);
+            
+    --2. 按照抄表日期逐条扣费
+    select misaving, reflag into v_misaving, v_reflag from bs_custinfo where ciid = p_yhid;
+    --存在审批过程中的工单部进行抵扣
+    if v_reflag <> 'Y' or v_reflag is null then 
+      for i in (select rlid, rlje from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje > 0 and rlcid = p_yhid order by rlday) loop
+        exit when v_misaving < i.rlje;
+        paycust(p_yhid,
+               i.rlid,
+               v_pbatch,
+               v_position,
+               'U',  --缴费事务   柜台缴费
+               p_oper,
+               p_payway,
+               0,
+               null,
+               p_pid,
+               v_remainafter);
+        v_misaving := v_misaving - i.rlje;
+      end loop;
     end if;
     commit;
   exception
@@ -381,6 +420,20 @@
       raise_application_error(errcode, sqlerrm);
   end;
 
+  --实收冲正，按工单
+  procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
+    v_payids varchar(100);
+  begin
+    select rlpid into v_payids from request_sscz where reshbz = 'Y' and rewcbz <> 'Y' and reno = p_reno;
+    pay_back_by_pids(v_payids, p_oper, o_pid_reverse);
+    update request_sscz set rewcbz = 'Y' where reno = p_reno;
+    commit;
+  exception
+    when others then
+      rollback;
+      raise_application_error(errcode, sqlerrm);
+  end;
+  
   --实收冲正，多流水号批量冲正
   procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
     v_pid_reverse varchar(100);
@@ -388,7 +441,7 @@
     o_pid_reverse := null;
     for i in (select regexp_substr(p_payids, '[^,]+', 1, level) pid from dual connect by level <= length(p_payids) - length(replace(p_payids, ',', '')) + 1) loop
       v_pid_reverse := null;
-      pay_back_by_pid(i.pid,p_oper,v_pid_reverse);
+      pay_back_by_pdate_desc(i.pid,p_oper,v_pid_reverse);
       if o_pid_reverse is null then
          o_pid_reverse := v_pid_reverse;
       else
@@ -421,26 +474,51 @@
       raise_application_error(errcode, sqlerrm);
   end;
 
-  --实收冲正，按发生时间，冲掉发生时间之后所有的实收
+  --实收冲正，柜台缴费退费，
+  --  1.事务为U 或 事务为P且预存金额大于退费金额，直接冲正当条实收
+  --  2.事务为P且预存金额小于退费金额，按抄表时间倒序冲正事务为U的实收，直到预存金额大于退费金额，然后冲正事务为P的当条实收
   procedure pay_back_by_pdate_desc(p_pid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
-    v_pid_reverse varchar(100);
+    v_pid_reverse varchar2(100);
+    v_ptrans varchar2(1);
+    v_pcid   varchar2(20);
+    v_misaving number;
+    v_ppayment number;
+    v_sumrlje  number;
   begin
     o_pid_reverse := null;
-    for i in (select bs_payment.pid 
-                from bs_payment right join 
-                     (select pdatetime, pcid from bs_payment where pid = '0000247715') t 
-                             on bs_payment.pdatetime>=t.pdatetime and bs_payment.pcid = t.pcid 
-               where bs_payment.preverseflag <> 'Y'
-               order by bs_payment.pdatetime desc
-             ) loop
-      v_pid_reverse := null;
-      pay_back_by_pid(i.pid,p_oper,v_pid_reverse);
-      if o_pid_reverse is null then
-         o_pid_reverse := v_pid_reverse;
-      else
-         o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
-      end if;
-    end loop;
+    v_sumrlje := 0;
+    select pcid, ppayment into v_pcid, v_ppayment from bs_payment where pid = p_pid;
+    select misaving into v_misaving from bs_custinfo where ciid = v_pcid;
+    select ptrans into v_ptrans from bs_payment where pid = p_pid;
+    
+    if v_ptrans = 'U' or (v_ptrans = 'P' and v_misaving >= v_ppayment) then
+      pay_back_by_pid(p_pid, p_oper, v_pid_reverse);
+      o_pid_reverse := v_pid_reverse;
+    elsif v_ptrans = 'P' and v_misaving < v_ppayment then
+      for i in (select p.pid ,rl.rlje
+                  from bs_payment p 
+                       left join bs_reclist rl on p.pid = rl.rlpid 
+                 where p.preverseflag <> 'Y' 
+                       and p.ptrans = 'U' 
+                       and pdate = trunc(sysdate)
+                       and pcid = v_pcid
+                 order by rl.rlday desc
+               ) loop
+        v_pid_reverse := null;
+        pay_back_by_pid(i.pid,p_oper,v_pid_reverse);
+        if o_pid_reverse is null then
+           o_pid_reverse := v_pid_reverse;
+        else
+           o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
+        end if;
+        v_sumrlje := v_sumrlje + i.rlje;
+        exit when v_misaving + v_sumrlje >= v_ppayment;
+      end loop;
+      
+      pay_back_by_pid(p_pid, p_oper, v_pid_reverse);
+      o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
+      
+    end if;
   exception
     when others then
       rollback;
@@ -457,6 +535,7 @@
     p_source  bs_payment%rowtype;
     p_reverse bs_payment%rowtype;
     v_call number;
+    v_rlid varchar2(20);
   begin
     --STEP 1:实收帐处理----------------------------------
     open c_p(p_payid);
@@ -548,8 +627,9 @@
     insert into bs_recdetail_sscz_temp t(select a.* from bs_recdetail a, bs_reclist_sscz_temp b where a.rdid = b.rlid);
 
     ---在应收总账临时表中做正记录的调整
+    v_rlid := trim(to_char(seq_reclist.nextval, '0000000000'));
     update bs_reclist_sscz_temp t
-       set t.rlid    = trim(to_char(seq_reclist.nextval, '0000000000')), --新生成
+       set t.rlid    = v_rlid, --新生成
            t.rlmonth = to_char(sysdate, 'yyyy.mm'), --当前              帐务月份
            t.rldate  = sysdate, --当前              帐务日期
            t.rlscrrlid = t.rlid,--上次应收帐流水
@@ -570,11 +650,8 @@
 
     ---在应收明细临时表中做正记录的调整
     update bs_recdetail_sscz_temp t
-       set t.rdid =
-           (select s.rlid
-              from bs_reclist_sscz_temp s
-             where t.rdid = s.rlcolumn9)
-     where t.rdid in (select rlcolumn9 from bs_reclist_sscz_temp);
+       set t.rdid = v_rlid;
+       
     --插入到应收明细表
     insert into bs_recdetail t (select s.* from bs_recdetail_sscz_temp s);
 

@@ -789,7 +789,137 @@
         CLOSE C_MRH;
       END IF;
   END GETMRHIS;
+  /*
+  工单抄表库回写
+  处理：生成抄表资料
+  输出：返回 0  执行成功
+        返回 -1 执行失败
+  */
+  PROCEDURE CREATECBGD(P_RENO   IN VARCHAR2, /*单据流水号*/
+                       O_STATE OUT VARCHAR2) /*执行状态*/
+   IS
+    YH   BS_CUSTINFO%ROWTYPE;
+    SB   BS_METERINFO%ROWTYPE;
+    MD   BS_METERDOC%ROWTYPE;
+    BC   BS_BOOKFRAME%ROWTYPE;
+    SBR  BS_METERREAD%ROWTYPE;
+    
+    --计划
+    CURSOR C_BKSB IS
+      SELECT A.CIID,    --用户号
+             B.MIID,    --水表档案编号
+             B.MISMFID, --营销公司
+             B.MIRORDER, --抄表次序
+             B.MISTID, --行业分类
+             B.MIPID,    --上级水表编号
+             B.MICLASS,  --水表级次
+             B.MIFLAG, --末级标志
+             B.MIRECDATE, --本期抄见日期
+             B.MIRCODE, --本期读数
+             S.MDMODEL, --计量方式
+             B.MIPRIFLAG,  --合收表标志
+             D.BFBATCH, --抄表批次
+             D.BFRPER,  --抄表员
+             B.MIRMON,  --本期抄表月份
+             B.MISAFID, --区域
+             B.MIIFCHK, --是否考核表(Y-是,N-否 )
+             S.MDCALIBER, --表口径(METERCALIBER)
+             B.MISIDE,
+             B.MIBFID,
+             B.MISTATUS
+        FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
+       WHERE A.CIID = B.MICODE
+         AND B.MIID = S.MDID
+         AND B.MISMFID = D.BFSMFID
+         AND B.MIBFID = D.BFID
+         AND B.MIID = P_SBID
+         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
+  BEGIN
+    OPEN C_BKSB;
+    LOOP
+      FETCH C_BKSB
+        INTO YH.CIID,
+             SB.MIID,
+             SB.MISMFID,
+             SB.MIRORDER,
+             SB.MISTID,
+             SB.MIPID,
+             SB.MICLASS,
+             SB.MIFLAG,
+             SB.MIRECDATE,
+             SB.MIRCODE,
+             MD.MDMODEL,
+             SB.MIPRIFLAG,
+             BC.BFBATCH,
+             BC.BFRPER,
+             SB.MIRMON,
+             SB.MISAFID,
+             SB.MIIFCHK,
+             MD.MDCALIBER,
+             SB.MISIDE,
+             SB.MIBFID,
+             SB.MISTATUS;
+      EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
 
+        SBR.MRID          := FGETSEQUENCE('METERREAD'); --流水号
+        SBR.MRMONTH       := P_MONTH; --抄表月份
+        SBR.MRSMFID       := SB.MISMFID; --管辖公司
+        SBR.MRBFID        := SB.MIBFID; --表册
+        SBR.MRBATCH       := BC.BFBATCH; --抄表批次
+        SBR.MRRPER        := BC.BFRPER; --抄表员
+        SBR.MRRORDER      := SB.MIRORDER; --抄表次序号
+        SBR.MRCCODE       := YH.CIID; --用户编号
+        SBR.MRMID         := SB.MIID; --水表编号
+        SBR.MRSTID        := SB.MISTID; --行业分类
+        SBR.MRMPID        := SB.MIPID; --上级水表
+        SBR.MRMCLASS      := SB.MICLASS; --水表级次
+        SBR.MRMFLAG       := SB.MIFLAG; --末级标志
+        SBR.MRCREADATE    := SYSDATE; --创建日期
+        SBR.MRINPUTDATE   := NULL; --编辑日期
+        SBR.MRREADOK      := 'N'; --抄见标志
+        SBR.MRRDATE       := NULL; --抄表日期
+        SBR.MRPRDATE      := SB.MIRECDATE; --上次抄见日期(取上次有效抄表日期)
+        SBR.MRSCODE       := SB.MIRCODE; --上期抄见
+        SBR.MRECODE       := NULL; --本期抄见
+        SBR.MRSL          := NULL; --本期水量
+        SBR.MRFACE        := NULL; --表况
+        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFHALT      := 'N'; --系统停算
+        SBR.MRDATASOURCE  := 1; --抄表结果来源
+        SBR.MRMEMO        := NULL; --抄表备注
+        SBR.MRIFGU        := 'N'; --估表标志
+        SBR.MRIFREC       := 'N'; --已计费
+        SBR.MRRECDATE     := NULL; --计费日期
+        SBR.MRRECSL       := NULL; --应收水量
+        SBR.MRADDSL       := 0; --余量
+        SBR.MRCHKFLAG     := 'N'; --复核标志
+        SBR.MRCHKDATE     := NULL; --复核日期
+        SBR.MRCHKPER      := NULL; --复核人员
+        SBR.MRPRIMFLAG    := SB.MIPRIFLAG; --  合收表标志
+        SBR.MRFACE2       := NULL; --抄见故障
+        SBR.MRREQUISITION := 0; --通知单打印次数
+        SBR.MRIFCHK       := SB.MIIFCHK; --考核表标志
+        SBR.MRINPUTPER    := NULL; --入账人员
+        SBR.MRCALIBER     := MD.MDCALIBER; --口径
+        SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
+
+        --上次水费   至  去年度次均量
+        GETMRHIS(SBR.MRID,
+                 SBR.MRMONTH,
+                 SBR.MRTHREESL,
+                 SBR.MRLASTSL,
+                 SBR.MRYEARSL);
+
+        INSERT INTO BS_METERREAD VALUES SBR;
+    END LOOP;
+    CLOSE C_BKSB;
+    COMMIT;
+    O_STATE := '0';
+  EXCEPTION
+    WHEN OTHERS THEN
+      O_STATE := '-1';
+  END;
 END;
 /
 

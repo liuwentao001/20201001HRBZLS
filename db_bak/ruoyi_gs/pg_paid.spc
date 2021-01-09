@@ -85,13 +85,18 @@
                     p_pid         out varchar2,
                     o_remainafter out number);
 
+  --实收冲正，按工单
+  procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
+    
   --实收冲正，多流水号批量冲正
   procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
   
   --实收冲正，按缴费批次
   procedure pay_back_by_pbatch(p_pbatch in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
 
-  --实收冲正，按发生时间，冲掉发生时间之后所有的实收
+  --实收冲正，柜台缴费退费，
+  --  1.事务为U 或 事务为P且预存金额大于退费金额，直接冲正当条实收
+  --  2.事务为P且预存金额小于退费金额，按收费时间倒序冲正事务为U的实收，直到预存金额大于退费金额，然后冲正事务为P的当条实收
   procedure pay_back_by_pdate_desc(p_pid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
     
   --实收冲正

@@ -119,20 +119,23 @@ select aroutflag,ys_zw_arlist.* from ys_zw_arlist where armonth='2020.11' and yh
 
 -------------------------------------------------
 --缴费测试
-select rlje, t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje > 0 and rlcid='8091680510'
+select rlje, t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje > 0 and rlcid='6061469408'
 /*
-1 42.600  0319688896  0201  2019.07 2019-7-10 8091680510  8091680510  010541  徐奇志 新阳路51号2单元202  新阳路51号2单元202  1     N   N   1 Y 1 2019-6-30 1:46:41 01202113  150 162 12  1 X 12  42.600  0319688896  1 2019.07 0.000 N     2373978676  免抄户   [0000.00历史单价] A0107 2019-7-10 9:09:22 2019-7-10 N 010541      0.00  0.00  0.00  N N   15.800  0.000   0319688896        
-2 42.600  0321498775  0201  2019.10 2019-10-10  8091680510  8091680510  010541  徐奇志 新阳路51号2单元202  新阳路51号2单元202  1     N   N   1 Y 1 2019-9-30 1:44:08 01202113  162 174 12  1 X 12  42.600  0321498775  1 2019.10 0.000 N     2376294324  免抄户   [0000.00历史单价] A0107 2019-10-10 9:27:41  2019-10-10  N 010541      0.00  0.00  0.00  N N   15.800  0.000   0321498775        
-3 42.600  0323262960  0201  2020.01 2020-1-6  8091680510  8091680510  010541  徐奇志 新阳路51号2单元202  新阳路51号2单元202  1     N   N   1 Y 1 2019-12-31 2:13:22  01202113  174 186 12  1 X 12  42.600  0323262960  1 2020.01 0.000 N     2378770063  免抄户   [0000.00历史单价] A0107 2020-1-6 11:02:14 2020-1-6  N 010541      0.00  0.00  0.00  N N   15.800  0.000   0323262960        
+1 107.200 0323257912  0201  2020.01 2020-1-6  6061469408  6061469408  010541  高淑芝 安松街16号3-202 安松街16号3-202 1 15663818815 84202942  N   N   1 Y 1 2019-12-31 1:02:44  01202102  469 501 32  1 X 32  107.200 0323257912  1 2020.01 0.000 N     2378490672     [0000.00历史单价]  A0103 2020-1-6 10:18:27 2020-1-6  N 010541      0.00  0.00  0.00  N N   101.600 0.000   0323257912    2020.01 119 
+2 107.200 0325058144  0201  2020.04 2020-4-7  6061469408  6061469408  010541  高淑芝 安松街16号3-202 安松街16号3-202 1 15663818815 84202942  N   N   1 Y 1 2020-3-31 1:02:25 01202102  501 533 32  1 X 32  107.200 0325058144  1 2020.04 0.000 N     2381281526     [0000.00历史单价]  A0103 2020-4-7 8:38:03  2020-4-7  N 010541      0.00  0.00  0.00  N N   101.600 0.000   0325058144    2020.01 32  
 */
 
 
-select misaving,t.* from bs_custinfo t where ciid = '8091680510'
+select misaving,t.* from bs_custinfo t where ciid = '6061469408'
 
-select * from bs_payment where pid='0000247683';
-select * from bs_payment where pid='0000247684';
-select * from bs_payment where pid='0000247685';
-select * from bs_payment where pid='0000247686';
+select * from bs_payment where pcid='6061469408' order by pid desc;
+
+select * from bs_payment where pcid='6061469408' and preverseflag='N' order by pid desc;
+
+select * from bs_payment order by pid desc;
+
+
+
 
 select * from bs_reclist where rlpid='0000247678';
 
@@ -219,17 +222,17 @@ delete from bs_reclist where rlcid='0100172364';
 delete from bs_recdetail where rdid not in (select rlid from bs_reclist);
 delete from bs_payment where pcid='0100172364';
 commit;
-update request_yscz set reshbz = 'Y',rewcbz = 'N',rerlid='1000201774',rerlid_rev='',rercodeflag='Y' where reno='36C5D8097D4F406285E158A8E2DCF178';
+update request_yscz set reshbz = 'Y',rewcbz = 'N',rerlid='1000201865,1000201870',rerlid_rev='',rercodeflag='Y' where reno='36C5D8097D4F406285E158A8E2DCF178';
 commit;
 
+select * from request_yscz
 
 select * from bs_reclist where rlcid='0100172364' order by rlid
 delete from bs_reclist where rlcid='0100172364' 
 
-select * from request_yscz;
-select * from bs_reclist t where t.rlid = '1000201772'
+select * from bs_reclist t where t.rlid = '1000201774'
 
-select * from bs_meterread where mrid='2372463611';
+select * from bs_meterread where mrccode='0100172364'
 
 select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,mrifrec,t.* from bs_meterread t where mrid='2372463611' ;
 
@@ -290,5 +293,61 @@ select * from bs_meterread where mrccode='2200000502'
 --1 596994  2019.08 0201  01004003  1     2200000502  2200000503  1   1   2021-1-5 15:05:56 2021-1-5 16:07:37 Y 2021-1-5  010542    20  400 380 02  N N 1 测试  N Y 2021-1-5 16:10:37 380 0 0 Y     确认通过        08  0   1   100 BF  0 0 0 988.000 361.000 0.000             N                   
 select * from bs_reclist where rlmrid='596994' order by rlid
 select * from bs_payment where pcid='2200000502' order by pid desc
+
+update bs_meterread set mrifrec ='N' where mrid='596994'
+
+select pid from bs_payment where pdatetime >= (select pdatetime from bs_payment where pid = '0000247715') and pid = '0000247715' order by pdatetime desc
+
+select pdatetime, pcid from bs_payment where pid = '0000247715';
+select * from bs_payment where pdatetime >= to_date( '2021-1-7 18:40:20','yyyy-mm-dd hh24:mi:ss') and pcid = '2200000502' and preverseflag <> 'Y' order by pdatetime desc
+
+select bs_payment.pid from bs_payment right join (select pdatetime, pcid from bs_payment where pid = '0000247715') t on bs_payment.pdatetime>=t.pdatetime and bs_payment.pcid = t.pcid order by bs_payment.pdatetime desc
+
+
+select misaving from bs_custinfo where ciid='2200000502';
+select ppayment from bs_payment where pid='0000247736'
+
+with p as(
+     select * from bs_payment where pcid='2200000502' and pdate = trunc(sysdate) and preverseflag='N' order by pid desc
+)select sum(rlje)over( order by pid desc), p.* from p left join bs_reclist rl on p.pid = rl.rlpid
+
+select p.pid ,rl.rlje
+  from bs_payment p right join 
+       (select pdatetime, pcid from bs_payment where pid = '0000247736') t 
+               on p.pdatetime>=t.pdatetime and p.pcid = t.pcid 
+       left join bs_reclist rl on p.pid = rl.rlpid 
+ where p.preverseflag <> 'Y' and p.ptrans = 'U'
+ order by p.pdatetime desc
+
+
+账户      6061469408
+select * from bs_meterinfo where micode='6061469408';
+select rlje, t.* from bs_reclist t where rlpaidflag = 'N'  and rlcid='6061469408' and rlreverseflag = 'N'and rlje > 0
+select misaving,t.* from bs_custinfo t where ciid = '6061469408'
+select * from bs_payment where pcid='6061469408' order by pid desc;
+select * from bs_payment where pcid='6061469408' and preverseflag='N' order by pid desc;
+
+
+delete from bs_payment where pcid='6061469408';
+commit;
+
+/*
+  --实收冲正，按工单
+  procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
+    
+*/  
+select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,t.* from bs_meterread t where mrccode='0100172364';
+select mrid,mrccode,mrmid,mrscode,mrecode,mrdatasource,t.* from bs_meterread t where mrifrec='N' and mrccode='0100172364';
+
+select rlcid,sum(1) from bs_reclist where rlreverseflag='N' group by rlcid having sum(1)>1;
+select mrccode,sum(1) from bs_meterread t where mrifrec='N' group by mrccode having sum(1)>1;
+
+select * from 
+select * from bs_reclist where rlcid='4051042244' order by rlid desc;
+/*delete from bs_reclist where rlje=0 and rlcid='4051042244';commit;
+*/
+
+
+
 
 

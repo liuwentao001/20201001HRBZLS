@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@10.10.10.72/YSDB
-prompt Created by xss on 2021年1月8日
+prompt Created by xss on 2021年1月9日
 set define off
 spool ruoyi_gs.log
 
@@ -1183,6 +1183,16 @@ prompt Creating procedure PROC_SPLIT_REQUEST_JZGL
 prompt ==========================================
 prompt
 @@proc_split_request_jzgl.prc
+prompt
+prompt Creating procedure SP_CANCELUSERPROC
+prompt ====================================
+prompt
+@@sp_canceluserproc.prc
+prompt
+prompt Creating procedure SP_CBPROC
+prompt ============================
+prompt
+@@sp_cbproc.prc
 prompt
 prompt Creating procedure SP_JZGLAUDIT
 prompt ===============================

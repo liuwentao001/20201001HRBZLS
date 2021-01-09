@@ -1,115 +1,274 @@
 ﻿CREATE OR REPLACE PACKAGE BODY PG_METERTRANS IS
 
-  --工单主程序-用户变更审核
+  --周期换表、拆表、故障换表
   PROCEDURE SP_METERTRANS(P_TYPE   IN VARCHAR2, --操作类型
                           P_MTHNO  IN VARCHAR2, --批次流水
                           P_PER    IN VARCHAR2, --操作员
                           P_COMMIT IN VARCHAR2 --提交标志
                           ) AS
-    MH REQUEST_YHZT%ROWTYPE;
-    MD REQUEST_YHZT%ROWTYPE;
+    MF REQUEST_CB%ROWTYPE;
+    MK REQUEST_GZHB%ROWTYPE;
+    ML REQUEST_ZQGZ%ROWTYPE;
+    --MQF REQUEST_XH%ROWTYPE;
   BEGIN
-    BEGIN
-      SELECT * INTO MH FROM REQUEST_YHZT WHERE RENO = P_MTHNO;
-    EXCEPTION
-      WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, '变更单头信息不存在!');
-    END;
-  
-    IF MH.REFLAG = 'Y' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, '工单已经审核,不需重复审核!');
+    IF P_TYPE IN ('L') THEN
+      --周期换表
+      BEGIN
+        SELECT * INTO ML FROM REQUEST_ZQGZ WHERE RENO = P_MTHNO;
+      EXCEPTION
+        WHEN OTHERS THEN
+          RAISE_APPLICATION_ERROR(ERRCODE, '工单信息不存在!');
+      END;
+      IF ML.REFLAG = 'Y' THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '工单已经审核,不需重复审核!');
+      END IF;
+      FOR V_CURSOR IN (SELECT * FROM REQUEST_ZQGZ WHERE RENO = P_MTHNO) LOOP
+        BEGIN
+          SELECT * INTO ML FROM REQUEST_ZQGZ WHERE RENO = P_MTHNO;
+        EXCEPTION
+          WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(ERRCODE, '工单明细信息不存在!');
+        END;
+        ----------------表身码状态改变
+          --插入一条旧表记录作为历史状态用
+          INSERT INTO BS_METERDOC
+            SELECT ID,
+                   MDID,
+                   MDNO,
+                   MDCALIBER,
+                   MDBRAND,
+                   MDMODEL,
+                   '2' MDSTATUS,
+                   MDSTATUSDATE,
+                   MDCYCCHKDATE,
+                   MDSTOCKDATE,
+                   MDSTORE,
+                   SFH,
+                   DQSFH,
+                   DQGFH,
+                   JCGFH,
+                   QFH,
+                   MDFQ1,
+                   MDFQ2,
+                   MDFQ3,
+                   MDFQ4,
+                   MDFQ5,
+                   BARCODE,
+                   RFID,
+                   IFDZSB,
+                   CONCENTRATORID,
+                   READMETERCODE,
+                   TRANSFERSTYPE,
+                   COLLENTTYPE,
+                   ISCONTROL,
+                   READTYPE,
+                   RKBATCH,
+                   RKDNO,
+                   STOREROOMID,
+                   RKMAN,
+                   P_PER MAINMAN,
+                   SYSDATE MAINDATE,
+                   SJDATE,
+                   MDMODE,
+                   PORTNO,
+                   'Y' IFOLD
+              FROM BS_METERDOC
+             WHERE MDNO = ML.MDNO
+               AND IFOLD = 'N';
+          --现用表状态更新
+          UPDATE BS_METERDOC
+             SET MDSTATUS = '2',
+                 MDID     = '',
+                 MAINMAN  = P_PER,
+                 MAINDATE = SYSDATE
+           WHERE MDNO = ML.MDNO
+             AND IFOLD='N';
+          --新表状态、水表档案号更新
+          UPDATE BS_METERDOC
+             SET MDSTATUS = '1', MDID = ML.MIID
+           WHERE MDNO = ML.NEWMDNO
+             AND IFOLD='N';
+        --免抄户、倒装水表 故障换表、周期换表后为正常户
+          --重置正常表态
+          UPDATE BS_METERINFO T
+             SET T.MISTATUS = '1', T.MICOLUMN5 = NULL
+           WHERE T.MIID = ML.MIID;
+          --去掉倒表标志
+          UPDATE BS_METERDOC T
+             SET T.IFDZSB = 'N'
+           WHERE T.MDID = ML.MIID
+             AND IFOLD='N';
+      END LOOP;
+      --更新工单完成状态
+      UPDATE REQUEST_ZQGZ
+         SET MODIFYDATE = SYSDATE, MODIFYUSERID = P_PER, REFLAG = 'Y', MTDFLAG = 'Y'
+       WHERE RENO = P_MTHNO;
+    ELSIF P_TYPE IN ('F') THEN
+      --拆表
+      BEGIN
+        SELECT * INTO MF FROM REQUEST_CB WHERE RENO = P_MTHNO;
+      EXCEPTION
+        WHEN OTHERS THEN
+          RAISE_APPLICATION_ERROR(ERRCODE, '工单信息不存在!');
+      END;
+      IF MF.REFLAG = 'Y' THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '工单已经审核,不需重复审核!');
+      END IF;
+    
+      FOR V_CURSOR IN (SELECT * FROM REQUEST_CB WHERE RENO = P_MTHNO) LOOP
+        BEGIN
+          SELECT * INTO MF FROM REQUEST_CB WHERE RENO = P_MTHNO;
+        EXCEPTION
+          WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(ERRCODE, '工单明细信息不存在!');
+        END;
+        ----------------表身码状态改变
+          --旧表状态
+          INSERT INTO BS_METERDOC
+            SELECT SEQMESTERDOCID.NEXTVAL ID,
+                   MDID,
+                   MDNO,
+                   MDCALIBER,
+                   MDBRAND,
+                   MDMODEL,
+                   '2' MDSTATUS,
+                   MDSTATUSDATE,
+                   MDCYCCHKDATE,
+                   MDSTOCKDATE,
+                   MDSTORE,
+                   SFH,
+                   DQSFH,
+                   DQGFH,
+                   JCGFH,
+                   QFH,
+                   MDFQ1,
+                   MDFQ2,
+                   MDFQ3,
+                   MDFQ4,
+                   MDFQ5,
+                   BARCODE,
+                   RFID,
+                   IFDZSB,
+                   CONCENTRATORID,
+                   READMETERCODE,
+                   TRANSFERSTYPE,
+                   COLLENTTYPE,
+                   ISCONTROL,
+                   READTYPE,
+                   RKBATCH,
+                   RKDNO,
+                   STOREROOMID,
+                   RKMAN,
+                   P_PER MAINMAN,
+                   SYSDATE MAINDATE,
+                   SJDATE,
+                   MDMODE,
+                   PORTNO,
+                   'Y' IFOLD
+              FROM BS_METERDOC
+             WHERE MDNO = MF.MDNO
+               AND IFOLD = 'N';
+          UPDATE BS_METERDOC
+             SET MDSTATUS = '2',
+                 MDID     = '',
+                 MAINMAN  = P_PER,
+                 MAINDATE = SYSDATE
+           WHERE MDNO = MF.MDNO
+             AND IFOLD = 'N';
+      END LOOP;
+      --更新工单完成状态
+      UPDATE REQUEST_CB
+         SET MODIFYDATE = SYSDATE, MODIFYUSERID = P_PER, REFLAG = 'Y', MTDFLAG = 'Y'
+       WHERE RENO = P_MTHNO;
+    ELSIF P_TYPE IN ('K') THEN
+      --故障换表
+      BEGIN
+        SELECT * INTO MK FROM REQUEST_GZHB WHERE RENO = P_MTHNO;
+      EXCEPTION
+        WHEN OTHERS THEN
+          RAISE_APPLICATION_ERROR(ERRCODE, '工单信息不存在!');
+      END;
+      IF MK.REFLAG = 'Y' THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '工单已经审核,不需重复审核!');
+      END IF;
+    
+      FOR V_CURSOR IN (SELECT * FROM REQUEST_GZHB WHERE RENO = P_MTHNO) LOOP
+        BEGIN
+          SELECT * INTO MK FROM REQUEST_GZHB WHERE RENO = P_MTHNO;
+        EXCEPTION
+          WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(ERRCODE, '工单明细信息不存在!');
+        END;
+        ----------------表身码状态改变
+          --插入一条旧表记录作为历史状态用
+          INSERT INTO BS_METERDOC
+            SELECT ID,
+                   MDID,
+                   MDNO,
+                   MDCALIBER,
+                   MDBRAND,
+                   MDMODEL,
+                   '2' MDSTATUS,
+                   MDSTATUSDATE,
+                   MDCYCCHKDATE,
+                   MDSTOCKDATE,
+                   MDSTORE,
+                   SFH,
+                   DQSFH,
+                   DQGFH,
+                   JCGFH,
+                   QFH,
+                   MDFQ1,
+                   MDFQ2,
+                   MDFQ3,
+                   MDFQ4,
+                   MDFQ5,
+                   BARCODE,
+                   RFID,
+                   IFDZSB,
+                   CONCENTRATORID,
+                   READMETERCODE,
+                   TRANSFERSTYPE,
+                   COLLENTTYPE,
+                   ISCONTROL,
+                   READTYPE,
+                   RKBATCH,
+                   RKDNO,
+                   STOREROOMID,
+                   RKMAN,
+                   P_PER MAINMAN,
+                   SYSDATE MAINDATE,
+                   SJDATE,
+                   MDMODE,
+                   PORTNO,
+                   'Y' IFOLD
+              FROM BS_METERDOC
+             WHERE MDNO = MK.MDNO
+               AND IFOLD = 'N';
+          --现用表状态更新
+          UPDATE BS_METERDOC
+             SET MDSTATUS = '2',
+                 MDID     = '',
+                 MAINMAN  = P_PER,
+                 MAINDATE = SYSDATE
+           WHERE MDNO = MK.MDNO
+             AND IFOLD = 'N';
+          --新表状态、水表档案号更新
+          UPDATE BS_METERDOC
+             SET MDSTATUS = '1', MDID = MK.MIID
+           WHERE MDNO = MK.NEWMDNO
+             AND IFOLD = 'N';
+        --免抄户、倒装水表 故障换表、周期换表后为正常户
+          --重置正常表态
+          UPDATE BS_METERINFO T
+             SET T.MISTATUS = '1', T.MICOLUMN5 = NULL
+           WHERE T.MIID = MK.MIID;
+      END LOOP;
+      --更新工单完成状态
+      UPDATE REQUEST_GZHB
+         SET MODIFYDATE = SYSDATE, MODIFYUSERID = P_PER, REFLAG = 'Y', MTDFLAG = 'Y'
+       WHERE RENO = P_MTHNO;
     END IF;
-  
-    FOR MD IN (SELECT * FROM REQUEST_YHZT WHERE RENO = P_MTHNO) LOOP
-      --SP_METERTRANSONE(P_TYPE, P_PER, MD);
-      IF P_TYPE IN ('F') THEN
-        --旧表状态
-        UPDATE BS_METERDOC
-           SET MDSTATUS = '4',
-               MDID     = '',
-               MAINMAN  = P_PER,
-               MAINDATE = SYSDATE
-         WHERE MDNO = MD.MDNO
-           AND MDSTATUS = '1';
-        --销户拆表旧表所有封号作废
-      END IF; -------------
-      IF P_TYPE IN ('L', 'K') THEN
-        --旧表状态
-        INSERT INTO BS_METERDOC
-          SELECT ID,
-                 MDID,
-                 MDNO,
-                 MDCALIBER,
-                 MDBRAND,
-                 MDMODEL,
-                 '4' MDSTATUS,
-                 MDSTATUSDATE,
-                 MDCYCCHKDATE,
-                 MDSTOCKDATE,
-                 MDSTORE,
-                 SFH,
-                 DQSFH,
-                 DQGFH,
-                 JCGFH,
-                 QFH,
-                 MDFQ1,
-                 MDFQ2,
-                 MDFQ3,
-                 MDFQ4,
-                 MDFQ5,
-                 BARCODE,
-                 RFID,
-                 IFDZSB,
-                 CONCENTRATORID,
-                 READMETERCODE,
-                 TRANSFERSTYPE,
-                 COLLENTTYPE,
-                 ISCONTROL,
-                 READTYPE,
-                 RKBATCH,
-                 RKDNO,
-                 STOREROOMID,
-                 RKMAN,
-                 P_PER MAINMAN,
-                 SYSDATE MAINDATE,
-                 SJDATE,
-                 MDMODE,
-                 PORTNO
-            FROM BS_METERDOC
-           WHERE MDNO = MD.MDNO
-             AND MDSTATUS = '1';
-        UPDATE BS_METERDOC
-           SET MDSTATUS = '3', MDID = '', MAINMAN = P_PER, MAINDATE = SYSDATE
-         WHERE MDNO = MD.MDNO
-           AND MDSTATUS = '1';
-/*        --故障换表、周期换表旧表所有封号作废
-        UPDATE BS_METERDOC
-           SET MDSTATUS = '2', MAINMAN = P_PER, MAINDATE = SYSDATE
-         WHERE MDNO = MD.MDNO
-           AND MDSTATUS = '1';*/
-        --新表状态
-        UPDATE BS_METERDOC
-           SET MDSTATUS = '1', MDID = MD.MIID
-         WHERE MDNO = MD.MDNO AND MDSTATUS = '4';
-      
-        --重置正常表态
-        UPDATE BS_METERINFO T
-           SET T.MISTATUS = '1', T.MICOLUMN5 = NULL
-         WHERE T.MIID = MD.MIID;
-        --去掉倒表标志
-        UPDATE BS_METERDOC T SET T.IFDZSB = 'N' WHERE T.MDID = MD.MIID;
-      END IF;
-      IF P_TYPE = 'A' THEN
-        UPDATE BS_METERINFO T
-           SET T.MIIFCHK = 'Y', T.MIIFCHARGE = 'N'
-         WHERE T.MIID = MD.MIID;
-      END IF;
-    END LOOP;
-  
-    UPDATE REQUEST_GZHB
-       SET REHSDATE = SYSDATE, REPER = P_PER, REFLAG = 'Y', MTDFLAG = 'Y'
-     WHERE RENO = P_MTHNO;
-  
     IF P_COMMIT = 'Y' THEN
       COMMIT;
     END IF;
@@ -119,177 +278,1475 @@
       RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
   END;
 
-  --工单主程序-周期换表
-  PROCEDURE SP_METERTRANS_ZQHB(P_TYPE   IN VARCHAR2, --操作类型
-                               P_MTHNO  IN VARCHAR2, --批次流水
-                               P_PER    IN VARCHAR2, --操作员
-                               P_COMMIT IN VARCHAR2 --提交标志
-                               ) AS
-    MH REQUEST_GZHB%ROWTYPE;
-    MD REQUEST_GZHB%ROWTYPE;
+  --工单单个审核过程
+  PROCEDURE SP_METERTRANSONE(P_TYPE   IN VARCHAR2, --类型
+                             P_PERSON IN VARCHAR2, -- 操作员
+                             P_MD     IN REQUEST_GZHB%ROWTYPE --单体行变更
+                             ) AS
+    MH            REQUEST_GZHB%ROWTYPE;
+    MD            REQUEST_GZHB%ROWTYPE;
+    MI            BS_METERINFO%ROWTYPE;
+    CI            BS_CUSTINFO%ROWTYPE;
+    MC            BS_METERDOC%ROWTYPE;
+    MA            BS_METERREAD%ROWTYPE;
+
+    V_MRMEMO      BS_METERREAD.MRMEMO%TYPE;
+    V_COUNT       NUMBER(4);
+    V_COUNTMRID   NUMBER(4);
+    V_COUNTFLAG   NUMBER(4);
+    V_NUMBER      NUMBER(10);
+    V_RCODE       NUMBER(10);
+    V_CRHNO       VARCHAR2(10);
+    V_OMRID       VARCHAR2(20);
+    O_STR         VARCHAR2(20);
+    V_METERSTATUS METERSTATUS%ROWTYPE;
+    V_METERSTORE  ST_METERINFO_STORE%ROWTYPE;
+  
+    --未算费抄表记录
+    CURSOR CUR_METERREAD_NOCALC(P_MRMID VARCHAR2, P_MRMONTH VARCHAR2) IS
+      SELECT *
+        FROM METERREAD MR
+       WHERE MR.MRMID = P_MRMID
+         AND MR.MRMONTH = P_MRMONTH;
+  
   BEGIN
     BEGIN
-      SELECT * INTO MH FROM REQUEST_GZHB WHERE RENO = P_MTHNO;
+      SELECT * INTO MI FROM BS_METERINFO WHERE MIID = P_MD.MTDMID;
     EXCEPTION
       WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(ERRCODE, '工单信息不存在!');
+        RAISE_APPLICATION_ERROR(ERRCODE, '水表资料不存在!');
     END;
-    IF MH.REFLAG = 'Y' THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, '工单已经审核,不需重复审核!');
+    BEGIN
+      SELECT * INTO CI FROM BS_CUSTINFO WHERE BS_CUSTINFO.CIID = MI.MICID;
+    EXCEPTION
+      WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '用户资料不存在!');
+    END;
+    BEGIN
+      SELECT * INTO MC FROM BS_METERDOC WHERE MDMID = P_MD.MTDMID;
+    EXCEPTION
+      WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(ERRCODE, '水表不存在!');
+    END;
+  
+    IF MI.MIRCODE != MD.MTDSCODE THEN
+      RAISE_APPLICATION_ERROR(ERRCODE, '上期抄见发生变化，请重置上期抄见');
     END IF;
   
-    FOR V_CURSOR IN (SELECT * FROM REQUEST_GZHB WHERE RENO = P_MTHNO) LOOP
+    IF FSYSPARA('sys4') = 'Y' THEN
       BEGIN
-        SELECT * INTO MD FROM REQUEST_GZHB WHERE RENO = P_MTHNO;
+        SELECT STATUS
+          INTO V_METERSTATUS.SID
+          FROM ST_METERINFO_STORE
+         WHERE BSM = P_MD.MTDMNON;
+      
       EXCEPTION
         WHEN OTHERS THEN
-          RAISE_APPLICATION_ERROR(ERRCODE, '工单明细信息不存在!');
+          NULL;
       END;
-      ----------------表身码状态改变
-      IF P_TYPE IN ('F') THEN
-        --旧表状态
-        INSERT INTO BS_METERDOC
-          SELECT SEQMESTERDOCID.NEXTVAL ID,
-                 MDID,
-                 MDNO,
-                 MDCALIBER,
-                 MDBRAND,
-                 MDMODEL,
-                 '2' MDSTATUS,
-                 MDSTATUSDATE,
-                 MDCYCCHKDATE,
-                 MDSTOCKDATE,
-                 MDSTORE,
-                 SFH,
-                 DQSFH,
-                 DQGFH,
-                 JCGFH,
-                 QFH,
-                 MDFQ1,
-                 MDFQ2,
-                 MDFQ3,
-                 MDFQ4,
-                 MDFQ5,
-                 BARCODE,
-                 RFID,
-                 IFDZSB,
-                 CONCENTRATORID,
-                 READMETERCODE,
-                 TRANSFERSTYPE,
-                 COLLENTTYPE,
-                 ISCONTROL,
-                 READTYPE,
-                 RKBATCH,
-                 RKDNO,
-                 STOREROOMID,
-                 RKMAN,
-                 P_PER MAINMAN,
-                 SYSDATE MAINDATE,
-                 SJDATE,
-                 MDMODE,
-                 PORTNO
-            FROM BS_METERDOC
-           WHERE MDNO = MD.MDNO
-             AND MDSTATUS = '1';
-        UPDATE BS_METERDOC
-           SET MDSTATUS = '',
-               MDID     = '',
-               MAINMAN  = P_PER,
-               MAINDATE = SYSDATE
-         WHERE MDNO = MD.MDNO
-           AND MDSTATUS = '1';
-      
+      IF TRIM(V_METERSTATUS.SID) <> '2' THEN
+        SELECT SNAME
+          INTO V_METERSTATUS.SNAME
+          FROM METERSTATUS
+         WHERE SID = V_METERSTATUS.SID;
+        RAISE_APPLICATION_ERROR(ERRCODE,
+                                MI.MICID || '该水表状态为【' ||
+                                V_METERSTATUS.SNAME || '】不能使用！');
       END IF;
-      IF P_TYPE IN ('L', 'K') THEN
-        --旧表状态
-        INSERT INTO BS_METERDOC
-          SELECT ID,
-                 MDID,
-                 MDNO,
-                 MDCALIBER,
-                 MDBRAND,
-                 MDMODEL,
-                 '4' MDSTATUS,
-                 MDSTATUSDATE,
-                 MDCYCCHKDATE,
-                 MDSTOCKDATE,
-                 MDSTORE,
-                 SFH,
-                 DQSFH,
-                 DQGFH,
-                 JCGFH,
-                 QFH,
-                 MDFQ1,
-                 MDFQ2,
-                 MDFQ3,
-                 MDFQ4,
-                 MDFQ5,
-                 BARCODE,
-                 RFID,
-                 IFDZSB,
-                 CONCENTRATORID,
-                 READMETERCODE,
-                 TRANSFERSTYPE,
-                 COLLENTTYPE,
-                 ISCONTROL,
-                 READTYPE,
-                 RKBATCH,
-                 RKDNO,
-                 STOREROOMID,
-                 RKMAN,
-                 P_PER MAINMAN,
-                 SYSDATE MAINDATE,
-                 SJDATE,
-                 MDMODE,
-                 PORTNO
-            FROM BS_METERDOC
-           WHERE MDNO = MD.MDNO
-             AND MDSTATUS = '1';
-        UPDATE BS_METERDOC
-           SET MDSTATUS = '',
-               MDID     = '',
-               MAINMAN  = P_PER,
-               MAINDATE = SYSDATE
-         WHERE MDNO = MD.MDNO
-           AND MDSTATUS = '1';
-      
-        --新表状态
-        UPDATE BS_METERDOC
-           SET MDSTATUS = '1', MDID = MD.MIID
-         WHERE MDNO = MD.NEWMDNO
-           AND MDSTATUS = '0';
-      END IF;
-      IF P_TYPE = 'A' THEN
-        UPDATE BS_METERINFO T
-           SET T.MIIFCHK = 'Y', T.MIIFCHARGE = 'N'
-         WHERE T.MIID = MD.MIID;
+    END IF;
+  
+    --F销户拆表
+    IF P_TYPE = BT销户拆表 THEN
+      -- BS_METERINFO 有效状态 --状态日期 --状态表务
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M销户,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE,
+             MIUNINSDATE   = SYSDATE,
+             MIBFID        = NULL -- BY 20170904 WLJ 销户拆表将表册置空
+       WHERE MIID = P_MD.MTDMID;
+    
+      --销户后同步用户状态
+      UPDATE BS_CUSTINFO
+         SET CISTATUS      = M销户,
+             CISTATUSDATE  = SYSDATE,
+             CISTATUSTRANS = P_TYPE
+       WHERE CICODE = P_MD.MTDMID;
+    
+      ---销户拆表收取余量水费（在去掉低度之前）
+      --STEP1 插入抄表记录
+    
+      --STEP2  插入应收记录
+    
+      --去掉低度[20110702]
+      UPDATE PRICEADJUSTLIST PL
+         SET PL.PALSTATUS = 'N'
+       WHERE PL.PALMID = P_MD.MTDMID;
+    
+      --METERDOC  表状态 表状态发生时间
+      UPDATE BS_METERDOC
+         SET MDSTATUS = M销户, MDSTATUSDATE = SYSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      ----增加拆表数据的实时型
+      BEGIN
+        PG_EWIDE_CUSTBASE_01.SUM$DAY$METER(MI.MIID, '7', 'N');
+      EXCEPTION
+        WHEN OTHERS THEN
+          NULL;
+      END;
+    
+      ---- METERINFO 有效状态 --状态日期 --状态表务 【YUJIA 20110323】
+      UPDATE ST_METERINFO_STORE
+         SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
+       WHERE BSM = P_MD.MTDMNOO;
+      -----METERDOC  表状态 表状态发生时间  【YUJIA 20110323】
+    
+      UPDATE BS_METERDOC
+         SET MDSTATUS = M销户, MDSTATUSDATE = SYSDATE
+       WHERE MDMID = P_MD.MTDMID;
+    
+    ELSIF P_TYPE = BT口径变更 THEN
+      -- METERINFO 有效状态 --状态日期 --状态表务
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE,
+             MIREINSCODE   = P_MD.MTDREINSCODE, --换表起度
+             MIREINSDATE   = P_MD.MTDREINSDATE, --换表日期
+             MIREINSPER    = P_MD.MTDREINSPER, --换表人
+             MITYPE        = P_MD.MTDMTYPEN, --表型
+             MIBFID        = NULL
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC  表状态 表状态发生时间
+      UPDATE BS_METERDOC
+         SET MDSTATUS     = M立户,
+             MDCALIBER    = P_MD.MTDCALIBERN,
+             MDNO         = P_MD.MTDMNON, ---表型号
+             MDSTATUSDATE = SYSDATE,
+             MDCYCCHKDATE = P_MD.MTDREINSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+       WHERE MTDMID = MI.MIID;
+      ------表身码状态改变    旧表状态
+      UPDATE ST_METERINFO_STORE
+         SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
+       WHERE BSM = P_MD.MTDMNOO;
+    
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      --算费？？？
+    
+    ELSIF P_TYPE = BT换阀门 THEN
+      -- METERINFO 有效状态 --状态日期 --状态表务
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC  表状态 表状态发生时间
+      UPDATE BS_METERDOC
+         SET MDSTATUS = M立户, MDSTATUSDATE = SYSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+       WHERE MTDMID = MI.MIID;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      --算费
+      --
+    ELSIF P_TYPE = BT欠费停水 THEN
+      -- METERINFO 有效状态 --状态日期 --状态表务
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M欠费停水,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC  表状态 表状态发生时间
+      UPDATE BS_METERDOC
+         SET MDSTATUS = M欠费停水, MDSTATUSDATE = SYSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+       WHERE MTDMID = MI.MIID;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      --算费
+    ELSIF P_TYPE = BT恢复供水 THEN
+      -- METERINFO 有效状态 --状态日期 --状态表务
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC  表状态 表状态发生时间
+      UPDATE BS_METERDOC
+         SET MDSTATUS = M立户, MDSTATUSDATE = SYSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+       WHERE MTDMID = MI.MIID;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      --算费
+    ELSIF P_TYPE = BT报停 THEN
+      -- METERINFO 有效状态 --状态日期 --状态表务
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M报停,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC  表状态 表状态发生时间
+      UPDATE BS_METERDOC
+         SET MDSTATUS = M报停, MDSTATUSDATE = SYSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+       WHERE MTDMID = MI.MIID;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      --算费
+      --
+    ELSIF P_TYPE = BT校表 THEN
+      -- METERINFO 有效状态 --状态日期 --状态表务
+      --暂不更新本期读数     ,MIRCODE=P_MD.MTDREINSCODE
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE,
+             MIREINSDATE   = P_MD.MTDREINSDATE
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC  表状态 表状态发生时间
+      UPDATE BS_METERDOC
+         SET MDSTATUS     = M立户,
+             MDSTATUSDATE = SYSDATE,
+             MDCYCCHKDATE = P_MD.MTDREINSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+       WHERE MTDMID = MI.MIID;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      --算费
+    ELSIF P_TYPE = BT复装 THEN
+      --暂不更新本期读数  MIRCODE=P_MD.MTDREINSCODE ,
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户, --状态
+             MISTATUSDATE  = SYSDATE, --状态日期
+             MISTATUSTRANS = P_TYPE, --状态表务
+             MIADR         = P_MD.MTDMADRN, --水表地址
+             MISIDE        = P_MD.MTDSIDEN, --表位
+             MIPOSITION    = P_MD.MTDPOSITIONN, --水表接水地址
+             MIREINSCODE   = P_MD.MTDREINSCODE, --换表起度
+             MIREINSDATE   = P_MD.MTDREINSDATE, --换表日期
+             MIREINSPER    = P_MD.MTDREINSPER --换表人
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC
+      UPDATE BS_METERDOC
+         SET MDSTATUS     = M立户, --状态
+             MDSTATUSDATE = SYSDATE, --状态发生时间
+             MDNO         = P_MD.MTDMNON, --表身号
+             MDCALIBER    = P_MD.MTDCALIBERN, --表口径
+             MDBRAND      = P_MD.MTDBRANDN, --表厂家
+             MDMODEL      = P_MD.MTDMODELN, --表型号
+             MDCYCCHKDATE = P_MD.MTDREINSDATE
+       WHERE MDMID = P_MD.MTDMID;
+    
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+       WHERE MTDMID = MI.MIID;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      --算费
+    ELSIF P_TYPE = BT故障换表 THEN
+      SELECT COUNT(*)
+        INTO V_COUNTFLAG
+        FROM METERREAD MR
+       WHERE MR.MRMID = P_MD.MTDMID
+         AND MR.MRREADOK = 'Y' --已抄表
+         AND MR.MRIFREC <> 'Y'; --未算费
+      IF V_COUNTFLAG > 0 THEN
+        --抄表库已经抄表但未算费则不允许故障换表，需取消抄见标志重抄
+        RAISE_APPLICATION_ERROR(ERRCODE,
+                                '【' || P_MD.MTDMID ||
+                                '】此水表已经抄表录入,抄见标志有打上,不能进行故障换表审核,需进入程式【抄表录入】点击重抄按纽,取消当前水量!');
       END IF;
     
-      --免抄户、倒装水表 故障换表、周期换表后为正常户
-      IF P_TYPE IN ('L', 'K') THEN
-        --重置正常表态
-        UPDATE BS_METERINFO T
-           SET T.MISTATUS = '1', T.MICOLUMN5 = NULL
-         WHERE T.MIID = MD.MIID;
-        --去掉倒表标志
-        UPDATE BS_METERDOC T
-           SET T.IFDZSB = 'N'
-         WHERE T.MDID = MD.MIID
-           AND MDSTATUS = '1';
+      UPDATE METERREAD T
+         SET MRSCODE = P_MD.MTDREINSCODE --BY RALPH 20151021  增加的将未抄见指针更换掉
+       WHERE MRMID = P_MD.MTDMID
+         AND MRREADOK = 'N';
+    
+      --ADD 20141117 HB
+      --如果故障换表为9月份开立故障换表单据一直未审核，10月份如果又有抄表算费，则不允许进行审核9月份的故障换表
+      --因这样会造成初始指针错误
+    
+      ------水表量程校验与更新 ZF  20160828
+      IF P_MD.MTDMIYL9 IS NOT NULL THEN
+      
+        UPDATE BS_METERINFO
+           SET MIYL9 = P_MD.MTDMIYL9 --水表最大量程
+         WHERE MIID = P_MD.MTDMID;
+        --- END IF ;
       END IF;
-    END LOOP;
+      ----------------------------20160828
+    
+      --END ADD 20141117 HB
+    
+      --20140809 总分表故障换表 MODIBY HB
+      --总表先换表、分表出账导致水量不够减，换表后不出账
+    
+      -- END 20140809 总分表故障换表 MODIBY HB
+      -- METERINFO暂不更新本期读数  MIRCODE=P_MD.MTDREINSCODE ,
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户, --状态
+             MISTATUSDATE  = SYSDATE, --状态日期
+             MISTATUSTRANS = P_TYPE, --状态表务
+             MIRCODE       = P_MD.MTDREINSCODE, --换表起度
+             MIREINSCODE   = P_MD.MTDREINSCODE, --换表起度
+             MIREINSDATE   = P_MD.MTDREINSDATE, --换表日期
+             MIREINSPER    = P_MD.MTDREINSPER, --换表人
+             MIYL1         = 'N', --换表后将 等针标志清除(如果有) BYJ 2016.08
+             MIRTID        = P_MD.MTDMIRTID --换表后 根据工单更新 抄表方式! BYJ 2016.12 
+       WHERE MIID = P_MD.MTDMID;
+    
+      --换表后清除等针中间表标志 BYJ 2016.08-------------
+      UPDATE METERTGL MTG
+         SET MTG.MTSTATUS = 'N'
+       WHERE MTMID = P_MD.MTDMID
+         AND MTSTATUS = 'Y';
+      ---------------------------------------------------
+    
+      --METERDOC 更新新表信息 
+      BEGIN
+        SELECT *
+          INTO V_METERSTORE
+          FROM ST_METERINFO_STORE ST
+         WHERE ST.BSM = P_MD.MTDMNON
+           AND ROWNUM < 2;
+        UPDATE BS_METERDOC
+           SET MDSTATUS     = M立户, --状态
+               MDSTATUSDATE = SYSDATE, --表状态发生时间
+               MDNO         = P_MD.MTDMNON, --表身号
+               DQSFH        = P_MD.MTDDQSFHN, --塑封号
+               DQGFH        = P_MD.MTDLFHN, --钢封号
+               QFH          = P_MD.MTDQFHN, --铅封号
+               MDCALIBER    = V_METERSTORE.CALIBER, --表口径
+               MDBRAND      = P_MD.MTDBRANDN, --表厂家    
+               MDCYCCHKDATE = P_MD.MTDREINSDATE, --
+               MDMODEL      = V_METERSTORE.MODEL --表型号
+         WHERE MDMID = P_MD.MTDMID;
+      EXCEPTION
+        WHEN OTHERS THEN
+          UPDATE BS_METERDOC
+             SET MDSTATUS     = M立户, --状态
+                 MDSTATUSDATE = SYSDATE, --表状态发生时间
+                 MDNO         = P_MD.MTDMNON, --表身号
+                 DQSFH        = P_MD.MTDDQSFHN, --塑封号
+                 DQGFH        = P_MD.MTDLFHN, --钢封号
+                 QFH          = P_MD.MTDQFHN, --铅封号
+                 MDCALIBER    = P_MD.MTDCALIBERN, --表口径
+                 MDBRAND      = P_MD.MTDBRANDN, --表厂家
+                 MDCYCCHKDATE = P_MD.MTDREINSDATE --
+           WHERE MDMID = P_MD.MTDMID;
+      END;
+    
+      --设置塑封号为已使用
+      IF P_MD.MTDDQSFHN IS NOT NULL THEN
+        UPDATE ST_METERFH_STORE
+           SET BSM      = P_MD.MTDMNON,
+               FHSTATUS = '1',
+               MAINMAN  = FGETPBOPER,
+               MAINDATE = SYSDATE
+         WHERE METERFH = P_MD.MTDDQSFHN
+           AND STOREID = MI.MISMFID --地区
+           AND CALIBER = P_MD.MTDCALIBERO --口径
+           AND FHTYPE = '1';
+      END IF;
+      --设置钢封号为已使用
+      IF P_MD.MTDLFHN IS NOT NULL THEN
+        UPDATE ST_METERFH_STORE
+           SET BSM      = P_MD.MTDMNON,
+               FHSTATUS = '1',
+               MAINMAN  = FGETPBOPER,
+               MAINDATE = SYSDATE
+         WHERE METERFH = P_MD.MTDLFHN
+           AND STOREID = MI.MISMFID --地区
+           AND FHTYPE = '2';
+      END IF;
+      --设置铅封号为已使用
+      IF P_MD.MTDQFHN IS NOT NULL THEN
+        UPDATE ST_METERFH_STORE
+           SET BSM      = P_MD.MTDMNON,
+               FHSTATUS = '1',
+               MAINMAN  = FGETPBOPER,
+               MAINDATE = SYSDATE
+         WHERE METERFH = P_MD.MTDQFHN
+           AND STOREID = MI.MISMFID --地区
+           AND FHTYPE = '4';
+      END IF;
+    
+      --【抄表审核转单】故障换表后回写复核标志
+      SELECT COUNT(*)
+        INTO V_COUNTFLAG
+        FROM METERREAD MR
+       WHERE MR.MRMID = P_MD.MTDMID
+         AND MR.MRIFSUBMIT = 'N';
+      IF V_COUNTFLAG > 0 THEN
+        UPDATE METERREAD MR
+           SET MR.MRCHKFLAG = 'Y', --复核标志
+               MR.MRCHKDATE = SYSDATE, --复核日期
+               MR.MRCHKPER  = P_PERSON --复核人员
+        
+         WHERE MR.MRMID = P_MD.MTDMID
+           AND MR.MRIFSUBMIT = 'N';
+      END IF;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      BEGIN
+        SELECT STATUS
+          INTO V_METERSTATUS.SID
+          FROM ST_METERINFO_STORE
+         WHERE BSM = P_MD.MTDMNON;
+      
+      EXCEPTION
+        WHEN OTHERS THEN
+          NULL;
+      END;
+      IF TRIM(V_METERSTATUS.SID) <> '2' THEN
+        SELECT SNAME
+          INTO V_METERSTATUS.SNAME
+          FROM METERSTATUS
+         WHERE SID = V_METERSTATUS.SID;
+        RAISE_APPLICATION_ERROR(ERRCODE,
+                                '该水表状态为【' || V_METERSTATUS.SNAME ||
+                                '】不能使用！');
+      END IF;
+      IF TRIM(V_METERSTATUS.SID) = '2' THEN
+        UPDATE ST_METERINFO_STORE
+           SET STATUS = '3', MIID = MI.MICODE, STATUSDATE = SYSDATE
+         WHERE BSM = P_MD.MTDMNON;
+        UPDATE ST_METERINFO_STORE
+           SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
+         WHERE BSM = P_MD.MTDMNOO;
+      END IF;
+      --算费
+    ELSIF P_TYPE = BT水表整改 THEN
+      -- METERINFO暂不更新本期读数  MIRCODE=P_MD.MTDREINSCODE ,
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户, --状态
+             MISTATUSDATE  = SYSDATE, --状态日期
+             MISTATUSTRANS = P_TYPE, --状态表务
+             --MIADR         = P_MD.MTDMADRN,--水表地址
+             --MISIDE        = P_MD.MTDSIDEN,--表位
+             --MIPOSITION    = P_MD.MTDPOSITIONN ,--水表接水地址
+             MIREINSCODE = P_MD.MTDREINSCODE, --换表起度
+             MIREINSDATE = P_MD.MTDREINSDATE, --换表日期
+             MIREINSPER  = P_MD.MTDREINSPER --换表人
+       WHERE MIID = P_MD.MTDMID;
+      --METERDOC
+      UPDATE BS_METERDOC
+         SET MDSTATUS     = M立户, --状态
+             MDSTATUSDATE = SYSDATE, --表状态发生时间
+             MDNO         = P_MD.MTDMNON, --表身号
+             MDCALIBER    = P_MD.MTDCALIBERN, --表口径
+             MDBRAND      = P_MD.MTDBRANDN, --表厂家
+             MDMODEL      = P_MD.MTDMODELN, --表型号
+             MDCYCCHKDATE = P_MD.MTDREINSDATE --
+       WHERE MDMID = P_MD.MTDMID;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+    ELSIF P_TYPE = BT周期换表 THEN
+      --以上为之前周期换表代码 MODIBY HB 20140815
+      --下述为故障换表的代码放过来，原理与故障换表原理一致
+    
+      SELECT COUNT(*)
+        INTO V_COUNTFLAG
+        FROM METERREAD MR
+       WHERE MR.MRMID = P_MD.MTDMID
+         AND MR.MRREADOK = 'Y' --已抄表
+         AND MR.MRIFREC <> 'Y'; --未算费
+      IF V_COUNTFLAG > 0 THEN
+        --抄表库已经抄表但未算费则不允许故障换表，需取消抄见标志重抄
+        RAISE_APPLICATION_ERROR(ERRCODE,
+                                '此水表[' || P_MD.MTDMID ||
+                                ']已经抄表录入,抄见标志有打上,不能进行周期换表审核,需进入程式【抄表录入】点击重抄按纽,取消当前水量!');
+      END IF;
+    
+      ------水表量程校验与更新 ZF  20160828
+      IF P_MD.MTDMIYL9 IS NOT NULL THEN
+        UPDATE BS_METERINFO
+           SET MIYL9 = P_MD.MTDMIYL9 --水表最大量程
+         WHERE MIID = P_MD.MTDMID;
+        ---  END IF ;
+      END IF;
+      ----------------------------20160828
+    
+      --20140809 总分表故障换表 MODIBY HB
+      --总表先换表、分表出账导致水量不够减，换表后不出账
+    
+      -- END 20140809 总分表故障换表 MODIBY HB
+      -- METERINFO暂不更新本期读数  MIRCODE=P_MD.MTDREINSCODE ,
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户, --状态
+             MISTATUSDATE  = SYSDATE, --状态日期
+             MISTATUSTRANS = P_TYPE, --状态表务
+             MIRCODE       = P_MD.MTDREINSCODE, --换表起度
+             MIREINSCODE = P_MD.MTDREINSCODE, --换表起度
+             MIREINSDATE = P_MD.MTDREINSDATE, --换表日期
+             MIREINSPER  = P_MD.MTDREINSPER, --换表人
+             MIYL1       = 'N', --换表后将 等针标志清除(如果有) BYJ 2016.08
+             MIRTID      = P_MD.MTDMIRTID --换表后 根据工单更新 抄表方式! BYJ 2016.12 
+       WHERE MIID = P_MD.MTDMID;
+    
+      --换表后清除等针中间表标志 BYJ 2016.08-------------
+      UPDATE METERTGL MTG
+         SET MTG.MTSTATUS = 'N'
+       WHERE MTMID = P_MD.MTDMID
+         AND MTSTATUS = 'Y';
+      ---------------------------------------------------
+    
+      --METERDOC 更新新表信息 
+      BEGIN
+        SELECT *
+          INTO V_METERSTORE
+          FROM ST_METERINFO_STORE ST
+         WHERE ST.BSM = P_MD.MTDMNON
+           AND ROWNUM < 2;
+        UPDATE BS_METERDOC
+           SET MDSTATUS     = M立户, --状态
+               MDSTATUSDATE = SYSDATE, --表状态发生时间
+               MDNO         = P_MD.MTDMNON, --表身号
+               DQSFH        = P_MD.MTDDQSFHN, --塑封号
+               DQGFH        = P_MD.MTDLFHN, --钢封号
+               QFH          = P_MD.MTDQFHN, --铅封号
+               MDCALIBER    = V_METERSTORE.CALIBER, --表口径
+               MDBRAND      = P_MD.MTDBRANDN, --表厂家    
+               MDCYCCHKDATE = P_MD.MTDREINSDATE, --
+               MDMODEL      = V_METERSTORE.MODEL --表型号
+         WHERE MDMID = P_MD.MTDMID;
+      EXCEPTION
+        WHEN OTHERS THEN
+          UPDATE BS_METERDOC
+             SET MDSTATUS     = M立户, --状态
+                 MDSTATUSDATE = SYSDATE, --表状态发生时间
+                 MDNO         = P_MD.MTDMNON, --表身号
+                 DQSFH        = P_MD.MTDDQSFHN, --塑封号
+                 DQGFH        = P_MD.MTDLFHN, --钢封号
+                 QFH          = P_MD.MTDQFHN, --铅封号
+                 MDCALIBER    = P_MD.MTDCALIBERN, --表口径
+                 MDBRAND      = P_MD.MTDBRANDN, --表厂家
+                 MDCYCCHKDATE = P_MD.MTDREINSDATE --
+           WHERE MDMID = P_MD.MTDMID;
+      END;
+    
+      --设置塑封号为已使用
+      IF P_MD.MTDDQSFHN IS NOT NULL THEN
+        UPDATE ST_METERFH_STORE
+           SET BSM      = P_MD.MTDMNON,
+               FHSTATUS = '1',
+               MAINMAN  = FGETPBOPER,
+               MAINDATE = SYSDATE
+         WHERE METERFH = P_MD.MTDDQSFHN
+           AND STOREID = MI.MISMFID --地区
+           AND CALIBER = P_MD.MTDCALIBERO --口径
+           AND FHTYPE = '1';
+      END IF;
+      --设置钢封号为已使用
+      IF P_MD.MTDLFHN IS NOT NULL THEN
+        UPDATE ST_METERFH_STORE
+           SET BSM      = P_MD.MTDMNON,
+               FHSTATUS = '1',
+               MAINMAN  = FGETPBOPER,
+               MAINDATE = SYSDATE
+         WHERE METERFH = P_MD.MTDLFHN
+           AND STOREID = MI.MISMFID --地区
+           AND FHTYPE = '2';
+      END IF;
+      --设置铅封号为已使用
+      IF P_MD.MTDQFHN IS NOT NULL THEN
+        UPDATE ST_METERFH_STORE
+           SET BSM      = P_MD.MTDMNON,
+               FHSTATUS = '1',
+               MAINMAN  = FGETPBOPER,
+               MAINDATE = SYSDATE
+         WHERE METERFH = P_MD.MTDQFHN
+           AND STOREID = MI.MISMFID --地区
+           AND FHTYPE = '4';
+      END IF;
+    
+      --【抄表审核转单】周期换表后回写复核标志
+      SELECT COUNT(*)
+        INTO V_COUNTFLAG
+        FROM METERREAD MR
+       WHERE MR.MRMID = P_MD.MTDMID
+         AND MR.MRIFSUBMIT = 'N';
+      IF V_COUNTFLAG > 0 THEN
+        UPDATE METERREAD MR
+           SET MR.MRCHKFLAG = 'Y', --复核标志
+               MR.MRCHKDATE = SYSDATE, --复核日期
+               MR.MRCHKPER  = P_PERSON --复核人员
+        
+         WHERE MR.MRMID = P_MD.MTDMID
+           AND MR.MRIFSUBMIT = 'N';
+      END IF;
+
+      --记余量表 METERADDSL
+      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
+      -- MD.MASID           :=     ;--记录流水号
+      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
+      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
+      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
+      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
+      MA.MASCREDATE   := SYSDATE; --创建日期
+      MA.MASCID       := MI.MICID; --用户编号
+      MA.MASMID       := MI.MIID; --水表编号
+      MA.MASSL        := P_MD.MTDADDSL; --余量
+      MA.MASCREPER    := P_PERSON; --创建人员
+      MA.MASTRANS     := P_TYPE; --加调事务
+      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
+      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
+      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
+      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
+      INSERT INTO METERADDSL VALUES MA;
+      BEGIN
+        SELECT STATUS
+          INTO V_METERSTATUS.SID
+          FROM ST_METERINFO_STORE
+         WHERE BSM = P_MD.MTDMNON;
+      
+      EXCEPTION
+        WHEN OTHERS THEN
+          NULL;
+      END;
+      IF TRIM(V_METERSTATUS.SID) <> '2' THEN
+        SELECT SNAME
+          INTO V_METERSTATUS.SNAME
+          FROM METERSTATUS
+         WHERE SID = V_METERSTATUS.SID;
+        RAISE_APPLICATION_ERROR(ERRCODE,
+                                MI.MICID || '该水表状态为【' ||
+                                V_METERSTATUS.SNAME || '】不能使用！');
+      END IF;
+      IF TRIM(V_METERSTATUS.SID) = '2' THEN
+        UPDATE ST_METERINFO_STORE
+           SET STATUS = '3', MIID = MI.MICODE, STATUSDATE = SYSDATE
+         WHERE BSM = P_MD.MTDMNON;
+        UPDATE ST_METERINFO_STORE
+           SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
+         WHERE BSM = P_MD.MTDMNOO;
+      END IF;
+    
+      --算费
+    ELSIF P_TYPE = BT复查工单 THEN
+      NULL;
+    ELSIF P_TYPE = BT改装总表 THEN
+      IF NVL(P_MD.MTDWMCOUNT, 0) > 0 THEN
+        TOOLS.SP_BILLSEQ('100', V_CRHNO);
+        INSERT INTO CUSTREGHD
+          (CRHNO,
+           CRHBH,
+           CRHLB,
+           CRHSOURCE,
+           CRHSMFID,
+           CRHDEPT,
+           CRHCREDATE,
+           CRHCREPER,
+           CRHSHFLAG)
+        VALUES
+          (V_CRHNO,
+           P_MD.MTDNO,
+           '0',
+           P_TYPE,
+           P_MD.MTDSMFID,
+           NULL,
+           SYSDATE,
+           P_PERSON,
+           'N');
+      
+        V_NUMBER := 0;
+        LOOP
+          INSERT INTO CUSTMETERREGDT
+            (CMRDNO,
+             CMRDROWNO,
+             CISMFID,
+             CINAME,
+             CINAME2,
+             CIADR,
+             CISTATUS,
+             CISTATUSTRANS,
+             CIIDENTITYLB,
+             CIIDENTITYNO,
+             CIMTEL,
+             CITEL1,
+             CITEL2,
+             CITEL3,
+             CICONNECTPER,
+             CICONNECTTEL,
+             CIIFINV,
+             CIIFSMS,
+             CIIFZN,
+             MIADR,
+             MISAFID,
+             MISMFID,
+             MIRTID,
+             MISTID,
+             MIPFID,
+             MISTATUS,
+             MISTATUSTRANS,
+             MIRPID,
+             MISIDE,
+             MIPOSITION,
+             MITYPE,
+             MIIFCHARGE,
+             MIIFSL,
+             MIIFCHK,
+             MIIFWATCH,
+             MICHARGETYPE,
+             MILB,
+             MINAME,
+             MINAME2,
+             CICLASS,
+             CIFLAG,
+             MIIFMP,
+             MIIFSP,
+             MIIFCKF,
+             MIUSENUM,
+             MISAVING,
+             MIIFTAX,
+             MIINSCODE,
+             MIINSDATE,
+             MIPRIFLAG,
+             MDSTATUS,
+             MAIFXEZF,
+             MIRCODE,
+             MDNO,
+             MDMODEL,
+             MDBRAND,
+             MDCALIBER,
+             CMDCHKPER,
+             MIINSCODECHAR,
+             MIPID)
+          VALUES
+            (V_CRHNO,
+             V_NUMBER + 1,
+             MI.MISMFID,
+             '新用户',
+             '新用户',
+             CI.CIADR,
+             '0',
+             CI.CISTATUSTRANS,
+             '1',
+             CI.CIIDENTITYNO,
+             P_MD.MTDTEL,
+             CI.CITEL1,
+             CI.CITEL2,
+             CI.CITEL3,
+             P_MD.MTDCONPER,
+             P_MD.MTDCONTEL,
+             'Y',
+             'N',
+             'Y',
+             MI.MIADR,
+             MI.MISAFID,
+             MI.MISMFID,
+             MI.MIRTID,
+             MI.MISTID,
+             MI.MIPFID,
+             '1',
+             MI.MISTATUSTRANS,
+             MI.MIRPID,
+             P_MD.MTDSIDEO,
+             P_MD.MTDPOSITIONO,
+             '1',
+             'Y',
+             'Y',
+             'N',
+             'N',
+             'X',
+             'H',
+             MI.MINAME,
+             MI.MINAME2,
+             1,
+             'Y',
+             'N',
+             'N',
+             'N',
+             1,
+             0,
+             'N',
+             0,
+             TRUNC(SYSDATE),
+             'N',
+             '00',
+             'N',
+             P_MD.MTDREINSCODE,
+             P_MD.MTDMNOO,
+             P_MD.MTDMODELO,
+             P_MD.MTDBRANDO,
+             P_MD.MTDCALIBERO,
+             P_MD.MTDCHKPER,
+             '00000',
+             P_MD.MTDMCODE);
+          V_NUMBER := V_NUMBER + 1;
+          EXIT WHEN V_NUMBER = P_MD.MTDWMCOUNT;
+        END LOOP;
+      END IF;
+    ELSIF P_TYPE = BT补装户表 THEN
+      IF NVL(P_MD.MTDWMCOUNT, 0) > 0 THEN
+        TOOLS.SP_BILLSEQ('100', V_CRHNO);
+        INSERT INTO CUSTREGHD
+          (CRHNO,
+           CRHBH,
+           CRHLB,
+           CRHSOURCE,
+           CRHSMFID,
+           CRHDEPT,
+           CRHCREDATE,
+           CRHCREPER,
+           CRHSHFLAG)
+        VALUES
+          (V_CRHNO,
+           P_MD.MTDNO,
+           '0',
+           P_TYPE,
+           P_MD.MTDSMFID,
+           NULL,
+           SYSDATE,
+           P_PERSON,
+           'N');
+      
+        V_NUMBER := 0;
+        LOOP
+          INSERT INTO CUSTMETERREGDT
+            (CMRDNO,
+             CMRDROWNO,
+             CISMFID,
+             CINAME,
+             CINAME2,
+             CIADR,
+             CISTATUS,
+             CISTATUSTRANS,
+             CIIDENTITYLB,
+             CIIDENTITYNO,
+             CIMTEL,
+             CITEL1,
+             CITEL2,
+             CITEL3,
+             CICONNECTPER,
+             CICONNECTTEL,
+             CIIFINV,
+             CIIFSMS,
+             CIIFZN,
+             MIADR,
+             MISAFID,
+             MISMFID,
+             MIRTID,
+             MISTID,
+             MIPFID,
+             MISTATUS,
+             MISTATUSTRANS,
+             MIRPID,
+             MISIDE,
+             MIPOSITION,
+             MITYPE,
+             MIIFCHARGE,
+             MIIFSL,
+             MIIFCHK,
+             MIIFWATCH,
+             MICHARGETYPE,
+             MILB,
+             MINAME,
+             MINAME2,
+             CICLASS,
+             CIFLAG,
+             MIIFMP,
+             MIIFSP,
+             MIIFCKF,
+             MIUSENUM,
+             MISAVING,
+             MIIFTAX,
+             MIINSCODE,
+             MIINSDATE,
+             MIPRIFLAG,
+             MDSTATUS,
+             MAIFXEZF,
+             MIRCODE,
+             MDNO,
+             MDMODEL,
+             MDBRAND,
+             MDCALIBER,
+             CMDCHKPER,
+             MIINSCODECHAR,
+             MIPID)
+          VALUES
+            (V_CRHNO,
+             V_NUMBER + 1,
+             MI.MISMFID,
+             '新用户',
+             '新用户',
+             CI.CIADR,
+             '0',
+             CI.CISTATUSTRANS,
+             '1',
+             CI.CIIDENTITYNO,
+             P_MD.MTDTEL,
+             CI.CITEL1,
+             CI.CITEL2,
+             CI.CITEL3,
+             P_MD.MTDCONPER,
+             P_MD.MTDCONTEL,
+             'Y',
+             'N',
+             'Y',
+             MI.MIADR,
+             MI.MISAFID,
+             MI.MISMFID,
+             MI.MIRTID,
+             MI.MISTID,
+             MI.MIPFID,
+             '1',
+             MI.MISTATUSTRANS,
+             MI.MIRPID,
+             P_MD.MTDSIDEO,
+             P_MD.MTDPOSITIONO,
+             '1',
+             'Y',
+             'Y',
+             'N',
+             'N',
+             'X',
+             'H',
+             MI.MINAME,
+             MI.MINAME2,
+             1,
+             'Y',
+             'N',
+             'N',
+             'N',
+             1,
+             0,
+             'N',
+             0,
+             TRUNC(SYSDATE),
+             'N',
+             '00',
+             'N',
+             P_MD.MTDREINSCODE,
+             P_MD.MTDMNOO,
+             P_MD.MTDMODELO,
+             P_MD.MTDBRANDO,
+             P_MD.MTDCALIBERO,
+             P_MD.MTDCHKPER,
+             '00000',
+             P_MD.MTDMPID);
+          V_NUMBER := V_NUMBER + 1;
+          EXIT WHEN V_NUMBER = P_MD.MTDWMCOUNT;
+        END LOOP;
+      END IF;
+    ELSIF P_TYPE = BT安装分类计量表 THEN
+      TOOLS.SP_BILLSEQ('100', V_CRHNO);
+    
+      INSERT INTO CUSTREGHD
+        (CRHNO,
+         CRHBH,
+         CRHLB,
+         CRHSOURCE,
+         CRHSMFID,
+         CRHDEPT,
+         CRHCREDATE,
+         CRHCREPER,
+         CRHSHFLAG)
+      VALUES
+        (V_CRHNO,
+         P_MD.MTDNO,
+         '0',
+         P_TYPE,
+         P_MD.MTDSMFID,
+         NULL,
+         SYSDATE,
+         P_PERSON,
+         'N');
+    
+      INSERT INTO CUSTMETERREGDT
+        (CMRDNO,
+         CMRDROWNO,
+         CISMFID,
+         CINAME,
+         CINAME2,
+         CIADR,
+         CISTATUS,
+         CISTATUSTRANS,
+         CIIDENTITYLB,
+         CIIDENTITYNO,
+         CIMTEL,
+         CITEL1,
+         CITEL2,
+         CITEL3,
+         CICONNECTPER,
+         CICONNECTTEL,
+         CIIFINV,
+         CIIFSMS,
+         CIIFZN,
+         MIADR,
+         MISAFID,
+         MISMFID,
+         MIRTID,
+         MISTID,
+         MIPFID,
+         MISTATUS,
+         MISTATUSTRANS,
+         MIRPID,
+         MISIDE,
+         MIPOSITION,
+         MITYPE,
+         MIIFCHARGE,
+         MIIFSL,
+         MIIFCHK,
+         MIIFWATCH,
+         MICHARGETYPE,
+         MILB,
+         MINAME,
+         MINAME2,
+         CICLASS,
+         CIFLAG,
+         MIIFMP,
+         MIIFSP,
+         MIIFCKF,
+         MIUSENUM,
+         MISAVING,
+         MIIFTAX,
+         MIINSCODE,
+         MIINSDATE,
+         MIPRIFLAG,
+         MDSTATUS,
+         MAIFXEZF,
+         MIRCODE,
+         MDNO,
+         MDMODEL,
+         MDBRAND,
+         MDCALIBER,
+         CMDCHKPER,
+         MIINSCODECHAR)
+      VALUES
+        (V_CRHNO,
+         1,
+         MI.MISMFID,
+         '新用户',
+         '新用户',
+         CI.CIADR,
+         '0',
+         CI.CISTATUSTRANS,
+         '1',
+         CI.CIIDENTITYNO,
+         P_MD.MTDTEL,
+         CI.CITEL1,
+         CI.CITEL2,
+         CI.CITEL3,
+         P_MD.MTDCONPER,
+         P_MD.MTDCONTEL,
+         'Y',
+         'N',
+         'Y',
+         MI.MIADR,
+         MI.MISAFID,
+         MI.MISMFID,
+         MI.MIRTID,
+         MI.MISTID,
+         MI.MIPFID,
+         '1',
+         MI.MISTATUSTRANS,
+         MI.MIRPID,
+         P_MD.MTDSIDEO,
+         P_MD.MTDPOSITIONO,
+         '1',
+         'Y',
+         'Y',
+         'N',
+         'N',
+         'X',
+         'D',
+         MI.MINAME,
+         MI.MINAME2,
+         1,
+         'Y',
+         'N',
+         'N',
+         'N',
+         1,
+         0,
+         'N',
+         0,
+         TRUNC(SYSDATE),
+         'N',
+         '00',
+         'N',
+         P_MD.MTDREINSCODE,
+         P_MD.MTDMNOO,
+         P_MD.MTDMODELO,
+         P_MD.MTDBRANDO,
+         P_MD.MTDCALIBERO,
+         P_MD.MTDCHKPER,
+         '00000');
+    ELSIF P_TYPE = BT水表升移 THEN
+      -- METERINFO 有效状态 --状态日期 --状态表务
+      UPDATE BS_METERINFO
+         SET MISTATUS      = M立户,
+             MISTATUSDATE  = SYSDATE,
+             MISTATUSTRANS = P_TYPE,
+             MIPOSITION    = P_MD.MTDPOSITIONN
+       WHERE MIID = P_MD.MTDMID;
+      -- METERDOC
+      UPDATE BS_METERDOC
+         SET MDSTATUS = M立户, MDSTATUSDATE = SYSDATE
+       WHERE MDMID = P_MD.MTDMID;
+      --REQUEST_GZHB 回滚换表日期 回滚水表状态
+      UPDATE REQUEST_GZHB
+         SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
+      
+       WHERE MTDMID = MI.MIID;
+
+      --记余量表 METERADDSL
+      --算费
+    END IF;
+    --库存管理开关
+    IF FSYSPARA('sys4') = 'Y' THEN
+      --更新新表状态
+      UPDATE ST_METERINFO_STORE
+         SET STATUS = '3', MIID = MI.MICODE, STATUSDATE = SYSDATE
+       WHERE BSM = P_MD.MTDMNON;
+      IF P_TYPE = BT销户拆表 OR P_TYPE = BT报停 OR P_TYPE = BT欠费停水 OR
+         P_TYPE = BT复装 OR P_TYPE = BT换阀门 OR P_TYPE = BT水表整改 THEN
+        --更新旧表状态
+        UPDATE ST_METERINFO_STORE
+           SET --STATUS=P_MD.MTBK4 ,
+                  STATUS = '4',
+               STATUSDATE = SYSDATE
+         WHERE BSM = P_MD.MTDMNOO;
+      ELSE
+        --更新旧表状态
+        UPDATE ST_METERINFO_STORE
+           SET --STATUS=P_MD.MTBK4 ,
+                  STATUS = '4',
+               STATUSDATE = SYSDATE,
+               MIID       = NULL
+         WHERE BSM = P_MD.MTDMNOO;
+      END IF;
+    END IF;
   
-    UPDATE REQUEST_GZHB
-       SET REHSDATE = SYSDATE, REPER = P_PER, REFLAG = 'Y', MTDFLAG = 'Y'
-     WHERE RENO = P_MTHNO;
-  
-    IF P_COMMIT = 'Y' THEN
-      COMMIT;
+    --算费 对余量算费开关已打开，且余量大于0 进行算费 进行算费
+    IF FSYSPARA('1102') = 'Y' THEN
+      --    IF P_MD.MTDADDSL >= 最低算费水量 AND P_MD.MTDADDSL IS NOT NULL THEN    
+      IF P_TYPE = BT周期换表 THEN
+        --余量大于0 进行算费
+        --20140520 余量算费增加调整水量
+        --将余量添加抄表库METERREAD
+        V_OMRID := TO_CHAR(SYSDATE, 'yyyy.mm');
+        SP_INSERTMR(P_PERSON,
+                    TO_CHAR(SYSDATE, 'yyyy.mm'),
+                    'L',
+                    P_MD.MTDADDSL,
+                    P_MD.MTDSCODE,
+                    P_MD.MTDECODE,
+                    P_MD.MTCARRYSL,
+                    MI,
+                    V_OMRID);
+      ELSE
+        --余量大于0 进行算费
+        --20140520 余量算费增加调整水量
+        --将余量添加抄表库METERREAD
+        V_OMRID := TO_CHAR(SYSDATE, 'yyyy.mm');
+        SP_INSERTMR(P_PERSON,
+                    TO_CHAR(SYSDATE, 'yyyy.mm'),
+                    'M',
+                    P_MD.MTDADDSL,
+                    P_MD.MTDSCODE,
+                    P_MD.MTDECODE,
+                    P_MD.MTCARRYSL,
+                    MI,
+                    V_OMRID);
+      END IF;
+    
+      IF P_MD.MTDADDSL > 0 AND P_MD.MTDADDSL IS NOT NULL THEN
+        IF V_OMRID IS NOT NULL THEN
+          --返回流水不等于空，添加成功
+        
+          --算费
+          PG_EWIDE_METERREAD_01.CALCULATE(V_OMRID);
+        
+          --将之前余用掉
+          PG_EWIDE_RAEDPLAN_01.SP_USEADDINGSL(V_OMRID, --抄表流水
+                                              MA.MASID, --余量流水
+                                              O_STR --返回值
+                                              );
+        
+          --更新换表止码
+          IF P_TYPE IN (BT故障换表, BT周期换表) THEN
+            UPDATE BS_METERINFO
+               SET MIRCODE     = P_MD.MTDREINSCODE, --换表起度
+                   MIRCODECHAR = TO_CHAR(P_MD.MTDREINSCODE) --换表起度CHAR
+             WHERE MIID = P_MD.MTDMID;
+          END IF;
+        
+          -- MODIFY 20140628 如果抄见标志为N且未算费，故障换表审核之后清空抄表库，用户重新做抄表
+          FOR REC_MR IN CUR_METERREAD_NOCALC(P_MD.MTDMID,
+                                             TOOLS.FGETREADMONTH(MI.MISMFID)) LOOP
+            IF REC_MR.MRIFREC = 'N' AND REC_MR.MRDATASOURCE IN ('1', '5') THEN
+              DELETE FROM METERREAD WHERE MRID = REC_MR.MRID;
+            END IF;
+          END LOOP;
+        
+          INSERT INTO METERREADHIS
+            SELECT * FROM METERREAD WHERE MRID = V_OMRID;
+          DELETE METERREAD WHERE MRID = V_OMRID;
+        END IF;
+      ELSIF P_MD.MTDADDSL = 0 OR P_MD.MTDADDSL IS NULL THEN
+        --20140512 换表后如果当月有未算费的正常抄表记录，则更新起码
+        IF P_TYPE = BT故障换表 THEN
+          V_MRMEMO := '故障换表重置指针';
+        ELSIF P_TYPE = BT周期换表 THEN
+          V_MRMEMO := '周期换表重置指针';
+        END IF;
+        --更新换表止码
+        IF P_TYPE IN (BT故障换表, BT周期换表) THEN
+          UPDATE BS_METERINFO
+             SET MIRCODE     = P_MD.MTDREINSCODE, --换表起度
+                 MIRCODECHAR = TO_CHAR(P_MD.MTDREINSCODE) --换表起度CHAR
+           WHERE MIID = P_MD.MTDMID;
+        END IF;
+      
+        -- MODIFY 20140628 如果抄见标志为N且未算费，故障换表审核之后清空抄表库，用户重新做抄表
+        FOR REC_MR IN CUR_METERREAD_NOCALC(P_MD.MTDMID,
+                                           TOOLS.FGETREADMONTH(MI.MISMFID)) LOOP
+          IF REC_MR.MRIFREC = 'N' AND REC_MR.MRDATASOURCE IN ('1', '5') THEN
+            DELETE FROM METERREAD WHERE MRID = REC_MR.MRID;
+          END IF;
+        END LOOP;
+      
+        INSERT INTO METERREADHIS
+          SELECT * FROM METERREAD WHERE MRID = V_OMRID;
+        DELETE METERREAD WHERE MRID = V_OMRID;
+      
+      END IF;
     END IF;
   EXCEPTION
     WHEN OTHERS THEN
       ROLLBACK;
-      RAISE_APPLICATION_ERROR(ERRCODE, SQLERRM);
+      RAISE;
+  END;
+
+  --工单流程未通过
+  PROCEDURE SP_WORKNOTPASS(P_TYPE   IN VARCHAR2, --操作类型
+                           P_MTHNO  IN VARCHAR2, --批次流水
+                           P_PER    IN VARCHAR2, --操作员
+                           P_REMARK IN VARCHAR2, --备注、拒绝原因
+                           P_COMMIT IN VARCHAR2) AS --提交标志
+  BEGIN
+    IF P_TYPE IN ('F') THEN
+      UPDATE REQUEST_CB A
+         SET A.MTDFLAG        = 'Y', --完工标志
+             A.REFLAG         = 'N', --当前审批状
+             A.MODIFYUSERNAME = P_PER, --修改人
+             A.REMARK         = P_REMARK, --备注、拒绝原因
+             A.MODIFYDATE     = SYSDATE --修改时间
+       WHERE A.RENO = P_MTHNO;
+    ELSIF P_TYPE IN ('K') THEN
+      UPDATE REQUEST_GZHB A
+         SET A.MTDFLAG        = 'Y', --完工标志
+             A.REFLAG         = 'N', --当前审批状
+             A.MODIFYUSERNAME = P_PER, --修改人
+             A.REMARK         = P_REMARK, --备注、拒绝原因
+             A.MODIFYDATE     = SYSDATE --修改时间
+       WHERE A.RENO = P_MTHNO;
+    ELSIF P_TYPE IN ('L') THEN
+      UPDATE REQUEST_ZQGZ A
+         SET A.MTDFLAG        = 'Y', --完工标志
+             A.REFLAG         = 'N', --当前审批状
+             A.MODIFYUSERNAME = P_PER, --修改人
+             A.REMARK         = P_REMARK, --备注、拒绝原因
+             A.MODIFYDATE     = SYSDATE --修改时间
+       WHERE A.RENO = P_MTHNO;
+    END IF;
+    IF P_COMMIT = 'Y' THEN
+      COMMIT;
+    END IF;
   END;
 END;
 /
