@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@10.10.10.72/YSDB
-prompt Created by xss on 2021年1月9日
+prompt Created by xss on 2021年1月12日
 set define off
 spool ruoyi_gs.log
 

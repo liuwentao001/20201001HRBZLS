@@ -1669,14 +1669,7 @@
       from bs_recdetail
       where rdid = rlde.rlid;
       
-      update request_yscz 
-      set rewcbz = 'Y',
-          rerlid_rev = o_rerid,
-          modifydate = sysdate,
-          modifyuserid = p_per,
-          modifyusername = (select user_name from sys_user where user_id = p_per),
-          remark = p_memo
-      where reno = p_reno;
+
       
       --rercodeflag      是否重置抄表指针
       if r_yscz.rercodeflag = 'Y' then       
@@ -1721,6 +1714,17 @@
       end if;
       commit;
     end loop;
+   --更新工单状态
+    update request_yscz 
+       set rewcbz = 'Y',
+           rerlid_rev = o_rerid,
+           modifydate = sysdate,
+           modifyuserid = p_per,
+           modifyusername = (select user_name from sys_user where user_id = p_per),
+           remark = p_memo
+     where reno = p_reno;
+    --更改 用户 有审核状态的工单 状态
+    update bs_custinfo set reflag = 'N' where ciid = r_yscz.rlcid;
   exception
     when others then 
       rollback;

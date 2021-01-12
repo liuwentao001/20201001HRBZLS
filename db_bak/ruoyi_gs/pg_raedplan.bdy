@@ -324,8 +324,8 @@
   /*
   单户月初
   进行生成抄码表
-  参数：P_MANAGE_NO：营业所
-        P_MONTH:
+  参数：P_MONTH:抄表月份
+        P_SBID:水表档案编号
   处理：生成抄表资料
   输出：返回 0  执行成功
         返回 -1 执行失败
@@ -795,7 +795,7 @@
   输出：返回 0  执行成功
         返回 -1 执行失败
   */
-  PROCEDURE CREATECBGD(P_RENO   IN VARCHAR2, /*单据流水号*/
+  PROCEDURE CREATECBGD(P_SBID  IN VARCHAR2, /*水表档案编号*/
                        O_STATE OUT VARCHAR2) /*执行状态*/
    IS
     YH   BS_CUSTINFO%ROWTYPE;
@@ -862,7 +862,7 @@
       EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
 
         SBR.MRID          := FGETSEQUENCE('METERREAD'); --流水号
-        SBR.MRMONTH       := P_MONTH; --抄表月份
+        SBR.MRMONTH       := TO_CHAR(SYSDATE,'YYYY.MM'); --当前月份
         SBR.MRSMFID       := SB.MISMFID; --管辖公司
         SBR.MRBFID        := SB.MIBFID; --表册
         SBR.MRBATCH       := BC.BFBATCH; --抄表批次

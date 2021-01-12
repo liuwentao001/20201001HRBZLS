@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user YYSF@49.233.62.251/ORCL
-prompt Created by xss on 2021骞?鏈?鏃?
+prompt Created by xss on 2021骞?鏈?2鏃?
 set define off
 spool db_exp.log
 

@@ -6,7 +6,7 @@
   ciname         VARCHAR2(100),
   ciadr          VARCHAR2(100),
   recause        VARCHAR2(400),
-  pid            VARCHAR2(10) not null,
+  pid            VARCHAR2(2000) not null,
   pcid           VARCHAR2(10) not null,
   pmid           VARCHAR2(10),
   pdate          DATE,
@@ -34,8 +34,7 @@
   workno         VARCHAR2(30),
   workbatch      VARCHAR2(30),
   reshbz         CHAR(1),
-  rewcbz         CHAR(1),
-  rlpid          VARCHAR2(30)
+  rewcbz         CHAR(1)
 )
 ;
 comment on table REQUEST_SSCZ
@@ -108,6 +107,4 @@ comment on column REQUEST_SSCZ.reshbz
   is '审核标志，Y审核完成';
 comment on column REQUEST_SSCZ.rewcbz
   is '完成标志，Y冲正完成';
-comment on column REQUEST_SSCZ.rlpid
-  is '实收账流水号';
 

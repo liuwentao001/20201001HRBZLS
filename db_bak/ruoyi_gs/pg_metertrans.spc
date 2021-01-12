@@ -95,6 +95,7 @@
 /*  PROCEDURE SUM$DAY$METER(P_MIID   VARCHAR2,
                           P_TYPE   VARCHAR2,
                           P_COMMIT VARCHAR2);*/
+
   --工单流程未通过
   PROCEDURE SP_WORKNOTPASS(P_TYPE   IN VARCHAR2, --操作类型
                            P_MTHNO  IN VARCHAR2, --批次流水

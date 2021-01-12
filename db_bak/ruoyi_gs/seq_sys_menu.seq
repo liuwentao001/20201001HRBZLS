@@ -1,7 +1,7 @@
 ﻿create sequence SEQ_SYS_MENU
 minvalue 1
 maxvalue 9999999999999999999999999999
-start with 18637
+start with 18657
 increment by 1
 cache 20;
 

@@ -29,7 +29,6 @@
           WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(ERRCODE, '工单明细信息不存在!');
         END;
-        ----------------表身码状态改变
           --插入一条旧表记录作为历史状态用
           INSERT INTO BS_METERDOC
             SELECT ID,
@@ -88,8 +87,7 @@
              SET MDSTATUS = '1', MDID = ML.MIID
            WHERE MDNO = ML.NEWMDNO
              AND IFOLD='N';
-        --免抄户、倒装水表 故障换表、周期换表后为正常户
-          --重置正常表态
+        --故障换表后为正常户
           UPDATE BS_METERINFO T
              SET T.MISTATUS = '1', T.MICOLUMN5 = NULL
            WHERE T.MIID = ML.MIID;
@@ -122,8 +120,7 @@
           WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(ERRCODE, '工单明细信息不存在!');
         END;
-        ----------------表身码状态改变
-          --旧表状态
+          --插入一条旧表记录作为历史状态用
           INSERT INTO BS_METERDOC
             SELECT SEQMESTERDOCID.NEXTVAL ID,
                    MDID,
@@ -175,6 +172,11 @@
                  MAINDATE = SYSDATE
            WHERE MDNO = MF.MDNO
              AND IFOLD = 'N';
+          --更新户表信息为作废
+          --暂未确定 等待确定
+          UPDATE BS_METERINFO T
+             SET T.MISTATUS = '40'--, T.MICOLUMN5 = NULL
+           WHERE T.MIID = ML.MIID;
       END LOOP;
       --更新工单完成状态
       UPDATE REQUEST_CB
@@ -199,7 +201,6 @@
           WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(ERRCODE, '工单明细信息不存在!');
         END;
-        ----------------表身码状态改变
           --插入一条旧表记录作为历史状态用
           INSERT INTO BS_METERDOC
             SELECT ID,
@@ -258,7 +259,6 @@
              SET MDSTATUS = '1', MDID = MK.MIID
            WHERE MDNO = MK.NEWMDNO
              AND IFOLD = 'N';
-        --免抄户、倒装水表 故障换表、周期换表后为正常户
           --重置正常表态
           UPDATE BS_METERINFO T
              SET T.MISTATUS = '1', T.MICOLUMN5 = NULL
@@ -299,124 +299,102 @@
     V_CRHNO       VARCHAR2(10);
     V_OMRID       VARCHAR2(20);
     O_STR         VARCHAR2(20);
-    V_METERSTATUS METERSTATUS%ROWTYPE;
-    V_METERSTORE  ST_METERINFO_STORE%ROWTYPE;
+    O_STATE       VARCHAR2(20);
+    V_METERSTORE  SYS_DICT_DATA%ROWTYPE;
+    O_OUT         BS_METERREAD%ROWTYPE;
   
     --未算费抄表记录
     CURSOR CUR_METERREAD_NOCALC(P_MRMID VARCHAR2, P_MRMONTH VARCHAR2) IS
       SELECT *
-        FROM METERREAD MR
+        FROM BS_METERREAD MR
        WHERE MR.MRMID = P_MRMID
          AND MR.MRMONTH = P_MRMONTH;
   
   BEGIN
     BEGIN
-      SELECT * INTO MI FROM BS_METERINFO WHERE MIID = P_MD.MTDMID;
+      SELECT * INTO MI FROM BS_METERINFO WHERE MIID = P_MD.MIID;
     EXCEPTION
       WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(ERRCODE, '水表资料不存在!');
     END;
     BEGIN
-      SELECT * INTO CI FROM BS_CUSTINFO WHERE BS_CUSTINFO.CIID = MI.MICID;
+      SELECT * INTO CI FROM BS_CUSTINFO WHERE BS_CUSTINFO.CIID = MI.MICODE;
     EXCEPTION
       WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(ERRCODE, '用户资料不存在!');
     END;
     BEGIN
-      SELECT * INTO MC FROM BS_METERDOC WHERE MDMID = P_MD.MTDMID;
+      SELECT * INTO MC FROM BS_METERDOC WHERE MDID = P_MD.MIID AND IFOLD='N';
     EXCEPTION
       WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(ERRCODE, '水表不存在!');
     END;
   
-    IF MI.MIRCODE != MD.MTDSCODE THEN
-      RAISE_APPLICATION_ERROR(ERRCODE, '上期抄见发生变化，请重置上期抄见');
-    END IF;
-  
-    IF FSYSPARA('sys4') = 'Y' THEN
       BEGIN
-        SELECT STATUS
-          INTO V_METERSTATUS.SID
-          FROM ST_METERINFO_STORE
-         WHERE BSM = P_MD.MTDMNON;
+        SELECT MDSTATUS
+          INTO V_METERSTORE.DICT_VALUE
+          FROM BS_METERDOC A
+         WHERE MDNO = P_MD.NEWMDNO
+           AND A.IFOLD='N';
       
       EXCEPTION
         WHEN OTHERS THEN
           NULL;
       END;
-      IF TRIM(V_METERSTATUS.SID) <> '2' THEN
-        SELECT SNAME
-          INTO V_METERSTATUS.SNAME
-          FROM METERSTATUS
-         WHERE SID = V_METERSTATUS.SID;
+      IF TRIM(V_METERSTORE.DICT_VALUE) <> '0' THEN
+        SELECT A.DICT_LABEL
+          INTO V_METERSTORE.DICT_LABEL
+          FROM SYS_DICT_DATA A
+         WHERE A.DICT_TYPE = 'sys_meterusestatus'
+           AND A.DICT_VALUE = V_METERSTORE.DICT_VALUE;
         RAISE_APPLICATION_ERROR(ERRCODE,
-                                MI.MICID || '该水表状态为【' ||
-                                V_METERSTATUS.SNAME || '】不能使用！');
+                                MI.MIID || '该水表状态为【' ||
+                                V_METERSTORE.DICT_LABEL || '】不能使用！');
       END IF;
-    END IF;
   
     --F销户拆表
-    IF P_TYPE = BT销户拆表 THEN
+    IF P_TYPE = BT拆表 THEN
       -- BS_METERINFO 有效状态 --状态日期 --状态表务
       UPDATE BS_METERINFO
-         SET MISTATUS      = M销户,
+         SET MISTATUS      = BT拆表,
              MISTATUSDATE  = SYSDATE,
              MISTATUSTRANS = P_TYPE,
              MIUNINSDATE   = SYSDATE,
              MIBFID        = NULL -- BY 20170904 WLJ 销户拆表将表册置空
-       WHERE MIID = P_MD.MTDMID;
+       WHERE MIID = P_MD.MIID;
     
-      --销户后同步用户状态
+/*      --销户后同步用户状态
       UPDATE BS_CUSTINFO
          SET CISTATUS      = M销户,
              CISTATUSDATE  = SYSDATE,
              CISTATUSTRANS = P_TYPE
-       WHERE CICODE = P_MD.MTDMID;
+       WHERE CICODE = P_MD.CIID;*/
     
       ---销户拆表收取余量水费（在去掉低度之前）
       --STEP1 插入抄表记录
     
       --STEP2  插入应收记录
     
-      --去掉低度[20110702]
-      UPDATE PRICEADJUSTLIST PL
-         SET PL.PALSTATUS = 'N'
-       WHERE PL.PALMID = P_MD.MTDMID;
-    
-      --METERDOC  表状态 表状态发生时间
+/*      --METERDOC  表状态 表状态发生时间
       UPDATE BS_METERDOC
          SET MDSTATUS = M销户, MDSTATUSDATE = SYSDATE
-       WHERE MDMID = P_MD.MTDMID;
-      --记余量表 METERADDSL
-      SELECT SEQ_METERADDSL.NEXTVAL INTO MA.MASID FROM DUAL;
-      -- MD.MASID           :=     ;--记录流水号
-      MA.MASSCODEO    := P_MD.MTDSCODE; --旧表起度
-      MA.MASECODEN    := P_MD.MTDECODE; --旧表止度
-      MA.MASUNINSDATE := P_MD.MTDUNINSDATE; --拆表日期
-      MA.MASUNINSPER  := P_MD.MTDUNINSPER; --拆表人
-      MA.MASCREDATE   := SYSDATE; --创建日期
-      MA.MASCID       := MI.MICID; --用户编号
-      MA.MASMID       := MI.MIID; --水表编号
-      MA.MASSL        := P_MD.MTDADDSL; --余量
-      MA.MASCREPER    := P_PERSON; --创建人员
-      MA.MASTRANS     := P_TYPE; --加调事务
-      MA.MASBILLNO    := P_MD.MTDNO; --单据流水
-      MA.MASSCODEN    := P_MD.MTDREINSCODE; --新表起度
-      MA.MASINSDATE   := P_MD.MTDREINSDATE; --装表日期
-      MA.MASINSPER    := P_MD.MTDREINSPER; --装表人
-      INSERT INTO METERADDSL VALUES MA;
+       WHERE MDMID = P_MD.MTDMID;*/
       ----增加拆表数据的实时型
       BEGIN
-        PG_EWIDE_CUSTBASE_01.SUM$DAY$METER(MI.MIID, '7', 'N');
+        PG_RAEDPLAN.CREATECBGD(MI.MIID,O_STATE);
+        IF O_STATE='0' THEN
+          SELECT MAX(MRID) INTO O_STATE FROM BS_METERREAD A WHERE A.MRMID=MI.MIID;
+        PG_CB_COST.CALCULATEBF(O_STATE, '02', O_OUT.MRRECJE01, O_OUT.MRRECJE02, O_OUT.MRRECJE03, O_OUT.MRRECJE04, O_OUT.MRMEMO);
+        END IF;
       EXCEPTION
         WHEN OTHERS THEN
           NULL;
       END;
     
       ---- METERINFO 有效状态 --状态日期 --状态表务 【YUJIA 20110323】
-      UPDATE ST_METERINFO_STORE
-         SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
-       WHERE BSM = P_MD.MTDMNOO;
+      UPDATE BS_METERDOC
+         SET MDSTATUS = '4', MDID = MI.MIID, MDSTATUSDATE = SYSDATE
+       WHERE MDNO = P_MD.MDNO AND IFOLD = 'N';
       -----METERDOC  表状态 表状态发生时间  【YUJIA 20110323】
     
       UPDATE BS_METERDOC
@@ -448,7 +426,7 @@
          SET MTDMSTATUSO = MI.MISTATUS, MTDREINSDATEO = MI.MISTATUSDATE
        WHERE MTDMID = MI.MIID;
       ------表身码状态改变    旧表状态
-      UPDATE ST_METERINFO_STORE
+      UPDATE BS_METERDOC
          SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
        WHERE BSM = P_MD.MTDMNOO;
     
@@ -704,7 +682,7 @@
     ELSIF P_TYPE = BT故障换表 THEN
       SELECT COUNT(*)
         INTO V_COUNTFLAG
-        FROM METERREAD MR
+        FROM BS_METERREAD MR
        WHERE MR.MRMID = P_MD.MTDMID
          AND MR.MRREADOK = 'Y' --已抄表
          AND MR.MRIFREC <> 'Y'; --未算费
@@ -715,7 +693,7 @@
                                 '】此水表已经抄表录入,抄见标志有打上,不能进行故障换表审核,需进入程式【抄表录入】点击重抄按纽,取消当前水量!');
       END IF;
     
-      UPDATE METERREAD T
+      UPDATE BS_METERREAD T
          SET MRSCODE = P_MD.MTDREINSCODE --BY RALPH 20151021  增加的将未抄见指针更换掉
        WHERE MRMID = P_MD.MTDMID
          AND MRREADOK = 'N';
@@ -764,7 +742,7 @@
       BEGIN
         SELECT *
           INTO V_METERSTORE
-          FROM ST_METERINFO_STORE ST
+          FROM BS_METERDOC ST
          WHERE ST.BSM = P_MD.MTDMNON
            AND ROWNUM < 2;
         UPDATE BS_METERDOC
@@ -832,11 +810,11 @@
       --【抄表审核转单】故障换表后回写复核标志
       SELECT COUNT(*)
         INTO V_COUNTFLAG
-        FROM METERREAD MR
+        FROM BS_METERREAD MR
        WHERE MR.MRMID = P_MD.MTDMID
          AND MR.MRIFSUBMIT = 'N';
       IF V_COUNTFLAG > 0 THEN
-        UPDATE METERREAD MR
+        UPDATE BS_METERREAD MR
            SET MR.MRCHKFLAG = 'Y', --复核标志
                MR.MRCHKDATE = SYSDATE, --复核日期
                MR.MRCHKPER  = P_PERSON --复核人员
@@ -866,7 +844,7 @@
       BEGIN
         SELECT STATUS
           INTO V_METERSTATUS.SID
-          FROM ST_METERINFO_STORE
+          FROM BS_METERDOC
          WHERE BSM = P_MD.MTDMNON;
       
       EXCEPTION
@@ -883,10 +861,10 @@
                                 '】不能使用！');
       END IF;
       IF TRIM(V_METERSTATUS.SID) = '2' THEN
-        UPDATE ST_METERINFO_STORE
+        UPDATE BS_METERDOC
            SET STATUS = '3', MIID = MI.MICODE, STATUSDATE = SYSDATE
          WHERE BSM = P_MD.MTDMNON;
-        UPDATE ST_METERINFO_STORE
+        UPDATE BS_METERDOC
            SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
          WHERE BSM = P_MD.MTDMNOO;
       END IF;
@@ -897,9 +875,6 @@
          SET MISTATUS      = M立户, --状态
              MISTATUSDATE  = SYSDATE, --状态日期
              MISTATUSTRANS = P_TYPE, --状态表务
-             --MIADR         = P_MD.MTDMADRN,--水表地址
-             --MISIDE        = P_MD.MTDSIDEN,--表位
-             --MIPOSITION    = P_MD.MTDPOSITIONN ,--水表接水地址
              MIREINSCODE = P_MD.MTDREINSCODE, --换表起度
              MIREINSDATE = P_MD.MTDREINSDATE, --换表日期
              MIREINSPER  = P_MD.MTDREINSPER --换表人
@@ -939,7 +914,7 @@
     
       SELECT COUNT(*)
         INTO V_COUNTFLAG
-        FROM METERREAD MR
+        FROM BS_METERREAD MR
        WHERE MR.MRMID = P_MD.MTDMID
          AND MR.MRREADOK = 'Y' --已抄表
          AND MR.MRIFREC <> 'Y'; --未算费
@@ -987,7 +962,7 @@
       BEGIN
         SELECT *
           INTO V_METERSTORE
-          FROM ST_METERINFO_STORE ST
+          FROM BS_METERDOC ST
          WHERE ST.BSM = P_MD.MTDMNON
            AND ROWNUM < 2;
         UPDATE BS_METERDOC
@@ -1055,11 +1030,11 @@
       --【抄表审核转单】周期换表后回写复核标志
       SELECT COUNT(*)
         INTO V_COUNTFLAG
-        FROM METERREAD MR
+        FROM BS_METERREAD MR
        WHERE MR.MRMID = P_MD.MTDMID
          AND MR.MRIFSUBMIT = 'N';
       IF V_COUNTFLAG > 0 THEN
-        UPDATE METERREAD MR
+        UPDATE BS_METERREAD MR
            SET MR.MRCHKFLAG = 'Y', --复核标志
                MR.MRCHKDATE = SYSDATE, --复核日期
                MR.MRCHKPER  = P_PERSON --复核人员
@@ -1089,7 +1064,7 @@
       BEGIN
         SELECT STATUS
           INTO V_METERSTATUS.SID
-          FROM ST_METERINFO_STORE
+          FROM BS_METERDOC
          WHERE BSM = P_MD.MTDMNON;
       
       EXCEPTION
@@ -1106,10 +1081,10 @@
                                 V_METERSTATUS.SNAME || '】不能使用！');
       END IF;
       IF TRIM(V_METERSTATUS.SID) = '2' THEN
-        UPDATE ST_METERINFO_STORE
+        UPDATE BS_METERDOC
            SET STATUS = '3', MIID = MI.MICODE, STATUSDATE = SYSDATE
          WHERE BSM = P_MD.MTDMNON;
-        UPDATE ST_METERINFO_STORE
+        UPDATE BS_METERDOC
            SET STATUS = '4', MIID = MI.MICODE, STATUSDATE = SYSDATE
          WHERE BSM = P_MD.MTDMNOO;
       END IF;
@@ -1589,20 +1564,20 @@
     --库存管理开关
     IF FSYSPARA('sys4') = 'Y' THEN
       --更新新表状态
-      UPDATE ST_METERINFO_STORE
+      UPDATE BS_METERDOC
          SET STATUS = '3', MIID = MI.MICODE, STATUSDATE = SYSDATE
        WHERE BSM = P_MD.MTDMNON;
-      IF P_TYPE = BT销户拆表 OR P_TYPE = BT报停 OR P_TYPE = BT欠费停水 OR
+      IF P_TYPE = BT拆表 OR P_TYPE = BT报停 OR P_TYPE = BT欠费停水 OR
          P_TYPE = BT复装 OR P_TYPE = BT换阀门 OR P_TYPE = BT水表整改 THEN
         --更新旧表状态
-        UPDATE ST_METERINFO_STORE
+        UPDATE BS_METERDOC
            SET --STATUS=P_MD.MTBK4 ,
                   STATUS = '4',
                STATUSDATE = SYSDATE
          WHERE BSM = P_MD.MTDMNOO;
       ELSE
         --更新旧表状态
-        UPDATE ST_METERINFO_STORE
+        UPDATE BS_METERDOC
            SET --STATUS=P_MD.MTBK4 ,
                   STATUS = '4',
                STATUSDATE = SYSDATE,
@@ -1613,7 +1588,6 @@
   
     --算费 对余量算费开关已打开，且余量大于0 进行算费 进行算费
     IF FSYSPARA('1102') = 'Y' THEN
-      --    IF P_MD.MTDADDSL >= 最低算费水量 AND P_MD.MTDADDSL IS NOT NULL THEN    
       IF P_TYPE = BT周期换表 THEN
         --余量大于0 进行算费
         --20140520 余量算费增加调整水量
@@ -1669,13 +1643,13 @@
           FOR REC_MR IN CUR_METERREAD_NOCALC(P_MD.MTDMID,
                                              TOOLS.FGETREADMONTH(MI.MISMFID)) LOOP
             IF REC_MR.MRIFREC = 'N' AND REC_MR.MRDATASOURCE IN ('1', '5') THEN
-              DELETE FROM METERREAD WHERE MRID = REC_MR.MRID;
+              DELETE FROM BS_METERREAD WHERE MRID = REC_MR.MRID;
             END IF;
           END LOOP;
         
-          INSERT INTO METERREADHIS
-            SELECT * FROM METERREAD WHERE MRID = V_OMRID;
-          DELETE METERREAD WHERE MRID = V_OMRID;
+          INSERT INTO BS_METERREADHIS
+            SELECT * FROM BS_METERREAD WHERE MRID = V_OMRID;
+          DELETE BS_METERREAD WHERE MRID = V_OMRID;
         END IF;
       ELSIF P_MD.MTDADDSL = 0 OR P_MD.MTDADDSL IS NULL THEN
         --20140512 换表后如果当月有未算费的正常抄表记录，则更新起码
@@ -1696,13 +1670,13 @@
         FOR REC_MR IN CUR_METERREAD_NOCALC(P_MD.MTDMID,
                                            TOOLS.FGETREADMONTH(MI.MISMFID)) LOOP
           IF REC_MR.MRIFREC = 'N' AND REC_MR.MRDATASOURCE IN ('1', '5') THEN
-            DELETE FROM METERREAD WHERE MRID = REC_MR.MRID;
+            DELETE FROM BS_METERREAD WHERE MRID = REC_MR.MRID;
           END IF;
         END LOOP;
       
-        INSERT INTO METERREADHIS
-          SELECT * FROM METERREAD WHERE MRID = V_OMRID;
-        DELETE METERREAD WHERE MRID = V_OMRID;
+        INSERT INTO BS_METERREADHIS
+          SELECT * FROM BS_METERREAD WHERE MRID = V_OMRID;
+        DELETE BS_METERREAD WHERE MRID = V_OMRID;
       
       END IF;
     END IF;
@@ -1711,7 +1685,7 @@
       ROLLBACK;
       RAISE;
   END;
-
+  
   --工单流程未通过
   PROCEDURE SP_WORKNOTPASS(P_TYPE   IN VARCHAR2, --操作类型
                            P_MTHNO  IN VARCHAR2, --批次流水

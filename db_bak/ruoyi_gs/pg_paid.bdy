@@ -423,10 +423,20 @@
   --实收冲正，按工单
   procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
     v_payids varchar(100);
+    v_pcid varchar(20);
   begin
-    select rlpid into v_payids from request_sscz where reshbz = 'Y' and rewcbz <> 'Y' and reno = p_reno;
+    select pid, pcid into v_payids, v_pcid from request_sscz where reshbz = 'Y' and (rewcbz <> 'Y' or rewcbz is  null) and reno = p_reno;
     pay_back_by_pids(v_payids, p_oper, o_pid_reverse);
-    update request_sscz set rewcbz = 'Y' where reno = p_reno;
+    
+    --更新工单状态
+    update request_sscz 
+       set rewcbz = 'Y',
+           modifydate = sysdate,
+           modifyuserid = p_oper,
+          modifyusername = (select user_name from sys_user where user_id = p_oper)
+     where reno = p_reno;
+    --更改 用户 有审核状态的工单 状态
+    update bs_custinfo set reflag = 'N' where ciid = v_pcid;
     commit;
   exception
     when others then

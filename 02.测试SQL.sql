@@ -348,6 +348,28 @@ select * from bs_reclist where rlcid='4051042244' order by rlid desc;
 */
 
 
+    select * from request_sscz where reshbz = 'Y' and (rewcbz <> 'Y' or rewcbz is null) and reno = 'C7DEB4CDFDCA4B7EA8DD99470FF6ED23';
+
+
+    select rlpid,reshbz,rewcbz,t.* from request_sscz t where reno = 'C7DEB4CDFDCA4B7EA8DD99470FF6ED23';
+
+    select t.* from request_sscz t where reno = 'C7DEB4CDFDCA4B7EA8DD99470FF6ED23' for update
+
+
+0000247999,0000248000,0000248001
+
+select * from bs_payment where pid in ('1476396067','1474665919','1472621814') or pid in ('0000247999','0000248000','0000248001')
+
+select * from bs_payment order by pdatetime desc;
+select * from bs_reclist where rlpid in ('1476396067','1474665919','1472621814');
+select * from bs_custinfo where ciid='5118818093'
 
 
 
+select * from bs_payment where pcid='2200000502' order by pdatetime desc for update
+1 0000248006  2200000502  2200000503  2021-1-11 2021-1-11 15:53:33  2021-01 1 P 600.00  -600.00 0.00  -600.00         0000247736  1   Y 0000247997  P 2021-01 2021-1-11               
+7 0000247997  2200000502  2200000503  2021-1-11 2021-1-11 10:29:59  2021-01 1 P 500.00  600.00  1100.00 600.00  XJ        0000247736  1   Y 0000247997  P 2021-01 2021-1-11               
+
+select * from bs_reclist where rlcid='2200000502'
+
+0000248009
