@@ -85,16 +85,23 @@
                           P_PER    IN VARCHAR2, --操作员
                           P_COMMIT IN VARCHAR2 --提交标志
                           );
-                          
-  --工单单个审核过程
+
+
+
+  --撤表销户简单的销户操作 不考虑财务
+  PROCEDURE SP_METERCANCELLATION(I_MICODE IN VARCHAR2,  --用户编号
+                                 I_RER    IN VARCHAR2,  --操作员
+                                 O_STATE  OUT NUMBER);  --执行状态
+
+
+
+/*  --工单单个审核过程
   PROCEDURE SP_METERTRANSONE(P_TYPE   IN VARCHAR2, --类型
                              P_PERSON IN VARCHAR2, -- 操作员
                              P_MD     IN GD_METERTGLDT%ROWTYPE --单体行变更
-                             );
+                             );*/
 
-/*  PROCEDURE SUM$DAY$METER(P_MIID   VARCHAR2,
-                          P_TYPE   VARCHAR2,
-                          P_COMMIT VARCHAR2);*/
+
 
   --工单流程未通过
   PROCEDURE SP_WORKNOTPASS(P_TYPE   IN VARCHAR2, --操作类型

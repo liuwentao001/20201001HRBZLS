@@ -30,7 +30,7 @@
         from bs_meterread mr
              left join bs_meterinfo mi on mr.mrmid = mi.miid
              left join bs_custinfo ci on ci.ciid = mr.mrccode
-       where ((mr.mrdatasource in ('1','5','6','7','9') and ci.reflag <> 'Y') or (mr.mrdatasource not in ('1','5','6','7','9') and ci.reflag = 'Y')) --有审核状态的工单按工单状态算费
+       where ((mr.mrdatasource in ('1','5','6','7','9') and  (ci.reflag <> 'Y' or ci.reflag is null)) or (mr.mrdatasource not in ('1','5','6','7','9') and ci.reflag = 'Y')) --有审核状态的工单按工单状态算费
          and mr.mrbfid in (select regexp_substr(vbfid, '[^,]+', 1, level) mrbfid from dual connect by level <= length(vbfid) - length(replace(vbfid, ',', '')) + 1)
          --and bs_meterinfo.mistatus not in ('24', '35', '36', '19') --算费时，故障换表中、周期换表中、预存冲销中、销户中的不进行算费,需把故障换表中、周期换表中单据审核完才能算费
          and mr.mrifrec = 'N' --是否已计费
@@ -128,7 +128,7 @@
       end if;
       
       commit;
-      select mrrecje01,mrrecje02,mrrecje03,mrrecje04 into o_mrrecje01,o_mrrecje02,o_mrrecje03,o_mrrecje04 from bs_meterread where mrid = p_mrid;
+      select nvl(mrrecje01,0) + nvl(mrrecje02,0) + nvl(mrrecje03,0) + nvl(mrrecje04,0) ,mrrecje02,mrrecje03,mrrecje04 into o_mrrecje01,o_mrrecje02,o_mrrecje03,o_mrrecje04 from bs_meterread where mrid = p_mrid;
       err_log := callogtxt;
     else
       wlog('当前抄表计划流水号已正式算费，无法重算');
@@ -978,6 +978,7 @@
       rl.rlscrrltrans   := rl.rltrans; --原应收帐事务
       rl.rlscrrlmonth   := rl.rlmonth; --原应收帐月份
       rl.rlscrrldate    := rl.rldate; --原应收帐日期
+      /*
       begin
         select nvl(sum(nvl(rlje, 0) - nvl(rlpaidje, 0)), 0)
           into rl.rlpriorje
@@ -990,6 +991,7 @@
         when others then
           rl.rlpriorje := 0; --算费之前欠费
       end;
+      */
       if rl.rlpriorje > 0 then
         rl.rlmisaving := 0;
       else
@@ -1015,6 +1017,13 @@
       rl.rlreadsl := mr.mrrecsl + nvl(mr.mrcarrysl, 0); --reclist抄见水量 = mr.抄见水量+mr 校验水量
     end if;
 
+    if 是否审批算费 = 'N' then
+      insert into bs_reclist values rl;
+    else
+      insert into bs_reclist_temp values rl;
+    end if;
+    insrd(rdtab);
+    
     update bs_meterinfo
        set mircode     = mr.mrecode,
            mirecdate   = mr.mrrdate,
@@ -1585,12 +1594,12 @@
   
   --应收冲正_按工单
   procedure yscz_gd(p_reno   in varchar2,--工单流水号
-                 p_per    in varchar2,--完结人
+                 p_oper    in varchar2,--完结人
                  p_memo   in varchar2 --备注
                  ) is
     o_rerid        varchar2(20);
     r_yscz         request_yscz%rowtype;
-    o_pid_reverse  bs_reclist.rlpid%type;
+    --o_pid_reverse  bs_reclist.rlpid%type;
     rlcr bs_reclist%rowtype;
   begin
     select * into r_yscz from request_yscz where reno = p_reno;
@@ -1641,14 +1650,14 @@
 
       rlde.rlpaidflag    := rlcr.rlpaidflag;
       rlde.rlpaiddate    := rlcr.rldate;
-      rlde.rlpaidper     := p_per;
+      rlde.rlpaidper     := p_oper;
       rlde.rlpaidje      := rlde.rlpaidje + rlcr.rlje;
       rlde.rlreverseflag := rlcr.rlreverseflag;
       --更新标记源帐
       update bs_reclist
          set rlpaidflag    = rlcr.rlpaidflag,
              rlpaiddate    = rlcr.rldate,
-             rlpaidper     = p_per,
+             rlpaidper     = p_oper,
              rlreverseflag = rlde.rlreverseflag
        where rlid = rlde.rlid;
        
@@ -1719,8 +1728,8 @@
        set rewcbz = 'Y',
            rerlid_rev = o_rerid,
            modifydate = sysdate,
-           modifyuserid = p_per,
-           modifyusername = (select user_name from sys_user where user_id = p_per),
+           modifyuserid = p_oper,
+           modifyusername = (select user_name from sys_user where user_id = p_oper),
            remark = p_memo
      where reno = p_reno;
     --更改 用户 有审核状态的工单 状态
@@ -1733,7 +1742,7 @@
   
   --应收冲正_按应收账流水
   procedure yscz_rl(p_rlid   in varchar2, --应收账流水号
-                 p_per    in varchar2,    --完结人
+                 p_oper    in varchar2,    --完结人
                  p_memo   in varchar2,    --备注
                  o_rlcrid out varchar2    --返回负应收账流水号
                  ) is
@@ -1783,14 +1792,14 @@
 
     rlde.rlpaidflag    := rlcr.rlpaidflag;
     rlde.rlpaiddate    := rlcr.rldate;
-    rlde.rlpaidper     := p_per;
+    rlde.rlpaidper     := p_oper;
     rlde.rlpaidje      := rlde.rlpaidje + rlcr.rlje;
     rlde.rlreverseflag := rlcr.rlreverseflag;
     --更新标记源帐
     update bs_reclist
        set rlpaidflag    = rlcr.rlpaidflag,
            rlpaiddate    = rlcr.rldate,
-           rlpaidper     = p_per,
+           rlpaidper     = p_oper,
            rlreverseflag = rlde.rlreverseflag
      where rlid = rlde.rlid;
      

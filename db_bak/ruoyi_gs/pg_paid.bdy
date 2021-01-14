@@ -423,17 +423,27 @@
   --实收冲正，按工单
   procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
     v_payids varchar(100);
+    v_pid_reverse varchar(100);
     v_pcid varchar(20);
   begin
-    select pid, pcid into v_payids, v_pcid from request_sscz where reshbz = 'Y' and (rewcbz <> 'Y' or rewcbz is  null) and reno = p_reno;
-    pay_back_by_pids(v_payids, p_oper, o_pid_reverse);
-    
+    select pid, pcid into v_payids, v_pcid from request_sscz where reshbz = 'Y' and (rewcbz <> 'Y' or rewcbz is  null) and reno = p_reno;    
+    o_pid_reverse := null;
+    for i in (select regexp_substr(v_payids, '[^,]+', 1, level) pid from dual connect by level <= length(v_payids) - length(replace(v_payids, ',', '')) + 1) loop
+      v_pid_reverse := null;
+      pay_back_by_pdate_desc(i.pid,p_oper,v_pid_reverse);
+      if o_pid_reverse is null then
+         o_pid_reverse := v_pid_reverse;
+      else
+         o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
+      end if;
+    end loop;
+        
     --更新工单状态
     update request_sscz 
        set rewcbz = 'Y',
            modifydate = sysdate,
            modifyuserid = p_oper,
-          modifyusername = (select user_name from sys_user where user_id = p_oper)
+           modifyusername = (select user_name from sys_user where user_id = p_oper)
      where reno = p_reno;
     --更改 用户 有审核状态的工单 状态
     update bs_custinfo set reflag = 'N' where ciid = v_pcid;
@@ -444,24 +454,37 @@
       raise_application_error(errcode, sqlerrm);
   end;
   
-  --实收冲正，多流水号批量冲正
+  --实收冲正，多流水号批量冲正，只冲正缴费交易，不冲正抵扣交易
   procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
     v_pid_reverse varchar(100);
+    v_ppayment number;
+    v_misaving number;
+    v_reflag varchar2(1);
   begin
     o_pid_reverse := null;
     for i in (select regexp_substr(p_payids, '[^,]+', 1, level) pid from dual connect by level <= length(p_payids) - length(replace(p_payids, ',', '')) + 1) loop
-      v_pid_reverse := null;
-      pay_back_by_pdate_desc(i.pid,p_oper,v_pid_reverse);
-      if o_pid_reverse is null then
-         o_pid_reverse := v_pid_reverse;
+      begin
+        select nvl(p.ppayment,0), nvl(ci.misaving,0), nvl(ci.reflag,'N') into v_ppayment, v_misaving, v_reflag
+          from bs_payment p left join bs_custinfo ci on p.pcid = ci.ciid
+         where p.pid = i.pid;
+      exception
+        when no_data_found then o_pid_reverse := o_pid_reverse || i.pid || '： 无效的交易流水号，无法冲正' || CHR(10);
+        continue;
+      end;
+      
+      if v_ppayment = 0 then
+        o_pid_reverse := o_pid_reverse || i.pid || '： 不是预存缴费交易流水号，无法冲正' || CHR(10);
+      elsif v_reflag = 'Y' then
+        o_pid_reverse := o_pid_reverse || i.pid || '： 用户存在审批中的工单，无法冲正' || CHR(10);
+      elsif v_ppayment > v_misaving then
+        o_pid_reverse := o_pid_reverse || i.pid || '： 用户余额不足，无法冲正' || CHR(10);
       else
-         o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
+        v_pid_reverse := null;
+        pay_back_by_pid(i.pid, p_oper, 'N', v_pid_reverse);
+        o_pid_reverse := o_pid_reverse || i.pid || '： 冲正完成，冲销流水号' || v_pid_reverse || CHR(10) ;
       end if;
+      
     end loop;
-  exception
-    when others then
-      rollback;
-      raise_application_error(errcode, sqlerrm);
   end;
 
   --实收冲正，按缴费批次
@@ -471,7 +494,7 @@
     o_pid_reverse := null;
     for i in (select pid from bs_payment where pbatch = p_pbatch) loop
       v_pid_reverse := null;
-      pay_back_by_pid(i.pid,p_oper,v_pid_reverse);
+      pay_back_by_pid(i.pid,p_oper,'',v_pid_reverse);
       if o_pid_reverse is null then
          o_pid_reverse := v_pid_reverse;
       else
@@ -502,7 +525,7 @@
     select ptrans into v_ptrans from bs_payment where pid = p_pid;
     
     if v_ptrans = 'U' or (v_ptrans = 'P' and v_misaving >= v_ppayment) then
-      pay_back_by_pid(p_pid, p_oper, v_pid_reverse);
+      pay_back_by_pid(p_pid, p_oper, '', v_pid_reverse);
       o_pid_reverse := v_pid_reverse;
     elsif v_ptrans = 'P' and v_misaving < v_ppayment then
       for i in (select p.pid ,rl.rlje
@@ -515,7 +538,7 @@
                  order by rl.rlday desc
                ) loop
         v_pid_reverse := null;
-        pay_back_by_pid(i.pid,p_oper,v_pid_reverse);
+        pay_back_by_pid(i.pid,p_oper,'',v_pid_reverse);
         if o_pid_reverse is null then
            o_pid_reverse := v_pid_reverse;
         else
@@ -525,7 +548,7 @@
         exit when v_misaving + v_sumrlje >= v_ppayment;
       end loop;
       
-      pay_back_by_pid(p_pid, p_oper, v_pid_reverse);
+      pay_back_by_pid(p_pid, p_oper, '', v_pid_reverse);
       o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
       
     end if;
@@ -536,7 +559,11 @@
   end;
   
   --实收冲正
-  procedure pay_back_by_pid(p_payid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
+  --  p_payid  实收流水号
+  --  p_oper   操作员编码
+  --  p_recflg 是否冲正应收账
+  --  o_pid_reverse      返回实收冲正流水号
+  procedure pay_back_by_pid(p_payid in varchar2, p_oper in varchar2, p_recflag in varchar2, o_pid_reverse out varchar2) is
     cursor c_p(vpid varchar2) is
       select * from bs_payment where pid = vpid and preverseflag <> 'Y' for update nowait;
     cursor c_mi(vmiid varchar2) is
@@ -599,75 +626,79 @@
     --PAYMENT 增加了了一条负记录
     -- 被冲正记录的冲正标志为Y
 
-    -----STEP 10: 增加负应收记录
-    ---保存需要冲正处理的应收总账记录
-    delete from bs_reclist_sscz_temp;
-    insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
-    --保存需要冲正处理的应收明细帐记录
-    delete from bs_recdetail_sscz_temp;
-    insert into bs_recdetail_sscz_temp t (select a.* from bs_recdetail a, bs_reclist_sscz_temp b where a.rdid = b.rlid);
+    --判断是否冲正应收账
+    if p_recflag <> 'N' or p_recflag is null then 
+      
+      -----STEP 10: 增加负应收记录
+      ---保存需要冲正处理的应收总账记录
+      delete from bs_reclist_sscz_temp;
+      insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
+      --保存需要冲正处理的应收明细帐记录
+      delete from bs_recdetail_sscz_temp;
+      insert into bs_recdetail_sscz_temp t (select a.* from bs_recdetail a, bs_reclist_sscz_temp b where a.rdid = b.rlid);
 
-    --冲正时应收帐负数据
-    v_call := f_set_cr_reclist(p_reverse);
+      --冲正时应收帐负数据
+      v_call := f_set_cr_reclist(p_reverse);
 
-    --将应收冲正负记录插入到应收总账中
-    insert into bs_reclist t (select * from bs_reclist_sscz_temp);
+      --将应收冲正负记录插入到应收总账中
+      insert into bs_reclist t (select * from bs_reclist_sscz_temp);
 
-    ---在应收明细临时表中做负记录的调整
-    --一般字段调整
-    update bs_recdetail_sscz_temp t
-       set t.rdsl  = 0 - t.rdsl,
-           t.rdje  = 0 - t.rdje;
-    --流水id调整
-    update bs_recdetail_sscz_temp t
-       set t.rdid =
-           (select s.rlid
-              from bs_reclist_sscz_temp s
-             where t.rdid = s.rlcolumn9)
-     where t.rdid in (select rlcolumn9 from bs_reclist_sscz_temp);
-    --插入到应收明细表
-    insert into bs_recdetail t (select s.* from bs_recdetail_sscz_temp s);
+      ---在应收明细临时表中做负记录的调整
+      --一般字段调整
+      update bs_recdetail_sscz_temp t
+         set t.rdsl  = 0 - t.rdsl,
+             t.rdje  = 0 - t.rdje;
+      --流水id调整
+      update bs_recdetail_sscz_temp t
+         set t.rdid =
+             (select s.rlid
+                from bs_reclist_sscz_temp s
+               where t.rdid = s.rlcolumn9)
+       where t.rdid in (select rlcolumn9 from bs_reclist_sscz_temp);
+      --插入到应收明细表
+      insert into bs_recdetail t (select s.* from bs_recdetail_sscz_temp s);
 
-    -----STEP 20: 增加正应收记录--------------------------------------------------------------
-    ---保存需要冲正处理的应收总账记录
-    delete from bs_reclist_sscz_temp;
-    insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
-    ---保存需要冲正处理的应收明细帐记录
-    delete from bs_recdetail_sscz_temp;
-    insert into bs_recdetail_sscz_temp t(select a.* from bs_recdetail a, bs_reclist_sscz_temp b where a.rdid = b.rlid);
+      -----STEP 20: 增加正应收记录--------------------------------------------------------------
+      ---保存需要冲正处理的应收总账记录
+      delete from bs_reclist_sscz_temp;
+      insert into bs_reclist_sscz_temp select * from bs_reclist where rlpid = p_payid and rlpaidflag = 'Y';
+      ---保存需要冲正处理的应收明细帐记录
+      delete from bs_recdetail_sscz_temp;
+      insert into bs_recdetail_sscz_temp t(select a.* from bs_recdetail a, bs_reclist_sscz_temp b where a.rdid = b.rlid);
 
-    ---在应收总账临时表中做正记录的调整
-    v_rlid := trim(to_char(seq_reclist.nextval, '0000000000'));
-    update bs_reclist_sscz_temp t
-       set t.rlid    = v_rlid, --新生成
-           t.rlmonth = to_char(sysdate, 'yyyy.mm'), --当前              帐务月份
-           t.rldate  = sysdate, --当前              帐务日期
-           t.rlscrrlid = t.rlid,--上次应收帐流水
-           t.rlscrrltrans = t.rltrans,--上次应收帐事务
-           t.rlscrrlmonth = t.rlmonth,--上次应收帐月份
-           t.rlpaidflag = 'N',
-           t.rlpaidper  = '', --无
-           t.rlpaiddate = '', --无
-           t.rldatetime = sysdate, --sysdate
-           t.rlpid         = null, --无
-           t.rlpbatch      = null, --无
-           t.rlsavingqc    = 0, --无
-           t.rlsavingbq    = 0, --无
-           t.rlsavingqm    = 0, --无
-           t.rlreverseflag = 'N';
-    --将应收冲正正记录插入到应收总账中
-    insert into bs_reclist t (select * from bs_reclist_sscz_temp);
+      ---在应收总账临时表中做正记录的调整
+      v_rlid := trim(to_char(seq_reclist.nextval, '0000000000'));
+      update bs_reclist_sscz_temp t
+         set t.rlid    = v_rlid, --新生成
+             t.rlmonth = to_char(sysdate, 'yyyy.mm'), --当前              帐务月份
+             t.rldate  = sysdate, --当前              帐务日期
+             t.rlscrrlid = t.rlid,--上次应收帐流水
+             t.rlscrrltrans = t.rltrans,--上次应收帐事务
+             t.rlscrrlmonth = t.rlmonth,--上次应收帐月份
+             t.rlpaidflag = 'N',
+             t.rlpaidper  = '', --无
+             t.rlpaiddate = '', --无
+             t.rldatetime = sysdate, --sysdate
+             t.rlpid         = null, --无
+             t.rlpbatch      = null, --无
+             t.rlsavingqc    = 0, --无
+             t.rlsavingbq    = 0, --无
+             t.rlsavingqm    = 0, --无
+             t.rlreverseflag = 'N';
+      --将应收冲正正记录插入到应收总账中
+      insert into bs_reclist t (select * from bs_reclist_sscz_temp);
 
-    ---在应收明细临时表中做正记录的调整
-    update bs_recdetail_sscz_temp t
-       set t.rdid = v_rlid;
-       
-    --插入到应收明细表
-    insert into bs_recdetail t (select s.* from bs_recdetail_sscz_temp s);
+      ---在应收明细临时表中做正记录的调整
+      update bs_recdetail_sscz_temp t
+         set t.rdid = v_rlid;
+         
+      --插入到应收明细表
+      insert into bs_recdetail t (select s.* from bs_recdetail_sscz_temp s);
 
-    ----STEP 30 原应收记录打冲正标记
-    update bs_reclist t set t.rlreverseflag = 'Y' where t.rlpid = p_payid and t.rlpaidflag = 'Y';
-
+      ----STEP 30 原应收记录打冲正标记
+      update bs_reclist t set t.rlreverseflag = 'Y' where t.rlpid = p_payid and t.rlpaidflag = 'Y';
+      
+    end if;
     ----STEP 40 水表资料预存余额调整--------------------------------------------------------------
     update bs_custinfo set misaving = p_reverse.psavingqm where ciid = p_source.pcid;
     commit;

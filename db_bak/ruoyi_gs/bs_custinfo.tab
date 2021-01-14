@@ -62,7 +62,7 @@
   ciltid          VARCHAR2(20),
   ciwxno          VARCHAR2(50),
   cicqno          VARCHAR2(50),
-  reflag          VARCHAR2(10)
+  reflag          VARCHAR2(10) default 'N'
 )
 ;
 comment on table BS_CUSTINFO

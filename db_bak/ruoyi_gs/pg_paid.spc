@@ -88,7 +88,7 @@
   --实收冲正，按工单
   procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
     
-  --实收冲正，多流水号批量冲正
+  --实收冲正，多流水号批量冲正，只冲正缴费交易，不冲正抵扣交易
   procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
   
   --实收冲正，按缴费批次
@@ -100,12 +100,11 @@
   procedure pay_back_by_pdate_desc(p_pid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
     
   --实收冲正
-  /*
-  p_payid           交易流水号
-  p_oper            操作员
-  o_pid_reverse     返回冲正交易流水号
-  */
-  procedure pay_back_by_pid(p_payid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) ;
+  --  p_payid  实收流水号
+  --  p_oper   操作员编码
+  --  p_recflg 是否冲正应收账
+  --  o_pid_reverse      返回实收冲正流水号
+  procedure pay_back_by_pid(p_payid in varchar2, p_oper in varchar2, p_recflag in varchar2, o_pid_reverse out varchar2) ;
 
 /*******************************************************************************************
 函数名：f_set_cr_reclist

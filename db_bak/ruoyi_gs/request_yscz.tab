@@ -33,9 +33,9 @@
   workbatch      VARCHAR2(30),
   reshbz         CHAR(1),
   rewcbz         CHAR(1),
-  rerlid         VARCHAR2(30),
-  rerlid_rev     VARCHAR2(30),
-  rercodeflag    CHAR(1)
+  rerlid         VARCHAR2(2000),
+  rerlid_rev     VARCHAR2(2000),
+  rercodeflag    CHAR(1) default 'Y'
 )
 ;
 comment on table REQUEST_YSCZ
