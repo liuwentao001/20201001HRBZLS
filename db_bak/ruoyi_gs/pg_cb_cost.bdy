@@ -211,6 +211,8 @@
     v_mrmcode     varchar2(10);
     v_mdhis_addsl bs_meterread_his.mraddsl%type;
     v_pd_addsl    bs_meterread_his.mraddsl%type;
+    v_mrcode_tmp number;
+    v_rec_cal varchar2(1);
   begin
     --dbms_output.put_line(systimestamp ||'：验证抄表信息开始');
     open c_mr;
@@ -267,6 +269,16 @@
       raise_application_error(errcode, '此水表编号[' || mr.mrmid || ']正在销户中,不能进行算费,如需算费请先审核销户或删除销户单据.');
     end if;
     */
+
+    --反向算费
+    if mr.mrscode > mr.mrecode then
+      mr.mrsl := 0 - mr.mrsl;
+      v_mrcode_tmp := mr.mrscode;
+      mr.mrscode := mr.mrecode;
+      mr.mrecode := v_mrcode_tmp;
+      mi.mircode := mr.mrscode;
+      v_rec_cal := 'Y';        --反向算费标志
+    end if;
 
     mr.mrrecsl := mr.mrsl; --本期水量
     -----------------------------------------------------------------------------
@@ -408,18 +420,42 @@
       end if;
     else
       if mr.mrifrec = 'N' and --mr.mrifsubmit = 'Y' and
-         mr.mrifhalt = 'N' and mi.miifcharge = 'Y' and
-         fchkmeterneedcharge(mi.mistatus, mi.miifchk, '1') = 'Y' 
+         mr.mrifhalt = 'N' and 
+         mi.miifcharge = 'Y' and
+         fchkmeterneedcharge(mi.mistatus, mi.miifchk, '1') = 'Y' and
+         (v_rec_cal <> 'Y' or v_rec_cal is null)
          then
         --正常算费
         calculate(mr, '1', '0000.00');
-      elsif mi.miifcharge = 'N' or mr.mrifhalt = 'Y' then
+      elsif mi.miifcharge = 'N' or mr.mrifhalt = 'Y' or v_rec_cal = 'Y' then
         --计量不计费,将数据记录到费用库
         calculatenp(mr, '1', '0000.00');
         mr.mrifrec := 'N';
       end if;
     end if;
     -----------------------------------------------------------------------------
+    if v_rec_cal = 'Y' then
+      mr.mrsl := 0 - mr.mrsl;
+      mr.mrrecje01 := 0 - mr.mrrecje01;
+      mr.mrrecje02 := 0 - mr.mrrecje02;
+      mr.mrrecje03 := 0 - mr.mrrecje03;
+      mr.mrrecje04 := 0 - mr.mrrecje04;
+      
+      update bs_reclist 
+         set rlscode = rlecode,
+             rlecode = rlscode,
+             rlreadsl = 0 - rlreadsl,
+             rlsl = 0 - rlsl,
+             rlje = 0 - rlje
+       where rlmrid = mr.mrid;
+     
+      update bs_recdetail
+         set rdsl = 0 - rdsl,
+             rdje = 0 - rdje
+       where rdid = (select rlid from bs_reclist where rlmrid = mr.mrid);
+     
+    end if;
+    
     --更新当前抄表记录
     if 是否审批算费 = 'N' then
       update bs_meterread
@@ -1143,10 +1179,10 @@
     v_yyyymm       varchar2(10);
     v_rljtmk       varchar2(1);
     bk             bs_bookframe%rowtype;
-    v_rlscrrlmonth bs_reclist.rlmonth%type;
-    v_rlmonth      bs_reclist.rlmonth%type;
-    v_rljtsrq      bs_reclist.rljtsrq%type;
-    v_rljtsrqold   bs_reclist.rljtsrq%type;
+    v_rlscrrlmonth bs_reclist.rlmonth%type;     --原应收账月份
+    v_rlmonth      bs_reclist.rlmonth%type;     --账务月份
+    v_rljtsrq      bs_reclist.rljtsrq%type;     --本周期阶梯开始日期 ==> 表册阶梯开始月份           v_date
+    v_rljtsrqold   bs_reclist.rljtsrq%type;     --本周期阶梯开始日期                                v_date_old
     v_jgyf         number;
     v_jtny         number;
     v_newmk        char(1);
@@ -1604,9 +1640,9 @@
   begin
     select * into r_yscz from request_yscz where reno = p_reno;
     
-    if r_yscz.reno is null then raise_application_error(errcode, '单据不存在'); end if;
-    if r_yscz.reshbz <> 'Y' then raise_application_error(errcode, '单据未审核'); end if;
-    if r_yscz.rewcbz = 'Y' then raise_application_error(errcode, '单据已冲正'); end if;
+    if r_yscz.reno is null then raise_application_error(errcode, '工单不存在'); end if;
+    if r_yscz.reshbz <> 'Y' then raise_application_error(errcode, '工单未审核'); end if;
+    if r_yscz.rewcbz = 'Y' then raise_application_error(errcode, '工单已冲正'); end if;
     
     for rlde in (select * from bs_reclist t where t.rlid in
                      (select regexp_substr(r_yscz.rerlid, '[^,]+', 1, level) pid from dual connect by level <= length(r_yscz.rerlid) - length(replace(r_yscz.rerlid, ',', '')) + 1)

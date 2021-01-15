@@ -1,0 +1,253 @@
+﻿create table BS_METERINFO_HIS
+(
+  miid           VARCHAR2(10) not null,
+  miadr          VARCHAR2(100),
+  misafid        VARCHAR2(10),
+  micode         VARCHAR2(10),
+  mismfid        VARCHAR2(10),
+  miprmon        VARCHAR2(7),
+  mirmon         VARCHAR2(7),
+  mibfid         VARCHAR2(10),
+  mirorder       NUMBER,
+  mipid          VARCHAR2(10),
+  miclass        NUMBER,
+  miflag         CHAR(1),
+  mirtid         CHAR(1),
+  mistid         VARCHAR2(10),
+  mipfid         VARCHAR2(30),
+  mistatus       VARCHAR2(2),
+  mistatusdate   DATE,
+  mistatustrans  VARCHAR2(3),
+  miface         VARCHAR2(2),
+  miside         VARCHAR2(100),
+  miinscode      NUMBER(10),
+  miinsdate      DATE,
+  miinsper       VARCHAR2(64),
+  mireinscode    NUMBER(10),
+  mireinsdate    DATE,
+  mireinsper     VARCHAR2(64),
+  mircode        NUMBER(10),
+  mirecdate      DATE,
+  mirecsl        NUMBER(10),
+  miifcharge     CHAR(1),
+  miifsl         CHAR(1),
+  miifchk        CHAR(1),
+  mimemo         VARCHAR2(120),
+  mipriflag      CHAR(1),
+  miusenum       NUMBER(10),
+  micper         VARCHAR2(10),
+  miuninsdate    DATE,
+  miuninsper     VARCHAR2(64),
+  miface2        VARCHAR2(2),
+  miqfh          VARCHAR2(20),
+  miseqno        VARCHAR2(50),
+  micolumn5      NUMBER,
+  milh           VARCHAR2(120),
+  midyh          VARCHAR2(120),
+  mimph          VARCHAR2(120),
+  mixqm          VARCHAR2(120),
+  mijd           VARCHAR2(120),
+  mitax          NUMBER(12,3),
+  miifzdh        NUMBER,
+  miyl1          VARCHAR2(2),
+  miyl2          VARCHAR2(2),
+  miyl3          VARCHAR2(2),
+  miyl7          NUMBER,
+  miyl9          NUMBER,
+  miyl10         DATE,
+  miyl11         DATE,
+  miyl12         DATE,
+  miyl13         VARCHAR2(50),
+  dqsfh          VARCHAR2(40),
+  dqgfh          VARCHAR2(40),
+  jcgfh          VARCHAR2(40),
+  qfh            VARCHAR2(40),
+  mdfq1          VARCHAR2(40),
+  mdfq2          VARCHAR2(40),
+  mdfq3          VARCHAR2(40),
+  mdfq4          VARCHAR2(40),
+  mdfq5          VARCHAR2(40),
+  qfqh           VARCHAR2(40),
+  dqsfqh         VARCHAR2(40),
+  lfh            VARCHAR2(40),
+  lfqh           VARCHAR2(40),
+  sjsj           DATE,
+  jcgfqh         VARCHAR2(40),
+  isallowreading CHAR(1),
+  miwcode        NUMBER(10),
+  micardno       VARCHAR2(50),
+  mitwono        VARCHAR2(50),
+  midmano        VARCHAR2(50),
+  gdlx           VARCHAR2(50),
+  gdid           VARCHAR2(50),
+  gdsj           DATE default SYSDATE
+)
+;
+comment on table BS_METERINFO_HIS
+  is '户表信息';
+comment on column BS_METERINFO_HIS.miid
+  is '水表档案编号';
+comment on column BS_METERINFO_HIS.miadr
+  is '表地址';
+comment on column BS_METERINFO_HIS.misafid
+  is '区域';
+comment on column BS_METERINFO_HIS.micode
+  is '用户号';
+comment on column BS_METERINFO_HIS.mismfid
+  is '营销公司(SYSMANAFRAME)';
+comment on column BS_METERINFO_HIS.miprmon
+  is '上期抄表月份';
+comment on column BS_METERINFO_HIS.mirmon
+  is '本期抄表月份';
+comment on column BS_METERINFO_HIS.mibfid
+  is '表册(bookframe)';
+comment on column BS_METERINFO_HIS.mirorder
+  is '抄表次序';
+comment on column BS_METERINFO_HIS.mipid
+  is '上级水表编号';
+comment on column BS_METERINFO_HIS.miclass
+  is '水表级次';
+comment on column BS_METERINFO_HIS.miflag
+  is '末级标志';
+comment on column BS_METERINFO_HIS.mirtid
+  is '抄表方式【sysreadtype】';
+comment on column BS_METERINFO_HIS.mistid
+  is '行业分类【metersortframe】';
+comment on column BS_METERINFO_HIS.mipfid
+  is '用水性质(priceframe)';
+comment on column BS_METERINFO_HIS.mistatus
+  is '有效状态【sysmeterstatus】';
+comment on column BS_METERINFO_HIS.mistatusdate
+  is '状态日期';
+comment on column BS_METERINFO_HIS.mistatustrans
+  is '状态表务';
+comment on column BS_METERINFO_HIS.miface
+  is '水表故障(01正常/02表异常/03零水量)';
+comment on column BS_METERINFO_HIS.miside
+  is '表位【syscharlist】';
+comment on column BS_METERINFO_HIS.miinscode
+  is '新装起度';
+comment on column BS_METERINFO_HIS.miinsdate
+  is '装表日期';
+comment on column BS_METERINFO_HIS.miinsper
+  is '安装人';
+comment on column BS_METERINFO_HIS.mireinscode
+  is '换表起度';
+comment on column BS_METERINFO_HIS.mireinsdate
+  is '换表日期';
+comment on column BS_METERINFO_HIS.mireinsper
+  is '换表人';
+comment on column BS_METERINFO_HIS.mircode
+  is '本期读数';
+comment on column BS_METERINFO_HIS.mirecdate
+  is '本期抄见日期';
+comment on column BS_METERINFO_HIS.mirecsl
+  is '本期抄见水量';
+comment on column BS_METERINFO_HIS.miifcharge
+  is '是否计费(Y-是,N-否 )';
+comment on column BS_METERINFO_HIS.miifsl
+  is '是否计量(Y-是,N-否 )';
+comment on column BS_METERINFO_HIS.miifchk
+  is '是否考核表(Y-是,N-否 )';
+comment on column BS_METERINFO_HIS.mimemo
+  is '备注信息';
+comment on column BS_METERINFO_HIS.mipriflag
+  is '合收表标志(Y-合收表标志,N-非合收主表 )';
+comment on column BS_METERINFO_HIS.miusenum
+  is '(弃用字段)';
+comment on column BS_METERINFO_HIS.micper
+  is '收费员';
+comment on column BS_METERINFO_HIS.miuninsdate
+  is '拆表日期';
+comment on column BS_METERINFO_HIS.miuninsper
+  is '拆表人';
+comment on column BS_METERINFO_HIS.miface2
+  is '抄见故障【sysfacelist2】';
+comment on column BS_METERINFO_HIS.miqfh
+  is '铅封号';
+comment on column BS_METERINFO_HIS.miseqno
+  is '帐卡号（初始化时册号+序号，帐卡号）';
+comment on column BS_METERINFO_HIS.micolumn5
+  is '无表户水量(免抄户指定水量)';
+comment on column BS_METERINFO_HIS.milh
+  is '楼号';
+comment on column BS_METERINFO_HIS.midyh
+  is '单元号';
+comment on column BS_METERINFO_HIS.mimph
+  is '门牌号';
+comment on column BS_METERINFO_HIS.mixqm
+  is '小区名';
+comment on column BS_METERINFO_HIS.mijd
+  is '街道';
+comment on column BS_METERINFO_HIS.mitax
+  is '税额比例';
+comment on column BS_METERINFO_HIS.miifzdh
+  is '重点户编号';
+comment on column BS_METERINFO_HIS.miyl1
+  is '等针标志（Y=等针，N=非等针）';
+comment on column BS_METERINFO_HIS.miyl2
+  is '总表收免标志(0=普通表，1=总表收免，2=多级表(或总表挂虚表))';
+comment on column BS_METERINFO_HIS.miyl3
+  is '基建临时用水许可标志';
+comment on column BS_METERINFO_HIS.miyl7
+  is '总表收免水量最大值';
+comment on column BS_METERINFO_HIS.miyl9
+  is '水表最大指针数';
+comment on column BS_METERINFO_HIS.miyl10
+  is '手机抄表审核：修改时间';
+comment on column BS_METERINFO_HIS.miyl11
+  is '阶梯开始日期（弃用）';
+comment on column BS_METERINFO_HIS.miyl12
+  is '预留字段12';
+comment on column BS_METERINFO_HIS.miyl13
+  is '街道号';
+comment on column BS_METERINFO_HIS.dqsfh
+  is '塑封号';
+comment on column BS_METERINFO_HIS.dqgfh
+  is '钢封号';
+comment on column BS_METERINFO_HIS.jcgfh
+  is '稽查刚封号';
+comment on column BS_METERINFO_HIS.qfh
+  is '铅封号';
+comment on column BS_METERINFO_HIS.mdfq1
+  is '备用封号1';
+comment on column BS_METERINFO_HIS.mdfq2
+  is '备用封号2';
+comment on column BS_METERINFO_HIS.mdfq3
+  is '备用封号3';
+comment on column BS_METERINFO_HIS.mdfq4
+  is '备用封号4';
+comment on column BS_METERINFO_HIS.mdfq5
+  is '备用封号5';
+comment on column BS_METERINFO_HIS.qfqh
+  is '铅封钳号（对应Q_PIN_NO）';
+comment on column BS_METERINFO_HIS.dqsfqh
+  is '塑封钳号（对应S_PIN_NO）';
+comment on column BS_METERINFO_HIS.lfh
+  is '锁封号（对应L_NO）';
+comment on column BS_METERINFO_HIS.lfqh
+  is '锁封钳号（对应L_PIN_NO）';
+comment on column BS_METERINFO_HIS.sjsj
+  is '首检时间';
+comment on column BS_METERINFO_HIS.jcgfqh
+  is '稽查封钳号（对应C_PIN_NO）';
+comment on column BS_METERINFO_HIS.isallowreading
+  is '是否允许手工录入开关(0允许，1禁止)';
+comment on column BS_METERINFO_HIS.miwcode
+  is '实际读数（等针功能用）';
+comment on column BS_METERINFO_HIS.micardno
+  is '卡片图号';
+comment on column BS_METERINFO_HIS.mitwono
+  is '二次供水编码';
+comment on column BS_METERINFO_HIS.midmano
+  is 'DMA分区计量编码';
+comment on column BS_METERINFO_HIS.gdlx
+  is '工单类型';
+comment on column BS_METERINFO_HIS.gdid
+  is '工单流水号';
+comment on column BS_METERINFO_HIS.gdsj
+  is '工单时间';
+create index IDX_METERINFO_HIS_MICODE on BS_METERINFO_HIS (MICODE);
+create index INDEX_METERINFO_HIS_MIBFID on BS_METERINFO_HIS (MIBFID);
+create unique index PK_METERINFO_HIS on BS_METERINFO_HIS (MIID);
+

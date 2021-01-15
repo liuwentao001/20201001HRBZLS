@@ -66,13 +66,24 @@
 
   --批量预存充值
   procedure precust_pl(p_yhids     in varchar2,
-                    p_position     in varchar2,
                     p_oper        in varchar2,
                     p_payway      in varchar2,
                     p_payment     in number,
                     p_memo        in varchar2,
                     o_pid_reverse out varchar2);
-                    
+
+  --预存退费工单_批量
+  procedure precust_yctf_gd_pl(p_renos     in varchar2,
+                    p_oper        in varchar2,
+                    p_memo        in varchar2,
+                    o_log         out varchar2);
+
+  --预存退费工单
+  procedure precust_yctf_gd(p_reno     in varchar2,
+                    p_oper        in varchar2,
+                    p_memo        in varchar2,
+                    o_log         out varchar2);
+                                    
   --预存充值
   procedure precust(p_yhid        in varchar2,
                     p_position    in varchar2,

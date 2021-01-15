@@ -308,22 +308,26 @@
 
   --批量预存充值
   procedure precust_pl(p_yhids     in varchar2,
-                    p_position     in varchar2,
-                    p_oper        in varchar2,
+                     p_oper        in varchar2,
                     p_payway      in varchar2,
                     p_payment     in number,
                     p_memo        in varchar2,
                     o_pid_reverse out varchar2) is
     v_pid_reverse varchar2(100);
+    v_position varchar(32);
     o_remainafter varchar2(100);
     v_pbatch varchar2(10);
   begin
     select trim(to_char(seq_paidbatch.nextval,'0000000000')) into v_pbatch from dual; --缴费交易批次
     
+    if p_oper is not null then
+      select dept_id into v_position from sys_user where to_char(user_id) = p_oper;
+    end if;
+    
     o_pid_reverse := null;
     for i in (select regexp_substr(p_yhids, '[^,]+', 1, level) yhid from dual connect by level <= length(p_yhids) - length(replace(p_yhids, ',', '')) + 1) loop
       v_pid_reverse := null;
-      precust(i.yhid,p_position, v_pbatch, 'S',p_oper, p_payway, p_payment, p_memo, v_pid_reverse, o_remainafter);
+      precust(i.yhid, v_position, v_pbatch, 'S',p_oper, p_payway, p_payment, p_memo, v_pid_reverse, o_remainafter);
       if o_pid_reverse is null then
          o_pid_reverse := v_pid_reverse;
       else
@@ -335,7 +339,77 @@
       rollback;
       raise_application_error(errcode, sqlerrm);
   end;
-                    
+
+  --预存退费工单_批量
+  procedure precust_yctf_gd_pl(p_renos     in varchar2,
+                    p_oper        in varchar2,
+                    p_memo        in varchar2,
+                    o_log         out varchar2) is
+    v_log varchar(1000);
+  begin
+    for i in (select regexp_substr(p_renos, '[^,]+', 1, level) reno from dual connect by level <= length(p_renos) - length(replace(p_renos, ',', '')) + 1) loop
+      precust_yctf_gd(i.reno, p_oper, p_memo , v_log);
+      o_log := o_log || v_log || chr(10);
+    end loop;
+  end;
+  
+  --预存退费工单_单条
+  procedure precust_yctf_gd(p_reno     in varchar2,
+                    p_oper        in varchar2,
+                    p_memo        in varchar2,
+                    o_log         out varchar2) is
+    v_pid_reverse varchar2(100);
+    v_position varchar(32);
+    v_pbatch varchar2(10);
+    o_remainafter varchar2(100);
+    v_ciid varchar2(100);
+    v_reshbz varchar2(1);
+    v_rewcbz varchar2(1);
+    v_misaving number;
+  begin
+    select trim(to_char(seq_paidbatch.nextval,'0000000000')) into v_pbatch from dual; --缴费交易批次
+    
+    if p_oper is not null then
+      select dept_id into v_position from sys_user where to_char(user_id) = p_oper;
+    end if;
+    
+    begin
+      select ciid, reshbz, rewcbz into v_ciid, v_reshbz, v_rewcbz from request_yctf where reno = p_reno;
+    exception
+      when no_data_found then o_log := '无效的工单号：' || p_reno;
+      return;
+    end;
+    
+    if v_reshbz <> 'Y' or v_reshbz is null then 
+      o_log :=  '工单未审核完成，无法退费'; 
+      return;
+    elsif v_rewcbz = 'Y' then
+      o_log := '预存退费工单已经完成，无法重复退费'; 
+      return;
+    end if;
+    
+    begin
+        select misaving into v_misaving from bs_custinfo where ciid = v_ciid;
+    exception
+      when no_data_found then o_log := '无效的用户号：' || v_ciid;
+      return;
+    end;
+    
+    if v_misaving <= 0 or v_misaving is null then
+      o_log :=  '预存余额不足，无法退费'; 
+      return;
+    end if;
+    
+    precust(v_ciid, v_position, v_pbatch, 'V', p_oper, 'XJ', -v_misaving, p_memo, v_pid_reverse, o_remainafter);
+    o_log :=  '退费完成，用户' || v_ciid || '，退费' || v_misaving;
+    
+    update request_yctf set rewcbz = 'Y' ,relog = o_log where reno = p_reno;
+    commit;
+    
+  exception
+    when others then o_log := '无效的工单号：' || p_reno;
+  end;
+                                 
   --预存充值
   procedure precust(p_yhid        in varchar2,
                     p_position    in varchar2,
@@ -421,6 +495,7 @@
   end;
 
   --实收冲正，按工单
+  
   procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
     v_payids varchar(100);
     v_pid_reverse varchar(100);

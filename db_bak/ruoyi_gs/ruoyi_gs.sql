@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@10.10.10.72/YSDB
-prompt Created by xss on 2021年1月14日
+prompt Created by xss on 2021年1月15日
 set define off
 spool ruoyi_gs.log
 
@@ -39,6 +39,11 @@ prompt ==========================
 prompt
 @@bs_custinfo.tab
 prompt
+prompt Creating table BS_CUSTINFO_HIS
+prompt ==============================
+prompt
+@@bs_custinfo_his.tab
+prompt
 prompt Creating table BS_CUSTINFO_copy1
 prompt ================================
 prompt
@@ -59,6 +64,11 @@ prompt ==============================
 prompt
 @@bs_meterdoc_bak.tab
 prompt
+prompt Creating table BS_METERDOC_HIS
+prompt ==============================
+prompt
+@@bs_meterdoc_his.tab
+prompt
 prompt Creating table BS_METERFH_STORE
 prompt ===============================
 prompt
@@ -68,6 +78,11 @@ prompt Creating table BS_METERINFO
 prompt ===========================
 prompt
 @@bs_meterinfo.tab
+prompt
+prompt Creating table BS_METERINFO_HIS
+prompt ===============================
+prompt
+@@bs_meterinfo_his.tab
 prompt
 prompt Creating table BS_METERPICTURE
 prompt ==============================
@@ -1104,6 +1119,11 @@ prompt ============================
 prompt
 @@pg_raedplan.spc
 prompt
+prompt Creating package PG_RECTRANS
+prompt ============================
+prompt
+@@pg_rectrans.spc
+prompt
 prompt Creating package TOOLS
 prompt ======================
 prompt
@@ -1243,6 +1263,11 @@ prompt Creating package body PG_RAEDPLAN
 prompt =================================
 prompt
 @@pg_raedplan.bdy
+prompt
+prompt Creating package body PG_RECTRANS
+prompt =================================
+prompt
+@@pg_rectrans.bdy
 prompt
 prompt Creating package body TOOLS
 prompt ===========================

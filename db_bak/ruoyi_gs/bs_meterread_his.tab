@@ -88,7 +88,8 @@
   mrdzcurcode     NUMBER(10),
   mrdztgl         NUMBER(10),
   mrzkh           VARCHAR2(30),
-  mrsffs          VARCHAR2(30)
+  mrsffs          VARCHAR2(30),
+  mrgdid          VARCHAR2(60)
 )
 ;
 comment on table BS_METERREAD_HIS
@@ -271,4 +272,6 @@ comment on column BS_METERREAD_HIS.mrzkh
   is '账卡号(表册 + 抄表次序)';
 comment on column BS_METERREAD_HIS.mrsffs
   is '收费方式（走收，坐收 ）';
+comment on column BS_METERREAD_HIS.mrgdid
+  is '工单编号';
 

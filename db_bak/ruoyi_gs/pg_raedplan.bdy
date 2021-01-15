@@ -599,7 +599,8 @@
               MRDZCURCODE,
               MRDZTGL,
               MRZKH,
-              MRSFFS
+              MRSFFS,
+              MRGDID
          FROM BS_METERREAD T
         WHERE T.MRSMFID = P_SMFID
           AND T.MRMONTH = P_MONTH);

@@ -80,7 +80,7 @@
   BT周期换表       CONSTANT CHAR(1) := 'L';
                           
    --周期换表、拆表、故障换表
-  PROCEDURE SP_METERTRANS(P_TYPE   IN VARCHAR2, --操作类型
+  PROCEDURE SP_CHEBIAOTRANS(P_TYPE   IN VARCHAR2, --操作类型
                           P_MTHNO  IN VARCHAR2, --批次流水
                           P_PER    IN VARCHAR2, --操作员
                           P_COMMIT IN VARCHAR2 --提交标志
@@ -89,9 +89,9 @@
 
 
   --撤表销户简单的销户操作 不考虑财务
-  PROCEDURE SP_METERCANCELLATION(I_MICODE IN VARCHAR2,  --用户编号
-                                 I_RER    IN VARCHAR2,  --操作员
-                                 O_STATE  OUT NUMBER);  --执行状态
+  PROCEDURE SP_METERCANCELLATION(I_RENO  IN VARCHAR2, --批次流水
+                                 I_PER   IN VARCHAR2, --操作员
+                                 O_STATE OUT NUMBER);  --执行状态
 
 
 
@@ -100,6 +100,14 @@
                              P_PERSON IN VARCHAR2, -- 操作员
                              P_MD     IN GD_METERTGLDT%ROWTYPE --单体行变更
                              );*/
+
+
+
+  --分户、合户
+  PROCEDURE SP_METERUSER(I_RENO   IN  VARCHAR2, --批次流水
+                         I_PER    IN  VARCHAR2, --操作员
+                         I_TYPE   IN  VARCHAR2, --类型
+                         O_STATE  OUT NUMBER); -- 执行状态
 
 
 

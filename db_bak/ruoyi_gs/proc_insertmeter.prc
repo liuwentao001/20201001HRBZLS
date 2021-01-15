@@ -17,7 +17,6 @@
                                              U_RESULT       OUT NUMBER) IS  --返回执行状态或数量
   V_SL     VARCHAR2(100);
   V_COUNT  VARCHAR2(100);
-  --U_RETURN  VARCHAR2(100);
 BEGIN
   V_SL     := U_MDNO1;
   U_RETURN := '';

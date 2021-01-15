@@ -2,7 +2,7 @@
 (
   reno           VARCHAR2(50),
   resmfid        VARCHAR2(10),
-  ciid           VARCHAR2(10),
+  ciid           VARCHAR2(1000),
   ciname         VARCHAR2(100),
   ciadr          VARCHAR2(100),
   cimtel         VARCHAR2(30),
@@ -27,7 +27,10 @@
   modifyusername VARCHAR2(50),
   remark         VARCHAR2(200),
   workno         VARCHAR2(30),
-  workbatch      VARCHAR2(30)
+  workbatch      VARCHAR2(30),
+  reshbz         CHAR(1),
+  rewcbz         CHAR(1),
+  relog          VARCHAR2(1000)
 )
 ;
 comment on table REQUEST_YCTF
@@ -86,4 +89,10 @@ comment on column REQUEST_YCTF.workno
   is '单据编号';
 comment on column REQUEST_YCTF.workbatch
   is '批次号';
+comment on column REQUEST_YCTF.reshbz
+  is '审核标志，Y审核完成';
+comment on column REQUEST_YCTF.rewcbz
+  is '完成标志，Y完成';
+comment on column REQUEST_YCTF.relog
+  is '日志';
 
