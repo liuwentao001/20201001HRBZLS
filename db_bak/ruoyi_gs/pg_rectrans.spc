@@ -10,8 +10,10 @@
   procedure rectrans_gd(p_reno request_zlsf.reno%type, o_log out varchar2);
 
   --生成抄表记录
-  procedure ins_mr(p_miid varchar2, p_mrscode number, p_mrecode number, p_mrsl number, p_mrdatasource varchar2, p_mrgdid varchar2 ,o_mrid out varchar2, o_log out varchar2);
-  
+  procedure ins_mr(p_miid varchar2, p_mrscode number, p_mrecode number, p_mrsl number, 
+            p_mrdatasource varchar2, p_mrgdid varchar2, p_mrifreset varchar2, p_mrifstep varchar2,
+            o_mrid out varchar2, o_log out varchar2) ;
+            
 end pg_rectrans;
 /
 

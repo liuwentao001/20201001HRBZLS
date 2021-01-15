@@ -270,9 +270,8 @@
     end if;
     */
 
-    --反向算费
+    --反向算费，计算负向指针先把指针互换
     if mr.mrscode > mr.mrecode then
-      mr.mrsl := 0 - mr.mrsl;
       v_mrcode_tmp := mr.mrscode;
       mr.mrscode := mr.mrecode;
       mr.mrecode := v_mrcode_tmp;
@@ -407,7 +406,7 @@
            mrl.mrifhalt = 'Y' and mil.miifcharge = 'Y' and
            fchkmeterneedcharge(mil.mistatus, mil.miifchk, '1') = 'Y' then
           --正常算费
-          calculate(mrl, '1', '0000.00');
+          calculate(mrl, '1', '0000.00', v_rec_cal);
         elsif mil.miifcharge = 'Y' or mrl.mrifhalt = 'Y' then
           --计量不计费,将数据记录到费用库
           calculatenp(mrl, '1', '0000.00');
@@ -422,45 +421,25 @@
       if mr.mrifrec = 'N' and --mr.mrifsubmit = 'Y' and
          mr.mrifhalt = 'N' and 
          mi.miifcharge = 'Y' and
-         fchkmeterneedcharge(mi.mistatus, mi.miifchk, '1') = 'Y' and
-         (v_rec_cal <> 'Y' or v_rec_cal is null)
+         fchkmeterneedcharge(mi.mistatus, mi.miifchk, '1') = 'Y' 
          then
         --正常算费
-        calculate(mr, '1', '0000.00');
-      elsif mi.miifcharge = 'N' or mr.mrifhalt = 'Y' or v_rec_cal = 'Y' then
+        calculate(mr, '1', '0000.00', v_rec_cal);
+      elsif mi.miifcharge = 'N' or mr.mrifhalt = 'Y' then
         --计量不计费,将数据记录到费用库
         calculatenp(mr, '1', '0000.00');
         mr.mrifrec := 'N';
       end if;
     end if;
     -----------------------------------------------------------------------------
-    if v_rec_cal = 'Y' then
-      mr.mrsl := 0 - mr.mrsl;
-      mr.mrrecje01 := 0 - mr.mrrecje01;
-      mr.mrrecje02 := 0 - mr.mrrecje02;
-      mr.mrrecje03 := 0 - mr.mrrecje03;
-      mr.mrrecje04 := 0 - mr.mrrecje04;
-      
-      update bs_reclist 
-         set rlscode = rlecode,
-             rlecode = rlscode,
-             rlreadsl = 0 - rlreadsl,
-             rlsl = 0 - rlsl,
-             rlje = 0 - rlje
-       where rlmrid = mr.mrid;
-     
-      update bs_recdetail
-         set rdsl = 0 - rdsl,
-             rdje = 0 - rdje
-       where rdid = (select rlid from bs_reclist where rlmrid = mr.mrid);
-     
-    end if;
     
+
     --更新当前抄表记录
     if 是否审批算费 = 'N' then
       update bs_meterread
          set mrifrec   = mr.mrifrec,
              mrrecdate = mr.mrrecdate,
+             mrsl      = mr.mrsl,
              mrrecsl   = mr.mrrecsl,
              mrrecje01 = mr.mrrecje01,
              mrrecje02 = mr.mrrecje02,
@@ -470,6 +449,7 @@
     else
       update bs_meterread
          set mrrecdate = mr.mrrecdate,
+             mrsl      = mr.mrsl,
              mrrecsl   = mr.mrrecsl,
              mrrecje01 = mr.mrrecje01,
              mrrecje02 = mr.mrrecje02,
@@ -497,7 +477,7 @@
       raise_application_error(errcode, sqlerrm);
   end;
 
-  procedure calculate(mr in out bs_meterread%rowtype,p_trans in char, p_ny    in varchar2) is
+  procedure calculate(mr in out bs_meterread%rowtype,p_trans in char, p_ny in varchar2, p_rec_cal in varchar2) is
     cursor c_mi(vmiid in bs_meterinfo.miid%type) is select * from bs_meterinfo where miid = vmiid for update;
     cursor c_ci(vciid in bs_custinfo.ciid%type) is select * from bs_custinfo where ciid = vciid for update;
     cursor c_md(vmiid in bs_meterdoc.mdid%type) is select * from bs_meterdoc where mdid = vmiid for update;
@@ -574,7 +554,7 @@
       raise_application_error(errcode, '无效的用户编号' || mi.micode);
     end if;
     --判断起码是否改变
-    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L') then
+    if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L','Z') then
        --水表起码已经改变
        wlog('此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！' || mr.mrmid);
        raise_application_error(errcode, '此水表编号[' || mr.mrmid ||']此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！');
@@ -664,6 +644,7 @@
       rl.rlscrrltrans   := rl.rltrans; --原应收帐事务
       rl.rlscrrlmonth   := rl.rlmonth; --原应收帐月份
       rl.rlscrrldate    := rl.rldate; --原应收帐日期
+      rl.rlifstep       := mr.mrifstep; --是否纳入阶梯,数据来源：追量收费表request_zlsf
       /*
       begin
         select nvl(sum(nvl(rlje, 0) - nvl(rlpaidje, 0)), 0)
@@ -714,6 +695,29 @@
       insert into bs_reclist_temp values rl;
     end if;
     insrd(rdtab);
+
+    --根据负账标志，把金额水量改成负值
+    if p_rec_cal = 'Y' then
+      mr.mrsl := 0 - mr.mrsl;
+      mr.mrrecje01 := 0 - mr.mrrecje01;
+      mr.mrrecje02 := 0 - mr.mrrecje02;
+      mr.mrrecje03 := 0 - mr.mrrecje03;
+      mr.mrrecje04 := 0 - mr.mrrecje04;
+      
+      update bs_reclist 
+         set rlscode = rlecode,
+             rlecode = rlscode,
+             rlreadsl = 0 - rlreadsl,
+             rlsl = 0 - rlsl,
+             rlje = 0 - rlje
+       where rlmrid = mr.mrid;
+     
+      update bs_recdetail
+         set rdsl = 0 - rdsl,
+             rdje = 0 - rdje
+       where rdid = (select rlid from bs_reclist where rlmrid = mr.mrid);
+    end if;
+    
 
     --预存自动扣款
     if 算费时预存自动销账 = 'Y' and 是否审批算费 = 'N' then
@@ -824,7 +828,7 @@
             into v_rlid, v_rlje;
           exit when c_ycdk%notfound or c_ycdk%notfound is null;
           --预存够扣
-          if v_pmisaving >= v_rlje + v_znj then
+          if v_pmisaving >= v_rlje + v_znj or p_rec_cal = 'Y'then
             v_rlidlist  := v_rlidlist || v_rlid || ',';
             v_pmisaving := v_pmisaving - (v_rlje + v_znj);
             v_rljes     := v_rljes + v_rlje;
@@ -848,13 +852,19 @@
         end if;
       end if;
     end if;
-    update bs_meterinfo
-       set mircode     = mr.mrecode,
-           mirecdate   = mr.mrrdate,
-           mirecsl     = mr.mrsl, --取本期水量（抄量）
-           miface      = mr.mrface,
-           miyl11      = to_date(rl.rljtsrq, 'yyyy.mm')
-     where current of c_mi;
+    
+    --追量收费不重置指针
+    if mr.mrifreset = 'N' then 
+      null;
+    else
+      update bs_meterinfo
+         set mircode     = mr.mrecode,
+             mirecdate   = mr.mrrdate,
+             mirecsl     = mr.mrsl, --取本期水量（抄量）
+             miface      = mr.mrface,
+             miyl11      = to_date(rl.rljtsrq, 'yyyy.mm')
+       where current of c_mi;
+    end if;
     close c_mi;
     close c_md;
     close c_ci;
@@ -1014,6 +1024,7 @@
       rl.rlscrrltrans   := rl.rltrans; --原应收帐事务
       rl.rlscrrlmonth   := rl.rlmonth; --原应收帐月份
       rl.rlscrrldate    := rl.rldate; --原应收帐日期
+      rl.rlifstep       := mr.mrifstep; --是否纳入阶梯,数据来源：追量收费表request_zlsf
       /*
       begin
         select nvl(sum(nvl(rlje, 0) - nvl(rlpaidje, 0)), 0)
@@ -1116,8 +1127,9 @@
     rd.rdsl     := 0; --水量
     rd.rdje     := 0; --金额
     rd.rdmethod   := pd.pdmethod; --计费方法
-    case pd.pdmethod
-      when '01' then
+    if pd.pdmethod = '01' or (pd.pdmethod = '02' and p_rl.rlifstep = 'N' ) then
+    --case pd.pdmethod
+    --  when '01' then
         --固定单价  默认方式，与抄量有关  哈尔滨都是dj1
         begin
           rd.rdclass := 0; --阶梯级别
@@ -1137,7 +1149,8 @@
           p_rl.rlje := p_rl.rlje + rd.rdje;
           p_rl.rlsl := p_rl.rlsl + (case when rd.rdpiid = '01' then rd.rdsl else 0 end);
         end;
-      when '02' then
+    elsif pd.pdmethod = '02' then
+    --  when '02' then
         --阶梯计费  简单模式阶梯水价
         rd.rdsl    := p_sl;
         begin
@@ -1148,7 +1161,8 @@
                   rdtab);
 		    end;
       else raise_application_error(errcode, '不支持的计费方法' || pd.pdmethod);
-    end case;
+    --end case;
+    end if;
   exception
     when others then
       wlog(p_rl.rlid || '计算费用项目费用异常：' || sqlerrm);
@@ -1327,7 +1341,8 @@
         from bs_reclist, bs_recdetail,bs_meterinfo
        where rlid = rdid
          and rlmid = miid
-         and nvl(rljtmk, 'N') = 'N'
+         --and nvl(rljtmk, 'N') = 'N'
+         and (rlifstep <> 'N' or rlifstep is null)
          and rlscrrltrans not in ('14', '21')
          and rdpmdcolumn3 = substr(v_jtqzny, 1, 4)
          and rdpiid = '01'
@@ -1366,7 +1381,7 @@
                     --end
                     ;
         rd.rdje  := rd.rddj * rd.rdsl;
-        if v_rljtmk <> 'Y' then
+        --if v_rljtmk <> 'Y' then
           rd.rdpmdcolumn1 := ps.psecode - ps.psscode;
           if 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
             rd.rdpmdcolumn2 := 年累计水量 - ps.psscode;
@@ -1375,7 +1390,7 @@
           else
             rd.rdpmdcolumn2 := 0;
           end if;
-        end if;
+        --end if;
 
         if rd.rdsl > 0 then
           if rdtab is null then
@@ -1422,7 +1437,8 @@
           into p_rl.rlcolumn12
           from bs_reclist, bs_recdetail
          where rlid = rdid
-           and nvl(rljtmk, 'N') = 'N'
+           --and nvl(rljtmk, 'N') = 'N'
+           and (rlifstep <> 'N' or rlifstep is null)
            and rlscrrltrans not in ('14', '21')
            and rdpmdcolumn3 = substr(v_rljtsrqold, 1, 4)
            and rdpiid = '01'
@@ -1451,10 +1467,7 @@
 
         rd.rdclass := ps.psclass;
         rd.rddj  := ps.psprice;
-        rd.rdsl := case
-                       when v_rljtmk = 'Y' then
-                        tmpyssl
-                       else
+        rd.rdsl := --case when v_rljtmk = 'Y' then tmpyssl else
                         case
                           when 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
                             年累计水量 - tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), ps.psscode)
@@ -1463,24 +1476,11 @@
                           else
                             0
                         end
-                     end;
+                     --end
+                     ;
         rd.rdje  := rd.rddj * rd.rdsl;
         rd.rddj    := ps.psprice;
-        rd.rdsl := case
-                     when v_rljtmk = 'Y' then
-                      tmpsl
-                     else
-                      case
-                        when 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
-                          年累计水量 - tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), ps.psscode)
-                        when 年累计水量 > ps.psecode then
-                          tools.getmax(0,tools.getmin(ps.psecode - to_number(nvl(p_rl.rlcolumn12, 0)), ps.psecode - ps.psscode))
-                        else
-                          0
-                      end
-                   end;
-        rd.rdje    := rd.rddj * rd.rdsl;
-        if v_rljtmk <> 'Y' then
+        --if v_rljtmk <> 'Y' then
           rd.rdpmdcolumn1 := ps.psecode - ps.psscode;
           if 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
             rd.rdpmdcolumn2 := 年累计水量 - ps.psscode;
@@ -1489,7 +1489,7 @@
           else
             rd.rdpmdcolumn2 := 0;
           end if;
-        end if;
+        --end if;
 
         if rd.rdsl > 0 then
           if rdtab is null then
@@ -1519,7 +1519,8 @@
           into p_rl.rlcolumn12
           from bs_reclist, bs_recdetail
          where rlid = rdid
-           and nvl(rljtmk, 'N') = 'N'
+           --and nvl(rljtmk, 'N') = 'N'
+           and (rlifstep <> 'N' or rlifstep is null)
            and rlscrrltrans not in ('14', '21')
            and rdpmdcolumn3 = substr(p_rl.rlmonth, 1, 4)
            and rdpiid = '01'
@@ -1547,10 +1548,7 @@
             ps.psecode := round((ps.psecode + 30 * (usenum - 5)));
             rd.rdclass := ps.psclass;
             rd.rddj    := ps.psprice;
-            rd.rdsl := case
-                         when v_rljtmk = 'Y' then
-                          tmpsl
-                         else
+            rd.rdsl := --case when v_rljtmk = 'Y' then tmpsl else
                           case
                             when 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
                               年累计水量 - tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), ps.psscode)
@@ -1559,9 +1557,10 @@
                             else
                               0
                           end
-                       end;
+                       --end
+                       ;
             rd.rdje    := rd.rddj * rd.rdsl;
-            if v_rljtmk <> 'Y' then
+            --if v_rljtmk <> 'Y' then
               rd.rdpmdcolumn1 := ps.psecode - ps.psscode;
               if 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
                 rd.rdpmdcolumn2 := 年累计水量 - ps.psscode;
@@ -1570,7 +1569,7 @@
               else
                 rd.rdpmdcolumn2 := 0;
               end if;
-            end if;
+            --end if;
 
             if rd.rdsl > 0 then
               if rdtab is null then
@@ -1596,12 +1595,11 @@
           close c_ps;
       end if;
     end if;
-    if v_rljtmk = 'N' then
+    --if v_rljtmk = 'N' then
       p_rl.rlcolumn12 := 年累计水量;
-    else
-      p_rl.rljtmk := 'Y';
-    end if;
-      if c_ps%isopen then close c_ps; end if;
+    --else p_rl.rljtmk := 'Y';
+    --end if;
+    if c_ps%isopen then close c_ps; end if;
   exception
     when others then
       if c_ps%isopen then close c_ps; end if;

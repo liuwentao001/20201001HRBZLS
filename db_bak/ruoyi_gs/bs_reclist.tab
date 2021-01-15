@@ -58,7 +58,8 @@
   rljtmk         CHAR(1),
   rljtsrq        VARCHAR2(20),
   rlcolumn12     VARCHAR2(20),
-  isprintfp      CHAR(1)
+  isprintfp      CHAR(1),
+  rlifstep       CHAR(1)
 )
 ;
 comment on table BS_RECLIST
@@ -181,4 +182,6 @@ comment on column BS_RECLIST.rlcolumn12
   is '年度累计量';
 comment on column BS_RECLIST.isprintfp
   is '是否打印发票';
+comment on column BS_RECLIST.rlifstep
+  is '是否纳入阶梯,数据来源：追量收费表request_zlsf';
 

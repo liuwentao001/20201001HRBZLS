@@ -1,6 +1,6 @@
 ﻿CREATE OR REPLACE PACKAGE BODY "PG_RAEDPLAN" IS
 
-/*  \*
+  /*
   进行生成抄码表
   参数：P_MANAGE_NO： 临时表类型(PBPARMTEMP.C1)，存放调段后目标表册中所有水表编号C1,抄表次序C2
         P_MONTH: 目标营业所
@@ -8,14 +8,14 @@
   处理：生成抄表资料
   输出：返回  0  执行成功
         返回 -1 执行失败
-  *\
+  */
 
-  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, \*营销公司*\
-                     P_MONTH     IN VARCHAR2, \*抄表月份*\
-                     P_BOOK_NO   IN VARCHAR2, \*表册*\
-                     O_STATE     OUT VARCHAR2) \*执行状态*\
+  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
+                     P_MONTH     IN VARCHAR2, /*抄表月份*/
+                     P_BOOK_NO   IN VARCHAR2, /*表册*/
+                     O_STATE     OUT VARCHAR2) /*执行状态*/
    IS
-    \*表册*\
+    /*表册*/
     YH  BS_CUSTINFO%ROWTYPE;
     SB  BS_METERINFO%ROWTYPE;
     MD  BS_METERDOC%ROWTYPE;
@@ -58,7 +58,7 @@
          AND B.MISMFID = P_MANAGE_NO
          AND B.MIBFID = P_BOOK_NO
          AND D.BFNRMONTH = P_MONTH
-         \*AND FCHKCBMK(B.MRMID) = 'Y'*\;
+         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
   BEGIN
     OPEN C_BKSB;
     LOOP
@@ -161,7 +161,7 @@
   EXCEPTION
     WHEN OTHERS THEN
       O_STATE := '-1';
-  END;*/
+  END;
   /*
   进行生成抄码表
   参数：P_MANAGE_NO： 临时表类型(PBPARMTEMP.C1)，存放调段后目标表册中所有水表编号C1,抄表次序C2
@@ -172,7 +172,7 @@
         返回 -1 执行失败
   */
 
-  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
+  PROCEDURE CREATECB2(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
                      P_MONTH     IN VARCHAR2, /*抄表月份*/
                      P_BOOK_NO   IN VARCHAR2, /*表册*/
                      O_STATE     OUT VARCHAR2) /*执行状态*/

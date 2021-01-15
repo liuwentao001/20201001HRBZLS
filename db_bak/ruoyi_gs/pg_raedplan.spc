@@ -17,12 +17,13 @@
                      P_MONTH     IN VARCHAR2, /*抄表月份*/
                      P_BOOK_NO   IN VARCHAR2, /*表册*/
                      O_STATE     OUT VARCHAR2); /*执行状态*/
-/*  --生成抄表计划
+  --生成抄表计划
   --返回 0  执行成功
   --返回 -1 执行失败
-  PROCEDURE CREATECB(P_MONTH     IN VARCHAR2, \*抄表月份*\
-                     P_BOOK_NO   IN VARCHAR2, \*表册*\
-                     O_STATE     OUT VARCHAR2); \*执行状态*\*/
+  PROCEDURE CREATECB2(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
+                     P_MONTH     IN VARCHAR2, /*抄表月份*/
+                     P_BOOK_NO   IN VARCHAR2, /*表册*/
+                     O_STATE     OUT VARCHAR2); /*执行状态*/
 
   --单户月初
   --返回 0  执行成功

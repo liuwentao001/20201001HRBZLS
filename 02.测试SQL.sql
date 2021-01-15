@@ -73,10 +73,10 @@ select listagg(a,'|') within group(order by a) from tvarchar2(30)
 update bs_custinfo set misaving='10000000' where ciid='0100172364';--预存
 update bs_meterinfo set mipfid='D0102' where miid='0100172364';--固定水价
 update bs_meterinfo set mipfid='A0103' where miid='0100172364';--阶梯水价
-update bs_meterinfo set mircode=2861 where miid='0100172364';
+update bs_meterinfo set mircode=0 where miid='0100172364';
 update bs_meterread set mrscode=2861 where mrid='2372463611';
-update bs_meterread set mrecode=3861 where mrid='2372463611';
-update bs_meterread set mrsl=1000 where mrid='2372463611';
+update bs_meterread set mrecode=3161 where mrid='2372463611';
+update bs_meterread set mrsl=300 where mrid='2372463611';
 update bs_meterread set mrifrec='N' where mrid='2372463611';
 update bs_meterread set mrrecje01=null where mrid='2372463611';
 update bs_meterread set mrrecje02=null where mrid='2372463611';
@@ -85,85 +85,67 @@ update bs_reclist set rlscrrlmonth='2020.11' where rlmid='0100172364';
 update bs_reclist set rlmonth='2020.11' where rlmid='0100172364';
 commit;
 delete from bs_reclist where rlcid='0100172364';
-delete from bs_recdetail where rdid not in (select rlid from bs_reclist);
 delete from bs_payment where pcid='0100172364';
 commit;
 
-  --追量收费 工单
-select * from request_zlsf t
-/*
-    RENO  RESMFID CIID  CINAME  CIADR CIIFINV CINAME1 CIADR1  MIID  MIPFID  MIADR MIBFID  MIRCODE MIRECDATE REIFRESET RERCODE RECDATE RETYPE  REIFSTEP  REAPPNOTE RESTAUS REPER REFLAG  ENABLED SORTCODE  DELETEMARK  CREATEDATE  CREATEUSERID  CREATEUSERNAME  MODIFYDATE  MODIFYUSERID  MODIFYUSERNAME  REMARK  WORKNO  WORKBATCH
-1 880061f2-18e7-4329-a573-d10cc95a4d88  0203  3108054610  肖乐宏 林兴小区7#3-101       3108054610  A0103 林兴小区7#3-101 03609319  887 2020-2-28 Y 800 2020-4-20 08  Y 奥德赛发送到发送到发士大夫撒地方撒地方撒地方撒旦法师打发士大夫撒地方撒旦法师打发大水                              
-2 ee060c46-efc4-49c5-8fe8-7afed7195a09  0201  3101033508  左志伟 安定街12号1单元404        3101033508  A0103 安定街12号1单元404  01305202  625 2019-8-14 Y 630 2020-4-27 02  Y 说明                          备注    
-3 ccb09a8e-9edf-4214-8a63-d6441974b4a2  0201  4051000079  李福海 安化街136号3-401        4051000079  A0103 安化街136号3-401  01206112  1065  2019-7-17 Y 2000  2020-4-27 01  Y 说明                          备注    
-*/
+update bs_meterread set mrifrec='N' where mrccode='0100172364';
+commit;
+select * from bs_meterread where mrccode='0100172364'for update;
 
-select * from bs_custinfo where ciid='3108054610'
-/*
-    CIID  CISMFID CIPID CICLASS CIFLAG  CINAME  CIADR CISTATUS  CISTATUSDATE  CISTATUSTRANS CINEWDATE CIIDENTITYLB  CIIDENTITYNO  CIMTEL  CITEL1  CITEL2  CITEL3  CICONNECTPER  CICONNECTTEL  CIIFINV CIIFSMS CIPROJNO  CIFILENO  CIMEMO  MICHARGETYPE  MISAVING  MIEMAIL MIEMAILFLAG MIYHPJ  MISTARLEVEL ISCONTRACTFLAG  WATERPW LADDERWATERDATE CIHTBH  CIHTZQ  CIRQXZ  HTDATE  ZFDATE  JZDATE  SIGNPER SIGNID  POCID CIBANKNAME  CIBANKNO  CINAME2 CINAME1 CITAXNO CIADR1  CITEL4  CICOLUMN11  CITKZJH CICOLUMN2 CIDBZJH CICOLUMN1 CICOLUMN3 CIPASSWORD  CIUSENUM  CIAMOUNT  CIDBBS  CILTID  CIWXNO  CICQNO  REFLAG
-1 3108054610  0203    1 Y 肖乐宏 林兴小区7#3-101 1 2005-11-30 14:44:39   2005-11-30  1   18245078203       肖乐宏     Y 0801038000070301011 20031008054610  正常用户老系统数据迁移   0.000                                                           1aa515d9f3eddf614434eca6fef12c46              
-*/
-
-select * from bs_meterinfo where micode='3108054610'
-/*
-1 3108054610  林兴小区7#3-101 03609 3108054610  0203  2019.06 2019.09 03609319  4   1 Y 1 1 A0103 1     03  CF    2005-4-4  080204    2005-4-4  080204  887 2019-9-10 14:25:14  0 Y Y N 正常用户老数据迁移【现金】 N 2 080370          036093194           肖乐宏               2015-12-19 17:11:44 2019-3-1                                            
-*/
-
-
-select * from bs_payment where pcid in ('2200000504','2200000409');
-
-select * from request_yctf where reno = '1' for update
-
-select misaving, t.* from bs_custinfo t where ciid = '3126163958' for update
+select * from bs_custinfo where ciid='0100172364';
+select * from bs_meterinfo where micode='0100172364';
+select * from bs_meterread where mrccode='0100172364';
+select * from bs_reclist where rlcid='0100172364';
+select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlcid='0100172364') order by rdid ,rdpiid,rdclass;
+select * from bs_pricestep where pspfid='A0103' order by pspfid ,pspiid, psclass;
 
 
 
+--追量收费正向调整测试
+update request_zlsf set reshbz = 'Y',rewcbz='N' where reno='ee060c46-efc4-49c5-8fe8-7afed7195a09';
+commit;
+delete from bs_meterread where mrccode='3101033508';
+delete from bs_reclist where rlcid='3101033508';
+commit
 
-/*
-
-mrbfid    1002001 varchar2(10), optional, 表册(bookframe)
-mrccode   41016746  varchar2(10), optional, 用户号
-mrmid   41016746  varchar2(10), optional, 水表编号
-mrstid    1 varchar2(10), optional, 行业分类
-mrcreadate    2019-4-30 1:00  date, optional, 创建日期
-mrreadok    n char(1), optional, 抄见标志(y-是 n-否)
-mrrdate     date, optional, 抄表日期
-mrprdate    2019-4-3 9:03 date, optional, 上次抄见日期
-mrscode   2731  number(10), optional, 上期抄见
-mrecode     number(10), optional, 本期抄见
-mrsl      number(10), optional, 本期水量
-mrifsubmit    y char(1), optional, 是否提交计费(y-是 n-否)
-mrifhalt    n char(1), optional, 系统停算(y-是 n-否)
-mrdatasource    1 char(1), optional, 抄表结果来源(1-手工,5-抄表器,9-手机抄表,k-故障换表,l-周期换表,z-追量  i-智能表接口，6-视频直读，7-集抄)
-mrifrec   n char(1), optional, 已计费(y-是 n-否)
-mrrecsl     number(10), optional, 应收水量
-mrpfid    b0201 varchar2(10), optional, 用水类别
-*/
-
-insert into bs_meterread (mrid, mrmonth, mrsmfid, mrbfid, mrccode, mrmid, mrstid, mrcreadate, mrreadok, mrrdate, mrprdate,
-       mrscode, mrecode, mrsl, mrifsubmit, mrifhalt, mrdatasource, mrifrec, mrrecsl, mrpfid )
-       
-select trim(to_char(seq_mrid.nextval,'0000000000')), to_char(sysdate, 'yyyy.mm'), mismfid, mibfid, micode, miid, mistid, sysdate, 'N', sysdate, sysdate, 
-       0,0,0,'Y','N','Z','N',0,mipfid
-from bs_meterinfo 
-where miid='5118818093'
-
-
-
-
-select * from bs_meterread where mrccode='5118818093';
-
-select * from request_zlsf t where reno='ee060c46-efc4-49c5-8fe8-7afed7195a09'
-
+select * from request_zlsf t where reno='ee060c46-efc4-49c5-8fe8-7afed7195a09';
 select * from bs_custinfo where ciid='3101033508';
+select * from bs_meterinfo where miid='3101033508';
+select * from bs_meterread where mrccode='3101033508';
+select * from bs_reclist where rlcid='3101033508';
 
-select * from bs_meterinfo where miid='3101033508'
+--追量收费反向调整测试
+update request_zlsf set reshbz = 'Y',rewcbz='N' where reno='880061f2-18e7-4329-a573-d10cc95a4d88'; 
+commit;
+delete from bs_meterread where mrccode='3108054610';
+delete from bs_reclist where rlcid='3108054610';
+delete from bs_payment where pcid='3108054610';
+update bs_custinfo set misaving = 0 where ciid='3108054610';
+update bs_meterinfo set mircode = 887 where micode='3108054610';
+commit;
 
-select * from bs_meterread where mrccode='3101033508'
-delete from bs_meterread where mrid='597016'
 
-select * from bs_reclist where rlcid='3101033508'
-delete from bs_reclist where rlcid='3101033508'
+select * from request_zlsf t where reno='880061f2-18e7-4329-a573-d10cc95a4d88';
+select misaving,ci.* from bs_custinfo ci where ciid='3108054610';
+select mi.* from bs_meterinfo mi where micode='3108054610';
+select * from bs_meterread where mrccode='3108054610';
+select * from bs_reclist where rlcid='3108054610';
+select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlcid='3108054610');
+select * from bs_payment where pcid='3108054610';
 
 
+--alter session enable parallel dml;
+--update /*+ parallel(t,32)*/ bs_meterinfo t set t.mircode = (select a.mircode from meterinfo@hrbzls a where t.miid = a.miid)
+
+
+      select rlid,sum(rlje) rlje
+        from bs_reclist, bs_meterinfo t
+       where rlmid = t.miid
+         and rlpaidflag = 'N'
+         and rlreverseflag = 'N'
+         and rlbadflag = 'N' -- 添加呆坏帐过滤条件
+         and rlje <> 0
+         and rltrans not in ('13', '14', 'U')
+         and t.micode = '3108054610'
+       group by rlid
 

@@ -55,7 +55,7 @@ BEGIN
                         B.BFID,
                         (SELECT COUNT(*) FROM BS_CBJH_TEMP) SL
                    FROM DUAL);
-              PG_RAEDPLAN.CREATECB(I.DEPT_CODE, O_DATE, B.BFID, O_STATE);
+              PG_RAEDPLAN.CREATECB2(I.DEPT_CODE, O_DATE, B.BFID, O_STATE);
               COMMIT;
             END;
           END IF;

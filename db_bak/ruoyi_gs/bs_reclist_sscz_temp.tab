@@ -58,7 +58,10 @@
   rljtmk         CHAR(1),
   rljtsrq        VARCHAR2(20),
   rlcolumn12     VARCHAR2(20),
-  isprintfp      CHAR(1)
+  isprintfp      CHAR(1),
+  rlifstep       CHAR(1)
 )
 on commit delete rows;
+comment on column BS_RECLIST_SSCZ_TEMP.rlifstep
+  is '是否纳入阶梯,数据来源：追量收费表request_zlsf';
 

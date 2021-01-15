@@ -1,42 +1,169 @@
-﻿CREATE OR REPLACE PROCEDURE SP_JZGLAudit(P_WORKID IN VARCHAR2)
-AS
-  v_ciid        VARCHAR2(50);
-	v_miid        VARCHAR2(50);
-	v_reno				VARCHAR2(60);
-	v_flagc NUMBER;
-	v_flagm NUMBER;
+﻿CREATE OR REPLACE PROCEDURE SP_JZGLAUDIT(P_WORKID IN VARCHAR2) AS
+  --V_CIID  VARCHAR2(50);
+  --V_MIID  VARCHAR2(50);
+  --V_RENO  VARCHAR2(60);
+  V_FLAGC NUMBER;
+  V_FLAGM NUMBER;
 BEGIN
 
-for jzgl in (select * from request_jzgl where enabled=5 and workid= P_WORKID) loop
-		dbms_output.put_line(jzgl.reno);
-		select count(1) into v_flagc from bs_custinfo where ciid=jzgl.ciid;
-		dbms_output.put_line(v_flagc);
-		select count(1) into v_flagm from bs_meterinfo where miid=jzgl.miid;
-		dbms_output.put_line(v_flagm);
+  FOR JZGL IN (SELECT *
+                 FROM REQUEST_JZGL
+                WHERE ENABLED = 5
+                  AND WORKID = P_WORKID) LOOP
+    DBMS_OUTPUT.PUT_LINE(JZGL.RENO);
+    SELECT COUNT(1) INTO V_FLAGC FROM BS_CUSTINFO WHERE CIID = JZGL.CIID;
+    DBMS_OUTPUT.PUT_LINE(V_FLAGC);
+    SELECT COUNT(1) INTO V_FLAGM FROM BS_METERINFO WHERE MIID = JZGL.MIID;
+    DBMS_OUTPUT.PUT_LINE(V_FLAGM);
+  
+    -----BS_CUSTINFO
+    IF V_FLAGC = 0 THEN
+      INSERT INTO BS_CUSTINFO
+        (CIMTEL,
+         CITEL1,
+         CICONNECTPER,
+         CIIFINV,
+         CIIFSMS,
+         MICHARGETYPE,
+         MISAVING,
+         CIID,
+         CINAME,
+         CIADR,
+         CISTATUS,
+         CIIDENTITYLB,
+         CIIDENTITYNO,
+         CISMFID,
+         CINEWDATE,
+         CISTATUSDATE,
+         CIDBBS,
+         CIUSENUM,
+         CIAMOUNT)
+        SELECT CIMTEL,
+               CITEL1,
+               CICONNECTPER,
+               CIIFINV,
+               CIIFSMS,
+               MICHARGETYPE,
+               0,
+               CIID,
+               CINAME,
+               CIADR,
+               CISTATUS,
+               CIIDENTITYLB,
+               CIIDENTITYNO,
+               RESMFID,
+               SYSDATE,
+               MODIFYDATE,
+               REDBBS,
+               CIUSENUM,
+               CIAMOUNT
+          FROM REQUEST_JZGL
+         WHERE RENO = JZGL.RENO;
+    END IF;
+    -----BS_METERINFO
+    IF V_FLAGM = 0 THEN
+      INSERT INTO BS_METERINFO
+        (MIID,
+         MIADR,
+         MICODE,
+         MISMFID,
+         MIBFID,
+         MIRORDER,
+         MIPID,
+         MICLASS,
+         MIRTID,
+         MISTID,
+         MIPFID,
+         MISTATUS,
+         MISIDE,
+         MIINSCODE,
+         MIINSDATE,
+         MILH,
+         MIDYH,
+         MIMPH,
+         MIXQM,
+         MIJD,
+         MIYL13,
+         DQSFH,
+         DQGFH,
+         MICARDNO,
+         MIRCODE,
+         MISEQNO)
+        SELECT MIID,
+               MIADR,
+               CIID,
+               RESMFID,
+               MIBFID,
+               MIRORDER,
+               MIPID,
+               MICLASS,
+               MIRTID,
+               MISTID,
+               MIPFID,
+               MISTATUS,
+               MISIDE,
+               MIINSCODE,
+               MIINSDATE,
+               MILH,
+               MIDYH,
+               MIMPH,
+               MIXQM,
+               MIJD,
+               MIYL13,
+               DQSFH,
+               DQGFH,
+               MICARDNO,
+               MIINSCODE,
+               MIBFID||SORTCODE MISEQNO
+          FROM REQUEST_JZGL
+         WHERE RENO = JZGL.RENO;
+    END IF;
+    -----BS_METERDOC 更新表使用状态及变更日期
+    UPDATE BS_METERDOC B
+       SET MDID        =
+           (SELECT A.MIID
+              FROM REQUEST_JZGL A
+             WHERE A.MDNO = B.MDNO
+               AND A.RENO = JZGL.RENO),
+           MDSTATUS     = 1,
+           MDSTATUSDATE = SYSDATE
+     WHERE EXISTS (SELECT 1
+              FROM REQUEST_JZGL C
+             WHERE C.MDNO = B.MDNO
+               AND C.RENO = JZGL.RENO);
+  
+    -----BS_METERFH_STORE 更新表身码及状态
+    UPDATE BS_METERFH_STORE B
+       SET BSM     =
+           (SELECT A.MDNO
+              FROM REQUEST_JZGL A
+             WHERE B.FHTYPE = '1'
+               AND A.DQSFH = B.METERFH
+               AND A.RENO = JZGL.RENO),
+           FHSTATUS = 1
+     WHERE B.FHTYPE = '1'
+       AND EXISTS (SELECT 1
+              FROM REQUEST_JZGL C
+             WHERE C.DQGFH = B.METERFH
+               AND C.RENO = JZGL.RENO);
+    UPDATE BS_METERFH_STORE B
+       SET BSM     =
+           (SELECT A.MDNO
+              FROM REQUEST_JZGL A
+             WHERE B.FHTYPE = '2'
+               AND A.DQGFH = B.METERFH
+               AND A.RENO = JZGL.RENO),
+           FHSTATUS = 1
+     WHERE B.FHTYPE = '2'
+       AND EXISTS (SELECT 1
+              FROM REQUEST_JZGL C
+             WHERE C.DQGFH = B.METERFH
+               AND C.RENO = JZGL.RENO);
+  
+  END LOOP;
 
-		-----bs_custinfo
-		if v_flagc=0 then
-			insert into BS_CUSTINFO(cimtel, citel1, ciconnectper, ciifinv, ciifsms, michargetype, MISAVING, ciid, ciname, ciadr, cistatus, ciidentitylb, ciidentityno,cismfid,cinewdate)
-			select cimtel, citel1, ciconnectper, ciifinv, ciifsms, michargetype, 0, ciid, ciname, ciadr, cistatus, ciidentitylb, ciidentityno,resmfid,sysdate from request_jzgl where reno = jzgl.reno;
-		end if;
-		-----bs_meterinfo
-		if v_flagm=0 then
-			insert into bs_meterinfo(miid, miadr, micode, mismfid, mibfid, mirorder, mipid, miclass, mirtid, mistid, mipfid, mistatus, miside, miinscode, miinsdate, milh, midyh, mimph, mixqm, mijd, miyl13, dqsfh, dqgfh, micardno,mircode)
-			select miid, miadr, ciid, resmfid, mibfid, mirorder, mipid, miclass, mirtid, mistid, mipfid, mistatus, miside, miinscode, miinsdate, milh, midyh, mimph, mixqm, mijd, miyl13, dqsfh, dqgfh, micardno,MIINSCODE from request_jzgl  where reno = jzgl.reno;
-		end if;
-		-----bs_meterdoc 更新表使用状态及变更日期
-			update bs_meterdoc b set mdid=(select a.miid from request_jzgl a where a.mdno=b.mdno and a.reno = jzgl.reno),mdstatus=1,mdstatusdate=sysdate where exists(select 1 from request_jzgl c  where c.mdno=b.mdno and c.reno = jzgl.reno);
+  COMMIT;
 
-		-----bs_meterfh_store 更新表身码及状态
-			update bs_meterfh_store b set bsm=(select a.mdno from request_jzgl a where b.fhtype='1' and a.dqsfh=b.meterfh and a.reno= jzgl.reno),fhstatus=1
-where b.fhtype='1' and exists( select 1 from request_jzgl c where c.dqgfh=b.meterfh and c.reno=jzgl.reno);
-			update bs_meterfh_store b set bsm=(select a.mdno from request_jzgl a where b.fhtype='2' and a.dqgfh=b.meterfh and a.reno= jzgl.reno),fhstatus=1
-where b.fhtype='2' and exists( select 1 from request_jzgl c where c.dqgfh=b.meterfh and c.reno=jzgl.reno);
-
-end loop;
-
-commit;
-
-end;
+END;
 /
 

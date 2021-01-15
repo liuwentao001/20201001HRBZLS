@@ -69,7 +69,9 @@
   mrdztgl         NUMBER(10),
   mrzkh           VARCHAR2(30),
   mrsffs          VARCHAR2(30),
-  mrgdid          VARCHAR2(60)
+  mrgdid          VARCHAR2(60),
+  mrifreset       CHAR(1) default 'N',
+  mrifstep        CHAR(1)
 )
 ;
 comment on table BS_METERREAD
@@ -214,6 +216,10 @@ comment on column BS_METERREAD.mrsffs
   is '收费方式（走收，坐收 ）';
 comment on column BS_METERREAD.mrgdid
   is '工单编号';
+comment on column BS_METERREAD.mrifreset
+  is '是否重置指针,数据来源：追量收费表request_zlsf';
+comment on column BS_METERREAD.mrifstep
+  is '是否纳入阶梯,数据来源：追量收费表request_zlsf';
 create index IDX_BS_METERREAD_MRBFID on BS_METERREAD (MRBFID);
 create index IDX_BS_METERREAD_MRCCODE on BS_METERREAD (MRCCODE);
 create index IDX_BS_METERREAD_MRMID on BS_METERREAD (MRMID);

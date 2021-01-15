@@ -1653,17 +1653,17 @@
         INSERT INTO BS_METERINFO_HIS
           SELECT A.*, '分户' GDLX, I_RENO GDID, SYSDATE GDSJ
             FROM BS_METERINFO A
-           WHERE MIID = MB.MIID;
+           WHERE MIID = I.MIID;
         --更新户表信息水表档案号
-        UPDATE BS_METERINFO SET MICODE = MB.CIID WHERE MIID = MB.MIID;
+        UPDATE BS_METERINFO SET MICODE = I.CIID WHERE MIID = I.MIID;
         SELECT COUNT(*)
           INTO V_COUNT
           FROM BS_CUSTINFO
-         WHERE CIID = MB.CIID;
+         WHERE CIID = I.CIID;
         --分户后插入信息到用户信息表 如果有则不插入
         IF V_COUNT = 0 THEN
           INSERT INTO BS_CUSTINFO
-            SELECT MB.CIID MIID, --用户号
+            SELECT I.CIID MIID, --用户号
                    CISMFID, --营销公司
                    CIPID, --上级用户编号
                    CICLASS, --用户级次
@@ -1742,8 +1742,8 @@
         INSERT INTO BS_METERINFO_HIS
           SELECT A.*, '合户' GDLX, I_RENO GDID, SYSDATE GDSJ
             FROM BS_METERINFO A
-           WHERE MIID = MB.MIID;
-        UPDATE BS_METERINFO SET MICODE = MH.CIIDA WHERE MIID = MB.MIID;
+           WHERE MIID = I.MIID;
+        UPDATE BS_METERINFO SET MICODE = MH.CIIDA WHERE MICODE = MH.CIIDB AND MIID = I.MIID;
         --插入历史记录
         INSERT INTO BS_CUSTINFO_HIS
           SELECT A.*, '合户' GDLX, I_RENO GDID, SYSDATE GDSJ

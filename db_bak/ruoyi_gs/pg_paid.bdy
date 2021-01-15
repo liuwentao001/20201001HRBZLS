@@ -75,22 +75,23 @@
     */
 
     --1. 先单缴预存
-    precust(p_yhid        => p_yhid,
-            p_position    => v_position,
-            p_pbatch      => v_pbatch,
-            p_trans       => 'P',
-            p_oper        => p_oper,
-            p_payway      => p_payway,
-            p_payment     => v_payment,
-            p_memo        => null,
-            p_pid         => p_pid,
-            o_remainafter => v_remainafter);
-            
+    if v_payment <> 0 then
+      precust(p_yhid        => p_yhid,
+              p_position    => v_position,
+              p_pbatch      => v_pbatch,
+              p_trans       => 'P',
+              p_oper        => p_oper,
+              p_payway      => p_payway,
+              p_payment     => v_payment,
+              p_memo        => null,
+              p_pid         => p_pid,
+              o_remainafter => v_remainafter);
+    end if;   
     --2. 按照抄表日期逐条扣费
     select misaving, reflag into v_misaving, v_reflag from bs_custinfo where ciid = p_yhid;
     --存在审批过程中的工单部进行抵扣
     if v_reflag <> 'Y' or v_reflag is null then 
-      for i in (select rlid, rlje from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje > 0 and rlcid = p_yhid order by rlday) loop
+      for i in (select rlid, rlje from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje <> 0 and rlcid = p_yhid order by rlday) loop
         exit when v_misaving < i.rlje;
         paycust(p_yhid,
                i.rlid,

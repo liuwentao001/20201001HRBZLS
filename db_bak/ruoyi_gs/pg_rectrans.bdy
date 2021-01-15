@@ -17,16 +17,23 @@
     v_cal_log varchar2(2000);
     v_reshbz varchar2(1);
     v_rewcbz varchar(1);
+    v_reifreset varchar(1);
+    v_reifstep varchar(1);
   begin
-    select miid, mircode, rercode, rercode - mircode, 'Z', reshbz, rewcbz  
-           into v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource ,v_reshbz, v_rewcbz
+    select miid, mircode, rercode, abs(rercode - mircode), 'Z', reshbz, rewcbz, reifreset, reifstep
+           into v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource ,v_reshbz, v_rewcbz, v_reifreset, v_reifstep
     from request_zlsf where reno = p_reno;
     
-    if v_reshbz <> 'Y' then o_log := '工单未审核'; return; end if;
-    if v_rewcbz = 'Y' then  o_log := '工单已冲正'; return; end if; 
+    if v_reshbz <> 'Y' or v_reshbz is null then o_log := '工单未审核，无法追量收费'; return; end if;
+    if v_rewcbz = 'Y' then  o_log := '工单已完成，无法追量收费'; return; end if; 
     
-    ins_mr(v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource, p_reno, v_mrid, v_insmr_log);
-    pg_cb_cost.calculatebf(v_mrid, '01', o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, v_cal_log);
+    --生成抄表信息
+    ins_mr(v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource, p_reno, v_reifreset, v_reifstep, v_mrid, v_insmr_log);
+    --算费
+    pg_cb_cost.calculatebf(v_mrid, '02', o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, v_cal_log);    
+    
+    update request_zlsf set rewcbz = 'Y' where reno = p_reno;
+    commit;
     o_log := '追量收费工单完成';
     
   exception
@@ -35,15 +42,17 @@
   end;
 
   --生成抄表记录
-  procedure ins_mr(p_miid varchar2, p_mrscode number, p_mrecode number, p_mrsl number, p_mrdatasource varchar2, p_mrgdid varchar2 ,o_mrid out varchar2, o_log out varchar2) is
+  procedure ins_mr(p_miid varchar2, p_mrscode number, p_mrecode number, p_mrsl number, 
+            p_mrdatasource varchar2, p_mrgdid varchar2, p_mrifreset varchar2, p_mrifstep varchar2,
+            o_mrid out varchar2, o_log out varchar2) is
     v_rowcount number;
   begin
     o_mrid := fgetsequence('METERREAD');
     
     insert into bs_meterread (mrid, mrmonth, mrsmfid, mrbfid, mrccode, mrmid, mrstid, mrcreadate, mrreadok, mrrdate, mrprdate, mrrper,
-       mrscode, mrecode, mrsl, mrifsubmit, mrifhalt, mrdatasource, mrifrec, mrrecsl, mrpfid, mrgdid)
+       mrscode, mrecode, mrsl, mrifsubmit, mrifhalt, mrdatasource, mrifrec, mrrecsl, mrpfid, mrgdid, mrifreset, mrifstep)
     select o_mrid, to_char(sysdate, 'yyyy.mm'), mismfid, mibfid, micode, miid, mistid, sysdate, 'N', sysdate, sysdate, '1',
-           p_mrscode, p_mrecode, p_mrsl, 'Y', 'N', p_mrdatasource, 'N', 0, mipfid, p_mrgdid
+           p_mrscode, p_mrecode, p_mrsl, 'Y', 'N', p_mrdatasource, 'N', 0, mipfid, p_mrgdid, p_mrifreset, p_mrifstep
     from bs_meterinfo 
     where miid = p_miid;
     
