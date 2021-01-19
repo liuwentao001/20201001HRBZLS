@@ -6,7 +6,8 @@
   chargetype VARCHAR2(5),
   iftax      VARCHAR2(5),
   status     VARCHAR2(2),
-  username   VARCHAR2(50)
+  username   VARCHAR2(50),
+  bindtime   DATE default sysdate
 )
 ;
 comment on table WECHAT_USER

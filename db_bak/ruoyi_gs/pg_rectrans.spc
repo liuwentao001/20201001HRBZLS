@@ -7,7 +7,7 @@
 
   --追量收费 工单
   --源表：request_zlsf
-  procedure rectrans_gd(p_reno request_zlsf.reno%type, o_log out varchar2);
+  procedure rectrans_zlsf_gd(p_reno request_zlsf.reno%type, o_log out varchar2);
 
   --生成抄表记录
   procedure ins_mr(p_miid varchar2, p_mrscode number, p_mrecode number, p_mrsl number, 

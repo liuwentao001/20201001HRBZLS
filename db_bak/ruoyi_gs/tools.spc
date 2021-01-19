@@ -13,6 +13,10 @@
   function  getmax(n1 in number,n2 in number) return number;
 
   function  getmin(n1 in number,n2 in number) return number;
+  
+  function  fgetrecmonth(p_smfid in varchar2) return varchar2;
+  
+  function  fgetrecdate(p_smfid in varchar2) return date;
 
 END TOOLS;
 /

@@ -112,7 +112,7 @@
         SBR.MRECODE       := NULL; --本期抄见
         SBR.MRSL          := NULL; --本期水量
         SBR.MRFACE        := NULL; --表况
-        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFSUBMIT    := 'N'; --是否提交计费
         SBR.MRIFHALT      := 'N'; --系统停算
         SBR.MRDATASOURCE  := 1; --抄表结果来源
         SBR.MRMEMO        := NULL; --抄表备注
@@ -270,7 +270,7 @@
         SBR.MRECODE       := NULL; --本期抄见
         SBR.MRSL          := NULL; --本期水量
         SBR.MRFACE        := NULL; --表况
-        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFSUBMIT    := 'N'; --是否提交计费
         SBR.MRIFHALT      := 'N'; --系统停算
         SBR.MRDATASOURCE  := 1; --抄表结果来源
         SBR.MRMEMO        := NULL; --抄表备注
@@ -432,7 +432,7 @@
         SBR.MRECODE       := NULL; --本期抄见
         SBR.MRSL          := NULL; --本期水量
         SBR.MRFACE        := NULL; --表况
-        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFSUBMIT    := 'N'; --是否提交计费
         SBR.MRIFHALT      := 'N'; --系统停算
         SBR.MRDATASOURCE  := 1; --抄表结果来源
         SBR.MRMEMO        := NULL; --抄表备注

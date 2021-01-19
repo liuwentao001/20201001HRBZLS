@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@10.10.10.72/YSDB
-prompt Created by xss on 2021年1月15日
+prompt Created by xss on 2021年1月19日
 set define off
 spool ruoyi_gs.log
 
@@ -719,6 +719,11 @@ prompt ==================================
 prompt
 @@wechat_access_token.tab
 prompt
+prompt Creating table WECHAT_ADMIN
+prompt ===========================
+prompt
+@@wechat_admin.tab
+prompt
 prompt Creating table WECHAT_USER
 prompt ==========================
 prompt
@@ -1089,10 +1094,10 @@ prompt ===========================
 prompt
 @@pg_cb_cost.spc
 prompt
-prompt Creating package PG_CORNER_PAY
-prompt ==============================
+prompt Creating package PG_EWIDE_METERTRANS_01
+prompt =======================================
 prompt
-@@pg_corner_pay.spc
+@@pg_ewide_metertrans_01.spc
 prompt
 prompt Creating package PG_EWIDE_RAEDPLAN_01
 prompt =====================================
@@ -1154,10 +1159,20 @@ prompt ==============================
 prompt
 @@fgetcustname.fnc
 prompt
+prompt Creating function FGETMETERINFO
+prompt ===============================
+prompt
+@@fgetmeterinfo.fnc
+prompt
 prompt Creating function FGETSEQUENCE
 prompt ==============================
 prompt
 @@fgetsequence.fnc
+prompt
+prompt Creating function FGET调整单价
+prompt ==========================
+prompt
+@@fget调整单价.fnc
 prompt
 prompt Creating function FPARA
 prompt =======================
@@ -1238,6 +1253,11 @@ prompt Creating package body PG_CB_COST
 prompt ================================
 prompt
 @@pg_cb_cost.bdy
+prompt
+prompt Creating package body PG_EWIDE_METERTRANS_01
+prompt ============================================
+prompt
+@@pg_ewide_metertrans_01.bdy
 prompt
 prompt Creating package body PG_EWIDE_RAEDPLAN_01
 prompt ==========================================

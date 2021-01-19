@@ -1159,7 +1159,7 @@
                   rd.rdsl,
                   pd,
                   rdtab);
-		    end;
+        end;
       else raise_application_error(errcode, '不支持的计费方法' || pd.pdmethod);
     --end case;
     end if;
@@ -1189,8 +1189,6 @@
     usenum         number; --计费人口数
     v_date         date;
     v_dateold      date;
-    v_monbet       number;
-    v_yyyymm       varchar2(10);
     v_rljtmk       varchar2(1);
     bk             bs_bookframe%rowtype;
     v_rlscrrlmonth bs_reclist.rlmonth%type;     --原应收账月份
@@ -1213,7 +1211,7 @@
     v_newmk := 'N';
     --取上次算费月份，以及阶梯开始月份
    select nvl(max(rlscrrlmonth), 'a'), nvl(max(rljtsrq), 'a'),nvl(max(rlmonth),'2015.12')
-      into v_rlscrrlmonth, v_rljtsrqold,v_rlmonth        --rlscrrlmonth	原应收帐月份   rljtsrq	本周期阶梯开始日期    rlmonth	帐务月份
+      into v_rlscrrlmonth, v_rljtsrqold,v_rlmonth        --rlscrrlmonth  原应收帐月份   rljtsrq  本周期阶梯开始日期    rlmonth  帐务月份
       from bs_reclist
      where rlmid = p_rl.rlmid
        and rlreverseflag = 'N';
@@ -1230,7 +1228,7 @@
     if usenum <= 5 then
       usenum := 5;
     end if;
-    bk.bfjtsny := nvl(bk.bfjtsny, '01');              --bfjtsny	阶梯开始月
+    bk.bfjtsny := nvl(bk.bfjtsny, '01');              --bfjtsny  阶梯开始月
     bk.bfjtsny := to_char(to_number(bk.bfjtsny), 'FM00');
     if substr(p_rl.rlmonth, 6, 2) >= bk.bfjtsny then
       v_rljtsrq := substr(p_rl.rlmonth, 1, 4) || '.' || bk.bfjtsny;
@@ -1252,7 +1250,7 @@
       if substr(v_rljtsrq, 1, 4) <> to_char(v_dateold, 'yyyy') then
         if v_rljtsrq < to_char(v_dateold, 'yyyy.mm') then
           if v_rljtsrq = p_rl.rlmonth then
-            p_rl.rljtmk  := 'Y';          --rljtmk	不记阶梯注记
+            p_rl.rljtmk  := 'Y';          --rljtmk  不记阶梯注记
             p_rl.rljtsrq := v_rljtsrq;
           else
             p_rl.rljtsrq := v_rljtsrqold;
@@ -1314,26 +1312,16 @@
 
     end if;
 
-    --取日期
-    select nvl(months_between(v_date, trunc(max(cchshdate), 'mm')), 99) + 1,
-           to_char(trunc(max(cchshdate), 'mm'), 'yyyy.mm')
-      into v_monbet, v_yyyymm
-      from gd_custchangehd, gd_custchangedt
-     where gd_custchangehd.cchno = gd_custchangedt.ccdno
-       and gd_custchangehd.cchlb in ('D')
-       and gd_custchangedt.pmdmid = p_rl.rlmid;
-    if v_monbet = 100 or v_yyyymm <= v_jtqzny then
-      v_yyyymm := v_jtqzny;
-    else
-      v_yyyymm := v_yyyymm;
-    end if;
     -- 第一次算费不进入阶梯
     -- 2016年1月起（含一月）首次抄表不计入阶梯
-    if p_rl.rljtmk = 'Y' or v_rlscrrlmonth = 'a' or p_rl.rltrans in('14', '21') or v_rlmonth <='2015.12' then
+    
+    if p_rl.rljtmk = 'Y' or p_rl.rltrans in('14', '21') -- or v_rlscrrlmonth = 'a'  or v_rlmonth <='2015.12' 
+      then
       v_rljtmk := 'Y';
     else
       v_rljtmk := 'N';
     end if;
+    
     --没有跨阶梯年月程序处理
     if v_dateold >= to_date(p_rl.rlmonth, 'yyyy.mm') or v_rljtmk = 'Y' then
        select nvl(sum(rdsl), 0)
@@ -1341,14 +1329,13 @@
         from bs_reclist, bs_recdetail,bs_meterinfo
        where rlid = rdid
          and rlmid = miid
-         --and nvl(rljtmk, 'N') = 'N'
+         and nvl(rljtmk, 'N') = 'N'
          and (rlifstep <> 'N' or rlifstep is null)
          and rlscrrltrans not in ('14', '21')
          and rdpmdcolumn3 = substr(v_jtqzny, 1, 4)
          and rdpiid = '01'
          and rdmethod = '02'
          and rlscrrlmonth <= p_rl.rlmonth
-         and rlscrrlmonth > v_yyyymm
          and micode = minfo.micode;
       rd.rdpmdcolumn3 := substr(v_jtqzny, 1, 4);
       年累计水量      := case when p_rl.rlcolumn12<0 then 0 else to_number(nvl(p_rl.rlcolumn12, 0)) end + p_sl;
@@ -1369,7 +1356,7 @@
         ps.psecode := round((ps.psecode + 30 * (usenum - 5)) );
         rd.rdclass := ps.psclass;
         rd.rddj  := ps.psprice;
-        rd.rdsl := --case when v_rljtmk = 'Y' then tmpyssl else
+        rd.rdsl := case when v_rljtmk = 'Y' then tmpyssl else
                         case
                           when 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
                             年累计水量 - tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)),ps.psscode)
@@ -1378,10 +1365,10 @@
                           else
                             0
                         end
-                    --end
+                    end
                     ;
         rd.rdje  := rd.rddj * rd.rdsl;
-        --if v_rljtmk <> 'Y' then
+        if v_rljtmk <> 'Y' then
           rd.rdpmdcolumn1 := ps.psecode - ps.psscode;
           if 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
             rd.rdpmdcolumn2 := 年累计水量 - ps.psscode;
@@ -1390,7 +1377,7 @@
           else
             rd.rdpmdcolumn2 := 0;
           end if;
-        --end if;
+        end if;
 
         if rd.rdsl > 0 then
           if rdtab is null then
@@ -1408,6 +1395,7 @@
                        else
                         0
                      end);
+        tmpyssl := tools.getmax(tmpyssl - rd.rdsl, 0);
         tmpsl   := tools.getmax(tmpsl - rd.rdsl, 0);
         exit when tmpyssl <= 0 and tmpsl <= 0;
         fetch c_ps into ps;
@@ -1437,14 +1425,13 @@
           into p_rl.rlcolumn12
           from bs_reclist, bs_recdetail
          where rlid = rdid
-           --and nvl(rljtmk, 'N') = 'N'
+           and nvl(rljtmk, 'N') = 'N'
            and (rlifstep <> 'N' or rlifstep is null)
            and rlscrrltrans not in ('14', '21')
            and rdpmdcolumn3 = substr(v_rljtsrqold, 1, 4)
            and rdpiid = '01'
            and rdmethod = '02'
            and rlscrrlmonth <= p_rl.rlmonth
-           and rlscrrlmonth > v_yyyymm
            and rlmid = minfo.micode;
       end if;
       rd.rdpmdcolumn3 := substr(v_rljtsrqold, 1, 4);
@@ -1467,7 +1454,7 @@
 
         rd.rdclass := ps.psclass;
         rd.rddj  := ps.psprice;
-        rd.rdsl := --case when v_rljtmk = 'Y' then tmpyssl else
+        rd.rdsl := case when v_rljtmk = 'Y' then tmpyssl else
                         case
                           when 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
                             年累计水量 - tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), ps.psscode)
@@ -1476,11 +1463,11 @@
                           else
                             0
                         end
-                     --end
+                     end
                      ;
         rd.rdje  := rd.rddj * rd.rdsl;
         rd.rddj    := ps.psprice;
-        --if v_rljtmk <> 'Y' then
+        if v_rljtmk <> 'Y' then
           rd.rdpmdcolumn1 := ps.psecode - ps.psscode;
           if 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
             rd.rdpmdcolumn2 := 年累计水量 - ps.psscode;
@@ -1489,7 +1476,7 @@
           else
             rd.rdpmdcolumn2 := 0;
           end if;
-        --end if;
+        end if;
 
         if rd.rdsl > 0 then
           if rdtab is null then
@@ -1502,6 +1489,7 @@
         --汇总
         p_rl.rlje := p_rl.rlje + rd.rdje;
         p_rl.rlsl := p_rl.rlsl + (case when rd.rdpiid = '01'then rd.rdsl else 0 end);
+        tmpyssl := tools.getmax(tmpyssl - rd.rdsl, 0);
         tmpsl   := tools.getmax(tmpsl - rd.rdsl, 0);
         exit when tmpyssl <= 0 and tmpsl <= 0;
         fetch c_ps into ps;
@@ -1519,14 +1507,13 @@
           into p_rl.rlcolumn12
           from bs_reclist, bs_recdetail
          where rlid = rdid
-           --and nvl(rljtmk, 'N') = 'N'
+           and nvl(rljtmk, 'N') = 'N'
            and (rlifstep <> 'N' or rlifstep is null)
            and rlscrrltrans not in ('14', '21')
            and rdpmdcolumn3 = substr(p_rl.rlmonth, 1, 4)
            and rdpiid = '01'
            and rdmethod = '02'
            and rlscrrlmonth <= p_rl.rlmonth
-           and rlscrrlmonth > v_yyyymm
            and rlmid = minfo.micode;
         rd.rdpmdcolumn3 := substr(p_rl.rlmonth, 1, 4);
         年累计水量      := tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), 0) + (round(p_sl * v_jgyf / v_jtny));
@@ -1548,7 +1535,7 @@
             ps.psecode := round((ps.psecode + 30 * (usenum - 5)));
             rd.rdclass := ps.psclass;
             rd.rddj    := ps.psprice;
-            rd.rdsl := --case when v_rljtmk = 'Y' then tmpsl else
+            rd.rdsl := case when v_rljtmk = 'Y' then tmpsl else
                           case
                             when 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
                               年累计水量 - tools.getmax(to_number(nvl(p_rl.rlcolumn12, 0)), ps.psscode)
@@ -1557,10 +1544,10 @@
                             else
                               0
                           end
-                       --end
+                       end
                        ;
             rd.rdje    := rd.rddj * rd.rdsl;
-            --if v_rljtmk <> 'Y' then
+            if v_rljtmk <> 'Y' then
               rd.rdpmdcolumn1 := ps.psecode - ps.psscode;
               if 年累计水量 >= ps.psscode and 年累计水量 <= ps.psecode then
                 rd.rdpmdcolumn2 := 年累计水量 - ps.psscode;
@@ -1569,7 +1556,7 @@
               else
                 rd.rdpmdcolumn2 := 0;
               end if;
-            --end if;
+            end if;
 
             if rd.rdsl > 0 then
               if rdtab is null then
@@ -1588,6 +1575,7 @@
                             0
                          end);
             --累减后带入下一行游标
+            tmpyssl := tools.getmax(tmpyssl - rd.rdsl, 0);
             tmpsl   := tools.getmax(tmpsl - rd.rdsl, 0);
             exit when tmpyssl <= 0 and tmpsl <= 0;
             fetch c_ps into ps;
@@ -1595,10 +1583,10 @@
           close c_ps;
       end if;
     end if;
-    --if v_rljtmk = 'N' then
+    if v_rljtmk = 'N' then
       p_rl.rlcolumn12 := 年累计水量;
-    --else p_rl.rljtmk := 'Y';
-    --end if;
+    else p_rl.rljtmk := 'Y';
+    end if;
     if c_ps%isopen then close c_ps; end if;
   exception
     when others then

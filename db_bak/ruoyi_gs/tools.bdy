@@ -36,6 +36,19 @@
       end if;
   end getmin;
 
+  function  fgetrecmonth(p_smfid in varchar2) return varchar2 is
+  begin
+  --应月份
+    --return fpara(p_smfid,'000008');
+      return to_char(sysdate, 'yyyy.mm'); --【哈尔滨】账务月份取自然月份
+  end;
+  
+  function  fgetrecdate(p_smfid in varchar2) return date is
+  begin
+  --本期应收帐务日期
+      return trunc(sysdate);
+  end;
+  
 END TOOLS;
 /
 

@@ -87,14 +87,16 @@ commit;
 delete from bs_reclist where rlcid='0100172364';
 delete from bs_payment where pcid='0100172364';
 commit;
-
-update bs_meterread set mrifrec='N' where mrccode='0100172364';
+update bs_meterread set mrifrec='N',mrrecsl=mrecode-mrscode where mrccode='0100172364';
 commit;
-select * from bs_meterread where mrccode='0100172364'for update;
+
+
+select * from bs_meterread where mrccode='0100172364';
 
 select * from bs_custinfo where ciid='0100172364';
 select * from bs_meterinfo where micode='0100172364';
 select * from bs_meterread where mrccode='0100172364';
+select * from bs_bookframe where bfid = '01003003';
 select * from bs_reclist where rlcid='0100172364';
 select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlcid='0100172364') order by rdid ,rdpiid,rdclass;
 select * from bs_pricestep where pspfid='A0103' order by pspfid ,pspiid, psclass;
@@ -149,3 +151,5 @@ select * from bs_payment where pcid='3108054610';
          and t.micode = '3108054610'
        group by rlid
 
+
+ 

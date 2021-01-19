@@ -2,7 +2,7 @@
 
   --追量收费 工单
   --源表：request_zlsf
-  procedure rectrans_gd(p_reno request_zlsf.reno%type, o_log out varchar2) is
+  procedure rectrans_zlsf_gd(p_reno request_zlsf.reno%type, o_log out varchar2) is
     v_miid varchar(20);
     v_mrscode number;
     v_mrecode number;
@@ -24,17 +24,20 @@
            into v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource ,v_reshbz, v_rewcbz, v_reifreset, v_reifstep
     from request_zlsf where reno = p_reno;
     
-    if v_reshbz <> 'Y' or v_reshbz is null then o_log := '工单未审核，无法追量收费'; return; end if;
-    if v_rewcbz = 'Y' then  o_log := '工单已完成，无法追量收费'; return; end if; 
+    if v_reshbz <> 'Y' or v_reshbz is null then o_log := '工单未审核，无法追量收费。工单编号：'|| p_reno || chr(10); return; end if;
+    if v_rewcbz = 'Y' then  o_log := '工单已完成，无法追量收费。工单编号：'|| p_reno || chr(10); return; end if; 
     
+    o_log := '开始执行追量收费工单。工单编号：'|| p_reno || chr(10);
     --生成抄表信息
     ins_mr(v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource, p_reno, v_reifreset, v_reifstep, v_mrid, v_insmr_log);
+    o_log := o_log || '开始执行追量收费工单。生成抄表记录：'|| v_insmr_log || chr(10);
     --算费
     pg_cb_cost.calculatebf(v_mrid, '02', o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, v_cal_log);    
-    
+    o_log := o_log || '开始执行追量收费工单。算费：'|| v_cal_log || chr(10);
+
     update request_zlsf set rewcbz = 'Y' where reno = p_reno;
     commit;
-    o_log := '追量收费工单完成';
+    o_log := o_log || '追量收费工单完成。工单编号：'|| p_reno;
     
   exception
       when no_data_found then o_log := '无效的工单号：' || p_reno;
