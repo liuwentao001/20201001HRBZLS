@@ -58,7 +58,6 @@
       UPDATE REQUEST_ZQGZ
          SET MODIFYDATE   = SYSDATE,
              MODIFYUSERID = P_PER,
-             REFLAG       = 'Y',
              MTDFLAG      = 'Y'
        WHERE RENO = P_MTHNO;
     ELSIF P_TYPE IN ('F') THEN
@@ -110,7 +109,6 @@
       UPDATE REQUEST_CB
          SET MODIFYDATE   = SYSDATE,
              MODIFYUSERID = P_PER,
-             REFLAG       = 'Y',
              MTDFLAG      = 'Y'
        WHERE RENO = P_MTHNO;
     ELSIF P_TYPE IN ('K') THEN
@@ -161,7 +159,6 @@
       UPDATE REQUEST_GZHB
          SET MODIFYDATE   = SYSDATE,
              MODIFYUSERID = P_PER,
-             REFLAG       = 'Y',
              MTDFLAG      = 'Y'
        WHERE RENO = P_MTHNO;
     END IF;
@@ -214,7 +211,6 @@
     UPDATE REQUEST_XH
        SET MODIFYDATE   = SYSDATE,
            MODIFYUSERID = I_PER,
-           REFLAG       = 'Y',
            MTDFLAG      = 'Y'
      WHERE RENO = I_RENO;
   EXCEPTION
@@ -1732,7 +1728,7 @@
       END LOOP;
       --更新工单完成状态
       UPDATE REQUEST_YHDBYH
-         SET MODIFYDATE = SYSDATE, REFLAG = 'Y', MODIFYUSERID = I_PER
+         SET MODIFYDATE = SYSDATE, MODIFYUSERID = I_PER
        WHERE RENO = I_RENO;
       --合户
     ELSIF I_TYPE = '0' THEN
@@ -1758,7 +1754,7 @@
       END LOOP;
       --更新工单完成状态
       UPDATE REQUEST_YHDBYH
-         SET MODIFYDATE = SYSDATE, REFLAG = 'Y', MODIFYUSERID = I_PER
+         SET MODIFYDATE = SYSDATE, MODIFYUSERID = I_PER
        WHERE RENO = I_RENO;
     END IF;
     COMMIT;
@@ -1778,7 +1774,6 @@
     IF P_TYPE IN ('F') THEN
       UPDATE REQUEST_CB A
          SET A.MTDFLAG        = 'Y', --完工标志
-             A.REFLAG         = 'N', --当前审批状
              A.MODIFYUSERNAME = P_PER, --修改人
              A.REMARK         = P_REMARK, --备注、拒绝原因
              A.MODIFYDATE     = SYSDATE --修改时间
@@ -1786,7 +1781,6 @@
     ELSIF P_TYPE IN ('K') THEN
       UPDATE REQUEST_GZHB A
          SET A.MTDFLAG        = 'Y', --完工标志
-             A.REFLAG         = 'N', --当前审批状
              A.MODIFYUSERNAME = P_PER, --修改人
              A.REMARK         = P_REMARK, --备注、拒绝原因
              A.MODIFYDATE     = SYSDATE --修改时间
@@ -1794,7 +1788,6 @@
     ELSIF P_TYPE IN ('L') THEN
       UPDATE REQUEST_ZQGZ A
          SET A.MTDFLAG        = 'Y', --完工标志
-             A.REFLAG         = 'N', --当前审批状
              A.MODIFYUSERNAME = P_PER, --修改人
              A.REMARK         = P_REMARK, --备注、拒绝原因
              A.MODIFYDATE     = SYSDATE --修改时间

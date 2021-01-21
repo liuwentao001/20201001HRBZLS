@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@10.10.10.72/YSDB
-prompt Created by xss on 2021年1月19日
+prompt Created by xss on 2021年1月21日
 set define off
 spool ruoyi_gs.log
 
@@ -614,6 +614,11 @@ prompt ============================
 prompt
 @@sys_dict_data.tab
 prompt
+prompt Creating table SYS_DICT_DATA_BAK
+prompt ================================
+prompt
+@@sys_dict_data_bak.tab
+prompt
 prompt Creating table SYS_DICT_TYPE
 prompt ============================
 prompt
@@ -1094,10 +1099,10 @@ prompt ===========================
 prompt
 @@pg_cb_cost.spc
 prompt
-prompt Creating package PG_EWIDE_METERTRANS_01
-prompt =======================================
+prompt Creating package PG_EWIDE_METERTRANS
+prompt ====================================
 prompt
-@@pg_ewide_metertrans_01.spc
+@@pg_ewide_metertrans.spc
 prompt
 prompt Creating package PG_EWIDE_RAEDPLAN_01
 prompt =====================================
@@ -1159,20 +1164,15 @@ prompt ==============================
 prompt
 @@fgetcustname.fnc
 prompt
-prompt Creating function FGETMETERINFO
-prompt ===============================
-prompt
-@@fgetmeterinfo.fnc
-prompt
 prompt Creating function FGETSEQUENCE
 prompt ==============================
 prompt
 @@fgetsequence.fnc
 prompt
-prompt Creating function FGET调整单价
-prompt ==========================
+prompt Creating function FGET_TZDJ
+prompt ===========================
 prompt
-@@fget调整单价.fnc
+@@fget_tzdj.fnc
 prompt
 prompt Creating function FPARA
 prompt =======================
@@ -1229,6 +1229,11 @@ prompt ============================
 prompt
 @@sp_cbproc.prc
 prompt
+prompt Creating procedure SP_METERINFO_MIRORDER
+prompt ========================================
+prompt
+@@sp_meterinfo_mirorder.prc
+prompt
 prompt Creating procedure SP_JZGLAUDIT
 prompt ===============================
 prompt
@@ -1254,10 +1259,10 @@ prompt ================================
 prompt
 @@pg_cb_cost.bdy
 prompt
-prompt Creating package body PG_EWIDE_METERTRANS_01
-prompt ============================================
+prompt Creating package body PG_EWIDE_METERTRANS
+prompt =========================================
 prompt
-@@pg_ewide_metertrans_01.bdy
+@@pg_ewide_metertrans.bdy
 prompt
 prompt Creating package body PG_EWIDE_RAEDPLAN_01
 prompt ==========================================

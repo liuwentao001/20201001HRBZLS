@@ -1,9 +1,10 @@
 ﻿CREATE OR REPLACE PROCEDURE SP_JZGLAUDIT(P_WORKID IN VARCHAR2) AS
   --V_CIID  VARCHAR2(50);
   --V_MIID  VARCHAR2(50);
-  --V_RENO  VARCHAR2(60);
-  V_FLAGC NUMBER;
-  V_FLAGM NUMBER;
+  V_MIRORDER  VARCHAR2(060);
+  V_FLAGC     NUMBER;
+  V_FLAGM     NUMBER;
+	V_CIDBBS    NUMBER;
 BEGIN
 
   FOR JZGL IN (SELECT *
@@ -15,106 +16,112 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(V_FLAGC);
     SELECT COUNT(1) INTO V_FLAGM FROM BS_METERINFO WHERE MIID = JZGL.MIID;
     DBMS_OUTPUT.PUT_LINE(V_FLAGM);
+		SELECT COUNT(1) INTO V_CIDBBS FROM REQUEST_JZGL WHERE CIID = JZGL.CIID;
+    DBMS_OUTPUT.PUT_LINE(V_CIDBBS);
   
     -----BS_CUSTINFO
     IF V_FLAGC = 0 THEN
       INSERT INTO BS_CUSTINFO
-        (CIMTEL,
-         CITEL1,
-         CICONNECTPER,
-         CIIFINV,
-         CIIFSMS,
-         MICHARGETYPE,
-         MISAVING,
-         CIID,
-         CINAME,
-         CIADR,
-         CISTATUS,
-         CIIDENTITYLB,
-         CIIDENTITYNO,
-         CISMFID,
-         CINEWDATE,
-         CISTATUSDATE,
-         CIDBBS,
-         CIUSENUM,
-         CIAMOUNT)
-        SELECT CIMTEL,
-               CITEL1,
-               CICONNECTPER,
-               CIIFINV,
-               CIIFSMS,
-               MICHARGETYPE,
-               0,
-               CIID,
-               CINAME,
-               CIADR,
-               CISTATUS,
-               CIIDENTITYLB,
-               CIIDENTITYNO,
-               RESMFID,
-               SYSDATE,
-               MODIFYDATE,
-               REDBBS,
-               CIUSENUM,
-               CIAMOUNT
+        (CIMTEL,  --移动电话
+         CITEL1,  --电话1
+         CICONNECTPER,  --联系人
+         CIIFINV,  --是否普票
+         CIIFSMS,  --是否提供短信服务
+         MICHARGETYPE,  --类型（1=坐收，2=走收,收费方式）
+         MISAVING,  --预存款余额
+         CIID,  --用户号
+         CINAME,  --用户名
+         CIADR,  --用户地址
+         CISTATUS,  --用户状态【syscuststatus】
+         CIIDENTITYLB,  --证件类型
+         CIIDENTITYNO,  --证件号码
+         CISMFID,  --营销公司
+         CINEWDATE,  --立户日期
+         CISTATUSDATE,  --状态日期
+         CIDBBS,  --是否一户多表
+         CIUSENUM,  --户籍人数
+         CIAMOUNT,  --户数
+         CIPASSWORD)  --用户密码
+        SELECT CIMTEL,  --移动电话
+               CITEL1,  --电话1
+               CICONNECTPER,  --联系人
+               CIIFINV,  --是否普票
+               CIIFSMS,  --是否提供短信服务
+               MICHARGETYPE,  --类型（1=坐收，2=走收,收费方式）
+               0,  --预存款余额
+               CIID,  --用户号
+               CINAME,  --用户名
+               CIADR,  --用户地址
+               CISTATUS,  --用户状态【syscuststatus】
+               CIIDENTITYLB,  --证件类型(1-身份证 2-营业执照  0-无)
+               CIIDENTITYNO,  --证件号码
+               RESMFID,  --营销公司
+               SYSDATE,  --立户日期
+               MODIFYDATE,  --修改时间
+               CASE WHEN V_CIDBBS='1' THEN 'N' ELSE 'Y' END,  --是否一户多表
+               CIUSENUM,  --户籍人数
+               CIAMOUNT,  --户数
+               '123456'  --用户密码
           FROM REQUEST_JZGL
          WHERE RENO = JZGL.RENO;
     END IF;
     -----BS_METERINFO
     IF V_FLAGM = 0 THEN
       INSERT INTO BS_METERINFO
-        (MIID,
-         MIADR,
-         MICODE,
-         MISMFID,
-         MIBFID,
-         MIRORDER,
-         MIPID,
-         MICLASS,
-         MIRTID,
-         MISTID,
-         MIPFID,
-         MISTATUS,
-         MISIDE,
-         MIINSCODE,
-         MIINSDATE,
-         MILH,
-         MIDYH,
-         MIMPH,
-         MIXQM,
-         MIJD,
-         MIYL13,
-         DQSFH,
-         DQGFH,
-         MICARDNO,
-         MIRCODE,
-         MISEQNO)
-        SELECT MIID,
-               MIADR,
-               CIID,
-               RESMFID,
-               MIBFID,
-               MIRORDER,
-               MIPID,
-               MICLASS,
-               MIRTID,
-               MISTID,
-               MIPFID,
-               MISTATUS,
-               MISIDE,
-               MIINSCODE,
-               MIINSDATE,
-               MILH,
-               MIDYH,
-               MIMPH,
-               MIXQM,
-               MIJD,
-               MIYL13,
-               DQSFH,
-               DQGFH,
-               MICARDNO,
-               MIINSCODE,
-               MIBFID||SORTCODE MISEQNO
+        (MIID,  --水表档案编号
+         MIADR,  --表地址
+         MICODE,  --用户号
+         MISMFID,  --营销公司(SYSMANAFRAME)
+         MIBFID,  --表册(bookframe)
+         MIRORDER,  --抄表次序
+         MIPID,  --上级水表编号
+         MICLASS,  --水表级次
+         MIRTID,  --抄表方式【sysreadtype】
+         MISTID,  --行业分类【metersortframe】
+         MIPFID,  --用水性质(priceframe)
+         MISTATUS,  --有效状态【sysmeterstatus】
+         MISIDE,  --表位【syscharlist】
+         MIINSCODE,  --新装起度
+         MIINSDATE,  --装表日期
+         MILH,  --楼号
+         MIDYH,  --单元号
+         MIMPH,  --门牌号
+         MIXQM,  --小区名
+         MIJD,  --街道
+         MIYL13,  --街道号
+         DQSFH,  --塑封号
+         DQGFH,  --钢封号
+         MICARDNO,  --卡片图号
+         MIRCODE,  --本期读数
+         MISEQNO,  --帐卡号（初始化时册号+序号，帐卡号）
+         ISALLOWREADING)  --是否允许手工录入开关(0允许，1禁止)
+        SELECT MIID,  --水表档案编号
+               MIADR,  --表地址
+               CIID,  --用户号
+               RESMFID,  --营销公司
+               MIBFID,  --表册(bookframe)
+               MIRORDER,  --抄表次序
+               MIPID,  --上级水表编号
+               MICLASS,  --水表级次
+               MIRTID,  --采集类型（原抄表方式【sysreadtype】）
+               MISTID,  --行业分类【metersortframe】
+               MIPFID,  --用水性质(priceframe)
+               MISTATUS,  --水表状态【sysmeterstatus】
+               MISIDE,  --表位【syscharlist】
+               MIINSCODE,  --初始指针
+               MIINSDATE,  --装表日期
+               MILH,  --楼号
+               MIDYH,  --单元号
+               MIMPH,  --门牌号
+               MIXQM,  --小区名
+               MIJD,  --街道
+               MIYL13,  --街道号
+               DQSFH,  --塑封号
+               DQGFH,  --钢封号
+               MICARDNO,  --卡片图号
+               MIINSCODE,  --初始指针
+               MIBFID||SORTCODE MISEQNO,  --表册(bookframe)||序号
+               '1'  --是否允许手工录入开关(0允许，1禁止)
           FROM REQUEST_JZGL
          WHERE RENO = JZGL.RENO;
     END IF;
@@ -161,8 +168,13 @@ BEGIN
                AND C.RENO = JZGL.RENO);
   
   END LOOP;
-
+  V_MIRORDER := '0';
   COMMIT;
+  IF V_MIRORDER ='0' THEN
+    FOR I IN (SELECT MIBFID FROM REQUEST_JZGL WHERE ENABLED = 5 AND WORKID = P_WORKID) LOOP
+    SP_METERINFO_MIRORDER(I.MIBFID,V_MIRORDER);
+    END LOOP;
+    END IF ;
 
 END;
 /

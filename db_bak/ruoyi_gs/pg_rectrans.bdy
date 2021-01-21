@@ -13,6 +13,7 @@
     o_mrrecje02 bs_meterread.mrrecje02%type;
     o_mrrecje03 bs_meterread.mrrecje03%type;
     o_mrrecje04 bs_meterread.mrrecje04%type;
+    o_mrsumje   number;
     v_insmr_log varchar2(2000);
     v_cal_log varchar2(2000);
     v_reshbz varchar2(1);
@@ -30,9 +31,9 @@
     o_log := '开始执行追量收费工单。工单编号：'|| p_reno || chr(10);
     --生成抄表信息
     ins_mr(v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource, p_reno, v_reifreset, v_reifstep, v_mrid, v_insmr_log);
-    o_log := o_log || '开始执行追量收费工单。生成抄表记录：'|| v_insmr_log || chr(10);
+    o_log := o_log || '开始执行追量收费工单。生成抄表记录：'|| v_insmr_log || v_mrid || chr(10);
     --算费
-    pg_cb_cost.calculatebf(v_mrid, '02', o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, v_cal_log);    
+    pg_cb_cost.calculatebf(v_mrid, '02', o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, o_mrsumje, v_cal_log);    
     o_log := o_log || '开始执行追量收费工单。算费：'|| v_cal_log || chr(10);
 
     update request_zlsf set rewcbz = 'Y' where reno = p_reno;

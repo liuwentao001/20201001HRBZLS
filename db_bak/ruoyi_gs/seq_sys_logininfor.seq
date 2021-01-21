@@ -1,7 +1,7 @@
 ﻿create sequence SEQ_SYS_LOGININFOR
 minvalue 1
 maxvalue 9999999999999999999999999999
-start with 7576
+start with 7596
 increment by 1
 cache 20;
 

@@ -1,0 +1,20 @@
+﻿create table SYS_DICT_DATA_BAK
+(
+  dict_code      NUMBER(20) not null,
+  dict_sort      NUMBER(4),
+  dict_label     VARCHAR2(100),
+  dict_value     VARCHAR2(100),
+  dict_type      VARCHAR2(100),
+  css_class      VARCHAR2(100),
+  list_class     VARCHAR2(100),
+  is_default     CHAR(1),
+  status         CHAR(1),
+  create_by      VARCHAR2(64),
+  create_time    DATE,
+  update_by      VARCHAR2(64),
+  update_time    DATE,
+  remark         VARCHAR2(500),
+  dict_type_name VARCHAR2(100)
+)
+;
+

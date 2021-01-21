@@ -5,6 +5,7 @@
   是否审批算费        char(1);
   分账操作            char(1);
   算费时预存自动销账  char(1);
+  v_smtifcharge1      char(1); --是否计费 1 普表
 
   procedure wlog(p_txt in varchar2) is
   begin
@@ -41,6 +42,7 @@
      v_mrrecje02 bs_meterread.mrrecje02%type;
      v_mrrecje03 bs_meterread.mrrecje03%type;
      v_mrrecje04 bs_meterread.mrrecje04%type;
+     v_mrsumje   number;
   begin
     callogtxt := null;
     wlog('正在算费表册号：' || p_mrbfids || ' ...');
@@ -50,7 +52,7 @@
       exit when c_mr%notfound or c_mr%notfound is null;
       --单条抄表记录处理
       begin
-        calculatebf(vmrid, '02',v_mrrecje01, v_mrrecje02, v_mrrecje03, v_mrrecje04, log);
+        calculatebf(vmrid, '02',v_mrrecje01, v_mrrecje02, v_mrrecje03, v_mrrecje04, v_mrsumje, log);
         wlog('抄表流水：'||vmrid || ' 算费完成'|| ' ' || v_mrrecje01 || ' ' ||  v_mrrecje02 || ' ' ||  v_mrrecje03 || ' ' ||  v_mrrecje04 );
         commit;
       exception
@@ -70,11 +72,12 @@
 
   --算费前虚拟算费，供月抄表明细调用
   procedure calculatebf(p_mrid in bs_meterread.mrid%type,
-             p_caltype in varchar2,    -- 01 虚拟算费; 02 正式算费
+             p_caltype   in  varchar2,    -- 01 虚拟算费; 02 正式算费
              o_mrrecje01 out bs_meterread.mrrecje01%type,
              o_mrrecje02 out bs_meterread.mrrecje02%type,
              o_mrrecje03 out bs_meterread.mrrecje03%type,
              o_mrrecje04 out bs_meterread.mrrecje04%type,
+             o_mrsumje   out number,
              err_log out varchar2) is
     mr bs_meterread%rowtype;
     v_reflag varchar(10);          --工单状态(Y:存在审批过程中的工单；N:不存在)
@@ -128,7 +131,10 @@
       end if;
       
       commit;
-      select nvl(mrrecje01,0) + nvl(mrrecje02,0) + nvl(mrrecje03,0) + nvl(mrrecje04,0) ,mrrecje02,mrrecje03,mrrecje04 into o_mrrecje01,o_mrrecje02,o_mrrecje03,o_mrrecje04 from bs_meterread where mrid = p_mrid;
+      select mrrecje01,mrrecje02,mrrecje03,mrrecje04 ,nvl(mrrecje01,0) + nvl(mrrecje02,0) + nvl(mrrecje03,0) + nvl(mrrecje04,0) 
+             into o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, o_mrsumje
+       from bs_meterread 
+      where mrid = p_mrid;
       err_log := callogtxt;
     else
       wlog('当前抄表计划流水号已正式算费，无法重算');
@@ -214,7 +220,6 @@
     v_mrcode_tmp number;
     v_rec_cal varchar2(1);
   begin
-    --dbms_output.put_line(systimestamp ||'：验证抄表信息开始');
     open c_mr;
     fetch c_mr into mr;
     if c_mr%notfound or c_mr%notfound is null then
@@ -383,9 +388,10 @@
       v_row    := 1;
       select count(*)
         into v_count
-        from bs_meterinfo
+        from bs_meterinfo 
        where mipid = mr.mrmid
-       --  and fchkmeterneedcharge(mistatus, miifchk, mitype) = 'Y'
+             and miifchk <> 'Y'
+             and miifcharge <> 'N'
        --order by micolumn6
        ;
       loop
@@ -404,7 +410,9 @@
         v_row       := v_row + 1;
         if mrl.mrifrec = 'Y' and --mrl.mrifsubmit = 'Y' and
            mrl.mrifhalt = 'Y' and mil.miifcharge = 'Y' and
-           fchkmeterneedcharge(mil.mistatus, mil.miifchk, '1') = 'Y' then
+           (mil.miifchk <> 'Y' or mil.miifchk is null) and 
+           v_smtifcharge1 <> 'N' 
+           then
           --正常算费
           calculate(mrl, '1', '0000.00', v_rec_cal);
         elsif mil.miifcharge = 'Y' or mrl.mrifhalt = 'Y' then
@@ -421,7 +429,8 @@
       if mr.mrifrec = 'N' and --mr.mrifsubmit = 'Y' and
          mr.mrifhalt = 'N' and 
          mi.miifcharge = 'Y' and
-         fchkmeterneedcharge(mi.mistatus, mi.miifchk, '1') = 'Y' 
+         (mil.miifchk <> 'Y' or mil.miifchk is null) and 
+         v_smtifcharge1 <> 'N' 
          then
         --正常算费
         calculate(mr, '1', '0000.00', v_rec_cal);
@@ -1315,7 +1324,7 @@
     -- 第一次算费不进入阶梯
     -- 2016年1月起（含一月）首次抄表不计入阶梯
     
-    if p_rl.rljtmk = 'Y' or p_rl.rltrans in('14', '21') -- or v_rlscrrlmonth = 'a'  or v_rlmonth <='2015.12' 
+    if p_rl.rljtmk = 'Y' or p_rl.rltrans in('14', '21') or v_rlscrrlmonth = 'a' or v_rlmonth <='2015.12' 
       then
       v_rljtmk := 'Y';
     else
@@ -1872,6 +1881,7 @@ begin
   select spvalue into 是否审批算费 from sys_para where spid='ifrl';
   select spvalue into 分账操作 from sys_para where spid='1104';
   select spvalue into 算费时预存自动销账 from sys_para where spid='0006';
+  select smtifcharge into v_smtifcharge1 from sysmetertype where smtid='1';
 end;
 /
 

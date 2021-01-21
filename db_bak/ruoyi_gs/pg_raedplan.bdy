@@ -49,7 +49,8 @@
              MIIFCHK,
              MDCALIBER,
              MISIDE,
-             B.MISTATUS
+             B.MISTATUS,
+             B.MIRECSL
         FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
        WHERE A.CIID = B.MICODE
          AND B.MIID = S.MDID
@@ -58,7 +59,7 @@
          AND B.MISMFID = P_MANAGE_NO
          AND B.MIBFID = P_BOOK_NO
          AND D.BFNRMONTH = P_MONTH
-         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
+         AND A.CISTATUS = '1';
   BEGIN
     OPEN C_BKSB;
     LOOP
@@ -81,7 +82,8 @@
              SB.MIIFCHK,
              MD.MDCALIBER,
              SB.MISIDE,
-             SB.MISTATUS;
+             SB.MISTATUS,
+             SB.MIRECSL;
       EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
       --判断是否存在重复抄表计划
       OPEN C_CB(SB.MIID);
@@ -131,6 +133,7 @@
         SBR.MRINPUTPER    := NULL; --入账人员
         SBR.MRCALIBER     := MD.MDCALIBER; --口径
         SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRLASTSL      := SB.MIRECSL;  --上次抄表水量
         SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
 
         --上次水费   至  去年度次均量
@@ -211,12 +214,12 @@
              MIIFCHK,
              MDCALIBER,
              MISIDE,
-             MISTATUS
+             MISTATUS,
+             MIRECSL
         FROM BS_CBJH_TEMP A
        WHERE A.MIBFID = P_BOOK_NO
          AND A.MISMFID = P_MANAGE_NO
-         AND A.BFNRMONTH = P_MONTH
-         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
+         AND A.BFNRMONTH = P_MONTH;
   BEGIN
     OPEN C_BKSB;
     LOOP
@@ -239,7 +242,8 @@
              SB.MIIFCHK,
              MD.MDCALIBER,
              SB.MISIDE,
-             SB.MISTATUS;
+             SB.MISTATUS,
+             SB.MIRECSL;
       EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
       --判断是否存在重复抄表计划
       OPEN C_CB(SB.MIID);
@@ -289,6 +293,7 @@
         SBR.MRINPUTPER    := NULL; --入账人员
         SBR.MRCALIBER     := MD.MDCALIBER; --口径
         SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRLASTSL      := SB.MIRECSL;  --上次抄表水量
         SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
 
         --上次水费   至  去年度次均量
@@ -307,13 +312,11 @@
       END IF;
     END LOOP;
     CLOSE C_BKSB;
-
     UPDATE BS_BOOKFRAME K
-       SET BFNRMONTH = TO_CHAR(ADD_MONTHS(TO_DATE(BFNRMONTH, 'yyyy.mm'),
+       SET BFNRMONTH = TO_CHAR(ADD_MONTHS(TO_DATE(BFNRMONTH, 'YYYY.MM'),
                                           BFRCYC),
-                               'yyyy.mm')
+                               'YYYY.MM')
      WHERE BFID = P_BOOK_NO;
-
     COMMIT;
     O_STATE := '0';
   EXCEPTION
@@ -369,14 +372,15 @@
              S.MDCALIBER, --表口径(METERCALIBER)
              B.MISIDE,
              B.MIBFID,
-             B.MISTATUS
+             B.MISTATUS,
+             B.MIRECSL
         FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
        WHERE A.CIID = B.MICODE
          AND B.MIID = S.MDID
          AND B.MISMFID = D.BFSMFID
          AND B.MIBFID = D.BFID
          AND B.MIID = P_SBID
-         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
+         AND A.CISTATUS = '1';
   BEGIN
     OPEN C_BKSB;
     LOOP
@@ -401,7 +405,8 @@
              MD.MDCALIBER,
              SB.MISIDE,
              SB.MIBFID,
-             SB.MISTATUS;
+             SB.MISTATUS,
+             SB.MIRECSL;
       EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
       --判断是否存在重复抄表计划
       OPEN C_CB(SB.MIID);
@@ -451,6 +456,7 @@
         SBR.MRINPUTPER    := NULL; --入账人员
         SBR.MRCALIBER     := MD.MDCALIBER; --口径
         SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRLASTSL      := SB.MIRECSL;  --上次抄表水量
         SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
 
         --上次水费   至  去年度次均量

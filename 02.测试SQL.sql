@@ -8,7 +8,7 @@ select * from user_col_comments;
 --查询所有用户表备注
 select * from user_tab_comments;
 --查询所有同义词
-select * from sys.all_synonyms t where t.owner in ('YYSF')
+select * from sys.all_synonyms t where t.owner in ('YYSF');
 --正则表达式
 select case when regexp_like( 'T0101','^T[0-9]*$') then 1 else 0 end from dual
 --查询所有表说明、字段说明
@@ -65,7 +65,7 @@ with t as(
   from ys_zw_ardetail 
   where ardid in ('0000012726','70105341') group by ardid
 )
-select listagg(a,'|') within group(order by a) from tvarchar2(30) 
+select listagg(a,'|') within group(order by a) from t;
 
 -------------------------------------------------
 --测试
@@ -149,7 +149,41 @@ select * from bs_payment where pcid='3108054610';
          and rlje <> 0
          and rltrans not in ('13', '14', 'U')
          and t.micode = '3108054610'
-       group by rlid
+       group by rlid;
 
 
  
+
+select * from request_yscz t
+
+2 6A1CEB5E34534D6380E17383F74EF4F9    2200000543                                        15/1/2021 09:58:36  1 董伟              Y   1000201987    Y
+3 67D56D4463044BB491251499C30920F9    2200000543                                        15/1/2021 09:59:00  1 董伟  15/1/2021 10:02:39  1 管理员       Y Y 1000201987    Y
+1 634D330BF1AA4005B332A97D126C7B4F    2200000543                                        15/1/2021 10:01:51  1 董伟              Y   1000201990    Y
+
+select * from bs_meterread where mrccode='2200000543'
+
+1 597013  2019.08 0201  01001001  1     2200000543  2200000544  1   1   14/1/2021 16:28:11    Y 14/1/2021 8108  14/1/2021 198 300 102   Y N 1   N Y 14/1/2021 16:30:06  102 0   N     确认通过          0       0 BF  0 0 0 244.800 96.900  0.000             N                       
+
+MRSCODE	198	number(10), optional, 上期抄见
+MRECODE	300	number(10), optional, 本期抄见
+MRSL	102	number(10), optional, 本期水量
+
+
+select * from bs_meterinfo where micode='2200000543'
+
+1 2200000544  测试地址    2200000543  0201  2019.08 2019.08 01001001      1   1 1 A0101 1       BF  0 13/1/2021             198 Y                                 JD00157                 1/1/2019        gfh0005                           0       
+MIRECSL	198	number(10), optional, 本期抄见水量
+
+select * from bs_reclist where rlcid='2200000543'
+
+
+
+
+
+
+
+
+
+
+
+

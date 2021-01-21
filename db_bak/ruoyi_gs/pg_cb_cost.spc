@@ -20,6 +20,7 @@
              o_mrrecje02 out bs_meterread.mrrecje02%type,
              o_mrrecje03 out bs_meterread.mrrecje03%type,
              o_mrrecje04 out bs_meterread.mrrecje04%type,
+             o_mrsumje   out number,
              err_log out varchar2);
   --计划抄表单笔算费
   procedure calculate(p_mrid in bs_meterread.mrid%type);

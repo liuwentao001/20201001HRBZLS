@@ -604,6 +604,8 @@
       pay_back_by_pid(p_pid, p_oper, '', v_pid_reverse);
       o_pid_reverse := v_pid_reverse;
     elsif v_ptrans = 'P' and v_misaving < v_ppayment then
+      null;
+      /*  --自动销账
       for i in (select p.pid ,rl.rlje
                   from bs_payment p 
                        left join bs_reclist rl on p.pid = rl.rlpid 
@@ -626,7 +628,7 @@
       
       pay_back_by_pid(p_pid, p_oper, '', v_pid_reverse);
       o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
-      
+      */
     end if;
   exception
     when others then
@@ -672,7 +674,7 @@
       p_reverse.psavingbq := -p_source.psavingbq;
       p_reverse.psavingqm := p_reverse.psavingqc + p_reverse.psavingbq; --期末预存余额;
       p_reverse.ppayment  := -p_source.ppayment;
-      p_reverse.ppayway   := null;
+      p_reverse.ppayway   := p_source.ppayway;
       p_reverse.pbseqno   := p_source.pbseqno;
       p_reverse.pbdate    := p_source.pbdate;
       p_reverse.pchkdate  := p_source.pchkdate;
@@ -850,7 +852,6 @@
              t.rlreverseflag = 'Y', --y                   冲正标志（n为正常，y为冲正）
              t.rlmisaving    = 0, --算费时预存
              t.rlpriorje     = 0 --算费之前欠费
-             --t.rlpaidmonth   = tools.fgetrecmonth(t.rlmsmfid)
        where t.rlid = v_rl.rlid;
       v_rcount := v_rcount + 1;
     end loop;

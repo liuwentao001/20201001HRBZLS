@@ -32,13 +32,15 @@ BEGIN
                MISIDE,
                B.MISTATUS,
                D.BFNRMONTH,
-               B.MIBFID
+               B.MIBFID,
+               B.MIRECSL
           FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
          WHERE A.CIID = B.MICODE
            AND B.MIID = S.MDID
            AND B.MISMFID = D.BFSMFID
            AND B.MIBFID = D.BFID
-           AND B.MISMFID = I.DEPT_CODE;
+           AND B.MISMFID = I.DEPT_CODE
+           AND A.CISTATUS = '1';
       --AND D.BFNRMONTH = TO_CHAR(O_DATE, 'YYYY.MM');
       COMMIT;
       IF O_STATE = '0' THEN
@@ -85,7 +87,8 @@ BEGIN
              MISIDE,
              B.MISTATUS,
              D.BFNRMONTH,
-             B.MIBFID
+             B.MIBFID,
+             MIRECSL
         FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
        WHERE A.CIID = B.MICODE
          AND B.MIID = S.MDID
