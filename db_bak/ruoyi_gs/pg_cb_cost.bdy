@@ -862,7 +862,7 @@
       end if;
     end if;
     
-    --追量收费不重置指针
+    --不重置指针   追量收费工单，补缴收费工单
     if mr.mrifreset = 'N' then 
       null;
     else
@@ -1632,6 +1632,7 @@
     r_yscz         request_yscz%rowtype;
     --o_pid_reverse  bs_reclist.rlpid%type;
     rlcr bs_reclist%rowtype;
+    v_oldrecsl number;
   begin
     select * into r_yscz from request_yscz where reno = p_reno;
     
@@ -1665,7 +1666,7 @@
       rlcr.rlcolumn9  := rlcr.rlid; --上次应收帐流水
       rlcr.rlid       := trim(to_char(seq_reclist.nextval,'0000000000'));
       rlcr.rlmonth    := to_char(sysdate, 'yyyy.mm');
-      rlcr.rldate     := trunc(sysdate);
+      rlcr.rldate     := sysdate;
       rlcr.rldatetime := sysdate;
       rlcr.rlpaidflag := 'N';
       rlcr.rlsl       := 0 - rlcr.rlsl;
@@ -1709,14 +1710,28 @@
       from bs_recdetail
       where rdid = rlde.rlid;
       
-
+      v_oldrecsl := null;
+      begin
+        select mr.mrsl into v_oldrecsl from bs_meterread mr where mr.mrmid = rlde.rlmid and mr.mrecode = rlde.rlscode;
+      exception
+        when no_data_found then v_oldrecsl := null;
+      end;
+      
+      if v_oldrecsl is null then
+        begin
+          select mrh.mrsl into v_oldrecsl from bs_meterread_his mrh where mrh.mrmid = rlde.rlmid and mrh.mrecode = rlde.rlscode;
+        exception
+          when no_data_found then v_oldrecsl := null;
+        end;
+      end if;
       
       --rercodeflag      是否重置抄表指针
       if r_yscz.rercodeflag = 'Y' then       
         update bs_meterinfo
            set mircode   = rlde.rlscode,
                mirecdate = rlde.rlday, --本期抄见日期 =应收账抄表日期
-               mirecsl   = rlde.rlreadsl
+               mirecsl   = v_oldrecsl
+               --mirecsl   = rlde.rlreadsl
          where miid = rlde.rlmid;   
          
         if to_char(rlde.rlday,'yyyymm') = to_char(sysdate,'yyyymm') then
@@ -1736,7 +1751,8 @@
          end if;
       else
         update bs_meterinfo
-           set mirecsl = 0
+           set --mirecsl = 0
+               mirecsl = v_oldrecsl
          where miid = rlde.rlmid;
          
         if to_char(rlde.rlday,'yyyymm') = to_char(sysdate,'yyyymm') then

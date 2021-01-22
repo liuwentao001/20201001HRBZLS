@@ -43,6 +43,10 @@ where sql_text like '%1307580923%'
 --where b.first_load_time between '2009-10-15/09:24:47' and '2009-10-15/09:24:47' 
 order by b.first_load_time 
 
+--并行执行
+--alter session enable parallel dml;
+--update /*+ parallel(t,32)*/ bs_meterinfo t set t.mircode = (select a.mircode from meterinfo@hrbzls a where t.miid = a.miid)
+
 --字符串转table----------------------------------------------------------------------------------------------------
 --拼接字符串
 select listagg(ardpiid,',') within group(order by ardpiid) from ys_zw_ardetail where ardid='0000012726'
@@ -90,8 +94,15 @@ commit;
 update bs_meterread set mrifrec='N',mrrecsl=mrecode-mrscode where mrccode='0100172364';
 commit;
 
-
-select * from bs_meterread where mrccode='0100172364';
+select * from request_yscz t;
+/*
+2 6A1CEB5E34534D6380E17383F74EF4F9    2200000543                                        2021/1/15 9:58:36 1 董伟              Y   1000201987    Y
+*/
+update bs_reclist set rlpaidflag='N' where rlcid='0100172364';
+delete from bs_payment where pcid='0100172364';
+commit;
+update request_yscz set rerlid='1000202081,1000202082,1000202083' where reno='6A1CEB5E34534D6380E17383F74EF4F9';
+commit;
 
 select * from bs_custinfo where ciid='0100172364';
 select * from bs_meterinfo where micode='0100172364';
@@ -108,7 +119,7 @@ update request_zlsf set reshbz = 'Y',rewcbz='N' where reno='ee060c46-efc4-49c5-8
 commit;
 delete from bs_meterread where mrccode='3101033508';
 delete from bs_reclist where rlcid='3101033508';
-commit
+commit;
 
 select * from request_zlsf t where reno='ee060c46-efc4-49c5-8fe8-7afed7195a09';
 select * from bs_custinfo where ciid='3101033508';
@@ -126,7 +137,6 @@ update bs_custinfo set misaving = 0 where ciid='3108054610';
 update bs_meterinfo set mircode = 887 where micode='3108054610';
 commit;
 
-
 select * from request_zlsf t where reno='880061f2-18e7-4329-a573-d10cc95a4d88';
 select misaving,ci.* from bs_custinfo ci where ciid='3108054610';
 select mi.* from bs_meterinfo mi where micode='3108054610';
@@ -136,45 +146,22 @@ select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlci
 select * from bs_payment where pcid='3108054610';
 
 
---alter session enable parallel dml;
---update /*+ parallel(t,32)*/ bs_meterinfo t set t.mircode = (select a.mircode from meterinfo@hrbzls a where t.miid = a.miid)
+--补缴收费
+insert into request_bjsf (reno,resmfid,ciid,ciname,ciadr,ciifinv,ciname1,ciadr1,miid,mipfid,miadr,mibfid,mircode,mirecdate,reifreset,rercode,recdate,retype,reifstep,reappnote,restaus,reper,reflag,enabled,sortcode,deletemark,createdate,createuserid,createusername,modifydate,modifyuserid,modifyusername,remark,workno,workbatch,reshbz,rewcbz)
+select reno,resmfid,ciid,ciname,ciadr,ciifinv,ciname1,ciadr1,miid,mipfid,miadr,mibfid,mircode,mirecdate,reifreset,rercode,recdate,retype,reifstep,reappnote,restaus,reper,reflag,enabled,sortcode,deletemark,createdate,createuserid,createusername,modifydate,modifyuserid,modifyusername,remark,workno,workbatch,reshbz,rewcbz from request_zlsf;
 
 
-      select rlid,sum(rlje) rlje
-        from bs_reclist, bs_meterinfo t
-       where rlmid = t.miid
-         and rlpaidflag = 'N'
-         and rlreverseflag = 'N'
-         and rlbadflag = 'N' -- 添加呆坏帐过滤条件
-         and rlje <> 0
-         and rltrans not in ('13', '14', 'U')
-         and t.micode = '3108054610'
-       group by rlid;
+update request_bjsf set reshbz = 'Y',rewcbz='N' where reno='ee060c46-efc4-49c5-8fe8-7afed7195a09';
+commit;
+delete from bs_meterread where mrccode='3101033508';
+delete from bs_reclist where rlcid='3101033508';
+commit;
 
-
- 
-
-select * from request_yscz t
-
-2 6A1CEB5E34534D6380E17383F74EF4F9    2200000543                                        15/1/2021 09:58:36  1 董伟              Y   1000201987    Y
-3 67D56D4463044BB491251499C30920F9    2200000543                                        15/1/2021 09:59:00  1 董伟  15/1/2021 10:02:39  1 管理员       Y Y 1000201987    Y
-1 634D330BF1AA4005B332A97D126C7B4F    2200000543                                        15/1/2021 10:01:51  1 董伟              Y   1000201990    Y
-
-select * from bs_meterread where mrccode='2200000543'
-
-1 597013  2019.08 0201  01001001  1     2200000543  2200000544  1   1   14/1/2021 16:28:11    Y 14/1/2021 8108  14/1/2021 198 300 102   Y N 1   N Y 14/1/2021 16:30:06  102 0   N     确认通过          0       0 BF  0 0 0 244.800 96.900  0.000             N                       
-
-MRSCODE	198	number(10), optional, 上期抄见
-MRECODE	300	number(10), optional, 本期抄见
-MRSL	102	number(10), optional, 本期水量
-
-
-select * from bs_meterinfo where micode='2200000543'
-
-1 2200000544  测试地址    2200000543  0201  2019.08 2019.08 01001001      1   1 1 A0101 1       BF  0 13/1/2021             198 Y                                 JD00157                 1/1/2019        gfh0005                           0       
-MIRECSL	198	number(10), optional, 本期抄见水量
-
-select * from bs_reclist where rlcid='2200000543'
+select * from request_bjsf t where reno='ee060c46-efc4-49c5-8fe8-7afed7195a09';
+select * from bs_custinfo where ciid='3101033508';
+select * from bs_meterinfo where miid='3101033508';
+select * from bs_meterread where mrccode='3101033508';
+select * from bs_reclist where rlcid='3101033508';
 
 
 

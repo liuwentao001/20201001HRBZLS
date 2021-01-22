@@ -217,9 +217,9 @@ comment on column BS_METERREAD.mrsffs
 comment on column BS_METERREAD.mrgdid
   is '工单编号';
 comment on column BS_METERREAD.mrifreset
-  is '是否重置指针,数据来源：追量收费表request_zlsf';
+  is '是否重置指针,数据来源：追量收费表request_zlsf、补缴收费表request_bjsf';
 comment on column BS_METERREAD.mrifstep
-  is '是否纳入阶梯,数据来源：追量收费表request_zlsf';
+  is '是否纳入阶梯,数据来源：追量收费表request_zlsf、补缴收费表request_bjsf';
 create index IDX_BS_METERREAD_MRBFID on BS_METERREAD (MRBFID);
 create index IDX_BS_METERREAD_MRCCODE on BS_METERREAD (MRCCODE);
 create index IDX_BS_METERREAD_MRMID on BS_METERREAD (MRMID);

@@ -10,9 +10,9 @@
   --取当前系统年月日'YYYY/MM/DD'
   FUNCTION FGETSYSDATE RETURN DATE;
 
-  function getmax(n1 in number, n2 in number) return number;
+  FUNCTION GETMAX(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER;
 
-  function getmin(n1 in number, n2 in number) return number;
+  FUNCTION GETMIN(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER;
 
 END TOOLS;
 /

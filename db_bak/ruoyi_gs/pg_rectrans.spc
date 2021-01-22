@@ -5,10 +5,9 @@
   -- Purpose : 水量、账务调整
   errcode constant integer := -20012;
 
-  --追量收费 工单
+  --追量收费 工单a
   --源表：request_zlsf
-  procedure rectrans_zlsf_gd(p_reno request_zlsf.reno%type,
-                             o_log  out varchar2);
+  procedure rectrans_gd(p_reno request_zlsf.reno%type, p_gdtype varchar2, o_log out varchar2);
 
   --生成抄表记录
   procedure ins_mr(p_miid         varchar2,
