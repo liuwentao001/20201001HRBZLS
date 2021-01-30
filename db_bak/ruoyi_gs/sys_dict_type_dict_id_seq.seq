@@ -1,7 +1,7 @@
 ﻿create sequence SYS_DICT_TYPE_DICT_ID_SEQ
 minvalue 1
 maxvalue 999999999
-start with 441
+start with 513
 increment by 1
 cache 20;
 

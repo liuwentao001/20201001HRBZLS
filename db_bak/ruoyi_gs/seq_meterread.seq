@@ -1,7 +1,7 @@
 ﻿create sequence SEQ_METERREAD
 minvalue 1
 maxvalue 9999999999999999999999999999
-start with 597019
+start with 906471
 increment by 1
 nocache;
 

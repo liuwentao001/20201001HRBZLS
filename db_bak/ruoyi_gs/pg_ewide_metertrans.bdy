@@ -900,7 +900,7 @@
       --OMRID := '';
      RAISE_APPLICATION_ERROR(ERRCODE, '数据库错误!'||sqlerrm);
   END;
-  
+
   --计划抄表单笔算费
   PROCEDURE CALCULATE(P_MRID IN METERREAD.MRID%TYPE) IS
     CURSOR C_MR IS
@@ -910,14 +910,14 @@
          AND MRIFREC = 'N'
          AND MRSL >= 0 --20140522 0用水允许算费
          FOR UPDATE NOWAIT;
-  
+
     --总分表子表抄表记录
     /*    CURSOR C_MR_CHILD(P_MPID IN VARCHAR2) IS
     SELECT MRSL, MRIFREC, MRREADOK
       FROM METERINFO, METERREAD
      WHERE MRMID = MIID
        AND MIPID = P_MPID;*/
-  
+
     --20140512 总表截量修改
     --总表截量=子表换表余量（M）+子表换表后当月抄见水量（1）
     --追量收费的
@@ -936,7 +936,7 @@
          AND MRMONTH = P_MONTH
          AND (MRDATASOURCE = 'M' or MRDATASOURCE = 'L') --周期换表、故障换表
          AND RLREVERSEFLAG = 'N';
-  
+
     --一户多表用户信息zhb
     CURSOR C_MR_PR(P_MIPRIID IN VARCHAR2) IS
       SELECT MIID
@@ -945,7 +945,7 @@
          AND MIPRIID = P_MIPRIID
          AND FCHKMETERNEEDCHARGE(MISTATUS, MIIFCHK, MITYPE) = 'Y'
        ORDER BY MIID;
-  
+
     --合收子表抄表记录
     CURSOR C_MR_PRI(P_PRIMCODE IN VARCHAR2) IS
       SELECT MRSL, MRIFREC, MRMCODE
@@ -955,7 +955,7 @@
          AND MIPRIID = P_PRIMCODE
          AND MICODE <> P_PRIMCODE
          AND FCHKMETERNEEDCHARGE(MISTATUS, MIIFCHK, MITYPE) = 'Y';
-  
+
     --取合收表信息
     CURSOR C_MI(P_MID IN VARCHAR2) IS
       SELECT * FROM METERINFO WHERE MIID = P_MID;
@@ -971,7 +971,7 @@
          AND (MRDATASOURCE = 'M' or MRDATASOURCE = 'L') --周期换表、故障换表
          AND RLREVERSEFLAG = 'N' --未冲正
          and rlsl > 0;
-  
+
     MR         METERREAD%ROWTYPE;
     MRCHILD    METERREAD%ROWTYPE;
     MRPRICHILD METERREAD%ROWTYPE;
@@ -982,7 +982,7 @@
     V_TEMPSL   NUMBER;
     V_COUNT    NUMBER;
     V_ROW      NUMBER;
-  
+
     V_SUMNUM      NUMBER; --子表数
     V_READNUM     NUMBER; --抄见子表数
     V_RECNUM      NUMBER; --算费子表数
@@ -1013,7 +1013,7 @@
       RAISE_APPLICATION_ERROR(ERRCODE, '无效的水表编号' || MR.MRMID);
     END IF;
     CLOSE C_MI;
-  
+
     IF MI.mistatus = '24' AND MR.MRDATASOURCE <> 'M' THEN
       --如果表状态为故障换表中且此抄表记录来源不是故障抄表余量，则提示不能算费，有故障换表
       WLOG('此水表编号正在故障换表中,不能进行算费,如需算费请先审核故障换表或删除故障换表单据.' || MR.MRMID);
@@ -1021,7 +1021,7 @@
                               '此水表编号[' || MR.MRMID ||
                               ']正在故障换表中,不能进行算费,如需算费请先审核故障换表或删除故障换表单据.');
     END IF;
-  
+
     IF MI.mistatus = '35' AND MR.MRDATASOURCE <> 'L' THEN
       --如果表状态为周期换表中且此抄表记录来源不是周期抄表余量，则提示不能算费，有周期换表
       WLOG('此水表编号正在周期换表中,不能进行算费,如需算费请先审核周期换表或删除周期换表单据.' || MR.MRMID);
@@ -1029,7 +1029,7 @@
                               '此水表编号[' || MR.MRMID ||
                               ']正在周期换表中,不能进行算费,如需算费请先审核周期换表或删除周期换表单据.');
     END IF;
-  
+
     if MI.mistatus = '36' then
       --预存冲正中
       WLOG('此水表编号正在预存冲正中,不能进行算费,如需算费请先审核预存冲正或删除预存冲正单据.' || MR.MRMID);
@@ -1037,8 +1037,8 @@
                               '此水表编号[' || MR.MRMID ||
                               ']正在预存冲正中,不能进行算费,如需算费请先审核预存冲正或删除预存冲正单据.');
     end if;
-    
-    --byj add 
+
+    --byj add
     if MI.mistatus = '39' then
       --预存冲正中
       WLOG('此水表编号正在预存撤表退费中,不能进行算费,如需算费请先审核或删除预存冲正单据.' || MR.MRMID);
@@ -1046,7 +1046,7 @@
                               '此水表编号[' || MR.MRMID ||
                               ']正在预存冲正中,不能进行算费,如需算费请先审核或删除预存冲正单据.');
     end if;
-    
+
     if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L') then
        --水表起码已经改变
        WLOG('此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！' || MR.MRMID);
@@ -1055,7 +1055,7 @@
                               ']此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！');
     end if;
     --end!!!
-  
+
     if MI.mistatus = '19' then
       --销户中
       WLOG('此水表编号正在销户中,不能进行算费,如需算费请先审核销户单据或删除销户单据.' || MR.MRMID);
@@ -1063,14 +1063,14 @@
                               '此水表编号[' || MR.MRMID ||
                               ']正在销户中,不能进行算费,如需算费请先审核销户或删除销户单据.');
     end if;
-  
+
     -------
     MR.MRRECSL := MR.MRSL; --本期水量
     -----------------------------------------------------------------------------
     --子表水量抵减计费总表抄见水量
     -----------------------------------------------------------------------------
     IF 总表截量 = 'Y' THEN
-    
+
       --######总分表算费   20140412 BY HK#######
       /*
       规则：
@@ -1079,17 +1079,17 @@
       3、总表按总表截量算费（总表抄见 - 分表抄见和），如果总表截量小于0，则总表不算费
       */
       --MICLASS：普通表=1，总表=2，分表=3
-    
+
       --STEP1 检查是否总表
       SELECT MICLASS, MIPID
         INTO V_MICLASS, V_MIPID
         FROM METERINFO
        WHERE MICODE = MR.MRMCODE;
-    
+
       IF V_MICLASS = 2 THEN
         --是总表
         V_MRMCODE := MR.MRMCODE; --赋值为总表号
-      
+
         --STEP2 判断总表下的分表中是否存在未抄子表 （子表未月初或未抄见）和未算费子表
         SELECT COUNT(*),
                SUM(DECODE(NVL(MRREADOK, 'N'), 'Y', 1, 0)),
@@ -1105,7 +1105,7 @@
           RAISE_APPLICATION_ERROR(ERRCODE,
                                   '总分表中包含未抄子表，暂停产生费用');
         END IF;
-      
+
         --20140512 总分表分表已抄见就让算费
         --如果子表数和大于子表已算费数和，则存在未算费子表
         IF V_SUMNUM > V_RECNUM THEN
@@ -1113,9 +1113,9 @@
           RAISE_APPLICATION_ERROR(ERRCODE,
                                   '收费总表子表未计费，暂停产生费用');
         END IF;
-        --add modiby  20140809  hb 
+        --add modiby  20140809  hb
         --总表本月抄表产生账务明细时,抓取本月是否有做故障换表，有的话抓取故障换表余量
-      
+
         OPEN C_MI_CLASS(V_MRMCODE, MR.MRMONTH);
         FETCH C_MI_CLASS
           INTO V_MDHIS_ADDSL; --故障换表余量
@@ -1123,9 +1123,9 @@
           V_MDHIS_ADDSL := 0;
         END IF;
         CLOSE C_MI_CLASS;
-      
+
         V_PD_ADDSL := V_MDHIS_ADDSL; --判断水量=故障换表余量
-      
+
         OPEN C_MR_CHILD(V_MRMCODE, MR.MRMONTH);
         LOOP
           FETCH C_MR_CHILD
@@ -1139,14 +1139,14 @@
           --总表故障换表水量 =总表故障换表水量 -子表抄表水量 - 子表校验水量 modiby hb 20140614
         END LOOP;
         CLOSE C_MR_CHILD;
-      
+
         if V_PD_ADDSL < 0 then
           --下述包含三种情况
           --1总表换表时 余量-分表总出账 小于0时不出账   不出账
           --2总表抄见时,如果有故障换表 则抄见水量=抄见水量+换表余量 -分表总出账   出账
           --3 总表故障换表 、分表出账后水量够减， 总表出账
           MR.MRRECSL := MR.MRRECSL + V_MDHIS_ADDSL;
-          --end add 20140809 
+          --end add 20140809
           --STEP3 判断总分表收费总表水量是否小于子表水量
           --取正常子表水量算截量
           OPEN C_MR_CHILD(V_MRMCODE, MR.MRMONTH);
@@ -1162,12 +1162,12 @@
             --总表应收水量 =总表抄表水量 -子表抄表水量 - 子表校验水量 modiby hb 20140614
           END LOOP;
           CLOSE C_MR_CHILD;
-        
+
         else
           --4  总表本月有做故障换表，故障换表余量大于分表总量时，总表再次做抄表，出账水量就等于总表抄见水量
           MR.MRRECSL := MR.MRRECSL;
         end if;
-      
+
         --如果收费总表水量小于子表水量，暂停产生费用
         IF MR.MRRECSL < 0 THEN
           --如果总表截量小于0，则总表停算费用
@@ -1175,15 +1175,15 @@
           RAISE_APPLICATION_ERROR(ERRCODE,
                                   '收费总表水量小于子表水量，暂停产生费用');
         END IF;
-      
+
       END IF;
     END IF;
-  
+
     -----------------------------------------------------------------------------
     --判断一表多户 分表按比例分摊水量
     IF MI.MICOLUMN9 = 'Y' THEN
       OPEN C_MR_PR(MR.MRMID);
-    
+
       V_TEMPSL := MR.MRSL;
       V_ROW    := 1;
       SELECT COUNT(*)
@@ -1220,14 +1220,14 @@
           --计量不计费,将数据记录到费用库
           CALCULATENP(MRL, PG_EWIDE_METERTRANS_01.计划抄表, '0000.00');
         END IF;
-      
+
       END LOOP;
       MR.MRIFREC   := 'Y';
       MR.MRRECDATE := TRUNC(SYSDATE);
       IF C_MR_PR%ISOPEN THEN
         CLOSE C_MR_PR;
       END IF;
-    
+
     ELSE
       IF MR.mrifrec = 'N' AND MR.MRIFSUBMIT = 'Y' AND MR.MRIFHALT = 'N' AND
          MI.MIIFCHARGE = 'Y' AND
@@ -1238,7 +1238,7 @@
         --计量不计费,将数据记录到费用库
         CALCULATENP(MR, PG_EWIDE_METERTRANS_01.计划抄表, '0000.00');
       END IF;
-    
+
     END IF;
     -----------------------------------------------------------------------------
     --更新当前抄表记录
@@ -1268,7 +1268,7 @@
       IF C_MR_PRI%ISOPEN THEN
         CLOSE C_MR_PRI;
       END IF;
-    
+
       IF C_MR%ISOPEN THEN
         CLOSE C_MR;
       END IF;
@@ -1284,29 +1284,29 @@
                       P_NY    IN VARCHAR2) IS
     CURSOR C_MI(VMIID IN METERINFO.MIID%TYPE) IS
       SELECT * FROM METERINFO WHERE MIID = VMIID FOR UPDATE;
-  
+
     CURSOR C_CI(VCIID IN CUSTINFO.CIID%TYPE) IS
       SELECT * FROM CUSTINFO WHERE CIID = VCIID FOR UPDATE;
-  
+
     CURSOR C_MD(VMIID IN METERDOC.MDMID%TYPE) IS
       SELECT * FROM METERDOC WHERE MDMID = VMIID FOR UPDATE;
-  
+
     CURSOR C_MA(VMIID IN METERACCOUNT.MAMID%TYPE) IS
       SELECT * FROM METERACCOUNT WHERE MAMID = VMIID FOR UPDATE;
-  
+
     CURSOR C_PMD(VMID IN PRICEMULTIDETAIL.PMDMID%TYPE) IS
       SELECT *
         FROM PRICEMULTIDETAIL
        WHERE PMDMID = VMID
        ORDER BY PMDID, PMDPFID
          FOR UPDATE;
-  
+
     CURSOR C_PD(VPFID IN PRICEDETAIL.PDPFID%TYPE) IS
       SELECT *
         FROM PRICEDETAIL T
        WHERE PDPFID = VPFID
        ORDER BY PDPSCID DESC;
-  
+
     ----历史价格体系
     CURSOR C_PD_LS(VPFID IN PRICEDETAIL.PDPFID%TYPE, PMONTH IN VARCHAR2) IS
       SELECT PDPSCID,
@@ -1326,7 +1326,7 @@
          AND PDPFID = VPFID
          AND ID = VERID
        ORDER BY PDPSCID DESC;
-  
+
     CURSOR C_MISAVING(VMICODE VARCHAR2) IS
       SELECT *
         FROM METERINFO
@@ -1336,16 +1336,16 @@
          AND MISAVING > 0;
     CURSOR C_PICOUNT IS
       SELECT DISTINCT NVL(T.PIGROUP, 1) FROM PRICEITEM T;
-  
+
     CURSOR C_PI(VPIGROUP IN NUMBER) IS
       SELECT * FROM PRICEITEM T WHERE T.PIGROUP = VPIGROUP;
-  
+
     MI    METERINFO%ROWTYPE;
     CI    CUSTINFO%ROWTYPE;
     RL    RECLIST%ROWTYPE;
     RDNJF RECDETAIL%ROWTYPE;
     RL1   RECLIST%ROWTYPE;
-  
+
     PMD         PRICEMULTIDETAIL%ROWTYPE;
     PD          PRICEDETAIL%ROWTYPE;
     temp_pd     PRICEDETAIL%ROWTYPE;
@@ -1354,18 +1354,18 @@
     RDTAB       RD_TABLE;
     PALTAB      PAL_TABLE;
     temp_PALTAB PAL_TABLE;
-  
+
     TEMPJSSL  NUMBER;
     TEMPSL    NUMBER;
     MAXPMDID  NUMBER;
     TEMPPMDID NUMBER;
     CLASSCTL  CHAR(1) := 'N'; --默认不取消阶梯计费方法
-  
+
     I             NUMBER;
     VRD           RECDETAIL%ROWTYPE;
     V_DBSL        NUMBER; --定比较水量
     V_SVAINGBATCH VARCHAR2(50);
-  
+
     V_OUTPBATCH      VARCHAR2(1000); --预存批次，但最终被复盖
     V_表的调整量     NUMBER(10);
     V_表减后水量值   NUMBER(10);
@@ -1380,17 +1380,17 @@
     PI               PRICEITEM%ROWTYPE;
     V_RLFZCOUNT      NUMBER(10);
     V_RLFIRST        NUMBER(10);
-  
+
     V_PER       NUMBER(10); --人数
     V_MONTHS    NUMBER(10); --月份
     V_PMISAVING METERINFO.MISAVING%TYPE;
     V_RETSTR    VARCHAR2(2000);
     V_BATCH     VARCHAR2(2000);
     V_TEST      VARCHAR2(2000);
-  
+
     CURSOR C_HS_METER(C_MIID VARCHAR2) IS
       SELECT MIID FROM METERINFO WHERE MIPRIID = C_MIID;
-  
+
     V_HS_METER METERINFO%ROWTYPE;
     V_PSUMRLJE RECLIST.RLJE%TYPE;
     V_HS_RLIDS VARCHAR2(1280); --应收流水
@@ -1398,7 +1398,7 @@
     V_HS_ZNJ   NUMBER(12, 2); --滞纳金
     V_HS_SXF   NUMBER(12, 2); --手续费
     V_HS_OUTJE NUMBER(12, 2);
-  
+
     --预存自动抵扣
     v_rlidlist varchar2(4000);
     v_rlid     reclist.rlid%type;
@@ -1429,13 +1429,13 @@
              (MI.MIPRIFLAG = 'N' or MI.MIPRIID is null)))
        group by rlmcode, t.miid, t.mipriid, rlmonth, rlid, rlgroup, rlsmfid
        order by rlgroup, rlmonth, rlid, mipriid, miid;
-  
+
   BEGIN
     --
     --yujia  2012-03-20
     /*    固定金额标志   := FPARA(MR.MRSMFID, 'GDJEFLAG');
     固定金额最低值 := FPARA(MR.MRSMFID, 'GDJEZ');*/
-  
+
     --锁定水表记录
     OPEN C_MI(MR.MRMID);
     FETCH C_MI
@@ -1465,7 +1465,7 @@
       WLOG('无效的用户编号' || MI.MICID);
       RAISE_APPLICATION_ERROR(ERRCODE, '无效的用户编号' || MI.MICID);
     END IF;
-    
+
     --byj add 判断起码是否改变!!!
     if mi.mircode <> mr.mrscode and mr.mrdatasource not in ('M','L') then
        --水表起码已经改变
@@ -1475,7 +1475,7 @@
                               ']此水表编号的起码自生成抄表计划后已经改变,不能进行算费,请核查！');
     end if;
     --end!!!
-    
+
     DELETE RECLISTTEMP WHERE RLMRID = MR.MRID;
     --非计费表执行空过程，不抛异常
     --合收子表
@@ -1490,7 +1490,7 @@
            RAISE_APPLICATION_ERROR(ERRCODE,
                                 '该用户' || MI.MICID || '不是倒表、等针、超量程用户,起码应小于止码');
         end if;
-  
+
     /*ELSE
       if MR.MRECODE < MR.MRSCODE  then
         RAISE_APPLICATION_ERROR(ERRCODE,
@@ -1606,9 +1606,9 @@
           RL.RLTRANS := P_TRANS;
         end if;
       END IF;
-      
-      
-      
+
+
+
       RL.RLCD           := DEBIT;
       RL.RLYSCHARGETYPE := MI.MICHARGETYPE;
       RL.RLSL           := 0; --应收水费水量，【rlsl = rlreadsl + rladjsl】
@@ -1632,7 +1632,7 @@
       ELSE
         RL.RLPRIMCODE := RL.RLMID;
       END IF;
-    
+
       RL.RLPRIFLAG := MI.MIPRIFLAG;
       IF MR.MRRPER IS NULL THEN
         RAISE_APPLICATION_ERROR(ERRCODE,
@@ -1643,7 +1643,7 @@
       RL.RLSCODECHAR := NVL(MR.MRSCODECHAR, MR.MRSCODE);
       RL.RLECODECHAR := NVL(MR.MRECODECHAR, MR.MRECODE);
       RL.RLGROUP     := '1'; --应收帐分组
-    
+
       RL.RLPID          := NULL; --实收流水（与payment.pid对应）
       RL.RLPBATCH       := NULL; --缴费交易批次（与payment.pbatch对应）
       RL.RLSAVINGQC     := 0; --期初预存（销帐时产生）
@@ -1685,7 +1685,7 @@
       ELSE
         RL.RLMISAVING := MI.MISAVING; --算费时预存
       END IF;
-    
+
       RL.RLMICOMMUNITY   := MI.MICOMMUNITY; --小区
       RL.RLMIREMOTENO    := MI.MIREMOTENO; --远传表号
       RL.RLMIREMOTEHUBNO := MI.MIREMOTEHUBNO; --远传hub号
@@ -1699,7 +1699,7 @@
       RL.RLCOLUMN9       := RL.RLID; --上次应收帐流水
       RL.RLCOLUMN10      := RL.RLMONTH; --上次应收帐月份
       RL.RLCOLUMN11      := RL.RLTRANS; --上次应收帐事务
-    
+
       --reclist↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
       --计费调整
       --策略02 仅按水表
@@ -1723,7 +1723,7 @@
       IF PALTAB IS NOT NULL THEN
         SP_GETJMSL(PALTAB, RL, V_表的调整量, V_表减后水量值, '02', 'Y');
       END IF;
-    
+
       --费用明细算法说明：
       --1、若存在混合费率即按其生成费用明细包，亦即是混合费率优先级最高；
       --2、否则户表费率游标内生成费用明细数据；
@@ -1733,7 +1733,7 @@
       FETCH C_PMD
         INTO PMD;
       IF C_PMD%NOTFOUND OR C_PMD%NOTFOUND IS NULL THEN
-      
+
         ---########  相当于临时水价类别调整，哈尔滨无此业务  ########---
         temp_PALTAB := NULL;
         PALTAB      := NULL;
@@ -1756,13 +1756,13 @@
           rl.rlpfid := MI.MIPFID;
         end if;
         ---########  相当于临时水价类别调整，哈尔滨无此业务  ########---
-      
+
         --策略07 按水表+价格类别
         --表费的调整量 调整综合单价，调整方法=（01 固定单价调整）
         PALTAB         := NULL;
         V_表费的调整量 := 0;
         V_表费减后的量 := V_表减后水量值;
-      
+
         CALADJUST(MR.MRMONTH,
                   MR.MRSMFID,
                   CI.CIID,
@@ -1772,13 +1772,13 @@
                   TO_CHAR(MD.MDCALIBER),
                   '按水表+价格类别',
                   PALTAB);
-      
+
         --按水表+价格类别 07
         --如果有取出累计值
         IF PALTAB IS NOT NULL THEN
           SP_GETJMSL(PALTAB, RL, V_表费的调整量, V_表费减后的量, '07', 'Y');
         END IF;
-      
+
         --cmprice户表费率↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
         --找版本最高的费率明细
         IF P_NY = '0000.00' OR P_NY IS NULL THEN
@@ -1787,8 +1787,8 @@
             FETCH C_PD
               INTO PD;
             EXIT WHEN C_PD%NOTFOUND;
-          
-            ---########  相当于临时水价类别调整，哈尔滨无此业务  ########--- 
+
+            ---########  相当于临时水价类别调整，哈尔滨无此业务  ########---
             temp_PALTAB := null;
             PALTAB      := NULL;
             CALADJUST(MR.MRMONTH,
@@ -1822,12 +1822,12 @@
               end;
             end if;
             ---########  相当于临时水价类别调整，哈尔滨无此业务  ########---
-          
+
             --计算调整
             --计算费率明细，扩展阶梯明细，固定非混合组0
             --按水表+价格类别 调整量
             PALTAB := NULL;
-          
+
             V_表费项目调整量 := 0;
             V_表费项目减后量 := V_表费减后的量;
             CALADJUST(MR.MRMONTH,
@@ -1864,19 +1864,19 @@
                     V_表的验效数量,
                     0,
                     P_NY);
-          
+
           END LOOP;
           CLOSE C_PD;
-        
+
         ELSE
-        
+
           OPEN C_PD_LS(MI.MIPFID, P_NY);
           LOOP
             FETCH C_PD_LS
               INTO PD;
             EXIT WHEN C_PD_LS%NOTFOUND;
-          
-            --水价调整 按水表+价格类别+费用项目        
+
+            --水价调整 按水表+价格类别+费用项目
             temp_PALTAB := null;
             PALTAB      := NULL;
             CALADJUST(MR.MRMONTH,
@@ -1909,13 +1909,13 @@
                   null;
               end;
             end if;
-          
+
             --计算调整
-          
+
             --计算费率明细，扩展阶梯明细，固定非混合组0
             --按水表+价格类别 调整量
             PALTAB := NULL;
-          
+
             V_表费项目调整量 := 0;
             V_表费项目减后量 := V_表费减后的量;
             CALADJUST(MR.MRMONTH,
@@ -1927,7 +1927,7 @@
                       TO_CHAR(MD.MDCALIBER),
                       '按水表+价格类别+费用项目',
                       PALTAB);
-          
+
             --按水表+价格类别+费用项目 09
             IF PALTAB IS NOT NULL THEN
               SP_GETJMSL(PALTAB,
@@ -1953,27 +1953,27 @@
                     V_表的验效数量,
                     0,
                     P_NY);
-          
+
           END LOOP;
           CLOSE C_PD_LS;
         END IF;
-      
+
         --cmprice户表费率↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
       ELSE
         --pricemultidetail混合费率↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-      
+
         --    v_表的调整量 /v_表减后水量值
-      
+
         SELECT MAX(PMDID)
           INTO MAXPMDID
           FROM PRICEMULTIDETAIL
          WHERE PMDMID = MI.MIID;
         TEMPSL := V_表减后水量值; --组分配累计余量
         --tempsl := rl.rlreadsl; --组分配累计余量
-      
+
         V_DBSL := 0; --定比水量
         WHILE C_PMD%FOUND AND TEMPSL >= 0 LOOP
-        
+
           --拆分余量记入最后费上
           IF PMD.PMDID = MAXPMDID THEN
             TEMPJSSL := TEMPSL;
@@ -1986,9 +1986,9 @@
                             ELSE
                              TEMPSL
                           END);
-            
+
               V_DBSL := V_DBSL + TEMPJSSL;
-            
+
             ELSE
               TEMPJSSL := TRUNC((V_表减后水量值 - V_DBSL) * PMD.PMDSCALE);
             END IF;
@@ -2000,7 +2000,7 @@
               tempjssl := trunc((v_表减后水量值 - V_DBSL) * pmd.pmdscale);
             end if;*/
           END IF;
-        
+
           ---分拆分表 混合表的调整量 := v_表的调整量 ;
           V_混合表的调整量 := 0;
           IF V_表的调整量 <> 0 THEN
@@ -2012,9 +2012,9 @@
               V_表的调整量     := V_表的调整量 - TEMPJSSL;
             END IF;
           END IF;
-        
+
           --取水价  11 --周期性单价  按水表+价格类别
-        
+
           temp_PALTAB := NULL;
           PALTAB      := NULL;
           CALADJUST(MR.MRMONTH,
@@ -2035,12 +2035,12 @@
             --覆盖应收帐水价
             rl.rlpfid := PMD.PMDPFID;
           end if;
-        
+
           --按水表+价格类别 调整量
           PALTAB         := NULL;
           V_表费的调整量 := 0;
           V_表费减后的量 := TEMPJSSL;
-        
+
           CALADJUST(MR.MRMONTH,
                     MR.MRSMFID,
                     CI.CIID,
@@ -2050,7 +2050,7 @@
                     TO_CHAR(MD.MDCALIBER),
                     '按水表+价格类别',
                     PALTAB);
-        
+
           --按水表+价格类别 07
           --如果有取出累计值
           IF PALTAB IS NOT NULL THEN
@@ -2061,7 +2061,7 @@
                        '07',
                        'Y');
           END IF;
-        
+
           --找版本最高的费率明细
           IF P_NY = '0000.00' OR P_NY IS NULL THEN
             OPEN C_PD(PMD.PMDPFID);
@@ -2069,8 +2069,8 @@
               FETCH C_PD
                 INTO PD;
               EXIT WHEN C_PD%NOTFOUND;
-            
-              --水价调整 按水表+价格类别+费用项目        
+
+              --水价调整 按水表+价格类别+费用项目
               temp_PALTAB := null;
               PALTAB      := NULL;
               CALADJUST(MR.MRMONTH,
@@ -2103,11 +2103,11 @@
                     null;
                 end;
               end if;
-            
+
               --计算费率明细，扩展阶梯明细，固定非混合组0
               --按水表+价格类别+费用项目 09
               PALTAB := NULL;
-            
+
               V_表费项目调整量 := 0;
               V_表费项目减后量 := V_表费减后的量;
               CALADJUST(MR.MRMONTH,
@@ -2128,7 +2128,7 @@
                            '09',
                            'Y');
               END IF;
-            
+
               --计算费率明细，扩展阶梯明细，混合
               CALPIID(RL,
                       TEMPJSSL,
@@ -2153,8 +2153,8 @@
               FETCH C_PD_LS
                 INTO PD;
               EXIT WHEN C_PD_LS%NOTFOUND;
-            
-              --水价调整 按水表+价格类别+费用项目        
+
+              --水价调整 按水表+价格类别+费用项目
               temp_PALTAB := null;
               PALTAB      := NULL;
               CALADJUST(MR.MRMONTH,
@@ -2187,11 +2187,11 @@
                     null;
                 end;
               end if;
-            
+
               --计算费率明细，扩展阶梯明细，固定非混合组0
               --按水表+价格类别+费用项目 09
               PALTAB := NULL;
-            
+
               V_表费项目调整量 := 0;
               V_表费项目减后量 := V_表费减后的量;
               CALADJUST(MR.MRMONTH,
@@ -2212,7 +2212,7 @@
                            '09',
                            'Y');
               END IF;
-            
+
               --计算费率明细，扩展阶梯明细，混合
               CALPIID(RL,
                       TEMPJSSL,
@@ -2232,7 +2232,7 @@
             END LOOP;
             CLOSE C_PD_LS;
           END IF;
-        
+
           --
           FETCH C_PMD
             INTO PMD;
@@ -2241,8 +2241,8 @@
       END IF;
       CLOSE C_PMD;
       --pricemultidetail混合费率↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-    
-      --   RL.RLREADSL := MR.MRSL; 
+
+      --   RL.RLREADSL := MR.MRSL;
       if MI.MICLASS = '2' then
         --总分表
         RL.RLREADSL := MR.MRSL + nvl(MR.MRCARRYSL, 0); --如果为合收表，则rl的抄见水量为mr抄表水量+mr校验水量
@@ -2271,11 +2271,11 @@
             else
               v_months := trunc(months_between(rl.RLRDATE, rl.RLPRDATE));
             end if;
-      
+
             if v_months < 1 then
               v_months := 1;
             end if;
-      
+
             --初始化垃圾费变量
             rdnjf := null;
             if v_months > 0 and v_per > 0 then
@@ -2312,23 +2312,23 @@
           --rl1.rlgroup := v_pigroup;
           --松滋需求
           --if    rl1.rlgroup=2 then
-        
+
           /*if    v_pigroup=2 then
             rl.rlsl:=0 ;
             rl.rlreadsl :=0;
           end if;*/
-        
+
           RL1         := RL;
           RL1.RLGROUP := V_PIGROUP;
-        
+
           --yujia 20120210 做为打印的预留
-        
+
           IF RL1.RLGROUP = 1 OR RL1.RLGROUP = 3 THEN
             RL1.RLMIEMAILFLAG := 'S';
           ELSE
             RL1.RLMIEMAILFLAG := 'W';
           END IF;
-        
+
           IF V_RLFIRST = 0 THEN
             V_RLFIRST := V_RLFIRST + 1;
           ELSE
@@ -2337,14 +2337,14 @@
           END IF;
           RL1.RLJE := 0;
           RL1.RLSL := 0;
-        
+
           V_RLFZCOUNT := 0;
           OPEN C_PI(V_PIGROUP);
           LOOP
             FETCH C_PI
               INTO PI;
             EXIT WHEN C_PI%NOTFOUND OR C_PI%NOTFOUND IS NULL;
-          
+
             FOR I IN RDTAB.FIRST .. RDTAB.LAST LOOP
               IF RDTAB(I).RDPIID = PI.PIID THEN
                 V_RLFZCOUNT := V_RLFZCOUNT + 1;
@@ -2354,7 +2354,7 @@
                 .rdpiid = '04' or rdtab(i).rdpiid = '05' then
                   rl1.rlsl := rl1.rlsl + rdtab(i).rdsl;
                 end if;*/
-              
+
                 /*** lgb tm 20120412**/
                 IF RDTAB(I).RDPIID = '01' THEN
                   RL1.RLSL := RL1.RLSL + RDTAB(I).RDSL;
@@ -2366,9 +2366,9 @@
                 END IF;
               END IF;
             END LOOP;
-          
+
           END LOOP;
-        
+
           CLOSE C_PI;
           IF V_RLFZCOUNT > 0 THEN
             IF 是否审批算费 = 'N' THEN
@@ -2453,15 +2453,15 @@
                                                   );
                 END IF;
               END IF;
-            
+
             END IF;
-          
+
           END IF;
         END LOOP;
         CLOSE C_PICOUNT;
-      
+
       ELSE
-      
+
         RL.RLJE := 0;
         FOR I IN RDTAB.FIRST .. RDTAB.LAST LOOP
           RL.RLJE := RL.RLJE + RDTAB(I).RDJE;
@@ -2502,12 +2502,12 @@
                   INTO V_PMISAVING
                   FROM METERINFO
                  WHERE MIPRIID = MI.MIPRIID;
-              
+
               EXCEPTION
                 WHEN OTHERS THEN
                   V_PMISAVING := 0;
               END;
-            
+
               --总欠费
               V_PSUMRLJE := 0;
               BEGIN
@@ -2522,13 +2522,13 @@
                 WHEN OTHERS THEN
                   V_PSUMRLJE := 0;
               END;
-            
+
               IF V_PMISAVING >= V_PSUMRLJE THEN
                 --合收表
                 V_RLIDLIST := '';
                 V_RLJES    := 0;
                 V_ZNJ      := 0;
-              
+
                 OPEN C_YCDK;
                 LOOP
                   FETCH C_YCDK
@@ -2545,11 +2545,11 @@
                   END IF;
                 END LOOP;
                 CLOSE C_YCDK;
-              
+
                 IF LENGTH(V_RLIDLIST) > 0 THEN
                   --插入PAY_PARA_TMP 表做合收表销账准备
                   DELETE PAY_PARA_TMP;
-                
+
                   OPEN C_HS_METER(MI.MIPRIID);
                   LOOP
                     FETCH C_HS_METER
@@ -2587,7 +2587,7 @@
                     END IF;
                   END LOOP;
                   CLOSE C_HS_METER;
-                
+
                   V_RLIDLIST := SUBSTR(V_RLIDLIST,
                                        1,
                                        LENGTH(V_RLIDLIST) - 1);
@@ -2616,7 +2616,7 @@
             V_RLJES     := 0;
             V_ZNJ       := 0;
             V_PMISAVING := MI.MISAVING;
-          
+
             OPEN C_YCDK;
             LOOP
               FETCH C_YCDK
@@ -2630,9 +2630,9 @@
                 V_ZNJS      := V_ZNJS + V_ZNJ;
               ELSE
                 EXIT;
-              
+
               END IF;
-            
+
             END LOOP;
             CLOSE C_YCDK;
             --单表
@@ -2657,17 +2657,17 @@
                                                 );
             END IF;
           END IF;
-        
+
         END IF;
-      
+
       END IF;
-    
+
     END IF;
-  
+
     --add 2013.01.16      向reclist_charge_01表中插入数据
     SP_RECLIST_CHARGE_01(RL.RLID, '1');
     --add 2013.01.16
-  
+
     --推演历史水量信息
     --if   FChkMeterNeedCharge_xbqs(MI.MINEWFLAG,MR.MRSL)='Y'  then
     /*    IF 是否审批算费 = 'N' THEN
@@ -2680,7 +2680,7 @@
                    MINEWFLAG   = 'N',
                    MIRCODECHAR = MIREINSCODE
              WHERE CURRENT OF C_MI;
-    
+
           ELSE
             UPDATE METERINFO
                SET MIRCODE     = MR.MRECODE,
@@ -2693,7 +2693,7 @@
           END IF;
         END IF;
     */
-  
+
     UPDATE METERINFO
        SET MIRCODE     = MR.MRECODE,
            MIRECDATE   = MR.MRRDATE,
@@ -2705,7 +2705,7 @@
            MIYL11      = to_date(rl.rljtsrq, 'yyyy.mm')
            ------------------------------end
      WHERE CURRENT OF C_MI;
-  
+
     --end if;
     --
     CLOSE C_MI;
@@ -2732,7 +2732,7 @@
         END CASE;
       END LOOP;
     END IF;
-  
+
   EXCEPTION
     WHEN OTHERS THEN
       IF C_MI%ISOPEN THEN
@@ -2803,29 +2803,29 @@
                         P_NY    IN VARCHAR2) IS
     CURSOR C_MI(VMIID IN METERINFO.MIID%TYPE) IS
       SELECT * FROM METERINFO WHERE MIID = VMIID FOR UPDATE;
-  
+
     CURSOR C_CI(VCIID IN CUSTINFO.CIID%TYPE) IS
       SELECT * FROM CUSTINFO WHERE CIID = VCIID FOR UPDATE;
-  
+
     CURSOR C_MD(VMIID IN METERDOC.MDMID%TYPE) IS
       SELECT * FROM METERDOC WHERE MDMID = VMIID FOR UPDATE;
-  
+
     CURSOR C_MA(VMIID IN METERACCOUNT.MAMID%TYPE) IS
       SELECT * FROM METERACCOUNT WHERE MAMID = VMIID FOR UPDATE;
-  
+
     CURSOR C_PMD(VMID IN PRICEMULTIDETAIL.PMDMID%TYPE) IS
       SELECT *
         FROM PRICEMULTIDETAIL
        WHERE PMDMID = VMID
        ORDER BY PMDID, PMDPFID
          FOR UPDATE;
-  
+
     CURSOR C_PD(VPFID IN PRICEDETAIL.PDPFID%TYPE) IS
       SELECT *
         FROM PRICEDETAIL T
        WHERE PDPFID = VPFID
        ORDER BY PDPSCID DESC;
-  
+
     ----历史价格体系
     CURSOR C_PD_LS(VPFID IN PRICEDETAIL.PDPFID%TYPE, PMONTH IN VARCHAR2) IS
       SELECT PDPSCID,
@@ -2845,7 +2845,7 @@
          AND PDPFID = VPFID
          AND ID = VERID
        ORDER BY PDPSCID DESC;
-  
+
     CURSOR C_MISAVING(VMICODE VARCHAR2) IS
       SELECT *
         FROM METERINFO
@@ -2855,16 +2855,16 @@
          AND MISAVING > 0;
     CURSOR C_PICOUNT IS
       SELECT DISTINCT NVL(T.PIGROUP, 1) FROM PRICEITEM T;
-  
+
     CURSOR C_PI(VPIGROUP IN NUMBER) IS
       SELECT * FROM PRICEITEM T WHERE T.PIGROUP = VPIGROUP;
-  
+
     MI    METERINFO%ROWTYPE;
     CI    CUSTINFO%ROWTYPE;
     RL    RECLIST%ROWTYPE;
     RDNJF RECDETAIL%ROWTYPE;
     RL1   RECLIST%ROWTYPE;
-  
+
     PMD     PRICEMULTIDETAIL%ROWTYPE;
     PD      PRICEDETAIL%ROWTYPE;
     temp_pd PRICEDETAIL%ROWTYPE;
@@ -2874,18 +2874,18 @@
     --VRD    RECDETAILNP%ROWTYPE;
     PALTAB      PAL_TABLE;
     temp_PALTAB PAL_TABLE;
-  
+
     TEMPJSSL  NUMBER;
     TEMPSL    NUMBER;
     MAXPMDID  NUMBER;
     TEMPPMDID NUMBER;
     CLASSCTL  CHAR(1) := 'N'; --默认不取消阶梯计费方法
-  
+
     I             NUMBER;
     VRD           RECDETAIL%ROWTYPE;
     V_DBSL        NUMBER; --定比较水量
     V_SVAINGBATCH VARCHAR2(50);
-  
+
     V_OUTPBATCH      VARCHAR2(1000); --预存批次，但最终被复盖
     V_表的调整量     NUMBER(10);
     V_表减后水量值   NUMBER(10);
@@ -2900,20 +2900,20 @@
     PI               PRICEITEM%ROWTYPE;
     V_RLFZCOUNT      NUMBER(10);
     V_RLFIRST        NUMBER(10);
-  
+
     V_PER       NUMBER(10); --人数
     V_MONTHS    NUMBER(10); --月份
     V_PMISAVING METERINFO.MISAVING%TYPE;
     V_RETSTR    VARCHAR2(2000);
     V_BATCH     VARCHAR2(2000);
     V_TEST      VARCHAR2(2000);
-  
+
   BEGIN
     --
     --yujia  2012-03-20
     /*    固定金额标志   := FPARA(MR.MRSMFID, 'GDJEFLAG');
     固定金额最低值 := FPARA(MR.MRSMFID, 'GDJEZ');*/
-  
+
     --锁定水表记录
     OPEN C_MI(MR.MRMID);
     FETCH C_MI
@@ -3049,7 +3049,7 @@
       RL.RLSCODECHAR    := NVL(MR.MRSCODECHAR, MR.MRSCODE);
       RL.RLECODECHAR    := NVL(MR.MRECODECHAR, MR.MRECODE);
       RL.RLGROUP        := '1'; --应收帐分组
-    
+
       RL.RLPID          := NULL; --实收流水（与payment.pid对应）
       RL.RLPBATCH       := NULL; --缴费交易批次（与payment.pbatch对应）
       RL.RLSAVINGQC     := 0; --期初预存（销帐时产生）
@@ -3091,7 +3091,7 @@
       ELSE
         RL.RLMISAVING := MI.MISAVING; --算费时预存
       END IF;
-    
+
       RL.RLMICOMMUNITY   := MI.MICOMMUNITY; --小区
       RL.RLMIREMOTENO    := MI.MIREMOTENO; --远传表号
       RL.RLMIREMOTEHUBNO := MI.MIREMOTEHUBNO; --远传hub号
@@ -3125,7 +3125,7 @@
       IF PALTAB IS NOT NULL THEN
         SP_GETJMSL(PALTAB, RL, V_表的调整量, V_表减后水量值, '02', 'Y');
       END IF;
-    
+
       --reclist↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
       --费用明细算法说明：
       --1、若存在混合费率即按其生成费用明细包，亦即是混合费率优先级最高；
@@ -3136,9 +3136,9 @@
       FETCH C_PMD
         INTO PMD;
       IF C_PMD%NOTFOUND OR C_PMD%NOTFOUND IS NULL THEN
-      
+
         --取水价  11 --周期性单价  按水表+价格类别
-      
+
         temp_PALTAB := NULL;
         PALTAB      := NULL;
         CALADJUST(MR.MRMONTH,
@@ -3159,12 +3159,12 @@
           --覆盖应收帐水价
           rl.rlpfid := MI.MIPFID;
         end if;
-      
+
         --按水表+价格类别 调整量
         PALTAB         := NULL;
         V_表费的调整量 := 0;
         V_表费减后的量 := V_表减后水量值;
-      
+
         CALADJUST(MR.MRMONTH,
                   MR.MRSMFID,
                   CI.CIID,
@@ -3174,13 +3174,13 @@
                   TO_CHAR(MD.MDCALIBER),
                   '按水表+价格类别',
                   PALTAB);
-      
+
         --按水表+价格类别 07
         --如果有取出累计值
         IF PALTAB IS NOT NULL THEN
           SP_GETJMSL(PALTAB, RL, V_表费的调整量, V_表费减后的量, '07', 'Y');
         END IF;
-      
+
         --cmprice户表费率↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
         --找版本最高的费率明细
         IF P_NY = '0000.00' OR P_NY IS NULL THEN
@@ -3189,7 +3189,7 @@
             FETCH C_PD
               INTO PD;
             EXIT WHEN C_PD%NOTFOUND;
-            --水价调整 按水表+价格类别+费用项目        
+            --水价调整 按水表+价格类别+费用项目
             temp_PALTAB := null;
             PALTAB      := NULL;
             CALADJUST(MR.MRMONTH,
@@ -3222,13 +3222,13 @@
                   null;
               end;
             end if;
-          
+
             --计算调整
-          
+
             --计算费率明细，扩展阶梯明细，固定非混合组0
             --按水表+价格类别 调整量
             PALTAB := NULL;
-          
+
             V_表费项目调整量 := 0;
             V_表费项目减后量 := V_表费减后的量;
             CALADJUST(MR.MRMONTH,
@@ -3265,19 +3265,19 @@
                     V_表的验效数量,
                     0,
                     P_NY);
-          
+
           END LOOP;
           CLOSE C_PD;
-        
+
         ELSE
-        
+
           OPEN C_PD_LS(MI.MIPFID, P_NY);
           LOOP
             FETCH C_PD_LS
               INTO PD;
             EXIT WHEN C_PD_LS%NOTFOUND;
-          
-            --水价调整 按水表+价格类别+费用项目        
+
+            --水价调整 按水表+价格类别+费用项目
             temp_PALTAB := null;
             PALTAB      := NULL;
             CALADJUST(MR.MRMONTH,
@@ -3310,13 +3310,13 @@
                   null;
               end;
             end if;
-          
+
             --计算调整
-          
+
             --计算费率明细，扩展阶梯明细，固定非混合组0
             --按水表+价格类别 调整量
             PALTAB := NULL;
-          
+
             V_表费项目调整量 := 0;
             V_表费项目减后量 := V_表费减后的量;
             CALADJUST(MR.MRMONTH,
@@ -3328,7 +3328,7 @@
                       TO_CHAR(MD.MDCALIBER),
                       '按水表+价格类别+费用项目',
                       PALTAB);
-          
+
             --按水表+价格类别+费用项目 09
             IF PALTAB IS NOT NULL THEN
               SP_GETJMSL(PALTAB,
@@ -3354,27 +3354,27 @@
                     V_表的验效数量, --效验数量
                     0,
                     P_NY);
-          
+
           END LOOP;
           CLOSE C_PD_LS;
         END IF;
-      
+
         --cmprice户表费率↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
       ELSE
         --pricemultidetail混合费率↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-      
+
         --    v_表的调整量 /v_表减后水量值
-      
+
         SELECT MAX(PMDID)
           INTO MAXPMDID
           FROM PRICEMULTIDETAIL
          WHERE PMDMID = MI.MIID;
         TEMPSL := V_表减后水量值; --组分配累计余量
         --tempsl := rl.rlreadsl; --组分配累计余量
-      
+
         V_DBSL := 0; --定比水量
         WHILE C_PMD%FOUND AND TEMPSL >= 0 LOOP
-        
+
           --拆分余量记入最后费上
           IF PMD.PMDID = MAXPMDID THEN
             TEMPJSSL := TEMPSL;
@@ -3387,9 +3387,9 @@
                             ELSE
                              TEMPSL
                           END);
-            
+
               V_DBSL := V_DBSL + TEMPJSSL;
-            
+
             ELSE
               TEMPJSSL := TRUNC((V_表减后水量值 - V_DBSL) * PMD.PMDSCALE);
             END IF;
@@ -3401,7 +3401,7 @@
               tempjssl := trunc((v_表减后水量值 - V_DBSL) * pmd.pmdscale);
             end if;*/
           END IF;
-        
+
           ---分拆分表 混合表的调整量 := v_表的调整量 ;
           V_混合表的调整量 := 0;
           IF V_表的调整量 <> 0 THEN
@@ -3413,9 +3413,9 @@
               V_表的调整量     := V_表的调整量 - TEMPJSSL;
             END IF;
           END IF;
-        
+
           --取水价  11 --周期性单价  按水表+价格类别
-        
+
           temp_PALTAB := NULL;
           PALTAB      := NULL;
           CALADJUST(MR.MRMONTH,
@@ -3436,12 +3436,12 @@
             --覆盖应收帐水价
             rl.rlpfid := PMD.PMDPFID;
           end if;
-        
+
           --按水表+价格类别 调整量
           PALTAB         := NULL;
           V_表费的调整量 := 0;
           V_表费减后的量 := TEMPJSSL;
-        
+
           CALADJUST(MR.MRMONTH,
                     MR.MRSMFID,
                     CI.CIID,
@@ -3451,7 +3451,7 @@
                     TO_CHAR(MD.MDCALIBER),
                     '按水表+价格类别',
                     PALTAB);
-        
+
           --按水表+价格类别 07
           --如果有取出累计值
           IF PALTAB IS NOT NULL THEN
@@ -3462,7 +3462,7 @@
                        '07',
                        'Y');
           END IF;
-        
+
           --找版本最高的费率明细
           IF P_NY = '0000.00' OR P_NY IS NULL THEN
             OPEN C_PD(PMD.PMDPFID);
@@ -3470,8 +3470,8 @@
               FETCH C_PD
                 INTO PD;
               EXIT WHEN C_PD%NOTFOUND;
-            
-              --水价调整 按水表+价格类别+费用项目        
+
+              --水价调整 按水表+价格类别+费用项目
               temp_PALTAB := null;
               PALTAB      := NULL;
               CALADJUST(MR.MRMONTH,
@@ -3504,11 +3504,11 @@
                     null;
                 end;
               end if;
-            
+
               --计算费率明细，扩展阶梯明细，固定非混合组0
               --按水表+价格类别+费用项目 09
               PALTAB := NULL;
-            
+
               V_表费项目调整量 := 0;
               V_表费项目减后量 := V_表费减后的量;
               CALADJUST(MR.MRMONTH,
@@ -3529,7 +3529,7 @@
                            '09',
                            'Y');
               END IF;
-            
+
               --计算费率明细，扩展阶梯明细，混合
               CALPIID(RL,
                       TEMPJSSL,
@@ -3554,8 +3554,8 @@
               FETCH C_PD_LS
                 INTO PD;
               EXIT WHEN C_PD_LS%NOTFOUND;
-            
-              --水价调整 按水表+价格类别+费用项目        
+
+              --水价调整 按水表+价格类别+费用项目
               temp_PALTAB := null;
               PALTAB      := NULL;
               CALADJUST(MR.MRMONTH,
@@ -3588,11 +3588,11 @@
                     null;
                 end;
               end if;
-            
+
               --计算费率明细，扩展阶梯明细，固定非混合组0
               --按水表+价格类别+费用项目 09
               PALTAB := NULL;
-            
+
               V_表费项目调整量 := 0;
               V_表费项目减后量 := V_表费减后的量;
               CALADJUST(MR.MRMONTH,
@@ -3613,7 +3613,7 @@
                            '09',
                            'Y');
               END IF;
-            
+
               --计算费率明细，扩展阶梯明细，混合
               CALPIID(RL,
                       TEMPJSSL,
@@ -3633,7 +3633,7 @@
             END LOOP;
             CLOSE C_PD_LS;
           END IF;
-        
+
           --
           FETCH C_PMD
             INTO PMD;
@@ -3649,7 +3649,7 @@
       else
         RL.RLREADSL := MR.MRRECSL + nvl(MR.MRCARRYSL, 0); --reclist抄见水量 = Mr.抄见水量+mr 校验水量
       end if;
-    
+
       --插入帐务
       --垃圾费基本数据
       /*  begin
@@ -3672,11 +3672,11 @@
             else
               v_months := trunc(months_between(rl.RLRDATE, rl.RLPRDATE));
             end if;
-      
+
             if v_months < 1 then
               v_months := 1;
             end if;
-      
+
             --初始化垃圾费变量
             rdnjf := null;
             if v_months > 0 and v_per > 0 then
@@ -3713,23 +3713,23 @@
           --rl1.rlgroup := v_pigroup;
           --松滋需求
           --if    rl1.rlgroup=2 then
-        
+
           /*if    v_pigroup=2 then
             rl.rlsl:=0 ;
             rl.rlreadsl :=0;
           end if;*/
-        
+
           RL1         := RL;
           RL1.RLGROUP := V_PIGROUP;
-        
+
           --yujia 20120210 做为打印的预留
-        
+
           IF RL1.RLGROUP = 1 OR RL1.RLGROUP = 3 THEN
             RL1.RLMIEMAILFLAG := 'S';
           ELSE
             RL1.RLMIEMAILFLAG := 'W';
           END IF;
-        
+
           IF V_RLFIRST = 0 THEN
             V_RLFIRST := V_RLFIRST + 1;
           ELSE
@@ -3738,14 +3738,14 @@
           END IF;
           RL1.RLJE := 0;
           RL1.RLSL := 0;
-        
+
           V_RLFZCOUNT := 0;
           OPEN C_PI(V_PIGROUP);
           LOOP
             FETCH C_PI
               INTO PI;
             EXIT WHEN C_PI%NOTFOUND OR C_PI%NOTFOUND IS NULL;
-          
+
             FOR I IN RDTAB.FIRST .. RDTAB.LAST LOOP
               IF RDTAB(I).RDPIID = PI.PIID THEN
                 V_RLFZCOUNT := V_RLFZCOUNT + 1;
@@ -3755,7 +3755,7 @@
                 .rdpiid = '04' or rdtab(i).rdpiid = '05' then
                   rl1.rlsl := rl1.rlsl + rdtab(i).rdsl;
                 end if;*/
-              
+
                 /*** lgb tm 20120412**/
                 IF RDTAB(I).RDPIID = '01' THEN
                   RL1.RLSL := RL1.RLSL + RDTAB(I).RDSL;
@@ -3767,9 +3767,9 @@
                 END IF;
               END IF;
             END LOOP;
-          
+
           END LOOP;
-        
+
           CLOSE C_PI;
           IF V_RLFZCOUNT > 0 THEN
             IF 是否审批算费 = 'N' THEN
@@ -3842,15 +3842,15 @@
                                                   );
                 END IF;
               END IF;
-            
+
             END IF;*/
-          
+
           END IF;
         END LOOP;
         CLOSE C_PICOUNT;
-      
+
       ELSE
-      
+
         RL.RLJE := 0;
         FOR I IN RDTAB.FIRST .. RDTAB.LAST LOOP
           RL.RLJE := RL.RLJE + RDTAB(I).RDJE;
@@ -3866,17 +3866,17 @@
         ELSE
           INSERT INTO RECLISTTEMP VALUES RL;
         END IF;
-      
+
         FOR I IN RDTAB.FIRST .. RDTAB.LAST LOOP
           VRD := RDTAB(I);
-        
+
           IF 是否审批算费 = 'N' THEN
             INSERT INTO RECDETAILNP VALUES VRD;
           ELSE
             INSERT INTO RECDETAILTEMP VALUES VRD;
           END IF;
         END LOOP;
-      
+
         --INSRD(RDTAB);
         --预存自动扣款
         /*IF FSYSPARA('0006') = 'Y' AND 是否审批算费 = 'N' THEN
@@ -3914,7 +3914,7 @@
           ELSE
             --单表
             IF MI.MISAVING >= RL.RLJE THEN
-        
+
               V_RETSTR := PG_EWIDE_PAY_01.POS('01', --销帐方式 01 单表缴费 02 合收表缴费 03 多表缴费
                                               MI.MISMFID, --缴费机构
                                               'system', --收款员
@@ -3947,13 +3947,13 @@
           'N');*\
         END IF;*/
       END IF;
-    
+
     END IF;
-  
+
     --add 2013.01.16      向reclist_charge_01表中插入数据
     --SP_RECLIST_CHARGE_01(RL.RLID, '1');
     --add 2013.01.16
-  
+
     --推演历史水量信息
     --if   FChkMeterNeedCharge_xbqs(MI.MINEWFLAG,MR.MRSL)='Y'  then
     /*    IF 是否审批算费 = 'N' THEN
@@ -3966,7 +3966,7 @@
                    MINEWFLAG   = 'N',
                    MIRCODECHAR = MIREINSCODE
              WHERE CURRENT OF C_MI;
-    
+
           ELSE
             UPDATE METERINFO
                SET MIRCODE     = MR.MRECODE,
@@ -3979,7 +3979,7 @@
           END IF;
         END IF;
     */
-  
+
     UPDATE METERINFO
        SET MIRCODE     = MR.MRECODE,
            MIRECDATE   = MR.MRRDATE,
@@ -3988,7 +3988,7 @@
            MINEWFLAG   = 'N',
            MIRCODECHAR = MR.MRECODECHAR
      WHERE CURRENT OF C_MI;
-  
+
     --end if;
     --
     CLOSE C_MI;
@@ -4015,7 +4015,7 @@
         END CASE;
       END LOOP;
     END IF;
-  
+
   EXCEPTION
     WHEN OTHERS THEN
       IF C_MI%ISOPEN THEN
@@ -4073,7 +4073,7 @@
              instr(PALMONTHSTR, substr(P_MONTH, 6)) > 0) or
              (PALDATETYPE = '2' and instr(PALMONTHSTR, P_MONTH) > 0))
        ORDER BY PALID;
-  
+
     PAL PRICEADJUSTLIST%ROWTYPE;
   BEGIN
     OPEN C_PAL;
@@ -4106,24 +4106,24 @@
                        P_减后水量值       IN OUT NUMBER,
                        P_策略             IN VARCHAR2,
                        P_基础量累计是与否 IN VARCHAR2) IS
-  
+
     NMONTH   NUMBER(12);
     V_SMONTH VARCHAR2(20);
     V_EMONTH VARCHAR2(20);
   BEGIN
     -- IF P_策略 IN ('02', '07', '09') THEN
-  
+
     FOR I IN PALTAB.FIRST .. PALTAB.LAST LOOP
       if PALTAB(I).PALTACTIC in ('02', '07', '09') then
-      
+
         --固定单价调整
         IF PALTAB(I).PALMETHOD = '01' THEN
           null; --水量无变化
         end if;
-      
+
         --固定量调整
         IF PALTAB(I).PALMETHOD = '02' THEN
-        
+
           /*20131206 确认：当月修改当月生效，之前的月份不累计计费调整*/
           NMONTH := 1; --计费时段月数
           /* BEGIN
@@ -4140,7 +4140,7 @@
           IF NMONTH <= 0 THEN
             NMONTH := 1; --异常周期都不算阶梯
           END IF;*/
-        
+
           --增加为1 减免为-1
           IF PALTAB(I).PALWAY = 0 then
             P_减后水量值 := PALTAB(I).PALVALUE;
@@ -4158,7 +4158,7 @@
                 P_减后水量值 := 0;
               END IF;
             end if;
-          
+
           END IF;
         END IF;
         --比例调整
@@ -4206,7 +4206,7 @@
             END IF;
           END IF;
         END IF;
-      
+
         --累计减免量
         IF PALTAB(I).PALMETHOD = '04' THEN
           IF P_减后水量值 + PALTAB(I).PALVALUE * PALTAB(I).PALWAY >= 0 THEN
@@ -4237,7 +4237,7 @@
         END IF;
       end if;
     END LOOP;
-  
+
     --  END IF;
   END;
 
@@ -4266,23 +4266,23 @@
     V_ZQ     VARCHAR2(10);
     V_MONTHS NUMBER(10);
   BEGIN
-  
-    RD.RDID       := P_RL.RLID; --流水号 
-    RD.RDPMDID    := P_PMDID; --混合用水分组 
-    RD.RDPMDSCALE := P_PMDSCALE; --混合比例  
-    RD.RDPIID     := PD.PDPIID; --费用项目  
-    RD.RDPFID     := PD.PDPFID; --费率  
-    RD.RDPSCID    := PD.PDPSCID; --费率明细方案  
-    RD.RDYSDJ     := 0; --应收单价 
-    RD.RDYSSL     := 0; --应收水量 
-    RD.RDYSJE     := 0; --应收金额 
-  
-    RD.RDADJDJ    := 0; --调整单价 
-    RD.RDADJSL    := 0; --调整水量 
-    RD.RDADJJE    := 0; --调整金额 
-    RD.RDMETHOD   := PD.PDMETHOD; --计费方法 
-    RD.RDPAIDFLAG := 'N'; --销帐标志 
-  
+
+    RD.RDID       := P_RL.RLID; --流水号
+    RD.RDPMDID    := P_PMDID; --混合用水分组
+    RD.RDPMDSCALE := P_PMDSCALE; --混合比例
+    RD.RDPIID     := PD.PDPIID; --费用项目
+    RD.RDPFID     := PD.PDPFID; --费率
+    RD.RDPSCID    := PD.PDPSCID; --费率明细方案
+    RD.RDYSDJ     := 0; --应收单价
+    RD.RDYSSL     := 0; --应收水量
+    RD.RDYSJE     := 0; --应收金额
+
+    RD.RDADJDJ    := 0; --调整单价
+    RD.RDADJSL    := 0; --调整水量
+    RD.RDADJJE    := 0; --调整金额
+    RD.RDMETHOD   := PD.PDMETHOD; --计费方法
+    RD.RDPAIDFLAG := 'N'; --销帐标志
+
     RD.RDMSMFID     := P_RL.RLMSMFID; --营销公司
     RD.RDMONTH      := P_RL.RLMONTH; --帐务月份
     RD.RDMID        := P_RL.RLMID; --水表编号
@@ -4290,34 +4290,34 @@
     RD.RDPMDCOLUMN1 := PMD.PMDCOLUMN1; --备用字段1
     RD.RDPMDCOLUMN2 := PMD.PMDCOLUMN2; --备用字段2
     RD.RDPMDCOLUMN3 := PMD.PMDCOLUMN3; --备用字段3
-  
+
     /*    --yujia  2012-03-20
     固定金额标志   := FPARA(P_RL.RLMSMFID, 'GDJEFLAG');
     固定金额最低值 := FPARA(P_RL.RLMSMFID, 'GDJEZ');*/
-  
+
     CASE PD.PDMETHOD
       WHEN 'dj1' THEN
         --固定单价  默认方式，与抄量有关  哈尔滨都是dj1
         BEGIN
-          RD.RDCLASS := 0; --阶梯级别 
-          RD.RDYSDJ  := PD.PDDJ; --应收单价 
-          RD.RDYSSL  := P_SL + p_表的验效数量 - P_混合表调整量; --应收水量 
-        
-          RD.RDADJDJ := FGET调整单价(RD.RDMID, RD.RDPIID); --调整单价 
-          RD.RDADJSL := P_表的调整量 + P_表费的调整量 + P_表费项目调整量 + P_混合表调整量; --调整水量 
-          RD.RDADJJE := 0; --调整金额 
-        
-          RD.RDDJ := PD.PDDJ + RD.RDADJDJ; --实收单价 
-          RD.RDSL := P_SL + RD.RDADJSL - P_混合表调整量; --实收水量 
-        
+          RD.RDCLASS := 0; --阶梯级别
+          RD.RDYSDJ  := PD.PDDJ; --应收单价
+          RD.RDYSSL  := P_SL + p_表的验效数量 - P_混合表调整量; --应收水量
+
+          RD.RDADJDJ := FGET调整单价(RD.RDMID, RD.RDPIID); --调整单价
+          RD.RDADJSL := P_表的调整量 + P_表费的调整量 + P_表费项目调整量 + P_混合表调整量; --调整水量
+          RD.RDADJJE := 0; --调整金额
+
+          RD.RDDJ := PD.PDDJ + RD.RDADJDJ; --实收单价
+          RD.RDSL := P_SL + RD.RDADJSL - P_混合表调整量; --实收水量
+
           --计算调整
-          RD.RDYSJE := ROUND(RD.RDYSDJ * RD.RDYSSL, 2); --应收金额 
-          RD.RDJE   := ROUND(RD.RDDJ * RD.RDSL, 2); --实收金额 
-        
+          RD.RDYSJE := ROUND(RD.RDYSDJ * RD.RDYSSL, 2); --应收金额
+          RD.RDJE   := ROUND(RD.RDDJ * RD.RDSL, 2); --实收金额
+
           /*          IF RD.RDPFID = '0102' AND 固定金额标志 = 'Y' AND RD.RDJE <= 固定金额最低值 THEN
             RD.RDJE := ROUND(固定金额最低值);
           END IF;*/
-        
+
           --插入明细包
           IF RDTAB IS NULL THEN
             RDTAB := RD_TABLE(RD);
@@ -4374,7 +4374,7 @@
                   END;
                 WHEN '02' THEN
                   --固定水量调整
-                
+
                   RAISE_APPLICATION_ERROR(ERRCODE, '暂不支持的调整方法');
                 WHEN '03' THEN
                   --比例水量调整（明细实收水量保留两位小数2009.7.6）
@@ -4396,7 +4396,7 @@
               END CASE;
             END LOOP;
           END IF;
-        
+
           --插入明细包
           IF RDTAB IS NULL THEN
             RDTAB := RD_TABLE(RD);
@@ -4491,7 +4491,7 @@
       WHEN 'sl3' THEN
         -- raise_application_error(errcode, '阶梯水价');
         --阶梯计费  简单模式阶梯水价
-      
+
         RD.RDYSSL  := P_SL - P_混合表调整量;
         RD.RDADJDJ := 0;
         RD.RDADJSL := P_表的调整量 + P_表费的调整量 + P_表费项目调整量 + P_混合表调整量;
@@ -4500,7 +4500,7 @@
         /*          rd.rdsl    := p_sl  ;*/
         BEGIN
           --计算调整
-        
+
           --阶梯计费
           CALSTEP(P_RL,
                   RD.RDYSSL,
@@ -4512,7 +4512,7 @@
                   P_CLASSCTL,
                   PMD,
                   P_NY);
-        
+
           /* --阶梯计费
           calstep(p_rl,
                   rd.rdsl,
@@ -4522,7 +4522,7 @@
                   pd,
                   rdtab,
                   p_classctl);*/
-        
+
         END;
       WHEN 'njf' THEN
         --与水量有关，小于等于X吨收固定Y元，大于X吨收固定Z元(苏州吴中需求)
@@ -4534,13 +4534,13 @@
            else
              v_per := nvl(to_number(minfo.miusenum), 1);
            end if;*/
-      
+
         -- yujia 20120208  垃圾费从2012年一月份开始征收
-      
+
         IF P_RL.RLPRDATE < TO_DATE('20120101', 'YYYY-MM-DD') THEN
           P_RL.RLPRDATE := TO_DATE('20120101', 'YYYY-MM-DD');
         END IF;
-      
+
         IF P_RL.RLPRDATE IS NULL THEN
           V_MONTHS := 1;
         ELSE
@@ -4556,22 +4556,22 @@
             WHEN OTHERS THEN
               V_MONTHS := 1;
           END;
-        
+
           /*  --v_months := months_between(to_date(to_char(p_rl.RLRDATE,'yyyy.mm')), to_date(to_char(p_rl.RLPRDATE,'yyyy.mm')));
           v_months := trunc(months_between(p_rl.RLRDATE, p_rl.RLPRDATE));*/
-        
+
         END IF;
-      
+
         IF V_MONTHS < 1 THEN
           V_MONTHS := 1;
         END IF;
-      
+
         /*  if minfo.miifmp = 'N' and minfo.mipfid in ('A1', 'A2') and
            minfo.MISTID = '30' then
           v_per    := 1;
           v_months := 2;
         end if;*/
-      
+
         ---yujia [20120208 默认为一户]
         BEGIN
           V_PER := TO_NUMBER(MINFO.MIGPS);
@@ -4582,14 +4582,14 @@
           WHEN OTHERS THEN
             V_PER := 0;
         END;
-      
+
         IF V_PER >= 1 AND MINFO.MIIFMP = 'N' AND
            MINFO.MIPFID IN ('A1', 'A2') AND MINFO.MISTID = '30' AND
            P_RL.RLREADSL > 0 THEN
           RD.RDYSDJ := 垃圾费单价;
           RD.RDYSSL := V_PER * V_MONTHS;
           RD.RDYSJE := 垃圾费单价 * V_PER * V_MONTHS;
-        
+
           RD.RDDJ    := 垃圾费单价;
           RD.RDSL    := V_PER * V_MONTHS;
           RD.RDJE    := 垃圾费单价 * V_PER * V_MONTHS;
@@ -4598,25 +4598,25 @@
           -- modify by hb 20140703 明细调整水量等于reclist调整水量
           RD.RDADJSL := P_RL.Rladdsl;
           RD.RDADJJE := 0;
-        
+
         ELSE
           RD.RDYSDJ := 0;
           RD.RDYSSL := 0;
           RD.RDYSJE := 0;
-        
+
           RD.RDADJDJ := 0;
           RD.RDADJSL := 0;
           RD.RDADJJE := 0;
-        
+
           RD.RDADJDJ := 0;
           RD.RDADJSL := 0;
           RD.RDADJJE := 0;
         END IF;
-      
+
         ----$$$$$$$$$$$$$$$$$$$$$$$$4
         IF RD.RDJE > 0 THEN
           --插入明细包
-        
+
           IF RDTAB IS NULL THEN
             RDTAB := RD_TABLE(RD);
           ELSE
@@ -4629,7 +4629,7 @@
       ELSE
         RAISE_APPLICATION_ERROR(ERRCODE, '不支持的计费方法' || PD.PDMETHOD);
     END CASE;
-  
+
   EXCEPTION
     WHEN OTHERS THEN
       WLOG(P_RL.RLCCODE || '计算费用项目费用异常：' || SQLERRM);

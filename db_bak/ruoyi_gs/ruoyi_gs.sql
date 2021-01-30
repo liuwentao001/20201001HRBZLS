@@ -1,5 +1,5 @@
-﻿prompt PL/SQL Developer Export User Objects for user SF_USER@10.10.10.72/YSDB
-prompt Created by xss on 2021年1月22日
+﻿prompt PL/SQL Developer Export User Objects for user SF_USER@221.212.191.142:32771/ORCL
+prompt Created by xss on 2021年1月30日
 set define off
 spool ruoyi_gs.log
 
@@ -39,15 +39,15 @@ prompt ==========================
 prompt
 @@bs_custinfo.tab
 prompt
+prompt Creating table BS_CUSTINFO_COPY1
+prompt ================================
+prompt
+@@bs_custinfo_copy1.tab
+prompt
 prompt Creating table BS_CUSTINFO_HIS
 prompt ==============================
 prompt
 @@bs_custinfo_his.tab
-prompt
-prompt Creating table BS_CUSTINFO_copy1
-prompt ================================
-prompt
-@@bs_custinfo_copy1.tab
 prompt
 prompt Creating table BS_IMPORTUSERS
 prompt =============================
@@ -218,11 +218,6 @@ prompt Creating table GD_CUSTCHANGEDT
 prompt ==============================
 prompt
 @@gd_custchangedt.tab
-prompt
-prompt Creating table GD_CUSTCHANGEHD
-prompt ==============================
-prompt
-@@gd_custchangehd.tab
 prompt
 prompt Creating table GD_CUSTMETERREGDT
 prompt ================================
@@ -939,6 +934,11 @@ prompt ==============================
 prompt
 @@seq_paidment.seq
 prompt
+prompt Creating sequence SEQ_PJ_INV_INFO
+prompt =================================
+prompt
+@@seq_pj_inv_info.seq
+prompt
 prompt Creating sequence SEQ_RECLIST
 prompt =============================
 prompt
@@ -1104,10 +1104,25 @@ prompt ===========================
 prompt
 @@pg_cb_cost.spc
 prompt
+prompt Creating package PG_CORNER_PAY
+prompt ==============================
+prompt
+@@pg_corner_pay.spc
+prompt
+prompt Creating package PG_DHZ
+prompt =======================
+prompt
+@@pg_dhz.spc
+prompt
 prompt Creating package PG_EWIDE_METERTRANS
 prompt ====================================
 prompt
 @@pg_ewide_metertrans.spc
+prompt
+prompt Creating package PG_EWIDE_METERTRANS_01
+prompt =======================================
+prompt
+@@pg_ewide_metertrans_01.spc
 prompt
 prompt Creating package PG_EWIDE_RAEDPLAN_01
 prompt =====================================
@@ -1169,6 +1184,11 @@ prompt ==============================
 prompt
 @@fgetcustname.fnc
 prompt
+prompt Creating function FGETMETERINFO
+prompt ===============================
+prompt
+@@fgetmeterinfo.fnc
+prompt
 prompt Creating function FGETSEQUENCE
 prompt ==============================
 prompt
@@ -1178,6 +1198,11 @@ prompt Creating function FGET_TZDJ
 prompt ===========================
 prompt
 @@fget_tzdj.fnc
+prompt
+prompt Creating function FGET调整单价
+prompt ==========================
+prompt
+@@fget调整单价.fnc
 prompt
 prompt Creating function FPARA
 prompt =======================
@@ -1263,6 +1288,11 @@ prompt Creating package body PG_CB_COST
 prompt ================================
 prompt
 @@pg_cb_cost.bdy
+prompt
+prompt Creating package body PG_DHZ
+prompt ============================
+prompt
+@@pg_dhz.bdy
 prompt
 prompt Creating package body PG_EWIDE_METERTRANS
 prompt =========================================

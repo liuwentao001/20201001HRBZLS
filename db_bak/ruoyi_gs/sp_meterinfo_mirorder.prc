@@ -16,7 +16,7 @@ BEGIN
   COMMIT;
   O_STATE := '0';
   EXCEPTION
-    WHEN OTHERS THEN 
+    WHEN OTHERS THEN
       O_STATE := '-1';
 END;
 /

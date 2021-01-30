@@ -810,7 +810,7 @@
     MD   BS_METERDOC%ROWTYPE;
     BC   BS_BOOKFRAME%ROWTYPE;
     SBR  BS_METERREAD%ROWTYPE;
-    
+
     --计划
     CURSOR C_BKSB IS
       SELECT A.CIID,    --用户号

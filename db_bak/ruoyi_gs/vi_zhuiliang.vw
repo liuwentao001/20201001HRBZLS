@@ -1,11 +1,11 @@
 ﻿create or replace force view vi_zhuiliang as
 select a.ciid,a.ciname,a.ciname1,a.ciadr,
-				b.mibfid,b.mistid,b.mircode,b.mirecsl,b.miid,
-				c.mrscode,c.mrecode,
-				'' czbqzz,'' sqzz,'' bnrjt,'' zblb,'' bz 
-			from bs_meterinfo b 
-			left join bs_custinfo a on b.micode=a.ciid 
-			left join bs_meterread c on b.miid = c.mrmid;
+        b.mibfid,b.mistid,b.mircode,b.mirecsl,b.miid,
+        c.mrscode,c.mrecode,
+        '' czbqzz,'' sqzz,'' bnrjt,'' zblb,'' bz
+      from bs_meterinfo b
+      left join bs_custinfo a on b.micode=a.ciid
+      left join bs_meterread c on b.miid = c.mrmid;
 comment on table VI_ZHUILIANG is '追量';
 comment on column VI_ZHUILIANG.CIID is '用户号';
 comment on column VI_ZHUILIANG.CINAME is '用户名';

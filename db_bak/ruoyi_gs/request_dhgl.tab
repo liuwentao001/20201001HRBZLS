@@ -31,7 +31,10 @@
   modifyusername VARCHAR2(50),
   remark         VARCHAR2(200),
   workno         VARCHAR2(30),
-  workbatch      VARCHAR2(30)
+  workbatch      VARCHAR2(30),
+  reshbz         CHAR(1),
+  rewcbz         CHAR(1),
+  rlid           VARCHAR2(2000)
 )
 ;
 comment on table REQUEST_DHGL
@@ -98,4 +101,10 @@ comment on column REQUEST_DHGL.workno
   is '单据编号';
 comment on column REQUEST_DHGL.workbatch
   is '批次号';
+comment on column REQUEST_DHGL.reshbz
+  is '审核标志，Y审核完成';
+comment on column REQUEST_DHGL.rewcbz
+  is '完成标志，Y冲正完成';
+comment on column REQUEST_DHGL.rlid
+  is '应收账编码';
 

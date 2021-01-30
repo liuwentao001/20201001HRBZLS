@@ -78,13 +78,13 @@ update bs_custinfo set misaving='10000000' where ciid='0100172364';--预存
 update bs_meterinfo set mipfid='D0102' where miid='0100172364';--固定水价
 update bs_meterinfo set mipfid='A0103' where miid='0100172364';--阶梯水价
 update bs_meterinfo set mircode=0 where miid='0100172364';
-update bs_meterread set mrscode=2861 where mrid='2372463611';
-update bs_meterread set mrecode=3161 where mrid='2372463611';
-update bs_meterread set mrsl=300 where mrid='2372463611';
-update bs_meterread set mrifrec='N' where mrid='2372463611';
-update bs_meterread set mrrecje01=null where mrid='2372463611';
-update bs_meterread set mrrecje02=null where mrid='2372463611';
-update bs_meterread set mrrecje03=null where mrid='2372463611';
+update bs_meterread set mrscode=2861 where mrid='819260';
+update bs_meterread set mrecode=3161 where mrid='819260';
+update bs_meterread set mrsl=300 where mrid='819260';
+update bs_meterread set mrifrec='N' where mrid='819260';
+update bs_meterread set mrrecje01=null where mrid='819260';
+update bs_meterread set mrrecje02=null where mrid='819260';
+update bs_meterread set mrrecje03=null where mrid='819260';
 update bs_reclist set rlscrrlmonth='2020.11' where rlmid='0100172364';
 update bs_reclist set rlmonth='2020.11' where rlmid='0100172364';
 commit;
@@ -94,10 +94,6 @@ commit;
 update bs_meterread set mrifrec='N',mrrecsl=mrecode-mrscode where mrccode='0100172364';
 commit;
 
-select * from request_yscz t;
-/*
-2 6A1CEB5E34534D6380E17383F74EF4F9    2200000543                                        2021/1/15 9:58:36 1 董伟              Y   1000201987    Y
-*/
 update bs_reclist set rlpaidflag='N' where rlcid='0100172364';
 delete from bs_payment where pcid='0100172364';
 commit;
@@ -106,11 +102,12 @@ commit;
 
 select * from bs_custinfo where ciid='0100172364';
 select * from bs_meterinfo where micode='0100172364';
-select * from bs_meterread where mrccode='0100172364';
+select * from bs_meterread where mrccode='0100172364' order by mrid;-- for update;
 select * from bs_bookframe where bfid = '01003003';
 select * from bs_reclist where rlcid='0100172364';
 select * from bs_recdetail where rdid in (select rlid from bs_reclist where rlcid='0100172364') order by rdid ,rdpiid,rdclass;
 select * from bs_pricestep where pspfid='A0103' order by pspfid ,pspiid, psclass;
+select * from bs_payment where pcid='0100172364'
 
 
 
@@ -162,6 +159,22 @@ select * from bs_custinfo where ciid='3101033508';
 select * from bs_meterinfo where miid='3101033508';
 select * from bs_meterread where mrccode='3101033508';
 select * from bs_reclist where rlcid='3101033508';
+
+
+
+--呆账坏账工单处理
+update request_dhgl set rlid = '1000202111,1000202112,1000202113',rewcbz = 'N' ,reshbz='Y'  where reno='dh1';
+commit;
+
+update bs_reclist set rlpaidflag = 'N' where rlcid='0100172364';
+delete from bs_payment where pcid='0100172364';
+commit;
+
+
+select * from bs_reclist where rlcid='0100172364';
+select * from request_dhgl t;
+
+select * from bs_payment where pcid='0100172364';
 
 
 

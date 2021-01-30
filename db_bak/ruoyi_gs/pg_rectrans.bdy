@@ -38,57 +38,84 @@
       o_log := '请正确输入工单类型。';
       return;
     end if;
-    
+
     if v_reshbz <> 'Y' or v_reshbz is null then o_log := '工单未审核，无法' || v_gdtype_name || '。工单编号：'|| p_reno || chr(10); return; end if;
-    if v_rewcbz = 'Y' then  o_log := '工单已完成，无法' || v_gdtype_name || '。工单编号：'|| p_reno || chr(10); return; end if; 
-    
+    if v_rewcbz = 'Y' then  o_log := '工单已完成，无法' || v_gdtype_name || '。工单编号：'|| p_reno || chr(10); return; end if;
+
     o_log := '开始执行' || v_gdtype_name || '工单。工单编号：'|| p_reno || chr(10);
     --生成抄表信息
     ins_mr(v_miid , v_mrscode , v_mrecode , v_mrsl , v_mrdatasource, p_reno, v_reifreset, v_reifstep, v_mrid, v_insmr_log);
     o_log := o_log || '开始执行工单。生成抄表记录：'|| v_insmr_log || v_mrid || chr(10);
     --算费
-    pg_cb_cost.calculatebf(v_mrid, '02', o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, o_mrsumje, v_cal_log);    
+    pg_cb_cost.calculatebf(v_mrid, '02', o_mrrecje01, o_mrrecje02, o_mrrecje03, o_mrrecje04, o_mrsumje, v_cal_log);
     o_log := o_log || '开始执行' || v_gdtype_name || '工单。算费：'|| v_cal_log || chr(10);
 
     if p_gdtype = 'ZLSF' then
       update request_zlsf set rewcbz = 'Y' where reno = p_reno;
     elsif p_gdtype = 'BJSF' then
       update request_bjsf set rewcbz = 'Y' where reno = p_reno;
-    end if; 
-    
+    end if;
+
     commit;
     o_log := o_log || v_gdtype_name || '工单完成。工单编号：'|| p_reno;
-    
+
   exception
       when no_data_found then o_log := '无效的工单号：' || p_reno;
       return;
   end;
 
   --生成抄表记录
-  procedure ins_mr(p_miid varchar2, p_mrscode number, p_mrecode number, p_mrsl number, 
+  procedure ins_mr(p_miid varchar2, p_mrscode number, p_mrecode number, p_mrsl number,
             p_mrdatasource varchar2, p_mrgdid varchar2, p_mrifreset varchar2, p_mrifstep varchar2,
             o_mrid out varchar2, o_log out varchar2) is
     v_rowcount number;
   begin
     o_mrid := fgetsequence('METERREAD');
-    
+
     insert into bs_meterread (mrid, mrmonth, mrsmfid, mrbfid, mrccode, mrmid, mrstid, mrcreadate, mrreadok, mrrdate, mrprdate, mrrper,
        mrscode, mrecode, mrsl, mrifsubmit, mrifhalt, mrdatasource, mrifrec, mrrecsl, mrpfid, mrgdid, mrifreset, mrifstep)
     select o_mrid, to_char(sysdate, 'yyyy.mm'), mismfid, mibfid, micode, miid, mistid, sysdate, 'N', sysdate, sysdate, '1',
            p_mrscode, p_mrecode, p_mrsl, 'Y', 'N', p_mrdatasource, 'N', 0, mipfid, p_mrgdid, p_mrifreset, p_mrifstep
-    from bs_meterinfo 
+    from bs_meterinfo
     where miid = p_miid;
     v_rowcount := sql%rowcount;
-    
+
     commit;
     if v_rowcount = 1 then
       o_log := '生成抄表记录成功';
     else
       o_log := '生成抄表记录失败';
     end if;
+
+  end;
+
+  --补缴出票
+  procedure bjsf_pj(p_rlid varchar2,o_log varchar2 )is
+    v_pj_id varchar2(10);
+  begin
+    v_pj_id := seq_paidbatch.nextval;
+    
+    insert into pj_inv_info(id, dyfs, status, cplx, month, mcode,rlcname,rlcadr,  scode, ecode, sl, kpje, rlid ,cpje01, cpje02, cpje03)
+    with rd as (
+         select rdid,
+                case when rdpiid = '01' then sum(rdje) end je01 ,
+                case when rdpiid = '02' then sum(rdje) end je02 ,
+                case when rdpiid = '03' then sum(rdje) end je03 
+         from bs_recdetail 
+         where rdid = p_rlid
+         group by rdid
+    )
+    select v_pj_id, '0', '0','L', max(rlmonth), rlcid ,rlcname, rlcadr, min(rlscode) , max(rlecode), sum(rlsl) ,sum(rlje), p_rlid, sum(je01), sum(je02), sum(je03)
+    from bs_reclist rl left join rd on rl.rlid = rd.rdid
+    where rlid = p_rlid
+    group by v_pj_id, rlcid ,rlcname, rlcadr, p_rlid
+    ;
+    
+    --更新出票标志
+    update bs_reclist set rlifinv = 'Y', isprintfp = 'Y' where rlid = p_rlid;
     
   end;
-  
+
 end pg_rectrans;
 /
 

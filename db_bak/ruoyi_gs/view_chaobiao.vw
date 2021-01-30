@@ -1,11 +1,11 @@
 ﻿CREATE OR REPLACE FORCE VIEW VIEW_CHAOBIAO AS
 SELECT a.miid,a.MISEQNO,a.mismfid,a.mibfid,a.miadr,b.ciadr,a.mistid,a.mipfid,a.miside,c.MDMODEL,a.miclass,c.MDJIDIANZHUANHUAN,
-			 b.MICHARGETYPE,a.miface,a.MISTATUS,b.CIIFINV,a.miyl1,a.miyl2,(case a.MISTATUS when '29' then '是'
+       b.MICHARGETYPE,a.miface,a.MISTATUS,b.CIIFINV,a.miyl1,a.miyl2,(case a.MISTATUS when '29' then '是'
                             when '30' then '是'
-                            else '否' end) as gudingliang,a.mirtid,c.MDCALIBER,a.isallowreading,c.MDBRAND,c.IFDZSB,b.ciname,c.MDNO,substr(a.MIBFID,1,5) as daihao  
-				from BS_METERINFO a 
-		left join BS_CUSTINFO b on b.CIID=a.MIID
-		left join BS_METERDOC c on a.miid=c.MDID;
+                            else '否' end) as gudingliang,a.mirtid,c.MDCALIBER,a.isallowreading,c.MDBRAND,c.IFDZSB,b.ciname,c.MDNO,substr(a.MIBFID,1,5) as daihao
+        from BS_METERINFO a
+    left join BS_CUSTINFO b on b.CIID=a.MIID
+    left join BS_METERDOC c on a.miid=c.MDID;
 comment on table VIEW_CHAOBIAO is '抄表视图';
 comment on column VIEW_CHAOBIAO.MIID is '水表档案编号';
 comment on column VIEW_CHAOBIAO.MISEQNO is '用户号';

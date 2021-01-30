@@ -77,7 +77,7 @@
   PROCEDURE INSRD(RD IN RD_TABLE);
 
   PROCEDURE SP_RECLIST_CHARGE_01(V_RDID IN VARCHAR2, V_TYPE IN VARCHAR2);
-  
+
     --阶梯计费步骤
   PROCEDURE CALSTEP(P_RL       IN OUT RECLIST%ROWTYPE,
                     P_SL       IN NUMBER,
@@ -103,10 +103,10 @@
                      P_EDATE    IN DATE --终算日'不计入'违约日
                      ) RETURN NUMBER;
 
-  --水价调整函数   BY WY 20130531  
+  --水价调整函数   BY WY 20130531
   FUNCTION F_GETPFID(PALTAB IN PAL_TABLE) RETURN PAL_TABLE;
 
-  --调整水价+费用项目函数   BY WY 20130531   
+  --调整水价+费用项目函数   BY WY 20130531
   FUNCTION F_GETPFID_PIID(PALTAB IN PAL_TABLE, P_PIID IN VARCHAR2)
     RETURN PAL_TABLE;
 
@@ -128,7 +128,7 @@
                P_INVNO    IN VARCHAR2, --发票号
                P_COMMIT   IN VARCHAR2 --控制是否提交（Y/N）
                ) RETURN VARCHAR2;
-               
+
   /*******************************************************************************************
   函数名：F_POS_1METER
   用途：单只水表缴费

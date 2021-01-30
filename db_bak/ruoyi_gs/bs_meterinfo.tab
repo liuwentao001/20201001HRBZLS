@@ -239,6 +239,6 @@ comment on column BS_METERINFO.mitwono
 comment on column BS_METERINFO.midmano
   is 'DMA分区计量编码';
 create index IDX_MICODE on BS_METERINFO (MICODE);
+create index INDEX_MIBFID on BS_METERINFO (MIBFID);
 create unique index PK_METERINFO on BS_METERINFO (MIID);
-create index index_MIBFID on BS_METERINFO (MIBFID);
 

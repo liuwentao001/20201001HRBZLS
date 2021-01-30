@@ -83,7 +83,7 @@
                     p_oper        in varchar2,
                     p_memo        in varchar2,
                     o_log         out varchar2);
-                                    
+
   --预存充值
   procedure precust(p_yhid        in varchar2,
                     p_position    in varchar2,
@@ -98,10 +98,10 @@
 
   --实收冲正，按工单
   procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
-    
+
   --实收冲正，多流水号批量冲正，只冲正缴费交易，不冲正抵扣交易
   procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
-  
+
   --实收冲正，按缴费批次
   procedure pay_back_by_pbatch(p_pbatch in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
 
@@ -109,7 +109,7 @@
   --  1.事务为U 或 事务为P且预存金额大于退费金额，直接冲正当条实收
   --  2.事务为P且预存金额小于退费金额，按收费时间倒序冲正事务为U的实收，直到预存金额大于退费金额，然后冲正事务为P的当条实收
   procedure pay_back_by_pdate_desc(p_pid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
-    
+
   --实收冲正
   --  p_payid  实收流水号
   --  p_oper   操作员编码
@@ -134,7 +134,7 @@
   function f_set_cr_reclist(pm in bs_payment%rowtype) return number;
 
 
-                    
+
 end;
 /
 

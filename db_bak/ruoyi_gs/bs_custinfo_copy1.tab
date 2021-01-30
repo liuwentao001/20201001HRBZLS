@@ -1,4 +1,4 @@
-﻿create table BS_CUSTINFO_copy1
+﻿create table BS_CUSTINFO_COPY1
 (
   ciid            VARCHAR2(10) not null,
   cismfid         VARCHAR2(10),
@@ -64,130 +64,130 @@
   cicqno          VARCHAR2(50)
 )
 ;
-comment on table BS_CUSTINFO_copy1
+comment on table BS_CUSTINFO_COPY1
   is '用户信息表';
-comment on column BS_CUSTINFO_copy1.ciid
+comment on column BS_CUSTINFO_COPY1.ciid
   is '用户号';
-comment on column BS_CUSTINFO_copy1.cismfid
+comment on column BS_CUSTINFO_COPY1.cismfid
   is '营销公司';
-comment on column BS_CUSTINFO_copy1.cipid
+comment on column BS_CUSTINFO_COPY1.cipid
   is '上级用户编号';
-comment on column BS_CUSTINFO_copy1.ciclass
+comment on column BS_CUSTINFO_COPY1.ciclass
   is '用户级次';
-comment on column BS_CUSTINFO_copy1.ciflag
+comment on column BS_CUSTINFO_COPY1.ciflag
   is '末级标志';
-comment on column BS_CUSTINFO_copy1.ciname
+comment on column BS_CUSTINFO_COPY1.ciname
   is '用户名';
-comment on column BS_CUSTINFO_copy1.ciadr
+comment on column BS_CUSTINFO_COPY1.ciadr
   is '用户地址';
-comment on column BS_CUSTINFO_copy1.cistatus
+comment on column BS_CUSTINFO_COPY1.cistatus
   is '用户状态【syscuststatus】';
-comment on column BS_CUSTINFO_copy1.cistatusdate
+comment on column BS_CUSTINFO_COPY1.cistatusdate
   is '状态日期';
-comment on column BS_CUSTINFO_copy1.cistatustrans
+comment on column BS_CUSTINFO_COPY1.cistatustrans
   is '状态表务';
-comment on column BS_CUSTINFO_copy1.cinewdate
+comment on column BS_CUSTINFO_COPY1.cinewdate
   is '立户日期';
-comment on column BS_CUSTINFO_copy1.ciidentitylb
+comment on column BS_CUSTINFO_COPY1.ciidentitylb
   is '证件类型';
-comment on column BS_CUSTINFO_copy1.ciidentityno
+comment on column BS_CUSTINFO_COPY1.ciidentityno
   is '证件号码';
-comment on column BS_CUSTINFO_copy1.cimtel
+comment on column BS_CUSTINFO_COPY1.cimtel
   is '移动电话';
-comment on column BS_CUSTINFO_copy1.citel1
+comment on column BS_CUSTINFO_COPY1.citel1
   is '电话1';
-comment on column BS_CUSTINFO_copy1.citel2
+comment on column BS_CUSTINFO_COPY1.citel2
   is '电话2';
-comment on column BS_CUSTINFO_copy1.citel3
+comment on column BS_CUSTINFO_COPY1.citel3
   is '电话3';
-comment on column BS_CUSTINFO_copy1.ciconnectper
+comment on column BS_CUSTINFO_COPY1.ciconnectper
   is '联系人';
-comment on column BS_CUSTINFO_copy1.ciconnecttel
+comment on column BS_CUSTINFO_COPY1.ciconnecttel
   is '联系电话';
-comment on column BS_CUSTINFO_copy1.ciifinv
+comment on column BS_CUSTINFO_COPY1.ciifinv
   is '是否普票（迁移数据时同步bs_meterinfo.MIIFTAX(是否税票)）';
-comment on column BS_CUSTINFO_copy1.ciifsms
+comment on column BS_CUSTINFO_COPY1.ciifsms
   is '是否提供短信服务';
-comment on column BS_CUSTINFO_copy1.ciprojno
+comment on column BS_CUSTINFO_COPY1.ciprojno
   is '工程编号(老系统水账标识号)';
-comment on column BS_CUSTINFO_copy1.cifileno
+comment on column BS_CUSTINFO_COPY1.cifileno
   is '档案号(老系统供水合同号)';
-comment on column BS_CUSTINFO_copy1.cimemo
+comment on column BS_CUSTINFO_COPY1.cimemo
   is '备注信息';
-comment on column BS_CUSTINFO_copy1.michargetype
+comment on column BS_CUSTINFO_COPY1.michargetype
   is '类型（1=坐收，2=走收,收费方式）';
-comment on column BS_CUSTINFO_copy1.misaving
+comment on column BS_CUSTINFO_COPY1.misaving
   is '预存款余额';
-comment on column BS_CUSTINFO_copy1.miemail
+comment on column BS_CUSTINFO_COPY1.miemail
   is '电子邮件';
-comment on column BS_CUSTINFO_copy1.miemailflag
+comment on column BS_CUSTINFO_COPY1.miemailflag
   is '发账是否发邮件';
-comment on column BS_CUSTINFO_copy1.miyhpj
+comment on column BS_CUSTINFO_COPY1.miyhpj
   is '用户信用评级';
-comment on column BS_CUSTINFO_copy1.mistarlevel
+comment on column BS_CUSTINFO_COPY1.mistarlevel
   is '星级等级';
-comment on column BS_CUSTINFO_copy1.iscontractflag
+comment on column BS_CUSTINFO_COPY1.iscontractflag
   is '是否签订供用水合同';
-comment on column BS_CUSTINFO_copy1.waterpw
+comment on column BS_CUSTINFO_COPY1.waterpw
   is '用户水表密码(限定6位,默为用户号后6位）';
-comment on column BS_CUSTINFO_copy1.ladderwaterdate
+comment on column BS_CUSTINFO_COPY1.ladderwaterdate
   is '阶梯开始日期';
-comment on column BS_CUSTINFO_copy1.cihtbh
+comment on column BS_CUSTINFO_COPY1.cihtbh
   is '合同编号';
-comment on column BS_CUSTINFO_copy1.cihtzq
+comment on column BS_CUSTINFO_COPY1.cihtzq
   is '周期（合同用）';
-comment on column BS_CUSTINFO_copy1.cirqxz
+comment on column BS_CUSTINFO_COPY1.cirqxz
   is '日期限制（合同用）';
-comment on column BS_CUSTINFO_copy1.htdate
+comment on column BS_CUSTINFO_COPY1.htdate
   is '合同签订日期';
-comment on column BS_CUSTINFO_copy1.zfdate
+comment on column BS_CUSTINFO_COPY1.zfdate
   is '合同作废日期';
-comment on column BS_CUSTINFO_copy1.jzdate
+comment on column BS_CUSTINFO_COPY1.jzdate
   is '合同签订截止日期';
-comment on column BS_CUSTINFO_copy1.signper
+comment on column BS_CUSTINFO_COPY1.signper
   is '签订人';
-comment on column BS_CUSTINFO_copy1.signid
+comment on column BS_CUSTINFO_COPY1.signid
   is '签订人身份证号';
-comment on column BS_CUSTINFO_copy1.pocid
+comment on column BS_CUSTINFO_COPY1.pocid
   is '房产证号';
-comment on column BS_CUSTINFO_copy1.cibankname
+comment on column BS_CUSTINFO_COPY1.cibankname
   is '开户行名称(电票)';
-comment on column BS_CUSTINFO_copy1.cibankno
+comment on column BS_CUSTINFO_COPY1.cibankno
   is '开户行账号(电票)';
-comment on column BS_CUSTINFO_copy1.ciname2
+comment on column BS_CUSTINFO_COPY1.ciname2
   is '招牌名称';
-comment on column BS_CUSTINFO_copy1.ciname1
+comment on column BS_CUSTINFO_COPY1.ciname1
   is '票据名称';
-comment on column BS_CUSTINFO_copy1.citaxno
+comment on column BS_CUSTINFO_COPY1.citaxno
   is '税号';
-comment on column BS_CUSTINFO_copy1.ciadr1
+comment on column BS_CUSTINFO_COPY1.ciadr1
   is '票据地址';
-comment on column BS_CUSTINFO_copy1.citel4
+comment on column BS_CUSTINFO_COPY1.citel4
   is '票据电话';
-comment on column BS_CUSTINFO_copy1.cicolumn11
+comment on column BS_CUSTINFO_COPY1.cicolumn11
   is '特困标志';
-comment on column BS_CUSTINFO_copy1.citkzjh
+comment on column BS_CUSTINFO_COPY1.citkzjh
   is '特困证件号';
-comment on column BS_CUSTINFO_copy1.cicolumn2
+comment on column BS_CUSTINFO_COPY1.cicolumn2
   is '低保用户标志';
-comment on column BS_CUSTINFO_copy1.cidbzjh
+comment on column BS_CUSTINFO_COPY1.cidbzjh
   is '低保证件号';
-comment on column BS_CUSTINFO_copy1.cicolumn1
+comment on column BS_CUSTINFO_COPY1.cicolumn1
   is '低保减免水量';
-comment on column BS_CUSTINFO_copy1.cicolumn3
+comment on column BS_CUSTINFO_COPY1.cicolumn3
   is '低保截止月份';
-comment on column BS_CUSTINFO_copy1.cipassword
+comment on column BS_CUSTINFO_COPY1.cipassword
   is '用户密码';
-comment on column BS_CUSTINFO_copy1.ciusenum
+comment on column BS_CUSTINFO_COPY1.ciusenum
   is '户籍人数';
-comment on column BS_CUSTINFO_copy1.ciamount
+comment on column BS_CUSTINFO_COPY1.ciamount
   is '户数';
-comment on column BS_CUSTINFO_copy1.cidbbs
+comment on column BS_CUSTINFO_COPY1.cidbbs
   is '是否一户多表';
-comment on column BS_CUSTINFO_copy1.ciltid
+comment on column BS_CUSTINFO_COPY1.ciltid
   is '老户号';
-comment on column BS_CUSTINFO_copy1.ciwxno
+comment on column BS_CUSTINFO_COPY1.ciwxno
   is '微信号码';
-comment on column BS_CUSTINFO_copy1.cicqno
+comment on column BS_CUSTINFO_COPY1.cicqno
   is '产权证号';
 
