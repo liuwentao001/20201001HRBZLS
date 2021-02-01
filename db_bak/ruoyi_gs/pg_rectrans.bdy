@@ -89,33 +89,6 @@
 
   end;
 
-  --补缴出票
-  procedure bjsf_pj(p_rlid varchar2,o_log varchar2 )is
-    v_pj_id varchar2(10);
-  begin
-    v_pj_id := seq_paidbatch.nextval;
-    
-    insert into pj_inv_info(id, dyfs, status, cplx, month, mcode,rlcname,rlcadr,  scode, ecode, sl, kpje, rlid ,cpje01, cpje02, cpje03)
-    with rd as (
-         select rdid,
-                case when rdpiid = '01' then sum(rdje) end je01 ,
-                case when rdpiid = '02' then sum(rdje) end je02 ,
-                case when rdpiid = '03' then sum(rdje) end je03 
-         from bs_recdetail 
-         where rdid = p_rlid
-         group by rdid
-    )
-    select v_pj_id, '0', '0','L', max(rlmonth), rlcid ,rlcname, rlcadr, min(rlscode) , max(rlecode), sum(rlsl) ,sum(rlje), p_rlid, sum(je01), sum(je02), sum(je03)
-    from bs_reclist rl left join rd on rl.rlid = rd.rdid
-    where rlid = p_rlid
-    group by v_pj_id, rlcid ,rlcname, rlcadr, p_rlid
-    ;
-    
-    --更新出票标志
-    update bs_reclist set rlifinv = 'Y', isprintfp = 'Y' where rlid = p_rlid;
-    
-  end;
-
 end pg_rectrans;
 /
 

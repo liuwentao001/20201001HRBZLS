@@ -177,13 +177,16 @@ select * from request_dhgl t;
 select * from bs_payment where pcid='0100172364';
 
 
+---³öÆ±
+truncate table pj_inv_info
 
+select * from pj_inv_info
+      
+select * from bs_reclist where rlreverseflag<>'Y' and rlpaidflag <> 'Y' and rlreadsl>0
 
-
-
-
-
-
-
-
-
+select * from bs_payment where pid <= '0000248146' order by pid desc 
+      
+      
+      
+      
+      

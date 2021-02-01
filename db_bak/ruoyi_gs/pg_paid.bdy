@@ -1,6 +1,78 @@
 ﻿create or replace package body pg_paid is
   err_str varchar2(1000);
-  --缴费入口
+  
+  /*  
+  --上门收费销账
+  p_pjid 票据编码
+  p_oper          销帐员，柜台缴费时销帐人员与收款员统一
+  p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
+  p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
+  p_pid           返回交易流水号
+  */
+  procedure poscustforys_smsf(p_pjid varchar2,
+             p_oper     in varchar2,
+             p_pid      out varchar2) is
+    v_pbatch varchar2(10);  --缴费交易批次
+    v_position varchar(32); --缴费机构
+    v_yhid varchar2(10);    --用户编码
+    v_fkfs varchar2(2);     --付款方式
+    v_arstr varchar2(2000); --应收账流水号，多个按逗号分隔
+    v_kpje number;          --开票金额
+    v_remainafter number;
+    v_reflag varchar2(10);  --用户工单存在标志
+  begin
+    select trim(to_char(seq_paidbatch.nextval,'0000000000')) into v_pbatch from dual; --缴费交易批次
+    
+    if p_oper is not null then
+      select dept_id into v_position from sys_user where to_char(user_id) = p_oper;
+    end if;
+    
+    begin
+      select mcode, fkfs, rlid, kpje into v_yhid ,v_fkfs, v_arstr, v_kpje from pj_inv_info where id = p_pjid;
+    exception
+      when no_data_found then raise_application_error(errcode, '无效的票据编码！' || p_pjid);
+      return;
+    end;
+
+    --1. 先单缴预存
+    precust(p_yhid        => v_yhid,
+            p_position    => v_position,
+            p_pbatch      => v_pbatch,
+            p_trans       => 'I',
+            p_oper        => p_oper,
+            p_payway      => v_fkfs,
+            p_payment     => v_kpje,
+            p_memo        => null,
+            p_pid         => p_pid,
+            o_remainafter => v_remainafter);
+    --2. 按照抄表日期逐条扣费
+    select reflag into v_reflag from bs_custinfo where ciid = v_yhid;
+    --存在审批过程中的工单不进行抵扣
+    if v_reflag <> 'Y' or v_reflag is null then
+      for i in (select regexp_substr(v_arstr, '[^,]+', 1, level) rlid from dual connect by level <= length(v_arstr) - length(replace(v_arstr, ',', '')) + 1) loop
+        paycust(v_yhid,
+               i.rlid,
+               v_pbatch,
+               v_position,
+               'I',  --缴费事务
+               p_oper,
+               v_fkfs,
+               0,
+               null,
+               p_pid,
+               v_remainafter);
+      end loop;
+    end if;
+    commit;
+  exception
+    when others then
+      rollback;
+      raise_application_error(errcode, sqlerrm);
+  end;
+  
+  
+  
+  --柜台缴费入口
   /*
   p_yhid          用户编码
   p_arstr         （已废弃）欠费流水号，多个流水号用逗号分隔，例如：0000012726,70105341
@@ -31,49 +103,6 @@
       select dept_id into v_position from sys_user where to_char(user_id) = p_oper;
     end if;
 
-    /*
-    if p_arstr is null then
-      --单缴预存
-      precust(p_yhid        => p_yhid,
-              p_position    => v_position,
-              p_pbatch      => v_pbatch,
-              p_trans       => 'P',
-              p_oper        => p_oper,
-              p_payway      => p_payway,
-              p_payment     => v_payment,
-              p_memo        => null,
-              p_pid         => p_pid,
-              o_remainafter => v_remainafter);
-    else
-      --先单缴预存
-      precust(p_yhid        => p_yhid,
-              p_position    => v_position,
-              p_pbatch      => v_pbatch,
-              p_trans       => 'P',
-              p_oper        => p_oper,
-              p_payway      => p_payway,
-              p_payment     => v_payment,
-              p_memo        => null,
-              p_pid         => p_pid,
-              o_remainafter => v_remainafter);
-      --逐个缴费
-      for i in (select regexp_substr(p_arstr, '[^,]+', 1, level) column_value from dual connect by level <= length(p_arstr) - length(replace(p_arstr, ',', '')) + 1)
-      loop
-        paycust(p_yhid,
-               i.column_value,
-               v_pbatch,
-               v_position,
-               'U',  --缴费事务   柜台缴费
-               p_oper,
-               p_payway,
-               0,
-               null,
-               p_pid,
-               v_remainafter);
-      end loop;
-    end if;
-    */
-
     --1. 先单缴预存
     if v_payment <> 0 then
       precust(p_yhid        => p_yhid,
@@ -89,7 +118,7 @@
     end if;
     --2. 按照抄表日期逐条扣费
     select misaving, reflag into v_misaving, v_reflag from bs_custinfo where ciid = p_yhid;
-    --存在审批过程中的工单部进行抵扣
+    --存在审批过程中的工单不进行抵扣
     if v_reflag <> 'Y' or v_reflag is null then
       for i in (select rlid, rlje from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje <> 0 and rlcid = p_yhid order by rlday) loop
         exit when v_misaving < i.rlje;

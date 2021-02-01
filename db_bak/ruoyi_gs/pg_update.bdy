@@ -1,0 +1,23 @@
+﻿CREATE OR REPLACE PACKAGE BODY PG_UPDATE IS
+
+  --外部调用，自动算费
+  PROCEDURE PROC_USER(I_WORK  IN VARCHAR2, --批次号
+                      I_TPYE  IN VARCHAR2, --跟新类型
+                      I_PER   IN VARCHAR2, --操作员
+                      O_STATE OUT NUMBER) IS
+    V_YHXX REQUEST_YHXX%ROWTYPE;
+  BEGIN
+    O_STATE := 0;
+    IF I_TPYE = 'A' THEN
+    FOR I IN (SELECT * FROM REQUEST_YHXX WHERE WORKBATCH = I_WORK) LOOP
+      O_STATE := '';
+    END LOOP;
+    END IF;
+    COMMIT;
+  EXCEPTION
+    WHEN OTHERS THEN
+      O_STATE := -1;
+  END;
+END;
+/
+

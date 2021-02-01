@@ -21,10 +21,7 @@
                    o_mrid         out varchar2,
                    o_log          out varchar2);
 
-  --补缴出票
-  procedure bjsf_pj(p_rlid varchar2,o_log varchar2 );
 
-  
 end pg_rectrans;
 /
 

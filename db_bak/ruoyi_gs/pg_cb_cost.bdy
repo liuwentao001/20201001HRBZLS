@@ -250,7 +250,7 @@
     if mi.miyl1 = 'Y' then
        wlog('此水表等针状态，无法算费！' || mr.mrmid);
        raise_application_error(errcode,'此水表编号[' || mr.mrmid || ']此水表等针状态，无法算费！');
-    end if;    
+    end if;
     /*
     if mi.mistatus = '24' and mr.mrdatasource <> 'M' then
       --如果表状态为故障换表中且此抄表记录来源不是故障抄表余量，则提示不能算费，有故障换表
@@ -287,14 +287,14 @@
       mi.mircode := mr.mrscode;
       v_rec_cal := 'Y';        --反向算费标志
     end if;
-    
+
     --总表收免  真实水量等于抄表水量 减去 总表收免水量最大值
     if mi.miyl2 = '1' then
        mr.mrrecsl := mr.mrsl - nvl(mi.miyl7,0);
     else
-       mr.mrrecsl := mr.mrsl; --本期水量    
+       mr.mrrecsl := mr.mrsl; --本期水量
     end if;
-    
+
     -----------------------------------------------------------------------------
     --子表水量抵减计费总表抄见水量
     -----------------------------------------------------------------------------

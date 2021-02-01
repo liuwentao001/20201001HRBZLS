@@ -16,7 +16,7 @@
   xzje        NUMBER(12,4),
   znj         NUMBER(12,4),
   sxf         NUMBER(12,4),
-  jmje        NUMBER(12,4) not null,
+  jmje        NUMBER(12,4),
   qcsaving    NUMBER(12,4),
   qmsaving    NUMBER(12,4),
   bqsaving    NUMBER(12,4),
@@ -99,9 +99,9 @@ comment on column PJ_INV_INFO.printnum
 comment on column PJ_INV_INFO.status
   is '状态(0，正常、1, 作废、2,红票、3,蓝票';
 comment on column PJ_INV_INFO.fkfs
-  is '付款类型(xj 现金,zp,支票';
+  is '付款类型(XJ 现金,ZP,支票';
 comment on column PJ_INV_INFO.cplx
-  is '出票类型（p,实收出账,l，应收出账）';
+  is '出票类型（P,实收出账,L，应收出账）';
 comment on column PJ_INV_INFO.cpfs
   is '出票方式（合票、分票、预存票、存折，稽查,.......）';
 comment on column PJ_INV_INFO.ppbatch
