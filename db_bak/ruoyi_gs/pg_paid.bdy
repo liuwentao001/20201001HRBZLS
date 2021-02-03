@@ -2,22 +2,49 @@
   err_str varchar2(1000);
   
   /*  
-  --上门收费销账
-  p_pjid 票据编码
+  --按票据销账 批量
+  p_pjida         票据编码,多个票据按逗号分隔
+  p_cply          出票来源：SMSF 上门收费 BJSF 补缴收费
   p_oper          销帐员，柜台缴费时销帐人员与收款员统一
   p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
   p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
   p_pid           返回交易流水号
   */
-  procedure poscustforys_smsf(p_pjid varchar2,
-             p_oper     in varchar2,
-             p_pid      out varchar2) is
+  procedure poscustforys_pj_pl(p_pjids varchar2,
+             p_cply     varchar2,
+             p_oper     varchar2,
+             o_log      out varchar2) is
+  begin
+    for i in (select regexp_substr(p_pjids, '[^,]+', 1, level) id from dual connect by level <= length(p_pjids) - length(replace(p_pjids, ',', '')) + 1) loop
+      poscustforys_pj(i.id , p_cply, p_oper , o_log);
+    end loop;
+  exception
+    when others then
+      rollback;
+  end;
+  
+  /*  
+  --按票据销账
+  p_pjid          票据编码
+  p_cply          出票来源：SMSF 上门收费 BJSF 补缴收费
+  p_oper          销帐员，柜台缴费时销帐人员与收款员统一
+  p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
+  p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
+  p_pid           返回交易流水号
+  */
+  procedure poscustforys_pj(p_pjid varchar2,
+             p_cply     varchar2,
+             p_oper     varchar2,
+             o_log      out varchar2) is
     v_pbatch varchar2(10);  --缴费交易批次
+    v_ptrans char(1);       --缴费事务
     v_position varchar(32); --缴费机构
     v_yhid varchar2(10);    --用户编码
     v_fkfs varchar2(2);     --付款方式
     v_arstr varchar2(2000); --应收账流水号，多个按逗号分隔
     v_kpje number;          --开票金额
+    v_cply varchar2(10);
+    v_pid varchar2(20);
     v_remainafter number;
     v_reflag varchar2(10);  --用户工单存在标志
   begin
@@ -28,22 +55,34 @@
     end if;
     
     begin
-      select mcode, fkfs, rlid, kpje into v_yhid ,v_fkfs, v_arstr, v_kpje from pj_inv_info where id = p_pjid;
+      select mcode, fkfs, rlid, kpje, cply into v_yhid ,v_fkfs, v_arstr, v_kpje, v_cply from pj_inv_info where id = p_pjid;
     exception
       when no_data_found then raise_application_error(errcode, '无效的票据编码！' || p_pjid);
       return;
     end;
+    
+    if p_cply = 'SMSF' and v_cply = p_cply  then
+      v_ptrans := 'I';
+    elsif p_cply = 'SMSF' and v_cply <> p_cply  then
+      o_log := o_log || p_pjid || ' 不是上门收费的票据' || chr(10);
+      return;
+    elsif p_cply = 'BJSF' and v_cply = p_cply  then
+      v_ptrans := 'Z';
+    elsif p_cply = 'BJSF' and v_cply <> p_cply  then
+      o_log := o_log || p_pjid || ' 不是补缴收费的票据' || chr(10);
+      return;
+    end if;
 
     --1. 先单缴预存
     precust(p_yhid        => v_yhid,
             p_position    => v_position,
             p_pbatch      => v_pbatch,
-            p_trans       => 'I',
+            p_trans       => v_ptrans,
             p_oper        => p_oper,
             p_payway      => v_fkfs,
             p_payment     => v_kpje,
             p_memo        => null,
-            p_pid         => p_pid,
+            p_pid         => v_pid,
             o_remainafter => v_remainafter);
     --2. 按照抄表日期逐条扣费
     select reflag into v_reflag from bs_custinfo where ciid = v_yhid;
@@ -54,12 +93,12 @@
                i.rlid,
                v_pbatch,
                v_position,
-               'I',  --缴费事务
+               v_ptrans,  
                p_oper,
                v_fkfs,
                0,
                null,
-               p_pid,
+               v_pid,
                v_remainafter);
       end loop;
     end if;
@@ -67,7 +106,6 @@
   exception
     when others then
       rollback;
-      raise_application_error(errcode, sqlerrm);
   end;
   
   

@@ -81,7 +81,8 @@
   memo17      VARCHAR2(600),
   memo18      VARCHAR2(600),
   memo19      VARCHAR2(600),
-  memo20      VARCHAR2(600)
+  memo20      VARCHAR2(600),
+  cply        VARCHAR2(10)
 )
 ;
 comment on table PJ_INV_INFO
@@ -250,4 +251,6 @@ comment on column PJ_INV_INFO.memo19
   is '备注19';
 comment on column PJ_INV_INFO.memo20
   is '备注20';
+comment on column PJ_INV_INFO.cply
+  is '出票来源  SMSF 上门收费  BJSF 补缴收费';
 

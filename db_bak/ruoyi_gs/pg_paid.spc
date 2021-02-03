@@ -23,18 +23,34 @@
   paytrans_工程款 constant char(1) := 'G'; --工程款
   paytrans_价差   constant char(1) := 'J'; --价差
   paytrans_水损   constant char(1) := 'K'; --水损
-  
+
   /*  
-  --上门收费销账
-  p_pjid 票据编码
+  --按票据销账 批量
+  p_pjida         票据编码,多个票据按逗号分隔
+  p_cply          出票来源：SMSF 上门收费 BJSF 补缴收费
   p_oper          销帐员，柜台缴费时销帐人员与收款员统一
   p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
   p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
   p_pid           返回交易流水号
   */
-  procedure poscustforys_smsf(p_pjid varchar2,
+  procedure poscustforys_pj_pl(p_pjids varchar2,
+             p_cply     varchar2,
+             p_oper     varchar2,
+             o_log      out varchar2);
+             
+  /*  
+  --按票据销账
+  p_pjid          票据编码
+  p_cply          出票来源：SMSF 上门收费 BJSF 补缴收费
+  p_oper          销帐员，柜台缴费时销帐人员与收款员统一
+  p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
+  p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
+  p_pid           返回交易流水号
+  */
+  procedure poscustforys_pj(p_pjid varchar2,
+             p_cply     varchar2,
              p_oper     in varchar2,
-             p_pid      out varchar2);
+             o_log      out varchar2);
              
   --缴费入口
   /*

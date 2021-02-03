@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@221.212.191.142:32771/ORCL
-prompt Created by xss on 2021年2月1日
+prompt Created by xss on 2021年2月3日
 set define off
 spool ruoyi_gs.log
 
@@ -463,6 +463,11 @@ prompt Creating table REQUEST_PJXX
 prompt ===========================
 prompt
 @@request_pjxx.tab
+prompt
+prompt Creating table REQUEST_QYDZ
+prompt ===========================
+prompt
+@@request_qydz.tab
 prompt
 prompt Creating table REQUEST_SBDA
 prompt ===========================
@@ -1158,11 +1163,6 @@ prompt Creating package PG_UPDATE
 prompt ==========================
 prompt
 @@pg_update.spc
-prompt
-prompt Creating package PG_USER
-prompt ========================
-prompt
-@@pg_user.spc
 prompt
 prompt Creating package TOOLS
 prompt ======================

@@ -664,6 +664,7 @@
       rl.rlscrrlmonth   := rl.rlmonth; --原应收帐月份
       rl.rlscrrldate    := rl.rldate; --原应收帐日期
       rl.rlifstep       := mr.mrifstep; --是否纳入阶梯,数据来源：追量收费表request_zlsf
+      rl.rldatasource   := mr.mrdatasource;--来源(1-手工,5-抄表器,9-手机抄表,K-故障换表,L-周期换表,Z-追量  I-智能表接口，6-视频直读，7-集抄)
       /*
       begin
         select nvl(sum(nvl(rlje, 0) - nvl(rlpaidje, 0)), 0)
@@ -1044,6 +1045,7 @@
       rl.rlscrrlmonth   := rl.rlmonth; --原应收帐月份
       rl.rlscrrldate    := rl.rldate; --原应收帐日期
       rl.rlifstep       := mr.mrifstep; --是否纳入阶梯,数据来源：追量收费表request_zlsf
+      rl.rldatasource   := mr.mrdatasource;--来源(1-手工,5-抄表器,9-手机抄表,K-故障换表,L-周期换表,Z-追量  I-智能表接口，6-视频直读，7-集抄)
       /*
       begin
         select nvl(sum(nvl(rlje, 0) - nvl(rlpaidje, 0)), 0)
