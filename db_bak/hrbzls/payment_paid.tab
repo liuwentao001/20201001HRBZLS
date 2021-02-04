@@ -1,0 +1,28 @@
+create table HRBZLS.PAYMENT_PAID
+(
+  ppmid     VARCHAR2(10) not null,
+  ppid      VARCHAR2(10) not null,
+  ppmiiftax CHAR(1) default 'N',
+  ppfid     VARCHAR2(10),
+  ppje      NUMBER(12,2),
+  ppdj      NUMBER(12,2),
+  ppsfdj    NUMBER(12,2),
+  ppwsfdj   NUMBER(12,2),
+  ppfjfdj   NUMBER(12,2),
+  ppsl      NUMBER,
+  pprcode   NUMBER(10),
+  ppprint   CHAR(1) default 'N',
+  ppcharge  VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

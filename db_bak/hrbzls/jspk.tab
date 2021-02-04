@@ -1,0 +1,25 @@
+create table HRBZLS.JSPK
+(
+  "Col001" NUMBER(10),
+  "Col002" NUMBER(10),
+  "Col003" VARCHAR2(64),
+  "Col004" VARCHAR2(32),
+  "Col005" VARCHAR2(64),
+  "Col006" NUMBER(12,2),
+  "Col007" NUMBER(12,2),
+  "Col008" NUMBER(12,2),
+  "Col009" NUMBER(10),
+  "Col010" VARCHAR2(32)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

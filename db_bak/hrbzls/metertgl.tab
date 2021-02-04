@@ -1,0 +1,50 @@
+create table HRBZLS.METERTGL
+(
+  mtsid      VARCHAR2(32) not null,
+  mtmid      VARCHAR2(10) not null,
+  mtsyscode  NUMBER(10),
+  mtrealcode NUMBER(10),
+  mtcurcode  NUMBER(10),
+  mttgl      NUMBER(10),
+  mtstatus   CHAR(1),
+  mtbillno   VARCHAR2(10),
+  mtscrper   VARCHAR2(10),
+  mtscrdate  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.METERTGL.mtsid
+  is '序号';
+comment on column HRBZLS.METERTGL.mtmid
+  is '用户号';
+comment on column HRBZLS.METERTGL.mtsyscode
+  is '系统读数（等针，维护时的系统指针）';
+comment on column HRBZLS.METERTGL.mtrealcode
+  is '实际读数';
+comment on column HRBZLS.METERTGL.mtcurcode
+  is '当前读数（初始化为实际读数，每次抄表时更新）';
+comment on column HRBZLS.METERTGL.mttgl
+  is '推估量（=系统读数-实际读数）';
+comment on column HRBZLS.METERTGL.mtstatus
+  is '有效标志（当等针结束即当前读数大于等于系统读数时置为N）';
+comment on column HRBZLS.METERTGL.mtbillno
+  is '单据流水';
+comment on column HRBZLS.METERTGL.mtscrper
+  is '创建人员';
+comment on column HRBZLS.METERTGL.mtscrdate
+  is '创建时间';
+create index HRBZLS.IDX_METERTGL_01 on HRBZLS.METERTGL (MTMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.METERTGL
+  add constraint PK_METERTGL primary key (MTSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

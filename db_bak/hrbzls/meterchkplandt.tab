@@ -1,0 +1,57 @@
+create table HRBZLS.METERCHKPLANDT
+(
+  mcpdno      VARCHAR2(10) not null,
+  mcpdrowno   NUMBER(6) not null,
+  mcpdcid     VARCHAR2(10),
+  mcpdmid     VARCHAR2(10),
+  mcpdccode   VARCHAR2(10),
+  mcpdmno     VARCHAR2(20),
+  mcpdmonth   INTEGER,
+  mcpdinsdate DATE,
+  mcpdmemo    VARCHAR2(60),
+  mcpdcaliber VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERCHKPLANDT
+  is '周检计划明细【MCPD】';
+comment on column HRBZLS.METERCHKPLANDT.mcpdno
+  is '计划流水号';
+comment on column HRBZLS.METERCHKPLANDT.mcpdrowno
+  is '明细序号';
+comment on column HRBZLS.METERCHKPLANDT.mcpdcid
+  is '用户编号';
+comment on column HRBZLS.METERCHKPLANDT.mcpdmid
+  is '水表编号';
+comment on column HRBZLS.METERCHKPLANDT.mcpdccode
+  is '用户号';
+comment on column HRBZLS.METERCHKPLANDT.mcpdmno
+  is '表身号';
+comment on column HRBZLS.METERCHKPLANDT.mcpdmonth
+  is '到检月';
+comment on column HRBZLS.METERCHKPLANDT.mcpdinsdate
+  is '安装日期';
+comment on column HRBZLS.METERCHKPLANDT.mcpdmemo
+  is '备注';
+comment on column HRBZLS.METERCHKPLANDT.mcpdcaliber
+  is '口径';
+create index HRBZLS.IDX_MCPDCID on HRBZLS.METERCHKPLANDT (MCPDCID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MCPDMID on HRBZLS.METERCHKPLANDT (MCPDMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.METERCHKPLANDT
+  add constraint PK_METERCHKPLANDT primary key (MCPDNO, MCPDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

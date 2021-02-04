@@ -1,0 +1,30 @@
+create table HRBZLS.REPORT_CHINESE_TO_ENGLISH
+(
+  name_chinese      VARCHAR2(36) not null,
+  name_english      VARCHAR2(36) not null,
+  name_chinese_func VARCHAR2(36) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.REPORT_CHINESE_TO_ENGLISH_X on HRBZLS.REPORT_CHINESE_TO_ENGLISH (NAME_CHINESE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

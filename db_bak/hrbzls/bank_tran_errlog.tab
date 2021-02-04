@@ -1,0 +1,31 @@
+create table HRBZLS.BANK_TRAN_ERRLOG
+(
+  trancode  VARCHAR2(10),
+  bankid    VARCHAR2(10),
+  tran_time DATE,
+  pkg_req   VARCHAR2(4000),
+  pkg_ans   VARCHAR2(4000),
+  errcode   VARCHAR2(100),
+  errtext   VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BANK_TRAN_ERRLOG
+  is '银行交易异常捕获';
+comment on column HRBZLS.BANK_TRAN_ERRLOG.trancode
+  is '交易码';
+comment on column HRBZLS.BANK_TRAN_ERRLOG.bankid
+  is '银行代码';
+comment on column HRBZLS.BANK_TRAN_ERRLOG.tran_time
+  is '交易时间';
+comment on column HRBZLS.BANK_TRAN_ERRLOG.pkg_req
+  is '请求包';
+comment on column HRBZLS.BANK_TRAN_ERRLOG.pkg_ans
+  is '响应包';
+comment on column HRBZLS.BANK_TRAN_ERRLOG.errcode
+  is '异常号';
+comment on column HRBZLS.BANK_TRAN_ERRLOG.errtext
+  is '异常内容';
+

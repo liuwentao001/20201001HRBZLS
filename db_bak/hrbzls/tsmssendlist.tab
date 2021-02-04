@@ -1,0 +1,29 @@
+create table HRBZLS.TSMSSENDLIST
+(
+  tmlid      NUMBER,
+  tmlname    VARCHAR2(30),
+  tmlexplain VARCHAR2(100),
+  tmlflage   VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TSMSSENDLIST
+  is '短信模版类别';
+comment on column HRBZLS.TSMSSENDLIST.tmlid
+  is '模版类别编号';
+comment on column HRBZLS.TSMSSENDLIST.tmlname
+  is '模版类别名称';
+comment on column HRBZLS.TSMSSENDLIST.tmlexplain
+  is '模版类别说明';
+comment on column HRBZLS.TSMSSENDLIST.tmlflage
+  is '状态';
+

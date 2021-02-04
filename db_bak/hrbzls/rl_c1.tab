@@ -1,0 +1,52 @@
+create table HRBZLS.RL_C1
+(
+  rlid           VARCHAR2(10),
+  rlsmfid        VARCHAR2(10),
+  rlmonth        VARCHAR2(7),
+  rldate         DATE,
+  rlcid          VARCHAR2(10),
+  rlmid          VARCHAR2(10),
+  rlmsmfid       VARCHAR2(10),
+  rlcsmfid       VARCHAR2(10),
+  rlccode        VARCHAR2(10),
+  rlentrustbatch VARCHAR2(10),
+  rlentrustseqno VARCHAR2(10),
+  rloutflag      CHAR(1),
+  rltrans        CHAR(1),
+  rlcd           CHAR(2),
+  rlscrrlid      VARCHAR2(10),
+  rlscrrltrans   CHAR(1),
+  rlscrrlmonth   VARCHAR2(7),
+  rlpaidje       NUMBER(13,3),
+  rlpaidflag     CHAR(1),
+  rlpaidper      VARCHAR2(20),
+  rlpaiddate     DATE,
+  rlmrid         VARCHAR2(100),
+  rlmemo         VARCHAR2(200),
+  rlznj          NUMBER(13,3),
+  rllb           CHAR(1),
+  rlcname2       VARCHAR2(64),
+  rlpfid         VARCHAR2(10),
+  rldatetime     DATE,
+  rlscrrldate    DATE,
+  rlprimcode     VARCHAR2(200),
+  rlpriflag      CHAR(1),
+  rlrper         VARCHAR2(10),
+  rlsafid        VARCHAR2(10),
+  rlscodechar    VARCHAR2(10),
+  rlecodechar    VARCHAR2(10),
+  rlilid         VARCHAR2(40),
+  rlmiuiid       VARCHAR2(10),
+  rlgroup        NUMBER(2),
+  rlpid          VARCHAR2(10),
+  rlpbatch       VARCHAR2(10),
+  rlsavingqc     NUMBER(12,2),
+  rlsavingbq     NUMBER(12,2),
+  rlreverseflag  VARCHAR2(1),
+  rlbadflag      VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

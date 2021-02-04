@@ -1,0 +1,7 @@
+create sequence HRBZLS.VBZ$REP_OBJ_ID_SEQ
+minvalue 1
+maxvalue 1000000000000000000000000000
+start with 21
+increment by 1
+cache 50;
+

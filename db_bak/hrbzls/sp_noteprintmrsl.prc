@@ -1,0 +1,160 @@
+CREATE OR REPLACE PROCEDURE HRBZLS."SP_NOTEPRINTMRSL" (o_base out tools.out_base) is
+begin
+  open o_base for
+    SELECT MAX(X.MICODE),
+           MAX(X.MISEQNO),
+           MAX(X.CBR),
+           MAX(X.CINAME),
+           MAX(X.CIADR),
+           MAX(X.SCTNAME),
+           MAX(X.BW),
+           MAX(X.RLECODECHAR),
+           MAX(X.RLREADSL),
+           MAX(X.MRSCODECHAR),
+           MAX(X.PRICE),
+           MAX(X.RLJE),
+           MAX(X.ZH),
+           MAX(X.ITPROPERTY5),
+           MAX(X.YE),
+           MAX(X.SCQF),
+           MAX(X.ZQF),
+           MAX(X.C3),
+           MAX(MRBFID),
+           MAX(MDNO),
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL,
+           NULL
+      FROM (SELECT MR.MRID,
+                   MI.MICODE,
+                   MI.MISEQNO,
+                   TO_CHAR(MCH.MRBSDATE, 'YYYY-MM-DD') AS CBR,
+                   CI.CINAME,
+                   CI.CIADR,
+                   SCT.SCTNAME,
+                   DECODE(TRIM(SH.SCLVALUE),
+                          NULL,
+                          NULL,
+                          'BW:' || SH.SCLVALUE) as BW,
+                   DECODE(RL.RLCD,
+                          NULL,
+                          RL.RLECODECHAR,
+                          'DE',
+                          DECODE(RL.RLTRANS,
+                                 '1',
+                                 DECODE(RL.RLPAIDFLAG,
+                                        'X',
+                                        NULL,
+                                        RL.RLECODECHAR),
+                                 NULL),
+                          NULL) AS RLECODECHAR,
+                   DECODE(RL.RLCD,
+                          NULL,
+                          RL.RLREADSL,
+                          'DE',
+                          DECODE(RL.RLTRANS,
+                                 '1',
+                                 DECODE(RL.RLPAIDFLAG, 'X', NULL, RL.RLREADSL),
+                                 NULL),
+                          NULL) AS RLREADSL,
+                   MR.MRSCODECHAR,
+                   P.PRICE,
+                   DECODE(RL.RLCD,
+                          NULL,
+                          TRIM(TO_CHAR(RL.RLJE, '999999999990.00')),
+                          'DE',
+                          DECODE(RL.RLTRANS,
+                                 '1',
+                                 DECODE(RL.RLPAIDFLAG,
+                                        'X',
+                                        NULL,
+                                        TRIM(TO_CHAR(RL.RLJE, '999999999990.00'))),
+                                 NULL),
+                          NULL) AS RLJE,
+                   DECODE(TRIM(MC.MAACCOUNTNO),
+                          NULL,
+                          NULL,
+                          '帐号：' || SUBSTR(MC.MAACCOUNTNO, 1, 7) || '*****' ||
+                          SUBSTR(MC.MAACCOUNTNO,
+                                 LENGTH(MC.MAACCOUNTNO) - 2,
+                                 3)) as ZH,
+                   '您户属于' ||
+                   fgetsysmanaframe(fgetmeterinfo(mi.miid, 'MISMFID')) || ',' ||
+                   IT.ITPROPERTY5 ITPROPERTY5,
+                   DECODE(MI.MISAVING,
+                          0,
+                          NULL,
+                          '预存余额为：' ||
+                          TRIM(TO_CHAR(MI.MISAVING, '99999999990.00'))) AS YE,
+                   TRIM(TO_CHAR(FGETRECMONEY_SY(MI.MIID, MR.MRMONTH),
+                                '999999999990.00')) AS SCQF,
+                   FGETRECQFMONEY_SY(MI.MIID,RL.RLMONTH) AS ZQF,
+                   PP.C3,
+                   MR.MRBFID,
+                   '表号：' || MD.MDNO AS MDNO
+              FROM METERREAD MR,
+                   METERINFO MI,
+                   CUSTINFO CI,
+                   SYSCHARGETYPE SCT,
+                   RECLIST RL,
+                   (SELECT * FROM SYSCHARLIST t WHERE T.SCLTYPE = ' 表位') SH,
+                   METERACCOUNT MC,
+                   INVOICETYPE IT,
+                   (SELECT PF.PFID,
+                           DECODE(PE.PDMETHOD,
+                                  'dj1',
+                                  to_char(PF.PFPRICE),
+                                  PM.PMNAME) AS PRICE
+                      FROM PRICEFRAME PF, PRICEDETAIL PE, PRICEMETHOD PM
+                     WHERE PF.PFID = PE.PDPFID
+                       AND PE.PDMETHOD = PM.PMID
+                       AND PE.PDPIID = '01') P,
+                   PBPARMTEMP PP,
+                   METERDOC MD,
+                   METERREADBATCH MCH
+             WHERE MR.MRMID = MI.MIID
+               AND MI.MICID = CI.CIID
+               AND MI.MICHARGETYPE = SCT.SCTID
+               AND MR.MRID = RL.RLMRID(+)
+               AND MI.MISIDE = SH.SCLID(+)
+               AND MI.MIID = MC.MAMID(+)
+               AND MI.MIPFID = P.PFID
+               AND IT.ITID = 'C'
+               AND MR.MRID = PP.C1
+               AND MR.MRBATCH = MCH.MRBBATCH
+               AND MR.MRSMFID = MCH.MRBSMFID
+               AND MR.MRMID = MD.MDMID) X
+     GROUP BY X.MRID
+     ORDER BY MAX(X.C3);
+end;
+/
+

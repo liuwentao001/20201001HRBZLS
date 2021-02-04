@@ -1,0 +1,23 @@
+create table HRBZLS.MLOG$_METERINFO2
+(
+  m_row$$         VARCHAR2(255),
+  snaptime$$      DATE,
+  dmltype$$       VARCHAR2(1),
+  old_new$$       VARCHAR2(1),
+  change_vector$$ RAW(255),
+  xid$$           NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MLOG$_METERINFO2
+  is 'snapshot log for master table HRBZLS.METERINFO';
+

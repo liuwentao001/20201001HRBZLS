@@ -1,0 +1,26 @@
+create table HRBZLS.METERINFO_IMG
+(
+  micode  VARCHAR2(10) not null,
+  miorder INTEGER not null,
+  miimg   BLOB
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERINFO_IMG
+  is '¿¼ºË±íCADÍ¼';
+comment on column HRBZLS.METERINFO_IMG.micode
+  is '¿Í»§´úÂë';
+comment on column HRBZLS.METERINFO_IMG.miorder
+  is 'Í¼Æ¬ÐòºÅ';
+comment on column HRBZLS.METERINFO_IMG.miimg
+  is 'Í¼Æ¬';
+alter table HRBZLS.METERINFO_IMG
+  add constraint PK_MIIMG primary key (MICODE, MIORDER)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,43 @@
+create table HRBZLS.SYSUPDATEINFO
+(
+  sys        VARCHAR2(20) not null,
+  oper       VARCHAR2(20),
+  updateinfo VARCHAR2(2000),
+  suedition  VARCHAR2(14)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSUPDATEINFO
+  is '程序更新信息';
+comment on column HRBZLS.SYSUPDATEINFO.sys
+  is '系统';
+comment on column HRBZLS.SYSUPDATEINFO.oper
+  is '上传人员';
+comment on column HRBZLS.SYSUPDATEINFO.updateinfo
+  is '更新信息';
+comment on column HRBZLS.SYSUPDATEINFO.suedition
+  is '版本信息';
+alter table HRBZLS.SYSUPDATEINFO
+  add constraint PK_PRIMARY primary key (SYS)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,61 @@
+create table HRBZLS.RESOUSEINFO
+(
+  resouseid   INTEGER not null,
+  guideid     INTEGER,
+  videopath   VARCHAR2(60),
+  videoinfo   VARCHAR2(50),
+  imgpath     VARCHAR2(40),
+  textinfo    VARCHAR2(20),
+  infotitle   VARCHAR2(50),
+  infocontent LONG,
+  styletype   INTEGER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RESOUSEINFO
+  is '资源信息表';
+comment on column HRBZLS.RESOUSEINFO.resouseid
+  is '资源id';
+comment on column HRBZLS.RESOUSEINFO.guideid
+  is '指南id';
+comment on column HRBZLS.RESOUSEINFO.videopath
+  is '视频地址';
+comment on column HRBZLS.RESOUSEINFO.videoinfo
+  is '视频说明';
+comment on column HRBZLS.RESOUSEINFO.imgpath
+  is '图片路径';
+comment on column HRBZLS.RESOUSEINFO.textinfo
+  is '文字说明';
+comment on column HRBZLS.RESOUSEINFO.infotitle
+  is '信息标题';
+comment on column HRBZLS.RESOUSEINFO.infocontent
+  is '信息内容';
+comment on column HRBZLS.RESOUSEINFO.styletype
+  is '资源类型';
+alter table HRBZLS.RESOUSEINFO
+  add constraint PK_RESOUSEINFO primary key (RESOUSEID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.RESOUSEINFO
+  add constraint FK_RESOUSEI_REFERENCE_SERVEGUI foreign key (GUIDEID)
+  references HRBZLS.SERVEGUIDE (GUIDEID);
+

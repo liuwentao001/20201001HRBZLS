@@ -1,0 +1,201 @@
+create table HRBZLS.STPAYMENTCWDZREGHD
+(
+  hno       VARCHAR2(10),
+  hbh       VARCHAR2(10),
+  hlb       CHAR(1),
+  hsource   CHAR(1),
+  hsmfid    VARCHAR2(10),
+  hdept     VARCHAR2(10),
+  hedate    DATE,
+  heper     VARCHAR2(10),
+  hshdate   DATE,
+  hshper    VARCHAR2(10),
+  hshflag   CHAR(1),
+  hcount    NUMBER(10),
+  hje       NUMBER(15,3),
+  hdzcount  NUMBER(10),
+  hmemo     VARCHAR2(200),
+  hqc       NUMBER(15,3),
+  hfs       NUMBER(15,3),
+  hqm       NUMBER(15,3),
+  hsf       NUMBER(15,3),
+  hwsf      NUMBER(15,3),
+  hljf      NUMBER(15,3),
+  hznj      NUMBER(15,3),
+  hfpsl     NUMBER(10),
+  hxjje     NUMBER(15,3),
+  hzpje     NUMBER(15,3),
+  hcolumn1  NUMBER(15,3),
+  hcolumn2  NUMBER(15,3),
+  hcolumn3  NUMBER(15,3),
+  hcolumn4  NUMBER(15,3),
+  hcolumn5  NUMBER(15,3),
+  hcolumn6  NUMBER(15,3),
+  hcolumn7  NUMBER(15,3),
+  hcolumn8  NUMBER(15,3),
+  hcolumn9  NUMBER(15,3),
+  hcolumn10 NUMBER(15,3),
+  hcolumn11 NUMBER(15,3),
+  hcolumn12 NUMBER(15,3),
+  hcolumn13 NUMBER(15,3),
+  hcolumn14 NUMBER(15,3),
+  hcolumn15 NUMBER(15,3),
+  hcolumn16 NUMBER(15,3),
+  hcolumn17 NUMBER(15,3),
+  hcolumn18 NUMBER(15,3),
+  hcolumn19 NUMBER(15,3),
+  hcolumn20 NUMBER(15,3),
+  hcolumn21 NUMBER(15,3),
+  hcolumn22 NUMBER(15,3),
+  hcolumn23 NUMBER(15,3),
+  hcolumn24 NUMBER(15,3),
+  hcolumn25 NUMBER(15,3),
+  hcolumn26 NUMBER(15,3),
+  hcolumn27 NUMBER(15,3),
+  hcolumn28 NUMBER(15,3),
+  hcolumn29 NUMBER(15,3),
+  hcolumn30 NUMBER(15,3),
+  hcolumn31 NUMBER(15,3),
+  hcolumn32 NUMBER(15,3),
+  hcolumn33 NUMBER(15,3),
+  hcolumn34 NUMBER(15,3),
+  hcolumn35 NUMBER(15,3),
+  hcolumn36 NUMBER(15,3),
+  hcolumn37 NUMBER(15,3)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hno
+  is '单据流水号';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hbh
+  is '单据编号';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hlb
+  is '单据类别';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hsource
+  is '单据来源';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hsmfid
+  is '营销公司';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hdept
+  is '立户部门';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hedate
+  is '创建日期';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.heper
+  is '创建人员';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hshdate
+  is '审核日期';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hshper
+  is '审核人员';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hshflag
+  is '审核标志';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcount
+  is '收款总笔数（=现金总笔数+支票总笔数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hje
+  is '收款总金额（=现金总金额+支票总金额+倒存总金额+抹账总金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hdzcount
+  is '对帐单张数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hmemo
+  is '备注';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hqc
+  is '期初预存';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hfs
+  is '预存发生';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hqm
+  is '期末预存';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hsf
+  is '水费';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hwsf
+  is '污水费';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hljf
+  is '垃圾费';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hznj
+  is '违约金';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hfpsl
+  is '票据张数（=有效发票数+作废发票数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hxjje
+  is '现金总金额（=现金实际金额+现金冲正金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hzpje
+  is '支票总金额（=支票实际金额+支票冲正金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn1
+  is '现金实际金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn2
+  is '现金冲正金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn3
+  is '支票实际金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn4
+  is '支票冲正金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn5
+  is '违约金笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn6
+  is '手续费笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn7
+  is '手续费';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn8
+  is '现金总笔数（=现金实际笔数-现金冲正笔数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn9
+  is '支票总笔数（=支票实际笔数-支票冲正笔数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn10
+  is '现金实际笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn11
+  is '现金冲正笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn12
+  is '支票实际笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn13
+  is '支票冲正笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn14
+  is '实际总笔数（=现金实际笔数+支票实际笔数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn15
+  is '实际总金额（=现金实际金额+支票实际金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn16
+  is '冲正总笔数（=现金冲正笔数+支票冲正笔数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn17
+  is '冲正总金额（=现金冲正金额+支票冲正金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn18
+  is '有效发票数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn19
+  is '作废发票数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn20
+  is '倒存总笔数（=倒存实际总笔数-倒存冲正总笔数） ';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn21
+  is '倒存实际总笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn22
+  is '倒存冲正总笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn23
+  is '倒存总金额（=倒存实际总金额-倒存冲正总金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn24
+  is '倒存实际总金额 ';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn25
+  is '倒存冲正总金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn26
+  is '抹账总笔数（=抹账实际总笔数-抹账冲正总笔数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn27
+  is '抹账实际总笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn28
+  is '抹账冲正总笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn29
+  is '抹账总金额（=抹账实际总金额-抹账冲正总金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn30
+  is '抹账实际总金额 ';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn31
+  is '抹账冲正总金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn32
+  is 'POS总金额（=POS实际金额+POS冲正金额）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn33
+  is 'POS实际金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn34
+  is 'POS冲正金额';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn35
+  is 'POS总笔数（=POS实际笔数-POS冲正笔数）';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn36
+  is 'POS实际笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGHD.hcolumn37
+  is 'POS冲正笔数';
+

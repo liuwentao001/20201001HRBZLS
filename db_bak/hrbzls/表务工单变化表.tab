@@ -1,0 +1,39 @@
+create table HRBZLS.表务工单变化表
+(
+  营业公司 VARCHAR2(4) not null,
+  月份   VARCHAR2(7) not null,
+  用水性质 VARCHAR2(10) not null,
+  合户   NUMBER default 0,
+  销户拆表 NUMBER default 0,
+  污水超标 NUMBER default 0,
+  总表收免 NUMBER default 0,
+  故障换表 NUMBER default 0,
+  周期换表 NUMBER default 0,
+  表故障  NUMBER default 0
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.表务工单变化表
+  add constraint PRI_表务工单 primary key (营业公司, 月份, 用水性质)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

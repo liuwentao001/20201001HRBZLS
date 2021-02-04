@@ -1,0 +1,33 @@
+create table HRBZLS.FUNCTION_NAME_COPY
+(
+  category     CHAR(20) not null,
+  functionname CHAR(20) not null,
+  syntax       CHAR(100),
+  help         CHAR(255),
+  e_sytax      CHAR(100),
+  e_help       CHAR(255)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.FUNCTION_NAME_X on HRBZLS.FUNCTION_NAME_COPY (CATEGORY, FUNCTIONNAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

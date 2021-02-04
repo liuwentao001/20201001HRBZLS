@@ -1,0 +1,37 @@
+create table HRBZLS.METERCALIBER
+(
+  mcid   NUMBER(10) not null,
+  mcname VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERCALIBER
+  is '口径【MC】';
+comment on column HRBZLS.METERCALIBER.mcid
+  is '口径值';
+comment on column HRBZLS.METERCALIBER.mcname
+  is '口径名称';
+alter table HRBZLS.METERCALIBER
+  add constraint PK_METERCALIBER primary key (MCID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

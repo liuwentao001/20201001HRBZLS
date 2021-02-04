@@ -1,0 +1,83 @@
+create global temporary table HRBZLS.INV_EINVOICE_DETAIL
+(
+  idid    VARCHAR2(32) not null,
+  line    NUMBER not null,
+  xmmc    VARCHAR2(200) not null,
+  xmdw    VARCHAR2(100),
+  ggxh    VARCHAR2(200),
+  xmsl    VARCHAR2(24),
+  hsbz    VARCHAR2(1) not null,
+  fphxz   VARCHAR2(1),
+  xmdj    VARCHAR2(24),
+  spbm    VARCHAR2(19) not null,
+  zxbm    VARCHAR2(20),
+  yhzcbs  VARCHAR2(1),
+  lslbs   VARCHAR2(1),
+  zzstsgl VARCHAR2(50),
+  xmje    NUMBER not null,
+  sl      VARCHAR2(10) not null,
+  se      NUMBER,
+  byzd1   VARCHAR2(100),
+  byzd2   VARCHAR2(100),
+  byzd3   VARCHAR2(100),
+  byzd4   VARCHAR2(100),
+  byzd5   VARCHAR2(100),
+  jshj    NUMBER,
+  kce     NUMBER
+)
+on commit delete rows;
+comment on table HRBZLS.INV_EINVOICE_DETAIL
+  is '易维云平台电子发票';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.idid
+  is '流水号，对应INV_EINVOICE.ICID';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.line
+  is '行号';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.xmmc
+  is '项目名称，如FPHXZ=1，则此商品行为折扣行，此版本折扣行不允许多行折扣，折扣行必须紧邻被折扣行，项目名称必须与被折扣行一致';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.xmdw
+  is '项目单位';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.ggxh
+  is '规格型号';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.xmsl
+  is '项目数量，小数点后8位, 小数点后都是0时，PDF上只显示整数';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.hsbz
+  is '含税标志，表示项目单价和项目金额是否含税。0表示都不含税，1表示都含税';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.fphxz
+  is '发票行性质，0正常行、1折扣行、2被折扣行';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.xmdj
+  is '项目单价，小数点后8位小数点后都是0时，PDF
+13
+上只显示2位小数；否则只显示至最后一位不为0的数字';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.spbm
+  is '商品编码';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.zxbm
+  is '自行编码';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.yhzcbs
+  is '优惠政策标识，0：不使用，1：使用';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.lslbs
+  is '零税率标识，空：非零税率， 1：免税，2：不征税，3普通零税率';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.zzstsgl
+  is '增值税特殊管理，当YHZCBS为1时必填';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.xmje
+  is '项目金额，小数点后2位，以元为单位精确到分。 等于=单价*数量，根据含税标志，确定此金额是否为含税金额';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.sl
+  is '税率，如果税率为0，表示免税';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.se
+  is '税额，小数点后2位，以元为单位精确到分';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.byzd1
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.byzd2
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.byzd3
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.byzd4
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.byzd5
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.jshj
+  is '价税合计金额';
+comment on column HRBZLS.INV_EINVOICE_DETAIL.kce
+  is '扣除额';
+alter table HRBZLS.INV_EINVOICE_DETAIL
+  add constraint PK_INV_EINVOICE_DETAIL primary key (IDID, LINE);
+

@@ -1,0 +1,23 @@
+create table HRBZLS.RPT_SHOWTYPE
+(
+  stid   VARCHAR2(32) not null,
+  stname VARCHAR2(32) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RPT_SHOWTYPE
+  is '报表展现类型';
+comment on column HRBZLS.RPT_SHOWTYPE.stid
+  is '类型ID';
+comment on column HRBZLS.RPT_SHOWTYPE.stname
+  is '类型名称';
+

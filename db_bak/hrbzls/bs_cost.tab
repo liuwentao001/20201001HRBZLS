@@ -1,0 +1,38 @@
+create table HRBZLS.BS_COST
+(
+  mrid     VARCHAR2(10) not null,
+  mrsmfid  VARCHAR2(10),
+  mrbfid   VARCHAR2(10),
+  mrmid    VARCHAR2(10),
+  costno   VARCHAR2(50),
+  costper  VARCHAR2(10),
+  costdate DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 320K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BS_COST
+  is '算费提交记录';
+comment on column HRBZLS.BS_COST.mrid
+  is '抄表流水号';
+comment on column HRBZLS.BS_COST.mrsmfid
+  is '营销公司';
+comment on column HRBZLS.BS_COST.mrbfid
+  is '表册(bookframe)';
+comment on column HRBZLS.BS_COST.mrmid
+  is '水表编号';
+comment on column HRBZLS.BS_COST.costno
+  is '提交流水';
+comment on column HRBZLS.BS_COST.costper
+  is '提交人';
+comment on column HRBZLS.BS_COST.costdate
+  is '提交日期';
+

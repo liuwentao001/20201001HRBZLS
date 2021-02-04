@@ -1,0 +1,43 @@
+create table HRBZLS.RPT_HRBZLS_RLCHARGENEW20190802
+(
+  rlsmfid       VARCHAR2(10) not null,
+  rlmonth       VARCHAR2(7) not null,
+  rlrfname      VARCHAR2(30) not null,
+  rltype        VARCHAR2(30) not null,
+  rlnum         NUMBER,
+  rlsl          NUMBER,
+  rlnummc       NUMBER,
+  rlslmc        NUMBER,
+  rlwsnum       NUMBER,
+  rlwsl         NUMBER,
+  rlwsnummc     NUMBER,
+  rlwslmc       NUMBER,
+  rljsdj        NUMBER(12,3),
+  rljsje        NUMBER(12,3),
+  rlwsdj        NUMBER(12,3),
+  rlwsje        NUMBER(12,3),
+  rlfjdj        NUMBER(12,3),
+  rlfjje        NUMBER(12,3),
+  rlifstore     VARCHAR2(1),
+  rlsmslb       NUMBER,
+  rlsmslr       NUMBER,
+  rlslbnum      NUMBER,
+  rlslsnum      NUMBER,
+  rlsmswsb      NUMBER,
+  rlsmswsr      NUMBER,
+  rlwsbnum      NUMBER,
+  rlwsrnum      NUMBER,
+  rlwatertype_b CHAR(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

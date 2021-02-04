@@ -1,0 +1,263 @@
+create table HRBZLS.METERINFOSTATIC
+(
+  mistaticdate  DATE not null,
+  micid         VARCHAR2(10),
+  miid          VARCHAR2(10) not null,
+  miadr         VARCHAR2(64),
+  misafid       VARCHAR2(10),
+  micode        VARCHAR2(10),
+  mismfid       VARCHAR2(10),
+  miprmon       VARCHAR2(7),
+  mirmon        VARCHAR2(7),
+  mibfid        VARCHAR2(10),
+  mirorder      NUMBER,
+  mipid         VARCHAR2(10),
+  miclass       NUMBER,
+  miflag        CHAR(1),
+  mirtid        CHAR(1),
+  miifmp        CHAR(1),
+  miifsp        CHAR(1),
+  mistid        VARCHAR2(10),
+  mipfid        VARCHAR2(10),
+  mistatus      VARCHAR2(2),
+  mistatusdate  DATE,
+  mistatustrans CHAR(1),
+  miface        VARCHAR2(2),
+  mirpid        VARCHAR2(3),
+  miside        VARCHAR2(100),
+  miposition    VARCHAR2(64),
+  miinscode     NUMBER(10),
+  miinsdate     DATE,
+  miinsper      VARCHAR2(64),
+  mireinscode   NUMBER(10),
+  mireinsdate   DATE,
+  mireinsper    VARCHAR2(64),
+  mitype        CHAR(1),
+  mircode       NUMBER(10),
+  mirecdate     DATE,
+  mirecsl       NUMBER(10),
+  miifcharge    CHAR(1),
+  miifsl        CHAR(1),
+  miifchk       CHAR(1),
+  miifwatch     CHAR(1),
+  miicno        VARCHAR2(40),
+  mimemo        VARCHAR2(120),
+  mipriid       VARCHAR2(10),
+  mipriflag     CHAR(1),
+  miusenum      NUMBER(4),
+  michargetype  CHAR(1),
+  misaving      NUMBER(13,3),
+  milb          CHAR(1),
+  minewflag     CHAR(1),
+  micper        VARCHAR2(10),
+  miiftax       CHAR(1),
+  mitaxno       VARCHAR2(20),
+  miuninscode   NUMBER(10),
+  miuninsdate   DATE,
+  miuninsper    VARCHAR2(64),
+  miface2       VARCHAR2(2),
+  miface3       VARCHAR2(2),
+  miface4       VARCHAR2(2),
+  mircodechar   VARCHAR2(10),
+  miifckf       CHAR(1),
+  migps         VARCHAR2(60),
+  miqfh         VARCHAR2(20),
+  mibox         VARCHAR2(10),
+  mijfkrow      NUMBER(10) default 1,
+  miname        VARCHAR2(64),
+  miname2       VARCHAR2(64),
+  miseqno       VARCHAR2(10),
+  minewdate     DATE,
+  misid         VARCHAR2(10) not null,
+  mistaticflag  CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERINFOSTATIC
+  is '户表信息【MI】';
+comment on column HRBZLS.METERINFOSTATIC.micid
+  is '用户编号';
+comment on column HRBZLS.METERINFOSTATIC.miid
+  is '水表编号';
+comment on column HRBZLS.METERINFOSTATIC.miadr
+  is '表地址';
+comment on column HRBZLS.METERINFOSTATIC.misafid
+  is '区域';
+comment on column HRBZLS.METERINFOSTATIC.micode
+  is '客户代码';
+comment on column HRBZLS.METERINFOSTATIC.mismfid
+  is '营销公司';
+comment on column HRBZLS.METERINFOSTATIC.miprmon
+  is '上期抄表月份';
+comment on column HRBZLS.METERINFOSTATIC.mirmon
+  is '本期抄表月份';
+comment on column HRBZLS.METERINFOSTATIC.mibfid
+  is '表册';
+comment on column HRBZLS.METERINFOSTATIC.mirorder
+  is '抄表次序';
+comment on column HRBZLS.METERINFOSTATIC.mipid
+  is '上级水表编号';
+comment on column HRBZLS.METERINFOSTATIC.miclass
+  is '水表级次';
+comment on column HRBZLS.METERINFOSTATIC.miflag
+  is '末级标志';
+comment on column HRBZLS.METERINFOSTATIC.mirtid
+  is '抄表方式';
+comment on column HRBZLS.METERINFOSTATIC.miifmp
+  is '混合用水标志';
+comment on column HRBZLS.METERINFOSTATIC.miifsp
+  is '例外单价标志';
+comment on column HRBZLS.METERINFOSTATIC.mistid
+  is '行业分类';
+comment on column HRBZLS.METERINFOSTATIC.mipfid
+  is '价格分类';
+comment on column HRBZLS.METERINFOSTATIC.mistatus
+  is '有效状态';
+comment on column HRBZLS.METERINFOSTATIC.mistatusdate
+  is '状态日期';
+comment on column HRBZLS.METERINFOSTATIC.mistatustrans
+  is '状态表务';
+comment on column HRBZLS.METERINFOSTATIC.miface
+  is '水表故障';
+comment on column HRBZLS.METERINFOSTATIC.mirpid
+  is '计件类型';
+comment on column HRBZLS.METERINFOSTATIC.miside
+  is '表位';
+comment on column HRBZLS.METERINFOSTATIC.miposition
+  is '水表接水地址';
+comment on column HRBZLS.METERINFOSTATIC.miinscode
+  is '新装起度';
+comment on column HRBZLS.METERINFOSTATIC.miinsdate
+  is '装表日期';
+comment on column HRBZLS.METERINFOSTATIC.miinsper
+  is '安装人';
+comment on column HRBZLS.METERINFOSTATIC.mireinscode
+  is '换表起度';
+comment on column HRBZLS.METERINFOSTATIC.mireinsdate
+  is '换表日期';
+comment on column HRBZLS.METERINFOSTATIC.mireinsper
+  is '换表人';
+comment on column HRBZLS.METERINFOSTATIC.mitype
+  is '类型';
+comment on column HRBZLS.METERINFOSTATIC.mircode
+  is '本期读数';
+comment on column HRBZLS.METERINFOSTATIC.mirecdate
+  is '本期抄见日期';
+comment on column HRBZLS.METERINFOSTATIC.mirecsl
+  is '本期抄见水量';
+comment on column HRBZLS.METERINFOSTATIC.miifcharge
+  is '是否计费';
+comment on column HRBZLS.METERINFOSTATIC.miifsl
+  is '是否计量';
+comment on column HRBZLS.METERINFOSTATIC.miifchk
+  is '是否考核表';
+comment on column HRBZLS.METERINFOSTATIC.miifwatch
+  is '是否节水';
+comment on column HRBZLS.METERINFOSTATIC.miicno
+  is 'IC卡号';
+comment on column HRBZLS.METERINFOSTATIC.mimemo
+  is '备注信息';
+comment on column HRBZLS.METERINFOSTATIC.mipriid
+  is '合收表主表号';
+comment on column HRBZLS.METERINFOSTATIC.mipriflag
+  is '合收表标志';
+comment on column HRBZLS.METERINFOSTATIC.miusenum
+  is '户籍人数';
+comment on column HRBZLS.METERINFOSTATIC.michargetype
+  is '收费方式';
+comment on column HRBZLS.METERINFOSTATIC.misaving
+  is '预存款余额';
+comment on column HRBZLS.METERINFOSTATIC.milb
+  is '水表类别';
+comment on column HRBZLS.METERINFOSTATIC.minewflag
+  is '新表标志';
+comment on column HRBZLS.METERINFOSTATIC.micper
+  is '收费员';
+comment on column HRBZLS.METERINFOSTATIC.miiftax
+  is '是否税票';
+comment on column HRBZLS.METERINFOSTATIC.mitaxno
+  is '税号';
+comment on column HRBZLS.METERINFOSTATIC.miuninscode
+  is '拆表止度';
+comment on column HRBZLS.METERINFOSTATIC.miuninsdate
+  is '拆表日期';
+comment on column HRBZLS.METERINFOSTATIC.miuninsper
+  is '拆表人';
+comment on column HRBZLS.METERINFOSTATIC.miface2
+  is '抄见故障';
+comment on column HRBZLS.METERINFOSTATIC.miface3
+  is '非常计量';
+comment on column HRBZLS.METERINFOSTATIC.miface4
+  is '表井设施说明';
+comment on column HRBZLS.METERINFOSTATIC.mircodechar
+  is '本期读数';
+comment on column HRBZLS.METERINFOSTATIC.miifckf
+  is '是否磁控阀';
+comment on column HRBZLS.METERINFOSTATIC.migps
+  is 'GPS地址';
+comment on column HRBZLS.METERINFOSTATIC.miqfh
+  is '铅封号';
+comment on column HRBZLS.METERINFOSTATIC.mibox
+  is '表箱规格';
+comment on column HRBZLS.METERINFOSTATIC.mijfkrow
+  is '缴费卡打印行数';
+comment on column HRBZLS.METERINFOSTATIC.miname
+  is '票据名称';
+comment on column HRBZLS.METERINFOSTATIC.miname2
+  is '招牌名称';
+comment on column HRBZLS.METERINFOSTATIC.miseqno
+  is '户号（初始化时册号+序号）';
+comment on column HRBZLS.METERINFOSTATIC.minewdate
+  is '立户日期';
+comment on column HRBZLS.METERINFOSTATIC.misid
+  is 'static ID';
+comment on column HRBZLS.METERINFOSTATIC.mistaticflag
+  is '（立销户标志）0 立户，1销户';
+create index HRBZLS.IDX_MIS_MIID on HRBZLS.METERINFOSTATIC (MIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MIS_MISTATICDATE on HRBZLS.METERINFOSTATIC (MISTATICDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERINFOSTATIC
+  add constraint PK_MIS primary key (MISID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

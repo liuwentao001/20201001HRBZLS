@@ -1,0 +1,45 @@
+create global temporary table HRBZLS.TMP_CHECK_HS
+(
+  miid         VARCHAR2(10) not null,
+  miname       VARCHAR2(64),
+  miadr        VARCHAR2(64),
+  mismfid      VARCHAR2(10),
+  mipriflag    CHAR(1),
+  miiftax      CHAR(1),
+  michargetype CHAR(1),
+  mibfid       VARCHAR2(10),
+  mipfid       VARCHAR2(10),
+  level1       VARCHAR2(10),
+  mipriid      VARCHAR2(10),
+  miid_z       VARCHAR2(64),
+  miid_f       VARCHAR2(64),
+  c_1          NUMBER
+)
+on commit delete rows;
+comment on column HRBZLS.TMP_CHECK_HS.miid
+  is '水表号';
+comment on column HRBZLS.TMP_CHECK_HS.miname
+  is '用户名';
+comment on column HRBZLS.TMP_CHECK_HS.miadr
+  is '地址';
+comment on column HRBZLS.TMP_CHECK_HS.mismfid
+  is '营销公司';
+comment on column HRBZLS.TMP_CHECK_HS.mipriflag
+  is '合收标志';
+comment on column HRBZLS.TMP_CHECK_HS.miiftax
+  is '是否税票';
+comment on column HRBZLS.TMP_CHECK_HS.michargetype
+  is '收费类型';
+comment on column HRBZLS.TMP_CHECK_HS.mibfid
+  is '表册';
+comment on column HRBZLS.TMP_CHECK_HS.mipfid
+  is '水价类别';
+comment on column HRBZLS.TMP_CHECK_HS.level1
+  is '层级';
+comment on column HRBZLS.TMP_CHECK_HS.mipriid
+  is '合收表主表号';
+comment on column HRBZLS.TMP_CHECK_HS.miid_z
+  is '主表号';
+comment on column HRBZLS.TMP_CHECK_HS.miid_f
+  is '分表号';
+

@@ -1,0 +1,39 @@
+create table HRBZLS.OS_CURRENTSTEP
+(
+  id          NUMBER not null,
+  step_id     NUMBER,
+  action_id   NUMBER,
+  owner       VARCHAR2(10),
+  start_date  DATE,
+  finish_date DATE,
+  due_date    DATE,
+  status      VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_CURRENTSTEP
+  is '当前步骤';
+comment on column HRBZLS.OS_CURRENTSTEP.id
+  is '流水号';
+comment on column HRBZLS.OS_CURRENTSTEP.step_id
+  is '当前步骤';
+comment on column HRBZLS.OS_CURRENTSTEP.action_id
+  is '当前动作';
+comment on column HRBZLS.OS_CURRENTSTEP.owner
+  is '所有者';
+comment on column HRBZLS.OS_CURRENTSTEP.start_date
+  is '当前流程开始时间';
+comment on column HRBZLS.OS_CURRENTSTEP.finish_date
+  is '当前流程结束时间';
+comment on column HRBZLS.OS_CURRENTSTEP.status
+  is '当前流程状态';
+alter table HRBZLS.OS_CURRENTSTEP
+  add primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

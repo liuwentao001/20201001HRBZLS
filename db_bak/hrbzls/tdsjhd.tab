@@ -1,0 +1,130 @@
+create table HRBZLS.TDSJHD
+(
+  crhno      VARCHAR2(10) not null,
+  crhbh      VARCHAR2(10) not null,
+  crhlb      VARCHAR2(3),
+  crhsource  VARCHAR2(1),
+  crhsmfid   VARCHAR2(10),
+  crhdept    VARCHAR2(10),
+  crhcredate DATE,
+  crhcreper  VARCHAR2(10),
+  crhshdate  DATE,
+  crhshper   VARCHAR2(10),
+  crhshflag  VARCHAR2(1),
+  crhwfid    NUMBER,
+  ciid       VARCHAR2(10),
+  cicode     VARCHAR2(10),
+  ciname     VARCHAR2(64),
+  ciadr      VARCHAR2(64),
+  miid       VARCHAR2(10),
+  micode     VARCHAR2(10),
+  miadr      VARCHAR2(64),
+  mipfid     VARCHAR2(10),
+  mipriflag  VARCHAR2(1),
+  miifpiid   VARCHAR2(1),
+  mimode     VARCHAR2(2),
+  crmonvalue VARCHAR2(100),
+  crsdate    DATE,
+  credate    DATE,
+  crcolumn0  VARCHAR2(20),
+  crcolumn1  VARCHAR2(20),
+  crcolumn2  VARCHAR2(20),
+  crcolumn3  VARCHAR2(200),
+  crcolumn4  NUMBER,
+  crcolumn5  NUMBER,
+  crmemo     VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TDSJHD
+  is '特殊水价收费单头';
+comment on column HRBZLS.TDSJHD.crhno
+  is '单据流水号';
+comment on column HRBZLS.TDSJHD.crhbh
+  is '单据编号';
+comment on column HRBZLS.TDSJHD.crhlb
+  is '单据类别';
+comment on column HRBZLS.TDSJHD.crhsource
+  is '单据来源';
+comment on column HRBZLS.TDSJHD.crhsmfid
+  is '营销公司';
+comment on column HRBZLS.TDSJHD.crhdept
+  is '立户部门';
+comment on column HRBZLS.TDSJHD.crhcredate
+  is '创建日期';
+comment on column HRBZLS.TDSJHD.crhcreper
+  is '创建人员';
+comment on column HRBZLS.TDSJHD.crhshdate
+  is '审核日期';
+comment on column HRBZLS.TDSJHD.crhshper
+  is '审核人员';
+comment on column HRBZLS.TDSJHD.crhshflag
+  is '审核标志';
+comment on column HRBZLS.TDSJHD.crhwfid
+  is '工作流实例';
+comment on column HRBZLS.TDSJHD.ciid
+  is '用户编号';
+comment on column HRBZLS.TDSJHD.cicode
+  is '用户号';
+comment on column HRBZLS.TDSJHD.ciname
+  is '用户名称';
+comment on column HRBZLS.TDSJHD.ciadr
+  is '用户地址';
+comment on column HRBZLS.TDSJHD.miid
+  is '水表编号';
+comment on column HRBZLS.TDSJHD.micode
+  is '资料号';
+comment on column HRBZLS.TDSJHD.miadr
+  is '用水地址';
+comment on column HRBZLS.TDSJHD.mipfid
+  is '价格类别';
+comment on column HRBZLS.TDSJHD.mipriflag
+  is '是否混合';
+comment on column HRBZLS.TDSJHD.miifpiid
+  is '是否分项目';
+comment on column HRBZLS.TDSJHD.mimode
+  is '方式';
+comment on column HRBZLS.TDSJHD.crmonvalue
+  is '周期月份串';
+comment on column HRBZLS.TDSJHD.crsdate
+  is '开始时间';
+comment on column HRBZLS.TDSJHD.credate
+  is '结束时间';
+comment on column HRBZLS.TDSJHD.crcolumn0
+  is '化验单号';
+comment on column HRBZLS.TDSJHD.crcolumn1
+  is '备用字段1';
+comment on column HRBZLS.TDSJHD.crcolumn2
+  is '备用字段2';
+comment on column HRBZLS.TDSJHD.crcolumn3
+  is '备用字段3';
+comment on column HRBZLS.TDSJHD.crcolumn4
+  is '备用字段4';
+comment on column HRBZLS.TDSJHD.crcolumn5
+  is '备用字段5';
+comment on column HRBZLS.TDSJHD.crmemo
+  is '备注';
+alter table HRBZLS.TDSJHD
+  add constraint PK_TDSJHD primary key (CRHNO, CRHBH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

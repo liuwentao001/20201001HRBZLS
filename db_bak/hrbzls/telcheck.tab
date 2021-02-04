@@ -1,0 +1,109 @@
+create table HRBZLS.TELCHECK
+(
+  tcid         VARCHAR2(10) not null,
+  tcmid        VARCHAR2(10),
+  tcmonth      VARCHAR2(7),
+  tctype       VARCHAR2(20),
+  tcresult     VARCHAR2(20),
+  tcnote       VARCHAR2(200),
+  tcuser       VARCHAR2(15),
+  tcdate       DATE,
+  tcphoto_mk   CHAR(1),
+  tcphoto_path VARCHAR2(200),
+  tcchk_mk     CHAR(1),
+  tcchk_user   VARCHAR2(15),
+  tcchk_date   DATE,
+  tcinsdate    DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TELCHECK
+  is '手机巡检';
+comment on column HRBZLS.TELCHECK.tcid
+  is '流水号';
+comment on column HRBZLS.TELCHECK.tcmid
+  is '用户编号';
+comment on column HRBZLS.TELCHECK.tcmonth
+  is '巡检月份';
+comment on column HRBZLS.TELCHECK.tctype
+  is '巡检类别';
+comment on column HRBZLS.TELCHECK.tcresult
+  is '巡检结果';
+comment on column HRBZLS.TELCHECK.tcnote
+  is '巡检备注';
+comment on column HRBZLS.TELCHECK.tcuser
+  is '巡检人';
+comment on column HRBZLS.TELCHECK.tcdate
+  is '巡检时间';
+comment on column HRBZLS.TELCHECK.tcphoto_mk
+  is '是否拍照(Y/N)';
+comment on column HRBZLS.TELCHECK.tcphoto_path
+  is '照片路径';
+comment on column HRBZLS.TELCHECK.tcchk_mk
+  is '巡检审核注记(Y/N)';
+comment on column HRBZLS.TELCHECK.tcchk_user
+  is '巡检审核人';
+comment on column HRBZLS.TELCHECK.tcchk_date
+  is '巡检审核日期';
+comment on column HRBZLS.TELCHECK.tcinsdate
+  is '资料新增时间';
+create index HRBZLS.IDX_TELCHECK_TCMID on HRBZLS.TELCHECK (TCMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_TELCHECK_TCMONTH on HRBZLS.TELCHECK (TCMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_TELCHECK_TCTYPE on HRBZLS.TELCHECK (TCTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.TELCHECK
+  add constraint PK_TELCHECK primary key (TCID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

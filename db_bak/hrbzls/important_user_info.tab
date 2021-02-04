@@ -1,0 +1,43 @@
+create table HRBZLS.IMPORTANT_USER_INFO
+(
+  important_user_infoid NUMBER(8) not null,
+  area_id               VARCHAR2(10),
+  user_name             VARCHAR2(50),
+  address               VARCHAR2(100),
+  project_uid           VARCHAR2(20),
+  type                  VARCHAR2(2000),
+  contact               VARCHAR2(15),
+  tel                   VARCHAR2(20),
+  description           VARCHAR2(255),
+  flag                  CHAR(1),
+  crt_man               CHAR(6),
+  crt_date              DATE,
+  main_man              CHAR(6),
+  main_date             DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.IMPORTANT_USER_INFO
+  add constraint PK_IMPORTANT_USER_INFO primary key (IMPORTANT_USER_INFOID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

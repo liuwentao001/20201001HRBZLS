@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_BANK_TRAN_LOG
+minvalue 1
+maxvalue 9999999999
+start with 74392832
+increment by 1
+cache 50
+order;
+

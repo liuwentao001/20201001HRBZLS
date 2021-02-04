@@ -1,0 +1,35 @@
+create table HRBZLS.METERREADFRAME
+(
+  fid       VARCHAR2(10) not null,
+  fname     VARCHAR2(60),
+  fpid      VARCHAR2(10),
+  fclass    NUMBER,
+  rec       NUMBER,
+  halt      NUMBER,
+  outflag   NUMBER,
+  outid     NUMBER,
+  ok        NUMBER,
+  normal    NUMBER,
+  sl        NUMBER,
+  asl       NUMBER,
+  dsl       NUMBER,
+  csl       NUMBER,
+  condition VARCHAR2(500),
+  flag      NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERREADFRAME
+  is '抄表库数据分类架构';
+comment on column HRBZLS.METERREADFRAME.flag
+  is '可操作标志';
+alter table HRBZLS.METERREADFRAME
+  add constraint PK_METERREADFRAME primary key (FID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

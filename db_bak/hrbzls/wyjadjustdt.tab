@@ -1,0 +1,41 @@
+create table HRBZLS.WYJADJUSTDT
+(
+  wydno     VARCHAR2(10) not null,
+  wydrowno  NUMBER(6) not null,
+  wydrlid   VARCHAR2(10) not null,
+  wyddate   DATE,
+  wydrlsl   NUMBER,
+  wydrlje   NUMBER,
+  wydzndate DATE,
+  wydznj    NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.WYJADJUSTDT
+  is '违约金减免单据明细【WYD】';
+comment on column HRBZLS.WYJADJUSTDT.wydno
+  is '单据流水号';
+comment on column HRBZLS.WYJADJUSTDT.wydrowno
+  is '行号';
+comment on column HRBZLS.WYJADJUSTDT.wydrlid
+  is '减免应收流水';
+comment on column HRBZLS.WYJADJUSTDT.wyddate
+  is '应收日期';
+comment on column HRBZLS.WYJADJUSTDT.wydrlsl
+  is '水量';
+comment on column HRBZLS.WYJADJUSTDT.wydrlje
+  is '应收金额';
+comment on column HRBZLS.WYJADJUSTDT.wydzndate
+  is '起算日';
+comment on column HRBZLS.WYJADJUSTDT.wydznj
+  is '违约金';
+alter table HRBZLS.WYJADJUSTDT
+  add constraint PK_WYJADJUSTDT primary key (WYDNO, WYDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

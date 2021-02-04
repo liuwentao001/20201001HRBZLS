@@ -1,0 +1,1193 @@
+create table HRBZLS.RPT_SUM_CHARGE
+(
+  id             NUMBER not null,
+  tpdate         DATE,
+  u_month        VARCHAR2(8),
+  company        VARCHAR2(10),
+  ofagent        VARCHAR2(10),
+  area           VARCHAR2(10),
+  cby            VARCHAR2(10),
+  charegeitem    VARCHAR2(10),
+  watertype      VARCHAR2(16),
+  watertype_name VARCHAR2(100),
+  charegetype    VARCHAR2(10),
+  charge_client  VARCHAR2(10),
+  sfy            VARCHAR2(20),
+  csy            VARCHAR2(10),
+  watertype_b    VARCHAR2(10),
+  watertype_m    VARCHAR2(10),
+  t16            VARCHAR2(10),
+  t17            VARCHAR2(10),
+  t18            VARCHAR2(10),
+  t19            VARCHAR2(10),
+  t20            VARCHAR2(10),
+  p0             NUMBER(13,2),
+  p1             NUMBER(13,2),
+  p2             NUMBER(13,2),
+  p3             NUMBER(13,2),
+  p4             NUMBER(13,2),
+  p5             NUMBER(13,2),
+  p6             NUMBER(13,2),
+  p7             NUMBER(13,2),
+  p8             NUMBER(13,2),
+  p9             NUMBER(13,2),
+  p10            NUMBER(13,2),
+  c1             NUMBER(13,2),
+  c2             NUMBER(13,2),
+  c3             NUMBER(13,2),
+  c4             NUMBER(13,2),
+  c5             NUMBER(13,2),
+  c6             NUMBER(13,2),
+  c7             NUMBER(13,2),
+  c8             NUMBER(13,2),
+  c9             NUMBER(13,2),
+  c10            NUMBER(13,2),
+  c11            NUMBER(13,2),
+  c12            NUMBER(13,2),
+  c13            NUMBER(13,2),
+  c14            NUMBER(13,2),
+  c15            NUMBER(13,2),
+  c16            NUMBER(13,2),
+  x1             NUMBER(13,2),
+  x2             NUMBER(13,2),
+  x3             NUMBER(13,2),
+  x4             NUMBER(13,2),
+  x5             NUMBER(13,2),
+  x6             NUMBER(13,2),
+  x7             NUMBER(13,2),
+  x8             NUMBER(13,2),
+  x9             NUMBER(13,2),
+  x10            NUMBER(13,2),
+  x11            NUMBER(13,2),
+  x12            NUMBER(13,2),
+  x13            NUMBER(13,2),
+  x14            NUMBER(13,2),
+  x15            NUMBER(13,2),
+  x16            NUMBER(13,2),
+  x17            NUMBER(13,2),
+  x18            NUMBER(13,2),
+  x19            NUMBER(13,2),
+  x20            NUMBER(13,2),
+  x21            NUMBER(13,2),
+  x22            NUMBER(13,2),
+  x23            NUMBER(13,2),
+  x24            NUMBER(13,2),
+  x25            NUMBER(13,2),
+  x26            NUMBER(13,2),
+  x27            NUMBER(13,2),
+  x28            NUMBER(13,2),
+  x29            NUMBER(13,2),
+  x30            NUMBER(13,2),
+  x31            NUMBER(13,2),
+  x32            NUMBER(13,2),
+  x33            NUMBER(13,2),
+  x34            NUMBER(13,2),
+  x35            NUMBER(13,2),
+  x36            NUMBER(13,2),
+  x37            NUMBER(13,2),
+  x38            NUMBER(13,2),
+  x39            NUMBER(13,2),
+  x40            NUMBER(13,2),
+  x41            NUMBER(13,2),
+  x42            NUMBER(13,2),
+  x43            NUMBER(13,2),
+  x44            NUMBER(13,2),
+  x45            NUMBER(13,2),
+  x46            NUMBER(13,2),
+  x47            NUMBER(13,2),
+  q1             NUMBER(13,2),
+  q2             NUMBER(13,2),
+  q3             NUMBER(13,2),
+  q4             NUMBER(13,2),
+  q5             NUMBER(13,2),
+  q6             NUMBER(13,2),
+  q7             NUMBER(13,2),
+  q8             NUMBER(13,2),
+  q9             NUMBER(13,2),
+  q10            NUMBER(13,2),
+  q11            NUMBER(13,2),
+  q12            NUMBER(13,2),
+  q13            NUMBER(13,2),
+  q14            NUMBER(13,2),
+  q15            NUMBER(13,2),
+  q16            NUMBER(13,2),
+  q17            NUMBER(13,2),
+  q18            NUMBER(13,2),
+  q19            NUMBER(13,2),
+  q20            NUMBER(13,2),
+  q21            NUMBER(13,2),
+  q22            NUMBER(13,2),
+  q23            NUMBER(13,2),
+  q24            NUMBER(13,2),
+  q25            NUMBER(13,2),
+  q26            NUMBER(13,2),
+  q27            NUMBER(13,2),
+  q28            NUMBER(13,2),
+  q29            NUMBER(13,2),
+  q30            NUMBER(13,2),
+  q31            NUMBER(13,2),
+  q32            NUMBER(13,2),
+  s1             NUMBER(13,2),
+  s2             NUMBER(13,2),
+  s3             NUMBER(13,2),
+  s4             NUMBER(13,2),
+  s5             NUMBER(13,2),
+  s6             NUMBER(13,2),
+  s7             NUMBER(13,2),
+  s8             NUMBER(13,2),
+  s9             NUMBER(13,2),
+  s10            NUMBER(13,2),
+  s11            NUMBER(13,2),
+  s12            NUMBER(13,2),
+  s13            NUMBER(13,2),
+  s14            NUMBER(13,2),
+  s15            NUMBER(13,2),
+  s16            NUMBER(13,2),
+  s17            NUMBER(13,2),
+  s18            NUMBER(13,2),
+  l1             NUMBER(13,2),
+  l2             NUMBER(13,2),
+  l3             NUMBER(13,2),
+  l4             NUMBER(13,2),
+  l5             NUMBER(13,2),
+  l6             NUMBER(13,2),
+  l7             NUMBER(13,2),
+  l8             NUMBER(13,2),
+  l9             NUMBER(13,2),
+  l10            NUMBER(13,2),
+  l11            NUMBER(13,2),
+  l12            NUMBER(13,2),
+  l13            NUMBER(13,2),
+  l14            NUMBER(13,2),
+  l15            NUMBER(13,2),
+  l16            NUMBER(13,2),
+  l17            NUMBER(13,2),
+  l18            NUMBER(13,2),
+  l19            NUMBER(13,2),
+  l20            NUMBER(13,2),
+  l21            NUMBER(13,2),
+  l22            NUMBER(13,2),
+  l23            NUMBER(13,2),
+  l24            NUMBER(13,2),
+  l25            NUMBER(13,2),
+  l26            NUMBER(13,2),
+  l27            NUMBER(13,2),
+  l28            NUMBER(13,2),
+  l29            NUMBER(13,2),
+  l30            NUMBER(13,2),
+  l31            NUMBER(13,2),
+  l32            NUMBER(13,2),
+  l33            NUMBER(13,2),
+  l34            NUMBER(13,2),
+  l35            NUMBER(13,2),
+  l36            NUMBER(13,2),
+  l37            NUMBER(13,2),
+  l38            NUMBER(13,2),
+  l39            NUMBER(13,2),
+  l40            NUMBER(13,2),
+  l41            NUMBER(13,2),
+  l42            NUMBER(13,2),
+  l43            NUMBER(13,2),
+  l44            NUMBER(13,2),
+  l45            NUMBER(13,2),
+  l46            NUMBER(13,2),
+  l47            NUMBER(13,2),
+  l48            NUMBER(13,2),
+  l49            NUMBER(13,2),
+  l50            NUMBER(13,2),
+  l51            NUMBER(13,2),
+  l52            NUMBER(13,2),
+  l53            NUMBER(13,2),
+  l54            NUMBER(13,2),
+  l55            NUMBER(13,2),
+  k1             NUMBER(13,2),
+  k2             NUMBER(13,2),
+  k3             NUMBER(13,2),
+  k4             NUMBER(13,2),
+  k5             NUMBER(13,2),
+  k6             NUMBER(13,2),
+  k7             NUMBER(13,2),
+  k8             NUMBER(13,2),
+  k9             NUMBER(13,2),
+  k10            NUMBER(13,2),
+  k11            NUMBER(13,2),
+  k12            NUMBER(13,2),
+  k13            NUMBER(13,2),
+  k14            NUMBER(13,2),
+  k15            NUMBER(13,2),
+  k16            NUMBER(13,2),
+  k17            NUMBER(13,2),
+  k18            NUMBER(13,2),
+  k19            NUMBER(13,2),
+  k20            NUMBER(13,2),
+  k21            NUMBER(13,2),
+  k22            NUMBER(13,2),
+  k23            NUMBER(13,2),
+  k24            NUMBER(13,2),
+  k25            NUMBER(13,2),
+  k26            NUMBER(13,2),
+  k27            NUMBER(13,2),
+  k28            NUMBER(13,2),
+  k29            NUMBER(13,2),
+  k30            NUMBER(13,2),
+  k31            NUMBER(13,2),
+  k32            NUMBER(13,2),
+  k33            NUMBER(13,2),
+  k34            NUMBER(13,2),
+  k35            NUMBER(13,2),
+  k36            NUMBER(13,2),
+  k37            NUMBER(13,2),
+  k38            NUMBER(13,2),
+  k39            NUMBER(13,2),
+  k40            NUMBER(13,2),
+  k41            NUMBER(13,2),
+  k42            NUMBER(13,2),
+  k43            NUMBER(13,2),
+  k44            NUMBER(13,2),
+  k45            NUMBER(13,2),
+  k46            NUMBER(13,2),
+  c17            NUMBER(13,2),
+  c18            NUMBER(13,2),
+  c19            NUMBER(13,2),
+  c20            NUMBER(13,2),
+  q33            NUMBER(13,2),
+  q34            NUMBER(13,2),
+  q35            NUMBER(13,2),
+  q36            NUMBER(13,2),
+  q37            NUMBER(13,2),
+  q38            NUMBER(13,2),
+  q39            NUMBER(13,2),
+  q40            NUMBER(13,2),
+  x59            NUMBER(13,2),
+  l56            NUMBER(13,2),
+  l57            NUMBER(13,2),
+  l58            NUMBER(13,2),
+  l59            NUMBER(13,2),
+  x60            NUMBER(13,2),
+  x61            NUMBER(13,2),
+  x62            NUMBER(13,2),
+  x63            NUMBER(13,2),
+  c21            NUMBER(13,2),
+  c22            NUMBER(13,2),
+  c23            NUMBER(13,2),
+  c24            NUMBER(13,2),
+  c25            NUMBER(13,2),
+  c26            NUMBER(13,2),
+  c27            NUMBER(13,2),
+  c28            NUMBER(13,2),
+  c29            NUMBER(13,2),
+  c30            NUMBER(13,2),
+  c31            NUMBER(13,2),
+  c32            NUMBER(13,2),
+  p11            NUMBER(13,2),
+  p12            NUMBER(13,2),
+  p13            NUMBER(13,2),
+  p14            NUMBER(13,2),
+  p15            NUMBER(13,2),
+  p16            NUMBER(13,2),
+  x48            NUMBER(13,2),
+  x49            NUMBER(13,2),
+  x50            NUMBER(13,2),
+  x51            NUMBER(13,2),
+  x52            NUMBER(13,2),
+  x53            NUMBER(13,2),
+  x54            NUMBER(13,2),
+  x55            NUMBER(13,2),
+  x56            NUMBER(13,2),
+  x57            NUMBER(13,2),
+  x58            NUMBER(13,2),
+  c33            NUMBER(13,2),
+  c34            NUMBER(13,2),
+  c35            NUMBER(13,2),
+  c36            NUMBER(13,2),
+  c37            NUMBER(13,2),
+  c38            NUMBER(13,2),
+  c39            NUMBER(13,2),
+  c40            NUMBER(13,2),
+  x64            NUMBER(13,2),
+  x65            NUMBER(13,2),
+  x66            NUMBER(13,2),
+  x67            NUMBER(13,2),
+  x68            NUMBER(13,2),
+  x69            NUMBER(13,2),
+  x70            NUMBER(13,2),
+  x71            NUMBER(13,2),
+  x72            NUMBER(13,2),
+  x73            NUMBER(13,2),
+  x74            NUMBER(13,2),
+  x75            NUMBER(13,2),
+  x76            NUMBER(13,2),
+  x77            NUMBER(13,2),
+  x78            NUMBER(13,2),
+  x79            NUMBER(13,2),
+  x80            NUMBER(13,2),
+  x81            NUMBER(13,2),
+  x82            NUMBER(13,2),
+  x83            NUMBER(13,2),
+  x84            NUMBER(13,2),
+  sp1            NUMBER(13,2),
+  sp2            NUMBER(13,2),
+  sp3            NUMBER(13,2),
+  sp4            NUMBER(13,2),
+  sp5            NUMBER(13,2),
+  sp6            NUMBER(13,2),
+  sp7            NUMBER(13,2),
+  sp8            NUMBER(13,2),
+  sp9            NUMBER(13,2),
+  sp10           NUMBER(13,2),
+  u1             NUMBER(13,2),
+  u2             NUMBER(13,2),
+  u3             NUMBER(13,2),
+  u4             NUMBER(13,2),
+  u5             NUMBER(13,2),
+  u6             NUMBER(13,2),
+  u7             NUMBER(13,2),
+  u8             NUMBER(13,2),
+  u9             NUMBER(13,2),
+  u10            NUMBER(13,2),
+  u11            NUMBER(13,2),
+  u12            NUMBER(13,2),
+  u13            NUMBER(13,2),
+  u14            NUMBER(13,2),
+  u15            NUMBER(13,2),
+  u16            NUMBER(13,2),
+  u17            NUMBER(13,2),
+  u18            NUMBER(13,2),
+  u19            NUMBER(13,2),
+  u20            NUMBER(13,2),
+  u21            NUMBER(13,2),
+  rptbs          NUMBER,
+  rptje          NUMBER(13,3),
+  rptsf          NUMBER(13,3),
+  rptwsf         NUMBER(13,3),
+  rptqc          NUMBER(13,3),
+  rptbqzj        NUMBER(13,3),
+  rptbqjs        NUMBER(13,3),
+  rptqm          NUMBER(13,3),
+  rptnsje        NUMBER(13,3),
+  w1             NUMBER(13,2),
+  w2             NUMBER(13,2),
+  w3             NUMBER(13,2),
+  w4             NUMBER(13,2),
+  w5             NUMBER(13,2),
+  w6             NUMBER(13,2),
+  w7             NUMBER(13,2),
+  w8             NUMBER(13,2),
+  w9             NUMBER(13,2),
+  w10            NUMBER(13,2),
+  w11            NUMBER(13,2),
+  w12            NUMBER(13,2),
+  w13            NUMBER(13,2),
+  w14            NUMBER(13,2),
+  w15            NUMBER(13,2),
+  w16            NUMBER(13,2),
+  m50            NUMBER(13,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.RPT_SUM_CHARGE.id
+  is '序号';
+comment on column HRBZLS.RPT_SUM_CHARGE.tpdate
+  is '生成时间';
+comment on column HRBZLS.RPT_SUM_CHARGE.u_month
+  is '账务月份';
+comment on column HRBZLS.RPT_SUM_CHARGE.company
+  is '分公司';
+comment on column HRBZLS.RPT_SUM_CHARGE.ofagent
+  is '营业所';
+comment on column HRBZLS.RPT_SUM_CHARGE.area
+  is '表册区域（代号，表册前5位）';
+comment on column HRBZLS.RPT_SUM_CHARGE.cby
+  is '抄表员';
+comment on column HRBZLS.RPT_SUM_CHARGE.charegeitem
+  is '付款方式';
+comment on column HRBZLS.RPT_SUM_CHARGE.watertype
+  is '水价类别';
+comment on column HRBZLS.RPT_SUM_CHARGE.watertype_name
+  is '水价类别中文';
+comment on column HRBZLS.RPT_SUM_CHARGE.charegetype
+  is '收费方式（M：走收总表，X：坐收户表）';
+comment on column HRBZLS.RPT_SUM_CHARGE.charge_client
+  is '收费点';
+comment on column HRBZLS.RPT_SUM_CHARGE.sfy
+  is '收费员';
+comment on column HRBZLS.RPT_SUM_CHARGE.csy
+  is '抄收员';
+comment on column HRBZLS.RPT_SUM_CHARGE.watertype_b
+  is '大类';
+comment on column HRBZLS.RPT_SUM_CHARGE.watertype_m
+  is '中类';
+comment on column HRBZLS.RPT_SUM_CHARGE.t16
+  is '应收事务（rectrans表trmemo=''使用''）';
+comment on column HRBZLS.RPT_SUM_CHARGE.t17
+  is '水表类别（H,D）';
+comment on column HRBZLS.RPT_SUM_CHARGE.t18
+  is 'T18(科室)';
+comment on column HRBZLS.RPT_SUM_CHARGE.t19
+  is 'T19(科目改为''收免'')';
+comment on column HRBZLS.RPT_SUM_CHARGE.t20
+  is 'T20(大项目改为''补当'')';
+comment on column HRBZLS.RPT_SUM_CHARGE.p0
+  is '综合单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p1
+  is '阶梯1单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p2
+  is '阶梯2单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p3
+  is '阶梯3单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p4
+  is '水费单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p5
+  is '代收费1单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p6
+  is '代收费2单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p7
+  is '代收费3单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p8
+  is '代收费4单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p9
+  is '代收费5单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.p10
+  is '代收费6单价';
+comment on column HRBZLS.RPT_SUM_CHARGE.c1
+  is '应收_总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.c2
+  is '应收_阶梯1';
+comment on column HRBZLS.RPT_SUM_CHARGE.c3
+  is '应收_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.c4
+  is '应收_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.c5
+  is '应收_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.c6
+  is '应收_水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.c7
+  is '应收_代收费1';
+comment on column HRBZLS.RPT_SUM_CHARGE.c8
+  is '应收_代收费2';
+comment on column HRBZLS.RPT_SUM_CHARGE.c9
+  is '应收_代收费3';
+comment on column HRBZLS.RPT_SUM_CHARGE.c10
+  is '应收_阶梯1金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.c11
+  is '应收_阶梯2金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.c12
+  is '应收_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.c13
+  is '应收_笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.c14
+  is '应收_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.c15
+  is '应收_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.c16
+  is '应收_代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.x1
+  is '销以往_总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x2
+  is '销以往_阶梯1';
+comment on column HRBZLS.RPT_SUM_CHARGE.x3
+  is '销以往_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.x4
+  is '销以往_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.x5
+  is '销以往_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x6
+  is '销以往_水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x7
+  is '销以往_代收费1';
+comment on column HRBZLS.RPT_SUM_CHARGE.x8
+  is '销以往_代收费2';
+comment on column HRBZLS.RPT_SUM_CHARGE.x9
+  is '销以往_代收费3';
+comment on column HRBZLS.RPT_SUM_CHARGE.x10
+  is '销以往_阶梯1金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x11
+  is '销以往_阶梯2金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x12
+  is '销以往_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x13
+  is '销以往_笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.x14
+  is '销以往_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.x15
+  is '销以往_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.x16
+  is '销当月_总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x17
+  is '销当月_阶梯1';
+comment on column HRBZLS.RPT_SUM_CHARGE.x18
+  is '销当月_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.x19
+  is '销当月_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.x20
+  is '销当月_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x21
+  is '销当月_水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x22
+  is '销当月_代收费1';
+comment on column HRBZLS.RPT_SUM_CHARGE.x23
+  is '销当月_代收费2';
+comment on column HRBZLS.RPT_SUM_CHARGE.x24
+  is '销当月_代收费3';
+comment on column HRBZLS.RPT_SUM_CHARGE.x25
+  is '销当月_阶梯1金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x26
+  is '销当月_阶梯2金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x27
+  is '销当月_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x28
+  is '销当月_笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.x29
+  is '销当月_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.x30
+  is '销当月_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.x31
+  is '销当月_代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.x32
+  is '总销账_总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x33
+  is '总销账_阶梯1';
+comment on column HRBZLS.RPT_SUM_CHARGE.x34
+  is '总销账_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.x35
+  is '总销账_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.x36
+  is '总销账_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x37
+  is '总销账_水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x38
+  is '总销账_代收费1';
+comment on column HRBZLS.RPT_SUM_CHARGE.x39
+  is '总销账_代收费2';
+comment on column HRBZLS.RPT_SUM_CHARGE.x40
+  is '总销账_代收费3';
+comment on column HRBZLS.RPT_SUM_CHARGE.x41
+  is '总销账_阶梯1金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x42
+  is '总销账_阶梯2金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x43
+  is '总销账_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x44
+  is '总销账_笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.x45
+  is '总销账_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.x46
+  is '总销账_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.x47
+  is '总销账_代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.q1
+  is '欠当月_总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.q2
+  is '欠当月_阶梯1';
+comment on column HRBZLS.RPT_SUM_CHARGE.q3
+  is '欠当月_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.q4
+  is '欠当月_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.q5
+  is '欠当月_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q6
+  is '欠当月_水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.q7
+  is '欠当月_代收费1';
+comment on column HRBZLS.RPT_SUM_CHARGE.q8
+  is '欠当月_代收费2';
+comment on column HRBZLS.RPT_SUM_CHARGE.q9
+  is '欠当月_代收费3';
+comment on column HRBZLS.RPT_SUM_CHARGE.q10
+  is '欠当月_阶梯1金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q11
+  is '欠当月_阶梯2金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q12
+  is '欠当月_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q13
+  is '欠当月_笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.q14
+  is '欠当月_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.q15
+  is '欠当月_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.q16
+  is '欠当月_代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.q17
+  is '欠以往_总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.q18
+  is '欠以往_阶梯1';
+comment on column HRBZLS.RPT_SUM_CHARGE.q19
+  is '欠以往_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.q20
+  is '欠以往_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.q21
+  is '欠以往_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q22
+  is '欠以往_水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.q23
+  is '欠以往_代收费1';
+comment on column HRBZLS.RPT_SUM_CHARGE.q24
+  is '欠以往_代收费2';
+comment on column HRBZLS.RPT_SUM_CHARGE.q25
+  is '欠以往_代收费3';
+comment on column HRBZLS.RPT_SUM_CHARGE.q26
+  is '欠以往_阶梯1金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q27
+  is '欠以往_阶梯2金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q28
+  is '欠以往_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.q29
+  is '欠以往_笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.q30
+  is '欠以往_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.q31
+  is '欠以往_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.q32
+  is '欠以往_代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.s1
+  is '实收_纯预存';
+comment on column HRBZLS.RPT_SUM_CHARGE.s2
+  is '实收_扣预存';
+comment on column HRBZLS.RPT_SUM_CHARGE.s3
+  is '实收_折让';
+comment on column HRBZLS.RPT_SUM_CHARGE.s4
+  is '实收_实收滞纳金';
+comment on column HRBZLS.RPT_SUM_CHARGE.s5
+  is '实收_实收笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.s6
+  is '实收_实收金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.s7
+  is '实收_银行实收笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.s8
+  is '实收_银行实收金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.s9
+  is '实收_预存增减';
+comment on column HRBZLS.RPT_SUM_CHARGE.s10
+  is '实收_期初预存';
+comment on column HRBZLS.RPT_SUM_CHARGE.s11
+  is '实收_期末预存';
+comment on column HRBZLS.RPT_SUM_CHARGE.s12
+  is '地区坐收水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.s13
+  is '银行坐收水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.s14
+  is '水费分摊比例';
+comment on column HRBZLS.RPT_SUM_CHARGE.s15
+  is '污水费分摊比例';
+comment on column HRBZLS.RPT_SUM_CHARGE.s16
+  is '基建';
+comment on column HRBZLS.RPT_SUM_CHARGE.s17
+  is '补缴';
+comment on column HRBZLS.RPT_SUM_CHARGE.s18
+  is '稽核';
+comment on column HRBZLS.RPT_SUM_CHARGE.l1
+  is '上月_应收总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.l2
+  is '上月_应收总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.l3
+  is '上月_应收水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.l4
+  is '上月_应收代收费1（污水费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l5
+  is '上月_应收笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.l6
+  is '上月_销账总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.l7
+  is '上月_销账总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.l8
+  is '上月_销账水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.l9
+  is '上月_销账代收费1（污水费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l10
+  is '上月_销账笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.l11
+  is '上月_销账代收费2（附加费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l12
+  is '上月_应收代收费2（附加费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l14
+  is '去年同期_应收总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.l15
+  is '去年同期_应收总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.l16
+  is '去年同期_应收水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.l17
+  is '去年同期_应收代收费1（污水费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l18
+  is '去年同期_应收笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.l19
+  is '去年同期_销账总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.l20
+  is '去年同期_销账总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.l21
+  is '去年同期_销账水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.l22
+  is '去年同期_销账代收费1（污水费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l23
+  is '去年同期_销账笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.l24
+  is '去年同期_销账代收费2（附加费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l25
+  is '去年同期_应收代收费2（附加费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l27
+  is '当年_应收总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.l28
+  is '当年_应收总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.l29
+  is '当年_应收水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.l30
+  is '当年_应收代收费1（污水费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l31
+  is '当年_应收笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.l32
+  is '当年_销账总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.l33
+  is '当年_销账总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.l34
+  is '当年_销账水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.l35
+  is '当年_销账代收费1（污水费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l36
+  is '当年_销账笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.l37
+  is '当年_销账代收费2（附加费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l38
+  is '当年_应收代收费2（附加费）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l40
+  is '期初_总水量（欠上月_总水量）（U_MONTH-1：Q1）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l41
+  is '期初_阶梯1（欠上月_阶梯1）（U_MONTH-1：Q2）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l42
+  is '期初_阶梯2（欠上月_阶梯2）（U_MONTH-1：Q3）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l43
+  is '期初_阶梯3（欠上月_阶梯3）（U_MONTH-1：Q4）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l44
+  is '期初_总金额（欠上月_总金额）（U_MONTH-1：Q5）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l45
+  is '期初_水费（欠上月_总水费）（U_MONTH-1：Q6）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l46
+  is '期初_代收费1（欠上月_代收费1）（U_MONTH-1：Q7）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l47
+  is '期初_代收费2（欠上月_代收费2）（U_MONTH-1：Q8）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l48
+  is '期初_代收费3（欠上月_代收费3）（U_MONTH-1：Q9）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l49
+  is '期初_阶梯1金额（欠上月__阶梯1金额）（U_MONTH-1：Q10）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l50
+  is '期初_阶梯2金额（欠上月__阶梯2金额）（U_MONTH-1：Q11）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l51
+  is '期初_阶梯3金额（欠上月__阶梯3金额）（U_MONTH-1：Q12）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l52
+  is '期初_笔数（欠上月_笔数）（U_MONTH-1：Q13）';
+comment on column HRBZLS.RPT_SUM_CHARGE.l53
+  is '期初_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.l54
+  is '期初_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.l55
+  is '期初_代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.k1
+  is '立户户数（MIPRIID=MICODE and MISTATUS=''1''）';
+comment on column HRBZLS.RPT_SUM_CHARGE.k2
+  is '立户表数（MISTATUS=''1''）';
+comment on column HRBZLS.RPT_SUM_CHARGE.k3
+  is '应抄';
+comment on column HRBZLS.RPT_SUM_CHARGE.k4
+  is '实抄';
+comment on column HRBZLS.RPT_SUM_CHARGE.k5
+  is '空件';
+comment on column HRBZLS.RPT_SUM_CHARGE.k6
+  is '无法算费数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k7
+  is '已算费数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k8
+  is '销户户数（MIPRIID=MICODE and MISTATUS=''7''）';
+comment on column HRBZLS.RPT_SUM_CHARGE.k9
+  is '抄见率';
+comment on column HRBZLS.RPT_SUM_CHARGE.k10
+  is '正日率';
+comment on column HRBZLS.RPT_SUM_CHARGE.k11
+  is '稽核错误数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k12
+  is '波动考核超标数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k13
+  is '零水量数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k14
+  is 'K14';
+comment on column HRBZLS.RPT_SUM_CHARGE.k15
+  is '同比';
+comment on column HRBZLS.RPT_SUM_CHARGE.k16
+  is '环比';
+comment on column HRBZLS.RPT_SUM_CHARGE.k17
+  is '当月新增户数（MIPRIID=MICODE and MISTATUS=''1'' and TO_CHAR(MIINSDATE, ''YYYY.MM'') =U_MONTH）';
+comment on column HRBZLS.RPT_SUM_CHARGE.k18
+  is 'K18';
+comment on column HRBZLS.RPT_SUM_CHARGE.k19
+  is '冲往月红票笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k20
+  is '日报月报不平数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k21
+  is '预存不平数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k22
+  is '收费率';
+comment on column HRBZLS.RPT_SUM_CHARGE.k23
+  is '银行单边帐数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k24
+  is '自来水单边帐数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k25
+  is '应收不平数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k26
+  is '分类合计不平数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k27
+  is '发票使用数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k28
+  is '交易作废数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k29
+  is '未托出笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k30
+  is '托出未销账笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k31
+  is '欠费大用户数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k32
+  is '欠费超过3月数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k33
+  is '未发短信催收数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k34
+  is '未发通知单数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k35
+  is '自动扣款销账笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k36
+  is '自动扣款销账金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.k37
+  is 'K37';
+comment on column HRBZLS.RPT_SUM_CHARGE.k38
+  is 'K38';
+comment on column HRBZLS.RPT_SUM_CHARGE.k39
+  is '人工销帐笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k40
+  is '起码修改笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k41
+  is '折让笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k42
+  is '预存人工修改笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k43
+  is 'K43（销户表数（MISTATUS=''7''））';
+comment on column HRBZLS.RPT_SUM_CHARGE.k44
+  is '需审核营业申请数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k45
+  is '总户数';
+comment on column HRBZLS.RPT_SUM_CHARGE.k46
+  is '总水表数';
+comment on column HRBZLS.RPT_SUM_CHARGE.c17
+  is '应收代收费7
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.c18
+  is '应收代收费8
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.c19
+  is '应收代收费9';
+comment on column HRBZLS.RPT_SUM_CHARGE.c20
+  is '应收代收费10
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.q33
+  is '欠费代收费7
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.q34
+  is '欠费代收费8
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.q35
+  is '欠费代收费9
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.q36
+  is '欠费代收费10
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.q37
+  is '欠以往代收费7';
+comment on column HRBZLS.RPT_SUM_CHARGE.q38
+  is '欠以往代收费8';
+comment on column HRBZLS.RPT_SUM_CHARGE.q39
+  is '欠以往代收费9';
+comment on column HRBZLS.RPT_SUM_CHARGE.q40
+  is '欠以往代收费10';
+comment on column HRBZLS.RPT_SUM_CHARGE.x59
+  is '销当月代收费10';
+comment on column HRBZLS.RPT_SUM_CHARGE.l56
+  is '期初代收费7
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.l57
+  is '期初代收费8
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.l58
+  is '期初代收费9
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.l59
+  is '期初代收费10
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.x60
+  is '基建水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x61
+  is '基建污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x62
+  is '补缴水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x63
+  is '补缴污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.c21
+  is '基建笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.c22
+  is '补缴笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.c23
+  is '本季应收_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.c24
+  is '本季应收_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.c25
+  is '本季应收_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.c26
+  is '补当水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.c27
+  is '补当金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.c28
+  is '补当水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.c29
+  is '补当污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.c30
+  is '补当笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.c31
+  is '补当污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.c32
+  is '本季应收_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.p11
+  is '代收费7';
+comment on column HRBZLS.RPT_SUM_CHARGE.p12
+  is '代收费8';
+comment on column HRBZLS.RPT_SUM_CHARGE.p13
+  is '代收费9';
+comment on column HRBZLS.RPT_SUM_CHARGE.p14
+  is '代收费10';
+comment on column HRBZLS.RPT_SUM_CHARGE.p15
+  is '代收费11';
+comment on column HRBZLS.RPT_SUM_CHARGE.p16
+  is '代收费12';
+comment on column HRBZLS.RPT_SUM_CHARGE.x48
+  is '销以往滞纳金';
+comment on column HRBZLS.RPT_SUM_CHARGE.x49
+  is '销当月滞纳金';
+comment on column HRBZLS.RPT_SUM_CHARGE.x50
+  is '总销账滞纳金';
+comment on column HRBZLS.RPT_SUM_CHARGE.x51
+  is '销以往代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.x52
+  is '销以往代收费7';
+comment on column HRBZLS.RPT_SUM_CHARGE.x53
+  is '销以往代收费8';
+comment on column HRBZLS.RPT_SUM_CHARGE.x54
+  is '销以往代收费9';
+comment on column HRBZLS.RPT_SUM_CHARGE.x55
+  is '销以往代收费10';
+comment on column HRBZLS.RPT_SUM_CHARGE.x56
+  is '销当月代收费7
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.x57
+  is '销当月代收费8
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.x58
+  is '销当月代收费9
+';
+comment on column HRBZLS.RPT_SUM_CHARGE.c33
+  is '稽核笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.c34
+  is '稽核水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.c35
+  is '稽核水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.c36
+  is '稽核污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.c37
+  is '稽核污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.c38
+  is '稽核金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.c39
+  is '本季应收_代收费9';
+comment on column HRBZLS.RPT_SUM_CHARGE.c40
+  is '本季应收_代收费10';
+comment on column HRBZLS.RPT_SUM_CHARGE.x64
+  is '大厅坐收笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.x65
+  is '大厅坐收水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x66
+  is '大厅坐收水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x67
+  is '大厅坐收污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x68
+  is '大厅坐收污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x69
+  is '大厅坐收总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x70
+  is '大厅坐收实收总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x71
+  is '基建笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.x72
+  is '基建水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x73
+  is '基建水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x74
+  is '基建污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x75
+  is '基建污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x76
+  is '基建金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x77
+  is '本季总销账_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.x78
+  is '补缴笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.x79
+  is '补缴水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x80
+  is '补缴水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x81
+  is '补缴污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.x82
+  is '补缴污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.x83
+  is '补缴金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.x84
+  is '本季总销账_代收费10';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp1
+  is '计划售水1';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp2
+  is '计划售水2';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp3
+  is '计划售水3';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp4
+  is '计划售水4';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp5
+  is '计划售水5';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp6
+  is '计划售水6';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp7
+  is '计划售水7';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp8
+  is '计划售水8';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp9
+  is '计划售水9';
+comment on column HRBZLS.RPT_SUM_CHARGE.sp10
+  is '计划售水10';
+comment on column HRBZLS.RPT_SUM_CHARGE.u1
+  is '预存抵扣_总水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.u2
+  is '预存抵扣_阶梯1';
+comment on column HRBZLS.RPT_SUM_CHARGE.u3
+  is '预存抵扣_阶梯2';
+comment on column HRBZLS.RPT_SUM_CHARGE.u4
+  is '预存抵扣_阶梯3';
+comment on column HRBZLS.RPT_SUM_CHARGE.u5
+  is '预存抵扣_总金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.u6
+  is '预存抵扣_水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.u7
+  is '预存抵扣_代收费1';
+comment on column HRBZLS.RPT_SUM_CHARGE.u8
+  is '预存抵扣_代收费2';
+comment on column HRBZLS.RPT_SUM_CHARGE.u9
+  is '预存抵扣_代收费3';
+comment on column HRBZLS.RPT_SUM_CHARGE.u10
+  is '预存抵扣_阶梯1金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.u11
+  is '预存抵扣_阶梯2金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.u12
+  is '预存抵扣_阶梯3金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.u13
+  is '预存抵扣_笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.u14
+  is '预存抵扣_代收费4';
+comment on column HRBZLS.RPT_SUM_CHARGE.u15
+  is '预存抵扣_代收费5';
+comment on column HRBZLS.RPT_SUM_CHARGE.u16
+  is '预存抵扣_代收费6';
+comment on column HRBZLS.RPT_SUM_CHARGE.u17
+  is '预存抵扣滞纳金';
+comment on column HRBZLS.RPT_SUM_CHARGE.u18
+  is '预存抵扣_代收费7';
+comment on column HRBZLS.RPT_SUM_CHARGE.u19
+  is '预存抵扣_代收费8';
+comment on column HRBZLS.RPT_SUM_CHARGE.u20
+  is '预存抵扣_代收费9';
+comment on column HRBZLS.RPT_SUM_CHARGE.u21
+  is '预存抵扣_代收费10';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptbs
+  is '笔数';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptje
+  is '金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptsf
+  is '水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptwsf
+  is '污水费';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptqc
+  is '期初预存金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptbqzj
+  is '本期预存增加';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptbqjs
+  is '本期预存减少';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptqm
+  is '期末预存余额';
+comment on column HRBZLS.RPT_SUM_CHARGE.rptnsje
+  is '纳税金额';
+comment on column HRBZLS.RPT_SUM_CHARGE.w1
+  is '应收_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w2
+  is '销以往_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w3
+  is '销当月_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w4
+  is '总销账_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w5
+  is '欠当月_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w6
+  is '欠以往_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w7
+  is '上月_应收总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w8
+  is '去年同期_应收总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w9
+  is '当年_应收总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w10
+  is '期初_总污水量（欠上月_总污水量）（U_MONTH-1：Q1）';
+comment on column HRBZLS.RPT_SUM_CHARGE.w11
+  is '本季应收_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w12
+  is '本季总销账_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w13
+  is '预存抵扣_总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w14
+  is '上月_销账总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w15
+  is '去年同期_销账总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.w16
+  is '当年_销账总污水量';
+comment on column HRBZLS.RPT_SUM_CHARGE.m50
+  is '维度冲正标志1冲往月 0-正常 2-冲当月';
+create index HRBZLS.IDX_RPT_SUM_CHARGE_UMONTH on HRBZLS.RPT_SUM_CHARGE (U_MONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.RPT_SUM_CHARGE_X on HRBZLS.RPT_SUM_CHARGE (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

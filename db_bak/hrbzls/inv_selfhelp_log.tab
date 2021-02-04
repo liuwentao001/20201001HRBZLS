@@ -1,0 +1,50 @@
+create table HRBZLS.INV_SELFHELP_LOG
+(
+  id       NUMBER not null,
+  code     VARCHAR2(20),
+  tpdate   DATE,
+  operator VARCHAR2(20),
+  i_json   CLOB,
+  o_json   CLOB,
+  ip       VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.INV_SELFHELP_LOG.id
+  is '序号';
+comment on column HRBZLS.INV_SELFHELP_LOG.code
+  is '交易类型';
+comment on column HRBZLS.INV_SELFHELP_LOG.tpdate
+  is '交易时间';
+comment on column HRBZLS.INV_SELFHELP_LOG.operator
+  is '交易人员';
+comment on column HRBZLS.INV_SELFHELP_LOG.i_json
+  is '请求报文';
+comment on column HRBZLS.INV_SELFHELP_LOG.o_json
+  is '响应报文';
+comment on column HRBZLS.INV_SELFHELP_LOG.ip
+  is 'IP';
+alter table HRBZLS.INV_SELFHELP_LOG
+  add constraint PK_INV_SELFHELP_LOG primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

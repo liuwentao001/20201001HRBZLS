@@ -1,0 +1,89 @@
+create table HRBZLS.BS_BOOKFRAME
+(
+  bfid      VARCHAR2(10) not null,
+  bfsmfid   VARCHAR2(10) not null,
+  bfbatch   NUMBER(2),
+  bfname    VARCHAR2(60),
+  bfpid     VARCHAR2(10),
+  bfclass   NUMBER,
+  bfflag    CHAR(1),
+  bfstatus  CHAR(1),
+  bfhandles NUMBER(10),
+  bfmemo    VARCHAR2(60),
+  bforder   NUMBER,
+  bfcreper  VARCHAR2(15),
+  bfcredate DATE,
+  bfrcyc    NUMBER(2),
+  bflb      CHAR(1),
+  bfrper    VARCHAR2(15),
+  bfsafid   VARCHAR2(10),
+  bfnrmonth VARCHAR2(7),
+  bfday     NUMBER,
+  bfsdate   DATE,
+  bfedate   DATE,
+  bfmonth   VARCHAR2(7),
+  bfpper    VARCHAR2(15),
+  bfjtsny   VARCHAR2(15)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 12M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BS_BOOKFRAME
+  is '表册信息';
+comment on column HRBZLS.BS_BOOKFRAME.bfid
+  is '编码';
+comment on column HRBZLS.BS_BOOKFRAME.bfsmfid
+  is '营销公司';
+comment on column HRBZLS.BS_BOOKFRAME.bfbatch
+  is '抄表批次';
+comment on column HRBZLS.BS_BOOKFRAME.bfname
+  is '名称';
+comment on column HRBZLS.BS_BOOKFRAME.bfpid
+  is '上级编码';
+comment on column HRBZLS.BS_BOOKFRAME.bfclass
+  is '级次';
+comment on column HRBZLS.BS_BOOKFRAME.bfflag
+  is '末级标志';
+comment on column HRBZLS.BS_BOOKFRAME.bfstatus
+  is '有效状态';
+comment on column HRBZLS.BS_BOOKFRAME.bfhandles
+  is '下级数量';
+comment on column HRBZLS.BS_BOOKFRAME.bfmemo
+  is '备注';
+comment on column HRBZLS.BS_BOOKFRAME.bforder
+  is '册间次序';
+comment on column HRBZLS.BS_BOOKFRAME.bfcreper
+  is '创建人';
+comment on column HRBZLS.BS_BOOKFRAME.bfcredate
+  is '创建日期';
+comment on column HRBZLS.BS_BOOKFRAME.bfrcyc
+  is '抄表周期';
+comment on column HRBZLS.BS_BOOKFRAME.bflb
+  is '表册类别';
+comment on column HRBZLS.BS_BOOKFRAME.bfrper
+  is '抄表员';
+comment on column HRBZLS.BS_BOOKFRAME.bfsafid
+  is '区域';
+comment on column HRBZLS.BS_BOOKFRAME.bfnrmonth
+  is '下次抄表月份';
+comment on column HRBZLS.BS_BOOKFRAME.bfday
+  is '偏移天数';
+comment on column HRBZLS.BS_BOOKFRAME.bfsdate
+  is '计划起始日期';
+comment on column HRBZLS.BS_BOOKFRAME.bfedate
+  is '计划结束日期';
+comment on column HRBZLS.BS_BOOKFRAME.bfmonth
+  is '本期抄表月份';
+comment on column HRBZLS.BS_BOOKFRAME.bfpper
+  is '收费员';
+comment on column HRBZLS.BS_BOOKFRAME.bfjtsny
+  is '阶梯开始月';
+

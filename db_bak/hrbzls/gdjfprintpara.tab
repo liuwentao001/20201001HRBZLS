@@ -1,0 +1,26 @@
+create global temporary table HRBZLS.GDJFPRINTPARA
+(
+  抄表流水     VARCHAR2(10),
+  水费       NUMBER(13,3),
+  污水费      NUMBER(13,3),
+  垃圾费      NUMBER(13,3),
+  期初预存     NUMBER(13,3),
+  付款金额     NUMBER(13,3),
+  本期水费进帐金额 NUMBER(13,3),
+  本期预存     NUMBER(13,3),
+  销帐金额     NUMBER(13,3),
+  基本水费     NUMBER(13,3),
+  水费1      NUMBER(13,3),
+  水费2      NUMBER(13,3),
+  水费3      NUMBER(13,3),
+  水费4      NUMBER(13,3),
+  水费5      NUMBER(13,3),
+  水费6      NUMBER(13,3),
+  备用1      VARCHAR2(100),
+  备用2      VARCHAR2(100),
+  备用3      VARCHAR2(100),
+  顺序号      NUMBER(10)
+)
+on commit preserve rows;
+create index HRBZLS.IDX_GDJFPRINTPARA_001 on HRBZLS.GDJFPRINTPARA (抄表流水);
+

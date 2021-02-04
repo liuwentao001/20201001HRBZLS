@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_EINVOICE
+minvalue 1
+maxvalue 9999999999
+start with 634500
+increment by 1
+cache 20
+order;
+

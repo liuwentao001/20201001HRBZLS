@@ -1,0 +1,45 @@
+create table HRBZLS.SEWAGE_EXCESSIVE
+(
+  secode    VARCHAR2(20),
+  seprice   VARCHAR2(10),
+  setype    VARCHAR2(10),
+  semtype   VARCHAR2(10),
+  sescale   VARCHAR2(10),
+  stdate    DATE,
+  eddate    DATE,
+  memo      VARCHAR2(100),
+  cmrdno    VARCHAR2(10),
+  cmrdrowno NUMBER(6)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.SEWAGE_EXCESSIVE.secode
+  is '客户代码';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.seprice
+  is '水价';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.setype
+  is '类型';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.semtype
+  is '混合类别';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.sescale
+  is '混合比例';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.stdate
+  is '开始日期';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.eddate
+  is '结束日期';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.memo
+  is '备注';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.cmrdno
+  is '单据流水号';
+comment on column HRBZLS.SEWAGE_EXCESSIVE.cmrdrowno
+  is '行号';
+

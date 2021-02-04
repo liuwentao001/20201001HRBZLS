@@ -1,0 +1,76 @@
+create table HRBZLS.ERPFUNCMETHOD
+(
+  efmfid         VARCHAR2(10) not null,
+  efmmid         CHAR(1) not null,
+  efmname        VARCHAR2(20),
+  efmmethod      VARCHAR2(40),
+  efmuppict      VARCHAR2(80),
+  efmdnpict      VARCHAR2(80),
+  efmcheck       CHAR(1) default 'N',
+  efmvisible     CHAR(1) default 'N',
+  efmhint        VARCHAR2(40),
+  efmmicohelp    VARCHAR2(80),
+  efmtbitemindex NUMBER default 1,
+  efmtbitemorder NUMBER default 0,
+  efmtbitemspace NUMBER default 0,
+  efmtype        VARCHAR2(20),
+  efmtriggerfunc VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ERPFUNCMETHOD
+  is '方法';
+comment on column HRBZLS.ERPFUNCMETHOD.efmfid
+  is '功能ID';
+comment on column HRBZLS.ERPFUNCMETHOD.efmmid
+  is '方法ID';
+comment on column HRBZLS.ERPFUNCMETHOD.efmname
+  is '方法描述';
+comment on column HRBZLS.ERPFUNCMETHOD.efmmethod
+  is '事件代码存放位置';
+comment on column HRBZLS.ERPFUNCMETHOD.efmuppict
+  is '被选择时的图片';
+comment on column HRBZLS.ERPFUNCMETHOD.efmdnpict
+  is '未选择时的图片';
+comment on column HRBZLS.ERPFUNCMETHOD.efmcheck
+  is '是否显示为按钮按下';
+comment on column HRBZLS.ERPFUNCMETHOD.efmvisible
+  is '是否可见';
+comment on column HRBZLS.ERPFUNCMETHOD.efmhint
+  is '提示信息';
+comment on column HRBZLS.ERPFUNCMETHOD.efmmicohelp
+  is '微帮助';
+comment on column HRBZLS.ERPFUNCMETHOD.efmtbitemindex
+  is '工具栏INDEX';
+comment on column HRBZLS.ERPFUNCMETHOD.efmtbitemorder
+  is '工具栏ORDER';
+comment on column HRBZLS.ERPFUNCMETHOD.efmtbitemspace
+  is '工具栏SPACE';
+comment on column HRBZLS.ERPFUNCMETHOD.efmtype
+  is '数据操作属性';
+comment on column HRBZLS.ERPFUNCMETHOD.efmtriggerfunc
+  is '触发功能ID';
+alter table HRBZLS.ERPFUNCMETHOD
+  add constraint PK_ERPFUNCMETHOD primary key (EFMFID, EFMMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

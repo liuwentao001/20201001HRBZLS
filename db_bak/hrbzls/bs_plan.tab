@@ -1,0 +1,148 @@
+create table HRBZLS.BS_PLAN
+(
+  id    VARCHAR2(20) not null,
+  ptype VARCHAR2(2),
+  p1    VARCHAR2(10),
+  p2    VARCHAR2(10),
+  p3    VARCHAR2(20),
+  p4    VARCHAR2(20),
+  d1    VARCHAR2(10),
+  d2    VARCHAR2(10),
+  d3    VARCHAR2(10),
+  d4    VARCHAR2(10),
+  d5    VARCHAR2(10),
+  v1    NUMBER,
+  v2    NUMBER(12,2),
+  v3    NUMBER,
+  v4    NUMBER(12,2),
+  v5    NUMBER(12,2),
+  v6    NUMBER(12,2),
+  v7    VARCHAR2(20),
+  v8    VARCHAR2(20),
+  v9    VARCHAR2(20),
+  v10   VARCHAR2(20),
+  v11   VARCHAR2(20),
+  v12   VARCHAR2(20),
+  f1    NUMBER,
+  f2    NUMBER(12,2),
+  f3    NUMBER,
+  f4    NUMBER(12,2),
+  f5    NUMBER(12,2),
+  f6    VARCHAR2(20),
+  f7    VARCHAR2(20),
+  f8    VARCHAR2(20),
+  f9    VARCHAR2(20),
+  f10   VARCHAR2(20),
+  f11   VARCHAR2(20),
+  f12   VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BS_PLAN
+  is '企划信息表';
+comment on column HRBZLS.BS_PLAN.id
+  is '序号';
+comment on column HRBZLS.BS_PLAN.ptype
+  is '00营业所年计划 11营业所月计划 30集团年计划 21抄表员月计划 31营业所年计划(含行业分类) 41营业所月计划(含行业分类) 51基建用水计划 61补缴用水计划';
+comment on column HRBZLS.BS_PLAN.p1
+  is '年';
+comment on column HRBZLS.BS_PLAN.p2
+  is '月';
+comment on column HRBZLS.BS_PLAN.p3
+  is '备用';
+comment on column HRBZLS.BS_PLAN.p4
+  is '备用1';
+comment on column HRBZLS.BS_PLAN.d1
+  is '营业所';
+comment on column HRBZLS.BS_PLAN.d2
+  is '行业';
+comment on column HRBZLS.BS_PLAN.d3
+  is '抄表员';
+comment on column HRBZLS.BS_PLAN.d4
+  is '备用区域';
+comment on column HRBZLS.BS_PLAN.d5
+  is '备用区域1';
+comment on column HRBZLS.BS_PLAN.v1
+  is '计划供水量（万方）';
+comment on column HRBZLS.BS_PLAN.v2
+  is '计划供水金额（万元）';
+comment on column HRBZLS.BS_PLAN.v3
+  is '计划售水量（万方）';
+comment on column HRBZLS.BS_PLAN.v4
+  is '计划售水金额（万元）';
+comment on column HRBZLS.BS_PLAN.v5
+  is '计划售水率';
+comment on column HRBZLS.BS_PLAN.v6
+  is '计划污水金额（万元）';
+comment on column HRBZLS.BS_PLAN.v7
+  is '计划参数7';
+comment on column HRBZLS.BS_PLAN.v8
+  is '计划参数8';
+comment on column HRBZLS.BS_PLAN.v9
+  is '计划参数9';
+comment on column HRBZLS.BS_PLAN.v10
+  is '计划参数10';
+comment on column HRBZLS.BS_PLAN.v11
+  is '计划参数11';
+comment on column HRBZLS.BS_PLAN.v12
+  is '计划参数12';
+comment on column HRBZLS.BS_PLAN.f1
+  is '完成供水量（万方）';
+comment on column HRBZLS.BS_PLAN.f2
+  is '完成供水金额（万元）';
+comment on column HRBZLS.BS_PLAN.f3
+  is '完成售水量（万方）';
+comment on column HRBZLS.BS_PLAN.f4
+  is '完成售水金额（万元）';
+comment on column HRBZLS.BS_PLAN.f5
+  is '完成售水率';
+comment on column HRBZLS.BS_PLAN.f6
+  is '完成参数6';
+comment on column HRBZLS.BS_PLAN.f7
+  is '完成参数7';
+comment on column HRBZLS.BS_PLAN.f8
+  is '完成参数8';
+comment on column HRBZLS.BS_PLAN.f9
+  is '完成参数9';
+comment on column HRBZLS.BS_PLAN.f10
+  is '完成参数10';
+comment on column HRBZLS.BS_PLAN.f11
+  is '完成参数11';
+comment on column HRBZLS.BS_PLAN.f12
+  is '完成参数12';
+create index HRBZLS.IDX_D1 on HRBZLS.BS_PLAN (D1)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.BS_PLAN
+  add constraint P_ID primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

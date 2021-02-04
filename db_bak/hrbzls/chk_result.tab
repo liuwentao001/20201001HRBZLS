@@ -1,0 +1,59 @@
+create table HRBZLS.CHK_RESULT
+(
+  id         NUMBER not null,
+  chk_time   DATE,
+  chk_item   VARCHAR2(100),
+  chk_result VARCHAR2(100),
+  rlid       VARCHAR2(10),
+  mid        VARCHAR2(10),
+  pmid       VARCHAR2(10),
+  otherid    VARCHAR2(100),
+  para       VARCHAR2(400),
+  remark     VARCHAR2(1000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CHK_RESULT
+  is '业务检查异常清单';
+comment on column HRBZLS.CHK_RESULT.id
+  is '流水号';
+comment on column HRBZLS.CHK_RESULT.chk_time
+  is '检查时间';
+comment on column HRBZLS.CHK_RESULT.chk_item
+  is '检查项目';
+comment on column HRBZLS.CHK_RESULT.rlid
+  is '应收帐id';
+comment on column HRBZLS.CHK_RESULT.mid
+  is '水表id';
+comment on column HRBZLS.CHK_RESULT.pmid
+  is '实收帐id';
+comment on column HRBZLS.CHK_RESULT.otherid
+  is '其他相关id';
+comment on column HRBZLS.CHK_RESULT.para
+  is '相关参数说明';
+comment on column HRBZLS.CHK_RESULT.remark
+  is '备注';
+alter table HRBZLS.CHK_RESULT
+  add constraint PK_CHK_RESULT primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

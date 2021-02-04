@@ -1,0 +1,106 @@
+create table HRBZLS.OPERACCNT
+(
+  oaid      VARCHAR2(15) not null,
+  oapwd     VARCHAR2(32),
+  oapwdtype CHAR(1),
+  oapwdqust VARCHAR2(20),
+  oapwdansw VARCHAR2(20),
+  oaislogin CHAR(1) not null,
+  oamaxdate DATE not null,
+  oagh      VARCHAR2(8),
+  oaname    VARCHAR2(60),
+  oadept    VARCHAR2(10),
+  oaidno    VARCHAR2(20),
+  oaemail   VARCHAR2(40),
+  oatimes   NUMBER(12),
+  oatel     VARCHAR2(15),
+  oadrange  CHAR(1) default 'Y' not null,
+  oasalary1 NUMBER(12,4),
+  oasalary2 NUMBER(12,4),
+  oasalary3 NUMBER(12,4),
+  oasalary4 NUMBER(12,4),
+  oaicflag  VARCHAR2(1),
+  oaic      VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERACCNT
+  is '用户';
+comment on column HRBZLS.OPERACCNT.oaid
+  is '帐号（【哈尔滨】工号）';
+comment on column HRBZLS.OPERACCNT.oapwd
+  is '密码';
+comment on column HRBZLS.OPERACCNT.oapwdtype
+  is '是否允许修改密码';
+comment on column HRBZLS.OPERACCNT.oapwdqust
+  is '密码问题';
+comment on column HRBZLS.OPERACCNT.oapwdansw
+  is '密码答案';
+comment on column HRBZLS.OPERACCNT.oaislogin
+  is '是否允许登录';
+comment on column HRBZLS.OPERACCNT.oamaxdate
+  is '有效期';
+comment on column HRBZLS.OPERACCNT.oagh
+  is '工作证号码（【哈尔滨】登录账号）';
+comment on column HRBZLS.OPERACCNT.oaname
+  is '姓名';
+comment on column HRBZLS.OPERACCNT.oadept
+  is '部门编码';
+comment on column HRBZLS.OPERACCNT.oaidno
+  is '身份证号';
+comment on column HRBZLS.OPERACCNT.oaemail
+  is '员工电子邮件地址';
+comment on column HRBZLS.OPERACCNT.oatimes
+  is '登录次数';
+comment on column HRBZLS.OPERACCNT.oatel
+  is '联系电话';
+comment on column HRBZLS.OPERACCNT.oadrange
+  is '操作数据范围';
+comment on column HRBZLS.OPERACCNT.oasalary1
+  is '基本工资';
+comment on column HRBZLS.OPERACCNT.oasalary2
+  is '岗位工资';
+comment on column HRBZLS.OPERACCNT.oasalary3
+  is '绩效工资';
+comment on column HRBZLS.OPERACCNT.oasalary4
+  is '抄表难度系数';
+comment on column HRBZLS.OPERACCNT.oaicflag
+  is '是否验证码';
+comment on column HRBZLS.OPERACCNT.oaic
+  is '验证码';
+create unique index HRBZLS.IDX_OAGH on HRBZLS.OPERACCNT (OAGH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.OPERACCNT
+  add constraint PK_OPERACCNT primary key (OAID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

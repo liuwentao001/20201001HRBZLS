@@ -1,0 +1,49 @@
+create global temporary table HRBZLS.KPI_DIM_TEMP
+(
+  band       VARCHAR2(6),
+  dim        NUMBER(2),
+  dim_id     VARCHAR2(20),
+  name       VARCHAR2(20),
+  value      VARCHAR2(100),
+  unit       VARCHAR2(10),
+  script     VARCHAR2(40),
+  status     NUMBER(1),
+  disp_order NUMBER(3),
+  isshow     NUMBER(1),
+  gaugeid    VARCHAR2(3),
+  drill      VARCHAR2(20),
+  para       VARCHAR2(20),
+  groupno    NUMBER(5)
+)
+on commit preserve rows;
+comment on table HRBZLS.KPI_DIM_TEMP
+  is '商务智能临时表';
+comment on column HRBZLS.KPI_DIM_TEMP.band
+  is '带区';
+comment on column HRBZLS.KPI_DIM_TEMP.dim
+  is '维度';
+comment on column HRBZLS.KPI_DIM_TEMP.dim_id
+  is '编号';
+comment on column HRBZLS.KPI_DIM_TEMP.name
+  is '项目';
+comment on column HRBZLS.KPI_DIM_TEMP.value
+  is '值';
+comment on column HRBZLS.KPI_DIM_TEMP.unit
+  is '单位';
+comment on column HRBZLS.KPI_DIM_TEMP.script
+  is '描述';
+comment on column HRBZLS.KPI_DIM_TEMP.status
+  is '状态';
+comment on column HRBZLS.KPI_DIM_TEMP.disp_order
+  is '显示顺序';
+comment on column HRBZLS.KPI_DIM_TEMP.isshow
+  is '是否显示（0不显示，1显示）';
+comment on column HRBZLS.KPI_DIM_TEMP.gaugeid
+  is '图表标志（C1~C3，L1~L5）';
+comment on column HRBZLS.KPI_DIM_TEMP.drill
+  is '钻取';
+comment on column HRBZLS.KPI_DIM_TEMP.para
+  is '钻取参数';
+comment on column HRBZLS.KPI_DIM_TEMP.groupno
+  is '组ID';
+

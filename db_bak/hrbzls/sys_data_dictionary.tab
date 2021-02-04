@@ -1,0 +1,23 @@
+create table HRBZLS.SYS_DATA_DICTIONARY
+(
+  tablename    VARCHAR2(100) not null,
+  tablecomment VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.SYS_DATA_DICTIONARY
+  is '数据字典【表范围】';
+comment on column HRBZLS.SYS_DATA_DICTIONARY.tablename
+  is '表名';
+comment on column HRBZLS.SYS_DATA_DICTIONARY.tablecomment
+  is '表说明';
+alter table HRBZLS.SYS_DATA_DICTIONARY
+  add constraint PK_SDD primary key (TABLENAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

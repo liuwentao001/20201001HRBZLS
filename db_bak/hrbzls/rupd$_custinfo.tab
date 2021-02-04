@@ -1,0 +1,11 @@
+create global temporary table HRBZLS.RUPD$_CUSTINFO
+(
+  ciid            VARCHAR2(10),
+  dmltype$$       VARCHAR2(1),
+  snapid          INTEGER,
+  change_vector$$ RAW(255)
+)
+on commit preserve rows;
+comment on table HRBZLS.RUPD$_CUSTINFO
+  is 'temporary updatable snapshot log';
+

@@ -1,0 +1,34 @@
+create table HRBZLS.RPT_SUM_CWZJBB2016020420160204
+(
+  账务月份       CHAR(7),
+  ppayway    VARCHAR2(6),
+  pposition  VARCHAR2(10),
+  sfy        VARCHAR2(20),
+  chargetype CHAR(1),
+  ofagent    VARCHAR2(10),
+  watertype  VARCHAR2(10),
+  milb       CHAR(1),
+  缴费机构       VARCHAR2(4),
+  总水量        NUMBER,
+  总水费        NUMBER,
+  总污水量       NUMBER,
+  总污水费       NUMBER,
+  总金额        NUMBER,
+  基建水量       NUMBER,
+  基建水费       NUMBER,
+  补缴水量       NUMBER,
+  补缴水费       NUMBER,
+  补缴污水费      NUMBER,
+  水量         NUMBER,
+  水费         NUMBER,
+  污水量        NUMBER,
+  污水费        NUMBER,
+  票面金额       NUMBER,
+  预存发生       NUMBER,
+  附加费        NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

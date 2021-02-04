@@ -1,0 +1,70 @@
+create table HRBZLS.DWCONTINFO
+(
+  dcifid       VARCHAR2(10) not null,
+  dcifdate     DATE,
+  dciftype     VARCHAR2(20),
+  dcifowner    VARCHAR2(10),
+  dcifname     VARCHAR2(100),
+  dciffunid    VARCHAR2(10),
+  dcifdwname   VARCHAR2(100),
+  dcifdwconstr VARCHAR2(2000),
+  dcifflag     CHAR(1) default 'N'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.DWCONTINFO
+  is '数据窗口查询条件信息[DCIF]';
+comment on column HRBZLS.DWCONTINFO.dcifid
+  is '流水号';
+comment on column HRBZLS.DWCONTINFO.dcifdate
+  is '日期';
+comment on column HRBZLS.DWCONTINFO.dciftype
+  is '类型';
+comment on column HRBZLS.DWCONTINFO.dcifowner
+  is '所有者';
+comment on column HRBZLS.DWCONTINFO.dcifname
+  is '条件名称';
+comment on column HRBZLS.DWCONTINFO.dciffunid
+  is '功能编号';
+comment on column HRBZLS.DWCONTINFO.dcifdwname
+  is '数据窗口名';
+comment on column HRBZLS.DWCONTINFO.dcifdwconstr
+  is '条件字符串';
+comment on column HRBZLS.DWCONTINFO.dcifflag
+  is '默认查询条件';
+create index HRBZLS.INDEX_DWCONTINFO on HRBZLS.DWCONTINFO (DCIFDATE, DCIFTYPE, DCIFOWNER, DCIFDWNAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.DWCONTINFO
+  add constraint AK_PK_DWCONTINFO_DWCONTIN unique (DCIFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

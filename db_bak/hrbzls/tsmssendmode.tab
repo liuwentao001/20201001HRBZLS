@@ -1,0 +1,38 @@
+create table HRBZLS.TSMSSENDMODE
+(
+  tmdlb      VARCHAR2(3),
+  tmdname    VARCHAR2(20),
+  tmdbh      VARCHAR2(3),
+  tmdmd      VARCHAR2(400),
+  tmdtacitly VARCHAR2(1),
+  tmdlength  VARCHAR2(2),
+  tmdrowlen  VARCHAR2(4)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TSMSSENDMODE
+  is '短信模版表';
+comment on column HRBZLS.TSMSSENDMODE.tmdlb
+  is '模版类别';
+comment on column HRBZLS.TSMSSENDMODE.tmdname
+  is '模名称版';
+comment on column HRBZLS.TSMSSENDMODE.tmdbh
+  is '模版编号';
+comment on column HRBZLS.TSMSSENDMODE.tmdmd
+  is '模版内容';
+comment on column HRBZLS.TSMSSENDMODE.tmdtacitly
+  is '是否为当前默认模版';
+comment on column HRBZLS.TSMSSENDMODE.tmdlength
+  is '是否限制内容长度';
+comment on column HRBZLS.TSMSSENDMODE.tmdrowlen
+  is '模版单次发送条数';
+

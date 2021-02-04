@@ -1,0 +1,44 @@
+create table HRBZLS.PRICESTEP_VER
+(
+  pspscid NUMBER default 0 not null,
+  pspfid  VARCHAR2(10) not null,
+  pspiid  CHAR(2) not null,
+  psclass NUMBER not null,
+  psscode NUMBER(10) not null,
+  psecode NUMBER(10) not null,
+  psprice NUMBER(10,3) not null,
+  psmemo  VARCHAR2(60),
+  verid   NUMBER not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PRICESTEP_VER
+  is '归档阶梯';
+comment on column HRBZLS.PRICESTEP_VER.pspscid
+  is '方案编码';
+comment on column HRBZLS.PRICESTEP_VER.pspfid
+  is '费率编码';
+comment on column HRBZLS.PRICESTEP_VER.pspiid
+  is '费率项目代码';
+comment on column HRBZLS.PRICESTEP_VER.psclass
+  is '阶梯级别';
+comment on column HRBZLS.PRICESTEP_VER.psscode
+  is '起量';
+comment on column HRBZLS.PRICESTEP_VER.psecode
+  is '止量';
+comment on column HRBZLS.PRICESTEP_VER.psprice
+  is '单价';
+comment on column HRBZLS.PRICESTEP_VER.psmemo
+  is '备注';
+comment on column HRBZLS.PRICESTEP_VER.verid
+  is '档案id';
+alter table HRBZLS.PRICESTEP_VER
+  add constraint PK_PRICESTEP_VER primary key (PSPSCID, PSPFID, PSPIID, PSCLASS, VERID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

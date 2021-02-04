@@ -1,0 +1,14 @@
+create global temporary table HRBZLS.TEMPSTR
+(
+  tpsid    VARCHAR2(10) not null,
+  tpsstrid VARCHAR2(40) not null
+)
+on commit delete rows;
+comment on column HRBZLS.TEMPSTR.tpsid
+  is '字符串临时表批次号';
+comment on column HRBZLS.TEMPSTR.tpsstrid
+  is '字符串临时表流水号';
+create index HRBZLS.TEMPSTR_INDX_001 on HRBZLS.TEMPSTR (TPSSTRID);
+alter table HRBZLS.TEMPSTR
+  add constraint PK_TEMPSTR primary key (TPSID, TPSSTRID);
+

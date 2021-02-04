@@ -1,0 +1,66 @@
+create table HRBZLS.BANKCHKLOG_NEW
+(
+  id            CHAR(10) not null,
+  chkdate       DATE not null,
+  bankcode      VARCHAR2(10) not null,
+  reccount      NUMBER(10),
+  amount        NUMBER(10,2),
+  chkfile       VARCHAR2(100),
+  okflag        CHAR(1) default 'N',
+  operator      VARCHAR2(20),
+  okdate        DATE,
+  errflag       VARCHAR2(2),
+  remark        VARCHAR2(1000),
+  chkfileindate DATE,
+  chkfileinoper VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BANKCHKLOG_NEW
+  is '收费对账流水';
+comment on column HRBZLS.BANKCHKLOG_NEW.id
+  is '对账流水号';
+comment on column HRBZLS.BANKCHKLOG_NEW.chkdate
+  is '账务日期';
+comment on column HRBZLS.BANKCHKLOG_NEW.bankcode
+  is '银行代码（结算单位代码）';
+comment on column HRBZLS.BANKCHKLOG_NEW.reccount
+  is '总收费记录';
+comment on column HRBZLS.BANKCHKLOG_NEW.amount
+  is '总金额';
+comment on column HRBZLS.BANKCHKLOG_NEW.chkfile
+  is '对账文件名';
+comment on column HRBZLS.BANKCHKLOG_NEW.okflag
+  is '对账完成标志';
+comment on column HRBZLS.BANKCHKLOG_NEW.operator
+  is '操作人员';
+comment on column HRBZLS.BANKCHKLOG_NEW.okdate
+  is '完成时间';
+comment on column HRBZLS.BANKCHKLOG_NEW.errflag
+  is '单边账标志（Y-有单边账，N-账平）';
+comment on column HRBZLS.BANKCHKLOG_NEW.remark
+  is '备注';
+alter table HRBZLS.BANKCHKLOG_NEW
+  add constraint PK_BANKCHKLOG_NEW primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

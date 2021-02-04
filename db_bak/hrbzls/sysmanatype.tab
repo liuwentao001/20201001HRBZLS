@@ -1,0 +1,40 @@
+create table HRBZLS.SYSMANATYPE
+(
+  smtid   CHAR(1) not null,
+  smtname VARCHAR2(10) not null,
+  smtmemo VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSMANATYPE
+  is '管理架构类型【SMT】';
+comment on column HRBZLS.SYSMANATYPE.smtid
+  is '架构类型编码';
+comment on column HRBZLS.SYSMANATYPE.smtname
+  is '架构类型名称';
+comment on column HRBZLS.SYSMANATYPE.smtmemo
+  is '架构类型描述';
+alter table HRBZLS.SYSMANATYPE
+  add constraint PK_SYSMANATYPE primary key (SMTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

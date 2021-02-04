@@ -1,0 +1,70 @@
+create table HRBZLS.USERFILE
+(
+  ufcode        VARCHAR2(10) not null,
+  ufid          NUMBER not null,
+  uftitle       VARCHAR2(100),
+  uftype        CHAR(2),
+  uffiledate    DATE,
+  uffilename    VARCHAR2(180),
+  uffileuppath  VARCHAR2(280),
+  uffiletype    VARCHAR2(10),
+  uffilesize    NUMBER(10),
+  uffilescript  VARCHAR2(180),
+  uffileupper   VARCHAR2(10),
+  uffileupdate  DATE,
+  uffiledownnum NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.USERFILE
+  is '用户档案【UF】';
+comment on column HRBZLS.USERFILE.ufcode
+  is '用户代码';
+comment on column HRBZLS.USERFILE.ufid
+  is '档案编号';
+comment on column HRBZLS.USERFILE.uftitle
+  is '档案标题';
+comment on column HRBZLS.USERFILE.uftype
+  is '档案类型（身份证、户口本等）';
+comment on column HRBZLS.USERFILE.uffiledate
+  is '档案日期';
+comment on column HRBZLS.USERFILE.uffilename
+  is '文件名（用户号+档案时间年份+3位编号）';
+comment on column HRBZLS.USERFILE.uffileuppath
+  is '上传文件路径';
+comment on column HRBZLS.USERFILE.uffiletype
+  is '文件类型（txt、doc等）';
+comment on column HRBZLS.USERFILE.uffilesize
+  is '文件大小（KB）';
+comment on column HRBZLS.USERFILE.uffilescript
+  is '文件描述';
+comment on column HRBZLS.USERFILE.uffileupper
+  is '上传者';
+comment on column HRBZLS.USERFILE.uffileupdate
+  is '上传时间';
+comment on column HRBZLS.USERFILE.uffiledownnum
+  is '下载次数';
+alter table HRBZLS.USERFILE
+  add constraint PK_USERFILE primary key (UFCODE, UFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,91 @@
+create table HRBZLS.METERADDSLHIS
+(
+  masid        NUMBER not null,
+  masscodeo    NUMBER(10),
+  masecoden    NUMBER(10),
+  masuninsdate DATE,
+  masuninsper  VARCHAR2(15),
+  mascredate   DATE,
+  mascid       VARCHAR2(10),
+  masmid       VARCHAR2(10),
+  massl        NUMBER(10),
+  mascreper    VARCHAR2(15),
+  mastrans     CHAR(1),
+  masbillno    VARCHAR2(10),
+  masscoden    NUMBER(10),
+  masinsdate   DATE,
+  masinsper    VARCHAR2(15),
+  masmrid      VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERADDSLHIS
+  is '余量信息【MASH】';
+comment on column HRBZLS.METERADDSLHIS.masid
+  is '记录流水号';
+comment on column HRBZLS.METERADDSLHIS.masscodeo
+  is '旧表起度';
+comment on column HRBZLS.METERADDSLHIS.masecoden
+  is '旧表止度';
+comment on column HRBZLS.METERADDSLHIS.masuninsdate
+  is '拆表日期';
+comment on column HRBZLS.METERADDSLHIS.masuninsper
+  is '拆表人';
+comment on column HRBZLS.METERADDSLHIS.mascredate
+  is '创建日期';
+comment on column HRBZLS.METERADDSLHIS.mascid
+  is '用户编号';
+comment on column HRBZLS.METERADDSLHIS.masmid
+  is '水表编号';
+comment on column HRBZLS.METERADDSLHIS.massl
+  is '余量';
+comment on column HRBZLS.METERADDSLHIS.mascreper
+  is '创建人员';
+comment on column HRBZLS.METERADDSLHIS.mastrans
+  is '加调事务';
+comment on column HRBZLS.METERADDSLHIS.masbillno
+  is '单据流水';
+comment on column HRBZLS.METERADDSLHIS.masscoden
+  is '新表起度';
+comment on column HRBZLS.METERADDSLHIS.masinsdate
+  is '装表日期';
+comment on column HRBZLS.METERADDSLHIS.masinsper
+  is '装表人';
+comment on column HRBZLS.METERADDSLHIS.masmrid
+  is '抄表流水';
+create index HRBZLS.IDX_MASMID2 on HRBZLS.METERADDSLHIS (MASMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERADDSLHIS
+  add constraint PK_METERADDSLHIS_MASMRID primary key (MASID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

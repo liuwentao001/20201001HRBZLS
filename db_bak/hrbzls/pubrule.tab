@@ -1,0 +1,64 @@
+create table HRBZLS.PUBRULE
+(
+  ruleid     CHAR(2) not null,
+  rulename   VARCHAR2(20) not null,
+  ruleislen  CHAR(1) default 'N' not null,
+  rulemaxlen NUMBER(2) not null,
+  rulesyslen NUMBER(2) not null,
+  rulemode   CHAR(1) default '0' not null,
+  ruleisrule CHAR(1) default 'N' not null,
+  rulemaxcls NUMBER(2),
+  ruledef    VARCHAR2(40),
+  rulestatus CHAR(1) not null,
+  rulememo   VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PUBRULE
+  is '[RULE]编码规则';
+comment on column HRBZLS.PUBRULE.ruleid
+  is '代码';
+comment on column HRBZLS.PUBRULE.rulename
+  is '描述';
+comment on column HRBZLS.PUBRULE.ruleislen
+  is '是否定长';
+comment on column HRBZLS.PUBRULE.rulemaxlen
+  is '最大长度';
+comment on column HRBZLS.PUBRULE.rulesyslen
+  is '用户长度';
+comment on column HRBZLS.PUBRULE.rulemode
+  is '编码方式';
+comment on column HRBZLS.PUBRULE.ruleisrule
+  is '是否存在规则';
+comment on column HRBZLS.PUBRULE.rulemaxcls
+  is '最大级次';
+comment on column HRBZLS.PUBRULE.ruledef
+  is '规则定义';
+comment on column HRBZLS.PUBRULE.rulestatus
+  is '状态';
+comment on column HRBZLS.PUBRULE.rulememo
+  is '备注说明';
+alter table HRBZLS.PUBRULE
+  add constraint PK_PUBRULE primary key (RULEID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

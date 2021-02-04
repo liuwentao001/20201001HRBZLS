@@ -1,0 +1,50 @@
+create table HRBZLS.PRINTLOG
+(
+  gid   VARCHAR2(40) not null,
+  fid   VARCHAR2(40) not null,
+  ftype VARCHAR2(40) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.PRINTLOG.gid
+  is '序号';
+comment on column HRBZLS.PRINTLOG.fid
+  is '标识号';
+comment on column HRBZLS.PRINTLOG.ftype
+  is '类型（3=便签）';
+create index HRBZLS.IDX_PRINTLOG on HRBZLS.PRINTLOG (FID, FTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.PRINTLOG
+  add constraint FK_PRINTLOG primary key (GID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

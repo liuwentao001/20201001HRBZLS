@@ -1,0 +1,45 @@
+create table HRBZLS.SYSUPDATE
+(
+  sufilename    VARCHAR2(60) not null,
+  sufilepath    VARCHAR2(255) not null,
+  sufileblob    BLOB,
+  suedition     VARCHAR2(14) not null,
+  mainedition   VARCHAR2(14),
+  filesizebytes NUMBER(13,3)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSUPDATE
+  is '版本发布表（压缩版）';
+comment on column HRBZLS.SYSUPDATE.sufilename
+  is '文件名称';
+comment on column HRBZLS.SYSUPDATE.sufilepath
+  is '相对路径';
+comment on column HRBZLS.SYSUPDATE.sufileblob
+  is '二进制文件';
+comment on column HRBZLS.SYSUPDATE.suedition
+  is '版本';
+alter table HRBZLS.SYSUPDATE
+  add constraint PK_SYSUPDATE primary key (SUFILEPATH, SUFILENAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

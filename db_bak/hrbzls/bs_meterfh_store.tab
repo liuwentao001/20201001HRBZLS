@@ -1,0 +1,64 @@
+create table HRBZLS.BS_METERFH_STORE
+(
+  storeid  VARCHAR2(10) not null,
+  meterfh  VARCHAR2(20) not null,
+  fhtype   VARCHAR2(2) not null,
+  bsm      VARCHAR2(40),
+  rkdate   DATE,
+  mainman  VARCHAR2(20),
+  maindate DATE,
+  fhstatus VARCHAR2(1) default '0',
+  fhmemo   VARCHAR2(200),
+  caliber  NUMBER(10) not null,
+  id       VARCHAR2(50) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BS_METERFH_STORE
+  is '水表封号';
+comment on column HRBZLS.BS_METERFH_STORE.storeid
+  is '仓库编号（对应营业所编号）';
+comment on column HRBZLS.BS_METERFH_STORE.meterfh
+  is '水表封号';
+comment on column HRBZLS.BS_METERFH_STORE.fhtype
+  is '封号类型（1=塑封号，2=钢封号，3=稽查封号，4=铅封号）';
+comment on column HRBZLS.BS_METERFH_STORE.bsm
+  is '表身码';
+comment on column HRBZLS.BS_METERFH_STORE.rkdate
+  is '入库日期';
+comment on column HRBZLS.BS_METERFH_STORE.mainman
+  is '状态人员';
+comment on column HRBZLS.BS_METERFH_STORE.maindate
+  is '状态日期';
+comment on column HRBZLS.BS_METERFH_STORE.fhstatus
+  is '封号状态（0=未使用，1=已使用，2=作废）';
+comment on column HRBZLS.BS_METERFH_STORE.fhmemo
+  is '备注';
+comment on column HRBZLS.BS_METERFH_STORE.caliber
+  is '口径';
+comment on column HRBZLS.BS_METERFH_STORE.id
+  is '主键';
+alter table HRBZLS.BS_METERFH_STORE
+  add primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,37 @@
+create table HRBZLS.HFBBS_PUBLIC_NOTE_DEPT
+(
+  wpnd_id   VARCHAR2(20) not null,
+  wpnd_dept VARCHAR2(30) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.HFBBS_PUBLIC_NOTE_DEPT
+  is '发布接受部门';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE_DEPT.wpnd_id
+  is '流水帐号';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE_DEPT.wpnd_dept
+  is '接受部门编码';
+alter table HRBZLS.HFBBS_PUBLIC_NOTE_DEPT
+  add constraint PK_HFBBS_PUBLIC_NOTE_DEPT primary key (WPND_ID, WPND_DEPT)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

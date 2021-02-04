@@ -1,0 +1,40 @@
+create table HRBZLS.ACCOUNTNO
+(
+  anid   CHAR(1) not null,
+  anname VARCHAR2(20),
+  anmemo VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ACCOUNTNO
+  is '’ Ã◊≈‰÷√°æAN°ø';
+comment on column HRBZLS.ACCOUNTNO.anid
+  is '±‡¬Î';
+comment on column HRBZLS.ACCOUNTNO.anname
+  is '√˚≥∆';
+comment on column HRBZLS.ACCOUNTNO.anmemo
+  is '√Ë ˆ';
+alter table HRBZLS.ACCOUNTNO
+  add constraint PK_ACCOUNTNO primary key (ANID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

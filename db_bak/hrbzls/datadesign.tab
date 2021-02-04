@@ -1,0 +1,27 @@
+create table HRBZLS.DATADESIGN
+(
+  字典类型   VARCHAR2(20),
+  字典code VARCHAR2(20),
+  字典     VARCHAR2(200),
+  备注     VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.DATADESIGN.字典类型
+  is '字典类型';
+comment on column HRBZLS.DATADESIGN.字典code
+  is '字典代号';
+comment on column HRBZLS.DATADESIGN.字典
+  is '字典说明';
+comment on column HRBZLS.DATADESIGN.备注
+  is '字典备注';
+

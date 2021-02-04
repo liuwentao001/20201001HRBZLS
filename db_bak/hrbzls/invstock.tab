@@ -1,0 +1,169 @@
+create table HRBZLS.INVSTOCK
+(
+  isid           NUMBER(10) not null,
+  isper          VARCHAR2(10),
+  istype         CHAR(1),
+  isbcno         VARCHAR2(32) default '0',
+  isno           VARCHAR2(12),
+  isstatus       CHAR(1),
+  isstatusdate   DATE,
+  isstatusper    VARCHAR2(10),
+  ispstatus      CHAR(1),
+  ispstatusdatep DATE,
+  isptatusper    VARCHAR2(10),
+  issmfid        VARCHAR2(10),
+  isprinttype    VARCHAR2(10),
+  isprintcd      VARCHAR2(10),
+  isprintje      NUMBER(13,3),
+  isprinttrans   VARCHAR2(10),
+  isoutper       VARCHAR2(10),
+  isoutdate      DATE,
+  ismemo         VARCHAR2(200),
+  iszzs          VARCHAR2(10),
+  ispcisno       VARCHAR2(40),
+  ismicode       VARCHAR2(10),
+  isje1          NUMBER(13,3),
+  isje2          NUMBER(13,3),
+  isje3          NUMBER(13,3),
+  isje4          NUMBER(13,3),
+  isje5          NUMBER(13,3),
+  isje6          NUMBER(13,3),
+  isje7          NUMBER(13,3),
+  isje8          NUMBER(13,3),
+  isstatusmemo   VARCHAR2(60),
+  isstockdo      VARCHAR2(2),
+  isstockper     VARCHAR2(10),
+  isstockdate    DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.INVSTOCK
+  is '票据库存【IS】';
+comment on column HRBZLS.INVSTOCK.isid
+  is '票据流水号';
+comment on column HRBZLS.INVSTOCK.isper
+  is '库存所有人';
+comment on column HRBZLS.INVSTOCK.istype
+  is '票据类型';
+comment on column HRBZLS.INVSTOCK.isbcno
+  is '批号';
+comment on column HRBZLS.INVSTOCK.isno
+  is '票据号码';
+comment on column HRBZLS.INVSTOCK.isstatus
+  is '状态(0未使用；1使用；2作废；3锁定, 4退回, 5销毁)';
+comment on column HRBZLS.INVSTOCK.isstatusdate
+  is '状态日期';
+comment on column HRBZLS.INVSTOCK.isstatusper
+  is '状态人员';
+comment on column HRBZLS.INVSTOCK.ispstatus
+  is '上次状态';
+comment on column HRBZLS.INVSTOCK.ispstatusdatep
+  is '上次状态日期';
+comment on column HRBZLS.INVSTOCK.isptatusper
+  is '上次状态人员';
+comment on column HRBZLS.INVSTOCK.issmfid
+  is '库存单位';
+comment on column HRBZLS.INVSTOCK.isprinttype
+  is '打印方式（1:实收打印批次pbatch，2:实收pID3:实收明细:plid，4:实收pdid+pdpiid,5:入户直收rlid,6:托收，7:抄表流水mrid)';
+comment on column HRBZLS.INVSTOCK.isprintcd
+  is '借款方DE/CR';
+comment on column HRBZLS.INVSTOCK.isprintje
+  is '票面金额';
+comment on column HRBZLS.INVSTOCK.isprinttrans
+  is '事务类别';
+comment on column HRBZLS.INVSTOCK.isoutper
+  is '发放票据人';
+comment on column HRBZLS.INVSTOCK.isoutdate
+  is '发放时间';
+comment on column HRBZLS.INVSTOCK.ismemo
+  is '备注';
+comment on column HRBZLS.INVSTOCK.iszzs
+  is '增值税';
+comment on column HRBZLS.INVSTOCK.ispcisno
+  is '票据批次||号码';
+comment on column HRBZLS.INVSTOCK.ismicode
+  is '客户代码';
+comment on column HRBZLS.INVSTOCK.isje1
+  is '金额1(销账金额)';
+comment on column HRBZLS.INVSTOCK.isje2
+  is '金额2(销账金额)';
+comment on column HRBZLS.INVSTOCK.isje3
+  is '金额3(销账金额)';
+comment on column HRBZLS.INVSTOCK.isje4
+  is '金额4(销账金额)';
+comment on column HRBZLS.INVSTOCK.isje5
+  is '金额5(销账金额)';
+comment on column HRBZLS.INVSTOCK.isje6
+  is '金额6(销账金额)';
+comment on column HRBZLS.INVSTOCK.isje7
+  is '金额7(销账金额)';
+comment on column HRBZLS.INVSTOCK.isje8
+  is '金额8(销账金额)';
+comment on column HRBZLS.INVSTOCK.isstatusmemo
+  is '状态原因';
+comment on column HRBZLS.INVSTOCK.isstockdo
+  is '仓库状态(0入库；1分发；2领用；3退回营业所, 4退回公司，5销毁作废)';
+comment on column HRBZLS.INVSTOCK.isstockper
+  is '入库人员';
+comment on column HRBZLS.INVSTOCK.isstockdate
+  is '入库日期';
+create index HRBZLS.IDX_INVSTOCK1 on HRBZLS.INVSTOCK (ISTYPE, ISPER, ISSTATUS)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.INVSTOCK_IDX0001 on HRBZLS.INVSTOCK (ISBCNO, ISNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.INVSTOCK_IDX0002 on HRBZLS.INVSTOCK (ISPCISNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.INVSTOCK
+  add constraint PK_INVSTOCK primary key (ISID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

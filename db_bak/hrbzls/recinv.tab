@@ -1,0 +1,34 @@
+create table HRBZLS.RECINV
+(
+  rirlid VARCHAR2(4000),
+  ripiid VARCHAR2(4000),
+  riilid VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.RECINV
+  is '应收--票据对应关系';
+comment on column HRBZLS.RECINV.rirlid
+  is '应收流水';
+comment on column HRBZLS.RECINV.ripiid
+  is '费用项目';
+comment on column HRBZLS.RECINV.riilid
+  is '票据流水';
+create index HRBZLS.IDX_RIILID on HRBZLS.RECINV (RIILID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 167;
+create index HRBZLS.IDX_RIPIID on HRBZLS.RECINV (RIPIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 167;
+create index HRBZLS.IDX_RIRLID on HRBZLS.RECINV (RIRLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 167;
+

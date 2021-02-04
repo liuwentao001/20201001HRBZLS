@@ -1,0 +1,14 @@
+create table HRBZLS.PRINTLISTTEMP_NEW
+(
+  pltno      NUMBER(10),
+  pltcontent VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.PRINTLISTTEMP_NEW.pltno
+  is 'ÐòºÅ';
+comment on column HRBZLS.PRINTLISTTEMP_NEW.pltcontent
+  is '´òÓ¡ÄÚÈÝ';
+

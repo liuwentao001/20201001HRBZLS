@@ -1,0 +1,26 @@
+create table HRBZLS.MSSPERSONNAMES
+(
+  mpnid   VARCHAR2(5),
+  mpnname VARCHAR2(140),
+  mpntype NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MSSPERSONNAMES
+  is '短信平台常用语';
+comment on column HRBZLS.MSSPERSONNAMES.mpnid
+  is '编号';
+comment on column HRBZLS.MSSPERSONNAMES.mpnname
+  is '内容';
+comment on column HRBZLS.MSSPERSONNAMES.mpntype
+  is '所属分类';
+

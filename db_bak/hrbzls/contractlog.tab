@@ -1,0 +1,27 @@
+create table HRBZLS.CONTRACTLOG
+(
+  变更类型   CHAR(8),
+  营业所    VARCHAR2(10),
+  客户号    VARCHAR2(10),
+  变更后    VARCHAR2(64),
+  变更前    VARCHAR2(64),
+  变更日期   DATE,
+  变更单据号  VARCHAR2(10),
+  审核人员   VARCHAR2(10),
+  合同编号   VARCHAR2(50),
+  周期     VARCHAR2(50),
+  日期限制   VARCHAR2(50),
+  合同签订日期 DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

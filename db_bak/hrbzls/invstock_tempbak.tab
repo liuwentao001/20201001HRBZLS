@@ -1,0 +1,47 @@
+create global temporary table HRBZLS.INVSTOCK_TEMPBAK
+(
+  isid           NUMBER(10),
+  isper          VARCHAR2(10),
+  istype         CHAR(1),
+  isbcno         VARCHAR2(12),
+  isno           VARCHAR2(12),
+  isstatus       CHAR(1),
+  isstatusdate   DATE,
+  isstatusper    VARCHAR2(10),
+  ispstatus      CHAR(1),
+  ispstatusdatep DATE,
+  isptatusper    VARCHAR2(10),
+  issmfid        VARCHAR2(10),
+  isprinttype    VARCHAR2(10),
+  isprintcd      VARCHAR2(10),
+  isprintje      NUMBER(13,3),
+  isprinttrans   VARCHAR2(10),
+  isoutper       VARCHAR2(10),
+  isoutdate      DATE,
+  ismemo         VARCHAR2(200),
+  iszzs          VARCHAR2(10),
+  ispcisno       VARCHAR2(40),
+  ismicode       VARCHAR2(10),
+  isje1          NUMBER(13,3),
+  isje2          NUMBER(13,3),
+  isje3          NUMBER(13,3),
+  isje4          NUMBER(13,3),
+  isje5          NUMBER(13,3),
+  isje6          NUMBER(13,3),
+  isje7          NUMBER(13,3),
+  isje8          NUMBER(13,3),
+  isstatusmemo   VARCHAR2(60),
+  isstockdo      VARCHAR2(2),
+  isstockper     VARCHAR2(10),
+  isstockdate    DATE
+)
+on commit delete rows;
+comment on column HRBZLS.INVSTOCK_TEMPBAK.isstatusmemo
+  is '状态原因';
+comment on column HRBZLS.INVSTOCK_TEMPBAK.isstockdo
+  is '仓库状态(0入库；1分发；2领用；3退回营业所, 4退回公司，5销毁作废)';
+comment on column HRBZLS.INVSTOCK_TEMPBAK.isstockper
+  is '入库人员';
+comment on column HRBZLS.INVSTOCK_TEMPBAK.isstockdate
+  is '入库日期';
+

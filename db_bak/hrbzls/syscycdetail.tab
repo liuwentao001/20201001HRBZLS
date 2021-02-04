@@ -1,0 +1,37 @@
+create table HRBZLS.SYSCYCDETAIL
+(
+  scdschid CHAR(1) not null,
+  scdsmid  NUMBER(2) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSCYCDETAIL
+  is '周期组成明细【SCD】';
+comment on column HRBZLS.SYSCYCDETAIL.scdschid
+  is '周期编号';
+comment on column HRBZLS.SYSCYCDETAIL.scdsmid
+  is '月份';
+alter table HRBZLS.SYSCYCDETAIL
+  add constraint PK_SYSCYCDETAIL primary key (SCDSCHID, SCDSMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

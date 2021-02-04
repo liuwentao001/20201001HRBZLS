@@ -1,0 +1,67 @@
+create table HRBZLS.CALENDAR
+(
+  caldate  DATE not null,
+  week     INTEGER,
+  califhol INTEGER default 0,
+  calmemo  VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CALENDAR
+  is '日历【CAL】';
+comment on column HRBZLS.CALENDAR.caldate
+  is '日期';
+comment on column HRBZLS.CALENDAR.week
+  is '星期';
+comment on column HRBZLS.CALENDAR.califhol
+  is '是否节假日';
+comment on column HRBZLS.CALENDAR.calmemo
+  is '备注';
+create index HRBZLS.IDX_CALIFHOL on HRBZLS.CALENDAR (CALIFHOL)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_CALWEEK on HRBZLS.CALENDAR (WEEK)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.CALENDAR
+  add constraint PK_CALENDAR primary key (CALDATE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

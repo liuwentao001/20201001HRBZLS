@@ -1,0 +1,46 @@
+create table HRBZLS.SYSCUSTSTATUS
+(
+  scsid     VARCHAR2(2) not null,
+  scsname   VARCHAR2(20) not null,
+  scsifread CHAR(1) not null,
+  scsifhalt CHAR(1) not null,
+  scsmemo   VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSCUSTSTATUS
+  is '用户状态【SCS】';
+comment on column HRBZLS.SYSCUSTSTATUS.scsid
+  is '编码';
+comment on column HRBZLS.SYSCUSTSTATUS.scsname
+  is '名称';
+comment on column HRBZLS.SYSCUSTSTATUS.scsifread
+  is '是否抄表';
+comment on column HRBZLS.SYSCUSTSTATUS.scsifhalt
+  is '是否系统锁定抄表';
+comment on column HRBZLS.SYSCUSTSTATUS.scsmemo
+  is '描述';
+alter table HRBZLS.SYSCUSTSTATUS
+  add constraint PK_SYSCUSTSTATUS primary key (SCSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

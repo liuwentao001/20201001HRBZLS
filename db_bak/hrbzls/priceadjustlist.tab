@@ -1,0 +1,142 @@
+create table HRBZLS.PRICEADJUSTLIST
+(
+  palid        VARCHAR2(10) not null,
+  paltactic    VARCHAR2(10) not null,
+  palmethod    VARCHAR2(11) not null,
+  palsmfid     VARCHAR2(10),
+  palcid       VARCHAR2(10),
+  palmid       VARCHAR2(10),
+  palpiid      VARCHAR2(10),
+  palpfid      VARCHAR2(10),
+  palcaliber   VARCHAR2(10),
+  palprice     NUMBER(13,3),
+  palway       NUMBER,
+  palvalue     NUMBER(13,3),
+  palstartmon  VARCHAR2(7),
+  palendmon    VARCHAR2(7),
+  palstatus    CHAR(1) not null,
+  palrlid      VARCHAR2(10),
+  palinitvalue NUMBER(13,3),
+  palper       VARCHAR2(10),
+  paldate      DATE,
+  palmonthstr  VARCHAR2(200),
+  paldatetype  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEADJUSTLIST
+  is '计费调整列表【PAL】';
+comment on column HRBZLS.PRICEADJUSTLIST.palid
+  is '流水号';
+comment on column HRBZLS.PRICEADJUSTLIST.paltactic
+  is '策略（02=仅按水表，07=按水表+价格类别，09=按水表+价格类别+费用项目）';
+comment on column HRBZLS.PRICEADJUSTLIST.palmethod
+  is '调整方法（priceadjustmethod）';
+comment on column HRBZLS.PRICEADJUSTLIST.palsmfid
+  is '营销公司';
+comment on column HRBZLS.PRICEADJUSTLIST.palcid
+  is '用户编号';
+comment on column HRBZLS.PRICEADJUSTLIST.palmid
+  is '水表编号';
+comment on column HRBZLS.PRICEADJUSTLIST.palpiid
+  is '费用项目';
+comment on column HRBZLS.PRICEADJUSTLIST.palpfid
+  is '费率编码';
+comment on column HRBZLS.PRICEADJUSTLIST.palcaliber
+  is '口径编码/新费率编码';
+comment on column HRBZLS.PRICEADJUSTLIST.palprice
+  is '例外单价';
+comment on column HRBZLS.PRICEADJUSTLIST.palway
+  is '调整方向(+/-)';
+comment on column HRBZLS.PRICEADJUSTLIST.palvalue
+  is '调整值';
+comment on column HRBZLS.PRICEADJUSTLIST.palstartmon
+  is '开始月份';
+comment on column HRBZLS.PRICEADJUSTLIST.palendmon
+  is '结束月份';
+comment on column HRBZLS.PRICEADJUSTLIST.palstatus
+  is '有效状态';
+comment on column HRBZLS.PRICEADJUSTLIST.palrlid
+  is '最近生效应收记录';
+comment on column HRBZLS.PRICEADJUSTLIST.palinitvalue
+  is '调整值初值';
+comment on column HRBZLS.PRICEADJUSTLIST.palper
+  is '调整人员';
+comment on column HRBZLS.PRICEADJUSTLIST.paldate
+  is '调整日期';
+comment on column HRBZLS.PRICEADJUSTLIST.palmonthstr
+  is '周期月份串(1、周期月分【以年为单】如果：01/03/05/07/09，2、指定年月分串 如 2013.04/2013.08)';
+comment on column HRBZLS.PRICEADJUSTLIST.paldatetype
+  is '周期时间类别【0和空PALMONTHSTR就无效，1、周期月分【以年为单】如果：01/03/05/07/09，2、指定年月分串 如 2013.04/2013.08/】';
+create index HRBZLS.IDX_PALMETHOD on HRBZLS.PRICEADJUSTLIST (PALMETHOD)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PALMID on HRBZLS.PRICEADJUSTLIST (PALMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PALSTATUS on HRBZLS.PRICEADJUSTLIST (PALSTATUS, PALSTARTMON, PALENDMON)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PALTACTIC on HRBZLS.PRICEADJUSTLIST (PALTACTIC)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.PRICEADJUSTLIST
+  add constraint PK_PRICEADJUSTLIST primary key (PALID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

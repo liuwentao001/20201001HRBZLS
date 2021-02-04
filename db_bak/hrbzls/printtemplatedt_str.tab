@@ -1,0 +1,61 @@
+create table HRBZLS.PRINTTEMPLATEDT_STR
+(
+  ptdid        NUMBER not null,
+  ptditemno    INTEGER not null,
+  ptditemname  VARCHAR2(64),
+  ptdx         INTEGER,
+  ptdy         INTEGER,
+  ptdheight    INTEGER,
+  ptdwidth     INTEGER,
+  ptdfontname  VARCHAR2(20),
+  ptdfontsize  INTEGER,
+  ptdfontalign INTEGER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRINTTEMPLATEDT_STR
+  is '打印模板明细【PTD】';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdid
+  is '模板编号';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptditemno
+  is '打印域';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptditemname
+  is '域名';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdx
+  is '域水平坐标';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdy
+  is '域垂直坐标';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdheight
+  is '域高';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdwidth
+  is '域宽';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdfontname
+  is '字体';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdfontsize
+  is '字号';
+comment on column HRBZLS.PRINTTEMPLATEDT_STR.ptdfontalign
+  is '字对齐(0中1左2右)';
+alter table HRBZLS.PRINTTEMPLATEDT_STR
+  add constraint PK_PRINTTEMPLATEDT_STR primary key (PTDID, PTDITEMNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

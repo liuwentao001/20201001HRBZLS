@@ -1,0 +1,43 @@
+create table HRBZLS.FLOW_OPER_DEFINE
+(
+  fofid   VARCHAR2(100) not null,
+  fofno   NUMBER not null,
+  fofoper VARCHAR2(10) not null,
+  fomemo  VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FLOW_OPER_DEFINE
+  is '流程人员权限定义';
+comment on column HRBZLS.FLOW_OPER_DEFINE.fofid
+  is '流程ID';
+comment on column HRBZLS.FLOW_OPER_DEFINE.fofno
+  is '流程号';
+comment on column HRBZLS.FLOW_OPER_DEFINE.fofoper
+  is '执行人员';
+comment on column HRBZLS.FLOW_OPER_DEFINE.fomemo
+  is '备注';
+alter table HRBZLS.FLOW_OPER_DEFINE
+  add constraint PK_FO_01 primary key (FOFID, FOFNO, FOFOPER)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

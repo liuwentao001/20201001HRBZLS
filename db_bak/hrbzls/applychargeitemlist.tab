@@ -1,0 +1,41 @@
+create table HRBZLS.APPLYCHARGEITEMLIST
+(
+  acilmfpcode VARCHAR2(10) not null,
+  acilid      VARCHAR2(4) not null,
+  acilname    VARCHAR2(40) not null,
+  acillb      VARCHAR2(1) not null,
+  acilvaluesl NUMBER(10) not null,
+  acilvalueje NUMBER(10,2) not null,
+  acilstatus  CHAR(1) not null,
+  acilmemo    VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.APPLYCHARGEITEMLIST
+  is '报装费用项目列表';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acilmfpcode
+  is '管辖公司';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acilid
+  is '费用项目代码';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acilname
+  is '费用项目名称';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acillb
+  is '费用项目类别(1:实物2:款项)';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acilvaluesl
+  is '费用项目初始值数量';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acilvalueje
+  is '费用项目初始值金额';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acilstatus
+  is '费用项目有效性';
+comment on column HRBZLS.APPLYCHARGEITEMLIST.acilmemo
+  is '费用项目备注描述';
+alter table HRBZLS.APPLYCHARGEITEMLIST
+  add constraint PK_APPLYCHARGEITEMLIST primary key (ACILMFPCODE, ACILID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

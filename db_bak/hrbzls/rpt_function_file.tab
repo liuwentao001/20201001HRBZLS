@@ -1,0 +1,40 @@
+create table HRBZLS.RPT_FUNCTION_FILE
+(
+  ffid   VARCHAR2(32) not null,
+  ffname VARCHAR2(1024) not null,
+  fftype VARCHAR2(1024) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RPT_FUNCTION_FILE
+  is '功能文件（*.raq）';
+comment on column HRBZLS.RPT_FUNCTION_FILE.ffid
+  is '功能ID';
+comment on column HRBZLS.RPT_FUNCTION_FILE.ffname
+  is '文件名称';
+comment on column HRBZLS.RPT_FUNCTION_FILE.fftype
+  is '显示类型';
+alter table HRBZLS.RPT_FUNCTION_FILE
+  add constraint FFID_FFNAME primary key (FFID, FFNAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

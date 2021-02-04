@@ -1,0 +1,57 @@
+create table HRBZLS.SYSAREAFRAME
+(
+  safid     VARCHAR2(10) not null,
+  safname   VARCHAR2(100) not null,
+  safpid    VARCHAR2(10),
+  safclass  NUMBER not null,
+  safflag   CHAR(1) not null,
+  safstatus CHAR(1) not null,
+  safmemo   VARCHAR2(60),
+  safsmfid  VARCHAR2(10),
+  x         NUMBER,
+  y         NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSAREAFRAME
+  is '片区架构信息【SAF】';
+comment on column HRBZLS.SYSAREAFRAME.safid
+  is '编码';
+comment on column HRBZLS.SYSAREAFRAME.safname
+  is '名称';
+comment on column HRBZLS.SYSAREAFRAME.safpid
+  is '上级编码';
+comment on column HRBZLS.SYSAREAFRAME.safclass
+  is '级次';
+comment on column HRBZLS.SYSAREAFRAME.safflag
+  is '末级标志';
+comment on column HRBZLS.SYSAREAFRAME.safstatus
+  is '状态';
+comment on column HRBZLS.SYSAREAFRAME.safmemo
+  is '备注';
+comment on column HRBZLS.SYSAREAFRAME.safsmfid
+  is '营业所';
+alter table HRBZLS.SYSAREAFRAME
+  add constraint PK_SYSAREAFRAME primary key (SAFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,66 @@
+create table HRBZLS.TRECEIVE
+(
+  id           NUMBER(10,2) not null,
+  smobileno    VARCHAR2(20),
+  sexno        VARCHAR2(20),
+  ssmsmessage  VARCHAR2(140),
+  dreturntime  DATE,
+  sposition    VARCHAR2(20),
+  dreceivetime DATE,
+  nreadtag     CHAR(1) default 0,
+  dreadtime    DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TRECEIVE
+  is '短信接受（HF）';
+comment on column HRBZLS.TRECEIVE.id
+  is '记录编号
+';
+comment on column HRBZLS.TRECEIVE.smobileno
+  is '手机号码
+';
+comment on column HRBZLS.TRECEIVE.sexno
+  is '扩展号码
+';
+comment on column HRBZLS.TRECEIVE.ssmsmessage
+  is '短信内容
+';
+comment on column HRBZLS.TRECEIVE.dreturntime
+  is '回复时间
+';
+comment on column HRBZLS.TRECEIVE.sposition
+  is '位置序号
+';
+comment on column HRBZLS.TRECEIVE.dreceivetime
+  is '接收时间
+';
+comment on column HRBZLS.TRECEIVE.nreadtag
+  is '读取标记';
+comment on column HRBZLS.TRECEIVE.dreadtime
+  is '读取时间
+';
+alter table HRBZLS.TRECEIVE
+  add constraint TRECEIVE_PK primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

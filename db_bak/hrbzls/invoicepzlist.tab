@@ -1,0 +1,107 @@
+create table HRBZLS.INVOICEPZLIST
+(
+  iplid          NUMBER not null,
+  iplsmfid       VARCHAR2(10),
+  ipltype        CHAR(1),
+  iplcd          CHAR(2),
+  iplbcno        VARCHAR2(12),
+  iplno          VARCHAR2(12),
+  iplmonth       VARCHAR2(7),
+  ipldate        DATE,
+  iplper         VARCHAR2(10),
+  iplje          NUMBER(12,2),
+  iplstatus      CHAR(1),
+  iplstatusdate  DATE,
+  iplstatusper   VARCHAR2(10),
+  iplbatch       VARCHAR2(10),
+  iplseqno       VARCHAR2(10),
+  iplbankid      VARCHAR2(30),
+  iplaccountno   VARCHAR2(32),
+  iplaccountname VARCHAR2(64),
+  ipltsbankid    VARCHAR2(30),
+  iplinvcount    NUMBER(4),
+  iploutflag     CHAR(1),
+  iploutdate     DATE,
+  iploutper      VARCHAR2(10),
+  iplpaidflag    CHAR(1),
+  iplpaiddate    DATE,
+  iplpaidper     VARCHAR2(10),
+  iplreturnflag  CHAR(1),
+  iplreturnmsg   VARCHAR2(100),
+  iplreturndate  DATE,
+  iplreturnper   VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVOICEPZLIST
+  is '已出凭证流水【IPL】';
+comment on column HRBZLS.INVOICEPZLIST.iplid
+  is '凭证流水号';
+comment on column HRBZLS.INVOICEPZLIST.iplsmfid
+  is '分公司';
+comment on column HRBZLS.INVOICEPZLIST.ipltype
+  is '票据类型';
+comment on column HRBZLS.INVOICEPZLIST.iplcd
+  is '借贷类型';
+comment on column HRBZLS.INVOICEPZLIST.iplbcno
+  is '票据年号';
+comment on column HRBZLS.INVOICEPZLIST.iplno
+  is '票据号码';
+comment on column HRBZLS.INVOICEPZLIST.iplmonth
+  is '票务月份';
+comment on column HRBZLS.INVOICEPZLIST.ipldate
+  is '票务日期';
+comment on column HRBZLS.INVOICEPZLIST.iplper
+  is '出票人';
+comment on column HRBZLS.INVOICEPZLIST.iplje
+  is '开票金额';
+comment on column HRBZLS.INVOICEPZLIST.iplstatus
+  is '票据状态';
+comment on column HRBZLS.INVOICEPZLIST.iplstatusdate
+  is '状态日期';
+comment on column HRBZLS.INVOICEPZLIST.iplstatusper
+  is '状态变更人';
+comment on column HRBZLS.INVOICEPZLIST.iplbatch
+  is '生成批次';
+comment on column HRBZLS.INVOICEPZLIST.iplseqno
+  is '生成流水';
+comment on column HRBZLS.INVOICEPZLIST.iplbankid
+  is '开户行';
+comment on column HRBZLS.INVOICEPZLIST.iplaccountno
+  is '开户帐号';
+comment on column HRBZLS.INVOICEPZLIST.iplaccountname
+  is '开户名';
+comment on column HRBZLS.INVOICEPZLIST.ipltsbankid
+  is '公司开户行';
+comment on column HRBZLS.INVOICEPZLIST.iplinvcount
+  is '发票张数';
+comment on column HRBZLS.INVOICEPZLIST.iploutflag
+  is '在途标志';
+comment on column HRBZLS.INVOICEPZLIST.iploutdate
+  is '发出日期';
+comment on column HRBZLS.INVOICEPZLIST.iploutper
+  is '发出操作人';
+comment on column HRBZLS.INVOICEPZLIST.iplpaidflag
+  is '本地销帐标志';
+comment on column HRBZLS.INVOICEPZLIST.iplpaiddate
+  is '本地销帐日期';
+comment on column HRBZLS.INVOICEPZLIST.iplpaidper
+  is '本地销帐人员';
+comment on column HRBZLS.INVOICEPZLIST.iplreturnflag
+  is '返回标志';
+comment on column HRBZLS.INVOICEPZLIST.iplreturnmsg
+  is '返回信息';
+comment on column HRBZLS.INVOICEPZLIST.iplreturndate
+  is '返回日期';
+comment on column HRBZLS.INVOICEPZLIST.iplreturnper
+  is '返回操作人';
+alter table HRBZLS.INVOICEPZLIST
+  add constraint PK_INVOICEPZLIST primary key (IPLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

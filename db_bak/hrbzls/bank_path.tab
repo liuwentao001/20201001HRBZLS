@@ -1,0 +1,26 @@
+create table HRBZLS.BANK_PATH
+(
+  bankid VARCHAR2(10) not null,
+  path   VARCHAR2(100) not null,
+  p_type VARCHAR2(20) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BANK_PATH
+  is '银行文档路径定义';
+comment on column HRBZLS.BANK_PATH.bankid
+  is '银行代码';
+comment on column HRBZLS.BANK_PATH.path
+  is '路径';
+comment on column HRBZLS.BANK_PATH.p_type
+  is '路径类别';
+alter table HRBZLS.BANK_PATH
+  add constraint PK_BANK_PATH primary key (BANKID, PATH, P_TYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

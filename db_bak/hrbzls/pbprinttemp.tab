@@ -1,0 +1,20 @@
+create global temporary table HRBZLS.PBPRINTTEMP
+(
+  id  NUMBER not null,
+  c1  VARCHAR2(1000),
+  c2  VARCHAR2(400),
+  c3  VARCHAR2(400),
+  c4  VARCHAR2(400),
+  c5  VARCHAR2(400),
+  c6  VARCHAR2(400),
+  c7  VARCHAR2(400),
+  c8  VARCHAR2(400),
+  c9  VARCHAR2(400),
+  c10 VARCHAR2(400)
+)
+on commit delete rows;
+comment on table HRBZLS.PBPRINTTEMP
+  is 'PB参数传递临时表';
+create index HRBZLS.IDX_PBPRINTTEMP_C1 on HRBZLS.PBPRINTTEMP (C1);
+create index HRBZLS.IDX_PBPRINTTEMP_C2 on HRBZLS.PBPRINTTEMP (C2);
+

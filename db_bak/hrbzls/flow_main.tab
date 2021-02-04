@@ -1,0 +1,70 @@
+create table HRBZLS.FLOW_MAIN
+(
+  fmid      VARCHAR2(10) not null,
+  fmno      NUMBER(10) not null,
+  fmbillno  VARCHAR2(10) not null,
+  fmstaus   VARCHAR2(2),
+  fmdate    DATE,
+  fmoper    VARCHAR2(100),
+  fmopinion VARCHAR2(4000),
+  fmemo     VARCHAR2(4000),
+  fmetype   VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FLOW_MAIN
+  is '流程执行表';
+comment on column HRBZLS.FLOW_MAIN.fmid
+  is '流程ID';
+comment on column HRBZLS.FLOW_MAIN.fmno
+  is '流程号';
+comment on column HRBZLS.FLOW_MAIN.fmbillno
+  is '单据号';
+comment on column HRBZLS.FLOW_MAIN.fmstaus
+  is '流程状态 0 未执行 1 已经执行 2当前执行 3 回退';
+comment on column HRBZLS.FLOW_MAIN.fmdate
+  is '执行时间';
+comment on column HRBZLS.FLOW_MAIN.fmoper
+  is '完成人员';
+comment on column HRBZLS.FLOW_MAIN.fmopinion
+  is '审批意见';
+comment on column HRBZLS.FLOW_MAIN.fmemo
+  is '备注';
+comment on column HRBZLS.FLOW_MAIN.fmetype
+  is '流程类别(0 审批 1 回退) 未启用';
+create index HRBZLS.IDX_FLOW_MAIN_01 on HRBZLS.FLOW_MAIN (FMID, FMNO, FMBILLNO, FMSTAUS)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.FLOW_MAIN
+  add constraint PK_FM_01 primary key (FMID, FMBILLNO, FMNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

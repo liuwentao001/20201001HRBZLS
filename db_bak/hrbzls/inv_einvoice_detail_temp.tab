@@ -1,0 +1,29 @@
+create global temporary table HRBZLS.INV_EINVOICE_DETAIL_TEMP
+(
+  idid    VARCHAR2(32),
+  line    NUMBER,
+  xmmc    VARCHAR2(200),
+  xmdw    VARCHAR2(100),
+  ggxh    VARCHAR2(200),
+  xmsl    VARCHAR2(24),
+  hsbz    VARCHAR2(1),
+  fphxz   VARCHAR2(1),
+  xmdj    VARCHAR2(24),
+  spbm    VARCHAR2(19),
+  zxbm    VARCHAR2(20),
+  yhzcbs  VARCHAR2(1),
+  lslbs   VARCHAR2(1),
+  zzstsgl VARCHAR2(50),
+  xmje    NUMBER,
+  sl      VARCHAR2(10),
+  se      NUMBER,
+  byzd1   VARCHAR2(100),
+  byzd2   VARCHAR2(100),
+  byzd3   VARCHAR2(100),
+  byzd4   VARCHAR2(100),
+  byzd5   VARCHAR2(100),
+  jshj    NUMBER,
+  kce     NUMBER
+)
+on commit delete rows;
+

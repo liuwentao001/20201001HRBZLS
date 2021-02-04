@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_DELETE_NO
+minvalue 1
+maxvalue 99999999999999999999
+start with 757051
+increment by 1
+cache 50;
+

@@ -1,0 +1,63 @@
+create table HRBZLS.DEMO_WATERSB
+(
+  cmrdno     VARCHAR2(10),
+  cmrdrowno  NUMBER(6),
+  applicant  VARCHAR2(100),
+  apdate     DATE,
+  operator   VARCHAR2(20),
+  telephone  VARCHAR2(20),
+  demochange VARCHAR2(100),
+  rcdate     DATE,
+  rgmark     VARCHAR2(20),
+  prdate     DATE,
+  hdsuggest  VARCHAR2(100),
+  ccdate     DATE,
+  cardid     VARCHAR2(20),
+  zjpel      VARCHAR2(20),
+  sgpel      VARCHAR2(20),
+  sgdate     DATE,
+  bxpel      VARCHAR2(20),
+  bxdate     DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.DEMO_WATERSB.cmrdno
+  is '单据流水号';
+comment on column HRBZLS.DEMO_WATERSB.cmrdrowno
+  is '行号';
+comment on column HRBZLS.DEMO_WATERSB.applicant
+  is '申请单位';
+comment on column HRBZLS.DEMO_WATERSB.apdate
+  is '申请时间';
+comment on column HRBZLS.DEMO_WATERSB.operator
+  is '经办人';
+comment on column HRBZLS.DEMO_WATERSB.telephone
+  is '电话';
+comment on column HRBZLS.DEMO_WATERSB.demochange
+  is '拆迁变动位置';
+comment on column HRBZLS.DEMO_WATERSB.rcdate
+  is '登记日期';
+comment on column HRBZLS.DEMO_WATERSB.rgmark
+  is '登记号';
+comment on column HRBZLS.DEMO_WATERSB.prdate
+  is '处理日期';
+comment on column HRBZLS.DEMO_WATERSB.hdsuggest
+  is '处理意见';
+comment on column HRBZLS.DEMO_WATERSB.ccdate
+  is '施工完成时间';
+comment on column HRBZLS.DEMO_WATERSB.cardid
+  is '卡片图号';
+comment on column HRBZLS.DEMO_WATERSB.zjpel
+  is '
+质检员';
+comment on column HRBZLS.DEMO_WATERSB.sgpel
+  is '施工人员';
+comment on column HRBZLS.DEMO_WATERSB.sgdate
+  is '施工时间';
+comment on column HRBZLS.DEMO_WATERSB.bxpel
+  is '闭栓人';
+comment on column HRBZLS.DEMO_WATERSB.bxdate
+  is '闭栓日期';
+

@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_INV_LOGS
+minvalue 401
+maxvalue 999999999
+start with 1071224
+increment by 1
+cache 50
+order;
+

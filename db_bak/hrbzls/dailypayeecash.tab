@@ -1,0 +1,104 @@
+create table HRBZLS.DAILYPAYEECASH
+(
+  dpcpayee     VARCHAR2(10) not null,
+  dpcdate      DATE not null,
+  dpcqcbyj     NUMBER(14,2),
+  dpcbqbyjde0  NUMBER(14,2),
+  dpcbqzhsfde0 NUMBER(14,2),
+  dpcbqdmbde0  NUMBER(14,2),
+  dpcbqznjde0  NUMBER(14,2),
+  dpcbqbyjde1  NUMBER(14,2),
+  dpcbqzhsfde1 NUMBER(14,2),
+  dpcbqdmbde1  NUMBER(14,2),
+  dpcbqznjde1  NUMBER(14,2),
+  dpcbqqtde    NUMBER(14,2),
+  dpcbqbyjcr0  NUMBER(14,2),
+  dpcbqzhsfcr0 NUMBER(14,2),
+  dpcbqdmbcr0  NUMBER(14,2),
+  dpcbqznjcr0  NUMBER(14,2),
+  dpcbqbyjcr1  NUMBER(14,2),
+  dpcbqzhsfcr1 NUMBER(14,2),
+  dpcbqdmbcr1  NUMBER(14,2),
+  dpcbqznjcr1  NUMBER(14,2),
+  dpcbqjzdcr   NUMBER(14,2),
+  dpcqmbyj     NUMBER(14,2),
+  dpcdept      VARCHAR2(10),
+  dpcqcje      NUMBER(14,2),
+  dpcqmje      NUMBER(14,2),
+  dpcbqiode0   NUMBER(14,2),
+  dpcbqiode1   NUMBER(14,2),
+  dpcbqiocr0   NUMBER(14,2),
+  dpcbqiocr1   NUMBER(14,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.DAILYPAYEECASH
+  is '收费员资金结存【DPC】';
+comment on column HRBZLS.DAILYPAYEECASH.dpcpayee
+  is '收费员';
+comment on column HRBZLS.DAILYPAYEECASH.dpcdate
+  is '账务日期';
+comment on column HRBZLS.DAILYPAYEECASH.dpcqcbyj
+  is '期初备用金';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqbyjde0
+  is '本期备用金收入(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqzhsfde0
+  is '本期综合水费收入(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqdmbde0
+  is '本期代码表收入(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqznjde0
+  is '本期违约金收入(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqbyjde1
+  is '本期备用金收入(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqzhsfde1
+  is '本期综合水费收入(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqdmbde1
+  is '本期代码表收入(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqznjde1
+  is '本期违约金收入(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqqtde
+  is '本期其他收入';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqbyjcr0
+  is '本期备用金支出(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqzhsfcr0
+  is '本期综合水费支出(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqdmbcr0
+  is '本期代码表支出(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqznjcr0
+  is '本期违约金支出(本期前日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqbyjcr1
+  is '本期备用金支出(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqzhsfcr1
+  is '本期综合水费支出(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqdmbcr1
+  is '本期代码表支出(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqznjcr1
+  is '本期违约金支出(本期本日)';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqjzdcr
+  is '本期银行进账单支出';
+comment on column HRBZLS.DAILYPAYEECASH.dpcqmbyj
+  is '期末备用金';
+comment on column HRBZLS.DAILYPAYEECASH.dpcdept
+  is '收费员部门';
+comment on column HRBZLS.DAILYPAYEECASH.dpcqcje
+  is '期初余款';
+comment on column HRBZLS.DAILYPAYEECASH.dpcqmje
+  is '期末余款';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqiode0
+  is '本期领退收入（本期前日）';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqiode1
+  is '本期领退收入（本期本日）';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqiocr0
+  is '本期领退支出（本期前日）';
+comment on column HRBZLS.DAILYPAYEECASH.dpcbqiocr1
+  is '本期领退支出（本期本日）';
+alter table HRBZLS.DAILYPAYEECASH
+  add constraint PK_DAILYPAYEECASH primary key (DPCPAYEE, DPCDATE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

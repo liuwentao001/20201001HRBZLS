@@ -1,0 +1,33 @@
+create table HRBZLS.BILLFLOWGROUP
+(
+  bfgid   VARCHAR2(10) not null,
+  bfgname VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLFLOWGROUP
+  is '人员组名[BFG]';
+alter table HRBZLS.BILLFLOWGROUP
+  add constraint PK_BILLFLOWGROUP primary key (BFGID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

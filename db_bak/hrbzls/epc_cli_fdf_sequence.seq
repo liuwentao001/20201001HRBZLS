@@ -1,0 +1,9 @@
+create sequence HRBZLS.EPC_CLI_FDF_SEQUENCE
+minvalue 1
+maxvalue 999999999
+start with 1
+increment by 1
+cache 50
+cycle
+order;
+

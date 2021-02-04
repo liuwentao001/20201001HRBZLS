@@ -1,0 +1,297 @@
+create table HRBZLS.INV_INFOHIS
+(
+  id          VARCHAR2(10),
+  isid        VARCHAR2(10),
+  ispcisno    VARCHAR2(40),
+  dyfs        VARCHAR2(10),
+  printnum    NUMBER(10),
+  status      CHAR(1),
+  fkfs        VARCHAR2(2),
+  cplx        VARCHAR2(2),
+  cpfs        CHAR(2),
+  ppbatch     VARCHAR2(10),
+  batch       VARCHAR2(10),
+  flag        CHAR(1),
+  fkje        NUMBER(12,4),
+  xzje        NUMBER(12,4),
+  znj         NUMBER(12,4),
+  sxf         NUMBER(12,4),
+  jmje        NUMBER(12,4) not null,
+  qcsaving    NUMBER(12,4),
+  qmsaving    NUMBER(12,4),
+  bqsaving    NUMBER(12,4),
+  czper       VARCHAR2(10),
+  czdate      DATE,
+  jzdid       VARCHAR2(20),
+  cpje01      NUMBER(12,4),
+  cpje02      NUMBER(12,4),
+  cpje03      NUMBER(12,4),
+  cpje04      NUMBER(12,4),
+  cpje05      NUMBER(12,4),
+  cpje06      NUMBER(12,4),
+  cpje07      NUMBER(12,4),
+  cpje08      NUMBER(12,4),
+  cpje09      NUMBER(12,4),
+  cpje10      NUMBER(12,4),
+  memo01      VARCHAR2(60),
+  memo02      VARCHAR2(600),
+  mcode       VARCHAR2(10),
+  poper       VARCHAR2(10),
+  pdate       DATE,
+  scode       NUMBER,
+  ecode       NUMBER,
+  month       VARCHAR2(10),
+  rlid        VARCHAR2(10),
+  pid         VARCHAR2(10),
+  pmonth      VARCHAR2(10),
+  fptype      VARCHAR2(20),
+  reverseflag VARCHAR2(1),
+  cpje11      NUMBER(12,4),
+  kpje        NUMBER(12,4),
+  statusmemo  VARCHAR2(60),
+  sl          NUMBER,
+  rlcname     VARCHAR2(150),
+  rlcadr      VARCHAR2(150),
+  dj          NUMBER(12,4),
+  dj1         NUMBER(12,4),
+  dj2         NUMBER(12,4),
+  dj3         NUMBER(12,4),
+  dj4         NUMBER(12,4),
+  dj5         NUMBER(12,4),
+  dj6         NUMBER(12,4),
+  dj7         NUMBER(12,4),
+  dj8         NUMBER(12,4),
+  dj9         NUMBER(12,4),
+  yshj        NUMBER(12,4),
+  yjbss       NUMBER(12,4),
+  memo03      VARCHAR2(600),
+  memo04      VARCHAR2(600),
+  memo05      VARCHAR2(600),
+  memo06      VARCHAR2(600),
+  memo07      VARCHAR2(600),
+  memo08      VARCHAR2(600),
+  memo09      VARCHAR2(600),
+  memo10      VARCHAR2(600),
+  memo11      VARCHAR2(600),
+  memo12      VARCHAR2(600),
+  memo13      VARCHAR2(600),
+  memo14      VARCHAR2(600),
+  memo15      VARCHAR2(600),
+  memo16      VARCHAR2(600),
+  memo17      VARCHAR2(600),
+  memo18      VARCHAR2(600),
+  memo19      VARCHAR2(600),
+  memo20      VARCHAR2(600)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.INV_INFOHIS.id
+  is '出票流水号';
+comment on column HRBZLS.INV_INFOHIS.isid
+  is '发票流水号';
+comment on column HRBZLS.INV_INFOHIS.ispcisno
+  is '票据批次||号码';
+comment on column HRBZLS.INV_INFOHIS.dyfs
+  is '打印方式(0,正常，1. 补打，2.重打';
+comment on column HRBZLS.INV_INFOHIS.printnum
+  is '打印次数';
+comment on column HRBZLS.INV_INFOHIS.status
+  is '状态(0，正常、1, 作废、2,红票、3,蓝票';
+comment on column HRBZLS.INV_INFOHIS.fkfs
+  is '付款类型(xj 现金,zp,支票';
+comment on column HRBZLS.INV_INFOHIS.cplx
+  is '出票类型（p,实收出账,l，应收出账）';
+comment on column HRBZLS.INV_INFOHIS.cpfs
+  is '出票方式（合票、分票、预存票、存折，稽查,.......）';
+comment on column HRBZLS.INV_INFOHIS.ppbatch
+  is '打印批次';
+comment on column HRBZLS.INV_INFOHIS.batch
+  is '实收批次';
+comment on column HRBZLS.INV_INFOHIS.flag
+  is '销账标志';
+comment on column HRBZLS.INV_INFOHIS.fkje
+  is '付款金额';
+comment on column HRBZLS.INV_INFOHIS.xzje
+  is '销账金额';
+comment on column HRBZLS.INV_INFOHIS.znj
+  is '滞纳金';
+comment on column HRBZLS.INV_INFOHIS.sxf
+  is '手续费';
+comment on column HRBZLS.INV_INFOHIS.jmje
+  is '减免金额';
+comment on column HRBZLS.INV_INFOHIS.qcsaving
+  is '上次结存';
+comment on column HRBZLS.INV_INFOHIS.qmsaving
+  is '本次结存';
+comment on column HRBZLS.INV_INFOHIS.bqsaving
+  is '本期预存发生';
+comment on column HRBZLS.INV_INFOHIS.czper
+  is '冲正人员';
+comment on column HRBZLS.INV_INFOHIS.czdate
+  is '冲正日期';
+comment on column HRBZLS.INV_INFOHIS.jzdid
+  is '进账单流水';
+comment on column HRBZLS.INV_INFOHIS.cpje01
+  is '出票金额1';
+comment on column HRBZLS.INV_INFOHIS.cpje02
+  is '出票金额2';
+comment on column HRBZLS.INV_INFOHIS.cpje03
+  is '出票金额3';
+comment on column HRBZLS.INV_INFOHIS.cpje04
+  is '出票金额4';
+comment on column HRBZLS.INV_INFOHIS.cpje05
+  is '出票金额5';
+comment on column HRBZLS.INV_INFOHIS.cpje06
+  is '出票金额(阶梯1';
+comment on column HRBZLS.INV_INFOHIS.cpje07
+  is '出票金额(阶梯2';
+comment on column HRBZLS.INV_INFOHIS.cpje08
+  is '出票金额(阶梯3';
+comment on column HRBZLS.INV_INFOHIS.cpje09
+  is '出票金额6';
+comment on column HRBZLS.INV_INFOHIS.cpje10
+  is '出票金额7';
+comment on column HRBZLS.INV_INFOHIS.memo01
+  is '备注1';
+comment on column HRBZLS.INV_INFOHIS.memo02
+  is '备注1';
+comment on column HRBZLS.INV_INFOHIS.mcode
+  is '客户号';
+comment on column HRBZLS.INV_INFOHIS.poper
+  is '打印员';
+comment on column HRBZLS.INV_INFOHIS.pdate
+  is '打印时间';
+comment on column HRBZLS.INV_INFOHIS.scode
+  is '起码';
+comment on column HRBZLS.INV_INFOHIS.ecode
+  is '止码';
+comment on column HRBZLS.INV_INFOHIS.month
+  is '应收月份';
+comment on column HRBZLS.INV_INFOHIS.rlid
+  is '应收流水';
+comment on column HRBZLS.INV_INFOHIS.pid
+  is '实收流水';
+comment on column HRBZLS.INV_INFOHIS.pmonth
+  is '打票月份';
+comment on column HRBZLS.INV_INFOHIS.fptype
+  is '发票类型';
+comment on column HRBZLS.INV_INFOHIS.reverseflag
+  is '冲正标志（N为正常，Y为冲正）';
+comment on column HRBZLS.INV_INFOHIS.cpje11
+  is '出票金额7(预留';
+comment on column HRBZLS.INV_INFOHIS.kpje
+  is '开票金额';
+comment on column HRBZLS.INV_INFOHIS.statusmemo
+  is '状态原因';
+comment on column HRBZLS.INV_INFOHIS.sl
+  is '水量';
+comment on column HRBZLS.INV_INFOHIS.rlcname
+  is '用户名称';
+comment on column HRBZLS.INV_INFOHIS.rlcadr
+  is '地址';
+comment on column HRBZLS.INV_INFOHIS.dj
+  is '单价';
+comment on column HRBZLS.INV_INFOHIS.dj1
+  is '单价1';
+comment on column HRBZLS.INV_INFOHIS.dj2
+  is '单价2';
+comment on column HRBZLS.INV_INFOHIS.dj3
+  is '单价3';
+comment on column HRBZLS.INV_INFOHIS.dj4
+  is '单价4';
+comment on column HRBZLS.INV_INFOHIS.dj5
+  is '单价5';
+comment on column HRBZLS.INV_INFOHIS.dj6
+  is '单价6';
+comment on column HRBZLS.INV_INFOHIS.dj7
+  is '单价7';
+comment on column HRBZLS.INV_INFOHIS.dj8
+  is '单价8';
+comment on column HRBZLS.INV_INFOHIS.dj9
+  is '单价9';
+comment on column HRBZLS.INV_INFOHIS.yshj
+  is '应收合计';
+comment on column HRBZLS.INV_INFOHIS.yjbss
+  is '预计表示数';
+comment on column HRBZLS.INV_INFOHIS.memo03
+  is '备注3';
+comment on column HRBZLS.INV_INFOHIS.memo04
+  is '备注4';
+comment on column HRBZLS.INV_INFOHIS.memo05
+  is '备注5';
+comment on column HRBZLS.INV_INFOHIS.memo06
+  is '备注6';
+comment on column HRBZLS.INV_INFOHIS.memo07
+  is '备注7';
+comment on column HRBZLS.INV_INFOHIS.memo08
+  is '备注8';
+comment on column HRBZLS.INV_INFOHIS.memo09
+  is '备注9';
+comment on column HRBZLS.INV_INFOHIS.memo10
+  is '备注10';
+comment on column HRBZLS.INV_INFOHIS.memo11
+  is '备注11';
+comment on column HRBZLS.INV_INFOHIS.memo12
+  is '备注12';
+comment on column HRBZLS.INV_INFOHIS.memo13
+  is '备注13';
+comment on column HRBZLS.INV_INFOHIS.memo14
+  is '备注14';
+comment on column HRBZLS.INV_INFOHIS.memo15
+  is '备注15';
+comment on column HRBZLS.INV_INFOHIS.memo16
+  is '备注16';
+comment on column HRBZLS.INV_INFOHIS.memo17
+  is '备注17';
+comment on column HRBZLS.INV_INFOHIS.memo18
+  is '备注18';
+comment on column HRBZLS.INV_INFOHIS.memo19
+  is '备注19';
+comment on column HRBZLS.INV_INFOHIS.memo20
+  is '备注20';
+create index HRBZLS.IDX_INVINFOHIS_BATCH on HRBZLS.INV_INFOHIS (BATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_INVISIDHIS on HRBZLS.INV_INFOHIS (ISID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.PK_INVISPCISNOHIS on HRBZLS.INV_INFOHIS (ISPCISNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

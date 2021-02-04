@@ -1,0 +1,54 @@
+create table HRBZLS.BUSSINESSLIST
+(
+  bslid      VARCHAR2(10) not null,
+  bslname    VARCHAR2(200) not null,
+  bslpid     VARCHAR2(10) not null,
+  bslclass   NUMBER(10),
+  bslflag    VARCHAR2(1),
+  bslstatus  VARCHAR2(1),
+  bslhandles VARCHAR2(10),
+  bslmemo    VARCHAR2(400),
+  bslywjm    VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.BUSSINESSLIST.bslid
+  is '业务模块ID';
+comment on column HRBZLS.BUSSINESSLIST.bslname
+  is '业务模块名';
+comment on column HRBZLS.BUSSINESSLIST.bslpid
+  is '上级业务模块ID';
+comment on column HRBZLS.BUSSINESSLIST.bslclass
+  is '级次';
+comment on column HRBZLS.BUSSINESSLIST.bslflag
+  is '未级标志';
+comment on column HRBZLS.BUSSINESSLIST.bslstatus
+  is '状态';
+comment on column HRBZLS.BUSSINESSLIST.bslhandles
+  is '对应功能名';
+comment on column HRBZLS.BUSSINESSLIST.bslmemo
+  is '备注';
+comment on column HRBZLS.BUSSINESSLIST.bslywjm
+  is '功能简码';
+create unique index HRBZLS.IDX_BUSSINESSLIST_001 on HRBZLS.BUSSINESSLIST (BSLHANDLES)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

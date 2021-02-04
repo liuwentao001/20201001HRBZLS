@@ -1,0 +1,40 @@
+create table HRBZLS.PRICEADJUSTMETHOD
+(
+  pamid   CHAR(2) not null,
+  pamname VARCHAR2(20) not null,
+  pammemo VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEADJUSTMETHOD
+  is '调整方法【PAM】';
+comment on column HRBZLS.PRICEADJUSTMETHOD.pamid
+  is '编码';
+comment on column HRBZLS.PRICEADJUSTMETHOD.pamname
+  is '名称';
+comment on column HRBZLS.PRICEADJUSTMETHOD.pammemo
+  is '描述';
+alter table HRBZLS.PRICEADJUSTMETHOD
+  add constraint PK_PRICEADJUSTMETHOD primary key (PAMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,24 @@
+create table HRBZLS.PAY_PARA
+(
+  mid   VARCHAR2(10) not null,
+  plids VARCHAR2(1280),
+  rlje  NUMBER(10,2),
+  rlsxf NUMBER(10,2),
+  rlznj NUMBER(10,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.PAY_PARA.mid
+  is '水表号';
+comment on column HRBZLS.PAY_PARA.plids
+  is '应收id串,格式XXXX,XXXX,XXXX';
+alter table HRBZLS.PAY_PARA
+  add constraint PK_PAY_PARA primary key (MID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

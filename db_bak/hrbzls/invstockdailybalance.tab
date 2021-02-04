@@ -1,0 +1,70 @@
+create table HRBZLS.INVSTOCKDAILYBALANCE
+(
+  isdbdate         DATE not null,
+  isdbid           NUMBER(10) not null,
+  isdbper          VARCHAR2(10) not null,
+  isdbtype         CHAR(1) not null,
+  isdbbcno         VARCHAR2(12) default '0' not null,
+  isdbno           VARCHAR2(12),
+  isdbstatus       CHAR(1) not null,
+  isdbstatusdate   DATE not null,
+  isdbstatusper    VARCHAR2(10) not null,
+  isdbpstatus      CHAR(1),
+  isdbpstatusdatep DATE,
+  isdbptatusper    VARCHAR2(10),
+  isdbsmfid        VARCHAR2(10),
+  isdbsno          VARCHAR2(12) not null,
+  isdbeno          VARCHAR2(12) not null,
+  isdbnum          INTEGER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVSTOCKDAILYBALANCE
+  is '票据库存日结明细【ISDB】';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbdate
+  is '日期';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbid
+  is '票据流水号';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbper
+  is '库存所有人';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbtype
+  is '票据类型';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbbcno
+  is '批号';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbno
+  is '票据号码(不用，改记号段)';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbstatus
+  is '状态(0未使用；1使用；2作废)';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbstatusdate
+  is '状态日期';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbstatusper
+  is '状态人员';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbpstatus
+  is '上次状态';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbpstatusdatep
+  is '上次状态日期';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbptatusper
+  is '上次状态人员';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbsmfid
+  is '库存单位';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbsno
+  is '起始号码';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbeno
+  is '结束号码';
+comment on column HRBZLS.INVSTOCKDAILYBALANCE.isdbnum
+  is '张数';
+create index HRBZLS.IDX_ISDBDATE on HRBZLS.INVSTOCKDAILYBALANCE (ISDBDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.INVSTOCKDAILYBALANCE
+  add constraint PK_INVSTOCKDAILYBALANCE primary key (ISDBID, ISDBTYPE, ISDBDATE, ISDBSNO, ISDBENO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

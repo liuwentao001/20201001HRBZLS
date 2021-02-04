@@ -1,0 +1,39 @@
+create table HRBZLS.BANKQYLOG
+(
+  id          NUMBER,
+  micode      VARCHAR2(10),
+  bankid      VARCHAR2(10),
+  accountno   VARCHAR2(32),
+  accountname VARCHAR2(64),
+  qyzt        VARCHAR2(10),
+  ztrq        DATE,
+  clry        VARCHAR2(20),
+  xyzt        VARCHAR2(10),
+  xysj        DATE,
+  ztyy        VARCHAR2(64)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BANKQYLOG
+  is '银行签约日志';
+comment on column HRBZLS.BANKQYLOG.micode
+  is '水表号码';
+comment on column HRBZLS.BANKQYLOG.accountno
+  is '银行帐号';
+comment on column HRBZLS.BANKQYLOG.accountname
+  is '开行名';
+comment on column HRBZLS.BANKQYLOG.qyzt
+  is '签约状态';
+comment on column HRBZLS.BANKQYLOG.ztrq
+  is '状态时间';
+comment on column HRBZLS.BANKQYLOG.clry
+  is '处理人员';
+comment on column HRBZLS.BANKQYLOG.xyzt
+  is '响应状态';
+comment on column HRBZLS.BANKQYLOG.xysj
+  is '响应时间';
+comment on column HRBZLS.BANKQYLOG.ztyy
+  is '状态原因';
+

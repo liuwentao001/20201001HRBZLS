@@ -1,0 +1,56 @@
+create table HRBZLS.FRA_DWLIB
+(
+  str     VARCHAR2(3000),
+  lib     VARCHAR2(40),
+  w_name  VARCHAR2(40),
+  dw_ct   VARCHAR2(40),
+  dw_name VARCHAR2(40),
+  id      VARCHAR2(10),
+  oper    VARCHAR2(20),
+  flag    VARCHAR2(2),
+  func    VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FRA_DWLIB
+  is '数据窗口信息';
+comment on column HRBZLS.FRA_DWLIB.str
+  is '查询出的总字符串';
+comment on column HRBZLS.FRA_DWLIB.lib
+  is 'pbl库文件';
+comment on column HRBZLS.FRA_DWLIB.w_name
+  is '窗口名';
+comment on column HRBZLS.FRA_DWLIB.dw_ct
+  is '数据窗口';
+comment on column HRBZLS.FRA_DWLIB.dw_name
+  is '数据窗口对象';
+comment on column HRBZLS.FRA_DWLIB.id
+  is 'id';
+comment on column HRBZLS.FRA_DWLIB.oper
+  is '人员';
+comment on column HRBZLS.FRA_DWLIB.flag
+  is '处理标志(Y/N)';
+comment on column HRBZLS.FRA_DWLIB.func
+  is '功能名称';
+create unique index HRBZLS.FRA_DWSTR on HRBZLS.FRA_DWLIB (STR)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

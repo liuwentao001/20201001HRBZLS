@@ -1,0 +1,30 @@
+create table HRBZLS.MY_ALL_OBJECTS
+(
+  owner          VARCHAR2(30) not null,
+  object_name    VARCHAR2(30) not null,
+  subobject_name VARCHAR2(30),
+  object_id      NUMBER not null,
+  data_object_id NUMBER,
+  object_type    VARCHAR2(19),
+  created        DATE not null,
+  last_ddl_time  DATE not null,
+  timestamp      VARCHAR2(19),
+  status         VARCHAR2(7),
+  temporary      VARCHAR2(1),
+  generated      VARCHAR2(1),
+  secondary      VARCHAR2(1),
+  namespace      NUMBER not null,
+  edition_name   VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

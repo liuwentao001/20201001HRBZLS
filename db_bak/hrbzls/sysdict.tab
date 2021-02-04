@@ -1,0 +1,67 @@
+create table HRBZLS.SYSDICT
+(
+  sdid     VARCHAR2(20) not null,
+  sdname   VARCHAR2(20) not null,
+  sdobject VARCHAR2(20),
+  sdmemo   VARCHAR2(120),
+  sdpid    VARCHAR2(20) not null,
+  sdclass  NUMBER not null,
+  sdstatus CHAR(1) not null,
+  sdflag   CHAR(1) not null,
+  sdpic    VARCHAR2(60),
+  sdfunc   VARCHAR2(20),
+  sddw     VARCHAR2(60),
+  sdunique VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSDICT
+  is '数据字典【SD】';
+comment on column HRBZLS.SYSDICT.sdid
+  is '编码';
+comment on column HRBZLS.SYSDICT.sdname
+  is '名称';
+comment on column HRBZLS.SYSDICT.sdobject
+  is '窗口对象';
+comment on column HRBZLS.SYSDICT.sdmemo
+  is '描述';
+comment on column HRBZLS.SYSDICT.sdpid
+  is '上级编码';
+comment on column HRBZLS.SYSDICT.sdclass
+  is '级次';
+comment on column HRBZLS.SYSDICT.sdstatus
+  is '状态';
+comment on column HRBZLS.SYSDICT.sdflag
+  is '末级';
+comment on column HRBZLS.SYSDICT.sdpic
+  is '图标';
+comment on column HRBZLS.SYSDICT.sdfunc
+  is '功能方法';
+comment on column HRBZLS.SYSDICT.sddw
+  is '编辑数据窗口';
+comment on column HRBZLS.SYSDICT.sdunique
+  is '重复校验';
+alter table HRBZLS.SYSDICT
+  add constraint PK_SYSDICT primary key (SDID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

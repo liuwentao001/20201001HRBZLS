@@ -1,0 +1,53 @@
+create table HRBZLS.CUSTREGHD
+(
+  crhno      VARCHAR2(10),
+  crhbh      VARCHAR2(10),
+  crhlb      CHAR(1),
+  crhsource  CHAR(1),
+  crhsmfid   VARCHAR2(10),
+  crhdept    VARCHAR2(10),
+  crhcredate DATE,
+  crhcreper  VARCHAR2(10),
+  crhshdate  DATE,
+  crhshper   VARCHAR2(10),
+  crhshflag  CHAR(1),
+  crhwfid    NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CUSTREGHD
+  is '立户单头【H】';
+comment on column HRBZLS.CUSTREGHD.crhno
+  is '单据流水号';
+comment on column HRBZLS.CUSTREGHD.crhbh
+  is '单据编号';
+comment on column HRBZLS.CUSTREGHD.crhlb
+  is '单据类别';
+comment on column HRBZLS.CUSTREGHD.crhsource
+  is '单据来源';
+comment on column HRBZLS.CUSTREGHD.crhsmfid
+  is '营销公司';
+comment on column HRBZLS.CUSTREGHD.crhdept
+  is '立户部门';
+comment on column HRBZLS.CUSTREGHD.crhcredate
+  is '创建日期';
+comment on column HRBZLS.CUSTREGHD.crhcreper
+  is '创建人员';
+comment on column HRBZLS.CUSTREGHD.crhshdate
+  is '审核日期';
+comment on column HRBZLS.CUSTREGHD.crhshper
+  is '审核人员';
+comment on column HRBZLS.CUSTREGHD.crhshflag
+  is '审核标志';
+comment on column HRBZLS.CUSTREGHD.crhwfid
+  is '工作流实例';
+

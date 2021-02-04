@@ -1,0 +1,56 @@
+create table HRBZLS.TDSJDT
+(
+  cmrdno     VARCHAR2(10) not null,
+  cmrdrowno  NUMBER not null,
+  pmdpfidold VARCHAR2(10),
+  pmdpfidnew VARCHAR2(10),
+  piid       VARCHAR2(10),
+  cmoldvalue NUMBER(13,3),
+  cmnewvalue NUMBER(13,3),
+  cmtype     VARCHAR2(10),
+  pamid      VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.TDSJDT.cmrdno
+  is '单据流水号';
+comment on column HRBZLS.TDSJDT.cmrdrowno
+  is '行号';
+comment on column HRBZLS.TDSJDT.pmdpfidold
+  is '旧水价';
+comment on column HRBZLS.TDSJDT.pmdpfidnew
+  is '新水价';
+comment on column HRBZLS.TDSJDT.piid
+  is '费用项目';
+comment on column HRBZLS.TDSJDT.cmoldvalue
+  is '旧值';
+comment on column HRBZLS.TDSJDT.cmnewvalue
+  is '新值';
+comment on column HRBZLS.TDSJDT.cmtype
+  is '功能控制位';
+comment on column HRBZLS.TDSJDT.pamid
+  is '调整方法（priceadjustmethod）';
+alter table HRBZLS.TDSJDT
+  add constraint PK_TDSJDT primary key (CMRDNO, CMRDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

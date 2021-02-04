@@ -1,0 +1,39 @@
+create table HRBZLS.FKLIST
+(
+  flid           VARCHAR2(10) not null,
+  fldate         DATE not null,
+  floper         VARCHAR2(20) not null,
+  fletlseqnolist VARCHAR2(4000) not null,
+  flje           NUMBER(12,2) not null,
+  flfs           CHAR(2) not null,
+  flno           VARCHAR2(20),
+  flmemo         VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.FKLIST.flid
+  is '进账交易流水';
+comment on column HRBZLS.FKLIST.fldate
+  is '进账日期';
+comment on column HRBZLS.FKLIST.floper
+  is '销帐人员';
+comment on column HRBZLS.FKLIST.fletlseqnolist
+  is '销帐凭证集';
+comment on column HRBZLS.FKLIST.flje
+  is '进账金额';
+comment on column HRBZLS.FKLIST.flfs
+  is '进账方式';
+comment on column HRBZLS.FKLIST.flno
+  is '进账单编号';
+comment on column HRBZLS.FKLIST.flmemo
+  is '进账单详情';
+alter table HRBZLS.FKLIST
+  add constraint PK_FKLIST primary key (FLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

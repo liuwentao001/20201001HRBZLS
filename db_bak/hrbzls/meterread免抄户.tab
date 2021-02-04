@@ -1,0 +1,424 @@
+create table HRBZLS.METERREAD免抄户
+(
+  mrid            VARCHAR2(10) not null,
+  mrmonth         VARCHAR2(7),
+  mrsmfid         VARCHAR2(10),
+  mrbfid          VARCHAR2(10),
+  mrbatch         NUMBER(20),
+  mrday           DATE,
+  mrrorder        NUMBER(10),
+  mrcid           VARCHAR2(10),
+  mrccode         VARCHAR2(10),
+  mrmid           VARCHAR2(10),
+  mrmcode         VARCHAR2(10),
+  mrstid          VARCHAR2(10),
+  mrmpid          VARCHAR2(10),
+  mrmclass        NUMBER,
+  mrmflag         CHAR(1),
+  mrcreadate      DATE,
+  mrinputdate     DATE,
+  mrreadok        CHAR(1),
+  mrrdate         DATE,
+  mrrper          VARCHAR2(15),
+  mrprdate        DATE,
+  mrscode         NUMBER(10),
+  mrecode         NUMBER(10),
+  mrsl            NUMBER(10),
+  mrface          VARCHAR2(2),
+  mrifsubmit      CHAR(1),
+  mrifhalt        CHAR(1),
+  mrdatasource    CHAR(1),
+  mrifignoreminsl CHAR(1),
+  mrpdardate      DATE,
+  mroutflag       CHAR(1) default 'N',
+  mroutid         VARCHAR2(10),
+  mroutdate       DATE,
+  mrinorder       NUMBER(4),
+  mrindate        DATE,
+  mrrpid          VARCHAR2(3),
+  mrmemo          VARCHAR2(120),
+  mrifgu          CHAR(1),
+  mrifrec         CHAR(1),
+  mrrecdate       DATE,
+  mrrecsl         NUMBER(10),
+  mraddsl         NUMBER(10),
+  mrcarrysl       NUMBER(10) default 0,
+  mrctrl1         VARCHAR2(10),
+  mrctrl2         VARCHAR2(10),
+  mrctrl3         VARCHAR2(10),
+  mrctrl4         VARCHAR2(10),
+  mrctrl5         VARCHAR2(10),
+  mrchkflag       CHAR(1) default 'N',
+  mrchkdate       DATE,
+  mrchkper        VARCHAR2(10),
+  mrchkscode      NUMBER(10),
+  mrchkecode      NUMBER(10),
+  mrchksl         NUMBER(10),
+  mrchkaddsl      NUMBER(10),
+  mrchkcarrysl    NUMBER(10),
+  mrchkrdate      DATE,
+  mrchkface       VARCHAR2(2),
+  mrchkresult     VARCHAR2(100),
+  mrchkresultmemo VARCHAR2(100),
+  mrprimid        VARCHAR2(200),
+  mrprimflag      CHAR(1),
+  mrlb            CHAR(1),
+  mrnewflag       CHAR(1),
+  mrface2         VARCHAR2(2),
+  mrface3         VARCHAR2(2),
+  mrface4         VARCHAR2(2),
+  mrscodechar     VARCHAR2(10),
+  mrecodechar     VARCHAR2(10),
+  mrprivilegeflag VARCHAR2(1),
+  mrprivilegeper  VARCHAR2(10),
+  mrprivilegememo VARCHAR2(200),
+  mrprivilegedate DATE,
+  mrsafid         VARCHAR2(10),
+  mriftrans       VARCHAR2(5),
+  mrrequisition   NUMBER(2),
+  mrifchk         CHAR(1),
+  mrinputper      VARCHAR2(10),
+  mrpfid          VARCHAR2(10),
+  mrcaliber       NUMBER(10),
+  mrside          VARCHAR2(100),
+  mrlastsl        NUMBER(10),
+  mrthreesl       NUMBER(10),
+  mryearsl        NUMBER(10),
+  mrrecje01       NUMBER(13,3),
+  mrrecje02       NUMBER(13,3),
+  mrrecje03       NUMBER(13,3),
+  mrrecje04       NUMBER(13,3),
+  mrmtype         VARCHAR2(10),
+  mrnullcont      NUMBER(10),
+  mrnulltotal     NUMBER(10),
+  mrplansl        NUMBER(18,8),
+  mrplanje01      NUMBER(18,8),
+  mrplanje02      NUMBER(18,8),
+  mrplanje03      NUMBER(18,8),
+  mrlastje01      NUMBER(13,3),
+  mrthreeje01     NUMBER(13,3),
+  mryearje01      NUMBER(13,3),
+  mrlastje02      NUMBER(13,3),
+  mrthreeje02     NUMBER(13,3),
+  mryearje02      NUMBER(13,3),
+  mrlastje03      NUMBER(13,3),
+  mrthreeje03     NUMBER(13,3),
+  mryearje03      NUMBER(13,3),
+  mrlastyearsl    NUMBER(10),
+  mrlastyearje01  NUMBER(13,3),
+  mrlastyearje02  NUMBER(13,3),
+  mrlastyearje03  NUMBER(13,3),
+  mrbfsdate       DATE,
+  mrbfedate       DATE,
+  mrbfday         NUMBER(10),
+  mrifmch         CHAR(1),
+  mrifzbsm        CHAR(1),
+  mrifyscz        CHAR(1),
+  mrdzsl          NUMBER(10),
+  mrdzflag        CHAR(1),
+  mrdzsyscode     NUMBER(10),
+  mrdzcurcode     NUMBER(10),
+  mrdztgl         NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERREAD免抄户
+  is '抄表库【MR】';
+comment on column HRBZLS.METERREAD免抄户.mrid
+  is '流水号';
+comment on column HRBZLS.METERREAD免抄户.mrmonth
+  is '抄表月份';
+comment on column HRBZLS.METERREAD免抄户.mrsmfid
+  is '营销公司';
+comment on column HRBZLS.METERREAD免抄户.mrbfid
+  is '表册';
+comment on column HRBZLS.METERREAD免抄户.mrbatch
+  is '抄表批次';
+comment on column HRBZLS.METERREAD免抄户.mrday
+  is '计划抄表日';
+comment on column HRBZLS.METERREAD免抄户.mrrorder
+  is '抄表次序';
+comment on column HRBZLS.METERREAD免抄户.mrcid
+  is '用户编号';
+comment on column HRBZLS.METERREAD免抄户.mrccode
+  is '用户号';
+comment on column HRBZLS.METERREAD免抄户.mrmid
+  is '水表编号';
+comment on column HRBZLS.METERREAD免抄户.mrmcode
+  is '水表手工编号';
+comment on column HRBZLS.METERREAD免抄户.mrstid
+  is '行业分类';
+comment on column HRBZLS.METERREAD免抄户.mrmpid
+  is '上级水表';
+comment on column HRBZLS.METERREAD免抄户.mrmclass
+  is '水表级次';
+comment on column HRBZLS.METERREAD免抄户.mrmflag
+  is '末级标志';
+comment on column HRBZLS.METERREAD免抄户.mrcreadate
+  is '创建日期';
+comment on column HRBZLS.METERREAD免抄户.mrinputdate
+  is '编辑日期';
+comment on column HRBZLS.METERREAD免抄户.mrreadok
+  is '抄见标志';
+comment on column HRBZLS.METERREAD免抄户.mrrdate
+  is '抄表日期';
+comment on column HRBZLS.METERREAD免抄户.mrrper
+  is '抄表员';
+comment on column HRBZLS.METERREAD免抄户.mrprdate
+  is '上次抄见日期';
+comment on column HRBZLS.METERREAD免抄户.mrscode
+  is '上期抄见';
+comment on column HRBZLS.METERREAD免抄户.mrecode
+  is '本期抄见';
+comment on column HRBZLS.METERREAD免抄户.mrsl
+  is '本期水量';
+comment on column HRBZLS.METERREAD免抄户.mrface
+  is '水表故障（哈尔滨需求：查表表态）';
+comment on column HRBZLS.METERREAD免抄户.mrifsubmit
+  is '是否提交计费';
+comment on column HRBZLS.METERREAD免抄户.mrifhalt
+  is '系统停算';
+comment on column HRBZLS.METERREAD免抄户.mrdatasource
+  is '抄表结果来源';
+comment on column HRBZLS.METERREAD免抄户.mrifignoreminsl
+  is '停算最低抄量';
+comment on column HRBZLS.METERREAD免抄户.mrpdardate
+  is '抄表机抄表时间';
+comment on column HRBZLS.METERREAD免抄户.mroutflag
+  is '发出到抄表机标志';
+comment on column HRBZLS.METERREAD免抄户.mroutid
+  is '发出到抄表机流水号';
+comment on column HRBZLS.METERREAD免抄户.mroutdate
+  is '发出到抄表机日期';
+comment on column HRBZLS.METERREAD免抄户.mrinorder
+  is '抄表机接收次序';
+comment on column HRBZLS.METERREAD免抄户.mrindate
+  is '抄表机接受日期';
+comment on column HRBZLS.METERREAD免抄户.mrrpid
+  is '计件类型';
+comment on column HRBZLS.METERREAD免抄户.mrmemo
+  is '抄表备注';
+comment on column HRBZLS.METERREAD免抄户.mrifgu
+  is '估表标志';
+comment on column HRBZLS.METERREAD免抄户.mrifrec
+  is '已计费';
+comment on column HRBZLS.METERREAD免抄户.mrrecdate
+  is '计费日期';
+comment on column HRBZLS.METERREAD免抄户.mrrecsl
+  is '应收水量';
+comment on column HRBZLS.METERREAD免抄户.mraddsl
+  is '余量';
+comment on column HRBZLS.METERREAD免抄户.mrcarrysl
+  is '校验水量';
+comment on column HRBZLS.METERREAD免抄户.mrctrl1
+  is '抄表机控制位1';
+comment on column HRBZLS.METERREAD免抄户.mrctrl2
+  is '抄表机控制位2';
+comment on column HRBZLS.METERREAD免抄户.mrctrl3
+  is '抄表机控制位3';
+comment on column HRBZLS.METERREAD免抄户.mrctrl4
+  is '抄表机控制位4';
+comment on column HRBZLS.METERREAD免抄户.mrctrl5
+  is '抄表机控制位5';
+comment on column HRBZLS.METERREAD免抄户.mrchkflag
+  is '复核标志';
+comment on column HRBZLS.METERREAD免抄户.mrchkdate
+  is '复核日期';
+comment on column HRBZLS.METERREAD免抄户.mrchkper
+  is '复核人员';
+comment on column HRBZLS.METERREAD免抄户.mrchkscode
+  is '原起数';
+comment on column HRBZLS.METERREAD免抄户.mrchkecode
+  is '原止数';
+comment on column HRBZLS.METERREAD免抄户.mrchksl
+  is '原水量';
+comment on column HRBZLS.METERREAD免抄户.mrchkaddsl
+  is '原余量';
+comment on column HRBZLS.METERREAD免抄户.mrchkcarrysl
+  is '原进位水量';
+comment on column HRBZLS.METERREAD免抄户.mrchkrdate
+  is '原抄见日期';
+comment on column HRBZLS.METERREAD免抄户.mrchkface
+  is '原表况';
+comment on column HRBZLS.METERREAD免抄户.mrchkresult
+  is '检查结果类型';
+comment on column HRBZLS.METERREAD免抄户.mrchkresultmemo
+  is '检查结果说明';
+comment on column HRBZLS.METERREAD免抄户.mrprimid
+  is '合收表主表';
+comment on column HRBZLS.METERREAD免抄户.mrprimflag
+  is '合收表标志';
+comment on column HRBZLS.METERREAD免抄户.mrlb
+  is '水表类别';
+comment on column HRBZLS.METERREAD免抄户.mrnewflag
+  is '新表标志';
+comment on column HRBZLS.METERREAD免抄户.mrface2
+  is '抄见故障（哈尔滨需求：检表表态）';
+comment on column HRBZLS.METERREAD免抄户.mrface3
+  is '非常计量';
+comment on column HRBZLS.METERREAD免抄户.mrface4
+  is '表井设施说明';
+comment on column HRBZLS.METERREAD免抄户.mrscodechar
+  is '上期抄见';
+comment on column HRBZLS.METERREAD免抄户.mrecodechar
+  is '本期抄见';
+comment on column HRBZLS.METERREAD免抄户.mrprivilegeflag
+  is '特权标志(Y/N)';
+comment on column HRBZLS.METERREAD免抄户.mrprivilegeper
+  is '特权操作人';
+comment on column HRBZLS.METERREAD免抄户.mrprivilegememo
+  is '特权操作备注';
+comment on column HRBZLS.METERREAD免抄户.mrprivilegedate
+  is '特权操作时间';
+comment on column HRBZLS.METERREAD免抄户.mrsafid
+  is '管理区域';
+comment on column HRBZLS.METERREAD免抄户.mriftrans
+  is '抄表事务';
+comment on column HRBZLS.METERREAD免抄户.mrrequisition
+  is '通知单打印次数';
+comment on column HRBZLS.METERREAD免抄户.mrifchk
+  is '考核表';
+comment on column HRBZLS.METERREAD免抄户.mrinputper
+  is '入账人员';
+comment on column HRBZLS.METERREAD免抄户.mrpfid
+  is '用水类别';
+comment on column HRBZLS.METERREAD免抄户.mrcaliber
+  is '口径';
+comment on column HRBZLS.METERREAD免抄户.mrside
+  is '表位';
+comment on column HRBZLS.METERREAD免抄户.mrlastsl
+  is '上次抄表水量';
+comment on column HRBZLS.METERREAD免抄户.mrthreesl
+  is '前三月抄表水量';
+comment on column HRBZLS.METERREAD免抄户.mryearsl
+  is '去年同期抄表水量';
+comment on column HRBZLS.METERREAD免抄户.mrrecje01
+  is '应收金额费用项目01';
+comment on column HRBZLS.METERREAD免抄户.mrrecje02
+  is '应收金额费用项目02';
+comment on column HRBZLS.METERREAD免抄户.mrrecje03
+  is '应收金额费用项目03';
+comment on column HRBZLS.METERREAD免抄户.mrrecje04
+  is '应收金额费用项目04';
+comment on column HRBZLS.METERREAD免抄户.mrmtype
+  is '表型';
+comment on column HRBZLS.METERREAD免抄户.mrnullcont
+  is '连续几月未抄见';
+comment on column HRBZLS.METERREAD免抄户.mrnulltotal
+  is '累计几月未抄见';
+comment on column HRBZLS.METERREAD免抄户.mrplansl
+  is '计划水量';
+comment on column HRBZLS.METERREAD免抄户.mrplanje01
+  is '计划水费';
+comment on column HRBZLS.METERREAD免抄户.mrplanje02
+  is '计划污水处理费';
+comment on column HRBZLS.METERREAD免抄户.mrplanje03
+  is '计划水资源费';
+comment on column HRBZLS.METERREAD免抄户.mrlastje01
+  is '上次水费';
+comment on column HRBZLS.METERREAD免抄户.mrthreeje01
+  is '前n次均水费';
+comment on column HRBZLS.METERREAD免抄户.mryearje01
+  is '去年同期水费';
+comment on column HRBZLS.METERREAD免抄户.mrlastje02
+  is '上次污水费';
+comment on column HRBZLS.METERREAD免抄户.mrthreeje02
+  is '前n次均污水费';
+comment on column HRBZLS.METERREAD免抄户.mryearje02
+  is '去年同期污水费';
+comment on column HRBZLS.METERREAD免抄户.mrlastje03
+  is '上次水资源费';
+comment on column HRBZLS.METERREAD免抄户.mrthreeje03
+  is '前n次均水资源费';
+comment on column HRBZLS.METERREAD免抄户.mryearje03
+  is '去年同期水资源费';
+comment on column HRBZLS.METERREAD免抄户.mrlastyearsl
+  is '去年度次均量';
+comment on column HRBZLS.METERREAD免抄户.mrlastyearje01
+  is '去年度次均水费';
+comment on column HRBZLS.METERREAD免抄户.mrlastyearje02
+  is '去年度次均污水费';
+comment on column HRBZLS.METERREAD免抄户.mrlastyearje03
+  is '去年度次均水资源费';
+comment on column HRBZLS.METERREAD免抄户.mrbfsdate
+  is '计划起始日期';
+comment on column HRBZLS.METERREAD免抄户.mrbfedate
+  is '计划结束日期';
+comment on column HRBZLS.METERREAD免抄户.mrbfday
+  is '偏移天数';
+comment on column HRBZLS.METERREAD免抄户.mrifmch
+  is '是否免抄户';
+comment on column HRBZLS.METERREAD免抄户.mrifzbsm
+  is '总表收免标志(0=普通表，1=总表收免，2=多级表)';
+comment on column HRBZLS.METERREAD免抄户.mrifyscz
+  is '是否应收冲正';
+comment on column HRBZLS.METERREAD免抄户.mrdzsl
+  is '等针用量';
+comment on column HRBZLS.METERREAD免抄户.mrdzflag
+  is '等针标志';
+comment on column HRBZLS.METERREAD免抄户.mrdzsyscode
+  is '等针';
+comment on column HRBZLS.METERREAD免抄户.mrdzcurcode
+  is '等针读数';
+comment on column HRBZLS.METERREAD免抄户.mrdztgl
+  is '推估量';
+create index HRBZLS.IDX_免抄户_MRBFID on HRBZLS.METERREAD免抄户 (MRBFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_免抄户_MRMCODE on HRBZLS.METERREAD免抄户 (MRMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_免抄户_MRMONTH on HRBZLS.METERREAD免抄户 (MRMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERREAD免抄户
+  add constraint PK_METERREAD免抄户 primary key (MRID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,39 @@
+create table HRBZLS.ST_METER_TYPE
+(
+  id        VARCHAR2(10) not null,
+  vendorid  VARCHAR2(10),
+  caliber   NUMBER(10),
+  use_month NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.ST_METER_TYPE.id
+  is '编号';
+comment on column HRBZLS.ST_METER_TYPE.vendorid
+  is '厂牌';
+comment on column HRBZLS.ST_METER_TYPE.caliber
+  is '口径';
+comment on column HRBZLS.ST_METER_TYPE.use_month
+  is '使用年限';
+create unique index HRBZLS.METER_TYPE_X_ST on HRBZLS.ST_METER_TYPE (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

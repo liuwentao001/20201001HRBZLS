@@ -1,0 +1,29 @@
+create table HRBZLS.PAYPOINTS
+(
+  ppid     VARCHAR2(12) not null,
+  ppname   VARCHAR2(32),
+  ppsmfid  VARCHAR2(12) not null,
+  ppstatus VARCHAR2(12)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAYPOINTS
+  is '缴费点';
+comment on column HRBZLS.PAYPOINTS.ppid
+  is '缴费点ID';
+comment on column HRBZLS.PAYPOINTS.ppname
+  is '缴费点名称';
+comment on column HRBZLS.PAYPOINTS.ppsmfid
+  is '所属营业所';
+comment on column HRBZLS.PAYPOINTS.ppstatus
+  is '状态';
+alter table HRBZLS.PAYPOINTS
+  add constraint PK_PAYPOINTS primary key (PPSMFID, PPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

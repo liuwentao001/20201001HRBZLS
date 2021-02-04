@@ -1,0 +1,43 @@
+create table HRBZLS.RMSG
+(
+  seqno NUMBER not null,
+  rcode VARCHAR2(20),
+  scode VARCHAR2(20),
+  msg   VARCHAR2(256),
+  rtime DATE,
+  trans VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.RMSG.seqno
+  is '流水号';
+comment on column HRBZLS.RMSG.rcode
+  is '被叫号码';
+comment on column HRBZLS.RMSG.scode
+  is '主叫号码';
+comment on column HRBZLS.RMSG.msg
+  is '短信内容';
+comment on column HRBZLS.RMSG.rtime
+  is '接收时间';
+comment on column HRBZLS.RMSG.trans
+  is '事务类别(1：水费查询；2：代码表购水)';
+create index HRBZLS.IDX_RMSG_RTIME on HRBZLS.RMSG (RTIME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RMSG_TRANS on HRBZLS.RMSG (TRANS)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.RMSG
+  add constraint PK_RMSG primary key (SEQNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

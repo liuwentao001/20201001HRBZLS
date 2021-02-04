@@ -1,0 +1,41 @@
+create table HRBZLS.MSSEDITINGTOOL
+(
+  metid         VARCHAR2(3),
+  mettext       VARCHAR2(12),
+  metposition   VARCHAR2(2),
+  metbuttername VARCHAR2(12),
+  mettag        VARCHAR2(10),
+  metname       VARCHAR2(8),
+  metcontent    VARCHAR2(2000),
+  metparameters VARCHAR2(2) default 'Y'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MSSEDITINGTOOL
+  is '短信平台编辑工具';
+comment on column HRBZLS.MSSEDITINGTOOL.metid
+  is '编号';
+comment on column HRBZLS.MSSEDITINGTOOL.mettext
+  is '名称';
+comment on column HRBZLS.MSSEDITINGTOOL.metposition
+  is '显示位置';
+comment on column HRBZLS.MSSEDITINGTOOL.metbuttername
+  is '显示名称';
+comment on column HRBZLS.MSSEDITINGTOOL.mettag
+  is 'tag';
+comment on column HRBZLS.MSSEDITINGTOOL.metname
+  is '内部名称';
+comment on column HRBZLS.MSSEDITINGTOOL.metcontent
+  is '替换内容SQL语句';
+comment on column HRBZLS.MSSEDITINGTOOL.metparameters
+  is '替换内容是否带参数';
+

@@ -1,0 +1,41 @@
+create table HRBZLS.STPAYMENTCWDZREGDT
+(
+  dno    VARCHAR2(10),
+  drowno NUMBER(6),
+  dflag  CHAR(1),
+  hsmfid VARCHAR2(10),
+  hdept  VARCHAR2(10),
+  hedate DATE,
+  heper  VARCHAR2(10),
+  hcount NUMBER(10),
+  hje    NUMBER(13,3),
+  hno    VARCHAR2(10),
+  hfpsl  NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.STPAYMENTCWDZREGDT.dno
+  is '单据流水号';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.drowno
+  is '行号';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.dflag
+  is '审核标志';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.hsmfid
+  is '分公司';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.hdept
+  is '扎帐部门';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.hedate
+  is '扎帐日期';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.heper
+  is '扎帐人员';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.hcount
+  is '总笔数';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.hje
+  is '总金额';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.hno
+  is '明细对帐单号';
+comment on column HRBZLS.STPAYMENTCWDZREGDT.hfpsl
+  is '票据张数';
+

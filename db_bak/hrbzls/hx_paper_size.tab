@@ -1,0 +1,37 @@
+create table HRBZLS.HX_PAPER_SIZE
+(
+  id       NUMBER(5) not null,
+  script   VARCHAR2(100),
+  script_e VARCHAR2(100),
+  width_s  NUMBER(10),
+  height_s NUMBER(10),
+  left_s   NUMBER(10),
+  right_s  NUMBER(10),
+  top_s    NUMBER(10),
+  bottom_s NUMBER(10),
+  isactive VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.HX_PAPER_SIZE_X on HRBZLS.HX_PAPER_SIZE (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

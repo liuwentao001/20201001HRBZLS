@@ -1,0 +1,46 @@
+create table HRBZLS.OPERGROUPFUNC
+(
+  ogfid    VARCHAR2(10) not null,
+  ogfgid   VARCHAR2(10) not null,
+  ogfmid   VARCHAR2(10) not null,
+  ogffid   VARCHAR2(10) not null,
+  ogforder NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERGROUPFUNC
+  is '用户功能模块分组';
+comment on column HRBZLS.OPERGROUPFUNC.ogfid
+  is '所属功能模块编码';
+comment on column HRBZLS.OPERGROUPFUNC.ogfgid
+  is '所属业务分组编码';
+comment on column HRBZLS.OPERGROUPFUNC.ogfmid
+  is '所属功能组编码';
+comment on column HRBZLS.OPERGROUPFUNC.ogffid
+  is '功能编码';
+comment on column HRBZLS.OPERGROUPFUNC.ogforder
+  is '功能显示顺序';
+alter table HRBZLS.OPERGROUPFUNC
+  add constraint PK_OPERGROUPFUNC primary key (OGFFID, OGFGID, OGFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

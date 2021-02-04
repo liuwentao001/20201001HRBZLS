@@ -1,0 +1,76 @@
+create table HRBZLS.RPT_BASEALLOT_SUM
+(
+  miid              VARCHAR2(10) not null,
+  smfid             VARCHAR2(10),
+  umonth            VARCHAR2(7) not null,
+  add_sl            NUMBER,
+  add_money         NUMBER,
+  allot_sl          NUMBER,
+  allot_money       NUMBER,
+  last_remain_sl    NUMBER,
+  last_remain_money NUMBER,
+  this_remain_sl    NUMBER,
+  this_remain_money NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RPT_BASEALLOT_SUM
+  is '基建临时用水调拨结余汇总表';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.miid
+  is '用户编号(水表号)';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.smfid
+  is '营业所编号';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.umonth
+  is '账务月份';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.add_sl
+  is '本月新增水量';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.add_money
+  is '本月新增金额(预存)';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.allot_sl
+  is '本月调拨水量';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.allot_money
+  is '本月调拨金额';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.last_remain_sl
+  is '上月水量结余';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.last_remain_money
+  is '上月结余金额';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.this_remain_sl
+  is '本月结余水量';
+comment on column HRBZLS.RPT_BASEALLOT_SUM.this_remain_money
+  is '本月结余金额';
+create index HRBZLS.IDX_RPT_BASEALLOT_SUM on HRBZLS.RPT_BASEALLOT_SUM (SMFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.RPT_BASEALLOT_SUM
+  add constraint PK_RPT_BASEALLOT_SUM primary key (MIID, UMONTH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

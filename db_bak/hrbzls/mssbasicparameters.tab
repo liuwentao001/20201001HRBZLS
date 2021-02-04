@@ -1,0 +1,29 @@
+create table HRBZLS.MSSBASICPARAMETERS
+(
+  msbid         VARCHAR2(3),
+  msbname       VARCHAR2(30),
+  msbparameters VARCHAR2(100),
+  msbexplain    VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MSSBASICPARAMETERS
+  is '短信基本参数';
+comment on column HRBZLS.MSSBASICPARAMETERS.msbid
+  is '参数编号';
+comment on column HRBZLS.MSSBASICPARAMETERS.msbname
+  is '参数名称';
+comment on column HRBZLS.MSSBASICPARAMETERS.msbparameters
+  is '参数内容';
+comment on column HRBZLS.MSSBASICPARAMETERS.msbexplain
+  is '参数说明';
+

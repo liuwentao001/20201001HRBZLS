@@ -1,0 +1,229 @@
+create table HRBZLS.PAYMENTHIS
+(
+  pid          VARCHAR2(10) not null,
+  pcid         VARCHAR2(10) not null,
+  pccode       VARCHAR2(10) not null,
+  pmid         VARCHAR2(10),
+  pmcode       VARCHAR2(10),
+  pdate        DATE,
+  pdatetime    DATE,
+  pmonth       VARCHAR2(7),
+  pposition    VARCHAR2(10),
+  ptrans       CHAR(1) not null,
+  pcd          CHAR(2) not null,
+  pper         VARCHAR2(20),
+  psavingqc    NUMBER(12,2),
+  psavingbq    NUMBER(12,2),
+  psavingqm    NUMBER(12,2),
+  ppaymenthis  NUMBER(12,2),
+  pifsaving    CHAR(1),
+  pchange      NUMBER(12,2),
+  ppayway      VARCHAR2(6),
+  pbseqno      VARCHAR2(20),
+  pcseqno      VARCHAR2(20),
+  pbdate       DATE,
+  pchkdate     DATE,
+  pcchkflag    CHAR(1),
+  pcdate       DATE,
+  pbatch       VARCHAR2(10),
+  pseqno       VARCHAR2(10),
+  ppayee       VARCHAR2(20),
+  pchbatch     VARCHAR2(10),
+  pmemo        VARCHAR2(200),
+  ppaypoint    VARCHAR2(10),
+  psxf         NUMBER(12,2),
+  pilid        VARCHAR2(40),
+  pflag        VARCHAR2(1),
+  pznj         NUMBER(12,2),
+  prcreceived  NUMBER(12,2),
+  pspje        NUMBER(12,2),
+  preverseflag VARCHAR2(1),
+  pscrid       VARCHAR2(10),
+  pscrtrans    VARCHAR2(1),
+  pscrmonth    VARCHAR2(7),
+  pscrdate     DATE,
+  pchkno       VARCHAR2(10),
+  ppriid       VARCHAR2(20),
+  tchkdate     DATE,
+  ptax         NUMBER(12,3),
+  pdzdate      DATE,
+  pwseqno      VARCHAR2(50),
+  pwdate       VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAYMENTHIS
+  is '付款交易历史【P】';
+comment on column HRBZLS.PAYMENTHIS.pid
+  is '流水号';
+comment on column HRBZLS.PAYMENTHIS.pcid
+  is '用户编号';
+comment on column HRBZLS.PAYMENTHIS.pccode
+  is '用户号';
+comment on column HRBZLS.PAYMENTHIS.pmid
+  is '水表编号';
+comment on column HRBZLS.PAYMENTHIS.pmcode
+  is '资料号';
+comment on column HRBZLS.PAYMENTHIS.pdate
+  is '帐务日期';
+comment on column HRBZLS.PAYMENTHIS.pdatetime
+  is '发生日期';
+comment on column HRBZLS.PAYMENTHIS.pmonth
+  is '缴费月份';
+comment on column HRBZLS.PAYMENTHIS.pposition
+  is '缴费机构';
+comment on column HRBZLS.PAYMENTHIS.ptrans
+  is '缴费事务';
+comment on column HRBZLS.PAYMENTHIS.pcd
+  is '借贷方向';
+comment on column HRBZLS.PAYMENTHIS.pper
+  is '销帐人员';
+comment on column HRBZLS.PAYMENTHIS.psavingqc
+  is '期初预存余额';
+comment on column HRBZLS.PAYMENTHIS.psavingbq
+  is '本期发生预存金额';
+comment on column HRBZLS.PAYMENTHIS.psavingqm
+  is '期末预存余额';
+comment on column HRBZLS.PAYMENTHIS.ppaymenthis
+  is '付款金额';
+comment on column HRBZLS.PAYMENTHIS.pifsaving
+  is '找零转预存';
+comment on column HRBZLS.PAYMENTHIS.pchange
+  is '找零金额';
+comment on column HRBZLS.PAYMENTHIS.ppayway
+  is '付款方式';
+comment on column HRBZLS.PAYMENTHIS.pbseqno
+  is '银行流水(银行实时收费交易流水)';
+comment on column HRBZLS.PAYMENTHIS.pcseqno
+  is '清算中心流水(NO USE)';
+comment on column HRBZLS.PAYMENTHIS.pbdate
+  is '银行日期(银行缴费账务日期)';
+comment on column HRBZLS.PAYMENTHIS.pchkdate
+  is '对帐日期';
+comment on column HRBZLS.PAYMENTHIS.pcchkflag
+  is '标志(NO USE)';
+comment on column HRBZLS.PAYMENTHIS.pcdate
+  is '清算日期';
+comment on column HRBZLS.PAYMENTHIS.pbatch
+  is '缴费交易批次';
+comment on column HRBZLS.PAYMENTHIS.pseqno
+  is '缴费交易流水(NO USE)';
+comment on column HRBZLS.PAYMENTHIS.ppayee
+  is '收款员';
+comment on column HRBZLS.PAYMENTHIS.pchbatch
+  is '支票交易批次';
+comment on column HRBZLS.PAYMENTHIS.pmemo
+  is '备注';
+comment on column HRBZLS.PAYMENTHIS.ppaypoint
+  is '缴费地点';
+comment on column HRBZLS.PAYMENTHIS.psxf
+  is '手续费';
+comment on column HRBZLS.PAYMENTHIS.pilid
+  is '发票流水号';
+comment on column HRBZLS.PAYMENTHIS.pflag
+  is '实收标志（全部为Y.暂无启用）';
+comment on column HRBZLS.PAYMENTHIS.pznj
+  is '实收滞金';
+comment on column HRBZLS.PAYMENTHIS.prcreceived
+  is '  实际收款金额（实际收款金额 =  付款金额 -找零金额；销帐金额 + 实收滞金 + 手续费 + 本期发生预存金额）';
+comment on column HRBZLS.PAYMENTHIS.pspje
+  is '销帐金额(如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0)';
+comment on column HRBZLS.PAYMENTHIS.preverseflag
+  is '冲正标志（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）';
+comment on column HRBZLS.PAYMENTHIS.pscrid
+  is '原实收帐流水（应收冲实产生的负帐时PAYMENTHIS.PSCRID不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况PAYMENTHIS.PSCRID为空）';
+comment on column HRBZLS.PAYMENTHIS.pscrtrans
+  is '  原实收缴费事务（实收冲正产生的负帐时PAYMENTHIS.PSCRTRANS不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况PAYMENTHIS.PSCRTRANS为空）';
+comment on column HRBZLS.PAYMENTHIS.pscrmonth
+  is '原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：A用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）';
+comment on column HRBZLS.PAYMENTHIS.pscrdate
+  is '原实收日期';
+comment on column HRBZLS.PAYMENTHIS.pchkno
+  is '进账单号';
+comment on column HRBZLS.PAYMENTHIS.ppriid
+  is '合收主表号';
+comment on column HRBZLS.PAYMENTHIS.tchkdate
+  is '到账日期';
+comment on column HRBZLS.PAYMENTHIS.ptax
+  is '税额比例';
+comment on column HRBZLS.PAYMENTHIS.pdzdate
+  is '财务对账日期（财务对账审核后回写）';
+comment on column HRBZLS.PAYMENTHIS.pwseqno
+  is '微信流水';
+comment on column HRBZLS.PAYMENTHIS.pwdate
+  is '微信申请日期';
+create index HRBZLS.IDX_PBATCH_01 on HRBZLS.PAYMENTHIS (PBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PBSEQNO_01 on HRBZLS.PAYMENTHIS (PBSEQNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PCHBATCH_01 on HRBZLS.PAYMENTHIS (PCHBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PCHKDATE_01 on HRBZLS.PAYMENTHIS (PCHKDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PCID_01 on HRBZLS.PAYMENTHIS (PCID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PCKNO_01 on HRBZLS.PAYMENTHIS (PCHKNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PDATETIME_01 on HRBZLS.PAYMENTHIS (PDATETIME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PDATE_01 on HRBZLS.PAYMENTHIS (PDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PMCODE_01 on HRBZLS.PAYMENTHIS (PMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PMID_01 on HRBZLS.PAYMENTHIS (PMID, PDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PMONTH_01 on HRBZLS.PAYMENTHIS (PMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PPAYEE_01 on HRBZLS.PAYMENTHIS (PPAYEE, PDATE, PPAYWAY, PCCHKFLAG)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PSPOSITION_01 on HRBZLS.PAYMENTHIS (PPOSITION)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.PAYMENTHIS
+  add constraint PK_PAYMENTHIS primary key (PID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

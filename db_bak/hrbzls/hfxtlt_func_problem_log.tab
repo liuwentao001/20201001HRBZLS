@@ -1,0 +1,53 @@
+create table HRBZLS.HFXTLT_FUNC_PROBLEM_LOG
+(
+  fpl_id        VARCHAR2(10) not null,
+  fpl_func      VARCHAR2(100),
+  fpl_date      DATE,
+  fpl_operator  VARCHAR2(10),
+  fpl_type      VARCHAR2(20),
+  fpl_status    VARCHAR2(20),
+  fpl_remark    VARCHAR2(1000),
+  fpl_roperator VARCHAR2(6),
+  fpl_rtype     VARCHAR2(20),
+  fpl_rremark   VARCHAR2(1000),
+  fpl_rdate     DATE,
+  fpl_zstatus   CHAR(1) default 'N'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.HFXTLT_FUNC_PROBLEM_LOG
+  is '问题处理记录';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_id
+  is '流水号';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_func
+  is '功能名称';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_date
+  is '问题反应时间';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_operator
+  is '问题反应人';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_type
+  is '问题反应类型';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_status
+  is '问题紧急程度';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_remark
+  is '问题描述';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_roperator
+  is '回复人';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_rtype
+  is '问题处理程度';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_rremark
+  is '问题处理说明';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_rdate
+  is '回复时间';
+comment on column HRBZLS.HFXTLT_FUNC_PROBLEM_LOG.fpl_zstatus
+  is '终止条件';
+alter table HRBZLS.HFXTLT_FUNC_PROBLEM_LOG
+  add constraint PK_FUNC_PROBLEM_LOG1 primary key (FPL_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,19 @@
+create table HRBZLS.COPY_SYSAREAFRAME
+(
+  safclass VARCHAR2(4000),
+  safname  VARCHAR2(4000),
+  safflag  CHAR(1) not null,
+  safsmfid VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

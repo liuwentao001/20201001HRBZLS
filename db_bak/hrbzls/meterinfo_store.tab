@@ -1,0 +1,23 @@
+create table HRBZLS.METERINFO_STORE
+(
+  qfh        VARCHAR2(40) not null,
+  storeid    VARCHAR2(10),
+  miid       VARCHAR2(10),
+  caliber    NUMBER(10),
+  brand      VARCHAR2(2),
+  model      VARCHAR2(2),
+  status     VARCHAR2(2),
+  statusdate DATE,
+  cycchkdate DATE,
+  stockdate  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create unique index HRBZLS.METERINFO_STORE_X on HRBZLS.METERINFO_STORE (QFH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

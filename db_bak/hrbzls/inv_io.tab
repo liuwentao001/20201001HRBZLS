@@ -1,0 +1,64 @@
+create table HRBZLS.INV_IO
+(
+  ioid       NUMBER(10) not null,
+  iotype     CHAR(1),
+  iodate     DATE,
+  iosender   VARCHAR2(10),
+  ioreceiver VARCHAR2(10),
+  iobcno     VARCHAR2(12),
+  iosno      VARCHAR2(12),
+  ioeno      VARCHAR2(12),
+  iosmfid    VARCHAR2(10),
+  isstockdo  VARCHAR2(2),
+  qty        NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.INV_IO
+  is '票据出库记录【IO】';
+comment on column HRBZLS.INV_IO.ioid
+  is '出库流水';
+comment on column HRBZLS.INV_IO.iotype
+  is '票据类型';
+comment on column HRBZLS.INV_IO.iodate
+  is '出库日期';
+comment on column HRBZLS.INV_IO.iosender
+  is '出库人';
+comment on column HRBZLS.INV_IO.ioreceiver
+  is '入库人';
+comment on column HRBZLS.INV_IO.iobcno
+  is '批号';
+comment on column HRBZLS.INV_IO.iosno
+  is '起号';
+comment on column HRBZLS.INV_IO.ioeno
+  is '止号';
+comment on column HRBZLS.INV_IO.iosmfid
+  is '出库单位';
+comment on column HRBZLS.INV_IO.isstockdo
+  is '票据管理操作';
+comment on column HRBZLS.INV_IO.qty
+  is '数量';
+alter table HRBZLS.INV_IO
+  add constraint PK_INV_IO primary key (IOID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

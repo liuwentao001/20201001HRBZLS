@@ -1,0 +1,40 @@
+create table HRBZLS.SYSREADTYPE
+(
+  srtid   CHAR(1) not null,
+  srtname VARCHAR2(20) not null,
+  srtmemo VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSREADTYPE
+  is '抄表方式【SRT】';
+comment on column HRBZLS.SYSREADTYPE.srtid
+  is '编码';
+comment on column HRBZLS.SYSREADTYPE.srtname
+  is '名称';
+comment on column HRBZLS.SYSREADTYPE.srtmemo
+  is '描述';
+alter table HRBZLS.SYSREADTYPE
+  add constraint PK_SYSREADTYPE primary key (SRTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

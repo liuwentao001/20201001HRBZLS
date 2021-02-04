@@ -1,0 +1,22 @@
+create table HRBZLS.OS_HISTORYOWNER
+(
+  id     NUMBER not null,
+  roleid VARCHAR2(10),
+  smfid  VARCHAR2(10),
+  empid  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_HISTORYOWNER
+  is '历史步骤所有者';
+comment on column HRBZLS.OS_HISTORYOWNER.id
+  is '历史步骤ID';
+comment on column HRBZLS.OS_HISTORYOWNER.roleid
+  is '角色';
+comment on column HRBZLS.OS_HISTORYOWNER.smfid
+  is '部门';
+comment on column HRBZLS.OS_HISTORYOWNER.empid
+  is '员工';
+

@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION HRBZLS.F_CHR1013(P_STR IN VARCHAR2)
+--È¥³ýtab½¡
+RETURN VARCHAR2 AS
+  V_TMP VARCHAR2(4000);
+BEGIN
+  V_TMP:=   ( case when instr( P_STR,CHR(10)) > 0  then
+  substr( P_STR,1,instr(P_STR,CHR(10)) - 2)   else P_STR end ) ;
+  RETURN V_TMP;
+END F_CHR1013;
+/
+

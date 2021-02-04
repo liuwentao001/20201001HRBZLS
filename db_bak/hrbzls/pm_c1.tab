@@ -1,0 +1,51 @@
+create table HRBZLS.PM_C1
+(
+  pid          VARCHAR2(10),
+  pcid         VARCHAR2(10),
+  pccode       VARCHAR2(10),
+  pmid         VARCHAR2(10),
+  pmcode       VARCHAR2(10),
+  pdate        DATE,
+  pdatetime    DATE,
+  pmonth       VARCHAR2(7),
+  pposition    VARCHAR2(10),
+  ptrans       CHAR(1),
+  pcd          CHAR(2),
+  pper         VARCHAR2(20),
+  psavingqc    NUMBER(12,2),
+  psavingbq    NUMBER(12,2),
+  psavingqm    NUMBER(12,2),
+  ppayment     NUMBER(12,2),
+  pifsaving    CHAR(1),
+  pchange      NUMBER(12,2),
+  ppayway      VARCHAR2(6),
+  pbseqno      VARCHAR2(20),
+  pcseqno      VARCHAR2(20),
+  pbdate       DATE,
+  pchkdate     DATE,
+  pcchkflag    CHAR(1),
+  pcdate       DATE,
+  pbatch       VARCHAR2(10),
+  pseqno       VARCHAR2(10),
+  ppayee       VARCHAR2(20),
+  pchbatch     VARCHAR2(10),
+  pmemo        VARCHAR2(200),
+  ppaypoint    VARCHAR2(10),
+  psxf         NUMBER(12,2),
+  pilid        VARCHAR2(40),
+  pflag        VARCHAR2(1),
+  pznj         NUMBER(12,2),
+  prcreceived  NUMBER(12,2),
+  pspje        NUMBER(12,2),
+  preverseflag VARCHAR2(1),
+  pscrid       VARCHAR2(10),
+  pscrtrans    VARCHAR2(1),
+  pscrmonth    VARCHAR2(7),
+  pscrdate     DATE,
+  pchkno       VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

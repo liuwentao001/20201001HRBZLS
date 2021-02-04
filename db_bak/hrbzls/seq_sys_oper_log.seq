@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_SYS_OPER_LOG
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 10120
+increment by 1
+cache 20;
+

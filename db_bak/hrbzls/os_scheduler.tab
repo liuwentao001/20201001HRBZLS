@@ -1,0 +1,16 @@
+create table HRBZLS.OS_SCHEDULER
+(
+  id    VARCHAR2(20) not null,
+  smfid VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_SCHEDULER
+  is '工作流调度表';
+comment on column HRBZLS.OS_SCHEDULER.id
+  is '群ID';
+comment on column HRBZLS.OS_SCHEDULER.smfid
+  is '部门';
+

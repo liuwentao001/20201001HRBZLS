@@ -1,0 +1,53 @@
+create table HRBZLS.LOG_TRANS
+(
+  trans_code        VARCHAR2(10),
+  trans_note        VARCHAR2(4000),
+  trans_happen_date DATE,
+  trans_result      VARCHAR2(10),
+  trans_return_note VARCHAR2(4000),
+  trans_input_info  VARCHAR2(4000),
+  trans_task_no     VARCHAR2(10) not null,
+  trans_miid        VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.LOG_TRANS.trans_code
+  is '协议编号';
+comment on column HRBZLS.LOG_TRANS.trans_note
+  is '协议内容';
+comment on column HRBZLS.LOG_TRANS.trans_happen_date
+  is '发生日期';
+comment on column HRBZLS.LOG_TRANS.trans_result
+  is '返回结果';
+comment on column HRBZLS.LOG_TRANS.trans_return_note
+  is '返回内容';
+comment on column HRBZLS.LOG_TRANS.trans_input_info
+  is '发起机器相关信息(IP|机器码)';
+comment on column HRBZLS.LOG_TRANS.trans_task_no
+  is '流水号';
+comment on column HRBZLS.LOG_TRANS.trans_miid
+  is '户号';
+alter table HRBZLS.LOG_TRANS
+  add constraint PK_LOG_TRANS primary key (TRANS_TASK_NO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,19 @@
+create table HRBZLS.SYSFACEJOIN4
+(
+  afjpid  VARCHAR2(2) not null,
+  afjcid  VARCHAR2(2) not null,
+  afjflag VARCHAR2(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.SYSFACEJOIN4
+  is '表况关联【AFJ】';
+comment on column HRBZLS.SYSFACEJOIN4.afjpid
+  is '父表况';
+comment on column HRBZLS.SYSFACEJOIN4.afjcid
+  is '子表况';
+comment on column HRBZLS.SYSFACEJOIN4.afjflag
+  is '关联关系';
+

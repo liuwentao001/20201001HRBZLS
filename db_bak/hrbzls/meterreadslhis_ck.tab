@@ -1,0 +1,53 @@
+create table HRBZLS.METERREADSLHIS_CK
+(
+  mrmid     VARCHAR2(10) not null,
+  mrmonth   VARCHAR2(7),
+  mrrdate1  DATE,
+  mrecode1  NUMBER(10),
+  mrsl1     NUMBER(12,2),
+  mrrdate2  DATE,
+  mrecode2  NUMBER(10),
+  mrsl2     NUMBER(12,2),
+  mrrdate3  DATE,
+  mrecode3  NUMBER(10),
+  mrsl3     NUMBER(12,2),
+  mrrdate4  DATE,
+  mrecode4  NUMBER(10),
+  mrsl4     NUMBER(12,2),
+  mrrdate5  DATE,
+  mrecode5  NUMBER(10),
+  mrsl5     NUMBER(12,2),
+  mrrdate6  DATE,
+  mrecode6  NUMBER(10),
+  mrsl6     NUMBER(12,2),
+  mrrdate7  DATE,
+  mrecode7  NUMBER(10),
+  mrsl7     NUMBER(12,2),
+  mrrdate8  DATE,
+  mrecode8  NUMBER(10),
+  mrsl8     NUMBER(12,2),
+  mrrdate9  DATE,
+  mrecode9  NUMBER(10),
+  mrsl9     NUMBER(12,2),
+  mrrdate10 DATE,
+  mrecode10 NUMBER(10),
+  mrsl10    NUMBER(12,2),
+  mrrdate11 DATE,
+  mrecode11 NUMBER(10),
+  mrsl11    NUMBER(12,2),
+  mrrdate12 DATE,
+  mrecode12 NUMBER(10),
+  mrsl12    NUMBER(12,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+alter table HRBZLS.METERREADSLHIS_CK
+  add constraint PK_METERREADSLHIS_CK primary key (MRMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

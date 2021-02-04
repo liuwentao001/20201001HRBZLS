@@ -1,0 +1,58 @@
+create table HRBZLS.DYNDWOBJLIST
+(
+  dyobjid      NUMBER not null,
+  dyobjname    VARCHAR2(60),
+  dyobjcode    VARCHAR2(60),
+  dyobjfunstr  VARCHAR2(400),
+  dyobjvisible VARCHAR2(1),
+  dyobjorder   NUMBER(4),
+  dyobjpic     VARCHAR2(400),
+  dyobjtiptext VARCHAR2(400),
+  dyobjmemo    VARCHAR2(400)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.DYNDWOBJLIST
+  is '自定义数据窗口对象[dyobj]';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjid
+  is '对象ID';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjname
+  is '对象名';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjcode
+  is '对象编号';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjfunstr
+  is '创建对象代码';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjvisible
+  is '是否可见';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjorder
+  is '排列顺序';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjpic
+  is '显示图片';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjtiptext
+  is '显示文字';
+comment on column HRBZLS.DYNDWOBJLIST.dyobjmemo
+  is '备注';
+alter table HRBZLS.DYNDWOBJLIST
+  add constraint AK_PK_DYNDWOBJLIST_DYNDWOBJ unique (DYOBJID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

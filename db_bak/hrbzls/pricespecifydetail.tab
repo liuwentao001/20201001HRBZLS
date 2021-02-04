@@ -1,0 +1,29 @@
+create table HRBZLS.PRICESPECIFYDETAIL
+(
+  psdcid  VARCHAR2(10) not null,
+  psdmid  VARCHAR2(10) not null,
+  psdpiid CHAR(2) not null,
+  psddj   NUMBER(12,3) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PRICESPECIFYDETAIL
+  is '例外固定单价【PSD】';
+comment on column HRBZLS.PRICESPECIFYDETAIL.psdcid
+  is '用户编码';
+comment on column HRBZLS.PRICESPECIFYDETAIL.psdmid
+  is '水表编码';
+comment on column HRBZLS.PRICESPECIFYDETAIL.psdpiid
+  is '费用项目';
+comment on column HRBZLS.PRICESPECIFYDETAIL.psddj
+  is '例外固定单价';
+alter table HRBZLS.PRICESPECIFYDETAIL
+  add constraint PK_PRICESPECIFYDETAIL primary key (PSDCID, PSDMID, PSDPIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

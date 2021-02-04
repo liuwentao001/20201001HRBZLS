@@ -1,0 +1,50 @@
+create table HRBZLS.WATERPLAN
+(
+  wpid    VARCHAR2(10),
+  wpsmfid VARCHAR2(10),
+  wppfid  VARCHAR2(10),
+  wpoper  VARCHAR2(10),
+  wptype  VARCHAR2(10),
+  wpsl    NUMBER(10),
+  wpsfje  NUMBER(10,2),
+  wpwsje  NUMBER(10,2),
+  wpyear  VARCHAR2(4),
+  wpmonth VARCHAR2(2),
+  wpptype VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.WATERPLAN
+  is '产销计划';
+comment on column HRBZLS.WATERPLAN.wpid
+  is '流水号';
+comment on column HRBZLS.WATERPLAN.wpsmfid
+  is '营业所';
+comment on column HRBZLS.WATERPLAN.wppfid
+  is '水价';
+comment on column HRBZLS.WATERPLAN.wpoper
+  is '抄表员';
+comment on column HRBZLS.WATERPLAN.wptype
+  is '类型';
+comment on column HRBZLS.WATERPLAN.wpsl
+  is '水量';
+comment on column HRBZLS.WATERPLAN.wpsfje
+  is '水费';
+comment on column HRBZLS.WATERPLAN.wpwsje
+  is '污水费';
+comment on column HRBZLS.WATERPLAN.wpyear
+  is '年';
+comment on column HRBZLS.WATERPLAN.wpmonth
+  is '月';
+comment on column HRBZLS.WATERPLAN.wpptype
+  is '计划类型(年、月)';
+

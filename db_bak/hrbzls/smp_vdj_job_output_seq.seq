@@ -1,0 +1,7 @@
+create sequence HRBZLS.SMP_VDJ_JOB_OUTPUT_SEQ
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 2200
+increment by 1
+cache 50;
+

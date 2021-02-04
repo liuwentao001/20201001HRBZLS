@@ -1,0 +1,26 @@
+create table HRBZLS.WORKPRINTSET
+(
+  wpswsid  VARCHAR2(64) not null,
+  wpsitid  VARCHAR2(10) not null,
+  wpspthid NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.WORKPRINTSET
+  is '工作站打印设置【WPS】';
+comment on column HRBZLS.WORKPRINTSET.wpswsid
+  is '工作站';
+comment on column HRBZLS.WORKPRINTSET.wpsitid
+  is '票据类型';
+comment on column HRBZLS.WORKPRINTSET.wpspthid
+  is '模板编号';
+alter table HRBZLS.WORKPRINTSET
+  add constraint PK_WORKPRINTSET primary key (WPSITID, WPSWSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

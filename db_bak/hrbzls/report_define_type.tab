@@ -1,0 +1,29 @@
+create table HRBZLS.REPORT_DEFINE_TYPE
+(
+  id     VARCHAR2(10),
+  scripr VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_REPORT_DEFINE_ID on HRBZLS.REPORT_DEFINE_TYPE (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

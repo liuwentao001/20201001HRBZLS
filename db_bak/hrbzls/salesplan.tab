@@ -1,0 +1,77 @@
+create table HRBZLS.SALESPLAN
+(
+  id       NUMBER not null,
+  month    VARCHAR2(7) not null,
+  area     VARCHAR2(10) not null,
+  value1   NUMBER(12,3),
+  value2   NUMBER(12,3),
+  value3   NUMBER(12,3),
+  value4   NUMBER(12,3),
+  value5   NUMBER(12,3),
+  value6   NUMBER(12,3),
+  value7   NUMBER(12,3),
+  value8   NUMBER(12,3),
+  value9   NUMBER(12,3),
+  value10  NUMBER(12,3),
+  lvalue1  NUMBER(12,3),
+  lvalue2  NUMBER(12,3),
+  lvalue3  NUMBER(12,3),
+  lvalue4  NUMBER(12,3),
+  lvalue5  NUMBER(12,3),
+  lvalue6  NUMBER(12,3),
+  lvalue7  NUMBER(12,3),
+  lvalue8  NUMBER(12,3),
+  lvalue9  NUMBER(12,3),
+  lvalue10 NUMBER(12,3)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.SALESPLAN
+  is '产销计划';
+comment on column HRBZLS.SALESPLAN.month
+  is '月份';
+comment on column HRBZLS.SALESPLAN.area
+  is '区域';
+comment on column HRBZLS.SALESPLAN.value1
+  is '值1(出厂水量)';
+comment on column HRBZLS.SALESPLAN.value2
+  is '值2';
+comment on column HRBZLS.SALESPLAN.value3
+  is '值3';
+comment on column HRBZLS.SALESPLAN.value4
+  is '值4';
+comment on column HRBZLS.SALESPLAN.value5
+  is '值5';
+comment on column HRBZLS.SALESPLAN.value6
+  is '值6';
+comment on column HRBZLS.SALESPLAN.value7
+  is '值7';
+comment on column HRBZLS.SALESPLAN.value8
+  is '值8';
+comment on column HRBZLS.SALESPLAN.value9
+  is '值9';
+comment on column HRBZLS.SALESPLAN.value10
+  is '值10';
+comment on column HRBZLS.SALESPLAN.lvalue1
+  is '上月值1(出厂水量)';
+comment on column HRBZLS.SALESPLAN.lvalue2
+  is '上月值2';
+comment on column HRBZLS.SALESPLAN.lvalue3
+  is '上月值3';
+comment on column HRBZLS.SALESPLAN.lvalue4
+  is '上月值4';
+comment on column HRBZLS.SALESPLAN.lvalue5
+  is '上月值5';
+comment on column HRBZLS.SALESPLAN.lvalue6
+  is '上月值6';
+comment on column HRBZLS.SALESPLAN.lvalue7
+  is '上月值7';
+comment on column HRBZLS.SALESPLAN.lvalue8
+  is '上月值8';
+comment on column HRBZLS.SALESPLAN.lvalue9
+  is '上月值9';
+comment on column HRBZLS.SALESPLAN.lvalue10
+  is '上月值10';
+

@@ -1,0 +1,88 @@
+create table HRBZLS.METER_STATIC
+(
+  id    VARCHAR2(10) not null,
+  区域    VARCHAR2(10),
+  营销公司  VARCHAR2(10),
+  抄表方式  CHAR(1),
+  水表口径  NUMBER(10),
+  行业分类  VARCHAR2(10),
+  水表类型  CHAR(1),
+  考核表标志 CHAR(1),
+  收费方式  CHAR(1),
+  水表类别  CHAR(1),
+  当前数量  NUMBER(10),
+  上期数量  NUMBER(10),
+  新增水表  NUMBER(10),
+  销户水表  NUMBER(10),
+  统计日期  DATE,
+  用水大类  VARCHAR2(10),
+  用水中类  VARCHAR2(10),
+  用水小类  VARCHAR2(10),
+  表位    VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METER_STATIC
+  is '水表统计信息';
+comment on column HRBZLS.METER_STATIC.id
+  is '流水号';
+comment on column HRBZLS.METER_STATIC.区域
+  is '营销区域';
+comment on column HRBZLS.METER_STATIC.营销公司
+  is '营销公司';
+comment on column HRBZLS.METER_STATIC.抄表方式
+  is '抄表方式（IC卡、远传、抄表器）';
+comment on column HRBZLS.METER_STATIC.水表类型
+  is '机械、螺翼、旋翼';
+comment on column HRBZLS.METER_STATIC.考核表标志
+  is '考核表标志';
+comment on column HRBZLS.METER_STATIC.表位
+  is '表位';
+create index HRBZLS.IDX_DATE on HRBZLS.METER_STATIC (统计日期)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METER_STATIC on HRBZLS.METER_STATIC (区域, 营销公司, 抄表方式, 水表口径, 行业分类, 水表类型, 考核表标志, 收费方式, 水表类别, 用水大类, 用水中类, 用水小类)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METER_STATIC
+  add constraint PK_METER_STATIC primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

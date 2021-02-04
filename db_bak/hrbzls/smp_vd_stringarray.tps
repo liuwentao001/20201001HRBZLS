@@ -1,0 +1,3 @@
+CREATE OR REPLACE TYPE HRBZLS."SMP_VD_STRINGARRAY"                                          AS TABLE OF VARCHAR2(3072)
+/
+

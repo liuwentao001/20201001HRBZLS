@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_DWCONTINFO
+minvalue 1000000000
+maxvalue 9999999999
+start with 1000070764
+increment by 1
+cache 50
+cycle;
+

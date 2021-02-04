@@ -1,0 +1,24 @@
+create table HRBZLS.BILLPRINT
+(
+  bpbid      CHAR(3) not null,
+  bpname     VARCHAR2(64) not null,
+  bpdate     DATE not null,
+  bpdefault  CHAR(1) not null,
+  bpdwname   VARCHAR2(64) not null,
+  bpmaindw   BLOB,
+  bpdetaildw BLOB,
+  bpoperid   VARCHAR2(15),
+  bprepname  VARCHAR2(128)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+alter table HRBZLS.BILLPRINT
+  add constraint PK_BILLPRINT primary key (BPBID, BPNAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

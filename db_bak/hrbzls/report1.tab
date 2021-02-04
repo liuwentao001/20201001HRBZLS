@@ -1,0 +1,58 @@
+create table HRBZLS.REPORT1
+(
+  report_id         VARCHAR2(54) not null,
+  report_name       VARCHAR2(100),
+  report_state      VARCHAR2(4),
+  report_dw         VARCHAR2(70),
+  report_system     VARCHAR2(36),
+  report_paper_size VARCHAR2(10),
+  report_percent    NUMBER(5)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.REPORT1_DW on HRBZLS.REPORT1 (REPORT_DW)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.REPORT1_REPORT_NAME on HRBZLS.REPORT1 (REPORT_NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.REPORT1_X on HRBZLS.REPORT1 (REPORT_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,73 @@
+create table HRBZLS.REPDEFINE
+(
+  rdrepid     VARCHAR2(10) not null,
+  rdrepname   VARCHAR2(64),
+  rdrepdw     VARCHAR2(512) not null,
+  rdconddw    VARCHAR2(64),
+  rdflag      CHAR(1) default 'Y' not null,
+  rdhavcond   CHAR(1) default 'Y' not null,
+  rdisdrill   CHAR(1) default 'N',
+  rdisgraph   CHAR(1) default 'N',
+  rdisabc     CHAR(1) default 'N',
+  rdtype      CHAR(1),
+  rdrangename VARCHAR2(32),
+  rdcount     NUMBER default 0,
+  rdavgtime   FLOAT default 0,
+  rdisolap    CHAR(1) default 'N'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.REPDEFINE
+  is '进销存报表定义';
+comment on column HRBZLS.REPDEFINE.rdrepid
+  is '报表ID';
+comment on column HRBZLS.REPDEFINE.rdrepname
+  is '报表标题';
+comment on column HRBZLS.REPDEFINE.rdrepdw
+  is '钻取模式下多报表结构写法：dwname1@col11,col12;para11,para12/dwname2@col21,col22;para21,para22/dwname3@col31,col32;para31,para32(此结构仅对变量is_isdrill=''Y''有效，对第一级无para；对最末级无col)';
+comment on column HRBZLS.REPDEFINE.rdconddw
+  is '条件数据窗口对象名称';
+comment on column HRBZLS.REPDEFINE.rdflag
+  is '可用标志';
+comment on column HRBZLS.REPDEFINE.rdhavcond
+  is '具备条件查询';
+comment on column HRBZLS.REPDEFINE.rdisdrill
+  is '是否钻取';
+comment on column HRBZLS.REPDEFINE.rdisgraph
+  is '是否图形分析';
+comment on column HRBZLS.REPDEFINE.rdisabc
+  is '是否ABC分析';
+comment on column HRBZLS.REPDEFINE.rdtype
+  is '扩展';
+comment on column HRBZLS.REPDEFINE.rdrangename
+  is '扩展';
+comment on column HRBZLS.REPDEFINE.rdcount
+  is '扩展';
+comment on column HRBZLS.REPDEFINE.rdavgtime
+  is '扩展';
+comment on column HRBZLS.REPDEFINE.rdisolap
+  is '是否维度分析';
+alter table HRBZLS.REPDEFINE
+  add constraint PK_REPDEFINE primary key (RDREPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

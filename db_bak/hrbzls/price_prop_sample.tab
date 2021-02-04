@@ -1,0 +1,37 @@
+create table HRBZLS.PRICE_PROP_SAMPLE
+(
+  watertype   VARCHAR2(10) not null,
+  watertype_b VARCHAR2(10),
+  watertype_m VARCHAR2(10),
+  p0          NUMBER,
+  p1          NUMBER,
+  p2          NUMBER,
+  p3          NUMBER,
+  p4          NUMBER,
+  p5          NUMBER,
+  p6          NUMBER,
+  p7          NUMBER,
+  p8          NUMBER,
+  p9          NUMBER,
+  p10         NUMBER,
+  p11         NUMBER,
+  p12         NUMBER,
+  p13         NUMBER,
+  p14         NUMBER,
+  p15         NUMBER,
+  p16         NUMBER,
+  s1          VARCHAR2(30),
+  s2          VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

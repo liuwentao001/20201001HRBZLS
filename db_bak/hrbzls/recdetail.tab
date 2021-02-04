@@ -1,0 +1,136 @@
+create table HRBZLS.RECDETAIL
+(
+  rdid         VARCHAR2(10) not null,
+  rdpmdid      NUMBER not null,
+  rdpiid       CHAR(2) not null,
+  rdpfid       VARCHAR2(10) not null,
+  rdpscid      NUMBER not null,
+  rdclass      NUMBER not null,
+  rdysdj       NUMBER(13,3),
+  rdyssl       NUMBER(12,2),
+  rdysje       NUMBER(13,3),
+  rddj         NUMBER(13,3),
+  rdsl         NUMBER(12,2),
+  rdje         NUMBER(13,3),
+  rdadjdj      NUMBER(13,3),
+  rdadjsl      NUMBER(12,2),
+  rdadjje      NUMBER(13,3),
+  rdmethod     CHAR(3),
+  rdpaidflag   CHAR(1),
+  rdpaiddate   DATE,
+  rdpaidmonth  VARCHAR2(7),
+  rdpaidper    VARCHAR2(20),
+  rdpmdscale   NUMBER(10,2),
+  rdilid       VARCHAR2(10),
+  rdznj        NUMBER(12,2),
+  rdmemo       VARCHAR2(200),
+  rdmsmfid     VARCHAR2(10),
+  rdmonth      VARCHAR2(7),
+  rdmid        VARCHAR2(10),
+  rdpmdtype    VARCHAR2(2),
+  rdpmdcolumn1 VARCHAR2(10),
+  rdpmdcolumn2 VARCHAR2(10),
+  rdpmdcolumn3 VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RECDETAIL
+  is '应收帐明细【RD】';
+comment on column HRBZLS.RECDETAIL.rdid
+  is '流水号';
+comment on column HRBZLS.RECDETAIL.rdpmdid
+  is '混合用水分组';
+comment on column HRBZLS.RECDETAIL.rdpiid
+  is '费用项目';
+comment on column HRBZLS.RECDETAIL.rdpfid
+  is '费率';
+comment on column HRBZLS.RECDETAIL.rdpscid
+  is '费率明细方案';
+comment on column HRBZLS.RECDETAIL.rdclass
+  is '阶梯级别';
+comment on column HRBZLS.RECDETAIL.rdysdj
+  is '应收单价';
+comment on column HRBZLS.RECDETAIL.rdyssl
+  is '应收水量';
+comment on column HRBZLS.RECDETAIL.rdysje
+  is '应收金额';
+comment on column HRBZLS.RECDETAIL.rddj
+  is '实收单价';
+comment on column HRBZLS.RECDETAIL.rdsl
+  is '实收水量';
+comment on column HRBZLS.RECDETAIL.rdje
+  is '实收金额';
+comment on column HRBZLS.RECDETAIL.rdadjdj
+  is '调整单价';
+comment on column HRBZLS.RECDETAIL.rdadjsl
+  is '调整水量';
+comment on column HRBZLS.RECDETAIL.rdadjje
+  is '调整金额';
+comment on column HRBZLS.RECDETAIL.rdmethod
+  is '计费方法';
+comment on column HRBZLS.RECDETAIL.rdpaidflag
+  is '销帐标志';
+comment on column HRBZLS.RECDETAIL.rdpaiddate
+  is '销帐日期';
+comment on column HRBZLS.RECDETAIL.rdpaidmonth
+  is '销帐月份';
+comment on column HRBZLS.RECDETAIL.rdpaidper
+  is '销帐人员';
+comment on column HRBZLS.RECDETAIL.rdpmdscale
+  is '混合比例';
+comment on column HRBZLS.RECDETAIL.rdilid
+  is '票据流水';
+comment on column HRBZLS.RECDETAIL.rdznj
+  is '违约金';
+comment on column HRBZLS.RECDETAIL.rdmemo
+  is '备注';
+comment on column HRBZLS.RECDETAIL.rdmsmfid
+  is '营销公司';
+comment on column HRBZLS.RECDETAIL.rdmonth
+  is '帐务月份';
+comment on column HRBZLS.RECDETAIL.rdmid
+  is '水表编号';
+comment on column HRBZLS.RECDETAIL.rdpmdtype
+  is '混合类别';
+comment on column HRBZLS.RECDETAIL.rdpmdcolumn1
+  is '备用字段1';
+comment on column HRBZLS.RECDETAIL.rdpmdcolumn2
+  is '备用字段2';
+comment on column HRBZLS.RECDETAIL.rdpmdcolumn3
+  is '备用字段3';
+create index HRBZLS.IDX_RDID on HRBZLS.RECDETAIL (RDID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.RECDETAIL
+  add constraint PK_RECDETAIL primary key (RDID, RDPMDID, RDCLASS, RDPIID, RDPFID, RDPSCID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

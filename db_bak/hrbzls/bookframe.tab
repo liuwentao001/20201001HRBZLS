@@ -1,0 +1,103 @@
+create table HRBZLS.BOOKFRAME
+(
+  bfid      VARCHAR2(10) not null,
+  bfsmfid   VARCHAR2(10) not null,
+  bfbatch   NUMBER(2),
+  bfname    VARCHAR2(60),
+  bfpid     VARCHAR2(10),
+  bfclass   NUMBER,
+  bfflag    CHAR(1),
+  bfstatus  CHAR(1),
+  bfhandles NUMBER(10),
+  bfmemo    VARCHAR2(60),
+  bforder   NUMBER default 0,
+  bfcreper  VARCHAR2(15),
+  bfcredate DATE,
+  bfrcyc    NUMBER(2),
+  bflb      CHAR(1),
+  bfrper    VARCHAR2(15),
+  bfsafid   VARCHAR2(10),
+  bfnrmonth VARCHAR2(7),
+  bfday     NUMBER default 0,
+  bfsdate   DATE,
+  bfedate   DATE,
+  bfmonth   VARCHAR2(7),
+  bfpper    VARCHAR2(15),
+  bfjtsny   VARCHAR2(15)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BOOKFRAME
+  is '表册信息【BF】';
+comment on column HRBZLS.BOOKFRAME.bfid
+  is '编码';
+comment on column HRBZLS.BOOKFRAME.bfsmfid
+  is '营业所';
+comment on column HRBZLS.BOOKFRAME.bfbatch
+  is '抄表批次';
+comment on column HRBZLS.BOOKFRAME.bfname
+  is '名称';
+comment on column HRBZLS.BOOKFRAME.bfpid
+  is '上级编码';
+comment on column HRBZLS.BOOKFRAME.bfclass
+  is '级次';
+comment on column HRBZLS.BOOKFRAME.bfflag
+  is '末级标志';
+comment on column HRBZLS.BOOKFRAME.bfstatus
+  is '有效状态';
+comment on column HRBZLS.BOOKFRAME.bfhandles
+  is '下级数量';
+comment on column HRBZLS.BOOKFRAME.bfmemo
+  is '备注';
+comment on column HRBZLS.BOOKFRAME.bforder
+  is '册间次序';
+comment on column HRBZLS.BOOKFRAME.bfcreper
+  is '创建人';
+comment on column HRBZLS.BOOKFRAME.bfcredate
+  is '创建日期';
+comment on column HRBZLS.BOOKFRAME.bfrcyc
+  is '抄表周期';
+comment on column HRBZLS.BOOKFRAME.bflb
+  is '表册类别';
+comment on column HRBZLS.BOOKFRAME.bfrper
+  is '抄表员';
+comment on column HRBZLS.BOOKFRAME.bfsafid
+  is '区域';
+comment on column HRBZLS.BOOKFRAME.bfnrmonth
+  is '下次抄表月份';
+comment on column HRBZLS.BOOKFRAME.bfday
+  is '偏移天数';
+comment on column HRBZLS.BOOKFRAME.bfsdate
+  is '计划起始日期';
+comment on column HRBZLS.BOOKFRAME.bfedate
+  is '计划结束日期';
+comment on column HRBZLS.BOOKFRAME.bfmonth
+  is '本期抄表月份';
+comment on column HRBZLS.BOOKFRAME.bfpper
+  is '收费员';
+comment on column HRBZLS.BOOKFRAME.bfjtsny
+  is '阶梯开始月';
+alter table HRBZLS.BOOKFRAME
+  add constraint PK_BOOKFRAME primary key (BFID, BFSMFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

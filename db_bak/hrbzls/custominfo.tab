@@ -1,0 +1,38 @@
+create table HRBZLS.CUSTOMINFO
+(
+  自动用户号 NCHAR(8),
+  户主名   NCHAR(32),
+  住址    NCHAR(50),
+  开户银行  NCHAR(30),
+  银行帐号  NCHAR(30),
+  联系电话  NCHAR(50),
+  缴费结余  NUMBER(19,4),
+  自动表号  NCHAR(8),
+  立户编号  NCHAR(8),
+  水表分类  NCHAR(4),
+  总表自动号 NCHAR(8),
+  用户类型  NCHAR(8),
+  表型编号  NCHAR(4),
+  供水类号  NCHAR(4),
+  片区编号  NCHAR(5),
+  供水牌号  NCHAR(8),
+  是否计费  NCHAR(2),
+  启用日期  DATE,
+  计费模式号 NCHAR(7),
+  计量规则号 NCHAR(7),
+  复合计费号 NCHAR(7),
+  定额方案号 NCHAR(7),
+  结算类型  NCHAR(8),
+  发票类型  NCHAR(8),
+  超期计滞否 NCHAR(2),
+  备注信息  NCHAR(30),
+  建档人   NCHAR(10),
+  建档日期  DATE,
+  状态标志  NUMBER(10),
+  删除日期  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

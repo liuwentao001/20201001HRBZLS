@@ -1,0 +1,61 @@
+create table HRBZLS.WORKSTATION
+(
+  wsid         VARCHAR2(64) not null,
+  wsname       VARCHAR2(64),
+  wsstatus     CHAR(1) default 'N' not null,
+  wsonline     DATE,
+  wsoperid     VARCHAR2(10),
+  wshostname   VARCHAR2(64),
+  wsmemo       VARCHAR2(64),
+  wsip         VARCHAR2(100),
+  wsneedupdate CHAR(1) default 'Y' not null,
+  wsdept       VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.WORKSTATION
+  is '工作站列表【WS】';
+comment on column HRBZLS.WORKSTATION.wsid
+  is '工作站标识码';
+comment on column HRBZLS.WORKSTATION.wsname
+  is '工作站命名';
+comment on column HRBZLS.WORKSTATION.wsstatus
+  is '工作站是否可用';
+comment on column HRBZLS.WORKSTATION.wsonline
+  is '最近登录时刻';
+comment on column HRBZLS.WORKSTATION.wsoperid
+  is '最近登录操作员';
+comment on column HRBZLS.WORKSTATION.wshostname
+  is '最近登录机器名';
+comment on column HRBZLS.WORKSTATION.wsmemo
+  is '备注';
+comment on column HRBZLS.WORKSTATION.wsip
+  is '当前在线IP';
+comment on column HRBZLS.WORKSTATION.wsneedupdate
+  is '是否需要更新';
+comment on column HRBZLS.WORKSTATION.wsdept
+  is '工作站所属收费点部门';
+alter table HRBZLS.WORKSTATION
+  add constraint PK_SYWORKSTION primary key (WSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

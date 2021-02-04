@@ -1,0 +1,61 @@
+create table HRBZLS.BILLFLOWORDER
+(
+  bftno       VARCHAR2(10) not null,
+  bftid       NUMBER(10) not null,
+  bftto       VARCHAR2(10) not null,
+  bftnextid   NUMBER(10),
+  bftchkflag  VARCHAR2(2),
+  bftchkgroup NUMBER,
+  bftchkfun   VARCHAR2(200),
+  bftparm1    VARCHAR2(200),
+  bftparm2    VARCHAR2(200),
+  bftmemo     VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLFLOWORDER
+  is '单据流程[BFT]';
+comment on column HRBZLS.BILLFLOWORDER.bftno
+  is '流程类别';
+comment on column HRBZLS.BILLFLOWORDER.bftid
+  is '流程步骤ID';
+comment on column HRBZLS.BILLFLOWORDER.bftto
+  is '方向';
+comment on column HRBZLS.BILLFLOWORDER.bftnextid
+  is '下步流程步骤ID';
+comment on column HRBZLS.BILLFLOWORDER.bftchkflag
+  is '检查发出标志';
+comment on column HRBZLS.BILLFLOWORDER.bftchkgroup
+  is '检查同组号';
+comment on column HRBZLS.BILLFLOWORDER.bftchkfun
+  is '检查发出函数';
+comment on column HRBZLS.BILLFLOWORDER.bftparm1
+  is '参数一';
+comment on column HRBZLS.BILLFLOWORDER.bftparm2
+  is '参数二';
+comment on column HRBZLS.BILLFLOWORDER.bftmemo
+  is '流程类别说明';
+alter table HRBZLS.BILLFLOWORDER
+  add constraint PK_BILLFLOWORDER primary key (BFTNO, BFTID, BFTTO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

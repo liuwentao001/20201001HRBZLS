@@ -1,0 +1,47 @@
+create table HRBZLS.MSSSTRATEGY
+(
+  mstid          VARCHAR2(5),
+  mstname        VARCHAR2(30),
+  mststrategy    VARCHAR2(1000),
+  mstparameters1 VARCHAR2(15),
+  mstparameters2 VARCHAR2(15),
+  mstparameters3 VARCHAR2(15),
+  mstparameters4 VARCHAR2(15),
+  mstparameters5 VARCHAR2(15),
+  mstparameters6 VARCHAR2(15),
+  mstenabled     VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MSSSTRATEGY
+  is '短信平台短信策略';
+comment on column HRBZLS.MSSSTRATEGY.mstid
+  is '策略编号';
+comment on column HRBZLS.MSSSTRATEGY.mstname
+  is '策略名称';
+comment on column HRBZLS.MSSSTRATEGY.mststrategy
+  is '策略语句';
+comment on column HRBZLS.MSSSTRATEGY.mstparameters1
+  is '策略参数1';
+comment on column HRBZLS.MSSSTRATEGY.mstparameters2
+  is '策略参数2';
+comment on column HRBZLS.MSSSTRATEGY.mstparameters3
+  is '策略参数3';
+comment on column HRBZLS.MSSSTRATEGY.mstparameters4
+  is '策略参数4';
+comment on column HRBZLS.MSSSTRATEGY.mstparameters5
+  is '策略参数5';
+comment on column HRBZLS.MSSSTRATEGY.mstparameters6
+  is '策略参数6';
+comment on column HRBZLS.MSSSTRATEGY.mstenabled
+  is '启用状态';
+

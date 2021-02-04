@@ -1,0 +1,94 @@
+create table HRBZLS.ENTRUSTFILE
+(
+  efid           NUMBER(10),
+  efsrvid        VARCHAR2(10),
+  efpath         VARCHAR2(500),
+  effilename     VARCHAR2(500),
+  efelbatch      VARCHAR2(10),
+  effiledata     BLOB,
+  efsource       VARCHAR2(500),
+  efnewdatetime  DATE,
+  efsyndatetime  DATE,
+  efflag         CHAR(1),
+  efreaddatetime DATE,
+  efmemo         VARCHAR2(600),
+  efeditdatetime DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ENTRUSTFILE
+  is '代扣文件[EF]';
+comment on column HRBZLS.ENTRUSTFILE.efid
+  is '营业所';
+comment on column HRBZLS.ENTRUSTFILE.efsrvid
+  is '催费员';
+comment on column HRBZLS.ENTRUSTFILE.efpath
+  is '表册号';
+comment on column HRBZLS.ENTRUSTFILE.effilename
+  is '应收月份';
+comment on column HRBZLS.ENTRUSTFILE.efelbatch
+  is '综合单价';
+comment on column HRBZLS.ENTRUSTFILE.effiledata
+  is '应收水量';
+comment on column HRBZLS.ENTRUSTFILE.efsource
+  is '应收金额';
+comment on column HRBZLS.ENTRUSTFILE.efnewdatetime
+  is '文档创建时间';
+comment on column HRBZLS.ENTRUSTFILE.efsyndatetime
+  is '文档同步时间';
+comment on column HRBZLS.ENTRUSTFILE.efflag
+  is '文档标志位（0：生成；1：同步；2：回传；3：回传已处理）';
+comment on column HRBZLS.ENTRUSTFILE.efreaddatetime
+  is '文档访问时间';
+comment on column HRBZLS.ENTRUSTFILE.efmemo
+  is '文档说明';
+comment on column HRBZLS.ENTRUSTFILE.efeditdatetime
+  is '文档编辑时间';
+create index HRBZLS.IDX_ENTRUSTFILE_001 on HRBZLS.ENTRUSTFILE (EFELBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.IDX_ENTRUSTFILE_002 on HRBZLS.ENTRUSTFILE (EFSRVID, EFPATH, EFFILENAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.ENTRUSTFILE
+  add constraint PK_ENTRUSTFILE_ENTRUSTF unique (EFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

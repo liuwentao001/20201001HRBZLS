@@ -1,0 +1,12 @@
+create table HRBZLS.PAYEES
+(
+  oaid    VARCHAR2(15) not null,
+  oaname  VARCHAR2(60),
+  salesid VARCHAR2(4000),
+  oadept  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

@@ -1,0 +1,24 @@
+create table HRBZLS.INV_DETAIL_PZ
+(
+  invid  NUMBER not null,
+  isid   NUMBER,
+  rlid   VARCHAR2(10),
+  pid    VARCHAR2(10),
+  mcode  VARCHAR2(20),
+  cname  VARCHAR2(100),
+  pbatch VARCHAR2(10),
+  ptype  VARCHAR2(10),
+  memo   VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

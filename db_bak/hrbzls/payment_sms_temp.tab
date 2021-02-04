@@ -1,0 +1,14 @@
+create table HRBZLS.PAYMENT_SMS_TEMP
+(
+  pid    VARCHAR2(20),
+  pbatch VARCHAR2(20),
+  pmid   VARCHAR2(20),
+  pmcode VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAYMENT_SMS_TEMP
+  is 'PAYMENT生成数据后添加该表，用于短信欠费';
+

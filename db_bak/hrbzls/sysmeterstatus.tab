@@ -1,0 +1,49 @@
+create table HRBZLS.SYSMETERSTATUS
+(
+  smsid       VARCHAR2(2) not null,
+  smsname     VARCHAR2(20) not null,
+  smsmemo     VARCHAR2(1),
+  smsifrepair CHAR(1),
+  smsifresult CHAR(1),
+  smsgroup    VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSMETERSTATUS
+  is '水表状态【SMS】';
+comment on column HRBZLS.SYSMETERSTATUS.smsid
+  is '编码';
+comment on column HRBZLS.SYSMETERSTATUS.smsname
+  is '名称';
+comment on column HRBZLS.SYSMETERSTATUS.smsmemo
+  is '描述';
+comment on column HRBZLS.SYSMETERSTATUS.smsifrepair
+  is '是否送检';
+comment on column HRBZLS.SYSMETERSTATUS.smsifresult
+  is '是否检修结果';
+comment on column HRBZLS.SYSMETERSTATUS.smsgroup
+  is '状态分组';
+alter table HRBZLS.SYSMETERSTATUS
+  add constraint PK_SYSMETERSTATUS primary key (SMSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

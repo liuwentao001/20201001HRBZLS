@@ -1,0 +1,13 @@
+create table HRBZLS.INV_SELFHELP_LIST
+(
+  yhh   VARCHAR2(50),
+  pid   VARCHAR2(50),
+  pdate DATE default sysdate
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INV_SELFHELP_LIST
+  is '网站申请发票打印列队';
+

@@ -1,0 +1,1685 @@
+create table HRBZLS.PAYMENT
+(
+  pid          VARCHAR2(10) not null,
+  pcid         VARCHAR2(10) not null,
+  pccode       VARCHAR2(10) not null,
+  pmid         VARCHAR2(10),
+  pmcode       VARCHAR2(10),
+  pdate        DATE,
+  pdatetime    DATE,
+  pmonth       VARCHAR2(7),
+  pposition    VARCHAR2(10),
+  ptrans       CHAR(1) not null,
+  pcd          CHAR(2) not null,
+  pper         VARCHAR2(20),
+  psavingqc    NUMBER(12,2),
+  psavingbq    NUMBER(12,2),
+  psavingqm    NUMBER(12,2),
+  ppayment     NUMBER(12,2),
+  pifsaving    CHAR(1),
+  pchange      NUMBER(12,2),
+  ppayway      VARCHAR2(6),
+  pbseqno      VARCHAR2(20),
+  pcseqno      VARCHAR2(20),
+  pbdate       DATE,
+  pchkdate     DATE,
+  pcchkflag    CHAR(1),
+  pcdate       DATE,
+  pbatch       VARCHAR2(10),
+  pseqno       VARCHAR2(10),
+  ppayee       VARCHAR2(20),
+  pchbatch     VARCHAR2(100),
+  pmemo        VARCHAR2(200),
+  ppaypoint    VARCHAR2(10),
+  psxf         NUMBER(12,2),
+  pilid        VARCHAR2(40),
+  pflag        VARCHAR2(1),
+  pznj         NUMBER(12,2),
+  prcreceived  NUMBER(12,2),
+  pspje        NUMBER(12,2),
+  preverseflag VARCHAR2(1),
+  pscrid       VARCHAR2(10),
+  pscrtrans    VARCHAR2(1),
+  pscrmonth    VARCHAR2(7),
+  pscrdate     DATE,
+  pchkno       VARCHAR2(10),
+  ppriid       VARCHAR2(10),
+  tchkdate     DATE,
+  ptax         NUMBER(12,3) default 0,
+  pdzdate      DATE,
+  pwseqno      VARCHAR2(50),
+  pwdate       VARCHAR2(20)
+)
+partition by range (PDATE)
+(
+  partition PART_PAYMENT_200901 values less than (TO_DATE(' 2009-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201001 values less than (TO_DATE(' 2010-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201101 values less than (TO_DATE(' 2011-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201201 values less than (TO_DATE(' 2012-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201202 values less than (TO_DATE(' 2012-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201203 values less than (TO_DATE(' 2012-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201204 values less than (TO_DATE(' 2012-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201205 values less than (TO_DATE(' 2012-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201206 values less than (TO_DATE(' 2012-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201207 values less than (TO_DATE(' 2012-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201208 values less than (TO_DATE(' 2012-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201209 values less than (TO_DATE(' 2012-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201210 values less than (TO_DATE(' 2012-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201211 values less than (TO_DATE(' 2012-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201212 values less than (TO_DATE(' 2012-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201301 values less than (TO_DATE(' 2013-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201302 values less than (TO_DATE(' 2013-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201303 values less than (TO_DATE(' 2013-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201304 values less than (TO_DATE(' 2013-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201305 values less than (TO_DATE(' 2013-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201306 values less than (TO_DATE(' 2013-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201307 values less than (TO_DATE(' 2013-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201308 values less than (TO_DATE(' 2013-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201309 values less than (TO_DATE(' 2013-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201310 values less than (TO_DATE(' 2013-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201311 values less than (TO_DATE(' 2013-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201312 values less than (TO_DATE(' 2013-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201401 values less than (TO_DATE(' 2014-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201402 values less than (TO_DATE(' 2014-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201403 values less than (TO_DATE(' 2014-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201404 values less than (TO_DATE(' 2014-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201405 values less than (TO_DATE(' 2014-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201406 values less than (TO_DATE(' 2014-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201407 values less than (TO_DATE(' 2014-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201408 values less than (TO_DATE(' 2014-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201409 values less than (TO_DATE(' 2014-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201410 values less than (TO_DATE(' 2014-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201411 values less than (TO_DATE(' 2014-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201412 values less than (TO_DATE(' 2014-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201501 values less than (TO_DATE(' 2015-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201502 values less than (TO_DATE(' 2015-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201503 values less than (TO_DATE(' 2015-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201504 values less than (TO_DATE(' 2015-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201505 values less than (TO_DATE(' 2015-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201506 values less than (TO_DATE(' 2015-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201507 values less than (TO_DATE(' 2015-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201508 values less than (TO_DATE(' 2015-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201509 values less than (TO_DATE(' 2015-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201510 values less than (TO_DATE(' 2015-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201511 values less than (TO_DATE(' 2015-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201512 values less than (TO_DATE(' 2015-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201601 values less than (TO_DATE(' 2016-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201602 values less than (TO_DATE(' 2016-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201603 values less than (TO_DATE(' 2016-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201604 values less than (TO_DATE(' 2016-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201605 values less than (TO_DATE(' 2016-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201606 values less than (TO_DATE(' 2016-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201607 values less than (TO_DATE(' 2016-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201608 values less than (TO_DATE(' 2016-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201609 values less than (TO_DATE(' 2016-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201610 values less than (TO_DATE(' 2016-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201611 values less than (TO_DATE(' 2016-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201612 values less than (TO_DATE(' 2016-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201701 values less than (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201702 values less than (TO_DATE(' 2017-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201703 values less than (TO_DATE(' 2017-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201704 values less than (TO_DATE(' 2017-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201705 values less than (TO_DATE(' 2017-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201706 values less than (TO_DATE(' 2017-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201707 values less than (TO_DATE(' 2017-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201708 values less than (TO_DATE(' 2017-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201709 values less than (TO_DATE(' 2017-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201710 values less than (TO_DATE(' 2017-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201711 values less than (TO_DATE(' 2017-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201712 values less than (TO_DATE(' 2017-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201801 values less than (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201802 values less than (TO_DATE(' 2018-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201803 values less than (TO_DATE(' 2018-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201804 values less than (TO_DATE(' 2018-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201805 values less than (TO_DATE(' 2018-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201806 values less than (TO_DATE(' 2018-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201807 values less than (TO_DATE(' 2018-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201808 values less than (TO_DATE(' 2018-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201809 values less than (TO_DATE(' 2018-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201810 values less than (TO_DATE(' 2018-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201811 values less than (TO_DATE(' 2018-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201812 values less than (TO_DATE(' 2018-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201901 values less than (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201902 values less than (TO_DATE(' 2019-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201903 values less than (TO_DATE(' 2019-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201904 values less than (TO_DATE(' 2019-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201905 values less than (TO_DATE(' 2019-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201906 values less than (TO_DATE(' 2019-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201907 values less than (TO_DATE(' 2019-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201908 values less than (TO_DATE(' 2019-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201909 values less than (TO_DATE(' 2019-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201910 values less than (TO_DATE(' 2019-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201911 values less than (TO_DATE(' 2019-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_201912 values less than (TO_DATE(' 2019-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202001 values less than (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202002 values less than (TO_DATE(' 2020-02-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202003 values less than (TO_DATE(' 2020-03-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202004 values less than (TO_DATE(' 2020-04-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202005 values less than (TO_DATE(' 2020-05-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202006 values less than (TO_DATE(' 2020-06-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202007 values less than (TO_DATE(' 2020-07-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202008 values less than (TO_DATE(' 2020-08-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202009 values less than (TO_DATE(' 2020-09-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202010 values less than (TO_DATE(' 2020-10-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202011 values less than (TO_DATE(' 2020-11-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202012 values less than (TO_DATE(' 2020-12-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_202101 values less than (TO_DATE(' 2021-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    ),
+  partition PART_PAYMENT_PMAX values less than (MAXVALUE)
+    tablespace USERS
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 64K
+      next 1M
+      minextents 1
+      maxextents unlimited
+    )
+);
+comment on table HRBZLS.PAYMENT
+  is '付款交易【P】';
+comment on column HRBZLS.PAYMENT.pid
+  is '流水号';
+comment on column HRBZLS.PAYMENT.pcid
+  is '用户编号';
+comment on column HRBZLS.PAYMENT.pccode
+  is '用户号';
+comment on column HRBZLS.PAYMENT.pmid
+  is '水表编号';
+comment on column HRBZLS.PAYMENT.pmcode
+  is '资料号';
+comment on column HRBZLS.PAYMENT.pdate
+  is '帐务日期（收费日期）';
+comment on column HRBZLS.PAYMENT.pdatetime
+  is '发生日期';
+comment on column HRBZLS.PAYMENT.pmonth
+  is '缴费月份';
+comment on column HRBZLS.PAYMENT.pposition
+  is '缴费机构（营业所或银行）【SYSMANAFRAME】(0201道里营业一分公司/0208南岗营业二分公司/0206香坊营业二分公司/0204香坊营业一分公司/0205道外营业二分公司/0203南岗营业一分公司/0207平房营业分公司/0202道外营业一分公司/0209道里营业二分公司/0210嵩山营业分公司/0302邮政储蓄/0304哈尔滨银行/0305中国银行/0301交通银行/0303工商银行/0306光大银行/0307建设银行/0308招商银行)
+';
+comment on column HRBZLS.PAYMENT.ptrans
+  is '缴费事务(paidtrans)';
+comment on column HRBZLS.PAYMENT.pcd
+  is '借贷方向';
+comment on column HRBZLS.PAYMENT.pper
+  is '销帐人员';
+comment on column HRBZLS.PAYMENT.psavingqc
+  is '期初预存余额';
+comment on column HRBZLS.PAYMENT.psavingbq
+  is '本期发生预存金额';
+comment on column HRBZLS.PAYMENT.psavingqm
+  is '期末预存余额';
+comment on column HRBZLS.PAYMENT.ppayment
+  is '付款金额';
+comment on column HRBZLS.PAYMENT.pifsaving
+  is '找零转预存';
+comment on column HRBZLS.PAYMENT.pchange
+  is '找零金额';
+comment on column HRBZLS.PAYMENT.ppayway
+  is '付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)';
+comment on column HRBZLS.PAYMENT.pbseqno
+  is '银行流水(银行实时收费交易流水)';
+comment on column HRBZLS.PAYMENT.pcseqno
+  is '清算中心流水(NO USE)';
+comment on column HRBZLS.PAYMENT.pbdate
+  is '银行日期(银行缴费账务日期)';
+comment on column HRBZLS.PAYMENT.pchkdate
+  is '扎帐日期（收费员结账后回写审核日期）';
+comment on column HRBZLS.PAYMENT.pcchkflag
+  is '标志(NO USE)';
+comment on column HRBZLS.PAYMENT.pcdate
+  is '清算日期';
+comment on column HRBZLS.PAYMENT.pbatch
+  is '缴费交易批次';
+comment on column HRBZLS.PAYMENT.pseqno
+  is '缴费交易流水(NO USE)';
+comment on column HRBZLS.PAYMENT.ppayee
+  is '收款员';
+comment on column HRBZLS.PAYMENT.pchbatch
+  is '支票交易批次';
+comment on column HRBZLS.PAYMENT.pmemo
+  is '备注';
+comment on column HRBZLS.PAYMENT.ppaypoint
+  is '缴费地点（可细化到窗口）';
+comment on column HRBZLS.PAYMENT.psxf
+  is '手续费';
+comment on column HRBZLS.PAYMENT.pilid
+  is '发票流水号（迁移前营业所）';
+comment on column HRBZLS.PAYMENT.pflag
+  is '实收标志（全部为Y.暂无启用）';
+comment on column HRBZLS.PAYMENT.pznj
+  is '实收滞金';
+comment on column HRBZLS.PAYMENT.prcreceived
+  is '实际收款金额（实际收款金额 =  付款金额 -找零金额；销帐金额 + 实收滞金 + 手续费 + 本期发生预存金额）';
+comment on column HRBZLS.PAYMENT.pspje
+  is '销帐金额（如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0）';
+comment on column HRBZLS.PAYMENT.preverseflag
+  is '冲正标志（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）';
+comment on column HRBZLS.PAYMENT.pscrid
+  is '原实收帐流水（应收冲实产生的负帐时Payment.PSCRID不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况Payment.PSCRID为空）';
+comment on column HRBZLS.PAYMENT.pscrtrans
+  is '原实收缴费事务（实收冲正产生的负帐时Payment.PSCRTRANS不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况Payment.PSCRTRANS为空）';
+comment on column HRBZLS.PAYMENT.pscrmonth
+  is '原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：A用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）';
+comment on column HRBZLS.PAYMENT.pscrdate
+  is '原实收日期';
+comment on column HRBZLS.PAYMENT.pchkno
+  is '进账单号（收费员结账后回写营销单号）';
+comment on column HRBZLS.PAYMENT.ppriid
+  is '合收主表号';
+comment on column HRBZLS.PAYMENT.tchkdate
+  is '到账日期（财务到账确认后回写到账日期）';
+comment on column HRBZLS.PAYMENT.ptax
+  is '税额比例';
+comment on column HRBZLS.PAYMENT.pdzdate
+  is '财务对账日期（财务对账审核后回写）';
+comment on column HRBZLS.PAYMENT.pwseqno
+  is '微信流水';
+comment on column HRBZLS.PAYMENT.pwdate
+  is '微信申请日期';
+create index HRBZLS.IDX_PAYMENT_PDZDATE on HRBZLS.PAYMENT (PDZDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.IDX_PAYMENT_PID on HRBZLS.PAYMENT (PID)
+  nologging  local;
+create index HRBZLS.IDX_PAYMENT_PMID on HRBZLS.PAYMENT (PMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PAYMENT_PPRIID on HRBZLS.PAYMENT (PPRIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PAYMENT_PSCRID on HRBZLS.PAYMENT (PSCRID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PAYMENT_PTRANS on HRBZLS.PAYMENT (PTRANS)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PBATCH on HRBZLS.PAYMENT (PBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PBSEQNO on HRBZLS.PAYMENT (PBSEQNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PCHKDATE on HRBZLS.PAYMENT (PCHKDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PCID on HRBZLS.PAYMENT (PCID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PCKNO on HRBZLS.PAYMENT (PCHKNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PDATETIME on HRBZLS.PAYMENT (PDATETIME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PMCODE on HRBZLS.PAYMENT (PMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PMONTH on HRBZLS.PAYMENT (PMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_PSPOSITION on HRBZLS.PAYMENT (PPOSITION)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.PAYMENT
+  add constraint PK_PAYMENT primary key (PID);
+

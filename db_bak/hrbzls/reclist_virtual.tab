@@ -1,0 +1,254 @@
+create global temporary table HRBZLS.RECLIST_VIRTUAL
+(
+  rlid           VARCHAR2(10) not null,
+  rlsmfid        VARCHAR2(10) not null,
+  rlmonth        VARCHAR2(7) not null,
+  rldate         DATE not null,
+  rlcid          VARCHAR2(10) not null,
+  rlmid          VARCHAR2(10),
+  rlmsmfid       VARCHAR2(10),
+  rlcsmfid       VARCHAR2(10) not null,
+  rlccode        VARCHAR2(10),
+  rlchargeper    VARCHAR2(15),
+  rlcpid         VARCHAR2(10),
+  rlcclass       NUMBER,
+  rlcflag        CHAR(1),
+  rlusenum       NUMBER,
+  rlcname        VARCHAR2(64),
+  rlcadr         VARCHAR2(64),
+  rlmadr         VARCHAR2(64),
+  rlcstatus      VARCHAR2(2) not null,
+  rlmtel         VARCHAR2(30),
+  rltel          VARCHAR2(30),
+  rlbankid       VARCHAR2(10),
+  rltsbankid     VARCHAR2(10),
+  rlaccountno    VARCHAR2(32),
+  rlaccountname  VARCHAR2(64),
+  rliftax        CHAR(1),
+  rltaxno        VARCHAR2(30),
+  rlifinv        CHAR(1),
+  rlmcode        VARCHAR2(10),
+  rlmpid         VARCHAR2(10),
+  rlmclass       NUMBER,
+  rlmflag        CHAR(1),
+  rlmsfid        VARCHAR2(10),
+  rlday          DATE,
+  rlbfid         VARCHAR2(10),
+  rlprdate       DATE,
+  rlrdate        DATE,
+  rlzndate       DATE,
+  rlcaliber      NUMBER(10),
+  rlrtid         CHAR(1),
+  rlmstatus      VARCHAR2(2),
+  rlmtype        CHAR(1),
+  rlmno          VARCHAR2(20),
+  rlscode        NUMBER(10),
+  rlecode        NUMBER(10),
+  rlreadsl       NUMBER(10),
+  rlinvmemo      VARCHAR2(60),
+  rlentrustbatch VARCHAR2(10),
+  rlentrustseqno VARCHAR2(10),
+  rloutflag      CHAR(1) not null,
+  rltrans        CHAR(1) not null,
+  rlcd           CHAR(2) not null,
+  rlyschargetype CHAR(1) not null,
+  rlsl           NUMBER(10) not null,
+  rlje           NUMBER(13,3) not null,
+  rladdsl        NUMBER(10),
+  rlscrrlid      VARCHAR2(10),
+  rlscrrltrans   CHAR(1),
+  rlscrrlmonth   VARCHAR2(7),
+  rlpaidje       NUMBER(13,3) not null,
+  rlpaidflag     CHAR(1) not null,
+  rlpaidper      VARCHAR2(15),
+  rlpaiddate     DATE,
+  rlmrid         VARCHAR2(10),
+  rlmemo         VARCHAR2(200),
+  rlznj          NUMBER(13,3),
+  rllb           CHAR(1),
+  rlcname2       VARCHAR2(64),
+  rlpfid         VARCHAR2(10),
+  rldatetime     DATE,
+  rlscrrldate    DATE,
+  rlprimcode     VARCHAR2(200),
+  rlpriflag      CHAR(1),
+  rlrper         VARCHAR2(10),
+  rlsafid        VARCHAR2(10),
+  rlscodechar    VARCHAR2(10),
+  rlecodechar    VARCHAR2(10)
+)
+on commit delete rows;
+comment on table HRBZLS.RECLIST_VIRTUAL
+  is '预算应收总帐明细【RL】';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlid
+  is '流水号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlsmfid
+  is '营销公司';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmonth
+  is '帐务月份';
+comment on column HRBZLS.RECLIST_VIRTUAL.rldate
+  is '帐务日期';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcid
+  is '用户编号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmid
+  is '水表编号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmsmfid
+  is '水表公司';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcsmfid
+  is '用户公司';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlccode
+  is '资料号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlchargeper
+  is '收费员';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcpid
+  is '上级用户编号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcclass
+  is '用户级次';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcflag
+  is '末级标志';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlusenum
+  is '户用水人数';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcname
+  is '用户名称';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcadr
+  is '用户地址';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmadr
+  is '水表地址';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcstatus
+  is '用户状态';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmtel
+  is '移动电话';
+comment on column HRBZLS.RECLIST_VIRTUAL.rltel
+  is '固定电话';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlbankid
+  is '代扣银行';
+comment on column HRBZLS.RECLIST_VIRTUAL.rltsbankid
+  is '托收银行';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlaccountno
+  is '开户帐号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlaccountname
+  is '开户名称';
+comment on column HRBZLS.RECLIST_VIRTUAL.rliftax
+  is '是否税票';
+comment on column HRBZLS.RECLIST_VIRTUAL.rltaxno
+  is '增殖税号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlifinv
+  is '是否普票';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmcode
+  is '水表手工编号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmpid
+  is '上级水表';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmclass
+  is '水表级次';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmflag
+  is '末级标志';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmsfid
+  is '水表类别';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlday
+  is '抄表日';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlbfid
+  is '表册';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlprdate
+  is '上次抄表日期';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlrdate
+  is '本次抄表日期';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlzndate
+  is '违约金起算日';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcaliber
+  is '表口径';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlrtid
+  is '抄表方式';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmstatus
+  is '状态';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmtype
+  is '类型';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmno
+  is '表身码';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlscode
+  is '起数';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlecode
+  is '止数';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlreadsl
+  is '抄见水量';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlinvmemo
+  is '发票备注';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlentrustbatch
+  is '托收代扣批号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlentrustseqno
+  is '托收代扣流水号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rloutflag
+  is '发出标志';
+comment on column HRBZLS.RECLIST_VIRTUAL.rltrans
+  is '应收事务';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcd
+  is '借贷方向';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlyschargetype
+  is '应收方式';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlsl
+  is '应收水量';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlje
+  is '应收金额';
+comment on column HRBZLS.RECLIST_VIRTUAL.rladdsl
+  is '加调水量';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlscrrlid
+  is '原应收帐流水';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlscrrltrans
+  is '原应收帐事务';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlscrrlmonth
+  is '原应收帐月份';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlpaidje
+  is '销帐金额';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlpaidflag
+  is '销帐标志(Y:Y，N:N，X:X，V:Y/N，T:Y/X，K:N/X，W:Y/N/X)';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlpaidper
+  is '销帐人员';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlpaiddate
+  is '销帐日期';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmrid
+  is '抄表流水';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlmemo
+  is '备注';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlznj
+  is '违约金';
+comment on column HRBZLS.RECLIST_VIRTUAL.rllb
+  is '类别';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlcname2
+  is '曾用名';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlpfid
+  is '主价格类别';
+comment on column HRBZLS.RECLIST_VIRTUAL.rldatetime
+  is '发生日期';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlscrrldate
+  is '原帐务日期';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlprimcode
+  is '合收表主表号';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlpriflag
+  is '合收表标志';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlrper
+  is '抄表员';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlsafid
+  is '区域';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlscodechar
+  is '上期抄表（带表位）';
+comment on column HRBZLS.RECLIST_VIRTUAL.rlecodechar
+  is '本期抄表（带表位）';
+create index HRBZLS.IDX_RLVBFID on HRBZLS.RECLIST_VIRTUAL (RLBFID);
+create index HRBZLS.IDX_RLVCCODE on HRBZLS.RECLIST_VIRTUAL (RLCCODE);
+create index HRBZLS.IDX_RLVCD on HRBZLS.RECLIST_VIRTUAL (RLCD);
+create index HRBZLS.IDX_RLVCID on HRBZLS.RECLIST_VIRTUAL (RLCID);
+create index HRBZLS.IDX_RLVCID2 on HRBZLS.RECLIST_VIRTUAL (RLCID, RLMONTH);
+create index HRBZLS.IDX_RLVCSMFID on HRBZLS.RECLIST_VIRTUAL (RLCSMFID);
+create index HRBZLS.IDX_RLVDATE on HRBZLS.RECLIST_VIRTUAL (RLDATE);
+create index HRBZLS.IDX_RLVDK on HRBZLS.RECLIST_VIRTUAL (RLENTRUSTBATCH, RLENTRUSTSEQNO);
+create index HRBZLS.IDX_RLVENTRSEQ on HRBZLS.RECLIST_VIRTUAL (RLENTRUSTSEQNO);
+create index HRBZLS.IDX_RLVMCODE on HRBZLS.RECLIST_VIRTUAL (RLMCODE);
+create index HRBZLS.IDX_RLVMID on HRBZLS.RECLIST_VIRTUAL (RLMID);
+create index HRBZLS.IDX_RLVMONTH on HRBZLS.RECLIST_VIRTUAL (RLMONTH);
+create index HRBZLS.IDX_RLVMRID on HRBZLS.RECLIST_VIRTUAL (RLMRID);
+create index HRBZLS.IDX_RLVMSMFID on HRBZLS.RECLIST_VIRTUAL (RLMSMFID);
+create index HRBZLS.IDX_RLVPAIDFLAG on HRBZLS.RECLIST_VIRTUAL (RLPAIDFLAG);
+create index HRBZLS.IDX_RLVREADDATE on HRBZLS.RECLIST_VIRTUAL (RLRDATE);
+create index HRBZLS.IDX_RLVSMFID on HRBZLS.RECLIST_VIRTUAL (RLSMFID);
+alter table HRBZLS.RECLIST_VIRTUAL
+  add constraint PK_RECLIST_VIRTUAL primary key (RLID);
+

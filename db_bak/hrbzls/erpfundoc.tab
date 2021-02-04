@@ -1,0 +1,52 @@
+create table HRBZLS.ERPFUNDOC
+(
+  edefid               VARCHAR2(10) not null,
+  edblob               BLOB,
+  edblobresearchdoc    BLOB,
+  edblobdesigndoc      BLOB,
+  edblobmaintenancedoc BLOB,
+  edbloboperdoc        BLOB,
+  edblobacceptancedoc  BLOB
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ERPFUNDOC
+  is '功能相关文档[ED]';
+comment on column HRBZLS.ERPFUNDOC.edefid
+  is '功能ID';
+comment on column HRBZLS.ERPFUNDOC.edblob
+  is '附件';
+comment on column HRBZLS.ERPFUNDOC.edblobresearchdoc
+  is '需求调研文档';
+comment on column HRBZLS.ERPFUNDOC.edblobdesigndoc
+  is '功能设计文档';
+comment on column HRBZLS.ERPFUNDOC.edblobmaintenancedoc
+  is '功能维护文档';
+comment on column HRBZLS.ERPFUNDOC.edbloboperdoc
+  is '操作说明文档';
+comment on column HRBZLS.ERPFUNDOC.edblobacceptancedoc
+  is '功能验收文档';
+alter table HRBZLS.ERPFUNDOC
+  add constraint PK_ERPFUNDOC primary key (EDEFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,62 @@
+create table HRBZLS.METERREADHD
+(
+  mrhno         VARCHAR2(10) not null,
+  mrhbh         VARCHAR2(10),
+  mrhlb         CHAR(1),
+  mrhsource     CHAR(1),
+  mrhsmfid      VARCHAR2(10),
+  mrhdept       VARCHAR2(10),
+  mrhcredate    DATE,
+  mrhcreper     VARCHAR2(10),
+  mrhshdate     DATE,
+  mrhshper      VARCHAR2(10),
+  mrhshflag     CHAR(1),
+  mrhpdaoutflag CHAR(1) default 'N',
+  mrhpdaoutdate DATE,
+  mrhpdainorder NUMBER(4),
+  mrhpdaindate  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERREADHD
+  is '计划外抄表单头【MRH】';
+comment on column HRBZLS.METERREADHD.mrhno
+  is '单据流水号';
+comment on column HRBZLS.METERREADHD.mrhbh
+  is '单据编号';
+comment on column HRBZLS.METERREADHD.mrhlb
+  is '单据类别';
+comment on column HRBZLS.METERREADHD.mrhsource
+  is '单据来源';
+comment on column HRBZLS.METERREADHD.mrhsmfid
+  is '营销公司';
+comment on column HRBZLS.METERREADHD.mrhdept
+  is '创建部门';
+comment on column HRBZLS.METERREADHD.mrhcredate
+  is '创建日期';
+comment on column HRBZLS.METERREADHD.mrhcreper
+  is '创建人员';
+comment on column HRBZLS.METERREADHD.mrhshdate
+  is '计费日期';
+comment on column HRBZLS.METERREADHD.mrhshper
+  is '计费人员';
+comment on column HRBZLS.METERREADHD.mrhshflag
+  is '计费标志';
+comment on column HRBZLS.METERREADHD.mrhpdaoutflag
+  is '发出到抄表机标志';
+comment on column HRBZLS.METERREADHD.mrhpdaoutdate
+  is '发出到抄表机日期';
+comment on column HRBZLS.METERREADHD.mrhpdainorder
+  is '抄表机接收次序';
+comment on column HRBZLS.METERREADHD.mrhpdaindate
+  is '抄表机接受日期';
+alter table HRBZLS.METERREADHD
+  add constraint PK_METERREADHD primary key (MRHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

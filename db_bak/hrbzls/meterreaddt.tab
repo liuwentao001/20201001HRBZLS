@@ -1,0 +1,107 @@
+create table HRBZLS.METERREADDT
+(
+  mrdno             VARCHAR2(10) not null,
+  mrdrowno          NUMBER(6) not null,
+  mrdmid            VARCHAR2(10),
+  mrdcid            VARCHAR2(10),
+  mrdccode          VARCHAR2(10),
+  mrdcadr           VARCHAR2(64),
+  mrdinputdate      DATE,
+  mrdreadok         CHAR(1),
+  mrdreaddate       DATE,
+  mrdlrdate         DATE,
+  mrdscode          NUMBER(10),
+  mrdecode          NUMBER(10),
+  mrdsl             NUMBER(10),
+  mrdmface          VARCHAR2(2),
+  mrdreaddatasource CHAR(1),
+  mrdmemo           VARCHAR2(120),
+  mrdaddsl          NUMBER(10),
+  mrddedsl          NUMBER(10),
+  mrdcarrysl        NUMBER(10),
+  mrdctrl1          VARCHAR2(10),
+  mrdctrl2          VARCHAR2(10),
+  mrdctrl3          VARCHAR2(10),
+  mrdctrl4          VARCHAR2(10),
+  mrdctrl5          VARCHAR2(10),
+  mrdcname          VARCHAR2(64),
+  mrdcitel          VARCHAR2(30),
+  mrdcaliber        VARCHAR2(2),
+  mrdposition       VARCHAR2(64),
+  mrdinsdate        DATE,
+  mrdlabelno        VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERREADDT
+  is '计划外抄表单体【MRD】';
+comment on column HRBZLS.METERREADDT.mrdno
+  is '单据流水号';
+comment on column HRBZLS.METERREADDT.mrdrowno
+  is '行号';
+comment on column HRBZLS.METERREADDT.mrdmid
+  is '水表编号';
+comment on column HRBZLS.METERREADDT.mrdcid
+  is '用户编号';
+comment on column HRBZLS.METERREADDT.mrdccode
+  is '用户号';
+comment on column HRBZLS.METERREADDT.mrdcadr
+  is '地址';
+comment on column HRBZLS.METERREADDT.mrdinputdate
+  is '最后编辑日期';
+comment on column HRBZLS.METERREADDT.mrdreadok
+  is '抄见标志';
+comment on column HRBZLS.METERREADDT.mrdreaddate
+  is '抄表日期';
+comment on column HRBZLS.METERREADDT.mrdlrdate
+  is '上次抄见日期';
+comment on column HRBZLS.METERREADDT.mrdscode
+  is '起数';
+comment on column HRBZLS.METERREADDT.mrdecode
+  is '止数';
+comment on column HRBZLS.METERREADDT.mrdsl
+  is '水量';
+comment on column HRBZLS.METERREADDT.mrdmface
+  is '表况';
+comment on column HRBZLS.METERREADDT.mrdreaddatasource
+  is '抄表数据来源';
+comment on column HRBZLS.METERREADDT.mrdmemo
+  is '抄表备注';
+comment on column HRBZLS.METERREADDT.mrdaddsl
+  is '追量（加调水量）';
+comment on column HRBZLS.METERREADDT.mrddedsl
+  is '减量（减免水量）';
+comment on column HRBZLS.METERREADDT.mrdcarrysl
+  is '进位水量';
+comment on column HRBZLS.METERREADDT.mrdctrl1
+  is '抄表机控制位1';
+comment on column HRBZLS.METERREADDT.mrdctrl2
+  is '抄表机控制位2';
+comment on column HRBZLS.METERREADDT.mrdctrl3
+  is '抄表机控制位3';
+comment on column HRBZLS.METERREADDT.mrdctrl4
+  is '抄表机控制位4';
+comment on column HRBZLS.METERREADDT.mrdctrl5
+  is '抄表机控制位5';
+comment on column HRBZLS.METERREADDT.mrdcname
+  is '用户名称';
+comment on column HRBZLS.METERREADDT.mrdcitel
+  is '固定电话1';
+comment on column HRBZLS.METERREADDT.mrdcaliber
+  is '口径';
+comment on column HRBZLS.METERREADDT.mrdposition
+  is '安装位置';
+comment on column HRBZLS.METERREADDT.mrdinsdate
+  is '安装日期';
+comment on column HRBZLS.METERREADDT.mrdlabelno
+  is '表身码';
+alter table HRBZLS.METERREADDT
+  add constraint PK_METERREADDT primary key (MRDNO, MRDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

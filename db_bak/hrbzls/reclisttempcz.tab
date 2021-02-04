@@ -1,0 +1,7 @@
+create global temporary table HRBZLS.RECLISTTEMPCZ
+(
+  rlid      VARCHAR2(10),
+  rlscrrlid VARCHAR2(10)
+)
+on commit delete rows;
+

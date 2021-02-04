@@ -1,0 +1,21 @@
+create table HRBZLS.BANK_TRAN_LOG_ALL
+(
+  id        NUMBER(10) not null,
+  trancode  VARCHAR2(10),
+  bankid    VARCHAR2(10),
+  tran_time DATE,
+  pkg_req   VARCHAR2(4000),
+  pkg_ans   VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

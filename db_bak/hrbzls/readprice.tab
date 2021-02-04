@@ -1,0 +1,43 @@
+create table HRBZLS.READPRICE
+(
+  rpid     VARCHAR2(3) not null,
+  rpname   VARCHAR2(30) not null,
+  rpprice  NUMBER(12,3) not null,
+  rpstatus CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.READPRICE
+  is '计件考核【RP】';
+comment on column HRBZLS.READPRICE.rpid
+  is '抄表单价代码';
+comment on column HRBZLS.READPRICE.rpname
+  is '抄表单价名称';
+comment on column HRBZLS.READPRICE.rpprice
+  is '抄表单价';
+comment on column HRBZLS.READPRICE.rpstatus
+  is '有效状态';
+alter table HRBZLS.READPRICE
+  add constraint PK_READPRICE primary key (RPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

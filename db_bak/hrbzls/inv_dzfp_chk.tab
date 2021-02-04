@@ -1,0 +1,40 @@
+create table HRBZLS.INV_DZFP_CHK
+(
+  chkdate  DATE not null,
+  fpqqlsh  VARCHAR2(20) not null,
+  fp_dm    VARCHAR2(12),
+  fp_hm    VARCHAR2(8),
+  kprq     VARCHAR2(14),
+  jym      VARCHAR2(20),
+  pdf_url  VARCHAR2(200),
+  manaflag VARCHAR2(2) default 'N',
+  manamsg  VARCHAR2(160)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.INV_DZFP_CHK.chkdate
+  is '检查日期';
+comment on column HRBZLS.INV_DZFP_CHK.fpqqlsh
+  is '发票请求流水号';
+comment on column HRBZLS.INV_DZFP_CHK.fp_dm
+  is '发票代码';
+comment on column HRBZLS.INV_DZFP_CHK.fp_hm
+  is '发票号码';
+comment on column HRBZLS.INV_DZFP_CHK.kprq
+  is '开票日期 YYYYMMDDHHMMSS';
+comment on column HRBZLS.INV_DZFP_CHK.jym
+  is '发票校验码';
+comment on column HRBZLS.INV_DZFP_CHK.pdf_url
+  is '下载地址';
+comment on column HRBZLS.INV_DZFP_CHK.manaflag
+  is '处理标志';
+comment on column HRBZLS.INV_DZFP_CHK.manamsg
+  is '处理信息';
+create index HRBZLS.IDX_IDC_CHKDATE on HRBZLS.INV_DZFP_CHK (CHKDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

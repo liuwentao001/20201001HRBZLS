@@ -1,0 +1,35 @@
+create table HRBZLS.OPERACCNT_LEVEL
+(
+  oaid    VARCHAR2(15) not null,
+  oaname  VARCHAR2(60) not null,
+  oapid   VARCHAR2(15),
+  oapname VARCHAR2(60),
+  oaclass NUMBER,
+  oanote  VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERACCNT_LEVEL
+  is '操作用户层级关系';
+comment on column HRBZLS.OPERACCNT_LEVEL.oaid
+  is '帐号（【哈尔滨】工号）';
+comment on column HRBZLS.OPERACCNT_LEVEL.oaname
+  is '姓名';
+comment on column HRBZLS.OPERACCNT_LEVEL.oapid
+  is '上级归属工号';
+comment on column HRBZLS.OPERACCNT_LEVEL.oapname
+  is '上级归属姓名';
+comment on column HRBZLS.OPERACCNT_LEVEL.oaclass
+  is '级次';
+comment on column HRBZLS.OPERACCNT_LEVEL.oanote
+  is '备注';
+

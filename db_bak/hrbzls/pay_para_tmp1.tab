@@ -1,0 +1,20 @@
+create table HRBZLS.PAY_PARA_TMP1
+(
+  mid   VARCHAR2(10) not null,
+  plids VARCHAR2(1280),
+  rlje  NUMBER(10,2),
+  rlsxf NUMBER(10,2),
+  rlznj NUMBER(10,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

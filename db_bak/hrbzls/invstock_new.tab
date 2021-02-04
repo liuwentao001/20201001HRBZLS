@@ -1,0 +1,81 @@
+create table HRBZLS.INVSTOCK_NEW
+(
+  isid           NUMBER(10) not null,
+  isper          VARCHAR2(10),
+  istype         CHAR(1),
+  isbcno         VARCHAR2(32) default '0',
+  isno           VARCHAR2(12),
+  isstatus       CHAR(1),
+  isstatusdate   DATE,
+  isstatusper    VARCHAR2(10),
+  ispstatus      CHAR(1),
+  ispstatusdatep DATE,
+  isptatusper    VARCHAR2(10),
+  issmfid        VARCHAR2(10),
+  isprinttrans   VARCHAR2(10),
+  isoutper       VARCHAR2(10),
+  isoutdate      DATE,
+  ismemo         VARCHAR2(200),
+  ispcisno       VARCHAR2(40)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVSTOCK_NEW
+  is '票据库存【IS】';
+comment on column HRBZLS.INVSTOCK_NEW.isid
+  is '票据流水号';
+comment on column HRBZLS.INVSTOCK_NEW.isper
+  is '库存所有人';
+comment on column HRBZLS.INVSTOCK_NEW.istype
+  is '票据类型';
+comment on column HRBZLS.INVSTOCK_NEW.isbcno
+  is '批号';
+comment on column HRBZLS.INVSTOCK_NEW.isno
+  is '票据号码';
+comment on column HRBZLS.INVSTOCK_NEW.isstatus
+  is '状态(0未使用；1使用；2作废；3锁定)';
+comment on column HRBZLS.INVSTOCK_NEW.isstatusdate
+  is '状态日期';
+comment on column HRBZLS.INVSTOCK_NEW.isstatusper
+  is '状态人员';
+comment on column HRBZLS.INVSTOCK_NEW.ispstatus
+  is '上次状态';
+comment on column HRBZLS.INVSTOCK_NEW.ispstatusdatep
+  is '上次状态日期';
+comment on column HRBZLS.INVSTOCK_NEW.isptatusper
+  is '上次状态人员';
+comment on column HRBZLS.INVSTOCK_NEW.issmfid
+  is '库存单位';
+comment on column HRBZLS.INVSTOCK_NEW.isoutper
+  is '发放票据人';
+comment on column HRBZLS.INVSTOCK_NEW.isoutdate
+  is '发放时间';
+comment on column HRBZLS.INVSTOCK_NEW.ismemo
+  is '备注';
+comment on column HRBZLS.INVSTOCK_NEW.ispcisno
+  is '票据批次||号码';
+create index HRBZLS.IDX_INVSTOCK_NEW1 on HRBZLS.INVSTOCK_NEW (ISTYPE, ISPER, ISSTATUS)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create unique index HRBZLS.INVSTOCK_NEW_IDX0001 on HRBZLS.INVSTOCK_NEW (ISBCNO, ISNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create unique index HRBZLS.INVSTOCK_NEW_IDX0002 on HRBZLS.INVSTOCK_NEW (ISPCISNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.INVSTOCK_NEW
+  add constraint PK_INVSTOCK_NEW primary key (ISID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,46 @@
+create table HRBZLS.RECDETAIL_FZ
+(
+  rdid         VARCHAR2(10) not null,
+  rdpmdid      NUMBER not null,
+  rdpiid       CHAR(2) not null,
+  rdpfid       VARCHAR2(10) not null,
+  rdpscid      NUMBER not null,
+  rdclass      NUMBER not null,
+  rdysdj       NUMBER(13,3),
+  rdyssl       NUMBER(12,2),
+  rdysje       NUMBER(13,3),
+  rddj         NUMBER(13,3),
+  rdsl         NUMBER(12,2),
+  rdje         NUMBER(13,3),
+  rdadjdj      NUMBER(13,3),
+  rdadjsl      NUMBER(12,2),
+  rdadjje      NUMBER(13,3),
+  rdmethod     CHAR(3),
+  rdpaidflag   CHAR(1),
+  rdpaiddate   DATE,
+  rdpaidmonth  VARCHAR2(7),
+  rdpaidper    VARCHAR2(20),
+  rdpmdscale   NUMBER(10,2),
+  rdilid       VARCHAR2(10),
+  rdznj        NUMBER(12,2),
+  rdmemo       VARCHAR2(200),
+  rdmsmfid     VARCHAR2(10),
+  rdmonth      VARCHAR2(7),
+  rdmid        VARCHAR2(10),
+  rdpmdtype    VARCHAR2(2),
+  rdpmdcolumn1 VARCHAR2(10),
+  rdpmdcolumn2 VARCHAR2(10),
+  rdpmdcolumn3 VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

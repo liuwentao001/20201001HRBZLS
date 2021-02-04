@@ -1,0 +1,91 @@
+create table HRBZLS.CUSTDBINFO
+(
+  did     VARCHAR2(10) not null,
+  dcmid   VARCHAR2(10) not null,
+  dzjid   VARCHAR2(20),
+  dsdate  DATE,
+  dedate  DATE,
+  doper   VARCHAR2(10),
+  dindate DATE,
+  dyxbz   CHAR(1),
+  ddsblx  VARCHAR2(10),
+  dzfdate VARCHAR2(10),
+  dname   VARCHAR2(60),
+  ddamr   VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CUSTDBINFO
+  is '低保用户信息';
+comment on column HRBZLS.CUSTDBINFO.did
+  is '流水号';
+comment on column HRBZLS.CUSTDBINFO.dcmid
+  is '户号';
+comment on column HRBZLS.CUSTDBINFO.dzjid
+  is '证件编号';
+comment on column HRBZLS.CUSTDBINFO.dsdate
+  is '起始时间';
+comment on column HRBZLS.CUSTDBINFO.dedate
+  is '终止时间';
+comment on column HRBZLS.CUSTDBINFO.doper
+  is '操作员';
+comment on column HRBZLS.CUSTDBINFO.dindate
+  is '录入时间';
+comment on column HRBZLS.CUSTDBINFO.dyxbz
+  is '有效标志';
+comment on column HRBZLS.CUSTDBINFO.ddsblx
+  is '水表类型';
+comment on column HRBZLS.CUSTDBINFO.dzfdate
+  is '周期';
+comment on column HRBZLS.CUSTDBINFO.dname
+  is '姓名';
+comment on column HRBZLS.CUSTDBINFO.ddamr
+  is '地址';
+create index HRBZLS.IDX_CUSTDBINFO1 on HRBZLS.CUSTDBINFO (DZJID, DEDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_CUSTDBINFO2 on HRBZLS.CUSTDBINFO (DCMID, DZJID, DSDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.CUSTDBINFO
+  add constraint DK_ID primary key (DID, DCMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

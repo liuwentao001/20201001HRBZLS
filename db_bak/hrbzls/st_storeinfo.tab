@@ -1,0 +1,72 @@
+create table HRBZLS.ST_STOREINFO
+(
+  storeid   VARCHAR2(10) not null,
+  name      VARCHAR2(80),
+  address   VARCHAR2(80),
+  tel1      VARCHAR2(20),
+  tel2      VARCHAR2(20),
+  tel3      VARCHAR2(20),
+  contrast  VARCHAR2(40),
+  e_mail    VARCHAR2(60),
+  storecode VARCHAR2(20),
+  stclass   NUMBER(10),
+  ctpid     VARCHAR2(20),
+  stflag    VARCHAR2(1) default 'Y',
+  position  VARCHAR2(20),
+  operid    VARCHAR2(20),
+  status    VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.ST_STOREINFO.storeid
+  is '仓库编号';
+comment on column HRBZLS.ST_STOREINFO.name
+  is '名称';
+comment on column HRBZLS.ST_STOREINFO.address
+  is '地址';
+comment on column HRBZLS.ST_STOREINFO.tel1
+  is '电话';
+comment on column HRBZLS.ST_STOREINFO.tel2
+  is '电话2';
+comment on column HRBZLS.ST_STOREINFO.tel3
+  is '电话3';
+comment on column HRBZLS.ST_STOREINFO.contrast
+  is '联系人';
+comment on column HRBZLS.ST_STOREINFO.e_mail
+  is '电子邮箱';
+comment on column HRBZLS.ST_STOREINFO.storecode
+  is '仓库级别编号';
+comment on column HRBZLS.ST_STOREINFO.stclass
+  is '仓库级次';
+comment on column HRBZLS.ST_STOREINFO.ctpid
+  is '父级仓库';
+comment on column HRBZLS.ST_STOREINFO.stflag
+  is '末级标志';
+comment on column HRBZLS.ST_STOREINFO.position
+  is '地点';
+comment on column HRBZLS.ST_STOREINFO.operid
+  is '操作人员';
+comment on column HRBZLS.ST_STOREINFO.status
+  is '仓库状态';
+create unique index HRBZLS.ST_STOREINFO_COPY_X on HRBZLS.ST_STOREINFO (STOREID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

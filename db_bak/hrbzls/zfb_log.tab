@@ -1,0 +1,41 @@
+create table HRBZLS.ZFB_LOG
+(
+  zid      VARCHAR2(10),
+  ztype    VARCHAR2(10),
+  ztname   VARCHAR2(64),
+  zdate    DATE,
+  zgetclob CLOB,
+  zretno   VARCHAR2(10),
+  zoutclob CLOB,
+  stap     VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ZFB_LOG
+  is '支付宝日志';
+comment on column HRBZLS.ZFB_LOG.zid
+  is '流水号';
+comment on column HRBZLS.ZFB_LOG.ztype
+  is '交易类型';
+comment on column HRBZLS.ZFB_LOG.ztname
+  is '交易名称';
+comment on column HRBZLS.ZFB_LOG.zdate
+  is '交易时间';
+comment on column HRBZLS.ZFB_LOG.zgetclob
+  is '传入数据';
+comment on column HRBZLS.ZFB_LOG.zretno
+  is '返回信息码';
+comment on column HRBZLS.ZFB_LOG.zoutclob
+  is '返回数据';
+comment on column HRBZLS.ZFB_LOG.stap
+  is '断点';
+

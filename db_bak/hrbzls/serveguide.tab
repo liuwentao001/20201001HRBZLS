@@ -1,0 +1,55 @@
+create table HRBZLS.SERVEGUIDE
+(
+  guideid        INTEGER not null,
+  paymachinecode VARCHAR2(20),
+  guidename      VARCHAR2(20),
+  guidetype      INTEGER,
+  showindex      INTEGER,
+  stytetype      INTEGER,
+  isuse          INTEGER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SERVEGUIDE
+  is '服务指南';
+comment on column HRBZLS.SERVEGUIDE.guideid
+  is '指南id';
+comment on column HRBZLS.SERVEGUIDE.paymachinecode
+  is '缴费机编号，如ATM00001';
+comment on column HRBZLS.SERVEGUIDE.guidename
+  is '指南名称';
+comment on column HRBZLS.SERVEGUIDE.guidetype
+  is '指南类型（通用指南，专用指南）';
+comment on column HRBZLS.SERVEGUIDE.showindex
+  is '显示顺序（默认自动递增，可调整）';
+comment on column HRBZLS.SERVEGUIDE.stytetype
+  is '样式类型（目前设计三类，0文字，1是图文，2是视频）';
+comment on column HRBZLS.SERVEGUIDE.isuse
+  is '是否可用，0不可用，1可用';
+alter table HRBZLS.SERVEGUIDE
+  add constraint PK_SERVEGUIDE primary key (GUIDEID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.SERVEGUIDE
+  add constraint FK_SERVEGUI_REFERENCE_PAYMACHI foreign key (PAYMACHINECODE)
+  references HRBZLS.PAYMACHINE (PAYMACHINECODE);
+

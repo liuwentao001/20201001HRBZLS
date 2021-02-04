@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_GEN_TABLE_COLUMN
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 180
+increment by 1
+cache 20;
+

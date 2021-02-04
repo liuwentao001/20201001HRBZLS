@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_ENTRUSTFILE
+minvalue 1
+maxvalue 9999999999
+start with 120966
+increment by 1
+cache 50
+cycle;
+

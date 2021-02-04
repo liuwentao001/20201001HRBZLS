@@ -1,0 +1,62 @@
+create table HRBZLS.DSZBILLHD
+(
+  dbhno      VARCHAR2(10) not null,
+  dbhbh      VARCHAR2(10),
+  dbhlb      CHAR(2),
+  dbhsource  CHAR(1),
+  dbhsmfid   VARCHAR2(10),
+  dbhdept    VARCHAR2(10),
+  dbhcredate DATE,
+  dbhcreper  VARCHAR2(10),
+  dbhshdate  DATE,
+  dbhshper   VARCHAR2(10),
+  dbhshflag  CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.DSZBILLHD
+  is '呆死帐单头';
+comment on column HRBZLS.DSZBILLHD.dbhno
+  is '单据流水号';
+comment on column HRBZLS.DSZBILLHD.dbhbh
+  is '单据编号';
+comment on column HRBZLS.DSZBILLHD.dbhlb
+  is '单据类别';
+comment on column HRBZLS.DSZBILLHD.dbhsource
+  is '单据来源';
+comment on column HRBZLS.DSZBILLHD.dbhsmfid
+  is '营销公司';
+comment on column HRBZLS.DSZBILLHD.dbhdept
+  is '受理部门';
+comment on column HRBZLS.DSZBILLHD.dbhcredate
+  is '受理日期';
+comment on column HRBZLS.DSZBILLHD.dbhcreper
+  is '受理人员';
+comment on column HRBZLS.DSZBILLHD.dbhshdate
+  is '审核日期';
+comment on column HRBZLS.DSZBILLHD.dbhshper
+  is '审核人员';
+comment on column HRBZLS.DSZBILLHD.dbhshflag
+  is '审核标志';
+create unique index HRBZLS.PK_DSZBILLHD on HRBZLS.DSZBILLHD (DBHNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

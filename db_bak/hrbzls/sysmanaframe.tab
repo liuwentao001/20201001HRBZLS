@@ -1,0 +1,71 @@
+create table HRBZLS.SYSMANAFRAME
+(
+  smfid     VARCHAR2(10) not null,
+  smfname   VARCHAR2(100) not null,
+  smftype   CHAR(1),
+  smfpid    VARCHAR2(10),
+  smfclass  NUMBER not null,
+  smfflag   CHAR(1) not null,
+  smfstatus CHAR(1) not null,
+  smfmemo   VARCHAR2(200),
+  x         NUMBER,
+  y         NUMBER,
+  leader    VARCHAR2(60),
+  tel       VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSMANAFRAME
+  is '管理架构【SMF】';
+comment on column HRBZLS.SYSMANAFRAME.smfid
+  is '编码';
+comment on column HRBZLS.SYSMANAFRAME.smfname
+  is '名称';
+comment on column HRBZLS.SYSMANAFRAME.smftype
+  is '级次类别';
+comment on column HRBZLS.SYSMANAFRAME.smfpid
+  is '上级编码';
+comment on column HRBZLS.SYSMANAFRAME.smfclass
+  is '级次';
+comment on column HRBZLS.SYSMANAFRAME.smfflag
+  is '末级标志';
+comment on column HRBZLS.SYSMANAFRAME.smfstatus
+  is '状态';
+comment on column HRBZLS.SYSMANAFRAME.smfmemo
+  is '备注';
+create index HRBZLS.IDX_SYSMANAFRAME_MEMO on HRBZLS.SYSMANAFRAME (SMFMEMO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.SYSMANAFRAME
+  add constraint PK_SYSMANAFRAME primary key (SMFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

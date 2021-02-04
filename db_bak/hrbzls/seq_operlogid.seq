@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_OPERLOGID
+minvalue 1
+maxvalue 99999999
+start with 8074868
+increment by 1
+cache 50
+cycle;
+

@@ -1,0 +1,104 @@
+create table HRBZLS.STMETERCHANGEDT
+(
+  dno        VARCHAR2(10) not null,
+  drowno     NUMBER(6) not null,
+  qfh        VARCHAR2(40) not null,
+  storeido   VARCHAR2(10),
+  storeidn   VARCHAR2(10),
+  miid       VARCHAR2(20),
+  calibero   NUMBER(10),
+  calibern   NUMBER(10),
+  brando     VARCHAR2(30),
+  brandn     VARCHAR2(30),
+  modelo     VARCHAR2(3),
+  modeln     VARCHAR2(3),
+  statuso    VARCHAR2(2),
+  statusn    VARCHAR2(2),
+  statusdate DATE,
+  cycchkdate DATE,
+  stockdate  DATE,
+  dflag      CHAR(1),
+  ifsubmit   CHAR(1),
+  sfho       VARCHAR2(40),
+  sfhn       VARCHAR2(40),
+  dqsfho     VARCHAR2(40),
+  dqsfhn     VARCHAR2(40),
+  dqgfho     VARCHAR2(40),
+  dqgfhn     VARCHAR2(40),
+  jcgfho     VARCHAR2(40),
+  jcgfhn     VARCHAR2(40),
+  qfho1      VARCHAR2(40),
+  qfhn1      VARCHAR2(40),
+  bsm        VARCHAR2(40),
+  lfho       VARCHAR2(40),
+  lfhn       VARCHAR2(40)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.STMETERCHANGEDT.dno
+  is '单据号';
+comment on column HRBZLS.STMETERCHANGEDT.drowno
+  is '行号';
+comment on column HRBZLS.STMETERCHANGEDT.qfh
+  is '表身码';
+comment on column HRBZLS.STMETERCHANGEDT.storeido
+  is '仓库编号';
+comment on column HRBZLS.STMETERCHANGEDT.storeidn
+  is '新仓库编号';
+comment on column HRBZLS.STMETERCHANGEDT.miid
+  is '水表号';
+comment on column HRBZLS.STMETERCHANGEDT.calibero
+  is '口径';
+comment on column HRBZLS.STMETERCHANGEDT.calibern
+  is '新口径';
+comment on column HRBZLS.STMETERCHANGEDT.brando
+  is '品牌';
+comment on column HRBZLS.STMETERCHANGEDT.brandn
+  is '新品牌';
+comment on column HRBZLS.STMETERCHANGEDT.modelo
+  is '表型';
+comment on column HRBZLS.STMETERCHANGEDT.modeln
+  is '新表型';
+comment on column HRBZLS.STMETERCHANGEDT.statuso
+  is '表状态';
+comment on column HRBZLS.STMETERCHANGEDT.statusn
+  is '新表状态';
+comment on column HRBZLS.STMETERCHANGEDT.statusdate
+  is '表状态发生周期';
+comment on column HRBZLS.STMETERCHANGEDT.cycchkdate
+  is '周检起算日';
+comment on column HRBZLS.STMETERCHANGEDT.stockdate
+  is '新购入库日期';
+comment on column HRBZLS.STMETERCHANGEDT.dflag
+  is '审核标志';
+comment on column HRBZLS.STMETERCHANGEDT.ifsubmit
+  is '是否提交';
+comment on column HRBZLS.STMETERCHANGEDT.sfho
+  is '首封号';
+comment on column HRBZLS.STMETERCHANGEDT.sfhn
+  is '新首封号';
+comment on column HRBZLS.STMETERCHANGEDT.dqsfho
+  is '地区塑封号';
+comment on column HRBZLS.STMETERCHANGEDT.dqsfhn
+  is '新地区塑封号';
+comment on column HRBZLS.STMETERCHANGEDT.dqgfho
+  is '地区钢号';
+comment on column HRBZLS.STMETERCHANGEDT.dqgfhn
+  is '新地区钢号';
+comment on column HRBZLS.STMETERCHANGEDT.jcgfho
+  is '稽查刚封号';
+comment on column HRBZLS.STMETERCHANGEDT.jcgfhn
+  is '新稽查刚封号';
+comment on column HRBZLS.STMETERCHANGEDT.qfho1
+  is '铅封号1';
+comment on column HRBZLS.STMETERCHANGEDT.qfhn1
+  is '新铅封号1';
+comment on column HRBZLS.STMETERCHANGEDT.bsm
+  is '表身码';
+comment on column HRBZLS.STMETERCHANGEDT.lfho
+  is '所封';
+comment on column HRBZLS.STMETERCHANGEDT.lfhn
+  is '新锁封';
+

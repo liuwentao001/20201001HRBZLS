@@ -1,0 +1,29 @@
+create table HRBZLS.BANKTASK
+(
+  btid   VARCHAR2(10) not null,
+  bttype VARCHAR2(10) not null,
+  btdate DATE,
+  btper  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BANKTASK
+  is '银行对帐处理表[BT]';
+comment on column HRBZLS.BANKTASK.btid
+  is '流水号';
+comment on column HRBZLS.BANKTASK.bttype
+  is '处理类别';
+comment on column HRBZLS.BANKTASK.btdate
+  is '时间';
+comment on column HRBZLS.BANKTASK.btper
+  is '处理人';
+alter table HRBZLS.BANKTASK
+  add constraint PK_BANKTASK primary key (BTID, BTTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

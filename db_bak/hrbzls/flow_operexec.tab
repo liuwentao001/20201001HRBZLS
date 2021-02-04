@@ -1,0 +1,38 @@
+create table HRBZLS.FLOW_OPEREXEC
+(
+  fefid    VARCHAR2(10),
+  fefno    NUMBER,
+  feoper   VARCHAR2(10),
+  festatus VARCHAR2(2),
+  fedate   DATE,
+  fmemo    VARCHAR2(200),
+  fmbillno VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FLOW_OPEREXEC
+  is '流程人员执行动态';
+comment on column HRBZLS.FLOW_OPEREXEC.fefid
+  is '流程id';
+comment on column HRBZLS.FLOW_OPEREXEC.fefno
+  is '流程号';
+comment on column HRBZLS.FLOW_OPEREXEC.feoper
+  is '执行人员';
+comment on column HRBZLS.FLOW_OPEREXEC.festatus
+  is '人员执行状态 0审核 1回退';
+comment on column HRBZLS.FLOW_OPEREXEC.fedate
+  is '执行时间';
+comment on column HRBZLS.FLOW_OPEREXEC.fmemo
+  is '备注';
+comment on column HRBZLS.FLOW_OPEREXEC.fmbillno
+  is '单据号';
+

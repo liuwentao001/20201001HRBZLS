@@ -1,0 +1,19 @@
+create table HRBZLS.OPERROLEFUNC_EX20190114
+(
+  orfrid        VARCHAR2(5) not null,
+  orffid        VARCHAR2(10) not null,
+  orfstartdate  DATE,
+  orfexpirydate DATE not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

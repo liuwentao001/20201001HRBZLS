@@ -1,0 +1,38 @@
+create table HRBZLS.ERPFUNCTION_TEMP
+(
+  efid          VARCHAR2(10) not null,
+  efname        VARCHAR2(40),
+  efclass       NUMBER,
+  eflastflag    CHAR(1),
+  efpcid        VARCHAR2(10),
+  efuppict      VARCHAR2(80),
+  efdnpict      VARCHAR2(80),
+  efcheck       CHAR(1),
+  efvisible     CHAR(1),
+  efhint        VARCHAR2(40),
+  efmicrohelp   VARCHAR2(80),
+  efrunhow      CHAR(1),
+  efrunwhat     VARCHAR2(40),
+  efrunpara     VARCHAR2(256),
+  efislog       CHAR(1),
+  eftbitemindex NUMBER,
+  eftbitemorder NUMBER,
+  eftbitemspace NUMBER,
+  efrootid      VARCHAR2(10),
+  eflib         VARCHAR2(50),
+  efpara1       VARCHAR2(100),
+  efpara2       VARCHAR2(100),
+  efpara3       VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

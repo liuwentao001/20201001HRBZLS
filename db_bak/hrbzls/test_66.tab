@@ -1,0 +1,20 @@
+create table HRBZLS.TEST_66
+(
+  a VARCHAR2(50),
+  b VARCHAR2(50),
+  c VARCHAR2(1000),
+  d VARCHAR2(20),
+  e VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

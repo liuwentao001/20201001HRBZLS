@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_HIS_YEARLYREC
+minvalue 1
+maxvalue 9999999999
+start with 114736
+increment by 1
+cache 50;
+

@@ -1,0 +1,42 @@
+create table HRBZLS.PAYMENTCHEQUE
+(
+  pcid          NUMBER not null,
+  pcbatch       NVARCHAR2(10),
+  pcchequeid    NVARCHAR2(10),
+  pcchequemoney NUMBER(9,2),
+  pccash        NUMBER(9,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAYMENTCHEQUE
+  is '付款支票关系表PC';
+comment on column HRBZLS.PAYMENTCHEQUE.pcid
+  is '交易流水批次支票关系流水号';
+comment on column HRBZLS.PAYMENTCHEQUE.pcbatch
+  is '交易支票流水ID';
+comment on column HRBZLS.PAYMENTCHEQUE.pcchequeid
+  is '支票流水ID';
+comment on column HRBZLS.PAYMENTCHEQUE.pcchequemoney
+  is '支票使用额';
+comment on column HRBZLS.PAYMENTCHEQUE.pccash
+  is '现金使用额';
+create index HRBZLS.IDX_PAYMENTCHEQUE1 on HRBZLS.PAYMENTCHEQUE (PCBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PAYMENTCHEQUE2 on HRBZLS.PAYMENTCHEQUE (PCCHEQUEID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.PAYMENTCHEQUE
+  add constraint PC_PK primary key (PCID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

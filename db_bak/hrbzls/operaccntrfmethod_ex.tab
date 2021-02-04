@@ -1,0 +1,49 @@
+create table HRBZLS.OPERACCNTRFMETHOD_EX
+(
+  orfmfid        VARCHAR2(10) not null,
+  orfmethod      CHAR(1) not null,
+  orfmrid        VARCHAR2(15) not null,
+  orfmtype       CHAR(1),
+  orfmstartdate  DATE,
+  orfmexpirydate DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERACCNTRFMETHOD_EX
+  is '用户角色功能方法(期限)';
+comment on column HRBZLS.OPERACCNTRFMETHOD_EX.orfmfid
+  is '功能';
+comment on column HRBZLS.OPERACCNTRFMETHOD_EX.orfmethod
+  is '功能方法';
+comment on column HRBZLS.OPERACCNTRFMETHOD_EX.orfmrid
+  is '帐号';
+comment on column HRBZLS.OPERACCNTRFMETHOD_EX.orfmtype
+  is '增加或减少';
+comment on column HRBZLS.OPERACCNTRFMETHOD_EX.orfmstartdate
+  is '启用日期';
+comment on column HRBZLS.OPERACCNTRFMETHOD_EX.orfmexpirydate
+  is '有效期限';
+alter table HRBZLS.OPERACCNTRFMETHOD_EX
+  add constraint PK_OPERACCNTRFMETHOD_EX primary key (ORFMRID, ORFMFID, ORFMETHOD)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

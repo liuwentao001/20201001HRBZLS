@@ -1,0 +1,32 @@
+create table HRBZLS.HRBCBJ_D
+(
+  c1  VARCHAR2(20),
+  c2  VARCHAR2(20),
+  c3  VARCHAR2(20),
+  c4  VARCHAR2(20),
+  c5  VARCHAR2(20),
+  c6  VARCHAR2(20),
+  c7  VARCHAR2(20),
+  c8  VARCHAR2(20),
+  c9  VARCHAR2(20),
+  c10 VARCHAR2(20),
+  n1  NUMBER(10,2),
+  n2  NUMBER(10,2),
+  n3  NUMBER(10,2),
+  n4  NUMBER(10,2),
+  n5  NUMBER(10,2),
+  n6  NUMBER(10,2),
+  n7  NUMBER(10,2),
+  n8  NUMBER(10,2),
+  n9  NUMBER(10,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create index HRBZLS.IDX_TT_C1 on HRBZLS.HRBCBJ_D (C1)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

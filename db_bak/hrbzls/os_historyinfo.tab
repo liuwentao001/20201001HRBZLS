@@ -1,0 +1,16 @@
+create table HRBZLS.OS_HISTORYINFO
+(
+  id     NUMBER not null,
+  idtext VARCHAR2(500)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_HISTORYINFO
+  is '历史步骤附加信息';
+comment on column HRBZLS.OS_HISTORYINFO.id
+  is '历史步骤ID';
+comment on column HRBZLS.OS_HISTORYINFO.idtext
+  is '审批信息';
+

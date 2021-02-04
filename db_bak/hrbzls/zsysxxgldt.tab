@@ -1,0 +1,182 @@
+create table HRBZLS.ZSYSXXGLDT
+(
+  zsyssqid      VARCHAR2(16),
+  xmname        VARCHAR2(128),
+  jsdd          VARCHAR2(128),
+  jzdw          VARCHAR2(128),
+  ghjzmj        NUMBER(12,2),
+  building      NUMBER(5),
+  floor         NUMBER(5),
+  household     NUMBER(7),
+  contactman    VARCHAR2(10),
+  contactcell   VARCHAR2(20),
+  fgssfsqcase   VARCHAR2(200),
+  sfsqjbman     VARCHAR2(10),
+  watercostdata DATE,
+  anaddress     VARCHAR2(128),
+  squnits       VARCHAR2(128),
+  jbsqman       VARCHAR2(10),
+  jbsqcell      VARCHAR2(20),
+  ysunits       VARCHAR2(32),
+  yscell        VARCHAR2(20),
+  zspfid        VARCHAR2(10),
+  jzarea        NUMBER(12,2),
+  rhgnum        NUMBER(10),
+  maxwateruse   NUMBER(20),
+  buildingnum   NUMBER(5),
+  householdnum  NUMBER(5),
+  jybxhbore     NUMBER(5),
+  floornum      NUMBER(5),
+  tankvolume    NUMBER(12,2),
+  cnkinds       VARCHAR2(10),
+  unitsnum      NUMBER(5),
+  sxxhnum       NUMBER(5),
+  xhxkindnum    NUMBER(5),
+  sfid          NUMBER(16),
+  ysjbman       VARCHAR2(10),
+  yssqdata      DATE,
+  fcsyzidea     VARCHAR2(256),
+  yyfcsyzidea   VARCHAR2(256),
+  sqxz          VARCHAR2(256),
+  cmrdno        VARCHAR2(10) not null,
+  cmrdrowno     NUMBER(10) not null,
+  cardid        VARCHAR2(20),
+  lsxyid        VARCHAR2(10),
+  zspzr         VARCHAR2(10),
+  pzdate        DATE,
+  stdate        DATE,
+  eddate        DATE,
+  sjpel         VARCHAR2(10),
+  gdlen         NUMBER(4),
+  gjlen         NUMBER(4),
+  pzpel         VARCHAR2(10),
+  qcpel         VARCHAR2(10),
+  qcdate        DATE,
+  approver      VARCHAR2(10),
+  gxdate        DATE,
+  ksaddr        VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ZSYSXXGLDT
+  is '正式用水信息管理单体';
+comment on column HRBZLS.ZSYSXXGLDT.zsyssqid
+  is '正式用水申请编号';
+comment on column HRBZLS.ZSYSXXGLDT.xmname
+  is '项目名称';
+comment on column HRBZLS.ZSYSXXGLDT.jsdd
+  is '建设地点';
+comment on column HRBZLS.ZSYSXXGLDT.jzdw
+  is '建设单位';
+comment on column HRBZLS.ZSYSXXGLDT.ghjzmj
+  is '规划建筑面积';
+comment on column HRBZLS.ZSYSXXGLDT.building
+  is '栋';
+comment on column HRBZLS.ZSYSXXGLDT.floor
+  is '层';
+comment on column HRBZLS.ZSYSXXGLDT.household
+  is '户';
+comment on column HRBZLS.ZSYSXXGLDT.contactman
+  is '联系人';
+comment on column HRBZLS.ZSYSXXGLDT.contactcell
+  is '联系电话';
+comment on column HRBZLS.ZSYSXXGLDT.fgssfsqcase
+  is '分公司水费收取情况';
+comment on column HRBZLS.ZSYSXXGLDT.sfsqjbman
+  is '水费收取经办人';
+comment on column HRBZLS.ZSYSXXGLDT.watercostdata
+  is '水费收取日期';
+comment on column HRBZLS.ZSYSXXGLDT.anaddress
+  is '安装地址';
+comment on column HRBZLS.ZSYSXXGLDT.squnits
+  is '申请单位';
+comment on column HRBZLS.ZSYSXXGLDT.jbsqman
+  is '经办申请人';
+comment on column HRBZLS.ZSYSXXGLDT.jbsqcell
+  is '经办申请电话';
+comment on column HRBZLS.ZSYSXXGLDT.ysunits
+  is '用水单位';
+comment on column HRBZLS.ZSYSXXGLDT.yscell
+  is '用水电话';
+comment on column HRBZLS.ZSYSXXGLDT.zspfid
+  is '用水性质';
+comment on column HRBZLS.ZSYSXXGLDT.jzarea
+  is '建筑面积';
+comment on column HRBZLS.ZSYSXXGLDT.rhgnum
+  is '入户管数量';
+comment on column HRBZLS.ZSYSXXGLDT.maxwateruse
+  is '最大用水量';
+comment on column HRBZLS.ZSYSXXGLDT.buildingnum
+  is '栋数';
+comment on column HRBZLS.ZSYSXXGLDT.householdnum
+  is '户数';
+comment on column HRBZLS.ZSYSXXGLDT.jybxhbore
+  is '加压泵型号口径';
+comment on column HRBZLS.ZSYSXXGLDT.floornum
+  is '层数';
+comment on column HRBZLS.ZSYSXXGLDT.tankvolume
+  is '水箱容积';
+comment on column HRBZLS.ZSYSXXGLDT.cnkinds
+  is '采暖种类';
+comment on column HRBZLS.ZSYSXXGLDT.unitsnum
+  is '单元数';
+comment on column HRBZLS.ZSYSXXGLDT.sxxhnum
+  is '水箱型号个数';
+comment on column HRBZLS.ZSYSXXGLDT.xhxkindnum
+  is '消火栓种类个数';
+comment on column HRBZLS.ZSYSXXGLDT.sfid
+  is '收发号';
+comment on column HRBZLS.ZSYSXXGLDT.ysjbman
+  is '用水经办人';
+comment on column HRBZLS.ZSYSXXGLDT.yssqdata
+  is '用水申请日期';
+comment on column HRBZLS.ZSYSXXGLDT.fcsyzidea
+  is '房产所有者意见';
+comment on column HRBZLS.ZSYSXXGLDT.yyfcsyzidea
+  is '原有管道用户意见';
+comment on column HRBZLS.ZSYSXXGLDT.sqxz
+  is '申请须知';
+comment on column HRBZLS.ZSYSXXGLDT.cmrdno
+  is 'CMRDNO';
+comment on column HRBZLS.ZSYSXXGLDT.cmrdrowno
+  is 'CMRDROWNO';
+comment on column HRBZLS.ZSYSXXGLDT.cardid
+  is '卡片图号';
+comment on column HRBZLS.ZSYSXXGLDT.lsxyid
+  is '临时协议编号';
+comment on column HRBZLS.ZSYSXXGLDT.zspzr
+  is '正式批准人';
+comment on column HRBZLS.ZSYSXXGLDT.pzdate
+  is '批准日期';
+comment on column HRBZLS.ZSYSXXGLDT.stdate
+  is '开始日期';
+comment on column HRBZLS.ZSYSXXGLDT.eddate
+  is '结束日期';
+comment on column HRBZLS.ZSYSXXGLDT.sjpel
+  is '设计人';
+comment on column HRBZLS.ZSYSXXGLDT.gdlen
+  is '管道长度';
+comment on column HRBZLS.ZSYSXXGLDT.gjlen
+  is '管径长度';
+comment on column HRBZLS.ZSYSXXGLDT.pzpel
+  is '批准人';
+comment on column HRBZLS.ZSYSXXGLDT.qcpel
+  is '质检人';
+comment on column HRBZLS.ZSYSXXGLDT.qcdate
+  is '质检日期';
+comment on column HRBZLS.ZSYSXXGLDT.approver
+  is '规划审批人';
+comment on column HRBZLS.ZSYSXXGLDT.gxdate
+  is '管线规划日期';
+comment on column HRBZLS.ZSYSXXGLDT.ksaddr
+  is '开栓地址';
+alter table HRBZLS.ZSYSXXGLDT
+  add constraint PK_ZSYSXXGLDT_ID primary key (CMRDNO, CMRDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

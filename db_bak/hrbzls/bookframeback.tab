@@ -1,0 +1,38 @@
+create table HRBZLS.BOOKFRAMEBACK
+(
+  bfid      VARCHAR2(10) not null,
+  bfsmfid   VARCHAR2(10),
+  bfbatch   NUMBER(2),
+  bfname    VARCHAR2(60),
+  bfpid     VARCHAR2(10),
+  bfclass   NUMBER,
+  bfflag    CHAR(1),
+  bfstatus  CHAR(1),
+  bfhandles NUMBER(10),
+  bfmemo    VARCHAR2(60),
+  bforder   NUMBER,
+  bfcreper  VARCHAR2(15),
+  bfcredate DATE,
+  bfrcyc    NUMBER(2),
+  bflb      CHAR(1),
+  bfrper    VARCHAR2(15),
+  bfsafid   VARCHAR2(10),
+  bfnrmonth VARCHAR2(7),
+  bfday     NUMBER,
+  bfsdate   DATE,
+  bfedate   DATE,
+  bfmonth   VARCHAR2(7),
+  bfpper    VARCHAR2(15)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

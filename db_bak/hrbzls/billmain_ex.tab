@@ -1,0 +1,79 @@
+create table HRBZLS.BILLMAIN_EX
+(
+  bmid         CHAR(3) not null,
+  bmstatus     CHAR(1),
+  bmname       VARCHAR2(40),
+  bmtype       VARCHAR2(10) not null,
+  bmuserobject VARCHAR2(40),
+  bmdwhd       VARCHAR2(40),
+  bmdwhdpkey   VARCHAR2(40),
+  bmdwdt       VARCHAR2(40),
+  bmdwdtpkey   VARCHAR2(40),
+  bmflowid     VARCHAR2(40),
+  bmdwdtcid    VARCHAR2(40),
+  bmdwdtcl1    VARCHAR2(40),
+  bmdwdtcl2    VARCHAR2(40),
+  bmdwdtcl3    VARCHAR2(40),
+  bmdwdtcl4    VARCHAR2(40),
+  bmdwdtcl5    VARCHAR2(40)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLMAIN_EX
+  is 'billmain表扩充，记录单头单体表及其主键';
+comment on column HRBZLS.BILLMAIN_EX.bmid
+  is '代码，对应billmain';
+comment on column HRBZLS.BILLMAIN_EX.bmstatus
+  is '状态';
+comment on column HRBZLS.BILLMAIN_EX.bmname
+  is '名称';
+comment on column HRBZLS.BILLMAIN_EX.bmtype
+  is '类型，对应billmain';
+comment on column HRBZLS.BILLMAIN_EX.bmuserobject
+  is '单据对象';
+comment on column HRBZLS.BILLMAIN_EX.bmdwhd
+  is '单头表名';
+comment on column HRBZLS.BILLMAIN_EX.bmdwhdpkey
+  is '单头表主键';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdt
+  is '单体表名';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdtpkey
+  is '单体表主键';
+comment on column HRBZLS.BILLMAIN_EX.bmflowid
+  is '流程定义，对应flow_define';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdtcid
+  is '单体表客户代码键';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdtcl1
+  is '预留单体表健1';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdtcl2
+  is '预留单体表健2';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdtcl3
+  is '预留单体表健3';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdtcl4
+  is '预留单体表健4';
+comment on column HRBZLS.BILLMAIN_EX.bmdwdtcl5
+  is '预留单体表健5';
+alter table HRBZLS.BILLMAIN_EX
+  add constraint PK_BILLMAIN_EX primary key (BMID, BMTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

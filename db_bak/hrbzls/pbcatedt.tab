@@ -1,0 +1,34 @@
+create table HRBZLS.PBCATEDT
+(
+  pbe_name VARCHAR2(60),
+  pbe_edit VARCHAR2(254),
+  pbe_type INTEGER,
+  pbe_cntr INTEGER,
+  pbe_seqn INTEGER,
+  pbe_flag INTEGER,
+  pbe_work VARCHAR2(32)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.PBSYSPBE_IDX on HRBZLS.PBCATEDT (PBE_NAME, PBE_SEQN)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

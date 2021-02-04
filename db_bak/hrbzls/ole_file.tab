@@ -1,0 +1,37 @@
+create table HRBZLS.OLE_FILE
+(
+  id          VARCHAR2(10) not null,
+  report_id   VARCHAR2(60),
+  file_type   VARCHAR2(280),
+  file_date   DATE,
+  file_name   VARCHAR2(180),
+  type        VARCHAR2(40) not null,
+  owner       VARCHAR2(20),
+  file_script VARCHAR2(100),
+  ole_type    NUMBER(6),
+  ole         BLOB
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.OLE_FILE_X on HRBZLS.OLE_FILE (ID, TYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

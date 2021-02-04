@@ -1,0 +1,17 @@
+create table HRBZLS.ORACLEERROR
+(
+  oracle_error_code VARCHAR2(10) not null,
+  error_msg         VARCHAR2(200) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+alter table HRBZLS.ORACLEERROR
+  add constraint PK_ORACLEERROR primary key (ORACLE_ERROR_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

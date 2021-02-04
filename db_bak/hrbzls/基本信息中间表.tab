@@ -1,0 +1,47 @@
+create table HRBZLS.基本信息中间表
+(
+  u_month      VARCHAR2(7) not null,
+  mismfid      VARCHAR2(10) not null,
+  mibfid       VARCHAR2(10) not null,
+  michargetype CHAR(1) not null,
+  mipfid       VARCHAR2(10) not null,
+  mistatus     VARCHAR2(2) not null,
+  mijs         NUMBER default 0,
+  mihs         NUMBER default 0,
+  miifckf      NUMBER default 0,
+  miusenum     NUMBER default 0,
+  收免标志         VARCHAR2(2),
+  口径           NUMBER(10),
+  抄表方式         CHAR(1),
+  水表类别         CHAR(1),
+  总表数          NUMBER(10) default 0,
+  分表数          NUMBER(10) default 0,
+  合收表数         NUMBER(10) default 0,
+  总表收免数        NUMBER(10) default 0,
+  污水超标数        NUMBER(10) default 0,
+  水表倒装数        NUMBER(10) default 0,
+  表故障数         NUMBER(10) default 0,
+  重点用户         NUMBER(10) default 0,
+  低保户数         NUMBER(10) default 0,
+  多级表数         NUMBER(10) default 0,
+  取消污水超标数      NUMBER(10) default 0,
+  表停           NUMBER(10) default 0,
+  无表计量         NUMBER(10) default 0,
+  倒表           NUMBER(10) default 0,
+  表锈           NUMBER(10) default 0,
+  表失灵          NUMBER(10) default 0,
+  水表自转         NUMBER(10) default 0,
+  有表计量         NUMBER(10) default 0
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

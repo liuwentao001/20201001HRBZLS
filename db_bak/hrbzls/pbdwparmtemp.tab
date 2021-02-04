@@ -1,0 +1,25 @@
+create global temporary table HRBZLS.PBDWPARMTEMP
+(
+  dwtxt     VARCHAR2(400),
+  dwname    VARCHAR2(400),
+  dwval     VARCHAR2(400),
+  dwcoltype VARCHAR2(400),
+  dwfomart  VARCHAR2(400),
+  dwcoltag  VARCHAR2(400)
+)
+on commit delete rows;
+comment on table HRBZLS.PBDWPARMTEMP
+  is '数据窗口参数';
+comment on column HRBZLS.PBDWPARMTEMP.dwtxt
+  is '标题';
+comment on column HRBZLS.PBDWPARMTEMP.dwname
+  is '名称';
+comment on column HRBZLS.PBDWPARMTEMP.dwval
+  is '值';
+comment on column HRBZLS.PBDWPARMTEMP.dwcoltype
+  is '类型';
+comment on column HRBZLS.PBDWPARMTEMP.dwfomart
+  is '格式';
+comment on column HRBZLS.PBDWPARMTEMP.dwcoltag
+  is 'tag值';
+

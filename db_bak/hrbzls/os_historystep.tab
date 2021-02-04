@@ -1,0 +1,26 @@
+create table HRBZLS.OS_HISTORYSTEP
+(
+  id          NUMBER not null,
+  entry_id    NUMBER,
+  step_id     NUMBER,
+  action_id   NUMBER,
+  owner       VARCHAR2(10),
+  start_date  DATE,
+  finish_date DATE,
+  due_date    DATE,
+  status      VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_HISTORYSTEP
+  is '¿˙ ∑≤Ω÷Ë';
+alter table HRBZLS.OS_HISTORYSTEP
+  add primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

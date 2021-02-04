@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_DYNDWPRINT
+minvalue 131
+maxvalue 999999999999999999999999999
+start with 5291
+increment by 1
+cache 50
+order;
+

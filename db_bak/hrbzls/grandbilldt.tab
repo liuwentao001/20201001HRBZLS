@@ -1,0 +1,101 @@
+create table HRBZLS.GRANDBILLDT
+(
+  gbdid       VARCHAR2(10),
+  gbdcode     VARCHAR2(10),
+  gbdname     VARCHAR2(64),
+  gbdrrankid  VARCHAR2(10),
+  gbdrankid   VARCHAR2(10),
+  gbdrmonth   VARCHAR2(10),
+  gbdmonth    VARCHAR2(10),
+  gbdqfbs     NUMBER(10),
+  gbdqfje     NUMBER(12,3),
+  gbdbtbs     NUMBER(10),
+  gbdwyjbs    NUMBER(10),
+  gbdwyjje    NUMBER(12,3),
+  gbdpbs      NUMBER(10),
+  gbdpje      NUMBER(12,3),
+  gbdpycje    NUMBER(12,3),
+  gbddkbs     NUMBER(10),
+  gbdtsbs     NUMBER(10),
+  gbdmemo     VARCHAR2(100),
+  gbdbillid   VARCHAR2(10),
+  gbdcdate    DATE,
+  gbdqfsl     NUMBER(10),
+  gbdcolumns1 VARCHAR2(10),
+  gbdcolumns2 VARCHAR2(10),
+  gbdcolumns3 VARCHAR2(10),
+  gbdcolumns4 VARCHAR2(10),
+  gbdcolumns5 VARCHAR2(10),
+  gbdcolumns6 VARCHAR2(80),
+  gbdcolumnn1 NUMBER(10),
+  gbdcolumnn2 NUMBER(10),
+  gbdcolumnn3 NUMBER(10),
+  gbdcolumnn4 NUMBER(10),
+  gbdcolumnn5 NUMBER(10),
+  gbdcolumnl1 NUMBER(12,3),
+  gbdcolumnl2 NUMBER(12,3),
+  gbdcolumnl3 NUMBER(12,3),
+  gbdcolumnl4 NUMBER(12,3),
+  gbdcolumnl5 NUMBER(12,3),
+  gbdcolumnd1 DATE,
+  gbdcolumnd2 DATE,
+  gbdrow      NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.GRANDBILLDT
+  is '信用评定单头';
+comment on column HRBZLS.GRANDBILLDT.gbdid
+  is '单据流水号';
+comment on column HRBZLS.GRANDBILLDT.gbdcode
+  is '客户代码';
+comment on column HRBZLS.GRANDBILLDT.gbdname
+  is '用户名';
+comment on column HRBZLS.GRANDBILLDT.gbdrrankid
+  is '级别ID';
+comment on column HRBZLS.GRANDBILLDT.gbdrankid
+  is '下次级别ID';
+comment on column HRBZLS.GRANDBILLDT.gbdrmonth
+  is '起始月份';
+comment on column HRBZLS.GRANDBILLDT.gbdmonth
+  is '截止月份';
+comment on column HRBZLS.GRANDBILLDT.gbdqfbs
+  is '欠费笔数';
+comment on column HRBZLS.GRANDBILLDT.gbdqfje
+  is '欠费金额';
+comment on column HRBZLS.GRANDBILLDT.gbdbtbs
+  is '本期表况次数';
+comment on column HRBZLS.GRANDBILLDT.gbdwyjbs
+  is '违约金笔数';
+comment on column HRBZLS.GRANDBILLDT.gbdwyjje
+  is '违约金';
+comment on column HRBZLS.GRANDBILLDT.gbdpbs
+  is '缴费笔数';
+comment on column HRBZLS.GRANDBILLDT.gbdpje
+  is '缴费金额（包含违约金、单缴月初）';
+comment on column HRBZLS.GRANDBILLDT.gbdpycje
+  is '单缴预存';
+comment on column HRBZLS.GRANDBILLDT.gbddkbs
+  is '代扣扣款未成功次数';
+comment on column HRBZLS.GRANDBILLDT.gbdtsbs
+  is '托收扣款未成功次数';
+comment on column HRBZLS.GRANDBILLDT.gbdmemo
+  is '备注';
+comment on column HRBZLS.GRANDBILLDT.gbdbillid
+  is '单据号';
+comment on column HRBZLS.GRANDBILLDT.gbdcdate
+  is '创建日期';
+comment on column HRBZLS.GRANDBILLDT.gbdqfsl
+  is '欠水量';
+comment on column HRBZLS.GRANDBILLDT.gbdcolumnl1
+  is '系统计算级别';
+comment on column HRBZLS.GRANDBILLDT.gbdrow
+  is '行号';
+create unique index HRBZLS.IDX_GRANDBILLDT_001 on HRBZLS.GRANDBILLDT (GBDID, GBDROW)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

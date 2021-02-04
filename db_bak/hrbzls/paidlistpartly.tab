@@ -1,0 +1,23 @@
+create table HRBZLS.PAIDLISTPARTLY
+(
+  plpbatch VARCHAR2(12),
+  plpmcode VARCHAR2(12)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PAIDLISTPARTLY
+  is '部分月份缴费记录';
+comment on column HRBZLS.PAIDLISTPARTLY.plpbatch
+  is '缴费交易批次';
+comment on column HRBZLS.PAIDLISTPARTLY.plpmcode
+  is '客户代码';
+

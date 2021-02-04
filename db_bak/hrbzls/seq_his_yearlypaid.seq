@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_HIS_YEARLYPAID
+minvalue 1
+maxvalue 9999999999
+start with 496476
+increment by 1
+cache 50;
+

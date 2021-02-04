@@ -1,0 +1,71 @@
+create table HRBZLS.MI_FIELD
+(
+  fi_id               NUMBER,
+  fi_order            NUMBER,
+  fi_name             VARCHAR2(50),
+  fi_length           NUMBER,
+  fi_type             NUMBER,
+  fi_align            NUMBER,
+  fi_stuff            VARCHAR2(10),
+  fi_default          VARCHAR2(500),
+  fi_repeat           NUMBER,
+  fi_desc             VARCHAR2(500),
+  fi_length_reference VARCHAR2(50),
+  fi_repeat_reference VARCHAR2(50),
+  fi_trancode         VARCHAR2(10),
+  fi_direction        NUMBER,
+  fi_class            NUMBER,
+  fi_flag             VARCHAR2(1) default 'Y',
+  fi_classnum         NUMBER default 1,
+  fi_idlno            VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MI_FIELD
+  is '中间件字段定义';
+comment on column HRBZLS.MI_FIELD.fi_id
+  is '字段序号';
+comment on column HRBZLS.MI_FIELD.fi_order
+  is '字段顺序';
+comment on column HRBZLS.MI_FIELD.fi_name
+  is '字段名称';
+comment on column HRBZLS.MI_FIELD.fi_length
+  is '字段长度';
+comment on column HRBZLS.MI_FIELD.fi_type
+  is '字段类型(1整型,2数值,3字符串,4日期)';
+comment on column HRBZLS.MI_FIELD.fi_align
+  is '对齐方式(1左对齐,2右对齐)';
+comment on column HRBZLS.MI_FIELD.fi_stuff
+  is '填充字符';
+comment on column HRBZLS.MI_FIELD.fi_default
+  is '默认值';
+comment on column HRBZLS.MI_FIELD.fi_repeat
+  is '重复次数';
+comment on column HRBZLS.MI_FIELD.fi_desc
+  is '字段描述';
+comment on column HRBZLS.MI_FIELD.fi_length_reference
+  is 'FI_LENGTH为0时，指定参考列';
+comment on column HRBZLS.MI_FIELD.fi_repeat_reference
+  is 'FI_REPEAT为0时，指定参考列';
+comment on column HRBZLS.MI_FIELD.fi_trancode
+  is '交易代码';
+comment on column HRBZLS.MI_FIELD.fi_direction
+  is '交易方向';
+comment on column HRBZLS.MI_FIELD.fi_class
+  is '字段类别(1包头，2长度，3数据包)';
+comment on column HRBZLS.MI_FIELD.fi_flag
+  is '末级标志';
+comment on column HRBZLS.MI_FIELD.fi_classnum
+  is '级次';
+comment on column HRBZLS.MI_FIELD.fi_idlno
+  is '上级编码';
+

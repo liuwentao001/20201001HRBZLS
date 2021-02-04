@@ -1,0 +1,20 @@
+create table HRBZLS.REPORT1_NEED
+(
+  report_id         VARCHAR2(54) not null,
+  report_name       VARCHAR2(36),
+  report_state      VARCHAR2(4),
+  report_dw         VARCHAR2(50),
+  report_system     VARCHAR2(36),
+  report_paper_size VARCHAR2(10),
+  report_percent    NUMBER(5)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create unique index HRBZLS.REPORT1_NEED_X on HRBZLS.REPORT1_NEED (REPORT_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

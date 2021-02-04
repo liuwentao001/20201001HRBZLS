@@ -1,0 +1,55 @@
+create table HRBZLS.CHANGEFUND
+(
+  cfid      VARCHAR2(10) not null,
+  cfper     VARCHAR2(20) not null,
+  cfje      NUMBER(13,3) not null,
+  cfdate    DATE not null,
+  cfmemo    VARCHAR2(500),
+  cfsmfid   VARCHAR2(20) not null,
+  cfact     CHAR(1) not null,
+  cfsender  VARCHAR2(20) not null,
+  cfchkflag CHAR(1),
+  cfchkdate DATE,
+  cftype    CHAR(1) default 'Z'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.CHANGEFUND
+  is '备用金';
+comment on column HRBZLS.CHANGEFUND.cfid
+  is '备用金发放/收回流水';
+comment on column HRBZLS.CHANGEFUND.cfper
+  is '领取/退领人';
+comment on column HRBZLS.CHANGEFUND.cfje
+  is '金额';
+comment on column HRBZLS.CHANGEFUND.cfdate
+  is '时间';
+comment on column HRBZLS.CHANGEFUND.cfmemo
+  is '备注';
+comment on column HRBZLS.CHANGEFUND.cfsmfid
+  is '领取/退领营业所';
+comment on column HRBZLS.CHANGEFUND.cfact
+  is '操作类型(L：领，T：退)';
+comment on column HRBZLS.CHANGEFUND.cfsender
+  is '发放/收回人';
+comment on column HRBZLS.CHANGEFUND.cfchkflag
+  is '扎帐标志';
+comment on column HRBZLS.CHANGEFUND.cfchkdate
+  is '扎帐时间';
+comment on column HRBZLS.CHANGEFUND.cftype
+  is '备用金类别(Z：正常领退，T：结存余额)';
+create index HRBZLS.IDX_CHANGEFUND1 on HRBZLS.CHANGEFUND (CFPER, CFDATE, CFACT, CFTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.CHANGEFUND
+  add constraint PK_CHANGEFUND primary key (CFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

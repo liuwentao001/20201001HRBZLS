@@ -1,0 +1,41 @@
+create table HRBZLS.GMBARCODE
+(
+  barsmfid  VARCHAR2(10) not null,
+  barcode   VARCHAR2(20),
+  main_date DATE,
+  main_man  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.GMBARCODE.barsmfid
+  is '营业所';
+comment on column HRBZLS.GMBARCODE.barcode
+  is '管理员条形码';
+comment on column HRBZLS.GMBARCODE.main_date
+  is '最后修改人员';
+comment on column HRBZLS.GMBARCODE.main_man
+  is '最后修改日期';
+alter table HRBZLS.GMBARCODE
+  add constraint PK_GMBARCODE primary key (BARSMFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

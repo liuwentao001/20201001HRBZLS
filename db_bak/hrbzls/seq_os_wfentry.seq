@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_OS_WFENTRY
+minvalue 10
+maxvalue 999999999999999999999999999
+start with 10
+increment by 10
+cache 50;
+

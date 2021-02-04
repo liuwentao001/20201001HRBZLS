@@ -1,0 +1,225 @@
+create table HRBZLS.ENTRUSTLIST
+(
+  etlbatch         VARCHAR2(10) not null,
+  etlseqno         VARCHAR2(10) not null,
+  etlrlid          VARCHAR2(10),
+  etlmid           VARCHAR2(10),
+  etlmcode         VARCHAR2(10),
+  etlbankid        VARCHAR2(30),
+  etlaccountno     VARCHAR2(32),
+  etlaccountname   VARCHAR2(64),
+  etlje            NUMBER(12,2),
+  etlzndate        DATE,
+  etlznj           NUMBER(12,2),
+  etlpiid          VARCHAR2(100),
+  etlpaiddate      DATE,
+  etlpaidcdate     DATE,
+  etlpaidflag      CHAR(1),
+  etlreturncode    VARCHAR2(128),
+  etlreturnmsg     VARCHAR2(128),
+  etlchkdate       DATE,
+  etlsflag         CHAR(1),
+  etlrldate        DATE,
+  etlno            VARCHAR2(64),
+  etltsbankid      VARCHAR2(30),
+  etlpzno          VARCHAR2(10),
+  etlciadr         VARCHAR2(100),
+  etlmiadr         VARCHAR2(64),
+  etlbankidname    VARCHAR2(64),
+  etlbankidno      VARCHAR2(30),
+  etltsbankidname  VARCHAR2(64),
+  etltsbankidno    VARCHAR2(30),
+  etlsfje          NUMBER(12,2),
+  etlwsfje         NUMBER(12,2),
+  etlsfznj         NUMBER(12,2),
+  etlwsfznj        NUMBER(12,2),
+  etlrlidpiid      CLOB,
+  etlsl            NUMBER(12,2),
+  etlwsl           NUMBER(12,2),
+  etlsfdj          NUMBER(13,3),
+  etlwsfdj         NUMBER(13,3),
+  etlciname        VARCHAR2(64),
+  etlrlmonth       VARCHAR2(7),
+  etlinvcount      NUMBER(4),
+  etlchrmode       CHAR(1),
+  etlpaidper       VARCHAR2(10),
+  etltsaccountno   VARCHAR2(32),
+  etltsaccountname VARCHAR2(64),
+  etlszyfznj       NUMBER(12,2),
+  etlljfznj        NUMBER(12,2),
+  etlszyfsl        NUMBER(12,2),
+  etlljfsl         NUMBER(12,2),
+  etlszyfdj        NUMBER(12,2),
+  etlljfdj         NUMBER(12,2),
+  etlinvsfcount    NUMBER(12,2),
+  etlinvwsfcount   NUMBER(12,2),
+  etlinvszyfcount  NUMBER(12,2),
+  etlinvljfcount   NUMBER(12,2),
+  etlmiuiid        VARCHAR2(10),
+  etlszyfje        NUMBER(12,2),
+  etlljfje         NUMBER(12,2),
+  etlsxf           NUMBER(12,2),
+  etlifinv         NUMBER(10),
+  etlifinvpz       NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ENTRUSTLIST
+  is '代扣历史明细【ETL】';
+comment on column HRBZLS.ENTRUSTLIST.etlbatch
+  is '代扣批次';
+comment on column HRBZLS.ENTRUSTLIST.etlseqno
+  is '代扣流水';
+comment on column HRBZLS.ENTRUSTLIST.etlrlid
+  is '应收流水';
+comment on column HRBZLS.ENTRUSTLIST.etlmid
+  is '水表编号';
+comment on column HRBZLS.ENTRUSTLIST.etlmcode
+  is '资料号';
+comment on column HRBZLS.ENTRUSTLIST.etlbankid
+  is '代扣银行';
+comment on column HRBZLS.ENTRUSTLIST.etlaccountno
+  is '开户帐号';
+comment on column HRBZLS.ENTRUSTLIST.etlaccountname
+  is '开户名';
+comment on column HRBZLS.ENTRUSTLIST.etlje
+  is '应收金额';
+comment on column HRBZLS.ENTRUSTLIST.etlzndate
+  is '滞纳金起算日';
+comment on column HRBZLS.ENTRUSTLIST.etlznj
+  is '应收滞纳金';
+comment on column HRBZLS.ENTRUSTLIST.etlpiid
+  is '费用项目';
+comment on column HRBZLS.ENTRUSTLIST.etlpaiddate
+  is '销帐日期';
+comment on column HRBZLS.ENTRUSTLIST.etlpaidcdate
+  is '清算日期';
+comment on column HRBZLS.ENTRUSTLIST.etlpaidflag
+  is '销帐标志';
+comment on column HRBZLS.ENTRUSTLIST.etlreturncode
+  is '返回信息码';
+comment on column HRBZLS.ENTRUSTLIST.etlreturnmsg
+  is '返回信息';
+comment on column HRBZLS.ENTRUSTLIST.etlchkdate
+  is '对帐日期';
+comment on column HRBZLS.ENTRUSTLIST.etlsflag
+  is '银行成功扣款标志';
+comment on column HRBZLS.ENTRUSTLIST.etlrldate
+  is '应收账务日期';
+comment on column HRBZLS.ENTRUSTLIST.etlno
+  is '委托授权号';
+comment on column HRBZLS.ENTRUSTLIST.etltsbankid
+  is '接收行号（托）';
+comment on column HRBZLS.ENTRUSTLIST.etlpzno
+  is '凭证号';
+comment on column HRBZLS.ENTRUSTLIST.etlciadr
+  is '用户地址';
+comment on column HRBZLS.ENTRUSTLIST.etlmiadr
+  is '水表地址';
+comment on column HRBZLS.ENTRUSTLIST.etlbankidname
+  is '开户银行名称';
+comment on column HRBZLS.ENTRUSTLIST.etlbankidno
+  is '开户银行实际编号';
+comment on column HRBZLS.ENTRUSTLIST.etltsbankidname
+  is '收款行名';
+comment on column HRBZLS.ENTRUSTLIST.etltsbankidno
+  is '收款行号';
+comment on column HRBZLS.ENTRUSTLIST.etlsfje
+  is '水费';
+comment on column HRBZLS.ENTRUSTLIST.etlwsfje
+  is '污水费';
+comment on column HRBZLS.ENTRUSTLIST.etlsfznj
+  is '水费滞纳金';
+comment on column HRBZLS.ENTRUSTLIST.etlwsfznj
+  is '污水费滞纳金';
+comment on column HRBZLS.ENTRUSTLIST.etlrlidpiid
+  is '应收流水加费用项目';
+comment on column HRBZLS.ENTRUSTLIST.etlsl
+  is '水量';
+comment on column HRBZLS.ENTRUSTLIST.etlwsl
+  is '污水量';
+comment on column HRBZLS.ENTRUSTLIST.etlsfdj
+  is '水费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlwsfdj
+  is '污水费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlciname
+  is '产权名';
+comment on column HRBZLS.ENTRUSTLIST.etlrlmonth
+  is '应收帐月份';
+comment on column HRBZLS.ENTRUSTLIST.etlinvcount
+  is '发票张数';
+comment on column HRBZLS.ENTRUSTLIST.etlchrmode
+  is '销帐方式（1：未处理 ，2：文档销帐，3：手工销帐,4:解锁,5:银行未处理的全部销帐,6:银行未处理的部分销帐,7银行反盘未处理）';
+comment on column HRBZLS.ENTRUSTLIST.etlpaidper
+  is '销帐员';
+comment on column HRBZLS.ENTRUSTLIST.etltsaccountno
+  is '收款行号';
+comment on column HRBZLS.ENTRUSTLIST.etltsaccountname
+  is '收款户名';
+comment on column HRBZLS.ENTRUSTLIST.etlszyfznj
+  is '水资源费滞纳金';
+comment on column HRBZLS.ENTRUSTLIST.etlljfznj
+  is '垃圾处理费滞纳金';
+comment on column HRBZLS.ENTRUSTLIST.etlszyfsl
+  is '水资源水量';
+comment on column HRBZLS.ENTRUSTLIST.etlljfsl
+  is '垃圾费水量';
+comment on column HRBZLS.ENTRUSTLIST.etlszyfdj
+  is '水资源费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlljfdj
+  is '垃圾费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlinvsfcount
+  is '垃圾费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlinvwsfcount
+  is '垃圾费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlinvszyfcount
+  is '垃圾费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlinvljfcount
+  is '垃圾费单价';
+comment on column HRBZLS.ENTRUSTLIST.etlmiuiid
+  is '合收单位编号';
+comment on column HRBZLS.ENTRUSTLIST.etlszyfje
+  is '水资源费';
+comment on column HRBZLS.ENTRUSTLIST.etlljfje
+  is '垃圾费';
+comment on column HRBZLS.ENTRUSTLIST.etlsxf
+  is '手续费';
+comment on column HRBZLS.ENTRUSTLIST.etlifinv
+  is '发票是否已打印（发票）';
+comment on column HRBZLS.ENTRUSTLIST.etlifinvpz
+  is '凭证是否已打印';
+create index HRBZLS.IDX_ENTRUSTLIST_001 on HRBZLS.ENTRUSTLIST (ETLBATCH, ETLSEQNO, ETLRLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_ETLBATCH on HRBZLS.ENTRUSTLIST (ETLBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_ETLMID on HRBZLS.ENTRUSTLIST (ETLMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_ETLMIUIID on HRBZLS.ENTRUSTLIST (ETLMIUIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_ETLSEQNO on HRBZLS.ENTRUSTLIST (ETLSEQNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.ENTRUSTLIST
+  add constraint PK_ENTRUSTLIST primary key (ETLBATCH, ETLSEQNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

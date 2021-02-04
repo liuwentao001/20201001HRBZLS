@@ -1,0 +1,49 @@
+create table HRBZLS.PAY_DAILY_PID
+(
+  pdpid VARCHAR2(10) not null,
+  pdhid VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PAY_DAILY_PID
+  is '扎帐单中间表(账务和单据关联)';
+comment on column HRBZLS.PAY_DAILY_PID.pdpid
+  is '账务表PID';
+comment on column HRBZLS.PAY_DAILY_PID.pdhid
+  is '进账单号';
+create index HRBZLS.IDX_PAY_DAILY_HID on HRBZLS.PAY_DAILY_PID (PDHID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.PAY_DAILY_PID
+  add constraint PK_PAY_DAILY_PID primary key (PDPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,7 @@
+create global temporary table HRBZLS.PAD_BFIDS
+(
+  c1 VARCHAR2(20),
+  c2 VARCHAR2(20)
+)
+on commit preserve rows;
+

@@ -1,0 +1,46 @@
+create table HRBZLS.JOB_RUNNING_LOG
+(
+  logid   NUMBER not null,
+  jobid   VARCHAR2(20) not null,
+  runtime DATE,
+  logtype VARCHAR2(3),
+  logtxt  VARCHAR2(500)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.JOB_RUNNING_LOG
+  is 'job任务日志';
+comment on column HRBZLS.JOB_RUNNING_LOG.logid
+  is '日志流水号';
+comment on column HRBZLS.JOB_RUNNING_LOG.jobid
+  is '任务ID';
+comment on column HRBZLS.JOB_RUNNING_LOG.runtime
+  is '运行日期';
+comment on column HRBZLS.JOB_RUNNING_LOG.logtype
+  is '日志类别 1-通知 0-错误 ';
+comment on column HRBZLS.JOB_RUNNING_LOG.logtxt
+  is '日志 ';
+alter table HRBZLS.JOB_RUNNING_LOG
+  add constraint PK_JOB_RUNNING_LOG primary key (LOGID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

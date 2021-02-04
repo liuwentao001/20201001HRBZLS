@@ -1,0 +1,20 @@
+create table HRBZLS.CC_20181128
+(
+  miid    VARCHAR2(10) not null,
+  miname  VARCHAR2(64),
+  miadr   VARCHAR2(100),
+  miname2 VARCHAR2(64),
+  str     VARCHAR2(3289)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

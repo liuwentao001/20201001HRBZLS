@@ -1,0 +1,19 @@
+create table HRBZLS.OS_CURRENTSTEP_PREV
+(
+  id          NUMBER not null,
+  previous_id NUMBER not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_CURRENTSTEP_PREV
+  is 'Ç°Çý²½Öè';
+alter table HRBZLS.OS_CURRENTSTEP_PREV
+  add primary key (ID, PREVIOUS_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

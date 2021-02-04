@@ -1,0 +1,55 @@
+create table HRBZLS.YK_INTERFACE_LOG
+(
+  handleid    VARCHAR2(15) not null,
+  meter_code  VARCHAR2(20) not null,
+  miid        VARCHAR2(20) not null,
+  meter_time  DATE,
+  meter_hand  NUMBER,
+  if_read     VARCHAR2(3),
+  result      VARCHAR2(200),
+  handle_time DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.YK_INTERFACE_LOG
+  is '亚控智能表抄表接口日志';
+comment on column HRBZLS.YK_INTERFACE_LOG.handleid
+  is '抄表批次流水号';
+comment on column HRBZLS.YK_INTERFACE_LOG.meter_code
+  is '水表编号(表身码)';
+comment on column HRBZLS.YK_INTERFACE_LOG.miid
+  is '水表编号(客户号)';
+comment on column HRBZLS.YK_INTERFACE_LOG.meter_time
+  is '抄表时间';
+comment on column HRBZLS.YK_INTERFACE_LOG.meter_hand
+  is '水表读数';
+comment on column HRBZLS.YK_INTERFACE_LOG.if_read
+  is '是否读取 0未读、1已读 2、错误';
+comment on column HRBZLS.YK_INTERFACE_LOG.result
+  is '返回信息';
+comment on column HRBZLS.YK_INTERFACE_LOG.handle_time
+  is '处理时间';
+alter table HRBZLS.YK_INTERFACE_LOG
+  add constraint PK_YK_INTERFACE_LOG primary key (HANDLEID, METER_CODE, MIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

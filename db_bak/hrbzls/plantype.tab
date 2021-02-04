@@ -1,0 +1,18 @@
+create table HRBZLS.PLANTYPE
+(
+  ptid   VARCHAR2(10) not null,
+  ptname VARCHAR2(20),
+  ptrow  NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

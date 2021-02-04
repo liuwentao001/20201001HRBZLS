@@ -1,0 +1,254 @@
+create table HRBZLS.DELMRBAKNOPAIDPRL
+(
+  rlid           VARCHAR2(10) not null,
+  rlsmfid        VARCHAR2(10),
+  rlmonth        VARCHAR2(7),
+  rldate         DATE,
+  rlcid          VARCHAR2(10),
+  rlmid          VARCHAR2(10),
+  rlmsmfid       VARCHAR2(10),
+  rlcsmfid       VARCHAR2(10),
+  rlccode        VARCHAR2(10),
+  rlchargeper    VARCHAR2(15),
+  rlcpid         VARCHAR2(10),
+  rlcclass       NUMBER,
+  rlcflag        CHAR(1),
+  rlusenum       NUMBER,
+  rlcname        VARCHAR2(64),
+  rlcadr         VARCHAR2(64),
+  rlmadr         VARCHAR2(64),
+  rlcstatus      VARCHAR2(2),
+  rlmtel         VARCHAR2(30),
+  rltel          VARCHAR2(30),
+  rlbankid       VARCHAR2(10),
+  rltsbankid     VARCHAR2(10),
+  rlaccountno    VARCHAR2(32),
+  rlaccountname  VARCHAR2(64),
+  rliftax        CHAR(1),
+  rltaxno        VARCHAR2(30),
+  rlifinv        CHAR(1),
+  rlmcode        VARCHAR2(10),
+  rlmpid         VARCHAR2(10),
+  rlmclass       NUMBER,
+  rlmflag        CHAR(1),
+  rlmsfid        VARCHAR2(10),
+  rlday          DATE,
+  rlbfid         VARCHAR2(10),
+  rlprdate       DATE,
+  rlrdate        DATE,
+  rlzndate       DATE,
+  rlcaliber      NUMBER(10),
+  rlrtid         CHAR(1),
+  rlmstatus      VARCHAR2(2),
+  rlmtype        CHAR(1),
+  rlmno          VARCHAR2(40),
+  rlscode        NUMBER(10),
+  rlecode        NUMBER(10),
+  rlreadsl       NUMBER(10),
+  rlinvmemo      VARCHAR2(256),
+  rlentrustbatch VARCHAR2(10),
+  rlentrustseqno VARCHAR2(10),
+  rloutflag      CHAR(1),
+  rltrans        CHAR(1),
+  rlcd           CHAR(2),
+  rlyschargetype CHAR(1),
+  rlsl           NUMBER(10),
+  rlje           NUMBER(13,3),
+  rladdsl        NUMBER(10),
+  rlscrrlid      VARCHAR2(10),
+  rlscrrltrans   CHAR(1),
+  rlscrrlmonth   VARCHAR2(7),
+  rlpaidje       NUMBER(13,3),
+  rlpaidflag     CHAR(1),
+  rlpaidper      VARCHAR2(20),
+  rlpaiddate     DATE,
+  rlmrid         VARCHAR2(10),
+  rlmemo         VARCHAR2(200),
+  rlznj          NUMBER(13,3),
+  rllb           CHAR(1),
+  rlcname2       VARCHAR2(64),
+  rlpfid         VARCHAR2(10),
+  rldatetime     DATE,
+  rlscrrldate    DATE,
+  rlprimcode     VARCHAR2(200),
+  rlpriflag      CHAR(1),
+  rlrper         VARCHAR2(10),
+  rlsafid        VARCHAR2(10),
+  rlscodechar    VARCHAR2(10),
+  rlecodechar    VARCHAR2(10),
+  rlilid         VARCHAR2(10),
+  rlmiuiid       VARCHAR2(10),
+  rlgroup        NUMBER(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.DELMRBAKNOPAIDPRL
+  is '应收总帐明细【RL】';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlid
+  is '流水号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlsmfid
+  is '营销公司';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmonth
+  is '帐务月份';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rldate
+  is '帐务日期';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcid
+  is '用户编号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmid
+  is '水表编号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmsmfid
+  is '水表公司';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcsmfid
+  is '用户公司';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlccode
+  is '资料号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlchargeper
+  is '收费员';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcpid
+  is '上级用户编号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcclass
+  is '用户级次';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcflag
+  is '末级标志';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlusenum
+  is '户用水人数';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcname
+  is '用户名称';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcadr
+  is '用户地址';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmadr
+  is '水表地址';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcstatus
+  is '用户状态';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmtel
+  is '移动电话';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rltel
+  is '固定电话';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlbankid
+  is '代扣银行';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rltsbankid
+  is '托收银行';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlaccountno
+  is '开户帐号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlaccountname
+  is '开户名称';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rliftax
+  is '是否税票';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rltaxno
+  is '增殖税号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlifinv
+  is '是否普票';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmcode
+  is '水表手工编号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmpid
+  is '上级水表';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmclass
+  is '水表级次';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmflag
+  is '末级标志';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmsfid
+  is '水表类别';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlday
+  is '抄表日';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlbfid
+  is '表册';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlprdate
+  is '上次抄表日期';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlrdate
+  is '本次抄表日期';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlzndate
+  is '违约金起算日';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcaliber
+  is '表口径';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlrtid
+  is '抄表方式';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmstatus
+  is '状态';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmtype
+  is '类型';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmno
+  is '表身码';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlscode
+  is '起数';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlecode
+  is '止数';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlreadsl
+  is '抄见水量';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlinvmemo
+  is '发票备注';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlentrustbatch
+  is '托收代扣批号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlentrustseqno
+  is '托收代扣流水号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rloutflag
+  is '发出标志';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rltrans
+  is '应收事务';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcd
+  is '借贷方向';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlyschargetype
+  is '应收方式';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlsl
+  is '应收水量';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlje
+  is '应收金额';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rladdsl
+  is '加调水量';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlscrrlid
+  is '原应收帐流水';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlscrrltrans
+  is '原应收帐事务';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlscrrlmonth
+  is '原应收帐月份';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlpaidje
+  is '销帐金额';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlpaidflag
+  is '销帐标志(Y:Y，N:N，X:X，V:Y/N，T:Y/X，K:N/X，W:Y/N/X)';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlpaidper
+  is '销帐人员';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlpaiddate
+  is '销帐日期';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmrid
+  is '抄表流水';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmemo
+  is '备注';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlznj
+  is '违约金';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rllb
+  is '类别';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlcname2
+  is '曾用名';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlpfid
+  is '主价格类别';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rldatetime
+  is '发生日期';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlscrrldate
+  is '原帐务日期';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlprimcode
+  is '合收表主表号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlpriflag
+  is '合收表标志';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlrper
+  is '抄表员';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlsafid
+  is '区域';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlscodechar
+  is '上期抄表（带表位）';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlecodechar
+  is '本期抄表（带表位）';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlilid
+  is '发票流水号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlmiuiid
+  is '合收单位编号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRL.rlgroup
+  is '应收帐分组';
+

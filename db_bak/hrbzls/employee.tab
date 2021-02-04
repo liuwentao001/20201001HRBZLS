@@ -1,0 +1,51 @@
+create table HRBZLS.EMPLOYEE
+(
+  e_id            NUMBER(8) not null,
+  e_name          VARCHAR2(20) not null,
+  e_sex           CHAR(1),
+  e_department_id VARCHAR2(200),
+  e_salary        NUMBER(13,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.EMPLOYEE
+  add primary key (E_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.EMPLOYEE
+  add constraint E_NAME_UNIQUE unique (E_NAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.EMPLOYEE
+  add constraint E_SEX_CHECK
+  check (e_sex in ('f',''));
+

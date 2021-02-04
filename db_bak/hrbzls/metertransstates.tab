@@ -1,0 +1,59 @@
+create table HRBZLS.METERTRANSSTATES
+(
+  mtsid      VARCHAR2(10) not null,
+  mtsno      VARCHAR2(10) not null,
+  mtsshdate  DATE,
+  mtsshflag  CHAR(1),
+  mtsshper   VARCHAR2(10),
+  mtscredate DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.METERTRANSSTATES.mtsid
+  is '流水号';
+comment on column HRBZLS.METERTRANSSTATES.mtsno
+  is '单据流水号';
+comment on column HRBZLS.METERTRANSSTATES.mtsshdate
+  is '单据受理日期';
+comment on column HRBZLS.METERTRANSSTATES.mtsshflag
+  is '单据状态';
+comment on column HRBZLS.METERTRANSSTATES.mtsshper
+  is '单据受理人';
+comment on column HRBZLS.METERTRANSSTATES.mtscredate
+  is '单据创建日期';
+create index HRBZLS.INX_MTSNO on HRBZLS.METERTRANSSTATES (MTSNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERTRANSSTATES
+  add constraint PK_MTS primary key (MTSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

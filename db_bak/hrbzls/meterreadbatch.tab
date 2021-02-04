@@ -1,0 +1,49 @@
+create table HRBZLS.METERREADBATCH
+(
+  mrbsmfid VARCHAR2(10) not null,
+  mrbmonth VARCHAR2(7) not null,
+  mrbbatch NUMBER(2) not null,
+  mrbsdate DATE,
+  mrbedate DATE,
+  mrbmemo  VARCHAR2(300)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERREADBATCH
+  is '抄表批次日明细【MRB】';
+comment on column HRBZLS.METERREADBATCH.mrbsmfid
+  is '营业所编号';
+comment on column HRBZLS.METERREADBATCH.mrbmonth
+  is '当前月份';
+comment on column HRBZLS.METERREADBATCH.mrbbatch
+  is '抄表批次';
+comment on column HRBZLS.METERREADBATCH.mrbsdate
+  is '起始日期';
+comment on column HRBZLS.METERREADBATCH.mrbedate
+  is '截止日期';
+comment on column HRBZLS.METERREADBATCH.mrbmemo
+  is '备注';
+alter table HRBZLS.METERREADBATCH
+  add constraint PK_METERREADBATCH primary key (MRBSMFID, MRBMONTH, MRBBATCH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

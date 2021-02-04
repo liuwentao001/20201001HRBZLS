@@ -1,0 +1,35 @@
+create table HRBZLS.RPT_FUNCTION
+(
+  fid      VARCHAR2(32) not null,
+  fname    VARCHAR2(32) not null,
+  furl     VARCHAR2(128),
+  fclass   NUMBER not null,
+  fpid     VARCHAR2(32),
+  fcomment VARCHAR2(512)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.RPT_FUNCTION
+  is '功能列表';
+comment on column HRBZLS.RPT_FUNCTION.fid
+  is '功能ID';
+comment on column HRBZLS.RPT_FUNCTION.fname
+  is '功能名称';
+comment on column HRBZLS.RPT_FUNCTION.furl
+  is '功能链接';
+comment on column HRBZLS.RPT_FUNCTION.fclass
+  is '功能级次';
+comment on column HRBZLS.RPT_FUNCTION.fpid
+  is '上级功能';
+comment on column HRBZLS.RPT_FUNCTION.fcomment
+  is '功能描述';
+alter table HRBZLS.RPT_FUNCTION
+  add constraint FID primary key (FID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

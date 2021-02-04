@@ -1,0 +1,146 @@
+create table HRBZLS.STPAYMENTYXDZREGDT
+(
+  dno          VARCHAR2(10),
+  drowno       NUMBER(6),
+  dflag        CHAR(1),
+  pid          VARCHAR2(10),
+  pcid         VARCHAR2(10),
+  pccode       VARCHAR2(10),
+  pmid         VARCHAR2(10),
+  pmcode       VARCHAR2(10),
+  pdate        DATE,
+  pdatetime    DATE,
+  pmonth       VARCHAR2(7),
+  pposition    VARCHAR2(10),
+  ptrans       CHAR(1),
+  pcd          CHAR(2),
+  pper         VARCHAR2(20),
+  psavingqc    NUMBER(12,2),
+  psavingbq    NUMBER(12,2),
+  psavingqm    NUMBER(12,2),
+  ppayment     NUMBER(12,2),
+  pifsaving    CHAR(1),
+  pchange      NUMBER(12,2),
+  ppayway      VARCHAR2(6),
+  pbseqno      VARCHAR2(20),
+  pcseqno      VARCHAR2(20),
+  pbdate       DATE,
+  pchkdate     DATE,
+  pcchkflag    CHAR(1),
+  pcdate       DATE,
+  pbatch       VARCHAR2(10),
+  pseqno       VARCHAR2(10),
+  ppayee       VARCHAR2(20),
+  pchbatch     VARCHAR2(10),
+  pmemo        VARCHAR2(200),
+  ppaypoint    VARCHAR2(10),
+  psxf         NUMBER(12,2),
+  pilid        VARCHAR2(40),
+  pflag        VARCHAR2(1),
+  pznj         NUMBER(12,2),
+  prcreceived  NUMBER(12,2),
+  pspje        NUMBER(12,2),
+  preverseflag VARCHAR2(1),
+  pscrid       VARCHAR2(10),
+  pscrtrans    VARCHAR2(1),
+  pscrmonth    VARCHAR2(7),
+  pscrdate     DATE,
+  pchkno       VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.STPAYMENTYXDZREGDT.dno
+  is '单据流水号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.drowno
+  is '行号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.dflag
+  is '审核标志';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pid
+  is '流水号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pcid
+  is '用户编号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pccode
+  is '用户号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pmid
+  is '水表编号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pmcode
+  is '资料号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pdate
+  is '帐务日期';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pdatetime
+  is '发生日期';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pmonth
+  is '缴费月份';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pposition
+  is '缴费机构';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.ptrans
+  is '缴费事务';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pcd
+  is '借贷方向';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pper
+  is '销帐人员';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.psavingqc
+  is '期初预存余额';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.psavingbq
+  is '本期发生预存金额';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.psavingqm
+  is '期末预存余额';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.ppayment
+  is '付款金额';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pifsaving
+  is '找零转预存';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pchange
+  is '找零金额';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.ppayway
+  is '付款方式';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pbseqno
+  is '银行流水(银行实时收费交易流水)';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pcseqno
+  is '清算中心流水(NO USE)';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pbdate
+  is '银行日期(银行缴费账务日期)';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pchkdate
+  is '对帐日期';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pcchkflag
+  is '标志(NO USE)';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pcdate
+  is '清算日期';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pbatch
+  is '缴费交易批次';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pseqno
+  is '缴费交易流水(NO USE)';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.ppayee
+  is '收款员';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pchbatch
+  is '支票交易批次';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pmemo
+  is '备注';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.ppaypoint
+  is '缴费地点';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.psxf
+  is '手续费';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pilid
+  is '发票流水号';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pflag
+  is '实收标志（全部为Y.暂无启用）';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pznj
+  is '实收滞金';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.prcreceived
+  is '  实际收款金额（实际收款金额 =  付款金额 -找零金额；销帐金额 + 实收滞金 + 手续费 + 本期发生预存金额）';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pspje
+  is '销帐金额(如果销帐交易中水费，销帐金额则为水费金额，如果是预存帐为0)';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.preverseflag
+  is '冲正标志（收水费收预存是为N,冲水费冲预存被冲实收和冲实收产生负帐匀为Y）';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pscrid
+  is '原实收帐流水（应收冲实产生的负帐时Payment.PSCRID不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况Payment.PSCRID为空）';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pscrtrans
+  is '  原实收缴费事务（实收冲正产生的负帐时Payment.PSCRTRANS不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况Payment.PSCRTRANS为空）';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pscrmonth
+  is '原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：A用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pscrdate
+  is '原实收日期';
+comment on column HRBZLS.STPAYMENTYXDZREGDT.pchkno
+  is '进账单号';
+

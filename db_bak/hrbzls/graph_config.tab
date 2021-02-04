@@ -1,0 +1,46 @@
+create table HRBZLS.GRAPH_CONFIG
+(
+  graph_type  NUMBER(5),
+  s5          VARCHAR2(50),
+  s4          VARCHAR2(50),
+  s3          VARCHAR2(50),
+  s2          VARCHAR2(50),
+  s1          VARCHAR2(50),
+  y_label     VARCHAR2(50),
+  x_label     VARCHAR2(50),
+  graph_title VARCHAR2(100),
+  dw_name     VARCHAR2(50),
+  id          VARCHAR2(10) not null,
+  se          VARCHAR2(50),
+  se_label    VARCHAR2(50),
+  cay         VARCHAR2(50),
+  s1_n        NUMBER(5),
+  s2_n        NUMBER(5),
+  s3_n        NUMBER(5),
+  s4_n        NUMBER(5),
+  s5_n        NUMBER(5)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.GRAPH_CONFIG_X on HRBZLS.GRAPH_CONFIG (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

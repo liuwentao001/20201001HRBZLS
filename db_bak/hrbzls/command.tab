@@ -1,0 +1,19 @@
+create table HRBZLS.COMMAND
+(
+  seqno   NUMBER not null,
+  cmdtype VARCHAR2(100),
+  cmdpara VARCHAR2(100),
+  cmddate DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+alter table HRBZLS.COMMAND
+  add constraint PK_COMMAND primary key (SEQNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

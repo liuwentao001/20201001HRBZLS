@@ -1,0 +1,39 @@
+create table HRBZLS.INV_EINVOICE_DETAIL_ST
+(
+  idid    VARCHAR2(32) not null,
+  line    NUMBER not null,
+  xmmc    VARCHAR2(200) not null,
+  xmdw    VARCHAR2(100),
+  ggxh    VARCHAR2(200),
+  xmsl    VARCHAR2(24),
+  hsbz    VARCHAR2(1) not null,
+  fphxz   VARCHAR2(1),
+  xmdj    VARCHAR2(24),
+  spbm    VARCHAR2(19) not null,
+  zxbm    VARCHAR2(20),
+  yhzcbs  VARCHAR2(1),
+  lslbs   VARCHAR2(1),
+  zzstsgl VARCHAR2(50),
+  xmje    NUMBER not null,
+  sl      VARCHAR2(10) not null,
+  se      NUMBER,
+  byzd1   VARCHAR2(100),
+  byzd2   VARCHAR2(100),
+  byzd3   VARCHAR2(100),
+  byzd4   VARCHAR2(100),
+  byzd5   VARCHAR2(100),
+  jshj    NUMBER,
+  kce     NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

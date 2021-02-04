@@ -1,0 +1,85 @@
+create table HRBZLS.BANKBILLMANAGE
+(
+  id         VARCHAR2(20) not null,
+  bbdate     DATE,
+  bbtj       VARCHAR2(50),
+  bbje       NUMBER(12,3),
+  bbbankid   VARCHAR2(10),
+  bbgdate    DATE,
+  bbgtype    VARCHAR2(10),
+  bbmemo     VARCHAR2(200),
+  bbgflag    VARCHAR2(1) default 'N',
+  bbsmfid    VARCHAR2(10),
+  bbdatetime DATE,
+  bboper     VARCHAR2(10),
+  bbeditdate DATE,
+  bbeditje   NUMBER(12,3),
+  bbeditoper VARCHAR2(10),
+  bbddate    DATE,
+  bbdoper    VARCHAR2(10),
+  bbdflag    VARCHAR2(1) default 'N'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BANKBILLMANAGE
+  is '银行进账单管理';
+comment on column HRBZLS.BANKBILLMANAGE.id
+  is '进帐单编号';
+comment on column HRBZLS.BANKBILLMANAGE.bbdate
+  is '交易日期';
+comment on column HRBZLS.BANKBILLMANAGE.bbtj
+  is '收费途径';
+comment on column HRBZLS.BANKBILLMANAGE.bbje
+  is '进帐金额';
+comment on column HRBZLS.BANKBILLMANAGE.bbbankid
+  is '进帐银行';
+comment on column HRBZLS.BANKBILLMANAGE.bbgdate
+  is '进帐日期';
+comment on column HRBZLS.BANKBILLMANAGE.bbgtype
+  is '进账单类型';
+comment on column HRBZLS.BANKBILLMANAGE.bbmemo
+  is '备注';
+comment on column HRBZLS.BANKBILLMANAGE.bbgflag
+  is '进帐标志';
+comment on column HRBZLS.BANKBILLMANAGE.bbsmfid
+  is '营业所';
+comment on column HRBZLS.BANKBILLMANAGE.bbdatetime
+  is '发生时间';
+comment on column HRBZLS.BANKBILLMANAGE.bboper
+  is '操作员';
+comment on column HRBZLS.BANKBILLMANAGE.bbeditdate
+  is '调整时间';
+comment on column HRBZLS.BANKBILLMANAGE.bbeditje
+  is '调整前金额';
+comment on column HRBZLS.BANKBILLMANAGE.bbeditoper
+  is '调整人';
+comment on column HRBZLS.BANKBILLMANAGE.bbddate
+  is '删除时间';
+comment on column HRBZLS.BANKBILLMANAGE.bbdoper
+  is '删除人';
+comment on column HRBZLS.BANKBILLMANAGE.bbdflag
+  is '删除标志';
+alter table HRBZLS.BANKBILLMANAGE
+  add constraint PK_BANKBILLMANAGE_BBID primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

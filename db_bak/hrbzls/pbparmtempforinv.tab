@@ -1,0 +1,309 @@
+create global temporary table HRBZLS.PBPARMTEMPFORINV
+(
+  c1   VARCHAR2(1000),
+  c2   VARCHAR2(400),
+  c3   VARCHAR2(400),
+  c4   VARCHAR2(400),
+  c5   VARCHAR2(400),
+  c6   VARCHAR2(400),
+  c7   VARCHAR2(400),
+  c8   VARCHAR2(400),
+  c9   VARCHAR2(400),
+  c10  VARCHAR2(400),
+  c11  VARCHAR2(400),
+  c12  VARCHAR2(400),
+  c13  VARCHAR2(400),
+  c14  VARCHAR2(400),
+  c15  VARCHAR2(400),
+  c16  VARCHAR2(400),
+  c17  VARCHAR2(400),
+  c18  VARCHAR2(400),
+  c19  VARCHAR2(400),
+  c20  VARCHAR2(400),
+  c21  VARCHAR2(400),
+  c22  VARCHAR2(400),
+  c23  VARCHAR2(400),
+  c24  VARCHAR2(400),
+  c25  VARCHAR2(400),
+  c26  VARCHAR2(400),
+  c27  VARCHAR2(400),
+  c28  VARCHAR2(400),
+  c29  VARCHAR2(400),
+  c30  VARCHAR2(400),
+  c31  VARCHAR2(400),
+  c32  VARCHAR2(400),
+  c33  VARCHAR2(400),
+  c34  VARCHAR2(400),
+  c35  VARCHAR2(400),
+  c36  VARCHAR2(400),
+  c37  VARCHAR2(400),
+  c38  VARCHAR2(400),
+  c39  VARCHAR2(400),
+  c40  VARCHAR2(400),
+  c41  VARCHAR2(400),
+  c42  VARCHAR2(400),
+  c43  VARCHAR2(400),
+  c44  VARCHAR2(400),
+  c45  VARCHAR2(400),
+  c46  VARCHAR2(400),
+  c47  VARCHAR2(400),
+  c48  VARCHAR2(400),
+  c49  VARCHAR2(400),
+  c50  VARCHAR2(400),
+  c51  VARCHAR2(400),
+  c52  VARCHAR2(400),
+  c53  VARCHAR2(400),
+  c54  VARCHAR2(400),
+  c55  VARCHAR2(400),
+  c56  VARCHAR2(400),
+  c57  VARCHAR2(400),
+  c58  VARCHAR2(400),
+  c59  VARCHAR2(400),
+  c60  VARCHAR2(400),
+  c61  VARCHAR2(400),
+  c62  VARCHAR2(400),
+  c63  VARCHAR2(400),
+  c64  VARCHAR2(400),
+  c65  VARCHAR2(400),
+  c66  VARCHAR2(400),
+  c67  VARCHAR2(400),
+  c68  VARCHAR2(400),
+  c69  VARCHAR2(400),
+  c70  VARCHAR2(400),
+  c71  VARCHAR2(400),
+  c72  VARCHAR2(400),
+  c73  VARCHAR2(400),
+  c74  VARCHAR2(400),
+  c75  VARCHAR2(400),
+  c76  VARCHAR2(400),
+  c77  VARCHAR2(400),
+  c78  VARCHAR2(400),
+  c79  VARCHAR2(400),
+  c80  VARCHAR2(400),
+  c81  VARCHAR2(400),
+  c82  VARCHAR2(400),
+  c83  VARCHAR2(400),
+  c84  VARCHAR2(400),
+  c85  VARCHAR2(400),
+  c86  VARCHAR2(400),
+  c87  VARCHAR2(400),
+  c88  VARCHAR2(400),
+  c89  VARCHAR2(400),
+  c90  VARCHAR2(400),
+  c91  VARCHAR2(400),
+  c92  VARCHAR2(400),
+  c93  VARCHAR2(400),
+  c94  VARCHAR2(400),
+  c95  VARCHAR2(400),
+  c96  VARCHAR2(400),
+  c97  VARCHAR2(400),
+  c98  VARCHAR2(400),
+  c99  VARCHAR2(400),
+  c100 VARCHAR2(400)
+)
+on commit delete rows;
+comment on table HRBZLS.PBPARMTEMPFORINV
+  is 'PB²ÎÊý´«µÝÁÙÊ±±í';
+comment on column HRBZLS.PBPARMTEMPFORINV.c1
+  is '×Ö·û´®1';
+comment on column HRBZLS.PBPARMTEMPFORINV.c2
+  is '×Ö·û´®2';
+comment on column HRBZLS.PBPARMTEMPFORINV.c3
+  is '×Ö·û´®3';
+comment on column HRBZLS.PBPARMTEMPFORINV.c4
+  is '×Ö·û´®4';
+comment on column HRBZLS.PBPARMTEMPFORINV.c5
+  is '×Ö·û´®5';
+comment on column HRBZLS.PBPARMTEMPFORINV.c6
+  is '×Ö·û´®6';
+comment on column HRBZLS.PBPARMTEMPFORINV.c7
+  is '×Ö·û´®7';
+comment on column HRBZLS.PBPARMTEMPFORINV.c8
+  is '×Ö·û´®8';
+comment on column HRBZLS.PBPARMTEMPFORINV.c9
+  is '×Ö·û´®9';
+comment on column HRBZLS.PBPARMTEMPFORINV.c10
+  is '×Ö·û´®10';
+comment on column HRBZLS.PBPARMTEMPFORINV.c11
+  is '×Ö·û´®11';
+comment on column HRBZLS.PBPARMTEMPFORINV.c12
+  is '×Ö·û´®12';
+comment on column HRBZLS.PBPARMTEMPFORINV.c13
+  is '×Ö·û´®13';
+comment on column HRBZLS.PBPARMTEMPFORINV.c14
+  is '×Ö·û´®14';
+comment on column HRBZLS.PBPARMTEMPFORINV.c15
+  is '×Ö·û´®15';
+comment on column HRBZLS.PBPARMTEMPFORINV.c16
+  is '×Ö·û´®16';
+comment on column HRBZLS.PBPARMTEMPFORINV.c17
+  is '×Ö·û´®17';
+comment on column HRBZLS.PBPARMTEMPFORINV.c18
+  is '×Ö·û´®18';
+comment on column HRBZLS.PBPARMTEMPFORINV.c19
+  is '×Ö·û´®19';
+comment on column HRBZLS.PBPARMTEMPFORINV.c20
+  is '×Ö·û´®20';
+comment on column HRBZLS.PBPARMTEMPFORINV.c21
+  is '×Ö·û´®21';
+comment on column HRBZLS.PBPARMTEMPFORINV.c22
+  is '×Ö·û´®22';
+comment on column HRBZLS.PBPARMTEMPFORINV.c23
+  is '×Ö·û´®23';
+comment on column HRBZLS.PBPARMTEMPFORINV.c24
+  is '×Ö·û´®24';
+comment on column HRBZLS.PBPARMTEMPFORINV.c25
+  is '×Ö·û´®25';
+comment on column HRBZLS.PBPARMTEMPFORINV.c26
+  is '×Ö·û´®26';
+comment on column HRBZLS.PBPARMTEMPFORINV.c27
+  is '×Ö·û´®27';
+comment on column HRBZLS.PBPARMTEMPFORINV.c28
+  is '×Ö·û´®28';
+comment on column HRBZLS.PBPARMTEMPFORINV.c29
+  is '×Ö·û´®29';
+comment on column HRBZLS.PBPARMTEMPFORINV.c30
+  is '×Ö·û´®30';
+comment on column HRBZLS.PBPARMTEMPFORINV.c31
+  is '×Ö·û´®31';
+comment on column HRBZLS.PBPARMTEMPFORINV.c32
+  is '×Ö·û´®32';
+comment on column HRBZLS.PBPARMTEMPFORINV.c33
+  is '×Ö·û´®33';
+comment on column HRBZLS.PBPARMTEMPFORINV.c34
+  is '×Ö·û´®34';
+comment on column HRBZLS.PBPARMTEMPFORINV.c35
+  is '×Ö·û´®35';
+comment on column HRBZLS.PBPARMTEMPFORINV.c36
+  is '×Ö·û´®36';
+comment on column HRBZLS.PBPARMTEMPFORINV.c37
+  is '×Ö·û´®37';
+comment on column HRBZLS.PBPARMTEMPFORINV.c38
+  is '×Ö·û´®38';
+comment on column HRBZLS.PBPARMTEMPFORINV.c39
+  is '×Ö·û´®39';
+comment on column HRBZLS.PBPARMTEMPFORINV.c40
+  is '×Ö·û´®40';
+comment on column HRBZLS.PBPARMTEMPFORINV.c41
+  is '×Ö·û´®41';
+comment on column HRBZLS.PBPARMTEMPFORINV.c42
+  is '×Ö·û´®42';
+comment on column HRBZLS.PBPARMTEMPFORINV.c43
+  is '×Ö·û´®43';
+comment on column HRBZLS.PBPARMTEMPFORINV.c44
+  is '×Ö·û´®44';
+comment on column HRBZLS.PBPARMTEMPFORINV.c45
+  is '×Ö·û´®45';
+comment on column HRBZLS.PBPARMTEMPFORINV.c46
+  is '×Ö·û´®46';
+comment on column HRBZLS.PBPARMTEMPFORINV.c47
+  is '×Ö·û´®47';
+comment on column HRBZLS.PBPARMTEMPFORINV.c48
+  is '×Ö·û´®48';
+comment on column HRBZLS.PBPARMTEMPFORINV.c49
+  is '×Ö·û´®49';
+comment on column HRBZLS.PBPARMTEMPFORINV.c50
+  is '×Ö·û´®50';
+comment on column HRBZLS.PBPARMTEMPFORINV.c51
+  is '×Ö·û´®51';
+comment on column HRBZLS.PBPARMTEMPFORINV.c52
+  is '×Ö·û´®52';
+comment on column HRBZLS.PBPARMTEMPFORINV.c53
+  is '×Ö·û´®53';
+comment on column HRBZLS.PBPARMTEMPFORINV.c54
+  is '×Ö·û´®54';
+comment on column HRBZLS.PBPARMTEMPFORINV.c55
+  is '×Ö·û´®55';
+comment on column HRBZLS.PBPARMTEMPFORINV.c56
+  is '×Ö·û´®56';
+comment on column HRBZLS.PBPARMTEMPFORINV.c57
+  is '×Ö·û´®57';
+comment on column HRBZLS.PBPARMTEMPFORINV.c58
+  is '×Ö·û´®58';
+comment on column HRBZLS.PBPARMTEMPFORINV.c59
+  is '×Ö·û´®59';
+comment on column HRBZLS.PBPARMTEMPFORINV.c60
+  is '×Ö·û´®60';
+comment on column HRBZLS.PBPARMTEMPFORINV.c61
+  is '×Ö·û´®61';
+comment on column HRBZLS.PBPARMTEMPFORINV.c62
+  is '×Ö·û´®62';
+comment on column HRBZLS.PBPARMTEMPFORINV.c63
+  is '×Ö·û´®63';
+comment on column HRBZLS.PBPARMTEMPFORINV.c64
+  is '×Ö·û´®64';
+comment on column HRBZLS.PBPARMTEMPFORINV.c65
+  is '×Ö·û´®65';
+comment on column HRBZLS.PBPARMTEMPFORINV.c66
+  is '×Ö·û´®66';
+comment on column HRBZLS.PBPARMTEMPFORINV.c67
+  is '×Ö·û´®67';
+comment on column HRBZLS.PBPARMTEMPFORINV.c68
+  is '×Ö·û´®68';
+comment on column HRBZLS.PBPARMTEMPFORINV.c69
+  is '×Ö·û´®69';
+comment on column HRBZLS.PBPARMTEMPFORINV.c70
+  is '×Ö·û´®70';
+comment on column HRBZLS.PBPARMTEMPFORINV.c71
+  is '×Ö·û´®71';
+comment on column HRBZLS.PBPARMTEMPFORINV.c72
+  is '×Ö·û´®72';
+comment on column HRBZLS.PBPARMTEMPFORINV.c73
+  is '×Ö·û´®73';
+comment on column HRBZLS.PBPARMTEMPFORINV.c74
+  is '×Ö·û´®74';
+comment on column HRBZLS.PBPARMTEMPFORINV.c75
+  is '×Ö·û´®75';
+comment on column HRBZLS.PBPARMTEMPFORINV.c76
+  is '×Ö·û´®76';
+comment on column HRBZLS.PBPARMTEMPFORINV.c77
+  is '×Ö·û´®77';
+comment on column HRBZLS.PBPARMTEMPFORINV.c78
+  is '×Ö·û´®78';
+comment on column HRBZLS.PBPARMTEMPFORINV.c79
+  is '×Ö·û´®79';
+comment on column HRBZLS.PBPARMTEMPFORINV.c80
+  is '×Ö·û´®80';
+comment on column HRBZLS.PBPARMTEMPFORINV.c81
+  is '×Ö·û´®81';
+comment on column HRBZLS.PBPARMTEMPFORINV.c82
+  is '×Ö·û´®82';
+comment on column HRBZLS.PBPARMTEMPFORINV.c83
+  is '×Ö·û´®83';
+comment on column HRBZLS.PBPARMTEMPFORINV.c84
+  is '×Ö·û´®84';
+comment on column HRBZLS.PBPARMTEMPFORINV.c85
+  is '×Ö·û´®85';
+comment on column HRBZLS.PBPARMTEMPFORINV.c86
+  is '×Ö·û´®86';
+comment on column HRBZLS.PBPARMTEMPFORINV.c87
+  is '×Ö·û´®87';
+comment on column HRBZLS.PBPARMTEMPFORINV.c88
+  is '×Ö·û´®88';
+comment on column HRBZLS.PBPARMTEMPFORINV.c89
+  is '×Ö·û´®89';
+comment on column HRBZLS.PBPARMTEMPFORINV.c90
+  is '×Ö·û´®90';
+comment on column HRBZLS.PBPARMTEMPFORINV.c91
+  is '×Ö·û´®91';
+comment on column HRBZLS.PBPARMTEMPFORINV.c92
+  is '×Ö·û´®92';
+comment on column HRBZLS.PBPARMTEMPFORINV.c93
+  is '×Ö·û´®93';
+comment on column HRBZLS.PBPARMTEMPFORINV.c94
+  is '×Ö·û´®94';
+comment on column HRBZLS.PBPARMTEMPFORINV.c95
+  is '×Ö·û´®95';
+comment on column HRBZLS.PBPARMTEMPFORINV.c96
+  is '×Ö·û´®96';
+comment on column HRBZLS.PBPARMTEMPFORINV.c97
+  is '×Ö·û´®97';
+comment on column HRBZLS.PBPARMTEMPFORINV.c98
+  is '×Ö·û´®98';
+comment on column HRBZLS.PBPARMTEMPFORINV.c99
+  is '×Ö·û´®99';
+comment on column HRBZLS.PBPARMTEMPFORINV.c100
+  is '×Ö·û´®100';
+create index HRBZLS.IDX_PBPARMTEMPFORINV_C1 on HRBZLS.PBPARMTEMPFORINV (C1);
+create index HRBZLS.IDX_PBPARMTEMPFORINV_C2 on HRBZLS.PBPARMTEMPFORINV (C2);
+

@@ -1,0 +1,31 @@
+create table HRBZLS.PRINT_CONFIG
+(
+  id     VARCHAR2(10) not null,
+  name   VARCHAR2(100) not null,
+  config VARCHAR2(300),
+  cname  VARCHAR2(40)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.PRINT_CONFIG_X on HRBZLS.PRINT_CONFIG (NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

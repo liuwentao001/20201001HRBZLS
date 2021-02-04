@@ -1,0 +1,23 @@
+create table HRBZLS.PAY_EINV_JOB_LOG0106
+(
+  jobid    VARCHAR2(50),
+  pbatch   VARCHAR2(20),
+  pflag    VARCHAR2(2),
+  pstime   DATE,
+  petime   DATE,
+  perrid   VARCHAR2(2),
+  perrtext VARCHAR2(400),
+  ptop     NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

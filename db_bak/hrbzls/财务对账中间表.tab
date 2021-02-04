@@ -1,0 +1,86 @@
+create table HRBZLS.财务对账中间表
+(
+  pchkdate     DATE not null,
+  pposition    VARCHAR2(10) not null,
+  mismfid      VARCHAR2(10) not null,
+  qc           NUMBER(12,2),
+  fs           NUMBER(12,2),
+  qm           NUMBER(12,2),
+  pay          NUMBER(12,2),
+  znj          NUMBER(12,2),
+  sf           NUMBER(12,2),
+  fjf          NUMBER(12,2),
+  ws           NUMBER(12,2),
+  sxf          NUMBER(12,2),
+  preverseflag VARCHAR2(1) not null,
+  js           NUMBER,
+  pchkno       VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.财务对账中间表.pchkdate
+  is '扎帐日期';
+comment on column HRBZLS.财务对账中间表.pposition
+  is '缴费机构';
+comment on column HRBZLS.财务对账中间表.mismfid
+  is '营业所';
+comment on column HRBZLS.财务对账中间表.qc
+  is '期初预存';
+comment on column HRBZLS.财务对账中间表.fs
+  is '本期发生';
+comment on column HRBZLS.财务对账中间表.qm
+  is '期末预存';
+comment on column HRBZLS.财务对账中间表.pay
+  is '付款金额 ';
+comment on column HRBZLS.财务对账中间表.znj
+  is '违约金';
+comment on column HRBZLS.财务对账中间表.sf
+  is '水费';
+comment on column HRBZLS.财务对账中间表.fjf
+  is '附加费';
+comment on column HRBZLS.财务对账中间表.ws
+  is '污水费';
+comment on column HRBZLS.财务对账中间表.sxf
+  is '手续费';
+comment on column HRBZLS.财务对账中间表.preverseflag
+  is '冲正标志';
+comment on column HRBZLS.财务对账中间表.js
+  is '件数';
+comment on column HRBZLS.财务对账中间表.pchkno
+  is '扎帐单号';
+create index HRBZLS.PRI_财务中间表查询 on HRBZLS.财务对账中间表 (PPOSITION, PREVERSEFLAG, PCHKDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.财务对账中间表
+  add constraint PRI_财务中间表 primary key (PCHKDATE, PPOSITION, PREVERSEFLAG, MISMFID, PCHKNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

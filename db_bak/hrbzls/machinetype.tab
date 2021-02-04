@@ -1,0 +1,85 @@
+create table HRBZLS.MACHINETYPE
+(
+  mtid           CHAR(2) not null,
+  mtname         VARCHAR2(20),
+  mtdatafilename VARCHAR2(60),
+  mtspacelimit   NUMBER,
+  mtbaud         NUMBER,
+  mtport         NUMBER,
+  mtmemo         VARCHAR2(60),
+  mtstatus       CHAR(1),
+  mtfiletype     VARCHAR2(10),
+  mtlseparator   CHAR(1),
+  mthlseparator  CHAR(1),
+  mtblseparator  CHAR(1),
+  mtdesiid       CHAR(1),
+  mtprograme     BLOB,
+  mtprogramename VARCHAR2(20),
+  mtdbffile      BLOB,
+  mtcomobject    VARCHAR2(60),
+  mtmiffile      BLOB
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MACHINETYPE
+  is '系统支持抄表机类型【MT】';
+comment on column HRBZLS.MACHINETYPE.mtid
+  is '型号ID';
+comment on column HRBZLS.MACHINETYPE.mtname
+  is '名称';
+comment on column HRBZLS.MACHINETYPE.mtdatafilename
+  is '抄表机数据文件名';
+comment on column HRBZLS.MACHINETYPE.mtspacelimit
+  is '数据空间限制';
+comment on column HRBZLS.MACHINETYPE.mtbaud
+  is '波特率';
+comment on column HRBZLS.MACHINETYPE.mtport
+  is '通讯口';
+comment on column HRBZLS.MACHINETYPE.mtmemo
+  is '描述';
+comment on column HRBZLS.MACHINETYPE.mtstatus
+  is '启用状态';
+comment on column HRBZLS.MACHINETYPE.mtfiletype
+  is '接口文件类型';
+comment on column HRBZLS.MACHINETYPE.mtlseparator
+  is '分隔符';
+comment on column HRBZLS.MACHINETYPE.mthlseparator
+  is '分隔符开头';
+comment on column HRBZLS.MACHINETYPE.mtblseparator
+  is '分隔符结尾';
+comment on column HRBZLS.MACHINETYPE.mtdesiid
+  is '接口文件定义编号';
+comment on column HRBZLS.MACHINETYPE.mtprograme
+  is '抄表程序';
+comment on column HRBZLS.MACHINETYPE.mtprogramename
+  is '抄表程序文件名';
+comment on column HRBZLS.MACHINETYPE.mtdbffile
+  is 'dbf文件样本';
+comment on column HRBZLS.MACHINETYPE.mtcomobject
+  is '通讯控件';
+comment on column HRBZLS.MACHINETYPE.mtmiffile
+  is 'mif文件';
+alter table HRBZLS.MACHINETYPE
+  add constraint PK_MACHINETYPE primary key (MTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

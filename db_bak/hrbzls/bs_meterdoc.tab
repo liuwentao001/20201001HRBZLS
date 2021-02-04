@@ -1,0 +1,134 @@
+create table HRBZLS.BS_METERDOC
+(
+  id             VARCHAR2(10) not null,
+  mdid           VARCHAR2(10),
+  mdno           VARCHAR2(40),
+  mdcaliber      NUMBER(10),
+  mdbrand        VARCHAR2(30),
+  mdmodel        VARCHAR2(2),
+  mdstatus       VARCHAR2(2),
+  mdstatusdate   DATE,
+  mdcycchkdate   DATE,
+  mdstockdate    DATE,
+  mdstore        VARCHAR2(10),
+  sfh            VARCHAR2(40),
+  dqsfh          VARCHAR2(40),
+  dqgfh          VARCHAR2(40),
+  jcgfh          VARCHAR2(40),
+  qfh            VARCHAR2(40),
+  mdfq1          VARCHAR2(40),
+  mdfq2          VARCHAR2(40),
+  mdfq3          VARCHAR2(40),
+  mdfq4          VARCHAR2(40),
+  mdfq5          VARCHAR2(40),
+  barcode        VARCHAR2(20),
+  rfid           VARCHAR2(20),
+  ifdzsb         VARCHAR2(2),
+  concentratorid VARCHAR2(50),
+  readmetercode  VARCHAR2(50),
+  transferstype  VARCHAR2(50),
+  collenttype    VARCHAR2(20),
+  iscontrol      VARCHAR2(20),
+  readtype       VARCHAR2(20),
+  rkbatch        VARCHAR2(20),
+  rkdno          VARCHAR2(20),
+  storeroomid    VARCHAR2(10),
+  rkman          VARCHAR2(20),
+  mainman        VARCHAR2(20),
+  maindate       DATE,
+  sjdate         DATE,
+  mdmode         VARCHAR2(50),
+  portno         VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 288M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BS_METERDOC
+  is '水表档案';
+comment on column HRBZLS.BS_METERDOC.id
+  is '序列号';
+comment on column HRBZLS.BS_METERDOC.mdid
+  is '水表档案编号(户号，入库时为空)';
+comment on column HRBZLS.BS_METERDOC.mdno
+  is '表身码';
+comment on column HRBZLS.BS_METERDOC.mdcaliber
+  is '表口径(METERCALIBER)';
+comment on column HRBZLS.BS_METERDOC.mdbrand
+  is '表厂家(meterbrand)';
+comment on column HRBZLS.BS_METERDOC.mdmodel
+  is '计量方式';
+comment on column HRBZLS.BS_METERDOC.mdstatus
+  is '表状态（0=未使用，1=已使用，2=作废）';
+comment on column HRBZLS.BS_METERDOC.mdstatusdate
+  is '表状态发生时间';
+comment on column HRBZLS.BS_METERDOC.mdcycchkdate
+  is '周检起算日';
+comment on column HRBZLS.BS_METERDOC.mdstockdate
+  is '新购入库日期';
+comment on column HRBZLS.BS_METERDOC.mdstore
+  is '库存位置';
+comment on column HRBZLS.BS_METERDOC.sfh
+  is '首封号';
+comment on column HRBZLS.BS_METERDOC.dqsfh
+  is '塑封号';
+comment on column HRBZLS.BS_METERDOC.dqgfh
+  is '钢封号';
+comment on column HRBZLS.BS_METERDOC.jcgfh
+  is '稽查刚封号';
+comment on column HRBZLS.BS_METERDOC.qfh
+  is '铅封号';
+comment on column HRBZLS.BS_METERDOC.mdfq1
+  is '备用封号1';
+comment on column HRBZLS.BS_METERDOC.mdfq2
+  is '备用封号2';
+comment on column HRBZLS.BS_METERDOC.mdfq3
+  is '备用封号3';
+comment on column HRBZLS.BS_METERDOC.mdfq4
+  is '备用封号4';
+comment on column HRBZLS.BS_METERDOC.mdfq5
+  is '备用封号5';
+comment on column HRBZLS.BS_METERDOC.barcode
+  is '条形码';
+comment on column HRBZLS.BS_METERDOC.rfid
+  is '电子标签';
+comment on column HRBZLS.BS_METERDOC.ifdzsb
+  is '是否倒表（倒表=Y 正常表=''N''）';
+comment on column HRBZLS.BS_METERDOC.concentratorid
+  is '集中器ID';
+comment on column HRBZLS.BS_METERDOC.readmetercode
+  is '抄表序号';
+comment on column HRBZLS.BS_METERDOC.transferstype
+  is '传输类型';
+comment on column HRBZLS.BS_METERDOC.collenttype
+  is '采集类型(弃用字段)';
+comment on column HRBZLS.BS_METERDOC.iscontrol
+  is '阀控否';
+comment on column HRBZLS.BS_METERDOC.readtype
+  is '读数方式';
+comment on column HRBZLS.BS_METERDOC.rkbatch
+  is '入库批次';
+comment on column HRBZLS.BS_METERDOC.rkdno
+  is '入库单号';
+comment on column HRBZLS.BS_METERDOC.storeroomid
+  is '库房编号';
+comment on column HRBZLS.BS_METERDOC.rkman
+  is '入库人员';
+comment on column HRBZLS.BS_METERDOC.mainman
+  is '维护人员';
+comment on column HRBZLS.BS_METERDOC.maindate
+  is '维护时间';
+comment on column HRBZLS.BS_METERDOC.sjdate
+  is '首检日期';
+comment on column HRBZLS.BS_METERDOC.mdmode
+  is '基电转换方式';
+comment on column HRBZLS.BS_METERDOC.portno
+  is '上传端口号';
+

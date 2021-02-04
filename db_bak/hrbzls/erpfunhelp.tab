@@ -1,0 +1,19 @@
+create table HRBZLS.ERPFUNHELP
+(
+  ehefid     VARCHAR2(10) not null,
+  ehblobfile BLOB
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ERPFUNHELP
+  is '功能演示文档[EH]';
+alter table HRBZLS.ERPFUNHELP
+  add constraint PK_ERPFUNHELP primary key (EHEFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

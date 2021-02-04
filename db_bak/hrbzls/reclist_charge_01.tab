@@ -1,0 +1,221 @@
+create table HRBZLS.RECLIST_CHARGE_01
+(
+  rdid        VARCHAR2(10) not null,
+  meterno     VARCHAR2(10),
+  rdmonth     VARCHAR2(7),
+  rdpaidmonth VARCHAR2(7),
+  rdpfid      VARCHAR2(10) not null,
+  rdmsmfid    VARCHAR2(10),
+  wateruse    NUMBER,
+  user_dj1    NUMBER,
+  user_dj2    NUMBER,
+  user_dj3    NUMBER,
+  use_r1      NUMBER,
+  use_r2      NUMBER,
+  use_r3      NUMBER,
+  chargetotal NUMBER,
+  chargeznj   NUMBER,
+  dj1         NUMBER,
+  dj2         NUMBER not null,
+  dj3         NUMBER,
+  dj4         NUMBER,
+  dj5         NUMBER,
+  dj6         NUMBER,
+  dj7         NUMBER,
+  dj8         NUMBER,
+  dj9         NUMBER,
+  charge1     NUMBER,
+  charge2     NUMBER,
+  charge3     NUMBER,
+  charge4     NUMBER,
+  charge5     NUMBER,
+  charge6     NUMBER,
+  charge7     NUMBER,
+  charge8     NUMBER,
+  charge9     NUMBER,
+  charge10    NUMBER,
+  charge11    NUMBER,
+  charge12    NUMBER,
+  charge13    NUMBER,
+  charge_r1   NUMBER,
+  charge_r2   NUMBER,
+  charge_r3   NUMBER,
+  c_charge    NUMBER,
+  memo1       VARCHAR2(100),
+  memo2       VARCHAR2(100),
+  memo3       NUMBER,
+  memo4       NUMBER,
+  memo5       DATE,
+  memo6       DATE,
+  rdsl02      NUMBER,
+  rdsl03      NUMBER,
+  rdsl04      NUMBER,
+  rdsl05      NUMBER,
+  rdsl06      NUMBER,
+  rdsl07      NUMBER,
+  rdsl08      NUMBER,
+  rdsl09      NUMBER,
+  dj          NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.RECLIST_CHARGE_01.rdid
+  is '流水号';
+comment on column HRBZLS.RECLIST_CHARGE_01.meterno
+  is '水表编号';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdmonth
+  is '帐务月份';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdpaidmonth
+  is '销帐月份';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdpfid
+  is '费率';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdmsmfid
+  is '营销公司';
+comment on column HRBZLS.RECLIST_CHARGE_01.wateruse
+  is '总水量';
+comment on column HRBZLS.RECLIST_CHARGE_01.user_dj1
+  is '阶梯1单价';
+comment on column HRBZLS.RECLIST_CHARGE_01.user_dj2
+  is '阶梯2单价';
+comment on column HRBZLS.RECLIST_CHARGE_01.user_dj3
+  is '阶梯3单价';
+comment on column HRBZLS.RECLIST_CHARGE_01.use_r1
+  is '阶梯1水量';
+comment on column HRBZLS.RECLIST_CHARGE_01.use_r2
+  is '阶梯2水量';
+comment on column HRBZLS.RECLIST_CHARGE_01.use_r3
+  is '阶梯3水量';
+comment on column HRBZLS.RECLIST_CHARGE_01.chargetotal
+  is '总金额';
+comment on column HRBZLS.RECLIST_CHARGE_01.chargeznj
+  is '滞纳金';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj1
+  is '单价1';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj2
+  is '单价2';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj3
+  is '单价3';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj4
+  is '单价4';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj5
+  is '单价5';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj6
+  is '单价6';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj7
+  is '单价7';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj8
+  is '单价8';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj9
+  is '单价9';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge1
+  is '水费';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge2
+  is '代收费1';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge3
+  is '代收费2';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge4
+  is '代收费3';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge5
+  is '代收费4';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge6
+  is '代收费5';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge7
+  is '代收费6';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge8
+  is '代收费7';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge9
+  is '代收费8';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge10
+  is '代收费9';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge11
+  is '代收费10';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge12
+  is '代收费11';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge13
+  is '代收费12';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge_r1
+  is '阶梯1金额';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge_r2
+  is '阶梯2金额';
+comment on column HRBZLS.RECLIST_CHARGE_01.charge_r3
+  is '阶梯3金额';
+comment on column HRBZLS.RECLIST_CHARGE_01.c_charge
+  is '笔数';
+comment on column HRBZLS.RECLIST_CHARGE_01.memo1
+  is '备用字段1';
+comment on column HRBZLS.RECLIST_CHARGE_01.memo2
+  is '备用字段2';
+comment on column HRBZLS.RECLIST_CHARGE_01.memo3
+  is '备用字段3';
+comment on column HRBZLS.RECLIST_CHARGE_01.memo4
+  is '备用字段4';
+comment on column HRBZLS.RECLIST_CHARGE_01.memo5
+  is '备用字段5';
+comment on column HRBZLS.RECLIST_CHARGE_01.memo6
+  is '备用字段6';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl02
+  is '代收水量02';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl03
+  is '代收水量03';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl04
+  is '代收水量04';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl05
+  is '代收水量05';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl06
+  is '代收水量06';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl07
+  is '代收水量07';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl08
+  is '代收水量08';
+comment on column HRBZLS.RECLIST_CHARGE_01.rdsl09
+  is '代收水量09';
+comment on column HRBZLS.RECLIST_CHARGE_01.dj
+  is '综合单价';
+create index HRBZLS.IDX_RDID1 on HRBZLS.RECLIST_CHARGE_01 (RDID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_RDMONTH on HRBZLS.RECLIST_CHARGE_01 (RDMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.RECLIST_CHARGE_01
+  add constraint PK_RDID primary key (RDID, RDPFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,484 @@
+create table HRBZLS.METERREADHIS
+(
+  mrid            VARCHAR2(10) not null,
+  mrmonth         VARCHAR2(7),
+  mrsmfid         VARCHAR2(10),
+  mrbfid          VARCHAR2(10),
+  mrbatch         NUMBER(20),
+  mrday           DATE,
+  mrrorder        NUMBER(10),
+  mrcid           VARCHAR2(10),
+  mrccode         VARCHAR2(10),
+  mrmid           VARCHAR2(10),
+  mrmcode         VARCHAR2(10),
+  mrstid          VARCHAR2(10),
+  mrmpid          VARCHAR2(10),
+  mrmclass        NUMBER,
+  mrmflag         CHAR(1),
+  mrcreadate      DATE,
+  mrinputdate     DATE,
+  mrreadok        CHAR(1),
+  mrrdate         DATE,
+  mrrper          VARCHAR2(15),
+  mrprdate        DATE,
+  mrscode         NUMBER(10),
+  mrecode         NUMBER(10),
+  mrsl            NUMBER(10),
+  mrface          VARCHAR2(2),
+  mrifsubmit      CHAR(1),
+  mrifhalt        CHAR(1),
+  mrdatasource    CHAR(1),
+  mrifignoreminsl CHAR(1),
+  mrpdardate      DATE,
+  mroutflag       CHAR(1),
+  mroutid         VARCHAR2(10),
+  mroutdate       DATE,
+  mrinorder       NUMBER(4),
+  mrindate        DATE,
+  mrrpid          VARCHAR2(3),
+  mrmemo          VARCHAR2(120),
+  mrifgu          CHAR(1),
+  mrifrec         CHAR(1),
+  mrrecdate       DATE,
+  mrrecsl         NUMBER(10),
+  mraddsl         NUMBER(10),
+  mrcarrysl       NUMBER(10),
+  mrctrl1         VARCHAR2(10),
+  mrctrl2         VARCHAR2(10),
+  mrctrl3         VARCHAR2(10),
+  mrctrl4         VARCHAR2(10),
+  mrctrl5         VARCHAR2(10),
+  mrchkflag       CHAR(1),
+  mrchkdate       DATE,
+  mrchkper        VARCHAR2(10),
+  mrchkscode      NUMBER(10),
+  mrchkecode      NUMBER(10),
+  mrchksl         NUMBER(10),
+  mrchkaddsl      NUMBER(10),
+  mrchkcarrysl    NUMBER(10),
+  mrchkrdate      DATE,
+  mrchkface       VARCHAR2(2),
+  mrchkresult     VARCHAR2(100),
+  mrchkresultmemo VARCHAR2(100),
+  mrprimid        VARCHAR2(200),
+  mrprimflag      CHAR(1),
+  mrlb            CHAR(1),
+  mrnewflag       CHAR(1),
+  mrface2         VARCHAR2(2),
+  mrface3         VARCHAR2(2),
+  mrface4         VARCHAR2(2),
+  mrscodechar     VARCHAR2(10),
+  mrecodechar     VARCHAR2(10),
+  mrprivilegeflag VARCHAR2(1),
+  mrprivilegeper  VARCHAR2(10),
+  mrprivilegememo VARCHAR2(200),
+  mrprivilegedate DATE,
+  mrsafid         VARCHAR2(10),
+  mriftrans       VARCHAR2(5),
+  mrrequisition   NUMBER(2),
+  mrifchk         CHAR(1),
+  mrinputper      VARCHAR2(10),
+  mrpfid          VARCHAR2(10),
+  mrcaliber       NUMBER(10),
+  mrside          VARCHAR2(100),
+  mrlastsl        NUMBER(10),
+  mrthreesl       NUMBER(10),
+  mryearsl        NUMBER(10),
+  mrrecje01       NUMBER(13,3),
+  mrrecje02       NUMBER(13,3),
+  mrrecje03       NUMBER(13,3),
+  mrrecje04       NUMBER(13,3),
+  mrmtype         VARCHAR2(2),
+  mrnullcont      NUMBER(10),
+  mrnulltotal     NUMBER(10),
+  mrplansl        NUMBER(18,8),
+  mrplanje01      NUMBER(18,8),
+  mrplanje02      NUMBER(18,8),
+  mrplanje03      NUMBER(18,8),
+  mrlastje01      NUMBER(13,3),
+  mrthreeje01     NUMBER(13,3),
+  mryearje01      NUMBER(13,3),
+  mrlastje02      NUMBER(13,3),
+  mrthreeje02     NUMBER(13,3),
+  mryearje02      NUMBER(13,3),
+  mrlastje03      NUMBER(13,3),
+  mrthreeje03     NUMBER(13,3),
+  mryearje03      NUMBER(13,3),
+  mrlastyearsl    NUMBER(10),
+  mrlastyearje01  NUMBER(13,3),
+  mrlastyearje02  NUMBER(13,3),
+  mrlastyearje03  NUMBER(13,3),
+  mrbfsdate       DATE,
+  mrbfedate       DATE,
+  mrbfday         NUMBER(10),
+  mrifmch         CHAR(1),
+  mrifzbsm        CHAR(1),
+  mrifyscz        CHAR(1),
+  mrdzsl          NUMBER(10),
+  mrdzflag        CHAR(1),
+  mrdzsyscode     NUMBER(10),
+  mrdzcurcode     NUMBER(10),
+  mrdztgl         NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERREADHIS
+  is '抄表历史库【MRH】';
+comment on column HRBZLS.METERREADHIS.mrid
+  is '流水号';
+comment on column HRBZLS.METERREADHIS.mrmonth
+  is '抄表月份';
+comment on column HRBZLS.METERREADHIS.mrsmfid
+  is '营销公司';
+comment on column HRBZLS.METERREADHIS.mrbfid
+  is '表册';
+comment on column HRBZLS.METERREADHIS.mrbatch
+  is '抄表批次';
+comment on column HRBZLS.METERREADHIS.mrday
+  is '计划抄表日';
+comment on column HRBZLS.METERREADHIS.mrrorder
+  is '抄表次序';
+comment on column HRBZLS.METERREADHIS.mrcid
+  is '用户编号';
+comment on column HRBZLS.METERREADHIS.mrccode
+  is '用户号';
+comment on column HRBZLS.METERREADHIS.mrmid
+  is '水表编号';
+comment on column HRBZLS.METERREADHIS.mrmcode
+  is '水表手工编号';
+comment on column HRBZLS.METERREADHIS.mrstid
+  is '行业分类';
+comment on column HRBZLS.METERREADHIS.mrmpid
+  is '上级水表';
+comment on column HRBZLS.METERREADHIS.mrmclass
+  is '水表级次';
+comment on column HRBZLS.METERREADHIS.mrmflag
+  is '末级标志';
+comment on column HRBZLS.METERREADHIS.mrcreadate
+  is '创建日期';
+comment on column HRBZLS.METERREADHIS.mrinputdate
+  is '编辑日期';
+comment on column HRBZLS.METERREADHIS.mrreadok
+  is '抄见标志';
+comment on column HRBZLS.METERREADHIS.mrrdate
+  is '抄表日期';
+comment on column HRBZLS.METERREADHIS.mrrper
+  is '抄表员';
+comment on column HRBZLS.METERREADHIS.mrprdate
+  is '上次抄见日期';
+comment on column HRBZLS.METERREADHIS.mrscode
+  is '上期抄见';
+comment on column HRBZLS.METERREADHIS.mrecode
+  is '本期抄见';
+comment on column HRBZLS.METERREADHIS.mrsl
+  is '本期水量';
+comment on column HRBZLS.METERREADHIS.mrface
+  is '水表故障';
+comment on column HRBZLS.METERREADHIS.mrifsubmit
+  is '是否提交计费';
+comment on column HRBZLS.METERREADHIS.mrifhalt
+  is '系统停算';
+comment on column HRBZLS.METERREADHIS.mrdatasource
+  is '抄表结果来源(1-手工,5-抄表器,9-手机抄表,K-故障换表,L-周期换表,Z-追量 I-智能表接口)';
+comment on column HRBZLS.METERREADHIS.mrifignoreminsl
+  is '停算最低抄量';
+comment on column HRBZLS.METERREADHIS.mrpdardate
+  is '抄表机抄表时间';
+comment on column HRBZLS.METERREADHIS.mroutflag
+  is '发出到抄表机标志';
+comment on column HRBZLS.METERREADHIS.mroutid
+  is '发出到抄表机流水号';
+comment on column HRBZLS.METERREADHIS.mroutdate
+  is '发出到抄表机日期';
+comment on column HRBZLS.METERREADHIS.mrinorder
+  is '抄表机接收次序';
+comment on column HRBZLS.METERREADHIS.mrindate
+  is '抄表机接受日期';
+comment on column HRBZLS.METERREADHIS.mrrpid
+  is '计件类型';
+comment on column HRBZLS.METERREADHIS.mrmemo
+  is '抄表备注';
+comment on column HRBZLS.METERREADHIS.mrifgu
+  is '估表标志';
+comment on column HRBZLS.METERREADHIS.mrifrec
+  is '已计费';
+comment on column HRBZLS.METERREADHIS.mrrecdate
+  is '计费日期';
+comment on column HRBZLS.METERREADHIS.mrrecsl
+  is '应收水量';
+comment on column HRBZLS.METERREADHIS.mraddsl
+  is '余量';
+comment on column HRBZLS.METERREADHIS.mrcarrysl
+  is '进位水量';
+comment on column HRBZLS.METERREADHIS.mrctrl1
+  is '抄表机控制位1';
+comment on column HRBZLS.METERREADHIS.mrctrl2
+  is '抄表机控制位2';
+comment on column HRBZLS.METERREADHIS.mrctrl3
+  is '抄表机控制位3';
+comment on column HRBZLS.METERREADHIS.mrctrl4
+  is '抄表机控制位4';
+comment on column HRBZLS.METERREADHIS.mrctrl5
+  is '抄表机控制位5(迁移前营业所)';
+comment on column HRBZLS.METERREADHIS.mrchkflag
+  is '复核标志';
+comment on column HRBZLS.METERREADHIS.mrchkdate
+  is '复核日期';
+comment on column HRBZLS.METERREADHIS.mrchkper
+  is '复核人员';
+comment on column HRBZLS.METERREADHIS.mrchkscode
+  is '原起数';
+comment on column HRBZLS.METERREADHIS.mrchkecode
+  is '原止数';
+comment on column HRBZLS.METERREADHIS.mrchksl
+  is '原水量';
+comment on column HRBZLS.METERREADHIS.mrchkaddsl
+  is '原余量';
+comment on column HRBZLS.METERREADHIS.mrchkcarrysl
+  is '原进位水量';
+comment on column HRBZLS.METERREADHIS.mrchkrdate
+  is '原抄见日期';
+comment on column HRBZLS.METERREADHIS.mrchkface
+  is '原表况';
+comment on column HRBZLS.METERREADHIS.mrchkresult
+  is '检查结果类型';
+comment on column HRBZLS.METERREADHIS.mrchkresultmemo
+  is '检查结果说明';
+comment on column HRBZLS.METERREADHIS.mrprimid
+  is '合收表主表';
+comment on column HRBZLS.METERREADHIS.mrprimflag
+  is '合收表标志';
+comment on column HRBZLS.METERREADHIS.mrlb
+  is '水表类别';
+comment on column HRBZLS.METERREADHIS.mrnewflag
+  is '新表标志';
+comment on column HRBZLS.METERREADHIS.mrface2
+  is '抄见故障';
+comment on column HRBZLS.METERREADHIS.mrface3
+  is '非常计量';
+comment on column HRBZLS.METERREADHIS.mrface4
+  is '表井设施说明';
+comment on column HRBZLS.METERREADHIS.mrscodechar
+  is '上期抄见';
+comment on column HRBZLS.METERREADHIS.mrecodechar
+  is '本期抄见';
+comment on column HRBZLS.METERREADHIS.mrprivilegeflag
+  is '特权标志(Y/N)';
+comment on column HRBZLS.METERREADHIS.mrprivilegeper
+  is '特权操作人';
+comment on column HRBZLS.METERREADHIS.mrprivilegememo
+  is '特权操作备注';
+comment on column HRBZLS.METERREADHIS.mrprivilegedate
+  is '特权操作时间';
+comment on column HRBZLS.METERREADHIS.mrsafid
+  is '管理区域';
+comment on column HRBZLS.METERREADHIS.mriftrans
+  is '转办工单标志';
+comment on column HRBZLS.METERREADHIS.mrrequisition
+  is '通知单打印次数';
+comment on column HRBZLS.METERREADHIS.mrifchk
+  is '考核表';
+comment on column HRBZLS.METERREADHIS.mrinputper
+  is '入账人员';
+comment on column HRBZLS.METERREADHIS.mrpfid
+  is '用水类别';
+comment on column HRBZLS.METERREADHIS.mrcaliber
+  is '口径';
+comment on column HRBZLS.METERREADHIS.mrside
+  is '表位';
+comment on column HRBZLS.METERREADHIS.mrlastsl
+  is '上次抄表水量';
+comment on column HRBZLS.METERREADHIS.mrthreesl
+  is '前三月抄表水量';
+comment on column HRBZLS.METERREADHIS.mryearsl
+  is '去年同期抄表水量';
+comment on column HRBZLS.METERREADHIS.mrrecje01
+  is '应收金额费用项目01';
+comment on column HRBZLS.METERREADHIS.mrrecje02
+  is '应收金额费用项目02';
+comment on column HRBZLS.METERREADHIS.mrrecje03
+  is '应收金额费用项目03';
+comment on column HRBZLS.METERREADHIS.mrrecje04
+  is '应收金额费用项目04';
+comment on column HRBZLS.METERREADHIS.mrmtype
+  is '表型';
+comment on column HRBZLS.METERREADHIS.mrnullcont
+  is '连续几月未抄见';
+comment on column HRBZLS.METERREADHIS.mrnulltotal
+  is '累计几月未抄见';
+comment on column HRBZLS.METERREADHIS.mrplansl
+  is '计划水量';
+comment on column HRBZLS.METERREADHIS.mrplanje01
+  is '计划水费';
+comment on column HRBZLS.METERREADHIS.mrplanje02
+  is '计划污水处理费';
+comment on column HRBZLS.METERREADHIS.mrplanje03
+  is '计划水资源费';
+comment on column HRBZLS.METERREADHIS.mrlastje01
+  is '上次水费';
+comment on column HRBZLS.METERREADHIS.mrthreeje01
+  is '前n次均水费';
+comment on column HRBZLS.METERREADHIS.mryearje01
+  is '去年同期水费';
+comment on column HRBZLS.METERREADHIS.mrlastje02
+  is '上次污水费';
+comment on column HRBZLS.METERREADHIS.mrthreeje02
+  is '前n次均污水费';
+comment on column HRBZLS.METERREADHIS.mryearje02
+  is '去年同期污水费';
+comment on column HRBZLS.METERREADHIS.mrlastje03
+  is '上次水资源费';
+comment on column HRBZLS.METERREADHIS.mrthreeje03
+  is '前n次均水资源费';
+comment on column HRBZLS.METERREADHIS.mryearje03
+  is '去年同期水资源费';
+comment on column HRBZLS.METERREADHIS.mrlastyearsl
+  is '去年度次均量';
+comment on column HRBZLS.METERREADHIS.mrlastyearje01
+  is '去年度次均水费';
+comment on column HRBZLS.METERREADHIS.mrlastyearje02
+  is '去年度次均污水费';
+comment on column HRBZLS.METERREADHIS.mrlastyearje03
+  is '去年度次均水资源费';
+comment on column HRBZLS.METERREADHIS.mrbfsdate
+  is '计划起始日期';
+comment on column HRBZLS.METERREADHIS.mrbfedate
+  is '计划结束日期';
+comment on column HRBZLS.METERREADHIS.mrbfday
+  is '偏移天数';
+comment on column HRBZLS.METERREADHIS.mrifmch
+  is '是否免抄户';
+comment on column HRBZLS.METERREADHIS.mrifzbsm
+  is '总表收免标志(0=普通表，1=总表收免，2=多级表)';
+comment on column HRBZLS.METERREADHIS.mrifyscz
+  is '是否应收冲正';
+comment on column HRBZLS.METERREADHIS.mrdzsl
+  is '等针用量';
+comment on column HRBZLS.METERREADHIS.mrdzflag
+  is '等针标志';
+comment on column HRBZLS.METERREADHIS.mrdzsyscode
+  is '等针';
+comment on column HRBZLS.METERREADHIS.mrdzcurcode
+  is '等针读数';
+comment on column HRBZLS.METERREADHIS.mrdztgl
+  is '推估量';
+create index HRBZLS.IDX_MRHMRMID on HRBZLS.METERREADHIS (MRMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MRHRPER on HRBZLS.METERREADHIS (MRRPER)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MRHSMFIDMONTH on HRBZLS.METERREADHIS (MRSMFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MRMONTH on HRBZLS.METERREADHIS (MRMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_MRBFID on HRBZLS.METERREADHIS (MRBFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_MRRDATE on HRBZLS.METERREADHIS (MRRDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_MRSL on HRBZLS.METERREADHIS (MRSL)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PL_MRMCODE on HRBZLS.METERREADHIS (MRMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERREADHIS
+  add constraint PK_METERREADHIS primary key (MRID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION HRBZLS."FGETPRICEPIIDDJ" (P_PFID IN VARCHAR2,P_PIID IN VARCHAR2 )
+ RETURN number
+AS
+ v_dj number(12,3);
+BEGIN
+ SELECT SUM(nvl(T.PDDJ,0))
+ INTO v_dj
+ FROM pricedetail t
+ WHERE t.PDPFID = P_PFID AND
+       T.PDPIID = P_PIID;
+ if v_dj is null then
+    v_dj := 0;
+ end if;      
+ RETURN v_dj;
+EXCEPTION WHEN OTHERS THEN
+ RETURN 0;
+END;
+/
+

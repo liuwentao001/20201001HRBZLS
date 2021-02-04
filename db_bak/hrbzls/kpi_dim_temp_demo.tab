@@ -1,0 +1,41 @@
+create table HRBZLS.KPI_DIM_TEMP_DEMO
+(
+  band       VARCHAR2(6),
+  dim        NUMBER(2),
+  dim_id     VARCHAR2(20),
+  name       VARCHAR2(20),
+  value      VARCHAR2(100),
+  unit       VARCHAR2(10),
+  script     VARCHAR2(40),
+  status     NUMBER(1),
+  disp_order NUMBER(3),
+  isshow     NUMBER(1),
+  gaugeid    VARCHAR2(3),
+  drill      VARCHAR2(20),
+  para       VARCHAR2(20),
+  groupno    NUMBER(5)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.KPI_DIM_TEMP_DEMO_X on HRBZLS.KPI_DIM_TEMP_DEMO (NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

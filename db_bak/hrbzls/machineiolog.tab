@@ -1,0 +1,59 @@
+create table HRBZLS.MACHINEIOLOG
+(
+  milid          VARCHAR2(10) not null,
+  milsmfid       VARCHAR2(10),
+  milmachinetype CHAR(2),
+  milmachineid   VARCHAR2(60),
+  milmonth       VARCHAR2(7),
+  miloutrows     NUMBER(8),
+  miloutdate     DATE,
+  miloutoperator VARCHAR2(15),
+  milindate      DATE,
+  milinoperator  VARCHAR2(15),
+  milreadrows    NUMBER(8),
+  milinorder     NUMBER(4),
+  miloper        VARCHAR2(15),
+  milgroup       CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.MACHINEIOLOG
+  is '抄表机发送接收日志【MIL】';
+comment on column HRBZLS.MACHINEIOLOG.milid
+  is '发出到抄表机流水号';
+comment on column HRBZLS.MACHINEIOLOG.milsmfid
+  is '营销公司';
+comment on column HRBZLS.MACHINEIOLOG.milmachinetype
+  is '抄表机型号';
+comment on column HRBZLS.MACHINEIOLOG.milmachineid
+  is '抄表机编号';
+comment on column HRBZLS.MACHINEIOLOG.milmonth
+  is '抄表月份';
+comment on column HRBZLS.MACHINEIOLOG.miloutrows
+  is '发送条数';
+comment on column HRBZLS.MACHINEIOLOG.miloutdate
+  is '发送日期';
+comment on column HRBZLS.MACHINEIOLOG.miloutoperator
+  is '发送操作员';
+comment on column HRBZLS.MACHINEIOLOG.milindate
+  is '接收日期';
+comment on column HRBZLS.MACHINEIOLOG.milinoperator
+  is '接收操作员';
+comment on column HRBZLS.MACHINEIOLOG.milreadrows
+  is '抄见条数';
+comment on column HRBZLS.MACHINEIOLOG.milinorder
+  is '接受次数';
+comment on column HRBZLS.MACHINEIOLOG.miloper
+  is '抄表机录入人员(接收时确定)';
+comment on column HRBZLS.MACHINEIOLOG.milgroup
+  is '发送模式';
+alter table HRBZLS.MACHINEIOLOG
+  add constraint PK_MACHINEIOLOG primary key (MILID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

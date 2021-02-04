@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_PAYMENTCHEQUE
+minvalue 1
+maxvalue 999999999
+start with 24508
+increment by 1
+cache 50
+order;
+

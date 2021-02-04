@@ -1,0 +1,65 @@
+create table HRBZLS.HX_INVOICE
+(
+  itid        VARCHAR2(5) not null,
+  itname      VARCHAR2(40),
+  itmemo      VARCHAR2(60),
+  itproperty1 VARCHAR2(3000),
+  itproperty2 VARCHAR2(500),
+  itproperty3 VARCHAR2(500),
+  itproperty4 VARCHAR2(500),
+  itproperty5 VARCHAR2(500),
+  itflag      VARCHAR2(1),
+  itclass     VARCHAR2(1),
+  itip        VARCHAR2(40),
+  itpid       VARCHAR2(5)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.HX_INVOICE
+  is '票据风格';
+comment on column HRBZLS.HX_INVOICE.itid
+  is '编号';
+comment on column HRBZLS.HX_INVOICE.itname
+  is '名称';
+comment on column HRBZLS.HX_INVOICE.itmemo
+  is '描述';
+comment on column HRBZLS.HX_INVOICE.itproperty1
+  is '属性';
+comment on column HRBZLS.HX_INVOICE.itproperty2
+  is '属性';
+comment on column HRBZLS.HX_INVOICE.itproperty3
+  is '属性';
+comment on column HRBZLS.HX_INVOICE.itproperty4
+  is '属性';
+comment on column HRBZLS.HX_INVOICE.itproperty5
+  is '属性';
+comment on column HRBZLS.HX_INVOICE.itflag
+  is '是否显示';
+comment on column HRBZLS.HX_INVOICE.itclass
+  is '级次';
+comment on column HRBZLS.HX_INVOICE.itip
+  is '绑定IP';
+comment on column HRBZLS.HX_INVOICE.itpid
+  is '上级编号';
+create unique index HRBZLS.HX_INVOICETYPE_X on HRBZLS.HX_INVOICE (ITID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

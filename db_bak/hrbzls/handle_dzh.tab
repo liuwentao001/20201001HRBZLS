@@ -1,0 +1,32 @@
+create table HRBZLS.HANDLE_DZH
+(
+  miid VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.HANDLE_DZH
+  is '¥Ùªµ’À¥¶¿Ì';
+alter table HRBZLS.HANDLE_DZH
+  add constraint DHZ_MIID primary key (MIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

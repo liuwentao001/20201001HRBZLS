@@ -1,0 +1,26 @@
+create table HRBZLS.EMPRECENTFUNC
+(
+  erfid      VARCHAR2(20) not null,
+  erfaccntid VARCHAR2(15) not null,
+  erffuncid  VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.EMPRECENTFUNC
+  is '操作员最近使用功能';
+comment on column HRBZLS.EMPRECENTFUNC.erfid
+  is '流水号';
+comment on column HRBZLS.EMPRECENTFUNC.erfaccntid
+  is '操作员ID';
+comment on column HRBZLS.EMPRECENTFUNC.erffuncid
+  is '操作员最近使用功能ID';
+

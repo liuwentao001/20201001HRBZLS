@@ -1,0 +1,134 @@
+create table HRBZLS.METERREAD_LKG
+(
+  mrlid        VARCHAR2(10) not null,
+  mrlmonth     VARCHAR2(7),
+  mrlsmfid     VARCHAR2(10),
+  mrlbfid      VARCHAR2(10),
+  mrlrorder    NUMBER(10),
+  mrlcid       VARCHAR2(10),
+  mrlccode     VARCHAR2(10),
+  mrlmid       VARCHAR2(10),
+  mrlmcode     VARCHAR2(10),
+  mrlstid      VARCHAR2(10),
+  mrlmpid      VARCHAR2(10),
+  mrlmclass    NUMBER,
+  mrlmflag     CHAR(1),
+  mrlreadok    CHAR(1),
+  mrlrdate     DATE,
+  mrlrper      VARCHAR2(15),
+  mrlecode     NUMBER(10),
+  mrlsl        NUMBER(10),
+  mrlface      VARCHAR2(2),
+  mrlrpid      VARCHAR2(3),
+  mrlmemo      VARCHAR2(120),
+  mrlifgu      CHAR(1),
+  mrllb        CHAR(1),
+  mrlface2     VARCHAR2(2),
+  mrlface3     VARCHAR2(2),
+  mrlface4     VARCHAR2(2),
+  mrlsafid     VARCHAR2(10),
+  mrlifchk     CHAR(1),
+  mrlinputper  VARCHAR2(10),
+  mrlpfid      VARCHAR2(10),
+  mrlcaliber   NUMBER(10),
+  mrlside      VARCHAR2(100),
+  mrlprdate    DATE,
+  mrlscode     NUMBER(10),
+  mrluseratio  NUMBER,
+  mrlratio     NUMBER,
+  mrlusemonth  VARCHAR2(10),
+  mrlmonthflag CHAR(1) default 'N',
+  mrlchldflag  CHAR(1) default 'N'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERREAD_LKG
+  is '漏耗抄表库【MRL】';
+comment on column HRBZLS.METERREAD_LKG.mrlid
+  is '流水号';
+comment on column HRBZLS.METERREAD_LKG.mrlmonth
+  is '抄表月份';
+comment on column HRBZLS.METERREAD_LKG.mrlsmfid
+  is '营销公司';
+comment on column HRBZLS.METERREAD_LKG.mrlbfid
+  is '表册';
+comment on column HRBZLS.METERREAD_LKG.mrlrorder
+  is '抄表次序';
+comment on column HRBZLS.METERREAD_LKG.mrlcid
+  is '用户编号';
+comment on column HRBZLS.METERREAD_LKG.mrlccode
+  is '用户号';
+comment on column HRBZLS.METERREAD_LKG.mrlmid
+  is '水表编号';
+comment on column HRBZLS.METERREAD_LKG.mrlmcode
+  is '水表手工编号';
+comment on column HRBZLS.METERREAD_LKG.mrlstid
+  is '行业分类';
+comment on column HRBZLS.METERREAD_LKG.mrlmpid
+  is '上级水表';
+comment on column HRBZLS.METERREAD_LKG.mrlmclass
+  is '水表级次';
+comment on column HRBZLS.METERREAD_LKG.mrlmflag
+  is '末级标志';
+comment on column HRBZLS.METERREAD_LKG.mrlreadok
+  is '抄见标志';
+comment on column HRBZLS.METERREAD_LKG.mrlrdate
+  is '抄表日期';
+comment on column HRBZLS.METERREAD_LKG.mrlrper
+  is '抄表员';
+comment on column HRBZLS.METERREAD_LKG.mrlecode
+  is '本期抄见';
+comment on column HRBZLS.METERREAD_LKG.mrlsl
+  is '本期水量';
+comment on column HRBZLS.METERREAD_LKG.mrlface
+  is '水表故障';
+comment on column HRBZLS.METERREAD_LKG.mrlrpid
+  is '计件类型';
+comment on column HRBZLS.METERREAD_LKG.mrlmemo
+  is '抄表备注';
+comment on column HRBZLS.METERREAD_LKG.mrlifgu
+  is '估表标志';
+comment on column HRBZLS.METERREAD_LKG.mrllb
+  is '水表类别';
+comment on column HRBZLS.METERREAD_LKG.mrlface2
+  is '抄见故障';
+comment on column HRBZLS.METERREAD_LKG.mrlface3
+  is '非常计量';
+comment on column HRBZLS.METERREAD_LKG.mrlface4
+  is '表井设施说明';
+comment on column HRBZLS.METERREAD_LKG.mrlsafid
+  is '管理区域';
+comment on column HRBZLS.METERREAD_LKG.mrlifchk
+  is '考核表';
+comment on column HRBZLS.METERREAD_LKG.mrlinputper
+  is '入账人员';
+comment on column HRBZLS.METERREAD_LKG.mrlpfid
+  is '用水类别';
+comment on column HRBZLS.METERREAD_LKG.mrlcaliber
+  is '口径';
+comment on column HRBZLS.METERREAD_LKG.mrlside
+  is '表位';
+comment on column HRBZLS.METERREAD_LKG.mrlprdate
+  is '上次抄见日期';
+comment on column HRBZLS.METERREAD_LKG.mrlscode
+  is '上期抄见';
+comment on column HRBZLS.METERREAD_LKG.mrluseratio
+  is '参考系数';
+comment on column HRBZLS.METERREAD_LKG.mrlratio
+  is '本月系数';
+comment on column HRBZLS.METERREAD_LKG.mrlusemonth
+  is '参考月份';
+comment on column HRBZLS.METERREAD_LKG.mrlmonthflag
+  is '按月预估标志';
+comment on column HRBZLS.METERREAD_LKG.mrlchldflag
+  is '按户预估标志';
+alter table HRBZLS.METERREAD_LKG
+  add constraint PK_METERREAD_LKG primary key (MRLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,80 @@
+create global temporary table HRBZLS.RECDETAIL_VIRTUAL
+(
+  rdid        VARCHAR2(10) not null,
+  rdpmdid     NUMBER not null,
+  rdpiid      CHAR(2) not null,
+  rdpfid      VARCHAR2(10) not null,
+  rdpscid     NUMBER not null,
+  rdclass     NUMBER not null,
+  rdysdj      NUMBER(13,3) not null,
+  rdyssl      NUMBER(12,2) not null,
+  rdysje      NUMBER(13,3) not null,
+  rddj        NUMBER(13,3) not null,
+  rdsl        NUMBER(12,2) not null,
+  rdje        NUMBER(13,3) not null,
+  rdadjdj     NUMBER(13,3) not null,
+  rdadjsl     NUMBER(12,2) not null,
+  rdadjje     NUMBER(13,3) not null,
+  rdmethod    CHAR(3) not null,
+  rdpaidflag  CHAR(1),
+  rdpaiddate  DATE,
+  rdpaidmonth VARCHAR2(7),
+  rdpaidper   VARCHAR2(10),
+  rdpmdscale  NUMBER(3,2),
+  rdilid      VARCHAR2(10),
+  rdznj       NUMBER(12,2),
+  rdmemo      VARCHAR2(200)
+)
+on commit delete rows;
+comment on table HRBZLS.RECDETAIL_VIRTUAL
+  is '预算应收帐明细【RD】';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdid
+  is '流水号';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpmdid
+  is '混合用水分组';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpiid
+  is '费用项目';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpfid
+  is '费率';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpscid
+  is '费率明细方案';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdclass
+  is '阶梯级别';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdysdj
+  is '应收单价';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdyssl
+  is '应收水量';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdysje
+  is '应收金额';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rddj
+  is '实收单价';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdsl
+  is '实收水量';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdje
+  is '实收金额';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdadjdj
+  is '调整单价';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdadjsl
+  is '调整水量';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdadjje
+  is '调整金额';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdmethod
+  is '计费方法';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpaidflag
+  is '销帐标志';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpaiddate
+  is '销帐日期';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpaidmonth
+  is '销帐月份';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpaidper
+  is '销帐人员';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdpmdscale
+  is '混合比例';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdilid
+  is '票据流水';
+comment on column HRBZLS.RECDETAIL_VIRTUAL.rdznj
+  is '违约金';
+create index HRBZLS.IDX_RDVID on HRBZLS.RECDETAIL_VIRTUAL (RDID DESC);
+alter table HRBZLS.RECDETAIL_VIRTUAL
+  add constraint PK_RECDETAIL_VIRTUAL primary key (RDID, RDPMDID, RDCLASS, RDPIID, RDPFID, RDPSCID);
+

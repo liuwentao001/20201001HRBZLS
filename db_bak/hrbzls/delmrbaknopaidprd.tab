@@ -1,0 +1,87 @@
+create table HRBZLS.DELMRBAKNOPAIDPRD
+(
+  rdid        VARCHAR2(10) not null,
+  rdpmdid     NUMBER not null,
+  rdpiid      CHAR(2) not null,
+  rdpfid      VARCHAR2(10) not null,
+  rdpscid     NUMBER not null,
+  rdclass     NUMBER not null,
+  rdysdj      NUMBER(13,3),
+  rdyssl      NUMBER(12,2),
+  rdysje      NUMBER(13,3),
+  rddj        NUMBER(13,3),
+  rdsl        NUMBER(12,2),
+  rdje        NUMBER(13,3),
+  rdadjdj     NUMBER(13,3),
+  rdadjsl     NUMBER(12,2),
+  rdadjje     NUMBER(13,3),
+  rdmethod    CHAR(3),
+  rdpaidflag  CHAR(1),
+  rdpaiddate  DATE,
+  rdpaidmonth VARCHAR2(7),
+  rdpaidper   VARCHAR2(20),
+  rdpmdscale  NUMBER(12,2),
+  rdilid      VARCHAR2(20),
+  rdznj       NUMBER(12,2),
+  rdmemo      VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.DELMRBAKNOPAIDPRD
+  is '应收帐明细【RD】';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdid
+  is '流水号';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpmdid
+  is '混合用水分组';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpiid
+  is '费用项目';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpfid
+  is '费率';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpscid
+  is '费率明细方案';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdclass
+  is '阶梯级别';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdysdj
+  is '应收单价';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdyssl
+  is '应收水量';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdysje
+  is '应收金额';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rddj
+  is '实收单价';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdsl
+  is '实收水量';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdje
+  is '实收金额';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdadjdj
+  is '调整单价';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdadjsl
+  is '调整水量';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdadjje
+  is '调整金额';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdmethod
+  is '计费方法';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpaidflag
+  is '销帐标志';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpaiddate
+  is '销帐日期';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpaidmonth
+  is '销帐月份';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpaidper
+  is '销帐人员';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdpmdscale
+  is '混合比例';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdilid
+  is '票据流水';
+comment on column HRBZLS.DELMRBAKNOPAIDPRD.rdznj
+  is '违约金';
+

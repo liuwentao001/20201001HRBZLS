@@ -1,0 +1,37 @@
+create table HRBZLS.RECGROUP
+(
+  rgid   NUMBER not null,
+  rgname VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RECGROUP
+  is '应收帐组号【RG】';
+comment on column HRBZLS.RECGROUP.rgid
+  is '应收帐组ID';
+comment on column HRBZLS.RECGROUP.rgname
+  is '应收帐分组名';
+alter table HRBZLS.RECGROUP
+  add constraint PK_RECGROUP primary key (RGID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

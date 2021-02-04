@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_OPERACCNT
+minvalue 1
+maxvalue 99999
+start with 10320
+increment by 1
+cache 10;
+

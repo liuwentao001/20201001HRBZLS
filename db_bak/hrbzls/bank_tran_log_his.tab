@@ -1,0 +1,28 @@
+create table HRBZLS.BANK_TRAN_LOG_HIS
+(
+  id        NUMBER(10) not null,
+  trancode  VARCHAR2(10),
+  bankid    VARCHAR2(10),
+  tran_time DATE,
+  pkg_req   VARCHAR2(4000),
+  pkg_ans   VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BANK_TRAN_LOG_HIS
+  is '银行实时交易日志历史表';
+create index HRBZLS.IN_BANKID_TRANCODE on HRBZLS.BANK_TRAN_LOG_HIS (BANKID, TRANCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.BANK_TRAN_LOG_HIS
+  add constraint PK_LOG_HIS_ID primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

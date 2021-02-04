@@ -1,0 +1,40 @@
+create table HRBZLS.PRICEMETHOD
+(
+  pmid   CHAR(3) not null,
+  pmname VARCHAR2(60) not null,
+  pmmemo VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEMETHOD
+  is '计费方法【PM】';
+comment on column HRBZLS.PRICEMETHOD.pmid
+  is '计费方法编码';
+comment on column HRBZLS.PRICEMETHOD.pmname
+  is '计费方法名称';
+comment on column HRBZLS.PRICEMETHOD.pmmemo
+  is '计费方法介绍';
+alter table HRBZLS.PRICEMETHOD
+  add constraint PK_PRICEMETHOD primary key (PMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

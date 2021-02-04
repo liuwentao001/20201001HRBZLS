@@ -1,0 +1,7 @@
+create sequence HRBZLS.SQ_BS_MODI_LOG
+minvalue 1
+maxvalue 9999999999
+start with 40049410
+increment by 1
+cache 50;
+

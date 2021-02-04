@@ -1,0 +1,156 @@
+create table HRBZLS.抄表情况统计_HRB
+(
+  lb           CHAR(1),
+  mmonth       CHAR(7),
+  mismfid      VARCHAR2(10),
+  mibfid       VARCHAR2(10),
+  dh           VARCHAR2(10),
+  mipfid       VARCHAR2(10),
+  bfrper       VARCHAR2(15),
+  zcbs         NUMBER,
+  ylhbs        NUMBER,
+  hbbs         NUMBER,
+  jhbs         NUMBER,
+  cjbs         NUMBER,
+  wcjbs        NUMBER,
+  czbs         NUMBER,
+  tscbs        NUMBER,
+  cqwrbs       NUMBER,
+  tybs         NUMBER,
+  bxbs         NUMBER,
+  bysbs        NUMBER,
+  fzcbs        NUMBER,
+  wbbs         NUMBER,
+  qtbs         NUMBER,
+  michargetype CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.抄表情况统计_HRB.lb
+  is '类别（1 按表，2 按人）';
+comment on column HRBZLS.抄表情况统计_HRB.mmonth
+  is '抄表月份';
+comment on column HRBZLS.抄表情况统计_HRB.mismfid
+  is '营业所';
+comment on column HRBZLS.抄表情况统计_HRB.mibfid
+  is '表册';
+comment on column HRBZLS.抄表情况统计_HRB.dh
+  is '代号';
+comment on column HRBZLS.抄表情况统计_HRB.mipfid
+  is '价格类别';
+comment on column HRBZLS.抄表情况统计_HRB.bfrper
+  is '抄表员';
+comment on column HRBZLS.抄表情况统计_HRB.zcbs
+  is '总抄表比数';
+comment on column HRBZLS.抄表情况统计_HRB.ylhbs
+  is '预立户比数';
+comment on column HRBZLS.抄表情况统计_HRB.hbbs
+  is '换表比数';
+comment on column HRBZLS.抄表情况统计_HRB.jhbs
+  is '计划比数';
+comment on column HRBZLS.抄表情况统计_HRB.cjbs
+  is '抄见比数';
+comment on column HRBZLS.抄表情况统计_HRB.wcjbs
+  is '未抄见比数';
+comment on column HRBZLS.抄表情况统计_HRB.czbs
+  is '出账比数';
+comment on column HRBZLS.抄表情况统计_HRB.tscbs
+  is '指针同上次比数02';
+comment on column HRBZLS.抄表情况统计_HRB.cqwrbs
+  is '长期无人比数03';
+comment on column HRBZLS.抄表情况统计_HRB.tybs
+  is '停业比数04';
+comment on column HRBZLS.抄表情况统计_HRB.bxbs
+  is '闭栓比数05';
+comment on column HRBZLS.抄表情况统计_HRB.bysbs
+  is '不用水比数06';
+comment on column HRBZLS.抄表情况统计_HRB.fzcbs
+  is '非正常数据15';
+comment on column HRBZLS.抄表情况统计_HRB.wbbs
+  is '无表14';
+comment on column HRBZLS.抄表情况统计_HRB.qtbs
+  is '其它';
+comment on column HRBZLS.抄表情况统计_HRB.michargetype
+  is '收费方式(X坐收M走收)';
+create index HRBZLS.INDEX_01 on HRBZLS.抄表情况统计_HRB (MMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDEX_02 on HRBZLS.抄表情况统计_HRB (MISMFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDEX_03 on HRBZLS.抄表情况统计_HRB (DH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDEX_04 on HRBZLS.抄表情况统计_HRB (MIBFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDEX_05 on HRBZLS.抄表情况统计_HRB (MIPFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDEX_06 on HRBZLS.抄表情况统计_HRB (BFRPER)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

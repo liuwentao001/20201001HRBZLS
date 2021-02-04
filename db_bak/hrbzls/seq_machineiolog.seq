@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_MACHINEIOLOG
+minvalue 1
+maxvalue 9999999999
+start with 1656
+increment by 1
+cache 50
+order;
+

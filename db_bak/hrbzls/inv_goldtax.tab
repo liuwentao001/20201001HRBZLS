@@ -1,0 +1,59 @@
+create global temporary table HRBZLS.INV_GOLDTAX
+(
+  ivid       VARCHAR2(32),
+  cname      VARCHAR2(100),
+  ctaxcode   VARCHAR2(50),
+  cbankacc   VARCHAR2(100),
+  caddrphone VARCHAR2(100),
+  sname      VARCHAR2(100),
+  staxcode   VARCHAR2(50),
+  sbankacc   VARCHAR2(100),
+  saddrphone VARCHAR2(100),
+  taxrate    NUMBER,
+  notes      VARCHAR2(500),
+  invoicer   VARCHAR2(10),
+  checker    VARCHAR2(10),
+  cashier    VARCHAR2(10),
+  ispcisno   VARCHAR2(50),
+  createdate DATE,
+  kind       NUMBER,
+  id         VARCHAR2(10)
+)
+on commit delete rows;
+comment on table HRBZLS.INV_GOLDTAX
+  is '税票整体信息';
+comment on column HRBZLS.INV_GOLDTAX.ivid
+  is '开票记录ID';
+comment on column HRBZLS.INV_GOLDTAX.cname
+  is '购方名称';
+comment on column HRBZLS.INV_GOLDTAX.ctaxcode
+  is '购方税号';
+comment on column HRBZLS.INV_GOLDTAX.cbankacc
+  is '购方开户行及账号';
+comment on column HRBZLS.INV_GOLDTAX.caddrphone
+  is '购方地址电话';
+comment on column HRBZLS.INV_GOLDTAX.sname
+  is '销方名称';
+comment on column HRBZLS.INV_GOLDTAX.staxcode
+  is '销方税号';
+comment on column HRBZLS.INV_GOLDTAX.sbankacc
+  is '销方开户行及账号';
+comment on column HRBZLS.INV_GOLDTAX.saddrphone
+  is '销方地址电话';
+comment on column HRBZLS.INV_GOLDTAX.taxrate
+  is '税率';
+comment on column HRBZLS.INV_GOLDTAX.notes
+  is '备注';
+comment on column HRBZLS.INV_GOLDTAX.invoicer
+  is '开票人';
+comment on column HRBZLS.INV_GOLDTAX.checker
+  is '复核人';
+comment on column HRBZLS.INV_GOLDTAX.cashier
+  is '收款人';
+comment on column HRBZLS.INV_GOLDTAX.ispcisno
+  is '发票号';
+comment on column HRBZLS.INV_GOLDTAX.createdate
+  is '生成日期';
+comment on column HRBZLS.INV_GOLDTAX.kind
+  is '发票种类0专用发票2普通发票';
+

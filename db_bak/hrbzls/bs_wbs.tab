@@ -1,0 +1,45 @@
+create table HRBZLS.BS_WBS
+(
+  meterno    VARCHAR2(10) not null,
+  chkmeter   VARCHAR2(10),
+  wbs        VARCHAR2(60),
+  disp_order NUMBER(5),
+  wbs_level  NUMBER(5),
+  sid        VARCHAR2(256)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.BS_WBS.meterno
+  is '水表号';
+comment on column HRBZLS.BS_WBS.chkmeter
+  is '上级考核表';
+comment on column HRBZLS.BS_WBS.wbs
+  is 'WBS（无表数）';
+comment on column HRBZLS.BS_WBS.disp_order
+  is '显示次序';
+comment on column HRBZLS.BS_WBS.wbs_level
+  is '级别';
+comment on column HRBZLS.BS_WBS.sid
+  is 'sid号';
+create unique index HRBZLS.BS_WBS_X on HRBZLS.BS_WBS (METERNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

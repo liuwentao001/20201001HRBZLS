@@ -1,0 +1,158 @@
+create table HRBZLS.KPI_TASK
+(
+  kt_id        VARCHAR2(10) not null,
+  kt_name      VARCHAR2(200),
+  org_operator VARCHAR2(200),
+  org_date     DATE,
+  report_id    VARCHAR2(20),
+  isactive     VARCHAR2(2),
+  kt_operator  VARCHAR2(200),
+  warning_date DATE,
+  msg_type     VARCHAR2(100),
+  kt_sub       VARCHAR2(100),
+  kt_type      VARCHAR2(20),
+  meterno      VARCHAR2(2),
+  kt_remark    VARCHAR2(4000),
+  pb_func      VARCHAR2(40),
+  isread       VARCHAR2(2),
+  isfinish     VARCHAR2(2),
+  do_date      DATE,
+  kt_pfid      VARCHAR2(20),
+  kt_price     VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.KPI_TASK.kt_id
+  is '指标id';
+comment on column HRBZLS.KPI_TASK.kt_name
+  is '指标名称';
+comment on column HRBZLS.KPI_TASK.org_operator
+  is '提交人员';
+comment on column HRBZLS.KPI_TASK.org_date
+  is '提交时间';
+comment on column HRBZLS.KPI_TASK.report_id
+  is '单据号';
+comment on column HRBZLS.KPI_TASK.isactive
+  is '是否在使用';
+comment on column HRBZLS.KPI_TASK.kt_operator
+  is '责任人';
+comment on column HRBZLS.KPI_TASK.warning_date
+  is '告警时限';
+comment on column HRBZLS.KPI_TASK.msg_type
+  is '通知方式';
+comment on column HRBZLS.KPI_TASK.kt_sub
+  is '业务系统';
+comment on column HRBZLS.KPI_TASK.kt_type
+  is '指标类别';
+comment on column HRBZLS.KPI_TASK.meterno
+  is '水表编号';
+comment on column HRBZLS.KPI_TASK.kt_remark
+  is '备注说明';
+comment on column HRBZLS.KPI_TASK.pb_func
+  is '版面号';
+comment on column HRBZLS.KPI_TASK.isread
+  is '已阅读';
+comment on column HRBZLS.KPI_TASK.isfinish
+  is '已完成';
+comment on column HRBZLS.KPI_TASK.do_date
+  is '完成时间';
+comment on column HRBZLS.KPI_TASK.kt_pfid
+  is '水价编码';
+comment on column HRBZLS.KPI_TASK.kt_price
+  is '水费价格';
+create index HRBZLS.IDX_KPT_TASK_01 on HRBZLS.KPI_TASK (ISFINISH, KT_OPERATOR, REPORT_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_KPT_TASK_ID on HRBZLS.KPI_TASK (REPORT_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_ORG_OPERATOR on HRBZLS.KPI_TASK (ORG_OPERATOR)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.KPI_ISFINISH on HRBZLS.KPI_TASK (ISFINISH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.KPI_KT_OPERATOR on HRBZLS.KPI_TASK (KT_OPERATOR)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.KPT_REPID_OPERATOR on HRBZLS.KPI_TASK (REPORT_ID, KT_OPERATOR)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.KPI_TASK
+  add constraint KT_TASK_ID_PK primary key (KT_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

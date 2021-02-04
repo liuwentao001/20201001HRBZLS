@@ -1,0 +1,40 @@
+create table HRBZLS.WORKSTATION_LOAD
+(
+  wlwsid VARCHAR2(64) not null,
+  wlflag VARCHAR2(1) default 'Y',
+  wlmemo VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.WORKSTATION_LOAD
+  is '设置不下载工作站';
+comment on column HRBZLS.WORKSTATION_LOAD.wlwsid
+  is '工作站ID';
+comment on column HRBZLS.WORKSTATION_LOAD.wlflag
+  is '有效标志';
+comment on column HRBZLS.WORKSTATION_LOAD.wlmemo
+  is '说明';
+alter table HRBZLS.WORKSTATION_LOAD
+  add constraint PK_WORKSTATION_LOAD primary key (WLWSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

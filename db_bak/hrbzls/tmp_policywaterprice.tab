@@ -1,0 +1,29 @@
+create table HRBZLS.TMP_POLICYWATERPRICE
+(
+  po_id          VARCHAR2(20) not null,
+  po_priceid     VARCHAR2(20) not null,
+  po_waterprice  NUMBER(10,4),
+  po_sewageprice NUMBER(10,4)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.TMP_POLICYWATERPRICE
+  is '政策性水价设置表';
+comment on column HRBZLS.TMP_POLICYWATERPRICE.po_id
+  is '顺序号';
+comment on column HRBZLS.TMP_POLICYWATERPRICE.po_priceid
+  is '水价ID';
+comment on column HRBZLS.TMP_POLICYWATERPRICE.po_waterprice
+  is '水价';
+comment on column HRBZLS.TMP_POLICYWATERPRICE.po_sewageprice
+  is '污水价';
+alter table HRBZLS.TMP_POLICYWATERPRICE
+  add constraint PRI_PO_ID primary key (PO_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

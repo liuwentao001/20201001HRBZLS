@@ -1,0 +1,182 @@
+create table HRBZLS.RECADJUSTDT
+(
+  radno          VARCHAR2(10) not null,
+  radrowno       NUMBER(6) not null,
+  radchkflag     CHAR(1),
+  radmrid        VARCHAR2(10),
+  radrlid        VARCHAR2(10) not null,
+  radcid         VARCHAR2(10) not null,
+  radccode       VARCHAR2(10) not null,
+  radmid         VARCHAR2(10),
+  radmcode       VARCHAR2(10),
+  radprdate      DATE,
+  radrdate       DATE,
+  radscode       NUMBER(10),
+  radecode       NUMBER(10),
+  radscodechar   VARCHAR2(10),
+  radecodechar   VARCHAR2(10),
+  radreadsl      NUMBER(10),
+  radaddsl       NUMBER(10),
+  radsl          NUMBER(10) not null,
+  radadjsl       NUMBER(10),
+  radpfid        VARCHAR2(10),
+  radje          NUMBER(13,3) not null,
+  radadjje       NUMBER(13,3),
+  radpaidflag    CHAR(1),
+  radcper        VARCHAR2(10),
+  radifmp        CHAR(1) not null,
+  radcname       VARCHAR2(64),
+  radcadr        VARCHAR2(64),
+  radmadr        VARCHAR2(64),
+  radrtid        CHAR(1),
+  radusenum      NUMBER,
+  radznj         NUMBER(12,2),
+  radzndate      DATE,
+  radpriflag     CHAR(1),
+  radpriid       VARCHAR2(10),
+  radplidde      VARCHAR2(10),
+  radplidcr      VARCHAR2(10),
+  radmridcr      VARCHAR2(10),
+  radrlidcr      VARCHAR2(10),
+  radilidcr      VARCHAR2(10),
+  radmridde      VARCHAR2(10),
+  radrlidde      VARCHAR2(10),
+  radilidde      VARCHAR2(10),
+  radifinv       CHAR(1),
+  radmemo        VARCHAR2(60),
+  radrcodeflag   CHAR(1) not null,
+  radplid        VARCHAR2(10),
+  radplsavingbq  NUMBER(12,2),
+  radsavingflag  CHAR(1),
+  radsaveflag    CHAR(1),
+  radsavetomcode VARCHAR2(10),
+  radpaiddate    DATE,
+  radpaidje      NUMBER(12,2),
+  radpaidadjje   NUMBER(12,2),
+  radpfidn       VARCHAR2(10),
+  radpbatch      VARCHAR2(20),
+  radadznjn      NUMBER(12,2),
+  radadznj       NUMBER(12,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.RECADJUSTDT
+  is '应收调整单体【RAD】';
+comment on column HRBZLS.RECADJUSTDT.radno
+  is '单据流水号';
+comment on column HRBZLS.RECADJUSTDT.radrowno
+  is '行号';
+comment on column HRBZLS.RECADJUSTDT.radchkflag
+  is '选中标志';
+comment on column HRBZLS.RECADJUSTDT.radmrid
+  is '原抄表流水号';
+comment on column HRBZLS.RECADJUSTDT.radrlid
+  is '原流水号';
+comment on column HRBZLS.RECADJUSTDT.radcid
+  is '用户编号';
+comment on column HRBZLS.RECADJUSTDT.radccode
+  is '用户号';
+comment on column HRBZLS.RECADJUSTDT.radmid
+  is '水表编号';
+comment on column HRBZLS.RECADJUSTDT.radmcode
+  is '资料号';
+comment on column HRBZLS.RECADJUSTDT.radprdate
+  is '上次抄表日期';
+comment on column HRBZLS.RECADJUSTDT.radrdate
+  is '本次抄表日期';
+comment on column HRBZLS.RECADJUSTDT.radscode
+  is '上期抄见';
+comment on column HRBZLS.RECADJUSTDT.radecode
+  is '本期抄见';
+comment on column HRBZLS.RECADJUSTDT.radscodechar
+  is '上期抄见';
+comment on column HRBZLS.RECADJUSTDT.radecodechar
+  is '本期抄见';
+comment on column HRBZLS.RECADJUSTDT.radreadsl
+  is '抄见水量';
+comment on column HRBZLS.RECADJUSTDT.radaddsl
+  is '余量';
+comment on column HRBZLS.RECADJUSTDT.radsl
+  is '应收水量';
+comment on column HRBZLS.RECADJUSTDT.radadjsl
+  is '调整水量';
+comment on column HRBZLS.RECADJUSTDT.radpfid
+  is '价格类别';
+comment on column HRBZLS.RECADJUSTDT.radje
+  is '应收金额';
+comment on column HRBZLS.RECADJUSTDT.radadjje
+  is '调整金额';
+comment on column HRBZLS.RECADJUSTDT.radpaidflag
+  is '销帐标志';
+comment on column HRBZLS.RECADJUSTDT.radcper
+  is '收费员';
+comment on column HRBZLS.RECADJUSTDT.radifmp
+  is '混合用水';
+comment on column HRBZLS.RECADJUSTDT.radcname
+  is '用户名称';
+comment on column HRBZLS.RECADJUSTDT.radcadr
+  is '用户地址';
+comment on column HRBZLS.RECADJUSTDT.radmadr
+  is '水表地址';
+comment on column HRBZLS.RECADJUSTDT.radrtid
+  is '抄表方式';
+comment on column HRBZLS.RECADJUSTDT.radusenum
+  is '户用水人数';
+comment on column HRBZLS.RECADJUSTDT.radznj
+  is '违约金';
+comment on column HRBZLS.RECADJUSTDT.radzndate
+  is '违约金起算日';
+comment on column HRBZLS.RECADJUSTDT.radpriflag
+  is '合收表标志';
+comment on column HRBZLS.RECADJUSTDT.radpriid
+  is '合收表主表号';
+comment on column HRBZLS.RECADJUSTDT.radplidde
+  is '借记销帐流水号（回写）';
+comment on column HRBZLS.RECADJUSTDT.radplidcr
+  is '贷记销帐流水（回写）';
+comment on column HRBZLS.RECADJUSTDT.radmridcr
+  is '贷记抄表流水（回写）';
+comment on column HRBZLS.RECADJUSTDT.radrlidcr
+  is '贷记应收流水号（回写）';
+comment on column HRBZLS.RECADJUSTDT.radilidcr
+  is '贷记票据流水（回写）';
+comment on column HRBZLS.RECADJUSTDT.radmridde
+  is '借记抄表流水（回写）';
+comment on column HRBZLS.RECADJUSTDT.radrlidde
+  is '借记应收流水号（回写）';
+comment on column HRBZLS.RECADJUSTDT.radilidde
+  is '借记票据流水（回写）';
+comment on column HRBZLS.RECADJUSTDT.radifinv
+  is '是否出票';
+comment on column HRBZLS.RECADJUSTDT.radmemo
+  is '备注';
+comment on column HRBZLS.RECADJUSTDT.radrcodeflag
+  is '置下次抄表起度';
+comment on column HRBZLS.RECADJUSTDT.radplid
+  is '原销帐流水（回写）';
+comment on column HRBZLS.RECADJUSTDT.radplsavingbq
+  is '实收预存发生';
+comment on column HRBZLS.RECADJUSTDT.radsavingflag
+  is '预存退费';
+comment on column HRBZLS.RECADJUSTDT.radsaveflag
+  is '退费转预存';
+comment on column HRBZLS.RECADJUSTDT.radsavetomcode
+  is '退费转预存到客户代码';
+comment on column HRBZLS.RECADJUSTDT.radpaiddate
+  is '销帐日期';
+comment on column HRBZLS.RECADJUSTDT.radpaidje
+  is '已销金额';
+comment on column HRBZLS.RECADJUSTDT.radpaidadjje
+  is '调整已销金额';
+comment on column HRBZLS.RECADJUSTDT.radpfidn
+  is '新价格类别';
+alter table HRBZLS.RECADJUSTDT
+  add constraint PK_RECADJUSTDT primary key (RADNO, RADROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

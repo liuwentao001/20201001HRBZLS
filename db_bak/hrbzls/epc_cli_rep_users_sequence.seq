@@ -1,0 +1,9 @@
+create sequence HRBZLS.EPC_CLI_REP_USERS_SEQUENCE
+minvalue 1
+maxvalue 999999999
+start with 20
+increment by 1
+cache 50
+cycle
+order;
+

@@ -1,0 +1,67 @@
+create table HRBZLS.ERPFUNCTIONPARA
+(
+  efid       VARCHAR2(10) not null,
+  efname     VARCHAR2(40),
+  efevent    VARCHAR2(64) not null,
+  eftype     VARCHAR2(64) not null,
+  efrow      VARCHAR2(3) not null,
+  efrunpara  VARCHAR2(4000),
+  efmemo     VARCHAR2(256),
+  efno       VARCHAR2(20),
+  efflag     VARCHAR2(1),
+  effsztype  VARCHAR2(60),
+  effgroupid VARCHAR2(10),
+  efforder   NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ERPFUNCTIONPARA
+  is '功能参数';
+comment on column HRBZLS.ERPFUNCTIONPARA.efid
+  is '功能号';
+comment on column HRBZLS.ERPFUNCTIONPARA.efname
+  is '功能名';
+comment on column HRBZLS.ERPFUNCTIONPARA.efevent
+  is '功能事件';
+comment on column HRBZLS.ERPFUNCTIONPARA.eftype
+  is '功能类型';
+comment on column HRBZLS.ERPFUNCTIONPARA.efrow
+  is '参数序号';
+comment on column HRBZLS.ERPFUNCTIONPARA.efrunpara
+  is '调用参数';
+comment on column HRBZLS.ERPFUNCTIONPARA.efmemo
+  is '参数说明';
+comment on column HRBZLS.ERPFUNCTIONPARA.efno
+  is '附件ID';
+comment on column HRBZLS.ERPFUNCTIONPARA.efflag
+  is '有效标志';
+comment on column HRBZLS.ERPFUNCTIONPARA.effsztype
+  is '设置类别';
+comment on column HRBZLS.ERPFUNCTIONPARA.effgroupid
+  is '且号';
+comment on column HRBZLS.ERPFUNCTIONPARA.efforder
+  is '序号';
+alter table HRBZLS.ERPFUNCTIONPARA
+  add constraint PK_ERPFUNCTIONPARA primary key (EFID, EFROW, EFEVENT, EFTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

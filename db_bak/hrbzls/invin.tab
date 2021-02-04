@@ -1,0 +1,44 @@
+create table HRBZLS.INVIN
+(
+  iiid       NUMBER(10) not null,
+  iitype     CHAR(1),
+  iidate     DATE,
+  iisender   VARCHAR2(10),
+  iireceiver VARCHAR2(10),
+  iibcno     VARCHAR2(12),
+  iisno      VARCHAR2(12),
+  iieno      VARCHAR2(12),
+  iismfid    VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVIN
+  is '票据入库记录【II】';
+comment on column HRBZLS.INVIN.iiid
+  is '入库流水';
+comment on column HRBZLS.INVIN.iitype
+  is '票据类型';
+comment on column HRBZLS.INVIN.iidate
+  is '入库日期';
+comment on column HRBZLS.INVIN.iisender
+  is '入库发出人';
+comment on column HRBZLS.INVIN.iireceiver
+  is '入库接收人';
+comment on column HRBZLS.INVIN.iibcno
+  is '批号';
+comment on column HRBZLS.INVIN.iisno
+  is '起号';
+comment on column HRBZLS.INVIN.iieno
+  is '止号';
+comment on column HRBZLS.INVIN.iismfid
+  is '入库单位';
+alter table HRBZLS.INVIN
+  add constraint PK_INVIN primary key (IIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,109 @@
+create table HRBZLS.METERTRANSHD
+(
+  mthno      VARCHAR2(10) not null,
+  mthbh      VARCHAR2(10) not null,
+  mthlb      CHAR(1),
+  mthsource  CHAR(1),
+  mthsmfid   VARCHAR2(10),
+  mthdept    VARCHAR2(10),
+  mthcredate DATE not null,
+  mthcreper  VARCHAR2(10) not null,
+  mthshflag  CHAR(1) not null,
+  mthshdate  DATE,
+  mthshper   VARCHAR2(10),
+  mthhot     NUMBER,
+  mthmrid    VARCHAR2(10),
+  mtdynum    NUMBER(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERTRANSHD
+  is '表务工单头【MTH】';
+comment on column HRBZLS.METERTRANSHD.mthno
+  is '单据流水号';
+comment on column HRBZLS.METERTRANSHD.mthbh
+  is '单据编号';
+comment on column HRBZLS.METERTRANSHD.mthlb
+  is '单据类别';
+comment on column HRBZLS.METERTRANSHD.mthsource
+  is '单据来源';
+comment on column HRBZLS.METERTRANSHD.mthsmfid
+  is '营销公司';
+comment on column HRBZLS.METERTRANSHD.mthdept
+  is '受理部门';
+comment on column HRBZLS.METERTRANSHD.mthcredate
+  is '受理日期';
+comment on column HRBZLS.METERTRANSHD.mthcreper
+  is '受理人员';
+comment on column HRBZLS.METERTRANSHD.mthshflag
+  is '审核标志';
+comment on column HRBZLS.METERTRANSHD.mthshdate
+  is '审核日期';
+comment on column HRBZLS.METERTRANSHD.mthshper
+  is '审核人员';
+comment on column HRBZLS.METERTRANSHD.mthhot
+  is '紧急程度（催办次数）';
+comment on column HRBZLS.METERTRANSHD.mthmrid
+  is '来源抄表计划流水';
+comment on column HRBZLS.METERTRANSHD.mtdynum
+  is '打印次数';
+create index HRBZLS.IDX_METERTRANSHD_01 on HRBZLS.METERTRANSHD (MTHBH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERTRANSHD_02 on HRBZLS.METERTRANSHD (MTHNO, MTHLB)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERTRANSHD_03 on HRBZLS.METERTRANSHD (MTHBH, MTHLB)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERTRANSHD
+  add constraint PK_METERRECYCPLAN primary key (MTHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

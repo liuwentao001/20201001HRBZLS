@@ -1,0 +1,46 @@
+create table HRBZLS.BILLFLOWOPER
+(
+  bfooaid    VARCHAR2(10) not null,
+  bfobfpno   VARCHAR2(10) not null,
+  bfobftid   NUMBER(10) not null,
+  bfobfprow  NUMBER(10) not null,
+  bforectype VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLFLOWOPER
+  is '步骤操作人[BFO]';
+comment on column HRBZLS.BILLFLOWOPER.bfooaid
+  is '操作员';
+comment on column HRBZLS.BILLFLOWOPER.bfobfpno
+  is '流水号';
+comment on column HRBZLS.BILLFLOWOPER.bfobftid
+  is '流程步骤ID';
+comment on column HRBZLS.BILLFLOWOPER.bfobfprow
+  is '序号';
+comment on column HRBZLS.BILLFLOWOPER.bforectype
+  is '接收人员类别';
+alter table HRBZLS.BILLFLOWOPER
+  add constraint PK_BILLFLOWOPER primary key (BFOOAID, BFOBFPNO, BFOBFTID, BFOBFPROW)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

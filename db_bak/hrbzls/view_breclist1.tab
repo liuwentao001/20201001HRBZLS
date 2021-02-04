@@ -1,0 +1,24 @@
+create table HRBZLS.VIEW_BRECLIST1
+(
+  用户编号   VARCHAR2(50),
+  用户名称   VARCHAR2(100),
+  区域代码   VARCHAR2(100),
+  用水分类   VARCHAR2(50),
+  所属供水公司 VARCHAR2(50),
+  账务月份   VARCHAR2(50),
+  起数     VARCHAR2(50),
+  止数     VARCHAR2(50),
+  抄见水量   VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

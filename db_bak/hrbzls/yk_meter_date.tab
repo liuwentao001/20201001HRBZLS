@@ -1,0 +1,44 @@
+create table HRBZLS.YK_METER_DATE
+(
+  handleid    VARCHAR2(15) not null,
+  meter_code  VARCHAR2(50) not null,
+  meter_sn    NUMBER,
+  meter_hand  FLOAT,
+  meter_time  DATE not null,
+  meter_man   VARCHAR2(20),
+  meter_flag  VARCHAR2(20),
+  switch_flag VARCHAR2(20),
+  meter_type  VARCHAR2(30),
+  update_time DATE,
+  if_read     VARCHAR2(5),
+  other1      VARCHAR2(50),
+  other2      VARCHAR2(50),
+  other3      VARCHAR2(50),
+  other4      VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.YK_METER_DATE
+  add constraint PK_YK_METER_DATE primary key (HANDLEID, METER_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,40 @@
+create table HRBZLS.METERMODEL
+(
+  mmid   VARCHAR2(2) not null,
+  mmname VARCHAR2(20),
+  mmmemo VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERMODEL
+  is '±íÐÍºÅ¡¾MM¡¿';
+comment on column HRBZLS.METERMODEL.mmid
+  is '±àÂë';
+comment on column HRBZLS.METERMODEL.mmname
+  is 'Ãû³Æ';
+comment on column HRBZLS.METERMODEL.mmmemo
+  is 'ÃèÊö';
+alter table HRBZLS.METERMODEL
+  add constraint PK_METERMODEL primary key (MMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

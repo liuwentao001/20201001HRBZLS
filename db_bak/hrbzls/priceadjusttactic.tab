@@ -1,0 +1,62 @@
+create table HRBZLS.PRICEADJUSTTACTIC
+(
+  patid        VARCHAR2(2) not null,
+  patname      VARCHAR2(60) not null,
+  patissmfid   CHAR(1) not null,
+  patiscid     CHAR(1) not null,
+  patismid     CHAR(1) not null,
+  patispfid    CHAR(1) not null,
+  patispiid    CHAR(1) not null,
+  patiscaliber CHAR(1) not null,
+  patpri       NUMBER not null,
+  patmemo      VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEADJUSTTACTIC
+  is '调整策略表【PAT】
+提供设置后台算费时候调用';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patid
+  is '策略编码';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patname
+  is '策略名称描述';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patissmfid
+  is '按营销公司';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patiscid
+  is '是否含用户Y/N';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patismid
+  is '是否含表Y/N';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patispfid
+  is '是否含费率Y/N';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patispiid
+  is '是否含费率项目Y/N';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patiscaliber
+  is '是否含口径Y/N';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patpri
+  is '优先级';
+comment on column HRBZLS.PRICEADJUSTTACTIC.patmemo
+  is '描述';
+alter table HRBZLS.PRICEADJUSTTACTIC
+  add constraint PK_PRICEADJUSTTACTIC primary key (PATID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

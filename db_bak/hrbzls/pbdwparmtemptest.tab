@@ -1,0 +1,14 @@
+create table HRBZLS.PBDWPARMTEMPTEST
+(
+  dwtxt     VARCHAR2(400),
+  dwname    VARCHAR2(400),
+  dwval     VARCHAR2(400),
+  dwcoltype VARCHAR2(400),
+  dwfomart  VARCHAR2(400),
+  dwcoltag  VARCHAR2(400)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

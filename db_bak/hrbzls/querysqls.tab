@@ -1,0 +1,37 @@
+create table HRBZLS.QUERYSQLS
+(
+  qsid    VARCHAR2(256) not null,
+  qsvalue VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.QUERYSQLS
+  is '²é¿´SQL';
+comment on column HRBZLS.QUERYSQLS.qsid
+  is 'sqlid';
+comment on column HRBZLS.QUERYSQLS.qsvalue
+  is 'sql';
+alter table HRBZLS.QUERYSQLS
+  add constraint PK_QSID primary key (QSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

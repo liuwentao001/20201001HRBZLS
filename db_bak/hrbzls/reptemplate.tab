@@ -1,0 +1,40 @@
+create table HRBZLS.REPTEMPLATE
+(
+  rtdocname   VARCHAR2(128) not null,
+  rtname      VARCHAR2(64) not null,
+  rtoperid    VARCHAR2(15) not null,
+  rtflag      CHAR(1) not null,
+  rtdefault   CHAR(1) not null,
+  rtdwname    VARCHAR2(64) not null,
+  rtdwcurname VARCHAR2(64) not null,
+  rtmdata     BLOB,
+  rtcdata     BLOB,
+  rtoperdate  DATE,
+  rtrepname   VARCHAR2(128)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.REPTEMPLATE
+  add constraint PK_REPTEMPLATE primary key (RTDOCNAME, RTNAME, RTOPERID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

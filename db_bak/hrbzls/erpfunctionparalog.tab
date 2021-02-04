@@ -1,0 +1,59 @@
+create table HRBZLS.ERPFUNCTIONPARALOG
+(
+  efseq              VARCHAR2(10) not null,
+  efdate             DATE,
+  oper               VARCHAR2(100),
+  sessionuser        VARCHAR2(100),
+  osuser             VARCHAR2(100),
+  authenticationtype VARCHAR2(100),
+  opertype           VARCHAR2(20),
+  operip             VARCHAR2(20),
+  efid               VARCHAR2(10),
+  efidn              VARCHAR2(10),
+  efname             VARCHAR2(40),
+  efnamen            VARCHAR2(40),
+  efevent            VARCHAR2(64),
+  efeventn           VARCHAR2(64),
+  eftype             VARCHAR2(64),
+  eftypen            VARCHAR2(64),
+  efrow              VARCHAR2(3),
+  efrown             VARCHAR2(3),
+  efrunpara          VARCHAR2(4000),
+  efrunparan         VARCHAR2(4000),
+  efmemo             VARCHAR2(256),
+  efmemon            VARCHAR2(256),
+  efno               VARCHAR2(20),
+  efnon              VARCHAR2(20),
+  efflag             VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ERPFUNCTIONPARALOG
+  is '功能参数';
+comment on column HRBZLS.ERPFUNCTIONPARALOG.efid
+  is '功能号';
+comment on column HRBZLS.ERPFUNCTIONPARALOG.efrow
+  is '参数序号';
+comment on column HRBZLS.ERPFUNCTIONPARALOG.efrunpara
+  is '调用参数';
+comment on column HRBZLS.ERPFUNCTIONPARALOG.efmemo
+  is '参数说明';
+comment on column HRBZLS.ERPFUNCTIONPARALOG.efno
+  is '附件ID';
+comment on column HRBZLS.ERPFUNCTIONPARALOG.efflag
+  is '有效标志';
+create index HRBZLS.ERPFUNCTIONPARALOG_IDX001 on HRBZLS.ERPFUNCTIONPARALOG (EFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.ERPFUNCTIONPARALOG
+  add constraint PK_ERPFUNCTIONPARALOG primary key (EFSEQ)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

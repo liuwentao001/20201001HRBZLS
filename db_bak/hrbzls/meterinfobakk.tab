@@ -1,0 +1,331 @@
+create table HRBZLS.METERINFOBAKK
+(
+  micid         VARCHAR2(10),
+  miid          VARCHAR2(10) not null,
+  miadr         VARCHAR2(100),
+  misafid       VARCHAR2(10),
+  micode        VARCHAR2(10),
+  mismfid       VARCHAR2(10),
+  miprmon       VARCHAR2(7),
+  mirmon        VARCHAR2(7),
+  mibfid        VARCHAR2(10),
+  mirorder      NUMBER,
+  mipid         VARCHAR2(10),
+  miclass       NUMBER,
+  miflag        CHAR(1),
+  mirtid        CHAR(1),
+  miifmp        CHAR(1),
+  miifsp        CHAR(1),
+  mistid        VARCHAR2(10),
+  mipfid        VARCHAR2(10),
+  mistatus      VARCHAR2(2),
+  mistatusdate  DATE,
+  mistatustrans VARCHAR2(3),
+  miface        VARCHAR2(2),
+  mirpid        VARCHAR2(3),
+  miside        VARCHAR2(100),
+  miposition    VARCHAR2(100),
+  miinscode     NUMBER(10),
+  miinsdate     DATE,
+  miinsper      VARCHAR2(64),
+  mireinscode   NUMBER(10),
+  mireinsdate   DATE,
+  mireinsper    VARCHAR2(64),
+  mitype        CHAR(1),
+  mircode       NUMBER(10),
+  mirecdate     DATE,
+  mirecsl       NUMBER(10),
+  miifcharge    CHAR(1),
+  miifsl        CHAR(1),
+  miifchk       CHAR(1),
+  miifwatch     CHAR(1),
+  miicno        VARCHAR2(40),
+  mimemo        VARCHAR2(120),
+  mipriid       VARCHAR2(10),
+  mipriflag     CHAR(1),
+  miusenum      NUMBER(10),
+  michargetype  CHAR(1),
+  misaving      NUMBER(13,3),
+  milb          CHAR(1),
+  minewflag     CHAR(1),
+  micper        VARCHAR2(10),
+  miiftax       CHAR(1),
+  mitaxno       VARCHAR2(20),
+  miuninscode   NUMBER(10),
+  miuninsdate   DATE,
+  miuninsper    VARCHAR2(64),
+  miface2       VARCHAR2(2),
+  miface3       VARCHAR2(2),
+  miface4       VARCHAR2(2),
+  mircodechar   VARCHAR2(10),
+  miifckf       CHAR(10),
+  migps         VARCHAR2(60),
+  miqfh         VARCHAR2(20),
+  mibox         VARCHAR2(10),
+  mijfkrow      NUMBER(10) default 0,
+  miname        VARCHAR2(64),
+  miname2       VARCHAR2(64),
+  miseqno       VARCHAR2(50),
+  minewdate     DATE,
+  miuiid        VARCHAR2(10),
+  micommunity   VARCHAR2(10),
+  miremoteno    VARCHAR2(20),
+  miremotehubno VARCHAR2(20),
+  miemail       VARCHAR2(64),
+  miemailflag   CHAR(1),
+  micolumn1     NUMBER(12,2),
+  micolumn2     VARCHAR2(10),
+  micolumn3     VARCHAR2(64),
+  micolumn4     VARCHAR2(10),
+  mipaymentid   VARCHAR2(10),
+  micolumn5     NUMBER default 0,
+  micolumn6     NUMBER(12,3),
+  micolumn7     NUMBER(12,3),
+  micolumn8     DATE,
+  micolumn9     VARCHAR2(10),
+  micolumn10    VARCHAR2(10),
+  milh          VARCHAR2(120),
+  midyh         VARCHAR2(120),
+  mimph         VARCHAR2(120),
+  mijd          VARCHAR2(120),
+  miyhpj        VARCHAR2(10),
+  mitax         NUMBER(12,3) default 0,
+  miifzdh       NUMBER,
+  midbzjh       VARCHAR2(64),
+  miyl1         VARCHAR2(2),
+  miyl2         VARCHAR2(2),
+  miyl3         VARCHAR2(2),
+  miyl4         VARCHAR2(40),
+  miyl5         VARCHAR2(20),
+  miyl6         VARCHAR2(20),
+  miyl7         NUMBER,
+  miyl8         NUMBER,
+  miyl9         NUMBER,
+  miyl10        DATE,
+  miyl11        DATE,
+  miyl12        DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERINFOBAKK
+  is '户表信息【MI】';
+comment on column HRBZLS.METERINFOBAKK.micid
+  is '用户编号';
+comment on column HRBZLS.METERINFOBAKK.miid
+  is '水表编号';
+comment on column HRBZLS.METERINFOBAKK.miadr
+  is '表地址';
+comment on column HRBZLS.METERINFOBAKK.misafid
+  is '区域';
+comment on column HRBZLS.METERINFOBAKK.micode
+  is '客户代码';
+comment on column HRBZLS.METERINFOBAKK.mismfid
+  is '营销公司(SYSMANAFRAME 0201道里营业一分公司/0208南岗营业二分公司/0206香坊营业二分公司/0204香坊营业一分公司/0205道外营业二分公司/0203南岗营业一分公司/0207平房营业分公司/0202道外营业一分公司/0209道里营业二分公司/0210嵩山营业分公司)
+';
+comment on column HRBZLS.METERINFOBAKK.miprmon
+  is '上期抄表月份';
+comment on column HRBZLS.METERINFOBAKK.mirmon
+  is '本期抄表月份';
+comment on column HRBZLS.METERINFOBAKK.mibfid
+  is '表册(bookframe)';
+comment on column HRBZLS.METERINFOBAKK.mirorder
+  is '抄表次序';
+comment on column HRBZLS.METERINFOBAKK.mipid
+  is '上级水表编号';
+comment on column HRBZLS.METERINFOBAKK.miclass
+  is '水表级次';
+comment on column HRBZLS.METERINFOBAKK.miflag
+  is '末级标志';
+comment on column HRBZLS.METERINFOBAKK.mirtid
+  is '抄表方式【sysreadtype】(5对话式抄表机/1人工抄表/2手持抄表机/3有线远传/4无线远传)';
+comment on column HRBZLS.METERINFOBAKK.miifmp
+  is '混合用水标志(Y-是,N-否 )';
+comment on column HRBZLS.METERINFOBAKK.miifsp
+  is '例外单价标志(Y-是,N-否 )';
+comment on column HRBZLS.METERINFOBAKK.mistid
+  is '行业分类【metersortframe】(20政府/21视同/22区域用户/26集体户/1居民/2企业/3特困企业/4破产企业/5增值税企业/6银行/7市直行政事业/8区行政事业/10学校/11医院/12环卫公厕/13非环卫公厕/14绿  化/15暂不开票/16销  户/17表  拆/18分  户/19报  停/23农郊用户/24校核表/25消防表/30一户一表)
+';
+comment on column HRBZLS.METERINFOBAKK.mipfid
+  is '价格分类(priceframe)';
+comment on column HRBZLS.METERINFOBAKK.mistatus
+  is '有效状态【sysmeterstatus】(28基建临时用水/27移表中/19销户中/21欠费停水/24故障换表中/25周检中/7销户/1立户/2预立户/29无表/30故障表/31基建正式用水/32基建拆迁止水/34营销部收入用户/36预存冲正中/33补缴用户/35周期换表中)';
+comment on column HRBZLS.METERINFOBAKK.mistatusdate
+  is '状态日期';
+comment on column HRBZLS.METERINFOBAKK.mistatustrans
+  is '状态表务';
+comment on column HRBZLS.METERINFOBAKK.miface
+  is '水表故障(01正常/02表异常/03零水量)';
+comment on column HRBZLS.METERINFOBAKK.mirpid
+  is '计件类型';
+comment on column HRBZLS.METERINFOBAKK.miside
+  is '表位【syscharlist】(CF厨房/CS卫生间/GJ管井/QT其他/TJ天井)';
+comment on column HRBZLS.METERINFOBAKK.miposition
+  is '水表接水地址';
+comment on column HRBZLS.METERINFOBAKK.miinscode
+  is '新装起度';
+comment on column HRBZLS.METERINFOBAKK.miinsdate
+  is '装表日期';
+comment on column HRBZLS.METERINFOBAKK.miinsper
+  is '安装人';
+comment on column HRBZLS.METERINFOBAKK.mireinscode
+  is '换表起度';
+comment on column HRBZLS.METERINFOBAKK.mireinsdate
+  is '换表日期';
+comment on column HRBZLS.METERINFOBAKK.mireinsper
+  is '换表人';
+comment on column HRBZLS.METERINFOBAKK.mitype
+  is '类型(1=坐收,2=走收)不要了，哈尔滨用收费方式MICHARGETYPE';
+comment on column HRBZLS.METERINFOBAKK.mircode
+  is '本期读数';
+comment on column HRBZLS.METERINFOBAKK.mirecdate
+  is '本期抄见日期';
+comment on column HRBZLS.METERINFOBAKK.mirecsl
+  is '本期抄见水量';
+comment on column HRBZLS.METERINFOBAKK.miifcharge
+  is '是否计费(Y-是,N-否 )';
+comment on column HRBZLS.METERINFOBAKK.miifsl
+  is '是否计量(Y-是,N-否 )';
+comment on column HRBZLS.METERINFOBAKK.miifchk
+  is '是否考核表(Y-是,N-否 )';
+comment on column HRBZLS.METERINFOBAKK.miifwatch
+  is '是否节水(Y-是,N-否 )';
+comment on column HRBZLS.METERINFOBAKK.miicno
+  is 'IC卡号';
+comment on column HRBZLS.METERINFOBAKK.mimemo
+  is '备注信息';
+comment on column HRBZLS.METERINFOBAKK.mipriid
+  is '合收表主表号';
+comment on column HRBZLS.METERINFOBAKK.mipriflag
+  is '合收表标志(Y-合收表标志,N-非合收主表 )';
+comment on column HRBZLS.METERINFOBAKK.miusenum
+  is '户籍人数';
+comment on column HRBZLS.METERINFOBAKK.michargetype
+  is '收费方式(X坐收M走收)';
+comment on column HRBZLS.METERINFOBAKK.misaving
+  is '预存款余额';
+comment on column HRBZLS.METERINFOBAKK.milb
+  is '水表类别(D=总表,H=户表)';
+comment on column HRBZLS.METERINFOBAKK.minewflag
+  is '新表标志';
+comment on column HRBZLS.METERINFOBAKK.micper
+  is '收费员';
+comment on column HRBZLS.METERINFOBAKK.miiftax
+  is '是否税票';
+comment on column HRBZLS.METERINFOBAKK.mitaxno
+  is '税号';
+comment on column HRBZLS.METERINFOBAKK.miuninscode
+  is '拆表止度';
+comment on column HRBZLS.METERINFOBAKK.miuninsdate
+  is '拆表日期';
+comment on column HRBZLS.METERINFOBAKK.miuninsper
+  is '拆表人';
+comment on column HRBZLS.METERINFOBAKK.miface2
+  is '抄见故障【sysfacelist2】(01正常/02本次同上次/03长期无人/04停业/05闭栓/06不用水/07表停/08无表计量/09倒表/10表锈/11表失灵/12水表自转/13非正常数据01/14无表/15非正常数据03)';
+comment on column HRBZLS.METERINFOBAKK.miface3
+  is '非常计量';
+comment on column HRBZLS.METERINFOBAKK.miface4
+  is '表井设施说明';
+comment on column HRBZLS.METERINFOBAKK.mircodechar
+  is '本期读数';
+comment on column HRBZLS.METERINFOBAKK.miifckf
+  is '垃圾费户数';
+comment on column HRBZLS.METERINFOBAKK.migps
+  is '是否合票';
+comment on column HRBZLS.METERINFOBAKK.miqfh
+  is '铅封号';
+comment on column HRBZLS.METERINFOBAKK.mibox
+  is '消防水价（增值税水价，襄阳需求）';
+comment on column HRBZLS.METERINFOBAKK.mijfkrow
+  is '消防底度';
+comment on column HRBZLS.METERINFOBAKK.miname
+  is '票据名称';
+comment on column HRBZLS.METERINFOBAKK.miname2
+  is '招牌名称(小区名，襄阳需求）';
+comment on column HRBZLS.METERINFOBAKK.miseqno
+  is '户号（初始化时册号+序号）（哈尔滨：帐卡号）';
+comment on column HRBZLS.METERINFOBAKK.minewdate
+  is '立户日期';
+comment on column HRBZLS.METERINFOBAKK.miuiid
+  is '合收单位编号';
+comment on column HRBZLS.METERINFOBAKK.micommunity
+  is '远传表小区号';
+comment on column HRBZLS.METERINFOBAKK.miremoteno
+  is '远传表号|采集机（哈尔滨：借用建账存放合收主表表身码）';
+comment on column HRBZLS.METERINFOBAKK.miremotehubno
+  is '远传表HUB号|端口（哈尔滨：借用存放用户编号clt_id，坐收老号查询）';
+comment on column HRBZLS.METERINFOBAKK.miemail
+  is '电子邮件（哈尔滨：借用存放水帐号码clt_no）';
+comment on column HRBZLS.METERINFOBAKK.miemailflag
+  is '发账是否发邮件';
+comment on column HRBZLS.METERINFOBAKK.micolumn1
+  is '备用字段1(低保减免水量)';
+comment on column HRBZLS.METERINFOBAKK.micolumn2
+  is '备用字段2(低保用户标志)';
+comment on column HRBZLS.METERINFOBAKK.micolumn3
+  is '备用字段3(低保截止月份)';
+comment on column HRBZLS.METERINFOBAKK.micolumn4
+  is '用户性质(GQ 公企 SM收免 TK 特困 GD 定量 PT 普通)';
+comment on column HRBZLS.METERINFOBAKK.mipaymentid
+  is '最近一次实收流水';
+comment on column HRBZLS.METERINFOBAKK.micolumn5
+  is '无表户水量(免抄户指定水量)';
+comment on column HRBZLS.METERINFOBAKK.micolumn6
+  is '备用字段6(一表多户分摊主表比例，连云港)';
+comment on column HRBZLS.METERINFOBAKK.micolumn7
+  is '星级等级';
+comment on column HRBZLS.METERINFOBAKK.micolumn8
+  is '备用字段8';
+comment on column HRBZLS.METERINFOBAKK.micolumn9
+  is '用户类别2';
+comment on column HRBZLS.METERINFOBAKK.micolumn10
+  is '备用字段10(是否签订供用水合同)';
+comment on column HRBZLS.METERINFOBAKK.milh
+  is '楼号';
+comment on column HRBZLS.METERINFOBAKK.midyh
+  is '单元号';
+comment on column HRBZLS.METERINFOBAKK.mimph
+  is '门牌号';
+comment on column HRBZLS.METERINFOBAKK.mijd
+  is '街道';
+comment on column HRBZLS.METERINFOBAKK.miyhpj
+  is '用户信用评级';
+comment on column HRBZLS.METERINFOBAKK.mitax
+  is '税额比例';
+comment on column HRBZLS.METERINFOBAKK.miifzdh
+  is '重点户编号';
+comment on column HRBZLS.METERINFOBAKK.midbzjh
+  is '低保证件号';
+comment on column HRBZLS.METERINFOBAKK.miyl1
+  is '等针标志（Y=等针，N=非等针）';
+comment on column HRBZLS.METERINFOBAKK.miyl2
+  is '总表收免标志(0=普通表，1=总表收免，2=多级表(或总表挂虚表))';
+comment on column HRBZLS.METERINFOBAKK.miyl3
+  is '预留字段3';
+comment on column HRBZLS.METERINFOBAKK.miyl4
+  is '用户水表密码(限定6位,默为6个888888)';
+comment on column HRBZLS.METERINFOBAKK.miyl5
+  is '预留字段5';
+comment on column HRBZLS.METERINFOBAKK.miyl6
+  is '预留字段6';
+comment on column HRBZLS.METERINFOBAKK.miyl7
+  is '总表收免水量最大值';
+comment on column HRBZLS.METERINFOBAKK.miyl8
+  is '余额退费注记';
+comment on column HRBZLS.METERINFOBAKK.miyl9
+  is '预留字段9';
+comment on column HRBZLS.METERINFOBAKK.miyl10
+  is '预留字段10';
+comment on column HRBZLS.METERINFOBAKK.miyl11
+  is '预留字段11';
+comment on column HRBZLS.METERINFOBAKK.miyl12
+  is '预留字段12';
+

@@ -1,0 +1,157 @@
+create table HRBZLS.PAIDADJUSTDT
+(
+  padno         VARCHAR2(10) not null,
+  padrowno      NUMBER(6) not null,
+  padchkflag    CHAR(1) default 'N' not null,
+  padpdate      DATE,
+  padpdatetime  DATE,
+  padpmonth     VARCHAR2(7),
+  padpposition  VARCHAR2(10),
+  padptrans     CHAR(1),
+  padpcd        CHAR(2),
+  padppayee     VARCHAR2(20),
+  padpper       VARCHAR2(20),
+  padppayway    VARCHAR2(6),
+  padpbatch     VARCHAR2(10) not null,
+  padplpid      VARCHAR2(10),
+  padplrlid     VARCHAR2(10),
+  padplpfid     VARCHAR2(10),
+  padplpricedj  NUMBER(13,3),
+  padplpfidn    VARCHAR2(10),
+  padplpricedjn NUMBER(13,3),
+  padplsl       NUMBER(10),
+  padplje       NUMBER(13,3),
+  padplznj      NUMBER(12,2),
+  padplscrplid  VARCHAR2(10),
+  padrlmonth    VARCHAR2(7),
+  padrldate     DATE,
+  padmemo       VARCHAR2(100),
+  padcrsl       NUMBER,
+  padcrznj      NUMBER(12,2),
+  padmrsl       NUMBER,
+  padmrdate     DATE,
+  padshflag     CHAR(1),
+  padcrje       NUMBER(13,3),
+  padcrje1      NUMBER(13,3),
+  padcrje2      NUMBER(13,3),
+  padcrje3      NUMBER(13,3),
+  padcrje4      NUMBER(13,3),
+  padcrje5      NUMBER(13,3),
+  padcrje6      NUMBER(13,3),
+  padcrje7      NUMBER(13,3),
+  padnrlid      VARCHAR2(10),
+  padnpid       VARCHAR2(10),
+  padnbatch     VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PAIDADJUSTDT
+  is '实收冲正单体【PAD】';
+comment on column HRBZLS.PAIDADJUSTDT.padno
+  is '单据流水号';
+comment on column HRBZLS.PAIDADJUSTDT.padrowno
+  is '行号';
+comment on column HRBZLS.PAIDADJUSTDT.padchkflag
+  is '选中标志';
+comment on column HRBZLS.PAIDADJUSTDT.padpdate
+  is '帐务日期';
+comment on column HRBZLS.PAIDADJUSTDT.padpdatetime
+  is '发生日期';
+comment on column HRBZLS.PAIDADJUSTDT.padpmonth
+  is '缴费月份';
+comment on column HRBZLS.PAIDADJUSTDT.padpposition
+  is '缴费地点';
+comment on column HRBZLS.PAIDADJUSTDT.padptrans
+  is '缴费事务';
+comment on column HRBZLS.PAIDADJUSTDT.padpcd
+  is '借贷方向';
+comment on column HRBZLS.PAIDADJUSTDT.padppayee
+  is '收款员';
+comment on column HRBZLS.PAIDADJUSTDT.padpper
+  is '销帐人员';
+comment on column HRBZLS.PAIDADJUSTDT.padppayway
+  is '付款方式';
+comment on column HRBZLS.PAIDADJUSTDT.padpbatch
+  is '缴费交易批次';
+comment on column HRBZLS.PAIDADJUSTDT.padplpid
+  is '交易流水号';
+comment on column HRBZLS.PAIDADJUSTDT.padplrlid
+  is '应收流水';
+comment on column HRBZLS.PAIDADJUSTDT.padplpfid
+  is '价格类别';
+comment on column HRBZLS.PAIDADJUSTDT.padplpricedj
+  is '原史单价';
+comment on column HRBZLS.PAIDADJUSTDT.padplpfidn
+  is '新价格类别';
+comment on column HRBZLS.PAIDADJUSTDT.padplpricedjn
+  is '新单价';
+comment on column HRBZLS.PAIDADJUSTDT.padplsl
+  is '销帐水量';
+comment on column HRBZLS.PAIDADJUSTDT.padplje
+  is '销帐金额';
+comment on column HRBZLS.PAIDADJUSTDT.padplznj
+  is '实收违约金';
+comment on column HRBZLS.PAIDADJUSTDT.padplscrplid
+  is '冲销原帐流水';
+comment on column HRBZLS.PAIDADJUSTDT.padrlmonth
+  is '应收帐月份';
+comment on column HRBZLS.PAIDADJUSTDT.padrldate
+  is '应收帐日期';
+comment on column HRBZLS.PAIDADJUSTDT.padmemo
+  is '备注';
+comment on column HRBZLS.PAIDADJUSTDT.padcrsl
+  is '减退水量';
+comment on column HRBZLS.PAIDADJUSTDT.padcrznj
+  is '减退滞纳金';
+comment on column HRBZLS.PAIDADJUSTDT.padmrsl
+  is '抄表水量';
+comment on column HRBZLS.PAIDADJUSTDT.padmrdate
+  is '抄表时间';
+comment on column HRBZLS.PAIDADJUSTDT.padshflag
+  is '审核标志';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje
+  is '减退金额';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje1
+  is '减退金额1';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje2
+  is '减退金额2';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje3
+  is '减退金额3';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje4
+  is '减退金额4';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje5
+  is '减退金额5';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje6
+  is '减退金额6';
+comment on column HRBZLS.PAIDADJUSTDT.padcrje7
+  is '减退金额7';
+comment on column HRBZLS.PAIDADJUSTDT.padnrlid
+  is '新应收账ID';
+comment on column HRBZLS.PAIDADJUSTDT.padnpid
+  is '新实收账ID';
+comment on column HRBZLS.PAIDADJUSTDT.padnbatch
+  is '新实收批次';
+alter table HRBZLS.PAIDADJUSTDT
+  add constraint PK_PAIDADJUSTDT primary key (PADNO, PADROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

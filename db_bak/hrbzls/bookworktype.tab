@@ -1,0 +1,29 @@
+create table HRBZLS.BOOKWORKTYPE
+(
+  bwtmfpcode VARCHAR2(10) not null,
+  bwtbfid    VARCHAR2(10) not null,
+  bwtwtid    VARCHAR2(10) not null,
+  bwtoperid  VARCHAR2(15) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BOOKWORKTYPE
+  is '管理表册的岗位工种【BWT】';
+comment on column HRBZLS.BOOKWORKTYPE.bwtmfpcode
+  is '营销公司';
+comment on column HRBZLS.BOOKWORKTYPE.bwtbfid
+  is '表册';
+comment on column HRBZLS.BOOKWORKTYPE.bwtwtid
+  is '岗位';
+comment on column HRBZLS.BOOKWORKTYPE.bwtoperid
+  is '员工';
+alter table HRBZLS.BOOKWORKTYPE
+  add constraint PK_BOOKWORKTYPE primary key (BWTMFPCODE, BWTBFID, BWTWTID, BWTOPERID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

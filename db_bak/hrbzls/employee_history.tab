@@ -1,0 +1,16 @@
+create table HRBZLS.EMPLOYEE_HISTORY
+(
+  e_id   NUMBER(8),
+  e_name VARCHAR2(20) not null,
+  e_sex  CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+alter table HRBZLS.EMPLOYEE_HISTORY
+  add constraint EMPLOYEE_HISTORY_SEX_CHECK
+  check (
+      e_sex in ('f','m')
+);
+

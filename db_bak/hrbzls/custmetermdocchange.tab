@@ -1,0 +1,58 @@
+create table HRBZLS.CUSTMETERMDOCCHANGE
+(
+  变更流水号 VARCHAR2(10),
+  行号    NUMBER(6),
+  单据类别  CHAR(1),
+  登记人员  VARCHAR2(10),
+  登记日期  DATE,
+  审核人员  VARCHAR2(10),
+  审核日期  DATE,
+  审核标志  CHAR(1),
+  水表编号  VARCHAR2(10),
+  资料号   VARCHAR2(10),
+  用户编号  VARCHAR2(10),
+  用户号   VARCHAR2(10),
+  变更对象  VARCHAR2(16),
+  变更前   VARCHAR2(4000),
+  变更后   VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create index HRBZLS.CUSTMETERMDOCCHANGE_IDX001 on HRBZLS.CUSTMETERMDOCCHANGE (变更流水号, 行号, 单据类别, 变更对象)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.CUSTMETERMDOCCHANGE_IDX002 on HRBZLS.CUSTMETERMDOCCHANGE (单据类别)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.CUSTMETERMDOCCHANGE_IDX003 on HRBZLS.CUSTMETERMDOCCHANGE (登记日期)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.CUSTMETERMDOCCHANGE_IDX004 on HRBZLS.CUSTMETERMDOCCHANGE (审核日期)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.CUSTMETERMDOCCHANGE_IDX005 on HRBZLS.CUSTMETERMDOCCHANGE (资料号)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.CUSTMETERMDOCCHANGE_IDX006 on HRBZLS.CUSTMETERMDOCCHANGE (水表编号, 资料号, 用户编号, 用户号)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.CUSTMETERMDOCCHANGE_IDX007 on HRBZLS.CUSTMETERMDOCCHANGE (变更对象)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

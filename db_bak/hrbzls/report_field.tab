@@ -1,0 +1,22 @@
+create table HRBZLS.REPORT_FIELD
+(
+  report_id      VARCHAR2(54) not null,
+  table_english  VARCHAR2(80) not null,
+  column_english VARCHAR2(45) not null,
+  column_chinese VARCHAR2(36),
+  column_type    VARCHAR2(12),
+  column_len1    NUMBER(5),
+  column_len2    NUMBER(5),
+  column_select  VARCHAR2(45),
+  column_sort    NUMBER(5) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create unique index HRBZLS.REPORT_FIELD_X on HRBZLS.REPORT_FIELD (REPORT_ID, COLUMN_SORT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

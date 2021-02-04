@@ -1,0 +1,53 @@
+create global temporary table HRBZLS.INVPARMTERMP
+(
+  rlid    VARCHAR2(24),
+  pid     VARCHAR2(24),
+  pbatch  VARCHAR2(10),
+  ppbatch VARCHAR2(10),
+  ifprint VARCHAR2(10),
+  ifsms   VARCHAR2(10),
+  memo1   VARCHAR2(300) default 'N',
+  memo2   VARCHAR2(300),
+  memo3   VARCHAR2(300),
+  memo4   VARCHAR2(300),
+  memo5   VARCHAR2(300),
+  memo6   VARCHAR2(300),
+  memo7   VARCHAR2(300),
+  memo8   VARCHAR2(300),
+  memo9   VARCHAR2(300)
+)
+on commit delete rows;
+comment on table HRBZLS.INVPARMTERMP
+  is '发票参数临时表';
+comment on column HRBZLS.INVPARMTERMP.rlid
+  is '应收ID';
+comment on column HRBZLS.INVPARMTERMP.pid
+  is '实收id';
+comment on column HRBZLS.INVPARMTERMP.pbatch
+  is '实收批次 ';
+comment on column HRBZLS.INVPARMTERMP.ppbatch
+  is '打印批次';
+comment on column HRBZLS.INVPARMTERMP.ifprint
+  is 'N=只组织数据不做打印，Y或为空不做处理';
+comment on column HRBZLS.INVPARMTERMP.ifsms
+  is '是否发送短信，N=不发送，Y=发送';
+comment on column HRBZLS.INVPARMTERMP.memo1
+  is '重开标识';
+comment on column HRBZLS.INVPARMTERMP.memo2
+  is '备注2';
+comment on column HRBZLS.INVPARMTERMP.memo3
+  is '备注3';
+comment on column HRBZLS.INVPARMTERMP.memo4
+  is '备注4';
+comment on column HRBZLS.INVPARMTERMP.memo5
+  is '备注5';
+comment on column HRBZLS.INVPARMTERMP.memo6
+  is '备注6';
+comment on column HRBZLS.INVPARMTERMP.memo7
+  is '备注8';
+comment on column HRBZLS.INVPARMTERMP.memo8
+  is '备注9）';
+create index HRBZLS.IDX_INVPARMTERMP_PBATCH on HRBZLS.INVPARMTERMP (PBATCH);
+create index HRBZLS.IDX_INVPARMTERMP_PID on HRBZLS.INVPARMTERMP (PID);
+create index HRBZLS.IDX_INVPARMTERMP_RLID on HRBZLS.INVPARMTERMP (RLID);
+

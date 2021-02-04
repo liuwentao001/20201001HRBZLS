@@ -1,0 +1,40 @@
+create table HRBZLS.ST_VENDOR
+(
+  vendorid VARCHAR2(20) not null,
+  brand    VARCHAR2(30),
+  name     VARCHAR2(80),
+  address  VARCHAR2(80),
+  tel1     VARCHAR2(20),
+  tel2     VARCHAR2(20),
+  tel3     VARCHAR2(20),
+  contrast VARCHAR2(40),
+  email    VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.ST_VENDOR.vendorid
+  is '编号';
+comment on column HRBZLS.ST_VENDOR.brand
+  is '品牌';
+comment on column HRBZLS.ST_VENDOR.name
+  is '名称';
+comment on column HRBZLS.ST_VENDOR.address
+  is '地址';
+comment on column HRBZLS.ST_VENDOR.tel1
+  is '电话';
+comment on column HRBZLS.ST_VENDOR.tel2
+  is '电话2';
+comment on column HRBZLS.ST_VENDOR.tel3
+  is '电话3';
+comment on column HRBZLS.ST_VENDOR.contrast
+  is '联系人';
+comment on column HRBZLS.ST_VENDOR.email
+  is '电子邮箱';
+create unique index HRBZLS.VENDOR_X_ST on HRBZLS.ST_VENDOR (VENDORID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

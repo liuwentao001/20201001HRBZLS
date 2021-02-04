@@ -1,0 +1,8 @@
+create global temporary table HRBZLS.INV_IDTEMP
+(
+  tilid  VARCHAR2(10) not null,
+  trslid VARCHAR2(10) not null,
+  ttype  VARCHAR2(2) not null
+)
+on commit delete rows;
+

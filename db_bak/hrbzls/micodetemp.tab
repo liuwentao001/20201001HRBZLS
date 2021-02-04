@@ -1,0 +1,53 @@
+create table HRBZLS.MICODETEMP
+(
+  mtid   VARCHAR2(3),
+  mtname VARCHAR2(30),
+  mtno   VARCHAR2(12),
+  mtmemo VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MICODETEMP
+  is '客户代码临时表';
+comment on column HRBZLS.MICODETEMP.mtid
+  is '编号';
+comment on column HRBZLS.MICODETEMP.mtname
+  is '名称';
+comment on column HRBZLS.MICODETEMP.mtno
+  is '当前最大编号';
+comment on column HRBZLS.MICODETEMP.mtmemo
+  is '备注';
+create index HRBZLS.IDX_MTNO on HRBZLS.MICODETEMP (MTNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.PK_MICODETEMP on HRBZLS.MICODETEMP (MTID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

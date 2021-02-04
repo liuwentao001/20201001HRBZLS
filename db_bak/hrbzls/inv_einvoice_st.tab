@@ -1,0 +1,75 @@
+create table HRBZLS.INV_EINVOICE_ST
+(
+  icid      VARCHAR2(32) not null,
+  tenantid  NUMBER not null,
+  accountid VARCHAR2(50) not null,
+  qysh      VARCHAR2(20) not null,
+  customid  VARCHAR2(20) not null,
+  cname     VARCHAR2(50) not null,
+  mobile    VARCHAR2(11),
+  fpqqlsh   VARCHAR2(20) not null,
+  dsptbm    VARCHAR2(8),
+  nsrsbh    VARCHAR2(20) not null,
+  nsrmc     VARCHAR2(200) not null,
+  nsrdzdah  VARCHAR2(29),
+  swjgdm    VARCHAR2(11),
+  dkbz      VARCHAR2(1) not null,
+  pydm      VARCHAR2(10),
+  kpxm      VARCHAR2(200) not null,
+  bmbbbh    VARCHAR2(20) not null,
+  xhfnsrsbh VARCHAR2(20) not null,
+  xhfmc     VARCHAR2(200) not null,
+  xhfdz     VARCHAR2(80) not null,
+  xhfdh     VARCHAR2(20) not null,
+  xhfyhzh   VARCHAR2(100),
+  ghfmc     VARCHAR2(200) not null,
+  ghfnsrsbh VARCHAR2(20),
+  ghfdz     VARCHAR2(200),
+  ghfsf     VARCHAR2(20),
+  ghfgddh   VARCHAR2(20),
+  ghfsj     VARCHAR2(20),
+  ghfemail  VARCHAR2(50),
+  ghfqylx   VARCHAR2(2) not null,
+  ghfyhzh   VARCHAR2(100),
+  hydm      VARCHAR2(10),
+  hymc      VARCHAR2(40),
+  kpy       VARCHAR2(8),
+  sky       VARCHAR2(8),
+  fhr       VARCHAR2(8),
+  kprq      DATE,
+  kplx      NUMBER not null,
+  yfpdm     VARCHAR2(12),
+  yfphm     VARCHAR2(8),
+  tschbz    VARCHAR2(1) not null,
+  czdm      VARCHAR2(2) not null,
+  qdbz      VARCHAR2(1) not null,
+  qdxmmc    VARCHAR2(200),
+  chyy      VARCHAR2(200),
+  kphjje    NUMBER not null,
+  hjbhsje   NUMBER not null,
+  hjse      NUMBER not null,
+  bz        VARCHAR2(200),
+  byzd1     VARCHAR2(100),
+  byzd2     VARCHAR2(100),
+  byzd3     VARCHAR2(100),
+  byzd4     VARCHAR2(100),
+  byzd5     VARCHAR2(100),
+  ispcisno  VARCHAR2(50),
+  id        VARCHAR2(10),
+  yxqymc    VARCHAR2(50),
+  bcmc      VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.INV_EINVOICE_ST.fpqqlsh
+  is '商品流水号';
+

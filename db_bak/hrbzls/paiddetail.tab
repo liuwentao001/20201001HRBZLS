@@ -1,0 +1,60 @@
+create table HRBZLS.PAIDDETAIL
+(
+  pdid       VARCHAR2(10) not null,
+  pdpiid     CHAR(2) not null,
+  pdje       NUMBER(13,3) not null,
+  pddj       NUMBER(13,3),
+  pdsl       NUMBER(12,2),
+  pdznj      NUMBER(12,2),
+  pdflag     CHAR(1),
+  pdmemo     VARCHAR2(200),
+  pdrecznj   NUMBER(12,2),
+  pdpfid     VARCHAR2(10),
+  pdpmdid    NUMBER,
+  pdpmdscale NUMBER(10,2),
+  pdilid     VARCHAR2(10),
+  pdclass    NUMBER,
+  pdpscid    NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAIDDETAIL
+  is '实收帐明细【PD】';
+comment on column HRBZLS.PAIDDETAIL.pdid
+  is '流水号';
+comment on column HRBZLS.PAIDDETAIL.pdpiid
+  is '费用项目';
+comment on column HRBZLS.PAIDDETAIL.pdje
+  is '实收金额';
+comment on column HRBZLS.PAIDDETAIL.pddj
+  is '实收单价';
+comment on column HRBZLS.PAIDDETAIL.pdsl
+  is '实收水量';
+comment on column HRBZLS.PAIDDETAIL.pdznj
+  is '实收违约金';
+comment on column HRBZLS.PAIDDETAIL.pdflag
+  is '被冲正标志(Y正常销帐；N被冲正)';
+comment on column HRBZLS.PAIDDETAIL.pdmemo
+  is '备注';
+comment on column HRBZLS.PAIDDETAIL.pdrecznj
+  is '应收违约金';
+comment on column HRBZLS.PAIDDETAIL.pdpfid
+  is '费率';
+comment on column HRBZLS.PAIDDETAIL.pdpmdid
+  is '混合用水分组';
+comment on column HRBZLS.PAIDDETAIL.pdpmdscale
+  is '混合比例';
+comment on column HRBZLS.PAIDDETAIL.pdilid
+  is '票据流水';
+comment on column HRBZLS.PAIDDETAIL.pdclass
+  is '阶梯级别';
+comment on column HRBZLS.PAIDDETAIL.pdpscid
+  is '费率明细方案';
+create index HRBZLS.IDX_PDID on HRBZLS.PAIDDETAIL (PDID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

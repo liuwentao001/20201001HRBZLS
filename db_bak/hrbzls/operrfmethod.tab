@@ -1,0 +1,40 @@
+create table HRBZLS.OPERRFMETHOD
+(
+  orfmrid   VARCHAR2(5) not null,
+  orfmfid   VARCHAR2(10) not null,
+  orfmethod CHAR(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERRFMETHOD
+  is '用户角色功能方法';
+comment on column HRBZLS.OPERRFMETHOD.orfmrid
+  is '角色';
+comment on column HRBZLS.OPERRFMETHOD.orfmfid
+  is '功能';
+comment on column HRBZLS.OPERRFMETHOD.orfmethod
+  is '功能方法';
+alter table HRBZLS.OPERRFMETHOD
+  add constraint PK_OPERRFMETHOD primary key (ORFMRID, ORFMFID, ORFMETHOD)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

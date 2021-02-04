@@ -1,0 +1,92 @@
+create table HRBZLS.METER_STATIC_LOG
+(
+  mslid      NUMBER not null,
+  统计日期       DATE not null,
+  客户代码       VARCHAR2(10) not null,
+  产权名        VARCHAR2(64),
+  水表地址       VARCHAR2(64),
+  事务代码       VARCHAR2(10) not null,
+  原区域        VARCHAR2(10),
+  原营销公司      VARCHAR2(10),
+  原抄表方式      CHAR(1),
+  原水表口径      NUMBER(10),
+  原行业分类      VARCHAR2(10),
+  原水表类型      CHAR(1),
+  原考核表标志     CHAR(1),
+  原收费方式      CHAR(1),
+  原水表类别      CHAR(1),
+  原用水大类      VARCHAR2(10),
+  原用水中类      VARCHAR2(10),
+  原用水小类      VARCHAR2(10),
+  原表位        VARCHAR2(100),
+  原表册        VARCHAR2(10),
+  原立户日期      DATE,
+  新区域        VARCHAR2(10),
+  新营销公司      VARCHAR2(10),
+  新抄表方式      CHAR(1),
+  新水表口径      NUMBER(10),
+  新行业分类      VARCHAR2(10),
+  新水表类型      CHAR(1),
+  新考核表标志     CHAR(1),
+  新收费方式      CHAR(1),
+  新水表类别      CHAR(1),
+  新用水大类      VARCHAR2(10),
+  新用水中类      VARCHAR2(10),
+  新用水小类      VARCHAR2(10),
+  新表位        VARCHAR2(100),
+  新表册        VARCHAR2(10),
+  新立户日期      DATE,
+  msid_tar1  NUMBER,
+  msid_tar2  NUMBER,
+  msid_tar3  NUMBER,
+  msid_tar4  NUMBER,
+  前月均量       NUMBER default 0,
+  后月均量       NUMBER default 0,
+  msid_tar5  NUMBER,
+  msid_tar6  NUMBER,
+  msid_tar7  NUMBER,
+  msid_tar8  NUMBER,
+  msid_tar9  NUMBER,
+  msid_tar10 NUMBER,
+  msid_tar11 NUMBER,
+  msid_tar12 NUMBER,
+  msid_tar13 NUMBER,
+  msid_tar14 NUMBER,
+  msid_tar15 NUMBER,
+  msid_tar16 NUMBER,
+  msid_tar17 NUMBER,
+  msid_tar18 NUMBER,
+  msid_tar19 NUMBER,
+  msid_tar20 NUMBER,
+  msid_tar21 NUMBER,
+  msid_tar22 NUMBER,
+  msid_tar23 NUMBER,
+  msid_tar24 NUMBER,
+  msid_tar25 NUMBER,
+  msid_tar26 NUMBER,
+  msid_tar27 NUMBER,
+  msid_tar28 NUMBER,
+  msid_tar29 NUMBER,
+  msid_tar30 NUMBER,
+  msid_tar31 NUMBER,
+  msid_tar32 NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METER_STATIC_LOG
+  is '水表信息日志';
+create index HRBZLS.IDX_MSL_统计日期 on HRBZLS.METER_STATIC_LOG (统计日期)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.METER_STATIC_LOG
+  add constraint PK_METER_STATIC_LOG primary key (MSLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

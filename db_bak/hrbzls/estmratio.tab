@@ -1,0 +1,37 @@
+create table HRBZLS.ESTMRATIO
+(
+  estrid    CHAR(2) not null,
+  estrvalue NUMBER not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ESTMRATIO
+  is '预估系数';
+comment on column HRBZLS.ESTMRATIO.estrid
+  is '月份';
+comment on column HRBZLS.ESTMRATIO.estrvalue
+  is '预估系数';
+alter table HRBZLS.ESTMRATIO
+  add constraint PK_ESTIRID primary key (ESTRID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

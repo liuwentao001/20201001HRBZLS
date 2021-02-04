@@ -1,0 +1,52 @@
+create global temporary table HRBZLS.TEMP_ENTRUSTLIST
+(
+  tetlbatch        VARCHAR2(10) not null,
+  tetlseqno        VARCHAR2(10) not null,
+  tetlrlid         VARCHAR2(10),
+  tetlmid          VARCHAR2(10),
+  tetlmcode        VARCHAR2(10),
+  tetlbankid       VARCHAR2(30),
+  tetlaccountno    VARCHAR2(32),
+  tetlaccountname  VARCHAR2(64),
+  tetlje           NUMBER(12,2),
+  tetlzndate       DATE,
+  tetlznj          NUMBER(12,2),
+  tetlpiid         VARCHAR2(20),
+  tetlpaiddate     DATE,
+  tetlpaidcdate    DATE,
+  tetlpaidflag     CHAR(1),
+  tetlreturncode   VARCHAR2(128),
+  tetlreturnmsg    VARCHAR2(128),
+  tetlchkdate      DATE,
+  tetlsflag        CHAR(1),
+  tetlrldate       DATE,
+  tetlno           VARCHAR2(64),
+  tetltsbankid     VARCHAR2(30),
+  tetlpzno         VARCHAR2(10),
+  tetlciadr        VARCHAR2(100),
+  tetlmiadr        VARCHAR2(64),
+  tetlbankidname   VARCHAR2(64),
+  tetlbankidno     VARCHAR2(30),
+  tetltsbankidname VARCHAR2(64),
+  tetltsbankidno   VARCHAR2(30),
+  tetlsfje         NUMBER(12,2),
+  tetlwsfje        NUMBER(12,2),
+  tetlsfznj        NUMBER(12,2),
+  tetlwsfznj       NUMBER(12,2),
+  tetlrlidpiid     CLOB,
+  tetlsl           NUMBER(12,2),
+  tetlwsl          NUMBER(12,2),
+  tetlsfdj         NUMBER(13,3),
+  tetlwsfdj        NUMBER(13,3),
+  tetlciname       VARCHAR2(64),
+  tetlrlmonth      VARCHAR2(7),
+  tetlinvcount     NUMBER(4),
+  tetlchrmode      CHAR(1),
+  tetlpaidper      VARCHAR2(10)
+)
+on commit delete rows;
+comment on table HRBZLS.TEMP_ENTRUSTLIST
+  is 'Õ– ’ENTRUSTLIST¡Ÿ ±±Ì';
+alter table HRBZLS.TEMP_ENTRUSTLIST
+  add constraint PK_TEMP_ENTRUSTLIST primary key (TETLBATCH, TETLSEQNO);
+

@@ -1,0 +1,46 @@
+create table HRBZLS.OPERACCNTPARA
+(
+  oapoaid  VARCHAR2(10) not null,
+  oaptype  VARCHAR2(20) not null,
+  oapvalue VARCHAR2(2000),
+  oapflag  VARCHAR2(1),
+  oapmemo  VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERACCNTPARA
+  is '操作员参数[OAP]';
+comment on column HRBZLS.OPERACCNTPARA.oapoaid
+  is '操作员ID';
+comment on column HRBZLS.OPERACCNTPARA.oaptype
+  is '类别';
+comment on column HRBZLS.OPERACCNTPARA.oapvalue
+  is '参数值';
+comment on column HRBZLS.OPERACCNTPARA.oapflag
+  is '有效标志';
+comment on column HRBZLS.OPERACCNTPARA.oapmemo
+  is '备注';
+alter table HRBZLS.OPERACCNTPARA
+  add constraint PK_OPERACCNTPARA primary key (OAPOAID, OAPTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

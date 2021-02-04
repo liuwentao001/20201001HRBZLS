@@ -1,0 +1,52 @@
+create table HRBZLS.SYSMETERTYPE
+(
+  smtid        CHAR(1) not null,
+  smtname      VARCHAR2(20) not null,
+  smtifdefault CHAR(1) not null,
+  smtifread    CHAR(1) not null,
+  smtmemo      VARCHAR2(120),
+  smtifsl      CHAR(1) not null,
+  smtifcharge  CHAR(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSMETERTYPE
+  is '水表类型【SMT】';
+comment on column HRBZLS.SYSMETERTYPE.smtid
+  is '编码';
+comment on column HRBZLS.SYSMETERTYPE.smtname
+  is '名称';
+comment on column HRBZLS.SYSMETERTYPE.smtifdefault
+  is '默认';
+comment on column HRBZLS.SYSMETERTYPE.smtifread
+  is '是否抄表';
+comment on column HRBZLS.SYSMETERTYPE.smtmemo
+  is '描述';
+comment on column HRBZLS.SYSMETERTYPE.smtifsl
+  is '是否计量';
+comment on column HRBZLS.SYSMETERTYPE.smtifcharge
+  is '是否计费';
+alter table HRBZLS.SYSMETERTYPE
+  add constraint PK_SYSMETERTYPE primary key (SMTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

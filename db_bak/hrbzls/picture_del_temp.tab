@@ -1,0 +1,17 @@
+create table HRBZLS.PICTURE_DEL_TEMP
+(
+  mrcid   VARCHAR2(10),
+  mrsmfid VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

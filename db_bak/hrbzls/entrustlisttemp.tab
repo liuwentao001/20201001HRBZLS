@@ -1,0 +1,88 @@
+create table HRBZLS.ENTRUSTLISTTEMP
+(
+  etlbatch         VARCHAR2(10),
+  etlseqno         VARCHAR2(10),
+  etlrlid          VARCHAR2(10),
+  etlmid           VARCHAR2(10),
+  etlmcode         VARCHAR2(10),
+  etlbankid        VARCHAR2(30),
+  etlaccountno     VARCHAR2(32),
+  etlaccountname   VARCHAR2(64),
+  etlje            NUMBER(12,2),
+  etlzndate        DATE,
+  etlznj           NUMBER(12,2),
+  etlpiid          VARCHAR2(100),
+  etlpaiddate      DATE,
+  etlpaidcdate     DATE,
+  etlpaidflag      CHAR(1),
+  etlreturncode    VARCHAR2(128),
+  etlreturnmsg     VARCHAR2(128),
+  etlchkdate       DATE,
+  etlsflag         CHAR(1),
+  etlrldate        DATE,
+  etlno            VARCHAR2(64),
+  etltsbankid      VARCHAR2(30),
+  etlpzno          VARCHAR2(10),
+  etlciadr         VARCHAR2(100),
+  etlmiadr         VARCHAR2(64),
+  etlbankidname    VARCHAR2(64),
+  etlbankidno      VARCHAR2(30),
+  etltsbankidname  VARCHAR2(64),
+  etltsbankidno    VARCHAR2(30),
+  etlsfje          NUMBER(12,2),
+  etlwsfje         NUMBER(12,2),
+  etlsfznj         NUMBER(12,2),
+  etlwsfznj        NUMBER(12,2),
+  etlrlidpiid      CLOB,
+  etlsl            NUMBER(12,2),
+  etlwsl           NUMBER(12,2),
+  etlsfdj          NUMBER(13,3),
+  etlwsfdj         NUMBER(13,3),
+  etlciname        VARCHAR2(64),
+  etlrlmonth       VARCHAR2(7),
+  etlinvcount      NUMBER(4),
+  etlchrmode       CHAR(1),
+  etlpaidper       VARCHAR2(10),
+  etltsaccountno   VARCHAR2(32),
+  etltsaccountname VARCHAR2(64),
+  etlszyfznj       NUMBER(12,2),
+  etlljfznj        NUMBER(12,2),
+  etlszyfsl        NUMBER(12,2),
+  etlljfsl         NUMBER(12,2),
+  etlszyfdj        NUMBER(12,2),
+  etlljfdj         NUMBER(12,2),
+  etlinvsfcount    NUMBER(12,2),
+  etlinvwsfcount   NUMBER(12,2),
+  etlinvszyfcount  NUMBER(12,2),
+  etlinvljfcount   NUMBER(12,2),
+  etlmiuiid        VARCHAR2(10),
+  etlszyfje        NUMBER(12,2),
+  etlljfje         NUMBER(12,2),
+  etlsxf           NUMBER(12,2),
+  etlifinv         NUMBER(10),
+  etlifinvpz       NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_ETLSEQNOTEMP on HRBZLS.ENTRUSTLISTTEMP (ETLSEQNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

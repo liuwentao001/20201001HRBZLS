@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_STREETMANAGE
+minvalue 1
+maxvalue 9999999999
+start with 1109
+increment by 1
+cache 2;
+

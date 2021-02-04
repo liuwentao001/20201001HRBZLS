@@ -1,0 +1,69 @@
+create table HRBZLS.METERTGLDT
+(
+  mtdno         VARCHAR2(10) not null,
+  mtdrowno      NUMBER(5) not null,
+  mtdsmfid      VARCHAR2(10),
+  mtdtel        VARCHAR2(30),
+  mtdconper     VARCHAR2(100),
+  mtdcontel     VARCHAR2(90),
+  mtdmid        VARCHAR2(10),
+  mtdcname      VARCHAR2(100),
+  mtdmadr       VARCHAR2(100),
+  mtdpfid       VARCHAR2(10),
+  mtdchargetype CHAR(1),
+  mtdsyscode    NUMBER(10) not null,
+  mtdrealcode   NUMBER(10) not null,
+  mtdtgl        NUMBER(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERTGLDT
+  is '表务工单体【MTD】';
+comment on column HRBZLS.METERTGLDT.mtdno
+  is '单据流水';
+comment on column HRBZLS.METERTGLDT.mtdrowno
+  is '行号';
+comment on column HRBZLS.METERTGLDT.mtdsmfid
+  is '营业所';
+comment on column HRBZLS.METERTGLDT.mtdtel
+  is '电话';
+comment on column HRBZLS.METERTGLDT.mtdconper
+  is '联系人';
+comment on column HRBZLS.METERTGLDT.mtdcontel
+  is '联系电话';
+comment on column HRBZLS.METERTGLDT.mtdmid
+  is '水表编号';
+comment on column HRBZLS.METERTGLDT.mtdcname
+  is '用户名称';
+comment on column HRBZLS.METERTGLDT.mtdmadr
+  is '用水地址';
+comment on column HRBZLS.METERTGLDT.mtdpfid
+  is '用水类别';
+comment on column HRBZLS.METERTGLDT.mtdchargetype
+  is '收费方式';
+comment on column HRBZLS.METERTGLDT.mtdsyscode
+  is '系统读数';
+comment on column HRBZLS.METERTGLDT.mtdrealcode
+  is '实际读数';
+comment on column HRBZLS.METERTGLDT.mtdtgl
+  is '推估量';
+create index HRBZLS.IDX_METERTGLDT_MTDMID on HRBZLS.METERTGLDT (MTDMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_METERTGLDT_MTDNO on HRBZLS.METERTGLDT (MTDNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.METERTGLDT
+  add constraint PK_METERTGLDT primary key (MTDNO, MTDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

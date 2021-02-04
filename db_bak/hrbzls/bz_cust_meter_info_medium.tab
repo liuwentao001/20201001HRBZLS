@@ -1,0 +1,215 @@
+create table HRBZLS.BZ_CUST_METER_INFO_MEDIUM
+(
+  ori_buildno      VARCHAR2(100),
+  build_no         VARCHAR2(20) not null,
+  name             VARCHAR2(600),
+  address          VARCHAR2(600),
+  namecall         VARCHAR2(200),
+  telephone1       VARCHAR2(40),
+  telephone2       VARCHAR2(40),
+  personalid       VARCHAR2(18),
+  caliberid        VARCHAR2(20),
+  nameplate        VARCHAR2(25),
+  brand            VARCHAR2(20),
+  metermodel       VARCHAR2(2),
+  ischeck          VARCHAR2(2),
+  metertype        VARCHAR2(2),
+  installtime      DATE,
+  chkmeter         VARCHAR2(10),
+  conninfo         VARCHAR2(600),
+  create_date      DATE,
+  last_date        DATE,
+  remark           VARCHAR2(600),
+  operator         VARCHAR2(200),
+  meterno          VARCHAR2(10),
+  status_flag      VARCHAR2(1),
+  send_flag        VARCHAR2(1),
+  meternum         VARCHAR2(10) not null,
+  parent_subj_code VARCHAR2(3),
+  old_build_no     VARCHAR2(20),
+  chkmeterno       VARCHAR2(10),
+  chargetype       CHAR(10),
+  wutypeid         VARCHAR2(20),
+  bankid           VARCHAR2(20),
+  accountno        VARCHAR2(30),
+  accountname      VARCHAR2(600),
+  custid           VARCHAR2(10),
+  gd_flag          CHAR(1),
+  gd_date          DATE,
+  gd_man           VARCHAR2(10),
+  down_flag        CHAR(1),
+  down_ofagent     VARCHAR2(10),
+  down_date        DATE,
+  down_man         VARCHAR2(20),
+  oa_inputflag     CHAR(1),
+  oa_inputdate     DATE,
+  oa_inputman      VARCHAR2(20),
+  oa_start_code    VARCHAR2(10),
+  oa_end_code      VARCHAR2(10),
+  oa_remark        VARCHAR2(1000),
+  construct_unit   VARCHAR2(600),
+  project_name     VARCHAR2(600),
+  project_type     CHAR(2),
+  send_date        DATE,
+  send_man         VARCHAR2(20),
+  oribuildno       VARCHAR2(100),
+  usekind          VARCHAR2(2),
+  readtype         VARCHAR2(2),
+  readperiod       NUMBER(5),
+  pri_flag         CHAR(1) default 'N',
+  pri_meterno      VARCHAR2(10),
+  pricetypeid      CHAR(10),
+  usenum           NUMBER(4)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.ori_buildno
+  is '手工报装登记号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.build_no
+  is '系统报装号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.name
+  is '姓名';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.address
+  is '地址';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.namecall
+  is '联系人';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.telephone1
+  is '电话1';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.telephone2
+  is '电话2';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.personalid
+  is '身份证号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.caliberid
+  is '口径';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.nameplate
+  is '铭牌号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.brand
+  is '厂牌';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.metermodel
+  is '水表型式';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.ischeck
+  is '是否为考核表';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.metertype
+  is '水表类型';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.installtime
+  is '安装日期';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.chkmeter
+  is '安装地址';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.conninfo
+  is '水表安装地址';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.create_date
+  is '建立日期';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.last_date
+  is '最后修改日期';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.remark
+  is '备注';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.operator
+  is '操作者';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.meterno
+  is '正式水表资料号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.status_flag
+  is '水表状态标致';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.send_flag
+  is '发送标致';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.meternum
+  is '流水号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.parent_subj_code
+  is '水表所属工程类型';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.old_build_no
+  is '原报装登记号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.chkmeterno
+  is '考核表表号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.chargetype
+  is '缴费方式';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.wutypeid
+  is '用水性质';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.bankid
+  is '开户行';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.accountno
+  is '帐号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.accountname
+  is '开户名';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.custid
+  is '正式用户编号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.gd_flag
+  is '归档标志';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.gd_date
+  is '归档日期';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.gd_man
+  is '归档人';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.down_flag
+  is '营业所下载标志';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.down_ofagent
+  is '下载营业所编号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.down_date
+  is '营业所下载日期(领表日期)';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.down_man
+  is '营业所下载人(领表人)';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.oa_inputflag
+  is '营业所开户标志';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.oa_inputdate
+  is '营业所开户日期';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.oa_inputman
+  is '营业所开户人';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.oa_start_code
+  is '第一次抄表起码';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.oa_end_code
+  is '第一次抄表止码';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.oa_remark
+  is '备注(未开户原因)';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.construct_unit
+  is '施工单位';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.project_name
+  is '工程名称';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.project_type
+  is '工程类型';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.send_date
+  is '发送日期';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.send_man
+  is '发送人';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.oribuildno
+  is '手工报装号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.usekind
+  is '用水性质';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.readtype
+  is '抄表类型';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.readperiod
+  is '抄表周期';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.pri_flag
+  is '合收标记';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.pri_meterno
+  is '合收主编号';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.pricetypeid
+  is '价格类别ID';
+comment on column HRBZLS.BZ_CUST_METER_INFO_MEDIUM.usenum
+  is '使用人数';
+create index HRBZLS.ID_CUST_METER_BUILD_NO_MEDIUM on HRBZLS.BZ_CUST_METER_INFO_MEDIUM (BUILD_NO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.ID_CUST_METER_NAME_MEDIUM on HRBZLS.BZ_CUST_METER_INFO_MEDIUM (NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.ID_CUST_METER_ORBNO_MEDIUM on HRBZLS.BZ_CUST_METER_INFO_MEDIUM (ORIBUILDNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.ID_CUST_METER_PARENT_MEDIUM on HRBZLS.BZ_CUST_METER_INFO_MEDIUM (PARENT_SUBJ_CODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.BZ_CUST_METER_INFO_MEDIUM
+  add constraint PK_BZ_CUST_METER_INFO_MEDIUM primary key (METERNUM)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

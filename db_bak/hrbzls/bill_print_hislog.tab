@@ -1,0 +1,52 @@
+create table HRBZLS.BILL_PRINT_HISLOG
+(
+  bph_id   NUMBER not null,
+  billtype VARCHAR2(5),
+  billno   VARCHAR2(12),
+  invno    VARCHAR2(12),
+  reqtime  DATE,
+  operid   VARCHAR2(12),
+  miid     VARCHAR2(12)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILL_PRINT_HISLOG
+  is '单据补打历史记录【bph】';
+comment on column HRBZLS.BILL_PRINT_HISLOG.bph_id
+  is '流水号';
+comment on column HRBZLS.BILL_PRINT_HISLOG.billtype
+  is '工单类型';
+comment on column HRBZLS.BILL_PRINT_HISLOG.billno
+  is '工单编号';
+comment on column HRBZLS.BILL_PRINT_HISLOG.invno
+  is '票据编号';
+comment on column HRBZLS.BILL_PRINT_HISLOG.reqtime
+  is '请求打印日期';
+comment on column HRBZLS.BILL_PRINT_HISLOG.operid
+  is '操作工号';
+comment on column HRBZLS.BILL_PRINT_HISLOG.miid
+  is '关联用户号';
+alter table HRBZLS.BILL_PRINT_HISLOG
+  add constraint PK_BILL_PRINT_HISLOG primary key (BPH_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

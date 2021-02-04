@@ -1,0 +1,92 @@
+create table HRBZLS.METERWATERANA
+(
+  mrmcode     VARCHAR2(10) not null,
+  mrmonth     VARCHAR2(7) not null,
+  mrrdate1    DATE,
+  mrrdate2    DATE,
+  mrsl        NUMBER(10),
+  mrsltype    CHAR(1),
+  mlevel      NUMBER(2),
+  umeter1     VARCHAR2(10),
+  umeter2     VARCHAR2(10),
+  umeter3     VARCHAR2(10),
+  umeter4     VARCHAR2(10),
+  umeter5     VARCHAR2(10),
+  umeter6     VARCHAR2(10),
+  wateravg1   NUMBER(12,2),
+  area        VARCHAR2(4),
+  mrcaliber   NUMBER(10),
+  ischeck     CHAR(1),
+  mrifgu      CHAR(1),
+  wateravg3   NUMBER(12,2),
+  wateravg6   NUMBER(12,2) not null,
+  wateravg12  NUMBER(12,2),
+  waterlost1  NUMBER(12,2),
+  waterlost3  NUMBER(12,2) not null,
+  waterlost6  NUMBER(12,2),
+  waterlost12 NUMBER(12,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERWATERANA
+  is '水表水量分析';
+comment on column HRBZLS.METERWATERANA.mrmcode
+  is '水表编号';
+comment on column HRBZLS.METERWATERANA.mrmonth
+  is '水量月份';
+comment on column HRBZLS.METERWATERANA.mrrdate1
+  is '上次抄表日期';
+comment on column HRBZLS.METERWATERANA.mrrdate2
+  is '本次抄表日期';
+comment on column HRBZLS.METERWATERANA.mrsl
+  is '水量';
+comment on column HRBZLS.METERWATERANA.mrsltype
+  is '水量类别(1-抄表，0-推算)';
+comment on column HRBZLS.METERWATERANA.mlevel
+  is '水表级次';
+comment on column HRBZLS.METERWATERANA.umeter1
+  is '1级考核表';
+comment on column HRBZLS.METERWATERANA.umeter2
+  is '2级考核表';
+comment on column HRBZLS.METERWATERANA.umeter3
+  is '3级考核表';
+comment on column HRBZLS.METERWATERANA.umeter4
+  is '4级考核表';
+comment on column HRBZLS.METERWATERANA.umeter5
+  is '5级考核表';
+comment on column HRBZLS.METERWATERANA.umeter6
+  is '6级考核表';
+comment on column HRBZLS.METERWATERANA.wateravg1
+  is '本期日均水量';
+comment on column HRBZLS.METERWATERANA.area
+  is '漏耗区域';
+comment on column HRBZLS.METERWATERANA.mrcaliber
+  is '口径';
+comment on column HRBZLS.METERWATERANA.ischeck
+  is '是否考核表';
+comment on column HRBZLS.METERWATERANA.mrifgu
+  is '估表标志';
+comment on column HRBZLS.METERWATERANA.wateravg3
+  is '季度累计日均水量';
+comment on column HRBZLS.METERWATERANA.wateravg6
+  is '半年度累计日均水量';
+comment on column HRBZLS.METERWATERANA.wateravg12
+  is '年度累计日均水量';
+comment on column HRBZLS.METERWATERANA.waterlost1
+  is '本期漏耗';
+comment on column HRBZLS.METERWATERANA.waterlost3
+  is '季度漏耗';
+comment on column HRBZLS.METERWATERANA.waterlost6
+  is '半年度漏耗';
+comment on column HRBZLS.METERWATERANA.waterlost12
+  is '年度漏耗';
+alter table HRBZLS.METERWATERANA
+  add constraint PK_WATERANA primary key (MRMCODE, MRMONTH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

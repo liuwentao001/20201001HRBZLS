@@ -1,0 +1,18 @@
+create table HRBZLS.REPORT_CONDITION
+(
+  dwobject   VARCHAR2(24) not null,
+  s_relation VARCHAR2(5),
+  s_field    VARCHAR2(45),
+  s_compare  VARCHAR2(6),
+  s_value    VARCHAR2(24)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create unique index HRBZLS.REPORT_CONDITION_X on HRBZLS.REPORT_CONDITION (DWOBJECT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

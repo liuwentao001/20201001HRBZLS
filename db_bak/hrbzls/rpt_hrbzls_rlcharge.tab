@@ -1,0 +1,113 @@
+create table HRBZLS.RPT_HRBZLS_RLCHARGE
+(
+  rlsmfid       VARCHAR2(10) not null,
+  rlmonth       VARCHAR2(7) not null,
+  rlrfname      VARCHAR2(30) not null,
+  rltype        VARCHAR2(30) not null,
+  rlnum         NUMBER,
+  rlsl          NUMBER,
+  rlnummc       NUMBER,
+  rlslmc        NUMBER,
+  rlwsnum       NUMBER,
+  rlwsl         NUMBER,
+  rlwsnummc     NUMBER,
+  rlwslmc       NUMBER,
+  rljsdj        NUMBER(12,3),
+  rljsje        NUMBER(12,3),
+  rlwsdj        NUMBER(12,3),
+  rlwsje        NUMBER(12,3),
+  rlfjdj        NUMBER(12,3),
+  rlfjje        NUMBER(12,3),
+  rlifstore     VARCHAR2(1),
+  rlsmslb       NUMBER,
+  rlsmslr       NUMBER,
+  rlslbnum      NUMBER,
+  rlslsnum      NUMBER,
+  rlsmswsb      NUMBER,
+  rlsmswsr      NUMBER,
+  rlwsbnum      NUMBER,
+  rlwsrnum      NUMBER,
+  rlwatertype_b CHAR(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RPT_HRBZLS_RLCHARGE
+  is '月售水情况统计【静态】';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlsmfid
+  is '营业所';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlmonth
+  is '账务月份';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlrfname
+  is '费用项目';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rltype
+  is '费用类别';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlnum
+  is '水费件数（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlsl
+  is '水费水量（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlnummc
+  is '水费件数（按人）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlslmc
+  is '水费水量（按人）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwsnum
+  is '污水件数（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwsl
+  is '污水量（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwsnummc
+  is '污水件数（按人）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwslmc
+  is '污水量（按人）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rljsdj
+  is '水费单价';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rljsje
+  is '水费';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwsdj
+  is '污水费单价';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwsje
+  is '污水费';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlfjdj
+  is '附加费单价';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlfjje
+  is '附加费';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlifstore
+  is '是否确认（Y=确认生成，不允许编辑,N=允许再编辑）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlsmslb
+  is '收免水量（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlsmslr
+  is '收免水量（按人）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlslbnum
+  is '收免件数（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlslsnum
+  is '收免件数（按人）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlsmswsb
+  is '收免污水量（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlsmswsr
+  is '收免污水量（按人）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwsbnum
+  is '收免污水件数（按表）';
+comment on column HRBZLS.RPT_HRBZLS_RLCHARGE.rlwsrnum
+  is '收免污水件数（按人）';
+alter table HRBZLS.RPT_HRBZLS_RLCHARGE
+  add constraint PK_RLCHARGE primary key (RLSMFID, RLMONTH, RLRFNAME, RLTYPE, RLWATERTYPE_B)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

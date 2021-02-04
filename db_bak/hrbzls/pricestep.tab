@@ -1,0 +1,67 @@
+create table HRBZLS.PRICESTEP
+(
+  pspscid NUMBER default 0 not null,
+  pspfid  VARCHAR2(10) not null,
+  pspiid  CHAR(2) not null,
+  psclass NUMBER not null,
+  psscode NUMBER(10) not null,
+  psecode NUMBER(10) not null,
+  psprice NUMBER(10,3) not null,
+  psmemo  VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICESTEP
+  is '阶梯水价明细【PS】';
+comment on column HRBZLS.PRICESTEP.pspscid
+  is '方案编码';
+comment on column HRBZLS.PRICESTEP.pspfid
+  is '费率编码';
+comment on column HRBZLS.PRICESTEP.pspiid
+  is '费率项目代码';
+comment on column HRBZLS.PRICESTEP.psclass
+  is '阶梯级别';
+comment on column HRBZLS.PRICESTEP.psscode
+  is '起量';
+comment on column HRBZLS.PRICESTEP.psecode
+  is '止量';
+comment on column HRBZLS.PRICESTEP.psprice
+  is '单价';
+comment on column HRBZLS.PRICESTEP.psmemo
+  is '备注';
+create index HRBZLS.INDEX_PSPFID on HRBZLS.PRICESTEP (PSPFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.PRICESTEP
+  add constraint PK_PRICESTEP primary key (PSPSCID, PSPFID, PSPIID, PSCLASS)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

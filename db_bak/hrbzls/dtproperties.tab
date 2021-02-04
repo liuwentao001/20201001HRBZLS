@@ -1,0 +1,19 @@
+create table HRBZLS.DTPROPERTIES
+(
+  id       NUMBER(10) not null,
+  objectid NUMBER(10),
+  property VARCHAR2(64) not null,
+  value    VARCHAR2(255),
+  uvalue   VARCHAR2(255),
+  version  NUMBER(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create unique index HRBZLS.DTPROPERTIES_X on HRBZLS.DTPROPERTIES (ID, PROPERTY)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

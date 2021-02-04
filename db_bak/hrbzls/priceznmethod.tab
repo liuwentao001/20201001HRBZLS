@@ -1,0 +1,29 @@
+create table HRBZLS.PRICEZNMETHOD
+(
+  pzmid          CHAR(2) not null,
+  pzmname        VARCHAR2(20) not null,
+  pzmexpressions VARCHAR2(100) not null,
+  pzmmemo        VARCHAR2(400)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PRICEZNMETHOD
+  is '滞纳金计算方法【PZM】';
+comment on column HRBZLS.PRICEZNMETHOD.pzmid
+  is '方法编码';
+comment on column HRBZLS.PRICEZNMETHOD.pzmname
+  is '方法名称';
+comment on column HRBZLS.PRICEZNMETHOD.pzmexpressions
+  is '方法公式';
+comment on column HRBZLS.PRICEZNMETHOD.pzmmemo
+  is '方法描述';
+alter table HRBZLS.PRICEZNMETHOD
+  add constraint PK_PRICEZNMETHOD primary key (PZMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

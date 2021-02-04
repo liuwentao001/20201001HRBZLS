@@ -1,0 +1,47 @@
+create table HRBZLS.HFBBS_PUBLIC_NOTE
+(
+  wpn_id         VARCHAR2(10),
+  wpn_time       DATE,
+  wpn_operator   VARCHAR2(6),
+  wpn_sourcedept VARCHAR2(30),
+  wpn_remark     VARCHAR2(1000),
+  wpn_flagend    CHAR(1) default 'N',
+  wpn_file1      BLOB,
+  wpn_file1name  VARCHAR2(100),
+  wpn_file2      BLOB,
+  wpn_file2name  VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.HFBBS_PUBLIC_NOTE
+  is '合肥自来水公告版';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_id
+  is '流水帐号';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_time
+  is '发布时间';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_operator
+  is '发布人';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_sourcedept
+  is '发布部门';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_remark
+  is '发布内容';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_flagend
+  is '是否终止';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_file1
+  is '附件1';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_file1name
+  is '附件1的名称';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_file2
+  is '附件2';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE.wpn_file2name
+  is '附件2的名称';
+

@@ -1,0 +1,9 @@
+create sequence HRBZLS.SEQ_BS_ENTRUST_SIGN_LOG
+minvalue 1
+maxvalue 9999999999
+start with 2630000
+increment by 1
+cache 50
+cycle
+order;
+

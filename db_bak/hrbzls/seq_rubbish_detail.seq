@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_RUBBISH_DETAIL
+minvalue 1
+maxvalue 999999999
+start with 291
+increment by 1
+cache 50
+cycle;
+

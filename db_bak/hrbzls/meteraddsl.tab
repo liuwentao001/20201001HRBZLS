@@ -1,0 +1,88 @@
+create table HRBZLS.METERADDSL
+(
+  masid        NUMBER not null,
+  masscodeo    NUMBER(10),
+  masecoden    NUMBER(10),
+  masuninsdate DATE,
+  masuninsper  VARCHAR2(15),
+  mascredate   DATE,
+  mascid       VARCHAR2(10),
+  masmid       VARCHAR2(10),
+  massl        NUMBER(10),
+  mascreper    VARCHAR2(15),
+  mastrans     CHAR(1),
+  masbillno    VARCHAR2(10),
+  masscoden    NUMBER(10),
+  masinsdate   DATE,
+  masinsper    VARCHAR2(15)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERADDSL
+  is '余量信息【MAS】';
+comment on column HRBZLS.METERADDSL.masid
+  is '记录流水号';
+comment on column HRBZLS.METERADDSL.masscodeo
+  is '旧表起度';
+comment on column HRBZLS.METERADDSL.masecoden
+  is '旧表止度';
+comment on column HRBZLS.METERADDSL.masuninsdate
+  is '拆表日期';
+comment on column HRBZLS.METERADDSL.masuninsper
+  is '拆表人';
+comment on column HRBZLS.METERADDSL.mascredate
+  is '创建日期';
+comment on column HRBZLS.METERADDSL.mascid
+  is '用户编号';
+comment on column HRBZLS.METERADDSL.masmid
+  is '水表编号';
+comment on column HRBZLS.METERADDSL.massl
+  is '余量';
+comment on column HRBZLS.METERADDSL.mascreper
+  is '创建人员';
+comment on column HRBZLS.METERADDSL.mastrans
+  is '加调事务';
+comment on column HRBZLS.METERADDSL.masbillno
+  is '单据流水';
+comment on column HRBZLS.METERADDSL.masscoden
+  is '新表起度';
+comment on column HRBZLS.METERADDSL.masinsdate
+  is '装表日期';
+comment on column HRBZLS.METERADDSL.masinsper
+  is '装表人';
+create index HRBZLS.IDX_MASMID on HRBZLS.METERADDSL (MASMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERADDSL
+  add constraint PK_METERADDSL primary key (MASID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

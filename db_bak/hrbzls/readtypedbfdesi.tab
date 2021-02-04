@@ -1,0 +1,70 @@
+create table HRBZLS.READTYPEDBFDESI
+(
+  rtddmrtid      CHAR(1) not null,
+  rtddid         CHAR(1) not null,
+  rtddcorder     NUMBER(4) not null,
+  rtddcname      VARCHAR2(200) not null,
+  rtddcdatatype  VARCHAR2(30) not null,
+  rtdddcname     VARCHAR2(20) not null,
+  rtdddcdatatype VARCHAR2(30) not null,
+  rtdddcwidth    NUMBER(4) not null,
+  rtdddcper      NUMBER(2),
+  rtddformat     VARCHAR2(30),
+  rtddiskey      CHAR(1) not null,
+  rtddisreturn   CHAR(1),
+  rtddspecial    VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.READTYPEDBFDESI
+  is '各抄表方式DBF文件结构定义';
+comment on column HRBZLS.READTYPEDBFDESI.rtddmrtid
+  is '抄表方式';
+comment on column HRBZLS.READTYPEDBFDESI.rtddid
+  is '接口定义编号';
+comment on column HRBZLS.READTYPEDBFDESI.rtddcorder
+  is '字段序号';
+comment on column HRBZLS.READTYPEDBFDESI.rtddcname
+  is 'ORA字段名称';
+comment on column HRBZLS.READTYPEDBFDESI.rtddcdatatype
+  is 'ORA字段类型';
+comment on column HRBZLS.READTYPEDBFDESI.rtdddcname
+  is 'DBF字段名称';
+comment on column HRBZLS.READTYPEDBFDESI.rtdddcdatatype
+  is 'DBF字段类型';
+comment on column HRBZLS.READTYPEDBFDESI.rtdddcwidth
+  is 'DBF字段长度';
+comment on column HRBZLS.READTYPEDBFDESI.rtdddcper
+  is 'DBF字段小数位数';
+comment on column HRBZLS.READTYPEDBFDESI.rtddformat
+  is '格式';
+comment on column HRBZLS.READTYPEDBFDESI.rtddiskey
+  is '主键';
+comment on column HRBZLS.READTYPEDBFDESI.rtddisreturn
+  is '接收返回';
+comment on column HRBZLS.READTYPEDBFDESI.rtddspecial
+  is '特殊返回值';
+alter table HRBZLS.READTYPEDBFDESI
+  add constraint PK_READTYPEDBFDESI primary key (RTDDMRTID, RTDDID, RTDDCORDER)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

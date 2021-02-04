@@ -1,0 +1,46 @@
+create table HRBZLS.SYSCHARLIST
+(
+  scltype  VARCHAR2(40) not null,
+  sclid    VARCHAR2(50) not null,
+  sclvalue VARCHAR2(50),
+  sclwidth NUMBER(2),
+  sclgroup VARCHAR2(4) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSCHARLIST
+  is '字符列表维护';
+comment on column HRBZLS.SYSCHARLIST.scltype
+  is '字符类别';
+comment on column HRBZLS.SYSCHARLIST.sclid
+  is '字符编号';
+comment on column HRBZLS.SYSCHARLIST.sclvalue
+  is '字符显示值';
+comment on column HRBZLS.SYSCHARLIST.sclwidth
+  is '字符编号宽度';
+comment on column HRBZLS.SYSCHARLIST.sclgroup
+  is '字符所属分组';
+alter table HRBZLS.SYSCHARLIST
+  add constraint PK_SYSCHARLIST primary key (SCLTYPE, SCLID, SCLGROUP)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

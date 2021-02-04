@@ -1,0 +1,116 @@
+create table HRBZLS.CUSTINFO
+(
+  ciid          VARCHAR2(10) not null,
+  cicode        VARCHAR2(10),
+  ciconid       VARCHAR2(20),
+  cismfid       VARCHAR2(10),
+  cipid         VARCHAR2(10),
+  ciclass       NUMBER,
+  ciflag        CHAR(1),
+  ciname        VARCHAR2(100),
+  ciname2       VARCHAR2(100),
+  ciadr         VARCHAR2(100),
+  cistatus      VARCHAR2(2),
+  cistatusdate  DATE,
+  cistatustrans VARCHAR2(3),
+  cinewdate     DATE,
+  ciidentitylb  CHAR(1),
+  ciidentityno  VARCHAR2(60),
+  cimtel        VARCHAR2(30),
+  citel1        VARCHAR2(30),
+  citel2        VARCHAR2(30),
+  citel3        VARCHAR2(30),
+  ciconnectper  VARCHAR2(60),
+  ciconnecttel  VARCHAR2(30),
+  ciifinv       CHAR(1),
+  ciifsms       CHAR(1),
+  ciifzn        CHAR(1),
+  ciprojno      VARCHAR2(25),
+  cifileno      VARCHAR2(20),
+  cimemo        VARCHAR2(120),
+  cideptid      VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CUSTINFO
+  is '用户信息表【CI】';
+comment on column HRBZLS.CUSTINFO.ciid
+  is '用户编号';
+comment on column HRBZLS.CUSTINFO.cicode
+  is '用户号';
+comment on column HRBZLS.CUSTINFO.ciconid
+  is '供水牌号';
+comment on column HRBZLS.CUSTINFO.cismfid
+  is '营销公司';
+comment on column HRBZLS.CUSTINFO.cipid
+  is '上级用户编号';
+comment on column HRBZLS.CUSTINFO.ciclass
+  is '用户级次';
+comment on column HRBZLS.CUSTINFO.ciflag
+  is '末级标志';
+comment on column HRBZLS.CUSTINFO.ciname
+  is '产权名';
+comment on column HRBZLS.CUSTINFO.ciname2
+  is '曾用名';
+comment on column HRBZLS.CUSTINFO.ciadr
+  is '用户地址';
+comment on column HRBZLS.CUSTINFO.cistatus
+  is '用户状态【syscuststatus】(1正常/7销户/2预立户)';
+comment on column HRBZLS.CUSTINFO.cistatusdate
+  is '状态日期';
+comment on column HRBZLS.CUSTINFO.cistatustrans
+  is '状态表务';
+comment on column HRBZLS.CUSTINFO.cinewdate
+  is '立户日期';
+comment on column HRBZLS.CUSTINFO.ciidentitylb
+  is '证件类型(1-身份证 2-营业执照  0-无)';
+comment on column HRBZLS.CUSTINFO.ciidentityno
+  is '证件号码';
+comment on column HRBZLS.CUSTINFO.cimtel
+  is '移动电话';
+comment on column HRBZLS.CUSTINFO.citel1
+  is '固定电话1';
+comment on column HRBZLS.CUSTINFO.citel2
+  is '固定电话2';
+comment on column HRBZLS.CUSTINFO.citel3
+  is '固定电话3';
+comment on column HRBZLS.CUSTINFO.ciconnectper
+  is '联系人';
+comment on column HRBZLS.CUSTINFO.ciconnecttel
+  is '联系电话';
+comment on column HRBZLS.CUSTINFO.ciifinv
+  is '是否普票（哈尔滨：借用做是否已打印增值税收据，reclist取值，置空）';
+comment on column HRBZLS.CUSTINFO.ciifsms
+  is '是否提供短信服务';
+comment on column HRBZLS.CUSTINFO.ciifzn
+  is '是否滞纳金';
+comment on column HRBZLS.CUSTINFO.ciprojno
+  is '工程编号(水账标识号)';
+comment on column HRBZLS.CUSTINFO.cifileno
+  is '档案号(供水合同号)';
+comment on column HRBZLS.CUSTINFO.cimemo
+  is '备注信息';
+comment on column HRBZLS.CUSTINFO.cideptid
+  is '立户部门';
+create index HRBZLS.IDX_CISMFID on HRBZLS.CUSTINFO (CISMFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

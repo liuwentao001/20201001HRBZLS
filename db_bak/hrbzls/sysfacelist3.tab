@@ -1,0 +1,43 @@
+create table HRBZLS.SYSFACELIST3
+(
+  sflid    VARCHAR2(2) not null,
+  sflname  VARCHAR2(20) not null,
+  sflmemo  VARCHAR2(64),
+  sflflag1 CHAR(1) not null,
+  sflflag2 CHAR(1) not null,
+  sflflag3 CHAR(1) not null,
+  sflflag4 CHAR(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.SYSFACELIST3
+  is '非常计量分类【SFL】';
+comment on column HRBZLS.SYSFACELIST3.sflid
+  is '编号';
+comment on column HRBZLS.SYSFACELIST3.sflname
+  is '名称';
+comment on column HRBZLS.SYSFACELIST3.sflmemo
+  is '描述';
+comment on column HRBZLS.SYSFACELIST3.sflflag1
+  is '控制参数1';
+comment on column HRBZLS.SYSFACELIST3.sflflag2
+  is '控制参数2';
+comment on column HRBZLS.SYSFACELIST3.sflflag3
+  is '控制参数3';
+comment on column HRBZLS.SYSFACELIST3.sflflag4
+  is '控制参数4';
+create unique index HRBZLS.IDX_SFLNAME3 on HRBZLS.SYSFACELIST3 (SFLNAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.SYSFACELIST3
+  add constraint PK_SYSFACELIST3 primary key (SFLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

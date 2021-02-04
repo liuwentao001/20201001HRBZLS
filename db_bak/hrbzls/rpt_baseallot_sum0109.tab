@@ -1,0 +1,26 @@
+create table HRBZLS.RPT_BASEALLOT_SUM0109
+(
+  miid              VARCHAR2(10) not null,
+  smfid             VARCHAR2(10),
+  umonth            VARCHAR2(7) not null,
+  add_sl            NUMBER,
+  add_money         NUMBER,
+  allot_sl          NUMBER,
+  allot_money       NUMBER,
+  last_remain_sl    NUMBER,
+  last_remain_money NUMBER,
+  this_remain_sl    NUMBER,
+  this_remain_money NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

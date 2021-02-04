@@ -1,0 +1,53 @@
+create table HRBZLS.ZNJADJUSTLIST
+(
+  zalrlid      VARCHAR2(10) not null,
+  zalpiid      CHAR(2) not null,
+  zalmid       VARCHAR2(10) not null,
+  zalmcode     VARCHAR2(10) not null,
+  zalmethod    CHAR(1) not null,
+  zalvalue     NUMBER(12,2),
+  zalzndate    DATE,
+  zaldate      DATE not null,
+  zalper       VARCHAR2(10) not null,
+  zalbillno    VARCHAR2(10) not null,
+  zalbillrowno NUMBER(6),
+  zalstatus    CHAR(1) default 'Y'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ZNJADJUSTLIST
+  is '滞纳金减免明细【ZAL】';
+comment on column HRBZLS.ZNJADJUSTLIST.zalrlid
+  is '减免应收流水';
+comment on column HRBZLS.ZNJADJUSTLIST.zalpiid
+  is '减免费用项目（全部为NA）';
+comment on column HRBZLS.ZNJADJUSTLIST.zalmid
+  is '水表编号';
+comment on column HRBZLS.ZNJADJUSTLIST.zalmcode
+  is '水表号';
+comment on column HRBZLS.ZNJADJUSTLIST.zalmethod
+  is '减免方法（1、目标金额减免；2、比例金额减免；3、差额减免；4、调整起算日期）';
+comment on column HRBZLS.ZNJADJUSTLIST.zalvalue
+  is '减免金额/比例值';
+comment on column HRBZLS.ZNJADJUSTLIST.zalzndate
+  is '减免目标起算日';
+comment on column HRBZLS.ZNJADJUSTLIST.zaldate
+  is '减免日期';
+comment on column HRBZLS.ZNJADJUSTLIST.zalper
+  is '减免人员';
+comment on column HRBZLS.ZNJADJUSTLIST.zalbillno
+  is '减免单据编号';
+comment on column HRBZLS.ZNJADJUSTLIST.zalbillrowno
+  is '减免单据行号';
+comment on column HRBZLS.ZNJADJUSTLIST.zalstatus
+  is '有效标志(Y有效，U已领用，N作废)';
+alter table HRBZLS.ZNJADJUSTLIST
+  add constraint PK_ZNJADJUSTLIST primary key (ZALRLID, ZALPIID, ZALBILLNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,25 @@
+create table HRBZLS.HANDLE_HS
+(
+  mibfid       VARCHAR2(30) not null,
+  mipfid       VARCHAR2(10) not null,
+  rlsl         NUMBER,
+  hs           NUMBER,
+  js           NUMBER,
+  michargetype VARCHAR2(1) not null,
+  sjhs         NUMBER,
+  sjjs         NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.HANDLE_HS
+  is '户数件数统计';
+

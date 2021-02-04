@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_BILLFLOWLIST
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 117
+increment by 1
+cache 50;
+

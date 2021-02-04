@@ -1,0 +1,52 @@
+create table HRBZLS.INVDAILYBALANCE
+(
+  idbdate  DATE not null,
+  idbsmfid VARCHAR2(32) not null,
+  idbper   VARCHAR2(32) not null,
+  idbqc    NUMBER,
+  idbqm    NUMBER,
+  idbl     NUMBER,
+  idbt     NUMBER,
+  idbs     NUMBER,
+  idbf     NUMBER,
+  idbtype  CHAR(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVDAILYBALANCE
+  is '票据结存';
+comment on column HRBZLS.INVDAILYBALANCE.idbdate
+  is '日期';
+comment on column HRBZLS.INVDAILYBALANCE.idbsmfid
+  is '营业所';
+comment on column HRBZLS.INVDAILYBALANCE.idbper
+  is '人员';
+comment on column HRBZLS.INVDAILYBALANCE.idbqc
+  is '期初可用张数';
+comment on column HRBZLS.INVDAILYBALANCE.idbqm
+  is '期末可用张数';
+comment on column HRBZLS.INVDAILYBALANCE.idbl
+  is '领用数';
+comment on column HRBZLS.INVDAILYBALANCE.idbt
+  is '退票数';
+comment on column HRBZLS.INVDAILYBALANCE.idbs
+  is '使用数';
+comment on column HRBZLS.INVDAILYBALANCE.idbf
+  is '作废数';
+comment on column HRBZLS.INVDAILYBALANCE.idbtype
+  is '票据类型';
+create index HRBZLS.IDX_IDBDATE on HRBZLS.INVDAILYBALANCE (IDBDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.INVDAILYBALANCE
+  add constraint PK_IDB primary key (IDBDATE, IDBSMFID, IDBPER, IDBTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

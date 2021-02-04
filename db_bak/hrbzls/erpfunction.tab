@@ -1,0 +1,100 @@
+create table HRBZLS.ERPFUNCTION
+(
+  efid          VARCHAR2(10) not null,
+  efname        VARCHAR2(40),
+  efclass       NUMBER default 1,
+  eflastflag    CHAR(1) default 'N',
+  efpcid        VARCHAR2(10),
+  efuppict      VARCHAR2(80),
+  efdnpict      VARCHAR2(80),
+  efcheck       CHAR(1) default 'N',
+  efvisible     CHAR(1) default 'Y',
+  efhint        VARCHAR2(40),
+  efmicrohelp   VARCHAR2(80),
+  efrunhow      CHAR(1) default 'S',
+  efrunwhat     VARCHAR2(40),
+  efrunpara     VARCHAR2(256),
+  efislog       CHAR(1) default 'N',
+  eftbitemindex NUMBER default 1,
+  eftbitemorder NUMBER default 0,
+  eftbitemspace NUMBER default 0,
+  efrootid      VARCHAR2(10),
+  eflib         VARCHAR2(50),
+  efpara1       VARCHAR2(100),
+  efpara2       VARCHAR2(100),
+  efpara3       VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ERPFUNCTION
+  is '功能';
+comment on column HRBZLS.ERPFUNCTION.efid
+  is '功能号';
+comment on column HRBZLS.ERPFUNCTION.efname
+  is '功能名称';
+comment on column HRBZLS.ERPFUNCTION.efclass
+  is '模块级';
+comment on column HRBZLS.ERPFUNCTION.eflastflag
+  is '末级标志';
+comment on column HRBZLS.ERPFUNCTION.efpcid
+  is '上级代码';
+comment on column HRBZLS.ERPFUNCTION.efuppict
+  is 'UP图标,也是在sheet子窗口中显示的ico';
+comment on column HRBZLS.ERPFUNCTION.efdnpict
+  is 'DOWN图标';
+comment on column HRBZLS.ERPFUNCTION.efcheck
+  is '选中标志';
+comment on column HRBZLS.ERPFUNCTION.efvisible
+  is '是否有效';
+comment on column HRBZLS.ERPFUNCTION.efhint
+  is '提示信息';
+comment on column HRBZLS.ERPFUNCTION.efmicrohelp
+  is '微帮助';
+comment on column HRBZLS.ERPFUNCTION.efrunhow
+  is '如何调用';
+comment on column HRBZLS.ERPFUNCTION.efrunwhat
+  is '调用内容';
+comment on column HRBZLS.ERPFUNCTION.efrunpara
+  is '调用参数';
+comment on column HRBZLS.ERPFUNCTION.efislog
+  is '是否记录日志';
+comment on column HRBZLS.ERPFUNCTION.eftbitemindex
+  is '工具栏INDEX';
+comment on column HRBZLS.ERPFUNCTION.eftbitemorder
+  is '工具栏ORDER';
+comment on column HRBZLS.ERPFUNCTION.eftbitemspace
+  is '工具栏SPACE';
+comment on column HRBZLS.ERPFUNCTION.efrootid
+  is '子系统标识';
+comment on column HRBZLS.ERPFUNCTION.eflib
+  is '功能调用存在库';
+comment on column HRBZLS.ERPFUNCTION.efpara1
+  is '调用参数预留1';
+comment on column HRBZLS.ERPFUNCTION.efpara2
+  is '调用参数预留2';
+comment on column HRBZLS.ERPFUNCTION.efpara3
+  is '调用参数预留3';
+alter table HRBZLS.ERPFUNCTION
+  add constraint PK_ERPFUNCTION primary key (EFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

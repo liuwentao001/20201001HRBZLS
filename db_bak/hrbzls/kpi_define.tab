@@ -1,0 +1,82 @@
+create table HRBZLS.KPI_DEFINE
+(
+  kt_id         VARCHAR2(10) not null,
+  kt_name       VARCHAR2(200) not null,
+  kt_period     NUMBER default 1,
+  isactive      VARCHAR2(2),
+  kt_datasource VARCHAR2(2000),
+  warning_upper NUMBER(10),
+  warning_lower NUMBER(10),
+  kt_sub        VARCHAR2(2),
+  kt_type       VARCHAR2(2),
+  kt_disp       VARCHAR2(2),
+  remark        VARCHAR2(200),
+  where_cause   VARCHAR2(2000),
+  kt_kind       VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.KPI_DEFINE
+  is '经营指标定义表';
+comment on column HRBZLS.KPI_DEFINE.kt_id
+  is '指标ID';
+comment on column HRBZLS.KPI_DEFINE.kt_name
+  is '指标名称';
+comment on column HRBZLS.KPI_DEFINE.kt_period
+  is '指标刷新周期';
+comment on column HRBZLS.KPI_DEFINE.isactive
+  is '是否在使用';
+comment on column HRBZLS.KPI_DEFINE.kt_datasource
+  is '数据源';
+comment on column HRBZLS.KPI_DEFINE.warning_upper
+  is '告警上线';
+comment on column HRBZLS.KPI_DEFINE.warning_lower
+  is '告警下线';
+comment on column HRBZLS.KPI_DEFINE.kt_sub
+  is '业务系统';
+comment on column HRBZLS.KPI_DEFINE.kt_type
+  is '指标类别';
+comment on column HRBZLS.KPI_DEFINE.kt_disp
+  is '表现形式';
+comment on column HRBZLS.KPI_DEFINE.remark
+  is '备注说明';
+comment on column HRBZLS.KPI_DEFINE.where_cause
+  is 'where子句';
+comment on column HRBZLS.KPI_DEFINE.kt_kind
+  is '指标类型（0-任务 1-监控 2-指标）';
+create index HRBZLS.KPD_INDEX_01 on HRBZLS.KPI_DEFINE (KT_NAME, ISACTIVE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.KPI_DEFINE
+  add constraint KT_ID_PK primary key (KT_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

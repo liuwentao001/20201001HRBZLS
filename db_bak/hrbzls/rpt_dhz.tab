@@ -1,0 +1,32 @@
+create table HRBZLS.RPT_DHZ
+(
+  rlid    VARCHAR2(10) not null,
+  rlmonth VARCHAR2(7),
+  rlsmfid VARCHAR2(10),
+  rlmid   VARCHAR2(10),
+  rlcname VARCHAR2(64),
+  rlcadr  VARCHAR2(100),
+  rlmadr  VARCHAR2(100),
+  rlpid   VARCHAR2(10),
+  rldate  DATE,
+  rlrdate DATE,
+  rlscode NUMBER(10),
+  rlecode NUMBER(10),
+  rlsl    NUMBER(10),
+  rlje    NUMBER(13,3),
+  charge1 NUMBER,
+  charge2 NUMBER,
+  charge3 NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

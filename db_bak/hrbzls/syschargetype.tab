@@ -1,0 +1,46 @@
+create table HRBZLS.SYSCHARGETYPE
+(
+  sctid        CHAR(1) not null,
+  sctname      VARCHAR2(20) not null,
+  sctflag      CHAR(1) not null,
+  sctmoemo     VARCHAR2(120),
+  sctisdefault CHAR(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSCHARGETYPE
+  is '收费方式【SCT】';
+comment on column HRBZLS.SYSCHARGETYPE.sctid
+  is '方式ID';
+comment on column HRBZLS.SYSCHARGETYPE.sctname
+  is '方式名称';
+comment on column HRBZLS.SYSCHARGETYPE.sctflag
+  is '启用状态';
+comment on column HRBZLS.SYSCHARGETYPE.sctmoemo
+  is '描述';
+comment on column HRBZLS.SYSCHARGETYPE.sctisdefault
+  is '是否缺省';
+alter table HRBZLS.SYSCHARGETYPE
+  add constraint PK_SYSCHARGETYPE primary key (SCTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

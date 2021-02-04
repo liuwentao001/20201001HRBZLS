@@ -1,0 +1,32 @@
+create table HRBZLS.用水性质对应表
+(
+  mipfid CHAR(10) not null,
+  name   CHAR(20) not null,
+  xh     NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.用水性质对应表
+  add constraint PRI_NAME primary key (MIPFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

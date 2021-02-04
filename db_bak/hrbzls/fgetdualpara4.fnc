@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION HRBZLS."FGETDUALPARA4" (p_type in varchar2)
+  RETURN VARCHAR2 AS
+
+BEGIN
+delete pbparmtemp_test;
+  RETURN 'Y';
+EXCEPTION
+  WHEN OTHERS THEN
+    RETURN 'N';
+END;
+/
+

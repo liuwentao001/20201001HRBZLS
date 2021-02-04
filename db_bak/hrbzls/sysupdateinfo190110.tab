@@ -1,0 +1,19 @@
+create table HRBZLS.SYSUPDATEINFO190110
+(
+  sys        VARCHAR2(20) not null,
+  oper       VARCHAR2(20),
+  updateinfo VARCHAR2(2000),
+  suedition  VARCHAR2(14)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

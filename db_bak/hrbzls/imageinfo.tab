@@ -1,0 +1,33 @@
+create table HRBZLS.IMAGEINFO
+(
+  resouseid   INTEGER,
+  imageinfoid INTEGER,
+  imgpath     VARCHAR2(40) not null,
+  textinfo    VARCHAR2(50) not null,
+  smallpath   VARCHAR2(180)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.IMAGEINFO
+  is '图片信息 ';
+comment on column HRBZLS.IMAGEINFO.resouseid
+  is '资源id';
+comment on column HRBZLS.IMAGEINFO.imgpath
+  is '图片路径';
+comment on column HRBZLS.IMAGEINFO.textinfo
+  is '文字说明';
+comment on column HRBZLS.IMAGEINFO.smallpath
+  is '缩略图路径';
+alter table HRBZLS.IMAGEINFO
+  add constraint FK_IMAGEINF_REFERENCE_RESOUSEI foreign key (RESOUSEID)
+  references HRBZLS.RESOUSEINFO (RESOUSEID);
+

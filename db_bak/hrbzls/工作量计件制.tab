@@ -1,0 +1,155 @@
+create table HRBZLS.工作量计件制
+(
+  id           NUMBER not null,
+  umonth       VARCHAR2(7),
+  udate        DATE,
+  oaid         VARCHAR2(15) not null,
+  oaname       VARCHAR2(60),
+  oasalary1    NUMBER(12,4),
+  oasalary2    NUMBER(12,4),
+  oasalary3    NUMBER(12,4),
+  oasalary4    NUMBER(12,4),
+  metecount    NUMBER,
+  metecountm   NUMBER,
+  metecountd   NUMBER,
+  metecounts   NUMBER,
+  metercountm  NUMBER,
+  metercountd  NUMBER,
+  metercounts  NUMBER,
+  workcountd   NUMBER,
+  workcounts   NUMBER,
+  workcountave NUMBER(12,4),
+  ysgzl        NUMBER,
+  rlje         NUMBER(12,4),
+  pje          NUMBER(12,4),
+  jsl          NUMBER(12,4),
+  cdfs         NUMBER,
+  sdfs         NUMBER,
+  gzljj1       NUMBER(12,4),
+  gzljj2       NUMBER(12,4),
+  ydsfjsl      NUMBER(12,4),
+  ydfpje       NUMBER(12,4),
+  ydjsjx       NUMBER(12,4),
+  ljsfjsl      NUMBER(12,4),
+  ljfpje       NUMBER(12,4),
+  ljjsjx       NUMBER(12,4),
+  wnsfjsl      NUMBER(12,4),
+  wnfpje       NUMBER(12,4),
+  wnjsjx       NUMBER(12,4),
+  jxgz         NUMBER(12,4),
+  gzze         NUMBER(12,4)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.工作量计件制
+  is '工作量计件制';
+comment on column HRBZLS.工作量计件制.umonth
+  is '月份';
+comment on column HRBZLS.工作量计件制.udate
+  is '生成日期';
+comment on column HRBZLS.工作量计件制.oaid
+  is '账号';
+comment on column HRBZLS.工作量计件制.oaname
+  is '姓名';
+comment on column HRBZLS.工作量计件制.oasalary1
+  is '基本工资';
+comment on column HRBZLS.工作量计件制.oasalary2
+  is '岗位工资';
+comment on column HRBZLS.工作量计件制.oasalary3
+  is '绩效工资';
+comment on column HRBZLS.工作量计件制.oasalary4
+  is '抄表难度系数';
+comment on column HRBZLS.工作量计件制.metecount
+  is '应抄表总数';
+comment on column HRBZLS.工作量计件制.metecountm
+  is '应抄每月表数';
+comment on column HRBZLS.工作量计件制.metecountd
+  is '应抄单月表数';
+comment on column HRBZLS.工作量计件制.metecounts
+  is '应抄双月表数';
+comment on column HRBZLS.工作量计件制.metercountm
+  is '实抄每月表数';
+comment on column HRBZLS.工作量计件制.metercountd
+  is '实抄单月表数';
+comment on column HRBZLS.工作量计件制.metercounts
+  is '实抄双月表数';
+comment on column HRBZLS.工作量计件制.workcountd
+  is '实际工作量单月';
+comment on column HRBZLS.工作量计件制.workcounts
+  is '实际工作量双月';
+comment on column HRBZLS.工作量计件制.workcountave
+  is '实际平均工作量';
+comment on column HRBZLS.工作量计件制.ysgzl
+  is '有效工作量';
+comment on column HRBZLS.工作量计件制.rlje
+  is '应收水费';
+comment on column HRBZLS.工作量计件制.pje
+  is '实收水费';
+comment on column HRBZLS.工作量计件制.jsl
+  is '份数及时率';
+comment on column HRBZLS.工作量计件制.cdfs
+  is '抄表份数';
+comment on column HRBZLS.工作量计件制.sdfs
+  is '收到份数';
+comment on column HRBZLS.工作量计件制.gzljj1
+  is '工作量计件1元/只';
+comment on column HRBZLS.工作量计件制.gzljj2
+  is '工作量计件2元/只';
+comment on column HRBZLS.工作量计件制.ydsfjsl
+  is '月度收费及时率';
+comment on column HRBZLS.工作量计件制.ydfpje
+  is '月度二次分配金额';
+comment on column HRBZLS.工作量计件制.ydjsjx
+  is '月度及时率绩效';
+comment on column HRBZLS.工作量计件制.ljsfjsl
+  is '累计收费及时率';
+comment on column HRBZLS.工作量计件制.ljfpje
+  is '累计二次分配金额';
+comment on column HRBZLS.工作量计件制.ljjsjx
+  is '累计及时率绩效';
+comment on column HRBZLS.工作量计件制.wnsfjsl
+  is '往年收费及时率';
+comment on column HRBZLS.工作量计件制.wnfpje
+  is '往年二次分配金额';
+comment on column HRBZLS.工作量计件制.wnjsjx
+  is '往年及时率绩效';
+comment on column HRBZLS.工作量计件制.jxgz
+  is '绩效工资';
+comment on column HRBZLS.工作量计件制.gzze
+  is '工资总额';
+create index HRBZLS.P_INDEXES_01 on HRBZLS.工作量计件制 (OAID, UMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.工作量计件制
+  add constraint P_PRIMARY_01 primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

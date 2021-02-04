@@ -1,0 +1,47 @@
+create table HRBZLS.PRICEFRAME_SCRIPT_HRB
+(
+  s1        CHAR(32),
+  s2        CHAR(29),
+  pfid      VARCHAR2(10) not null,
+  pfname    VARCHAR2(60) not null,
+  pfpid     VARCHAR2(10),
+  pfclass   NUMBER not null,
+  pfflag    CHAR(1) not null,
+  pfstatus  CHAR(1) not null,
+  pfhandles NUMBER,
+  pfprice   NUMBER(12,3),
+  pfmemo    VARCHAR2(60),
+  pfsmfid   VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfid
+  is '编码';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfname
+  is '名称';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfpid
+  is '上级编码';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfclass
+  is '级次';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfflag
+  is '末级标志';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfstatus
+  is '有效状态';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfhandles
+  is '下级数量';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfprice
+  is '综合价格';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfmemo
+  is '备注';
+comment on column HRBZLS.PRICEFRAME_SCRIPT_HRB.pfsmfid
+  is '公司';
+

@@ -1,0 +1,183 @@
+create global temporary table HRBZLS.INV_EINVOICE
+(
+  icid      VARCHAR2(32) not null,
+  tenantid  NUMBER not null,
+  accountid VARCHAR2(50) not null,
+  qysh      VARCHAR2(20) not null,
+  customid  VARCHAR2(20) not null,
+  cname     VARCHAR2(50) not null,
+  mobile    VARCHAR2(11),
+  fpqqlsh   VARCHAR2(20) not null,
+  dsptbm    VARCHAR2(8),
+  nsrsbh    VARCHAR2(20) not null,
+  nsrmc     VARCHAR2(200) not null,
+  nsrdzdah  VARCHAR2(29),
+  swjgdm    VARCHAR2(11),
+  dkbz      VARCHAR2(1) not null,
+  pydm      VARCHAR2(10),
+  kpxm      VARCHAR2(200) not null,
+  bmbbbh    VARCHAR2(20) not null,
+  xhfnsrsbh VARCHAR2(20) not null,
+  xhfmc     VARCHAR2(200) not null,
+  xhfdz     VARCHAR2(80) not null,
+  xhfdh     VARCHAR2(20) not null,
+  xhfyhzh   VARCHAR2(100),
+  ghfmc     VARCHAR2(200) not null,
+  ghfnsrsbh VARCHAR2(20),
+  ghfdz     VARCHAR2(200),
+  ghfsf     VARCHAR2(20),
+  ghfgddh   VARCHAR2(20),
+  ghfsj     VARCHAR2(20),
+  ghfemail  VARCHAR2(50),
+  ghfqylx   VARCHAR2(2) not null,
+  ghfyhzh   VARCHAR2(100),
+  hydm      VARCHAR2(10),
+  hymc      VARCHAR2(40),
+  kpy       VARCHAR2(8),
+  sky       VARCHAR2(8),
+  fhr       VARCHAR2(8),
+  kprq      DATE,
+  kplx      NUMBER not null,
+  yfpdm     VARCHAR2(12),
+  yfphm     VARCHAR2(8),
+  tschbz    VARCHAR2(1) not null,
+  czdm      VARCHAR2(2) not null,
+  qdbz      VARCHAR2(1) not null,
+  qdxmmc    VARCHAR2(200),
+  chyy      VARCHAR2(200),
+  kphjje    NUMBER not null,
+  hjbhsje   NUMBER not null,
+  hjse      NUMBER not null,
+  bz        VARCHAR2(200),
+  byzd1     VARCHAR2(100),
+  byzd2     VARCHAR2(100),
+  byzd3     VARCHAR2(100),
+  byzd4     VARCHAR2(100),
+  byzd5     VARCHAR2(100),
+  ispcisno  VARCHAR2(50),
+  id        VARCHAR2(10),
+  yxqymc    VARCHAR2(50),
+  bcmc      VARCHAR2(50)
+)
+on commit delete rows;
+comment on table HRBZLS.INV_EINVOICE
+  is '易维云平台电子发票';
+comment on column HRBZLS.INV_EINVOICE.icid
+  is '流水号，对应INV_EINVOICE_DETAIL.IDID';
+comment on column HRBZLS.INV_EINVOICE.tenantid
+  is '租户id，易维云发票平台提供';
+comment on column HRBZLS.INV_EINVOICE.accountid
+  is '账户ID，易维云提供';
+comment on column HRBZLS.INV_EINVOICE.qysh
+  is '企业税号';
+comment on column HRBZLS.INV_EINVOICE.customid
+  is '用水户ID';
+comment on column HRBZLS.INV_EINVOICE.cname
+  is '用水户名称';
+comment on column HRBZLS.INV_EINVOICE.mobile
+  is '用水户电话号码';
+comment on column HRBZLS.INV_EINVOICE.fpqqlsh
+  is '费用流水id，每张发票的发票请求唯一流水号无重复，由企业定义。限制固定20位';
+comment on column HRBZLS.INV_EINVOICE.dsptbm
+  is '平台编码';
+comment on column HRBZLS.INV_EINVOICE.nsrsbh
+  is '开票方识别号';
+comment on column HRBZLS.INV_EINVOICE.nsrmc
+  is '开票方名称';
+comment on column HRBZLS.INV_EINVOICE.nsrdzdah
+  is '开票方电子档案号';
+comment on column HRBZLS.INV_EINVOICE.swjgdm
+  is '税务机构代码';
+comment on column HRBZLS.INV_EINVOICE.dkbz
+  is '代开标志，0=自开，1=代开，默认为自开';
+comment on column HRBZLS.INV_EINVOICE.pydm
+  is '全部固定为”000001”';
+comment on column HRBZLS.INV_EINVOICE.kpxm
+  is '主要开票项目，主要开票商品，或者第一条商品，取项目信息中第一条数据的项目名称（或传递大类例如：办公用品）';
+comment on column HRBZLS.INV_EINVOICE.bmbbbh
+  is '编码表版本号，目前为1.0';
+comment on column HRBZLS.INV_EINVOICE.xhfnsrsbh
+  is '销货方识别号(如果是企业自营开具发票，填写第3项中的开票方识别号，如果是商家驻店开具发票，填写商家的纳税人识别号)';
+comment on column HRBZLS.INV_EINVOICE.xhfmc
+  is '销货方名称';
+comment on column HRBZLS.INV_EINVOICE.xhfdz
+  is '销货方地址';
+comment on column HRBZLS.INV_EINVOICE.xhfdh
+  is '销货方电话';
+comment on column HRBZLS.INV_EINVOICE.xhfyhzh
+  is '销货方银行账号（开户行及账号）';
+comment on column HRBZLS.INV_EINVOICE.ghfmc
+  is '购货方名称，即发票抬头。购货方为“个人”时，可输入名称，输入名称是为“个人(名称)”，”（”为半角；例 个人(王杰)';
+comment on column HRBZLS.INV_EINVOICE.ghfnsrsbh
+  is '购货方识别号，企业消费，如果填写识别号，需要传输过来';
+comment on column HRBZLS.INV_EINVOICE.ghfdz
+  is '购货方地址';
+comment on column HRBZLS.INV_EINVOICE.ghfsf
+  is '购货方省份，使用各省的行政编码，例如：上海21';
+comment on column HRBZLS.INV_EINVOICE.ghfgddh
+  is '购货方固定电话';
+comment on column HRBZLS.INV_EINVOICE.ghfsj
+  is '购货方手机';
+comment on column HRBZLS.INV_EINVOICE.ghfemail
+  is '购货方邮箱';
+comment on column HRBZLS.INV_EINVOICE.ghfqylx
+  is '购货方企业类型，01：企业 02：机关事业单位 03：个人 04：其它';
+comment on column HRBZLS.INV_EINVOICE.ghfyhzh
+  is '购货方银行账号（开户行及账号）';
+comment on column HRBZLS.INV_EINVOICE.hydm
+  is '行业代码，由企业端系统自动填写（根据企业注册信息）';
+comment on column HRBZLS.INV_EINVOICE.hymc
+  is '行业名称，由企业端系统自动填写（根据企业注册信息）';
+comment on column HRBZLS.INV_EINVOICE.kpy
+  is '开票员';
+comment on column HRBZLS.INV_EINVOICE.sky
+  is '收款员';
+comment on column HRBZLS.INV_EINVOICE.fhr
+  is '复核人';
+comment on column HRBZLS.INV_EINVOICE.kprq
+  is '开票日期，格式YYY-MM-DD HH:MI:SS(由开票系统生成)';
+comment on column HRBZLS.INV_EINVOICE.kplx
+  is '开票类型，1=正票，2=红票';
+comment on column HRBZLS.INV_EINVOICE.yfpdm
+  is '原发票代码，如果CZDM不是10或KPLX为红票时候都是必录';
+comment on column HRBZLS.INV_EINVOICE.yfphm
+  is '原发票号码，如果CZDM不是10或KPLX为红票时候都是必录';
+comment on column HRBZLS.INV_EINVOICE.tschbz
+  is '特殊冲红标志，0=正常冲红(电子发票)，1=特殊冲红(冲红纸质等)';
+comment on column HRBZLS.INV_EINVOICE.czdm
+  is '操作代码，10=正票正常开具，11=正票错票重开，20=退货折让红票，21=错票重开红票，22=换票冲红（全冲红电子发票，开具纸质发票）';
+comment on column HRBZLS.INV_EINVOICE.qdbz
+  is '清单标志，0：根据项目名称字数，自动产生清单，保持目前逻辑不变 1：取清单对应票面内容字段打印到发票票面上，将项目信息XMXX打印到清单上。 默认为0';
+comment on column HRBZLS.INV_EINVOICE.qdxmmc
+  is '清单发票项目名称，需要打印清单时对应发票票面项目名称，清单标识（QD_BZ）为1时必填，为0不进行处理';
+comment on column HRBZLS.INV_EINVOICE.chyy
+  is '冲红原因，冲红时填写，由企业定义';
+comment on column HRBZLS.INV_EINVOICE.kphjje
+  is '价税合计金额，小数点后2位，以元为单位精确到分';
+comment on column HRBZLS.INV_EINVOICE.hjbhsje
+  is '合计不含税金额，所有商品行不含税金额之和，小数点后2位，以元为单位精确到分（单行商品金额之和）。平台处理价税分离，此值传0';
+comment on column HRBZLS.INV_EINVOICE.hjse
+  is '合计税额，所有商品行税额之和，小数点后2位，以元为单位精确到分(单行商品税额之和)，平台处理价税分离，此值传0';
+comment on column HRBZLS.INV_EINVOICE.bz
+  is '备注，增值税发票红字发票开具时，备注要求: 开具负数发票，必须在备注中注明“对应正数发票代码:XXXXXXXXX号码:YYYYYYYY”字样，其中“X”为发票代码，“Y”为发票号码';
+comment on column HRBZLS.INV_EINVOICE.byzd1
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE.byzd2
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE.byzd3
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE.byzd4
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE.byzd5
+  is '备用字段';
+comment on column HRBZLS.INV_EINVOICE.ispcisno
+  is '批次号.发票号';
+comment on column HRBZLS.INV_EINVOICE.id
+  is '开票流水号，对应INV_INFOTEMP.ID';
+comment on column HRBZLS.INV_EINVOICE.yxqymc
+  is '营销区域名称';
+comment on column HRBZLS.INV_EINVOICE.bcmc
+  is '表册名称';
+alter table HRBZLS.INV_EINVOICE
+  add constraint PK_INV_EINVOICE primary key (ICID);
+

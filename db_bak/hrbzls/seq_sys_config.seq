@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_SYS_CONFIG
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 100
+increment by 1
+cache 20;
+

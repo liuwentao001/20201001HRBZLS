@@ -1,0 +1,60 @@
+create table HRBZLS.TEST_77
+(
+  a VARCHAR2(500),
+  b VARCHAR2(500),
+  c VARCHAR2(500),
+  d VARCHAR2(500),
+  e VARCHAR2(500),
+  f NUMBER,
+  g NUMBER(12,2),
+  h VARCHAR2(500),
+  i VARCHAR2(500)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDX_A on HRBZLS.TEST_77 (A)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDX_E on HRBZLS.TEST_77 (E)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDX_F on HRBZLS.TEST_77 (F)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

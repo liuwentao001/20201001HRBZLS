@@ -1,0 +1,7 @@
+create global temporary table HRBZLS.TMP_CHECK_HS_RESULT
+(
+  miid         VARCHAR2(10) not null,
+  check_result VARCHAR2(40)
+)
+on commit delete rows;
+

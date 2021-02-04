@@ -1,0 +1,46 @@
+create table HRBZLS.SYSLIBRARY
+(
+  slid     CHAR(2) not null,
+  slfile   VARCHAR2(255) not null,
+  sldesc   VARCHAR2(60),
+  slstatus CHAR(1) default 'Y' not null,
+  slnew    CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSLIBRARY
+  is '应用程序运行库文件维护表';
+comment on column HRBZLS.SYSLIBRARY.slid
+  is '库文件编号';
+comment on column HRBZLS.SYSLIBRARY.slfile
+  is '库文件名称';
+comment on column HRBZLS.SYSLIBRARY.sldesc
+  is '库文件内容描述';
+comment on column HRBZLS.SYSLIBRARY.slstatus
+  is '是否在程序运行时加入';
+comment on column HRBZLS.SYSLIBRARY.slnew
+  is '是否最新的库文件';
+alter table HRBZLS.SYSLIBRARY
+  add constraint PK_SYSLIBRARY primary key (SLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

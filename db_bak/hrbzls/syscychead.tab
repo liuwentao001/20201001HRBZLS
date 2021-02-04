@@ -1,0 +1,40 @@
+create table HRBZLS.SYSCYCHEAD
+(
+  schid   CHAR(1) not null,
+  schname VARCHAR2(10) not null,
+  schmemo VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSCYCHEAD
+  is 'ÖÜÆÚ¡¾SCH¡¿';
+comment on column HRBZLS.SYSCYCHEAD.schid
+  is '±àºÅ';
+comment on column HRBZLS.SYSCYCHEAD.schname
+  is 'Ãû³Æ';
+comment on column HRBZLS.SYSCYCHEAD.schmemo
+  is 'ÃèÊö';
+alter table HRBZLS.SYSCYCHEAD
+  add constraint PK_SYSCYCHEAD primary key (SCHID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

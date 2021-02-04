@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_ST_METER_TYPE
+minvalue 1
+maxvalue 9999999999999
+start with 441
+increment by 1
+cache 50;
+

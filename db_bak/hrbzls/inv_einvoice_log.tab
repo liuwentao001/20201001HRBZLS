@@ -1,0 +1,66 @@
+create table HRBZLS.INV_EINVOICE_LOG
+(
+  id       NUMBER,
+  code     VARCHAR2(20),
+  tpdate   DATE,
+  operator VARCHAR2(20),
+  i_json   CLOB,
+  o_json   CLOB,
+  fpqqlsh  VARCHAR2(50),
+  epdate   DATE,
+  rn       NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.INV_EINVOICE_LOG.id
+  is '序号';
+comment on column HRBZLS.INV_EINVOICE_LOG.code
+  is '交易类型';
+comment on column HRBZLS.INV_EINVOICE_LOG.tpdate
+  is '交易时间';
+comment on column HRBZLS.INV_EINVOICE_LOG.operator
+  is '交易人员';
+comment on column HRBZLS.INV_EINVOICE_LOG.i_json
+  is '请求报文';
+comment on column HRBZLS.INV_EINVOICE_LOG.o_json
+  is '响应报文';
+comment on column HRBZLS.INV_EINVOICE_LOG.fpqqlsh
+  is '商品流水号';
+comment on column HRBZLS.INV_EINVOICE_LOG.epdate
+  is '响应时间';
+comment on column HRBZLS.INV_EINVOICE_LOG.rn
+  is '税盘序号';
+create index HRBZLS.IDX_IEL_CODE on HRBZLS.INV_EINVOICE_LOG (CODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_IEL_FPQQLSH on HRBZLS.INV_EINVOICE_LOG (FPQQLSH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,109 @@
+create global temporary table HRBZLS.INVSTOCK_TEMP
+(
+  isid           NUMBER(10) not null,
+  isper          VARCHAR2(10),
+  istype         CHAR(1),
+  isbcno         VARCHAR2(12) default '0',
+  isno           VARCHAR2(12),
+  isstatus       CHAR(1),
+  isstatusdate   DATE,
+  isstatusper    VARCHAR2(10),
+  ispstatus      CHAR(1),
+  ispstatusdatep DATE,
+  isptatusper    VARCHAR2(10),
+  issmfid        VARCHAR2(10),
+  isprinttype    VARCHAR2(10),
+  isprintcd      VARCHAR2(10),
+  isprintje      NUMBER(13,3),
+  isprinttrans   VARCHAR2(10),
+  isoutper       VARCHAR2(10),
+  isoutdate      DATE,
+  ismemo         VARCHAR2(200),
+  iszzs          VARCHAR2(10),
+  ispcisno       VARCHAR2(40),
+  ismicode       VARCHAR2(10),
+  isje1          NUMBER(13,3),
+  isje2          NUMBER(13,3),
+  isje3          NUMBER(13,3),
+  isje4          NUMBER(13,3),
+  isje5          NUMBER(13,3),
+  isje6          NUMBER(13,3),
+  isje7          NUMBER(13,3),
+  isje8          NUMBER(13,3),
+  isstatusmemo   VARCHAR2(60),
+  isstockdo      VARCHAR2(2),
+  isstockper     VARCHAR2(10),
+  isstockdate    DATE
+)
+on commit delete rows;
+comment on column HRBZLS.INVSTOCK_TEMP.isid
+  is '票据流水号';
+comment on column HRBZLS.INVSTOCK_TEMP.isper
+  is '库存所有人';
+comment on column HRBZLS.INVSTOCK_TEMP.istype
+  is '票据类型';
+comment on column HRBZLS.INVSTOCK_TEMP.isbcno
+  is '批号';
+comment on column HRBZLS.INVSTOCK_TEMP.isno
+  is '票据号码';
+comment on column HRBZLS.INVSTOCK_TEMP.isstatus
+  is '状态(0未使用；1使用；2作废；3锁定)';
+comment on column HRBZLS.INVSTOCK_TEMP.isstatusdate
+  is '状态日期';
+comment on column HRBZLS.INVSTOCK_TEMP.isstatusper
+  is '状态人员';
+comment on column HRBZLS.INVSTOCK_TEMP.ispstatus
+  is '上次状态';
+comment on column HRBZLS.INVSTOCK_TEMP.ispstatusdatep
+  is '上次状态日期';
+comment on column HRBZLS.INVSTOCK_TEMP.isptatusper
+  is '上次状态人员';
+comment on column HRBZLS.INVSTOCK_TEMP.issmfid
+  is '库存单位';
+comment on column HRBZLS.INVSTOCK_TEMP.isprinttype
+  is '打印方式（1:实收打印批次pbatch，2:实收pID3:实收明细:plid，4:实收pdid+pdpiid,5:应收流水rlid,6:实收明细rdid+rdpiid，7:抄表流水mrid)';
+comment on column HRBZLS.INVSTOCK_TEMP.isprintcd
+  is '借款方DE/CR';
+comment on column HRBZLS.INVSTOCK_TEMP.isprintje
+  is '票面金额';
+comment on column HRBZLS.INVSTOCK_TEMP.isprinttrans
+  is '事务类别';
+comment on column HRBZLS.INVSTOCK_TEMP.isoutper
+  is '发放票据人';
+comment on column HRBZLS.INVSTOCK_TEMP.isoutdate
+  is '发放时间';
+comment on column HRBZLS.INVSTOCK_TEMP.ismemo
+  is '备注';
+comment on column HRBZLS.INVSTOCK_TEMP.iszzs
+  is '增值税';
+comment on column HRBZLS.INVSTOCK_TEMP.ispcisno
+  is '票据批次||号码';
+comment on column HRBZLS.INVSTOCK_TEMP.ismicode
+  is '客户代码';
+comment on column HRBZLS.INVSTOCK_TEMP.isje1
+  is '金额1(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isje2
+  is '金额2(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isje3
+  is '金额3(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isje4
+  is '金额4(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isje5
+  is '金额5(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isje6
+  is '金额6(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isje7
+  is '金额7(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isje8
+  is '金额8(销账金额)';
+comment on column HRBZLS.INVSTOCK_TEMP.isstatusmemo
+  is '状态原因';
+comment on column HRBZLS.INVSTOCK_TEMP.isstockdo
+  is '仓库状态(0入库；1分发；2领用；3退回营业所, 4退回公司，5销毁作废)';
+comment on column HRBZLS.INVSTOCK_TEMP.isstockper
+  is '入库人员';
+comment on column HRBZLS.INVSTOCK_TEMP.isstockdate
+  is '入库日期';
+alter table HRBZLS.INVSTOCK_TEMP
+  add constraint PK_INVSTOCK_TEMP_ID primary key (ISID);
+

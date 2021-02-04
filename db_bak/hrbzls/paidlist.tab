@@ -1,0 +1,110 @@
+create table HRBZLS.PAIDLIST
+(
+  plpid      VARCHAR2(10) not null,
+  plid       VARCHAR2(10) not null,
+  plrlid     VARCHAR2(10) not null,
+  plmsfid    VARCHAR2(10),
+  plpfid     VARCHAR2(10),
+  plsl       NUMBER(10),
+  plje       NUMBER(13,3),
+  plznj      NUMBER(12,2),
+  plsavingqc NUMBER(12,2),
+  plsavingbq NUMBER(12,2),
+  plsavingqm NUMBER(12,2),
+  plscrplid  VARCHAR2(10),
+  plfull     CHAR(1) not null,
+  plflag     CHAR(1) not null,
+  plcd       CHAR(2) not null,
+  plmemo     VARCHAR2(200),
+  plznjmonth VARCHAR2(7),
+  plsmfid    VARCHAR2(10),
+  plrecznj   NUMBER(12,2),
+  plrper     VARCHAR2(10),
+  plrlmonth  VARCHAR2(7),
+  plrldate   DATE,
+  plbfid     VARCHAR2(10),
+  plsafid    VARCHAR2(10),
+  plsxf      NUMBER(12,2),
+  plilid     VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAIDLIST
+  is '销帐流水【PL】';
+comment on column HRBZLS.PAIDLIST.plpid
+  is '交易流水号';
+comment on column HRBZLS.PAIDLIST.plid
+  is '流水号';
+comment on column HRBZLS.PAIDLIST.plrlid
+  is '应收流水';
+comment on column HRBZLS.PAIDLIST.plmsfid
+  is '行业类别';
+comment on column HRBZLS.PAIDLIST.plpfid
+  is '价格类别';
+comment on column HRBZLS.PAIDLIST.plsl
+  is '销帐水量';
+comment on column HRBZLS.PAIDLIST.plje
+  is '销帐金额';
+comment on column HRBZLS.PAIDLIST.plznj
+  is '实收违约金';
+comment on column HRBZLS.PAIDLIST.plsavingqc
+  is '期初预存余额';
+comment on column HRBZLS.PAIDLIST.plsavingbq
+  is '本期发生预存金额';
+comment on column HRBZLS.PAIDLIST.plsavingqm
+  is '期末预存余额';
+comment on column HRBZLS.PAIDLIST.plscrplid
+  is '冲销原帐流水';
+comment on column HRBZLS.PAIDLIST.plfull
+  is '满付标志';
+comment on column HRBZLS.PAIDLIST.plflag
+  is '销帐标志(Y:销帐(YY...)；N:所有费用项目被冲正(NN...)；V:部分费用项目被冲正(YN...))';
+comment on column HRBZLS.PAIDLIST.plcd
+  is '借贷';
+comment on column HRBZLS.PAIDLIST.plmemo
+  is '备注';
+comment on column HRBZLS.PAIDLIST.plznjmonth
+  is '违约金帐务月份';
+comment on column HRBZLS.PAIDLIST.plsmfid
+  is '营业所';
+comment on column HRBZLS.PAIDLIST.plrecznj
+  is '应收违约金';
+comment on column HRBZLS.PAIDLIST.plrper
+  is '抄表员(收费率)';
+comment on column HRBZLS.PAIDLIST.plrlmonth
+  is '应收月份';
+comment on column HRBZLS.PAIDLIST.plrldate
+  is '应收日期';
+comment on column HRBZLS.PAIDLIST.plbfid
+  is '册号(收费率)';
+comment on column HRBZLS.PAIDLIST.plsafid
+  is '区域(收费率)';
+comment on column HRBZLS.PAIDLIST.plsxf
+  is '手续费';
+comment on column HRBZLS.PAIDLIST.plilid
+  is '发票号';
+create index HRBZLS.IDX_PLPID on HRBZLS.PAIDLIST (PLPID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PLRLID on HRBZLS.PAIDLIST (PLRLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_PLZNJMONTH on HRBZLS.PAIDLIST (PLZNJMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.PAIDLIST
+  add constraint PK_PAIDLIST primary key (PLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

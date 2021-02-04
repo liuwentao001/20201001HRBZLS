@@ -1,0 +1,78 @@
+create table HRBZLS.PAY_EINV_JOB_LOG
+(
+  jobid    VARCHAR2(50),
+  pbatch   VARCHAR2(20),
+  pflag    VARCHAR2(2),
+  pstime   DATE,
+  petime   DATE,
+  perrid   VARCHAR2(2),
+  perrtext VARCHAR2(400),
+  ptop     NUMBER default 1,
+  memo1    VARCHAR2(400)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PAY_EINV_JOB_LOG
+  is '缴费电子发票打印日志';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.jobid
+  is 'job编号';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.pbatch
+  is '实收批次号';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.pflag
+  is '完成标志';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.pstime
+  is '开始时间';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.petime
+  is '结束时间';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.perrid
+  is '异常编号';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.perrtext
+  is '异常内容';
+comment on column HRBZLS.PAY_EINV_JOB_LOG.ptop
+  is '列队优先级';
+create index HRBZLS.IDX_EINVJOB_JOBID on HRBZLS.PAY_EINV_JOB_LOG (JOBID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_EINVJOB_PBATCH on HRBZLS.PAY_EINV_JOB_LOG (PBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_EINVJOB_PTOP on HRBZLS.PAY_EINV_JOB_LOG (PTOP)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

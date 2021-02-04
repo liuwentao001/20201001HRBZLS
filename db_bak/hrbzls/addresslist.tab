@@ -1,0 +1,53 @@
+create table HRBZLS.ADDRESSLIST
+(
+  alid                VARCHAR2(6),
+  alname              VARCHAR2(12),
+  aldateofbirth       DATE,
+  alsex               VARCHAR2(1),
+  almobilephonenumber VARCHAR2(11),
+  aldepartment        VARCHAR2(30),
+  almailbox           VARCHAR2(40),
+  alqq                VARCHAR2(12),
+  aladdress           VARCHAR2(50),
+  alnote              VARCHAR2(200),
+  alowner             VARCHAR2(10),
+  alprivate           VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ADDRESSLIST
+  is '短信平台内通讯录';
+comment on column HRBZLS.ADDRESSLIST.alid
+  is '编号';
+comment on column HRBZLS.ADDRESSLIST.alname
+  is '姓名';
+comment on column HRBZLS.ADDRESSLIST.aldateofbirth
+  is '出生日期';
+comment on column HRBZLS.ADDRESSLIST.alsex
+  is '性别';
+comment on column HRBZLS.ADDRESSLIST.almobilephonenumber
+  is '手机号码';
+comment on column HRBZLS.ADDRESSLIST.aldepartment
+  is '所在部门';
+comment on column HRBZLS.ADDRESSLIST.almailbox
+  is '邮箱';
+comment on column HRBZLS.ADDRESSLIST.alqq
+  is 'QQ';
+comment on column HRBZLS.ADDRESSLIST.aladdress
+  is '地址';
+comment on column HRBZLS.ADDRESSLIST.alnote
+  is '备注';
+comment on column HRBZLS.ADDRESSLIST.alowner
+  is '拥有者';
+comment on column HRBZLS.ADDRESSLIST.alprivate
+  is '是否私有';
+

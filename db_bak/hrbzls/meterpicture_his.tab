@@ -1,0 +1,25 @@
+create table HRBZLS.METERPICTURE_HIS
+(
+  mpmiid      VARCHAR2(10) not null,
+  pmsize      NUMBER,
+  pmpath      VARCHAR2(400) not null,
+  pmtime      DATE,
+  pmbz        VARCHAR2(100),
+  pmper       VARCHAR2(10),
+  pmpname     VARCHAR2(30),
+  ciid        VARCHAR2(10),
+  pmfact_path VARCHAR2(400),
+  tspmtime    DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

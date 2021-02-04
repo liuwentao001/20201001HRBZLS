@@ -1,0 +1,47 @@
+create table HRBZLS.OPERACCNT_TEAM
+(
+  oaid    VARCHAR2(15) not null,
+  oaname  VARCHAR2(60) not null,
+  oadept  VARCHAR2(15),
+  oapname VARCHAR2(60),
+  oaclass NUMBER,
+  oanote  VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERACCNT_TEAM
+  is '操作用户班组关系';
+comment on column HRBZLS.OPERACCNT_TEAM.oaid
+  is '帐号（【哈尔滨】工号）';
+comment on column HRBZLS.OPERACCNT_TEAM.oaname
+  is '姓名';
+comment on column HRBZLS.OPERACCNT_TEAM.oadept
+  is '上级归属单位';
+comment on column HRBZLS.OPERACCNT_TEAM.oapname
+  is '班组归属名';
+comment on column HRBZLS.OPERACCNT_TEAM.oaclass
+  is '级次';
+comment on column HRBZLS.OPERACCNT_TEAM.oanote
+  is '备注';
+create index HRBZLS.IDX_OPERACCNT_TEAM on HRBZLS.OPERACCNT_TEAM (OADEPT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

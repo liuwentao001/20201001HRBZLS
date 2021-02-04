@@ -1,0 +1,43 @@
+create table HRBZLS.DAILYPAYMENT
+(
+  dpid            NVARCHAR2(10) not null,
+  dpcharger       NVARCHAR2(10),
+  dpdepartment    NVARCHAR2(10),
+  dpaccountorder  NUMBER(5),
+  dpaccountcash   NUMBER(12,2),
+  dpaccountremark NVARCHAR2(50),
+  dpaccounttime   DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.DAILYPAYMENT
+  is '[DP]柜台现金进帐单流水';
+comment on column HRBZLS.DAILYPAYMENT.dpid
+  is '流水号';
+comment on column HRBZLS.DAILYPAYMENT.dpcharger
+  is '收款员';
+comment on column HRBZLS.DAILYPAYMENT.dpdepartment
+  is '部门';
+comment on column HRBZLS.DAILYPAYMENT.dpaccountorder
+  is '进帐单序号';
+comment on column HRBZLS.DAILYPAYMENT.dpaccountcash
+  is '进帐单金额';
+comment on column HRBZLS.DAILYPAYMENT.dpaccountremark
+  is '进帐单备注';
+comment on column HRBZLS.DAILYPAYMENT.dpaccounttime
+  is '进帐单时间';
+create index HRBZLS.IDX_DAILYPAYMENT1 on HRBZLS.DAILYPAYMENT (DPCHARGER, DPACCOUNTORDER, DPACCOUNTTIME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.DAILYPAYMENT
+  add constraint PK_DAILYPAYMENT primary key (DPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

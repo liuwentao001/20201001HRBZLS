@@ -1,0 +1,19 @@
+create table HRBZLS.MSSALROLE
+(
+  malid   VARCHAR2(5),
+  malname VARCHAR2(30),
+  maluser VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.MSSALROLE
+  is '短信平台通讯录权限角色';
+comment on column HRBZLS.MSSALROLE.malid
+  is '角色编号';
+comment on column HRBZLS.MSSALROLE.malname
+  is '角色名称';
+comment on column HRBZLS.MSSALROLE.maluser
+  is '角色用户';
+

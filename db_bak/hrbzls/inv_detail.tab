@@ -1,0 +1,80 @@
+create table HRBZLS.INV_DETAIL
+(
+  invid  NUMBER,
+  isid   NUMBER,
+  rlid   VARCHAR2(10),
+  pid    VARCHAR2(10),
+  mcode  VARCHAR2(10),
+  cname  VARCHAR2(100),
+  pbatch VARCHAR2(10),
+  ptype  VARCHAR2(10),
+  memo   VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.INV_DETAIL
+  is '打印发票详细信息';
+comment on column HRBZLS.INV_DETAIL.invid
+  is '发票信息流水';
+comment on column HRBZLS.INV_DETAIL.isid
+  is '发票库存流水';
+comment on column HRBZLS.INV_DETAIL.rlid
+  is '应收id';
+comment on column HRBZLS.INV_DETAIL.pid
+  is '实收id';
+comment on column HRBZLS.INV_DETAIL.mcode
+  is '客户代码';
+comment on column HRBZLS.INV_DETAIL.cname
+  is '用户名称';
+comment on column HRBZLS.INV_DETAIL.pbatch
+  is '实收批次';
+comment on column HRBZLS.INV_DETAIL.ptype
+  is '打印方式';
+comment on column HRBZLS.INV_DETAIL.memo
+  is '备注';
+create index HRBZLS.PK_ISID on HRBZLS.INV_DETAIL (ISID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_MCODE on HRBZLS.INV_DETAIL (MCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PK_RLID on HRBZLS.INV_DETAIL (RLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

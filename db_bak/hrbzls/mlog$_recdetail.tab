@@ -1,0 +1,55 @@
+create table HRBZLS.MLOG$_RECDETAIL
+(
+  rdadjdj         NUMBER(13,3),
+  rdadjje         NUMBER(13,3),
+  rdadjsl         NUMBER(12,2),
+  rdclass         NUMBER,
+  rddj            NUMBER(13,3),
+  rdid            VARCHAR2(10),
+  rdilid          VARCHAR2(10),
+  rdje            NUMBER(13,3),
+  rdmemo          VARCHAR2(200),
+  rdmethod        CHAR(3),
+  rdmid           VARCHAR2(10),
+  rdmonth         VARCHAR2(7),
+  rdmsmfid        VARCHAR2(10),
+  rdpaiddate      DATE,
+  rdpaidflag      CHAR(1),
+  rdpaidmonth     VARCHAR2(7),
+  rdpaidper       VARCHAR2(20),
+  rdpfid          VARCHAR2(10),
+  rdpiid          CHAR(2),
+  rdpmdcolumn1    VARCHAR2(10),
+  rdpmdcolumn2    VARCHAR2(10),
+  rdpmdcolumn3    VARCHAR2(10),
+  rdpmdid         NUMBER,
+  rdpmdscale      NUMBER(10,2),
+  rdpmdtype       VARCHAR2(2),
+  rdpscid         NUMBER,
+  rdsl            NUMBER(12,2),
+  rdysdj          NUMBER(13,3),
+  rdysje          NUMBER(13,3),
+  rdyssl          NUMBER(12,2),
+  rdznj           NUMBER(12,2),
+  m_row$$         VARCHAR2(255),
+  sequence$$      NUMBER,
+  snaptime$$      DATE,
+  dmltype$$       VARCHAR2(1),
+  old_new$$       VARCHAR2(1),
+  change_vector$$ RAW(255),
+  xid$$           NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MLOG$_RECDETAIL
+  is 'snapshot log for master table HRBZLS.RECDETAIL';
+

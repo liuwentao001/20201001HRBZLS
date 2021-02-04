@@ -1,0 +1,92 @@
+create table HRBZLS.INV_EINVOICE_RETURN
+(
+  irid          VARCHAR2(32),
+  fpqqlsh       VARCHAR2(20) not null,
+  ddh           VARCHAR2(20),
+  kplsh         VARCHAR2(20),
+  fwm           VARCHAR2(400),
+  ewm           VARCHAR2(1000),
+  fpzl_dm       VARCHAR2(5),
+  fp_dm         VARCHAR2(12),
+  fp_hm         VARCHAR2(8),
+  kplx          VARCHAR2(1),
+  hjbhsje       NUMBER,
+  kphjse        NUMBER,
+  pdf_file      VARCHAR2(200),
+  pdf_url       VARCHAR2(200),
+  czdm          VARCHAR2(10),
+  returncode    VARCHAR2(4),
+  returnmessage VARCHAR2(128),
+  pdf_item_key  VARCHAR2(200),
+  pdf_key       VARCHAR2(200),
+  fpkjsharecode VARCHAR2(20),
+  fpkjsj        VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.INV_EINVOICE_RETURN
+  is '易维云平台电子发票';
+comment on column HRBZLS.INV_EINVOICE_RETURN.irid
+  is '流水号，对应INV_EINVOICE.ICID';
+comment on column HRBZLS.INV_EINVOICE_RETURN.fpqqlsh
+  is '发票请求唯一流水号';
+comment on column HRBZLS.INV_EINVOICE_RETURN.ddh
+  is '订单号';
+comment on column HRBZLS.INV_EINVOICE_RETURN.kplsh
+  is '开票流水号（RETURNCODE不为0000为空）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.fwm
+  is '校验码（RETURNCODE不为0000为空）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.ewm
+  is '二维码（RETURNCODE不为0000为空）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.fpzl_dm
+  is '发票种类代码（RETURNCODE不为0000为空）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.fp_dm
+  is '发票代码（RETURNCODE不为0000为空）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.fp_hm
+  is '发票号码（RETURNCODE不为0000为空）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.kplx
+  is '开票类型，1=正票，2=红票';
+comment on column HRBZLS.INV_EINVOICE_RETURN.hjbhsje
+  is '不含税金额';
+comment on column HRBZLS.INV_EINVOICE_RETURN.kphjse
+  is '税额';
+comment on column HRBZLS.INV_EINVOICE_RETURN.pdf_file
+  is '【金税】pdf文件（Base64）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.pdf_url
+  is '【金税】发票下载地址';
+comment on column HRBZLS.INV_EINVOICE_RETURN.czdm
+  is '操作代码，10=正票正常开具，11=正票错票重开，20=退货折让红票，21=错票重开红票，22=换票冲红（全冲红电子发票，开具纸质发票）';
+comment on column HRBZLS.INV_EINVOICE_RETURN.returncode
+  is '结果代码，0000：下发成功，9999：下发失败';
+comment on column HRBZLS.INV_EINVOICE_RETURN.returnmessage
+  is '结果描述';
+comment on column HRBZLS.INV_EINVOICE_RETURN.pdf_item_key
+  is '【百望】';
+comment on column HRBZLS.INV_EINVOICE_RETURN.pdf_key
+  is '【百望】';
+comment on column HRBZLS.INV_EINVOICE_RETURN.fpkjsharecode
+  is '电子发票提取码';
+comment on column HRBZLS.INV_EINVOICE_RETURN.fpkjsj
+  is '回调时间';
+create unique index HRBZLS.IDX_IER_FPQQLSH on HRBZLS.INV_EINVOICE_RETURN (FPQQLSH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

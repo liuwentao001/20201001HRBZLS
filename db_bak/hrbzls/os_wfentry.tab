@@ -1,0 +1,26 @@
+create table HRBZLS.OS_WFENTRY
+(
+  id    NUMBER not null,
+  name  VARCHAR2(20),
+  state NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_WFENTRY
+  is '流程实例';
+comment on column HRBZLS.OS_WFENTRY.id
+  is '流程ID';
+comment on column HRBZLS.OS_WFENTRY.name
+  is '流程名称';
+comment on column HRBZLS.OS_WFENTRY.state
+  is '流程状态';
+alter table HRBZLS.OS_WFENTRY
+  add primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

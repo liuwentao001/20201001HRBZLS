@@ -1,0 +1,55 @@
+create table HRBZLS.ICINFO
+(
+  icid   VARCHAR2(10) not null,
+  ictype CHAR(1) not null,
+  icoper VARCHAR2(10),
+  iccode VARCHAR2(50),
+  icmemo VARCHAR2(200),
+  icje   NUMBER(10,2),
+  icdate DATE,
+  icno   VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ICINFO
+  is '用户缴费卡记录信息';
+comment on column HRBZLS.ICINFO.icid
+  is '流水号';
+comment on column HRBZLS.ICINFO.ictype
+  is '业务类别（1办卡，2补磁,3补卡）';
+comment on column HRBZLS.ICINFO.icoper
+  is '操作员';
+comment on column HRBZLS.ICINFO.iccode
+  is '受理用户号';
+comment on column HRBZLS.ICINFO.icmemo
+  is '备注';
+comment on column HRBZLS.ICINFO.icje
+  is '金额';
+comment on column HRBZLS.ICINFO.icdate
+  is '发卡日期';
+comment on column HRBZLS.ICINFO.icno
+  is '证件号码';
+alter table HRBZLS.ICINFO
+  add constraint PK_ICID primary key (ICID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,155 @@
+create global temporary table HRBZLS.YHJFSFTEMP
+(
+  vnum1     NUMBER(5),
+  rlsmfid1  VARCHAR2(20),
+  bfrper1   VARCHAR2(20),
+  mibfid1   VARCHAR2(10),
+  mirorder1 NUMBER(10),
+  rlmcode1  VARCHAR2(10),
+  rlcname1  VARCHAR2(100),
+  rlcadr1   VARCHAR2(100),
+  rlmonth1  VARCHAR2(7),
+  ifdzsb1   VARCHAR2(2),
+  rlscode1  NUMBER(10),
+  rlecode1  NUMBER(10),
+  rlreadsl1 NUMBER(10),
+  rlsl1     NUMBER(10),
+  rlje1     NUMBER(13,3),
+  rlznj1    NUMBER(13,3),
+  rlrdate1  VARCHAR2(64),
+  rldate1   VARCHAR2(64),
+  rlmtel1   VARCHAR2(30),
+  rltel1    VARCHAR2(30),
+  mitype1   VARCHAR2(1),
+  jfqx1     VARCHAR2(64),
+  yysdz1    VARCHAR2(400),
+  yystel1   VARCHAR2(64),
+  cbytel1   VARCHAR2(64),
+  vnum2     NUMBER(5),
+  rlsmfid2  VARCHAR2(20),
+  bfrper2   VARCHAR2(20),
+  mibfid2   VARCHAR2(10),
+  mirorder2 VARCHAR2(10),
+  rlmcode2  VARCHAR2(10),
+  rlcname2  VARCHAR2(64),
+  rlcadr2   VARCHAR2(64),
+  rlmonth2  VARCHAR2(7),
+  ifdzsb2   VARCHAR2(2),
+  rlscode2  NUMBER(10),
+  rlecode2  NUMBER(10),
+  rlreadsl2 NUMBER(10),
+  rlsl2     NUMBER(10),
+  rlje2     NUMBER(13,3),
+  rlznj2    NUMBER(13,3),
+  rlrdate2  VARCHAR2(64),
+  rldate2   VARCHAR2(64),
+  rlmtel2   VARCHAR2(30),
+  rltel2    VARCHAR2(30),
+  mitype2   VARCHAR2(1),
+  jfqx2     VARCHAR2(64),
+  yysdz2    VARCHAR2(400),
+  yystel2   VARCHAR2(64),
+  cbytel2   VARCHAR2(64)
+)
+on commit delete rows;
+comment on column HRBZLS.YHJFSFTEMP.vnum1
+  is '序号（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlsmfid1
+  is '营业所（左）';
+comment on column HRBZLS.YHJFSFTEMP.bfrper1
+  is '抄表员（左）';
+comment on column HRBZLS.YHJFSFTEMP.mibfid1
+  is '表册（左）';
+comment on column HRBZLS.YHJFSFTEMP.mirorder1
+  is '抄表次序（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlmcode1
+  is '客户代码（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlcname1
+  is '客户姓名（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlcadr1
+  is '用户地址（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlmonth1
+  is '账务月份（左）';
+comment on column HRBZLS.YHJFSFTEMP.ifdzsb1
+  is '是否水表倒装（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlscode1
+  is '上期指针（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlecode1
+  is '本期指针（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlreadsl1
+  is '抄见水量（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlsl1
+  is '实际水量（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlje1
+  is '合计金额（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlznj1
+  is '滞纳金（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlrdate1
+  is '抄表日期（左）';
+comment on column HRBZLS.YHJFSFTEMP.rldate1
+  is '算费日期（左）';
+comment on column HRBZLS.YHJFSFTEMP.rlmtel1
+  is '移动电话（左）';
+comment on column HRBZLS.YHJFSFTEMP.rltel1
+  is '固定电话（左）';
+comment on column HRBZLS.YHJFSFTEMP.mitype1
+  is '类型(1=坐收,2=走收)（左）';
+comment on column HRBZLS.YHJFSFTEMP.jfqx1
+  is '指定缴费期限（左）';
+comment on column HRBZLS.YHJFSFTEMP.yysdz1
+  is '营业所地址（左）';
+comment on column HRBZLS.YHJFSFTEMP.yystel1
+  is '营业所电话（左）';
+comment on column HRBZLS.YHJFSFTEMP.cbytel1
+  is '抄表员电话（左）';
+comment on column HRBZLS.YHJFSFTEMP.vnum2
+  is '序号（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlsmfid2
+  is '营业所（右）';
+comment on column HRBZLS.YHJFSFTEMP.bfrper2
+  is '抄表员（右）';
+comment on column HRBZLS.YHJFSFTEMP.mibfid2
+  is '表册（右）';
+comment on column HRBZLS.YHJFSFTEMP.mirorder2
+  is '抄表次序（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlmcode2
+  is '客户代码（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlcname2
+  is '客户姓名（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlcadr2
+  is '用户地址（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlmonth2
+  is '账务月份（右）';
+comment on column HRBZLS.YHJFSFTEMP.ifdzsb2
+  is '是否水表倒装（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlscode2
+  is '上期指针（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlecode2
+  is '本期指针（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlreadsl2
+  is '抄见水量（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlsl2
+  is '实际水量（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlje2
+  is '合计金额（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlznj2
+  is '滞纳金（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlrdate2
+  is '抄表日期（右）';
+comment on column HRBZLS.YHJFSFTEMP.rldate2
+  is '算费日期（右）';
+comment on column HRBZLS.YHJFSFTEMP.rlmtel2
+  is '移动电话（右）';
+comment on column HRBZLS.YHJFSFTEMP.rltel2
+  is '固定电话（右）';
+comment on column HRBZLS.YHJFSFTEMP.mitype2
+  is '类型(1=坐收,2=走收)（右）';
+comment on column HRBZLS.YHJFSFTEMP.jfqx2
+  is '指定缴费期限（右）';
+comment on column HRBZLS.YHJFSFTEMP.yysdz2
+  is '营业所地址（右）';
+comment on column HRBZLS.YHJFSFTEMP.yystel2
+  is '营业所电话（右）';
+comment on column HRBZLS.YHJFSFTEMP.cbytel2
+  is '抄表员电话（右）';
+

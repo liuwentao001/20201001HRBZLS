@@ -1,0 +1,32 @@
+create table HRBZLS.RPT_SUM_PAYMENT
+(
+  pid     VARCHAR2(10) not null,
+  pymonth VARCHAR2(10) not null,
+  pytype  CHAR(2) not null,
+  pynote  VARCHAR2(600)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.RPT_SUM_PAYMENT.pid
+  is '应收流水号';
+comment on column HRBZLS.RPT_SUM_PAYMENT.pymonth
+  is '应收月份';
+comment on column HRBZLS.RPT_SUM_PAYMENT.pytype
+  is '中间表类别';
+comment on column HRBZLS.RPT_SUM_PAYMENT.pynote
+  is '中间表说明';
+create index HRBZLS.IDX_RPT_SUM_PAYMENT on HRBZLS.RPT_SUM_PAYMENT (PYMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.RPT_SUM_PAYMENT
+  add constraint PK_RPT_SUM_PAYMENT primary key (PID, PYMONTH, PYTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

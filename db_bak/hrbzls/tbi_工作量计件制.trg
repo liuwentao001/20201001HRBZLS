@@ -1,0 +1,13 @@
+CREATE OR REPLACE TRIGGER HRBZLS."TBI_工作量计件制" BEFORE INSERT
+ON 工作量计件制 FOR EACH ROW
+
+BEGIN
+ IF :NEW.ID IS NULL THEN
+      SELECT  seq_工作量计件制.nextval INTO :new.ID from dual;
+ end IF;
+EXCEPTION
+    WHEN OTHERS  THEN
+       NULL;
+END;
+/
+

@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_SYS_DICT_TYPE
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 120
+increment by 1
+cache 20;
+

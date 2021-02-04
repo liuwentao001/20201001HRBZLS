@@ -1,0 +1,142 @@
+create table HRBZLS.CHEQUE
+(
+  chequeid        NVARCHAR2(10) not null,
+  enteringtime    DATE not null,
+  payername       NVARCHAR2(64),
+  payertel        NVARCHAR2(30),
+  chequetype      NVARCHAR2(30),
+  chequemoney     NUMBER(12,2),
+  chargelocation  NVARCHAR2(30),
+  chargename      NVARCHAR2(30),
+  chargetime      DATE,
+  chequecode      NVARCHAR2(100),
+  chequename      NVARCHAR2(100),
+  chequebankname  NVARCHAR2(100),
+  chequechargerid NVARCHAR2(100),
+  chequememo      NVARCHAR2(500),
+  chequestatus    VARCHAR2(5),
+  chequeoper      VARCHAR2(10),
+  chequesdate     DATE,
+  chequemcode     VARCHAR2(10),
+  chequeflag      VARCHAR2(1),
+  chequebankid    VARCHAR2(20),
+  chequebankno    VARCHAR2(100),
+  chequeyxno      VARCHAR2(20),
+  chequecwno      VARCHAR2(20),
+  chequecrflag    VARCHAR2(1),
+  chequecrdate    DATE,
+  chequecroper    VARCHAR2(10),
+  cbankid         VARCHAR2(50),
+  cbankname       VARCHAR2(100),
+  cbankno         VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CHEQUE
+  is '支票表';
+comment on column HRBZLS.CHEQUE.chequeid
+  is '支票流水';
+comment on column HRBZLS.CHEQUE.enteringtime
+  is '进账时间';
+comment on column HRBZLS.CHEQUE.payername
+  is '联系人';
+comment on column HRBZLS.CHEQUE.payertel
+  is '联系电话';
+comment on column HRBZLS.CHEQUE.chequetype
+  is '资金类别';
+comment on column HRBZLS.CHEQUE.chequemoney
+  is '金额（本次使用金额）';
+comment on column HRBZLS.CHEQUE.chargelocation
+  is '缴费营业所';
+comment on column HRBZLS.CHEQUE.chargename
+  is '录入人';
+comment on column HRBZLS.CHEQUE.chargetime
+  is '录入时间';
+comment on column HRBZLS.CHEQUE.chequecode
+  is '支票账号';
+comment on column HRBZLS.CHEQUE.chequename
+  is '付款人全称';
+comment on column HRBZLS.CHEQUE.chequebankname
+  is '付款开户行名称';
+comment on column HRBZLS.CHEQUE.chequechargerid
+  is '收款人编号';
+comment on column HRBZLS.CHEQUE.chequememo
+  is '备注';
+comment on column HRBZLS.CHEQUE.chequestatus
+  is '支票状态';
+comment on column HRBZLS.CHEQUE.chequeoper
+  is '状态人';
+comment on column HRBZLS.CHEQUE.chequesdate
+  is '状态日期';
+comment on column HRBZLS.CHEQUE.chequemcode
+  is '客户代码';
+comment on column HRBZLS.CHEQUE.chequeflag
+  is '支票勾票';
+comment on column HRBZLS.CHEQUE.chequebankid
+  is '行号';
+comment on column HRBZLS.CHEQUE.chequebankno
+  is '开户账号';
+comment on column HRBZLS.CHEQUE.chequeyxno
+  is '营销对账单号';
+comment on column HRBZLS.CHEQUE.chequecwno
+  is '财务对账单号';
+comment on column HRBZLS.CHEQUE.chequecrflag
+  is '作废标志';
+comment on column HRBZLS.CHEQUE.chequecrdate
+  is '作废时间';
+comment on column HRBZLS.CHEQUE.chequecroper
+  is '作废人';
+comment on column HRBZLS.CHEQUE.cbankid
+  is '分公司开户行号';
+comment on column HRBZLS.CHEQUE.cbankname
+  is '分公司开户行名';
+comment on column HRBZLS.CHEQUE.cbankno
+  is '分公司开户账号';
+create index HRBZLS.IDX_CHEQUE1 on HRBZLS.CHEQUE (CHARGENAME, CHARGETIME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_CHEQUECODE on HRBZLS.CHEQUE (CHEQUECODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.CHEQUE
+  add constraint PK_CHEQUE primary key (CHEQUEID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,37 @@
+create table HRBZLS.ACCOUNTCD
+(
+  acdid   CHAR(2) not null,
+  acdname VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ACCOUNTCD
+  is '½è´û×Öµä±í¡¾ACD¡¿';
+comment on column HRBZLS.ACCOUNTCD.acdid
+  is 'debit/credit';
+comment on column HRBZLS.ACCOUNTCD.acdname
+  is '´û·½/½è·½';
+alter table HRBZLS.ACCOUNTCD
+  add constraint PK_ACCOUNTCD primary key (ACDID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,40 @@
+create table HRBZLS.HFXTLT_ZLSLT_MX_COPY
+(
+  lt_id       VARCHAR2(10) not null,
+  lt_fid      VARCHAR2(10),
+  lt_operator VARCHAR2(10),
+  lt_deptid   VARCHAR2(40),
+  lt_date     DATE,
+  lt_remark   LONG RAW
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.HFXTLT_ZLSLT_MX_COPY
+  is '系统论坛';
+comment on column HRBZLS.HFXTLT_ZLSLT_MX_COPY.lt_id
+  is '流水号';
+comment on column HRBZLS.HFXTLT_ZLSLT_MX_COPY.lt_fid
+  is '话题流水号';
+comment on column HRBZLS.HFXTLT_ZLSLT_MX_COPY.lt_operator
+  is '发表人';
+comment on column HRBZLS.HFXTLT_ZLSLT_MX_COPY.lt_deptid
+  is '部门';
+comment on column HRBZLS.HFXTLT_ZLSLT_MX_COPY.lt_date
+  is '发表时间';
+comment on column HRBZLS.HFXTLT_ZLSLT_MX_COPY.lt_remark
+  is '发表内容';
+create index HRBZLS.PK_ZLSLT_MX12 on HRBZLS.HFXTLT_ZLSLT_MX_COPY (LT_FID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.HFXTLT_ZLSLT_MX_COPY
+  add constraint PK_ZLSLT_MX_COPY primary key (LT_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

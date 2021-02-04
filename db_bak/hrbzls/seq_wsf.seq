@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_WSF
+minvalue 1
+maxvalue 999999
+start with 1261
+increment by 1
+cache 50;
+

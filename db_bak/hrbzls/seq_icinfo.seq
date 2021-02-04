@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_ICINFO
+minvalue 1
+maxvalue 99999999
+start with 71757
+increment by 1
+cache 50
+order;
+

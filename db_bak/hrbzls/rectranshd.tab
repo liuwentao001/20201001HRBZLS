@@ -1,0 +1,230 @@
+create table HRBZLS.RECTRANSHD
+(
+  rthno         VARCHAR2(10) not null,
+  rthbh         VARCHAR2(10) not null,
+  rthlb         VARCHAR2(5) not null,
+  rthsmfid      VARCHAR2(10) not null,
+  rthdept       VARCHAR2(10),
+  rthsource     CHAR(1) not null,
+  rthcredate    DATE not null,
+  rthcreper     VARCHAR2(10) not null,
+  rthshdate     DATE,
+  rthdate       DATE,
+  rthshper      VARCHAR2(10),
+  rthshflag     CHAR(1) not null,
+  rthmemo       VARCHAR2(60),
+  rthcid        VARCHAR2(10),
+  rthmid        VARCHAR2(10),
+  rthccode      VARCHAR2(10),
+  rthmcode      VARCHAR2(10),
+  rthmlb        CHAR(1),
+  rthcper       VARCHAR2(10),
+  rthbfid       VARCHAR2(10),
+  rthifmp       CHAR(1) not null,
+  rthpfid       VARCHAR2(10),
+  rthcname      VARCHAR2(64) not null,
+  rthmname      VARCHAR2(64) not null,
+  rthcadr       VARCHAR2(100),
+  rthmadr       VARCHAR2(100) not null,
+  rthrtid       CHAR(1),
+  rthmface      VARCHAR2(2),
+  rthmrpid      VARCHAR2(3),
+  rthmside      CHAR(10),
+  rthmposition  VARCHAR2(100),
+  rthmtype      CHAR(1),
+  rthchargetype CHAR(1),
+  rthsaving     NUMBER(12,2),
+  rthscode      NUMBER(10),
+  rthecode      NUMBER(10),
+  rthecodeflag  CHAR(1) not null,
+  rthreadsl     NUMBER(10),
+  rthaddsl      NUMBER(12,2),
+  rthsl         NUMBER(10) not null,
+  rthje         NUMBER(12,2),
+  rthusenum     NUMBER,
+  rthprdate     DATE,
+  rthrdate      DATE,
+  rthznj        NUMBER(12,2),
+  rthzndate     DATE,
+  rthpriflag    CHAR(1),
+  rthpriid      VARCHAR2(10),
+  rthifpay      CHAR(1) not null,
+  rthpid        VARCHAR2(10),
+  rthmrid       VARCHAR2(10),
+  rthrlid       VARCHAR2(10),
+  rthilid       VARCHAR2(10),
+  rthifinv      CHAR(1),
+  rthinvmemo    VARCHAR2(60),
+  rthscodechar  VARCHAR2(10),
+  rthecodechar  VARCHAR2(10),
+  ifrec         CHAR(1) default 'N',
+  ifrechis      CHAR(1) default 'N',
+  pricemonth    DATE,
+  ifslmk        CHAR(1) default 'N',
+  rtmitaxno     VARCHAR2(50),
+  rtcitel1      VARCHAR2(50),
+  rtmibankname  VARCHAR2(50),
+  rtmibankno    VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RECTRANSHD
+  is '应收计费单头【RTH】';
+comment on column HRBZLS.RECTRANSHD.rthno
+  is '单据流水号';
+comment on column HRBZLS.RECTRANSHD.rthbh
+  is '单据编号';
+comment on column HRBZLS.RECTRANSHD.rthlb
+  is '单据类别';
+comment on column HRBZLS.RECTRANSHD.rthsmfid
+  is '营业所';
+comment on column HRBZLS.RECTRANSHD.rthdept
+  is '部门';
+comment on column HRBZLS.RECTRANSHD.rthsource
+  is '单据来源';
+comment on column HRBZLS.RECTRANSHD.rthcredate
+  is '创建日期';
+comment on column HRBZLS.RECTRANSHD.rthcreper
+  is '创建人员';
+comment on column HRBZLS.RECTRANSHD.rthshdate
+  is '审核日期';
+comment on column HRBZLS.RECTRANSHD.rthdate
+  is '审核帐务日期';
+comment on column HRBZLS.RECTRANSHD.rthshper
+  is '审核人员';
+comment on column HRBZLS.RECTRANSHD.rthshflag
+  is '审核标志';
+comment on column HRBZLS.RECTRANSHD.rthmemo
+  is '备注';
+comment on column HRBZLS.RECTRANSHD.rthcid
+  is '用户编号';
+comment on column HRBZLS.RECTRANSHD.rthmid
+  is '水表编号';
+comment on column HRBZLS.RECTRANSHD.rthccode
+  is '用户号';
+comment on column HRBZLS.RECTRANSHD.rthmcode
+  is '资料号';
+comment on column HRBZLS.RECTRANSHD.rthmlb
+  is '水表类别';
+comment on column HRBZLS.RECTRANSHD.rthcper
+  is '收费员';
+comment on column HRBZLS.RECTRANSHD.rthbfid
+  is '表册';
+comment on column HRBZLS.RECTRANSHD.rthifmp
+  is '混合用水';
+comment on column HRBZLS.RECTRANSHD.rthpfid
+  is '主价格类别';
+comment on column HRBZLS.RECTRANSHD.rthcname
+  is '用户名称';
+comment on column HRBZLS.RECTRANSHD.rthmname
+  is '票据名称';
+comment on column HRBZLS.RECTRANSHD.rthcadr
+  is '用户地址';
+comment on column HRBZLS.RECTRANSHD.rthmadr
+  is '水表地址';
+comment on column HRBZLS.RECTRANSHD.rthrtid
+  is '抄表方式';
+comment on column HRBZLS.RECTRANSHD.rthmface
+  is '表况';
+comment on column HRBZLS.RECTRANSHD.rthmrpid
+  is '计件类型';
+comment on column HRBZLS.RECTRANSHD.rthmside
+  is '表位';
+comment on column HRBZLS.RECTRANSHD.rthmposition
+  is '接水地址';
+comment on column HRBZLS.RECTRANSHD.rthmtype
+  is '水表类型';
+comment on column HRBZLS.RECTRANSHD.rthchargetype
+  is '应收收费方式';
+comment on column HRBZLS.RECTRANSHD.rthsaving
+  is '预存余额';
+comment on column HRBZLS.RECTRANSHD.rthscode
+  is '起数';
+comment on column HRBZLS.RECTRANSHD.rthecode
+  is '止数';
+comment on column HRBZLS.RECTRANSHD.rthecodeflag
+  is '置下次抄表起度';
+comment on column HRBZLS.RECTRANSHD.rthreadsl
+  is '抄见水量';
+comment on column HRBZLS.RECTRANSHD.rthaddsl
+  is '余量';
+comment on column HRBZLS.RECTRANSHD.rthsl
+  is '应收水量';
+comment on column HRBZLS.RECTRANSHD.rthje
+  is '应收金额';
+comment on column HRBZLS.RECTRANSHD.rthusenum
+  is '户用水人数';
+comment on column HRBZLS.RECTRANSHD.rthprdate
+  is '上次抄表日期';
+comment on column HRBZLS.RECTRANSHD.rthrdate
+  is '本次抄表日期';
+comment on column HRBZLS.RECTRANSHD.rthznj
+  is '违约金';
+comment on column HRBZLS.RECTRANSHD.rthzndate
+  is '违约金起算日';
+comment on column HRBZLS.RECTRANSHD.rthpriflag
+  is '合收表标志';
+comment on column HRBZLS.RECTRANSHD.rthpriid
+  is '合收表主表号';
+comment on column HRBZLS.RECTRANSHD.rthifpay
+  is '是否销帐';
+comment on column HRBZLS.RECTRANSHD.rthpid
+  is '实收交易流水（回写）';
+comment on column HRBZLS.RECTRANSHD.rthmrid
+  is '抄表流水（回写）';
+comment on column HRBZLS.RECTRANSHD.rthrlid
+  is '流水号（回写）';
+comment on column HRBZLS.RECTRANSHD.rthilid
+  is '票据流水（回写）';
+comment on column HRBZLS.RECTRANSHD.rthifinv
+  is '是否出票';
+comment on column HRBZLS.RECTRANSHD.rthinvmemo
+  is '发票备注';
+comment on column HRBZLS.RECTRANSHD.rthscodechar
+  is '起数（带表位）';
+comment on column HRBZLS.RECTRANSHD.rthecodechar
+  is '止数（带表位）';
+comment on column HRBZLS.RECTRANSHD.ifrec
+  is '是否走算费过程(不走可认为营业外)';
+comment on column HRBZLS.RECTRANSHD.ifrechis
+  is '是否按历史水价算费(选择归档价格版本)';
+comment on column HRBZLS.RECTRANSHD.pricemonth
+  is '价格月份';
+comment on column HRBZLS.RECTRANSHD.ifslmk
+  is '是否不进阶梯';
+create index HRBZLS.IDX_RTH_RTHRLID on HRBZLS.RECTRANSHD (RTHRLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.RECTRANSHD
+  add constraint PK_RECTRANSHD primary key (RTHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

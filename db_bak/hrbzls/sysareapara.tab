@@ -1,0 +1,46 @@
+create table HRBZLS.SYSAREAPARA
+(
+  smpid     VARCHAR2(10) not null,
+  smppid    VARCHAR2(10) not null,
+  smppdesc  VARCHAR2(100),
+  smppvalue VARCHAR2(4000),
+  smpptype  CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSAREAPARA
+  is '管理架构参数【SMP】';
+comment on column HRBZLS.SYSAREAPARA.smpid
+  is '管理架构编码';
+comment on column HRBZLS.SYSAREAPARA.smppid
+  is '参数编码';
+comment on column HRBZLS.SYSAREAPARA.smppdesc
+  is '参数描述';
+comment on column HRBZLS.SYSAREAPARA.smppvalue
+  is '参数内容';
+comment on column HRBZLS.SYSAREAPARA.smpptype
+  is '参数数据类型';
+alter table HRBZLS.SYSAREAPARA
+  add constraint PK_SYSAREAPARA primary key (SMPID, SMPPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

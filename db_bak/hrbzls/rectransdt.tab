@@ -1,0 +1,82 @@
+create table HRBZLS.RECTRANSDT
+(
+  rtdno     VARCHAR2(10) not null,
+  rtdrowno  NUMBER(6) not null,
+  rtdpmdid  NUMBER,
+  rtdpiid   VARCHAR2(2),
+  rtdpfid   VARCHAR2(10),
+  rtdpscid  NUMBER,
+  rtdyssl   NUMBER(10) not null,
+  rtdysdj   NUMBER(12,3) not null,
+  rtdysje   NUMBER(12,2) not null,
+  rtdsl     NUMBER(10) not null,
+  rtddj     NUMBER(12,3) not null,
+  rtdje     NUMBER(12,2) not null,
+  rtdadjsl  NUMBER(10) not null,
+  rtdadjdj  NUMBER(12,3) not null,
+  rtdadjje  NUMBER(12,2) not null,
+  rtdscale  NUMBER(12,2),
+  rtdpiname VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RECTRANSDT
+  is '应收计费单体【RTD】';
+comment on column HRBZLS.RECTRANSDT.rtdno
+  is '单据流水';
+comment on column HRBZLS.RECTRANSDT.rtdrowno
+  is '行号';
+comment on column HRBZLS.RECTRANSDT.rtdpmdid
+  is '混合用水分组';
+comment on column HRBZLS.RECTRANSDT.rtdpiid
+  is '费用项目';
+comment on column HRBZLS.RECTRANSDT.rtdpfid
+  is '价格类别';
+comment on column HRBZLS.RECTRANSDT.rtdpscid
+  is '费率明细方案';
+comment on column HRBZLS.RECTRANSDT.rtdyssl
+  is '应收水量';
+comment on column HRBZLS.RECTRANSDT.rtdysdj
+  is '应收单价';
+comment on column HRBZLS.RECTRANSDT.rtdysje
+  is '应收金额';
+comment on column HRBZLS.RECTRANSDT.rtdsl
+  is '水量';
+comment on column HRBZLS.RECTRANSDT.rtddj
+  is '单价';
+comment on column HRBZLS.RECTRANSDT.rtdje
+  is '金额';
+comment on column HRBZLS.RECTRANSDT.rtdadjsl
+  is '调整水量';
+comment on column HRBZLS.RECTRANSDT.rtdadjdj
+  is '调整单价';
+comment on column HRBZLS.RECTRANSDT.rtdadjje
+  is '调整金额';
+comment on column HRBZLS.RECTRANSDT.rtdscale
+  is '混合比例';
+comment on column HRBZLS.RECTRANSDT.rtdpiname
+  is '费用项目说明';
+alter table HRBZLS.RECTRANSDT
+  add constraint PK_RECTRANSDT primary key (RTDNO, RTDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,9 @@
+create sequence HRBZLS.SEQ_METERTRANSSTATES
+minvalue 1
+maxvalue 9999999999
+start with 605539
+increment by 1
+cache 50
+cycle
+order;
+

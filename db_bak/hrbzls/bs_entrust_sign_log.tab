@@ -1,0 +1,60 @@
+create table HRBZLS.BS_ENTRUST_SIGN_LOG
+(
+  id          NUMBER(10) not null,
+  meterno     CHAR(10),
+  custname    VARCHAR2(60),
+  bankid      VARCHAR2(30),
+  accountno   VARCHAR2(30),
+  accountname VARCHAR2(60),
+  chargetype  VARCHAR2(2),
+  sign_type   CHAR(1),
+  sign_time   DATE,
+  sign_ok     CHAR(1),
+  log_time    DATE not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BS_ENTRUST_SIGN_LOG
+  is '签约日志';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.id
+  is '流水号';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.meterno
+  is '水表号';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.custname
+  is '水表户名';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.bankid
+  is '银行编号';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.accountno
+  is '银行帐号';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.accountname
+  is '银行帐户名';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.chargetype
+  is '交费方式';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.sign_type
+  is '签约类型(U:签约,O:解约)';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.sign_time
+  is '签约时间';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.sign_ok
+  is '操作结果';
+comment on column HRBZLS.BS_ENTRUST_SIGN_LOG.log_time
+  is '日志时间';
+create index HRBZLS.IDX_BS_ENTRUST_SIDN_LOG on HRBZLS.BS_ENTRUST_SIGN_LOG (METERNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_BS_ENTRUST_SIGN_LOG on HRBZLS.BS_ENTRUST_SIGN_LOG (LOG_TIME, ID, METERNO, SIGN_TIME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.BS_ENTRUST_SIGN_LOG
+  add constraint PK_BS_ENTRUST_SIGN_LOG primary key (LOG_TIME, ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

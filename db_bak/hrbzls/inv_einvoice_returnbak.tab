@@ -1,0 +1,36 @@
+create table HRBZLS.INV_EINVOICE_RETURNBAK
+(
+  irid          VARCHAR2(32),
+  fpqqlsh       VARCHAR2(20) not null,
+  ddh           VARCHAR2(20),
+  kplsh         VARCHAR2(20),
+  fwm           VARCHAR2(400),
+  ewm           VARCHAR2(1000),
+  fpzl_dm       VARCHAR2(5),
+  fp_dm         VARCHAR2(12),
+  fp_hm         VARCHAR2(8),
+  kplx          VARCHAR2(1),
+  hjbhsje       NUMBER,
+  kphjse        NUMBER,
+  pdf_file      VARCHAR2(200),
+  pdf_url       VARCHAR2(200),
+  czdm          VARCHAR2(10),
+  returncode    VARCHAR2(4),
+  returnmessage VARCHAR2(128),
+  pdf_item_key  VARCHAR2(200),
+  pdf_key       VARCHAR2(200),
+  fpkjsharecode VARCHAR2(20),
+  fpkjsj        VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

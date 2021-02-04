@@ -1,0 +1,117 @@
+create table HRBZLS.RPT_SUM_CWZJBB
+(
+  账务月份       CHAR(7),
+  ppayway    VARCHAR2(6),
+  pposition  VARCHAR2(10),
+  sfy        VARCHAR2(20),
+  chargetype CHAR(1),
+  ofagent    VARCHAR2(10),
+  watertype  VARCHAR2(10),
+  milb       CHAR(1),
+  缴费机构       VARCHAR2(4),
+  总水量        NUMBER,
+  总水费        NUMBER,
+  总污水量       NUMBER,
+  总污水费       NUMBER,
+  总金额        NUMBER,
+  基建水量       NUMBER,
+  基建水费       NUMBER,
+  补缴水量       NUMBER,
+  补缴水费       NUMBER,
+  补缴污水费      NUMBER,
+  水量         NUMBER,
+  水费         NUMBER,
+  污水量        NUMBER,
+  污水费        NUMBER,
+  票面金额       NUMBER,
+  预存发生       NUMBER,
+  附加费        NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.RPT_SUM_CWZJBB.账务月份
+  is '实收月份';
+comment on column HRBZLS.RPT_SUM_CWZJBB.ppayway
+  is '实收资金来源';
+comment on column HRBZLS.RPT_SUM_CWZJBB.pposition
+  is '收费点';
+comment on column HRBZLS.RPT_SUM_CWZJBB.sfy
+  is '收费员';
+comment on column HRBZLS.RPT_SUM_CWZJBB.chargetype
+  is '收费方式';
+comment on column HRBZLS.RPT_SUM_CWZJBB.ofagent
+  is '营业所';
+comment on column HRBZLS.RPT_SUM_CWZJBB.watertype
+  is '用水性质';
+comment on column HRBZLS.RPT_SUM_CWZJBB.milb
+  is '水表类别';
+comment on column HRBZLS.RPT_SUM_CWZJBB.缴费机构
+  is '实收月份';
+comment on column HRBZLS.RPT_SUM_CWZJBB.总水量
+  is '实收总水量';
+comment on column HRBZLS.RPT_SUM_CWZJBB.总水费
+  is '实收总水费';
+comment on column HRBZLS.RPT_SUM_CWZJBB.总污水量
+  is '实收总污水量';
+comment on column HRBZLS.RPT_SUM_CWZJBB.总污水费
+  is '实收总污水费';
+comment on column HRBZLS.RPT_SUM_CWZJBB.总金额
+  is '实收总金额=基建水费+基建水费+补缴水费+补缴污水费+水费+污水费；实收总金额=实收总水费+实收总污水费';
+comment on column HRBZLS.RPT_SUM_CWZJBB.基建水量
+  is '基建水量';
+comment on column HRBZLS.RPT_SUM_CWZJBB.基建水费
+  is '基建水费';
+comment on column HRBZLS.RPT_SUM_CWZJBB.补缴水量
+  is '补缴水量';
+comment on column HRBZLS.RPT_SUM_CWZJBB.补缴水费
+  is '补缴水费';
+comment on column HRBZLS.RPT_SUM_CWZJBB.补缴污水费
+  is '补缴污水费';
+comment on column HRBZLS.RPT_SUM_CWZJBB.水量
+  is '水量(不含基建、补缴)';
+comment on column HRBZLS.RPT_SUM_CWZJBB.水费
+  is '水费(不含基建、补缴)';
+comment on column HRBZLS.RPT_SUM_CWZJBB.污水量
+  is '污水量';
+comment on column HRBZLS.RPT_SUM_CWZJBB.污水费
+  is '污水费';
+comment on column HRBZLS.RPT_SUM_CWZJBB.票面金额
+  is '票面金额';
+comment on column HRBZLS.RPT_SUM_CWZJBB.预存发生
+  is '预存发生=票面金额-实收总金额';
+comment on column HRBZLS.RPT_SUM_CWZJBB.附加费
+  is '因为回收以前的有附加费';
+create index HRBZLS.INDEX_RPT_CWZJBB_HJ on HRBZLS.RPT_SUM_CWZJBB (PPAYWAY, PPOSITION, SFY, CHARGETYPE, OFAGENT, WATERTYPE, MILB, 缴费机构)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.INDEX_RPT_CWZJBB_ZWYF on HRBZLS.RPT_SUM_CWZJBB (账务月份)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,37 @@
+create table HRBZLS.AM_ENTRUSTLOG
+(
+  elbatch       VARCHAR2(10) not null,
+  elbankid      VARCHAR2(30),
+  elchargetype  CHAR(1),
+  eloutoer      VARCHAR2(10),
+  eloutdate     DATE,
+  eloutrows     NUMBER(10),
+  eloutmoney    NUMBER(12,2),
+  elchkdate     DATE,
+  elchkrows     NUMBER(10),
+  elchkje       NUMBER(12,2),
+  elschkdate    DATE,
+  elsrows       NUMBER(10),
+  elsje         NUMBER(12,2),
+  elfchkdate    DATE,
+  elfrows       NUMBER(10),
+  elfje         NUMBER(12,2),
+  elpaiddate    DATE,
+  elpaidrows    NUMBER(10),
+  elpaidje      NUMBER(12,2),
+  elchknum      NUMBER(10),
+  elchkend      CHAR(1),
+  elstatus      CHAR(1),
+  elsmfid       VARCHAR2(10),
+  eltstype      CHAR(1),
+  elplanimpdate DATE,
+  elimptype     CHAR(1),
+  elrecmonth    VARCHAR2(7),
+  elimflag      CHAR(1),
+  elmemo        VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

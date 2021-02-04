@@ -1,0 +1,40 @@
+create table HRBZLS.CONTRACT
+(
+  crno       VARCHAR2(40),
+  miid       VARCHAR2(10),
+  storeid    VARCHAR2(10),
+  status     CHAR(1),
+  statusdate DATE,
+  cycchkdate DATE,
+  stockdate  DATE,
+  cgoper     VARCHAR2(10),
+  mismfid    VARCHAR2(10),
+  billtype   VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.CONTRACT
+  is '合同基表【CR】';
+comment on column HRBZLS.CONTRACT.crno
+  is '合同编号';
+comment on column HRBZLS.CONTRACT.miid
+  is '用户编号';
+comment on column HRBZLS.CONTRACT.storeid
+  is '仓库编号';
+comment on column HRBZLS.CONTRACT.status
+  is '合同状态';
+comment on column HRBZLS.CONTRACT.statusdate
+  is '合同状态发生日期';
+comment on column HRBZLS.CONTRACT.cycchkdate
+  is '合同起算日';
+comment on column HRBZLS.CONTRACT.stockdate
+  is '新购合同入库日期';
+comment on column HRBZLS.CONTRACT.cgoper
+  is '合同领用人员';
+comment on column HRBZLS.CONTRACT.mismfid
+  is '分公司';
+comment on column HRBZLS.CONTRACT.billtype
+  is '类型';
+

@@ -1,0 +1,39 @@
+create table HRBZLS.TAB_TEMPUSE
+(
+  u_month        VARCHAR2(7),
+  area           VARCHAR2(10),
+  rlpfid         VARCHAR2(10),
+  rlrper         VARCHAR2(10),
+  rlyschargetype CHAR(1),
+  rlsmfid        VARCHAR2(10),
+  rllb           CHAR(1),
+  x41            NUMBER,
+  x64            NUMBER,
+  x65            NUMBER,
+  x66            NUMBER,
+  x67            NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_TAB_TEMPUSE_INDEX1 on HRBZLS.TAB_TEMPUSE (U_MONTH, AREA, RLRPER, RLYSCHARGETYPE, RLSMFID, RLLB, X41)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

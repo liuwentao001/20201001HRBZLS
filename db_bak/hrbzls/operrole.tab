@@ -1,0 +1,46 @@
+create table HRBZLS.OPERROLE
+(
+  orid    VARCHAR2(5) not null,
+  orname  VARCHAR2(20) not null,
+  orgid   CHAR(2) not null,
+  orclass VARCHAR2(3),
+  orsmfid VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERROLE
+  is '角色';
+comment on column HRBZLS.OPERROLE.orid
+  is '角色代码';
+comment on column HRBZLS.OPERROLE.orname
+  is '名称';
+comment on column HRBZLS.OPERROLE.orgid
+  is '业务分组编码';
+comment on column HRBZLS.OPERROLE.orclass
+  is '角色级次';
+comment on column HRBZLS.OPERROLE.orsmfid
+  is '营业所';
+alter table HRBZLS.OPERROLE
+  add constraint PK_OPERROLE primary key (ORID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

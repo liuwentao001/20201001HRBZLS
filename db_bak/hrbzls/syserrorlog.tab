@@ -1,0 +1,85 @@
+create table HRBZLS.SYSERRORLOG
+(
+  selseqno        VARCHAR2(8) not null,
+  selappname      VARCHAR2(100),
+  seldatetime     DATE,
+  selworkstation  VARCHAR2(200),
+  seloperid       VARCHAR2(8),
+  selerrcode      VARCHAR2(8),
+  selerrtext      VARCHAR2(255),
+  selerrwhere     VARCHAR2(100),
+  selerrevent     VARCHAR2(100),
+  selerrobject    VARCHAR2(100),
+  selerrline      VARCHAR2(4),
+  selsqlerrcode   VARCHAR2(8),
+  selsqldberrcode VARCHAR2(8),
+  selsqlerrtext   VARCHAR2(255),
+  selservername   VARCHAR2(60),
+  seldatabase     VARCHAR2(60),
+  seltranslation  VARCHAR2(255),
+  selsqltrans     VARCHAR2(255)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSERRORLOG
+  is '系统错误记录日志【SEL】';
+comment on column HRBZLS.SYSERRORLOG.selseqno
+  is '记录流水号';
+comment on column HRBZLS.SYSERRORLOG.selappname
+  is '发生错误应用程序名';
+comment on column HRBZLS.SYSERRORLOG.seldatetime
+  is '发生错误时间';
+comment on column HRBZLS.SYSERRORLOG.selworkstation
+  is '发生错误工作站';
+comment on column HRBZLS.SYSERRORLOG.seloperid
+  is '操作员代码';
+comment on column HRBZLS.SYSERRORLOG.selerrcode
+  is '错误代码';
+comment on column HRBZLS.SYSERRORLOG.selerrtext
+  is '错误内容描述';
+comment on column HRBZLS.SYSERRORLOG.selerrwhere
+  is '发生错误位置，或者为窗口或者为菜单';
+comment on column HRBZLS.SYSERRORLOG.selerrevent
+  is '发生错误事件或者函数';
+comment on column HRBZLS.SYSERRORLOG.selerrobject
+  is '发生错误对象名称';
+comment on column HRBZLS.SYSERRORLOG.selerrline
+  is '发生错误的行';
+comment on column HRBZLS.SYSERRORLOG.selsqlerrcode
+  is 'SQL语句错误代码';
+comment on column HRBZLS.SYSERRORLOG.selsqldberrcode
+  is 'SQL数据库错误代码';
+comment on column HRBZLS.SYSERRORLOG.selsqlerrtext
+  is 'SQL数据库错误信息';
+comment on column HRBZLS.SYSERRORLOG.selservername
+  is 'SQL数据库服务名';
+comment on column HRBZLS.SYSERRORLOG.seldatabase
+  is 'SQL数据库名称';
+comment on column HRBZLS.SYSERRORLOG.seltranslation
+  is '错误内容翻译';
+comment on column HRBZLS.SYSERRORLOG.selsqltrans
+  is 'SQL错误内容翻译';
+alter table HRBZLS.SYSERRORLOG
+  add constraint PK_SYSERRORLOG primary key (SELSEQNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

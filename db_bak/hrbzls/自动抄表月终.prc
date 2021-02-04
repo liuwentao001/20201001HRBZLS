@@ -1,0 +1,56 @@
+CREATE OR REPLACE PROCEDURE HRBZLS."自动抄表月终" AS
+  V_DAY       VARCHAR2(5);
+  V_ZZMONTH   VARCHAR2(10);
+  V_TEMPMONTH VARCHAR2(10);
+  V_READMONTH VARCHAR2(10);
+  V_MONTH     VARCHAR(2);
+  V_ALOG      AUTOEXEC_LOG%ROWTYPE;
+  CURSOR C_SM IS
+    SELECT * FROM SYSMANAPARA SM WHERE SMPPID = 'SSYJ';
+  V_SM SYSMANAPARA%ROWTYPE;
+BEGIN
+  V_ALOG.O_TYPE := '自动抄表月终';
+  --获取当月第几天
+  SELECT TO_CHAR(SYSDATE, 'dd'),
+         TO_CHAR(ADD_MONTHS(SYSDATE, 1), 'yyyy.mm'),
+         TO_CHAR(SYSDATE, 'yyyy.mm')
+    INTO V_DAY, V_ZZMONTH, V_TEMPMONTH
+    FROM DUAL;
+  V_ALOG.O_TYPE := V_ALOG.O_TYPE || '|' || V_DAY || '|' || V_ZZMONTH;
+  V_MONTH       := SUBSTR(V_TEMPMONTH, 6, 7);
+  --根据管理架构更新实收月份
+  OPEN C_SM;
+  LOOP
+    FETCH C_SM
+      INTO V_SM;
+    EXIT WHEN C_SM%NOTFOUND OR C_SM%NOTFOUND IS NULL;
+    V_ALOG.O_TIME_1 := SYSDATE;
+
+    /***********
+         自动抄表月终，年底结转日期为当月的最后一天
+    ***********/
+    IF V_MONTH = '12' OR V_SM.SMPPVALUE = '自然月' THEN
+      V_SM.SMPPVALUE := TO_CHAR(LAST_DAY(SYSDATE), 'dd');
+    END IF;
+
+    IF V_DAY = V_SM.SMPPVALUE THEN
+      V_READMONTH := TOOLS.FGETREADMONTH(V_SM.SMPID);
+      PG_EWIDE_RAEDPLAN_01.CARRYFORWARD_MR(V_SM.SMPID,
+                                           V_READMONTH,
+                                           'system',
+                                           'N');
+      V_ALOG.O_TIME_2 := SYSDATE;
+      V_ALOG.O_RESULT := V_SM.SMPID || '成功';
+      SELECT SEQ_AUTOEXEC_DAY.NEXTVAL INTO V_ALOG.ID FROM DUAL;
+      INSERT INTO AUTOEXEC_LOG VALUES V_ALOG;
+    END IF;
+  END LOOP;
+  CLOSE C_SM;
+  COMMIT;
+EXCEPTION
+  WHEN OTHERS THEN
+    RAISE_APPLICATION_ERROR(-20012, SQLERRM);
+    COMMIT;
+END;
+/
+

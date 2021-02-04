@@ -1,0 +1,9 @@
+create sequence HRBZLS.SEQ_WMIS_NOTEID
+minvalue 1000000001
+maxvalue 9999999999
+start with 1000005285
+increment by 1
+cache 50
+cycle
+order;
+

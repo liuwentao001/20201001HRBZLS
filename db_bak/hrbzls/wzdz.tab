@@ -1,0 +1,25 @@
+create table HRBZLS.WZDZ
+(
+  c1 VARCHAR2(1000),
+  c2 VARCHAR2(1000),
+  c3 VARCHAR2(1000),
+  c4 VARCHAR2(1000),
+  c5 VARCHAR2(1000),
+  c6 VARCHAR2(1000),
+  c7 VARCHAR2(1000),
+  c8 VARCHAR2(1000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.WZDZ
+  is '吴中自来水底度维护异常表';
+

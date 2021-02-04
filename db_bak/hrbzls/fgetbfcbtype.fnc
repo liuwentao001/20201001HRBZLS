@@ -1,0 +1,31 @@
+CREATE OR REPLACE FUNCTION HRBZLS."FGETBFCBTYPE"(P_BFMONTH IN VARCHAR2,
+                                          P_BFRCYC  IN NUMBER)
+  RETURN VARCHAR2 AS
+  LMOD NUMBER;
+  LRET NUMBER;
+BEGIN
+  IF P_BFRCYC = 1 THEN
+    LRET := 0; --每月抄
+  ELSIF P_BFRCYC = 2 THEN
+    SELECT MOD(TO_NUMBER(SUBSTR(P_BFMONTH, 6, 2)) + P_BFRCYC, 2)
+      INTO LMOD
+      FROM DUAL;
+    IF LMOD = 1 THEN
+      LRET := 1; --单月抄
+    ELSE
+      LRET := 2; --双月抄
+    END IF;
+  ELSIF P_BFRCYC = 3 THEN
+    LRET := 3; --季度抄
+  ELSIF P_BFRCYC = 6 THEN
+    LRET := 4; --季度抄
+  ELSE
+    LRET := 5; --其他
+  END IF;
+  RETURN LRET;
+EXCEPTION
+  WHEN OTHERS THEN
+    RETURN 0;
+END;
+/
+

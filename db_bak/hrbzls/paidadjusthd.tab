@@ -1,0 +1,91 @@
+create table HRBZLS.PAIDADJUSTHD
+(
+  pahno          VARCHAR2(10) not null,
+  pahbh          VARCHAR2(10) not null,
+  pahlb          CHAR(2) not null,
+  pahsource      CHAR(1) not null,
+  pahsmfid       VARCHAR2(10) not null,
+  pahdept        VARCHAR2(10) not null,
+  pahcredate     DATE not null,
+  pahcreper      VARCHAR2(10) not null,
+  pahshdate      DATE,
+  pahshper       VARCHAR2(10),
+  pahshflag      CHAR(1) not null,
+  pahmid         VARCHAR2(10) not null,
+  pahmcode       VARCHAR2(10) not null,
+  pahcname       VARCHAR2(64),
+  pahmadr        VARCHAR2(64),
+  pahmemo        VARCHAR2(200),
+  pahfromsmfid   VARCHAR2(10),
+  pahsaveflag    CHAR(1) default 'N' not null,
+  pahsavetomcode VARCHAR2(10),
+  rlmonth        DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PAIDADJUSTHD
+  is '实收冲正单头【PAH】';
+comment on column HRBZLS.PAIDADJUSTHD.pahno
+  is '单据流水号';
+comment on column HRBZLS.PAIDADJUSTHD.pahbh
+  is '单据编号';
+comment on column HRBZLS.PAIDADJUSTHD.pahlb
+  is '单据类别';
+comment on column HRBZLS.PAIDADJUSTHD.pahsource
+  is '单据来源';
+comment on column HRBZLS.PAIDADJUSTHD.pahsmfid
+  is '营业所';
+comment on column HRBZLS.PAIDADJUSTHD.pahdept
+  is '创建部门';
+comment on column HRBZLS.PAIDADJUSTHD.pahcredate
+  is '创建日期';
+comment on column HRBZLS.PAIDADJUSTHD.pahcreper
+  is '创建人员';
+comment on column HRBZLS.PAIDADJUSTHD.pahshdate
+  is '审核日期';
+comment on column HRBZLS.PAIDADJUSTHD.pahshper
+  is '审核人员';
+comment on column HRBZLS.PAIDADJUSTHD.pahshflag
+  is '审核标志';
+comment on column HRBZLS.PAIDADJUSTHD.pahmid
+  is '水表编号';
+comment on column HRBZLS.PAIDADJUSTHD.pahmcode
+  is '资料号';
+comment on column HRBZLS.PAIDADJUSTHD.pahcname
+  is '产权名';
+comment on column HRBZLS.PAIDADJUSTHD.pahmadr
+  is '用水地址';
+comment on column HRBZLS.PAIDADJUSTHD.pahmemo
+  is '冲正原因';
+comment on column HRBZLS.PAIDADJUSTHD.pahfromsmfid
+  is '申请冲正单位';
+comment on column HRBZLS.PAIDADJUSTHD.pahsaveflag
+  is '转预存标志';
+comment on column HRBZLS.PAIDADJUSTHD.pahsavetomcode
+  is '预存转入的代户代码';
+comment on column HRBZLS.PAIDADJUSTHD.rlmonth
+  is '应收月份';
+alter table HRBZLS.PAIDADJUSTHD
+  add constraint PK_PAIDADJUSTHD primary key (PAHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

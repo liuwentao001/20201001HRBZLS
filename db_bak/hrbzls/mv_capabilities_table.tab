@@ -1,0 +1,25 @@
+create table HRBZLS.MV_CAPABILITIES_TABLE
+(
+  statement_id    VARCHAR2(30),
+  mvowner         VARCHAR2(30),
+  mvname          VARCHAR2(30),
+  capability_name VARCHAR2(30),
+  possible        CHAR(1),
+  related_text    VARCHAR2(2000),
+  related_num     NUMBER,
+  msgno           INTEGER,
+  msgtxt          VARCHAR2(2000),
+  seq             NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

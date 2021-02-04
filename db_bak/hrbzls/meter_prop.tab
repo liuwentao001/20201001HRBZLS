@@ -1,0 +1,82 @@
+create table HRBZLS.METER_PROP
+(
+  meter_area   VARCHAR2(10),
+  csy          VARCHAR2(10),
+  cby          VARCHAR2(15),
+  ofagent      VARCHAR2(10),
+  area         VARCHAR2(10),
+  chargetype   CHAR(1),
+  bfid         VARCHAR2(10),
+  watertype    VARCHAR2(10),
+  custid       VARCHAR2(10),
+  name         VARCHAR2(64),
+  address      VARCHAR2(100),
+  meterno      VARCHAR2(10) not null,
+  bfrcyc       NUMBER(2),
+  bfday        NUMBER,
+  bfnrmonth    VARCHAR2(7),
+  miid         VARCHAR2(10),
+  miinsdate    DATE,
+  mistatus     VARCHAR2(2),
+  michargetype CHAR(1),
+  mrmonthtype  VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.METER_PROP.meter_area
+  is '营业所';
+comment on column HRBZLS.METER_PROP.ofagent
+  is '分公司';
+create index HRBZLS.IDX_MP_AREA on HRBZLS.METER_PROP (AREA)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_BFID on HRBZLS.METER_PROP (BFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_CBY on HRBZLS.METER_PROP (CBY)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_CHARGETYPE on HRBZLS.METER_PROP (CHARGETYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_CSY on HRBZLS.METER_PROP (CSY)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_METER_PROP on HRBZLS.METER_PROP (METER_AREA)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_MIID on HRBZLS.METER_PROP (MIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_MIINSDATE on HRBZLS.METER_PROP (MIINSDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_OFAGENT on HRBZLS.METER_PROP (OFAGENT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MP_WATERTYPE on HRBZLS.METER_PROP (WATERTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

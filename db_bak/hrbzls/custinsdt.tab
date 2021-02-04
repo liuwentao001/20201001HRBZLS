@@ -1,0 +1,102 @@
+create table HRBZLS.CUSTINSDT
+(
+  cidno         VARCHAR2(10) not null,
+  cidrowno      NUMBER(6) not null,
+  ciid          VARCHAR2(10),
+  requestdate   DATE,
+  requestnote   VARCHAR2(4000),
+  custname      VARCHAR2(60),
+  address       VARCHAR2(60),
+  namecall      VARCHAR2(20),
+  personalid    VARCHAR2(18),
+  telephone1    VARCHAR2(20),
+  telephone2    VARCHAR2(20),
+  telephone3    VARCHAR2(20),
+  taxtype       VARCHAR2(2),
+  taxno         VARCHAR2(30),
+  opentype      VARCHAR2(2),
+  isindividual  VARCHAR2(2),
+  approver      VARCHAR2(20),
+  approveresult VARCHAR2(60),
+  approvedate   DATE,
+  chkresult     VARCHAR2(4000),
+  isrecheck     VARCHAR2(2),
+  chargetotal   NUMBER(10,2),
+  charginfo     NUMBER,
+  worderno      CHAR(10),
+  wresult       VARCHAR2(4000),
+  orderstatus   VARCHAR2(10),
+  closedate     DATE,
+  remark        VARCHAR2(4000),
+  bankid        CHAR(10),
+  accountno     VARCHAR2(30),
+  accountname   VARCHAR2(60),
+  report_id     CHAR(10),
+  is_old        NUMBER(10),
+  true_id       CHAR(10),
+  meter_count   NUMBER(5),
+  pay_date      DATE,
+  pay_status    VARCHAR2(2),
+  no_pass       VARCHAR2(2),
+  chargetype    VARCHAR2(2),
+  order_no      NUMBER(5),
+  isprint       VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.CUSTINSDT
+  is '用户报装单体【CID】';
+comment on column HRBZLS.CUSTINSDT.cidno
+  is '单据流水号';
+comment on column HRBZLS.CUSTINSDT.cidrowno
+  is '行号';
+comment on column HRBZLS.CUSTINSDT.ciid
+  is '用户编号';
+comment on column HRBZLS.CUSTINSDT.requestdate
+  is '登记日期';
+comment on column HRBZLS.CUSTINSDT.custname
+  is '客户名';
+comment on column HRBZLS.CUSTINSDT.address
+  is '户址';
+comment on column HRBZLS.CUSTINSDT.namecall
+  is '联系人';
+comment on column HRBZLS.CUSTINSDT.personalid
+  is '身份证号';
+comment on column HRBZLS.CUSTINSDT.telephone1
+  is '用户电话';
+comment on column HRBZLS.CUSTINSDT.telephone2
+  is '用户电话';
+comment on column HRBZLS.CUSTINSDT.telephone3
+  is '用户电话';
+comment on column HRBZLS.CUSTINSDT.isindividual
+  is '用户类别';
+comment on column HRBZLS.CUSTINSDT.chargetotal
+  is '实际缴费';
+comment on column HRBZLS.CUSTINSDT.bankid
+  is '银行代码';
+comment on column HRBZLS.CUSTINSDT.accountno
+  is '托收帐号';
+comment on column HRBZLS.CUSTINSDT.accountname
+  is '开户名';
+comment on column HRBZLS.CUSTINSDT.is_old
+  is '已验收标志';
+comment on column HRBZLS.CUSTINSDT.true_id
+  is '已分配客户号';
+comment on column HRBZLS.CUSTINSDT.meter_count
+  is '水表只数';
+comment on column HRBZLS.CUSTINSDT.pay_date
+  is '缴费日期';
+comment on column HRBZLS.CUSTINSDT.pay_status
+  is '缴费状态';
+comment on column HRBZLS.CUSTINSDT.chargetype
+  is '付款方式';
+alter table HRBZLS.CUSTINSDT
+  add constraint PK_CUSTINSDT primary key (CIDNO, CIDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,13 @@
+create global temporary table HRBZLS.PBBLOBTEMP
+(
+  pbtid   VARCHAR2(10),
+  pbtdata BLOB
+)
+on commit delete rows;
+comment on table HRBZLS.PBBLOBTEMP
+  is '存放BLOB数据的临时表';
+comment on column HRBZLS.PBBLOBTEMP.pbtid
+  is '编号';
+comment on column HRBZLS.PBBLOBTEMP.pbtdata
+  is 'BLOB数据';
+

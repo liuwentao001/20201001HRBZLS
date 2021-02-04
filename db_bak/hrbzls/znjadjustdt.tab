@@ -1,0 +1,53 @@
+create table HRBZLS.ZNJADJUSTDT
+(
+  zadno        VARCHAR2(10) not null,
+  zadrowno     NUMBER(6) not null,
+  zadrlid      VARCHAR2(10) not null,
+  zadpiid      CHAR(2) not null,
+  zadmid       VARCHAR2(10) not null,
+  zadmcode     VARCHAR2(10) not null,
+  zadmethod    CHAR(1) not null,
+  zadvalue     NUMBER(12,2),
+  zadzndate    DATE,
+  zadintznj    NUMBER(12,2) not null,
+  zadintzndate DATE not null,
+  zadmemo      VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ZNJADJUSTDT
+  is '违约金减免单据明细【ZAD】';
+comment on column HRBZLS.ZNJADJUSTDT.zadno
+  is '单据流水号';
+comment on column HRBZLS.ZNJADJUSTDT.zadrowno
+  is '行号';
+comment on column HRBZLS.ZNJADJUSTDT.zadrlid
+  is '减免应收流水';
+comment on column HRBZLS.ZNJADJUSTDT.zadpiid
+  is '减免费用项目（全部为NA）';
+comment on column HRBZLS.ZNJADJUSTDT.zadmid
+  is '水表编号';
+comment on column HRBZLS.ZNJADJUSTDT.zadmcode
+  is '水表号';
+comment on column HRBZLS.ZNJADJUSTDT.zadmethod
+  is '减免方法（1、目标金额减免；2、比例金额减免；3、差额减免；4、调整起算日期）';
+comment on column HRBZLS.ZNJADJUSTDT.zadvalue
+  is '减免金额/比例值';
+comment on column HRBZLS.ZNJADJUSTDT.zadzndate
+  is '减免目标起算日';
+comment on column HRBZLS.ZNJADJUSTDT.zadintznj
+  is '应收违约金额';
+comment on column HRBZLS.ZNJADJUSTDT.zadintzndate
+  is '应收违约金起算日';
+comment on column HRBZLS.ZNJADJUSTDT.zadmemo
+  is '备注';
+alter table HRBZLS.ZNJADJUSTDT
+  add constraint PK_ZNJADJUSTDT primary key (ZADNO, ZADROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,41 @@
+create table HRBZLS.METERREADM
+(
+  mrid    VARCHAR2(10),
+  mrccode VARCHAR2(10),
+  mrmid   VARCHAR2(10),
+  mrrdate DATE,
+  mrrper  VARCHAR2(15),
+  mrscode NUMBER(10),
+  mrecode NUMBER(10),
+  mrsl    NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERREADM
+  is '一月抄多次表';
+comment on column HRBZLS.METERREADM.mrid
+  is '抄表id';
+comment on column HRBZLS.METERREADM.mrccode
+  is '用户号';
+comment on column HRBZLS.METERREADM.mrmid
+  is '水表id';
+comment on column HRBZLS.METERREADM.mrrdate
+  is '抄表日期';
+comment on column HRBZLS.METERREADM.mrrper
+  is '抄表员';
+comment on column HRBZLS.METERREADM.mrscode
+  is '起码';
+comment on column HRBZLS.METERREADM.mrecode
+  is '止码';
+comment on column HRBZLS.METERREADM.mrsl
+  is '水量';
+

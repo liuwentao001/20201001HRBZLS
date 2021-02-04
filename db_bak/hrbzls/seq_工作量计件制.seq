@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_工作量计件制
+minvalue 1
+maxvalue 9999999999
+start with 281
+increment by 1
+cache 50;
+

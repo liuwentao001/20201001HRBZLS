@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_CUST_BARCODE
+minvalue 1
+maxvalue 99999999999999999999
+start with 14011328659
+increment by 2
+cache 20
+order;
+

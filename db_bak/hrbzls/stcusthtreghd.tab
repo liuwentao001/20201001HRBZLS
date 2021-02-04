@@ -1,0 +1,44 @@
+create table HRBZLS.STCUSTHTREGHD
+(
+  hno     VARCHAR2(10),
+  hbh     VARCHAR2(10),
+  hlb     CHAR(1),
+  hsource CHAR(1),
+  hsmfid  VARCHAR2(10),
+  hdept   VARCHAR2(10),
+  hedate  DATE,
+  heper   VARCHAR2(10),
+  hshdate DATE,
+  hshper  VARCHAR2(10),
+  hshflag CHAR(1),
+  hmemo   VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.STCUSTHTREGHD.hno
+  is '单据流水号';
+comment on column HRBZLS.STCUSTHTREGHD.hbh
+  is '单据编号';
+comment on column HRBZLS.STCUSTHTREGHD.hlb
+  is '单据类别';
+comment on column HRBZLS.STCUSTHTREGHD.hsource
+  is '单据来源';
+comment on column HRBZLS.STCUSTHTREGHD.hsmfid
+  is '营销公司';
+comment on column HRBZLS.STCUSTHTREGHD.hdept
+  is '立户部门';
+comment on column HRBZLS.STCUSTHTREGHD.hedate
+  is '创建日期';
+comment on column HRBZLS.STCUSTHTREGHD.heper
+  is '创建人员';
+comment on column HRBZLS.STCUSTHTREGHD.hshdate
+  is '审核日期';
+comment on column HRBZLS.STCUSTHTREGHD.hshper
+  is '审核人员';
+comment on column HRBZLS.STCUSTHTREGHD.hshflag
+  is '审核标志';
+comment on column HRBZLS.STCUSTHTREGHD.hmemo
+  is '备注';
+

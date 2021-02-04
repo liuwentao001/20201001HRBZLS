@@ -1,0 +1,14 @@
+create global temporary table HRBZLS.INV_DETAILTEMPTZ
+(
+  invid  NUMBER,
+  isid   NUMBER,
+  rlid   VARCHAR2(10),
+  pid    VARCHAR2(10),
+  mcode  VARCHAR2(10),
+  cname  VARCHAR2(60),
+  pbatch VARCHAR2(10),
+  ptype  VARCHAR2(10),
+  memo   VARCHAR2(100)
+)
+on commit delete rows;
+

@@ -1,0 +1,64 @@
+create table HRBZLS.PRICEDETAILHISTORY
+(
+  pdpscid  NUMBER default 0 not null,
+  pdpfid   VARCHAR2(10) not null,
+  pdpiid   CHAR(2) not null,
+  pddj     NUMBER(12,3),
+  pdsl     NUMBER(10),
+  pdje     NUMBER(12,2),
+  pdmethod CHAR(3) not null,
+  pdsdate  DATE,
+  pdedate  DATE,
+  pdsmonth VARCHAR2(7),
+  pdemonth VARCHAR2(7)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEDETAILHISTORY
+  is '费率明细【PD】';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdpscid
+  is '方案编码';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdpfid
+  is '费率编码';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdpiid
+  is '费率项目';
+comment on column HRBZLS.PRICEDETAILHISTORY.pddj
+  is '单价';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdsl
+  is '水量';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdje
+  is '金额';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdmethod
+  is '计费方法';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdsdate
+  is '开始日期';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdedate
+  is '结束日期';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdsmonth
+  is '开始月份';
+comment on column HRBZLS.PRICEDETAILHISTORY.pdemonth
+  is '结束月份';
+alter table HRBZLS.PRICEDETAILHISTORY
+  add constraint PK_PRICEDETAILHISTORY primary key (PDPFID, PDPIID, PDPSCID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,211 @@
+create table HRBZLS.CUSTINSHD
+(
+  cihno            VARCHAR2(10) not null,
+  cihbh            VARCHAR2(10),
+  cihlb            CHAR(1),
+  cihsource        CHAR(1),
+  cihsmfid         VARCHAR2(10),
+  cihdept          VARCHAR2(10),
+  cihcreatedate    DATE,
+  cihcreateper     VARCHAR2(10),
+  cihshdate        DATE,
+  cihshper         VARCHAR2(10),
+  cihshflag        CHAR(1),
+  area             VARCHAR2(20),
+  building         VARCHAR2(20),
+  cell             VARCHAR2(20),
+  meterno          CHAR(10),
+  requestdate      DATE,
+  requestnote      VARCHAR2(1000),
+  telephone1       VARCHAR2(20),
+  namecall         VARCHAR2(20),
+  end_code         VARCHAR2(8),
+  remain           NUMBER(8),
+  approver         VARCHAR2(20),
+  approveresult    VARCHAR2(1000),
+  approvedate      DATE,
+  designer         VARCHAR2(20),
+  chksenddate      DATE,
+  useritem         VARCHAR2(1000),
+  proj             VARCHAR2(1000),
+  chkdate          DATE,
+  chkresult        VARCHAR2(20),
+  chkremark        VARCHAR2(1000),
+  projbegindate    DATE,
+  projenddate      DATE,
+  projmanager      VARCHAR2(20),
+  projquality      VARCHAR2(20),
+  svrquality       VARCHAR2(20),
+  projresult       VARCHAR2(1000),
+  projchkresult    VARCHAR2(20),
+  checker          VARCHAR2(20),
+  builder          VARCHAR2(20),
+  orderstatus      VARCHAR2(20),
+  remark           VARCHAR2(600),
+  acceptdate       DATE,
+  chkoperator      VARCHAR2(20),
+  requery_type     VARCHAR2(20),
+  buildcodedate    DATE,
+  tel2             VARCHAR2(30),
+  address          VARCHAR2(60),
+  cust_count       NUMBER(5),
+  meter_count      NUMBER(5),
+  water_tank       VARCHAR2(2),
+  water_tran       VARCHAR2(2),
+  floor            NUMBER(5),
+  type1            VARCHAR2(10),
+  sn               VARCHAR2(20),
+  operator         VARCHAR2(20),
+  last_code        VARCHAR2(10),
+  check_flag       VARCHAR2(2),
+  check_meter_flag VARCHAR2(2),
+  material         VARCHAR2(20),
+  cubage           VARCHAR2(10),
+  in_caliber       VARCHAR2(10),
+  out_no           VARCHAR2(10),
+  out_caliber      VARCHAR2(10),
+  stair            VARCHAR2(2),
+  tank_floor       VARCHAR2(10),
+  fire_fight       VARCHAR2(10),
+  acceptmanager    VARCHAR2(10),
+  projno           VARCHAR2(10),
+  carddate         DATE,
+  receiveydate     DATE,
+  cardmanager      VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.CUSTINSHD
+  is '用户报装单头【CIH】';
+comment on column HRBZLS.CUSTINSHD.cihno
+  is '单据流水号';
+comment on column HRBZLS.CUSTINSHD.cihbh
+  is '单据编号';
+comment on column HRBZLS.CUSTINSHD.cihlb
+  is '单据类别';
+comment on column HRBZLS.CUSTINSHD.cihsource
+  is '单据来源';
+comment on column HRBZLS.CUSTINSHD.cihsmfid
+  is '营销公司';
+comment on column HRBZLS.CUSTINSHD.cihdept
+  is '立户部门';
+comment on column HRBZLS.CUSTINSHD.cihcreatedate
+  is '创建日期';
+comment on column HRBZLS.CUSTINSHD.cihcreateper
+  is '创建人员';
+comment on column HRBZLS.CUSTINSHD.cihshdate
+  is '审核日期';
+comment on column HRBZLS.CUSTINSHD.cihshper
+  is '审核人员';
+comment on column HRBZLS.CUSTINSHD.cihshflag
+  is '审核标志';
+comment on column HRBZLS.CUSTINSHD.meterno
+  is '考核表资料号';
+comment on column HRBZLS.CUSTINSHD.requestdate
+  is '受理日期';
+comment on column HRBZLS.CUSTINSHD.requestnote
+  is '简要说明';
+comment on column HRBZLS.CUSTINSHD.telephone1
+  is '用户电话1';
+comment on column HRBZLS.CUSTINSHD.namecall
+  is '联系人';
+comment on column HRBZLS.CUSTINSHD.end_code
+  is '止码';
+comment on column HRBZLS.CUSTINSHD.remain
+  is '余量';
+comment on column HRBZLS.CUSTINSHD.approver
+  is '审批人';
+comment on column HRBZLS.CUSTINSHD.approvedate
+  is '审批日期';
+comment on column HRBZLS.CUSTINSHD.designer
+  is '设计人';
+comment on column HRBZLS.CUSTINSHD.chksenddate
+  is '勘查下达日期';
+comment on column HRBZLS.CUSTINSHD.useritem
+  is '用户整改事项';
+comment on column HRBZLS.CUSTINSHD.proj
+  is '施工内容及质量要求';
+comment on column HRBZLS.CUSTINSHD.chkdate
+  is '勘查日期';
+comment on column HRBZLS.CUSTINSHD.chkresult
+  is '勘查结果';
+comment on column HRBZLS.CUSTINSHD.chkremark
+  is '勘查备注';
+comment on column HRBZLS.CUSTINSHD.projbegindate
+  is '开工时间';
+comment on column HRBZLS.CUSTINSHD.projenddate
+  is '完工日期';
+comment on column HRBZLS.CUSTINSHD.projmanager
+  is '现场施工负责人';
+comment on column HRBZLS.CUSTINSHD.projquality
+  is '安装质量';
+comment on column HRBZLS.CUSTINSHD.svrquality
+  is '服务质量';
+comment on column HRBZLS.CUSTINSHD.projresult
+  is '施工备注';
+comment on column HRBZLS.CUSTINSHD.projchkresult
+  is '施工验收结果';
+comment on column HRBZLS.CUSTINSHD.orderstatus
+  is '申请单状态';
+comment on column HRBZLS.CUSTINSHD.remark
+  is '备注';
+comment on column HRBZLS.CUSTINSHD.acceptdate
+  is '验收日期';
+comment on column HRBZLS.CUSTINSHD.chkoperator
+  is '勘查人';
+comment on column HRBZLS.CUSTINSHD.requery_type
+  is '申请单种类';
+comment on column HRBZLS.CUSTINSHD.tel2
+  is '电话2';
+comment on column HRBZLS.CUSTINSHD.address
+  is '地址';
+comment on column HRBZLS.CUSTINSHD.cust_count
+  is '用户数';
+comment on column HRBZLS.CUSTINSHD.meter_count
+  is '水表数';
+comment on column HRBZLS.CUSTINSHD.water_tank
+  is '有无水箱';
+comment on column HRBZLS.CUSTINSHD.water_tran
+  is '有无转压设施';
+comment on column HRBZLS.CUSTINSHD.floor
+  is '楼层';
+comment on column HRBZLS.CUSTINSHD.type1
+  is '类型';
+comment on column HRBZLS.CUSTINSHD.sn
+  is '铭牌号码';
+comment on column HRBZLS.CUSTINSHD.operator
+  is '操作员';
+comment on column HRBZLS.CUSTINSHD.last_code
+  is '考核表上次止码';
+comment on column HRBZLS.CUSTINSHD.check_flag
+  is '合格标志';
+comment on column HRBZLS.CUSTINSHD.check_meter_flag
+  is '无考核表标志';
+comment on column HRBZLS.CUSTINSHD.material
+  is '材质';
+comment on column HRBZLS.CUSTINSHD.cubage
+  is '容积';
+comment on column HRBZLS.CUSTINSHD.stair
+  is '有否上层楼梯';
+comment on column HRBZLS.CUSTINSHD.tank_floor
+  is '水箱供水楼层';
+comment on column HRBZLS.CUSTINSHD.fire_fight
+  is '消防处数';
+comment on column HRBZLS.CUSTINSHD.acceptmanager
+  is '验收人';
+comment on column HRBZLS.CUSTINSHD.projno
+  is '工程编号';
+comment on column HRBZLS.CUSTINSHD.carddate
+  is '建卡日期';
+comment on column HRBZLS.CUSTINSHD.receiveydate
+  is '收单日期';
+alter table HRBZLS.CUSTINSHD
+  add constraint PK_CUSTINSHD primary key (CIHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

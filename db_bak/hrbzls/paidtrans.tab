@@ -1,0 +1,40 @@
+create table HRBZLS.PAIDTRANS
+(
+  ptid   CHAR(1) not null,
+  ptname VARCHAR2(20) not null,
+  ptmemo VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PAIDTRANS
+  is '实收帐务事务列表【PT】';
+comment on column HRBZLS.PAIDTRANS.ptid
+  is '事务编码';
+comment on column HRBZLS.PAIDTRANS.ptname
+  is '事务名称';
+comment on column HRBZLS.PAIDTRANS.ptmemo
+  is '描述';
+alter table HRBZLS.PAIDTRANS
+  add constraint PK_PAIDTRANS primary key (PTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

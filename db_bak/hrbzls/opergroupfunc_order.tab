@@ -1,0 +1,19 @@
+create table HRBZLS.OPERGROUPFUNC_ORDER
+(
+  ogffid VARCHAR2(10) not null,
+  cno    NUMBER,
+  ogfgid VARCHAR2(10) not null,
+  ogfmid VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

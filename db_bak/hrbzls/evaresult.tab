@@ -1,0 +1,44 @@
+create table HRBZLS.EVARESULT
+(
+  erpbatch   VARCHAR2(10) not null,
+  erppayee   VARCHAR2(20),
+  erpdate    DATE,
+  erresult   VARCHAR2(2) default '7',
+  ersmfid    VARCHAR2(32),
+  erip       VARCHAR2(32),
+  erdeptno   VARCHAR2(32),
+  erfunc     VARCHAR2(32),
+  erposition VARCHAR2(32)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.EVARESULT
+  is '客户评价结果';
+comment on column HRBZLS.EVARESULT.erpbatch
+  is '缴费批次';
+comment on column HRBZLS.EVARESULT.erppayee
+  is '收费员';
+comment on column HRBZLS.EVARESULT.erpdate
+  is '收费日期';
+comment on column HRBZLS.EVARESULT.erresult
+  is '评价结果';
+comment on column HRBZLS.EVARESULT.ersmfid
+  is '营业所';
+comment on column HRBZLS.EVARESULT.erip
+  is 'ip地址';
+comment on column HRBZLS.EVARESULT.erdeptno
+  is '部门';
+comment on column HRBZLS.EVARESULT.erfunc
+  is '系统功能类别';
+comment on column HRBZLS.EVARESULT.erposition
+  is '缴费点';
+alter table HRBZLS.EVARESULT
+  add constraint PK_EVARESULT primary key (ERPBATCH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

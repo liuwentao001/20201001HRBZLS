@@ -1,0 +1,24 @@
+create table HRBZLS.INV_ID
+(
+  tilid  VARCHAR2(10) not null,
+  trslid VARCHAR2(10) not null,
+  ttype  VARCHAR2(2) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.INV_ID.tilid
+  is '发票流水';
+comment on column HRBZLS.INV_ID.trslid
+  is '应实收流水';
+comment on column HRBZLS.INV_ID.ttype
+  is '打印类型';
+alter table HRBZLS.INV_ID
+  add constraint PK_INVMX_ID primary key (TILID, TRSLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

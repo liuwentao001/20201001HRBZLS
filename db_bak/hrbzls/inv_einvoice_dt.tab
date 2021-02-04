@@ -1,0 +1,12 @@
+create global temporary table HRBZLS.INV_EINVOICE_DT
+(
+  rdpfid  VARCHAR2(10),
+  rdpiid  VARCHAR2(2),
+  pfname  VARCHAR2(60),
+  rdclass NUMBER,
+  dj      NUMBER,
+  sl      NUMBER,
+  je      NUMBER
+)
+on commit delete rows;
+

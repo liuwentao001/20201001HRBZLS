@@ -1,0 +1,67 @@
+create table HRBZLS.KPI_SUBSCRIBE
+(
+  user_id        VARCHAR2(10) not null,
+  kt_id          VARCHAR2(10) not null,
+  kt_para        VARCHAR2(200),
+  kt_value       VARCHAR2(200),
+  kt_status      VARCHAR2(2),
+  msg_type       VARCHAR2(10),
+  kt_peroid      NUMBER,
+  last_chktime   DATE,
+  last_alarmtime DATE,
+  remark         VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.KPI_SUBSCRIBE
+  is '指标订阅';
+comment on column HRBZLS.KPI_SUBSCRIBE.user_id
+  is '用户id';
+comment on column HRBZLS.KPI_SUBSCRIBE.kt_id
+  is '指标id';
+comment on column HRBZLS.KPI_SUBSCRIBE.kt_para
+  is '指标获取参数(管辖区域)';
+comment on column HRBZLS.KPI_SUBSCRIBE.kt_value
+  is '指标值';
+comment on column HRBZLS.KPI_SUBSCRIBE.kt_status
+  is '指标状态（是否告警）
+0：正常
+1：超上限
+2：超下限
+3：暂停告警
+4：清除告警
+';
+comment on column HRBZLS.KPI_SUBSCRIBE.msg_type
+  is '通知方式 位数：1 易迅通 2 营业系统 3 OA 4 手机短信';
+comment on column HRBZLS.KPI_SUBSCRIBE.kt_peroid
+  is '指标刷新周期';
+comment on column HRBZLS.KPI_SUBSCRIBE.last_chktime
+  is '最近一次刷新时间';
+comment on column HRBZLS.KPI_SUBSCRIBE.last_alarmtime
+  is '最近一次警告时间';
+comment on column HRBZLS.KPI_SUBSCRIBE.remark
+  is '备注说明';
+alter table HRBZLS.KPI_SUBSCRIBE
+  add constraint PK_PKIS_01 primary key (USER_ID, KT_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

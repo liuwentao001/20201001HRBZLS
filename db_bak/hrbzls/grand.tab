@@ -1,0 +1,186 @@
+create table HRBZLS.GRAND
+(
+  gid       VARCHAR2(10) not null,
+  gmicode   VARCHAR2(10),
+  grrankid  NUMBER(10) default 3,
+  grdate    DATE default SYSDATE,
+  gdate     DATE,
+  gflag     VARCHAR2(2) default 'N',
+  grmonth   VARCHAR2(10),
+  gmonth    VARCHAR2(10),
+  grankid   NUMBER(10),
+  gbqflag   VARCHAR2(2) default 'Y',
+  gsqflag   VARCHAR2(2) default 'N',
+  gqfbs     NUMBER(10) default 0,
+  gqfje     NUMBER(12,3) default 0,
+  gbtbs     NUMBER(10) default 0,
+  gwyjbs    NUMBER(10) default 0,
+  gwyjje    NUMBER(12,3) default 0,
+  gpbs      NUMBER(10) default 0,
+  gpje      NUMBER(12,3) default 0,
+  gpycje    NUMBER(12,3) default 0,
+  gdkbs     NUMBER(10) default 0,
+  gtsbs     NUMBER(10) default 0,
+  gmemo     VARCHAR2(100),
+  gbillid   VARCHAR2(10),
+  gcdate    DATE default SYSDATE,
+  gqfsl     NUMBER(10) default 0,
+  gcolumns1 VARCHAR2(10),
+  gcolumns2 VARCHAR2(10),
+  gcolumns3 VARCHAR2(10),
+  gcolumns4 VARCHAR2(10),
+  gcolumns5 VARCHAR2(10),
+  gcolumns6 VARCHAR2(80),
+  gcolumnn1 NUMBER(10),
+  gcolumnn2 NUMBER(10),
+  gcolumnn3 NUMBER(10),
+  gcolumnn4 NUMBER(10),
+  gcolumnn5 NUMBER(10),
+  gcolumnl1 NUMBER(12,3),
+  gcolumnl2 NUMBER(12,3),
+  gcolumnl3 NUMBER(12,3),
+  gcolumnl4 NUMBER(12,3),
+  gcolumnl5 NUMBER(12,3),
+  gcolumnd1 DATE,
+  gcolumnd2 DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.GRAND
+  is '星级评定表';
+comment on column HRBZLS.GRAND.gid
+  is '流水号';
+comment on column HRBZLS.GRAND.gmicode
+  is '客户代码';
+comment on column HRBZLS.GRAND.grrankid
+  is '级别ID';
+comment on column HRBZLS.GRAND.grdate
+  is '上次评定时间';
+comment on column HRBZLS.GRAND.gdate
+  is '本次评定时间';
+comment on column HRBZLS.GRAND.gflag
+  is '评定标志';
+comment on column HRBZLS.GRAND.grmonth
+  is '起始月份';
+comment on column HRBZLS.GRAND.gmonth
+  is '截止月份';
+comment on column HRBZLS.GRAND.grankid
+  is '下次级别ID';
+comment on column HRBZLS.GRAND.gbqflag
+  is '本期标志(如果到下个周期结转时该标志为N)';
+comment on column HRBZLS.GRAND.gsqflag
+  is '上期标志(如果到下个周期结转时该标志为Y)';
+comment on column HRBZLS.GRAND.gqfbs
+  is '欠费笔数';
+comment on column HRBZLS.GRAND.gqfje
+  is '欠费金额';
+comment on column HRBZLS.GRAND.gbtbs
+  is '本期表况次数';
+comment on column HRBZLS.GRAND.gwyjbs
+  is '违约金笔数';
+comment on column HRBZLS.GRAND.gwyjje
+  is '违约金';
+comment on column HRBZLS.GRAND.gpbs
+  is '缴费笔数';
+comment on column HRBZLS.GRAND.gpje
+  is '缴费金额（包含违约金、单缴月初）';
+comment on column HRBZLS.GRAND.gpycje
+  is '单缴预存';
+comment on column HRBZLS.GRAND.gdkbs
+  is '代扣扣款未成功次数';
+comment on column HRBZLS.GRAND.gtsbs
+  is '托收扣款未成功次数';
+comment on column HRBZLS.GRAND.gmemo
+  is '备注';
+comment on column HRBZLS.GRAND.gbillid
+  is '单据号';
+comment on column HRBZLS.GRAND.gcdate
+  is '创建日期';
+comment on column HRBZLS.GRAND.gqfsl
+  is '欠水量';
+comment on column HRBZLS.GRAND.gcolumnl1
+  is '系统计算级别';
+create index HRBZLS.IDX_GRAND_001 on HRBZLS.GRAND (GMICODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_GRAND_002 on HRBZLS.GRAND (GRRANKID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_GRAND_003 on HRBZLS.GRAND (GFLAG)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_GRAND_004 on HRBZLS.GRAND (GBQFLAG)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_GRAND_005 on HRBZLS.GRAND (GSQFLAG)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.GRAND
+  add constraint PK_GRAND_ID primary key (GID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

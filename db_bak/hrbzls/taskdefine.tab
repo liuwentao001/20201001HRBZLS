@@ -1,0 +1,40 @@
+create table HRBZLS.TASKDEFINE
+(
+  tdid    CHAR(3) not null,
+  tdname  VARCHAR2(30) not null,
+  tdmproc VARCHAR2(256) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TASKDEFINE
+  is '[TASK]系统任务';
+comment on column HRBZLS.TASKDEFINE.tdid
+  is '任务代码';
+comment on column HRBZLS.TASKDEFINE.tdname
+  is '任务名称';
+comment on column HRBZLS.TASKDEFINE.tdmproc
+  is '主过程';
+alter table HRBZLS.TASKDEFINE
+  add constraint PK_TASKDEFINE primary key (TDID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

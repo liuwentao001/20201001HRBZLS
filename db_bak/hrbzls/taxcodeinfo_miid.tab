@@ -1,0 +1,17 @@
+create table HRBZLS.TAXCODEINFO_MIID
+(
+  tiid VARCHAR2(10) not null,
+  miid VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+alter table HRBZLS.TAXCODEINFO_MIID
+  add constraint PK_TAXCODEINFO_MIID primary key (TIID, MIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

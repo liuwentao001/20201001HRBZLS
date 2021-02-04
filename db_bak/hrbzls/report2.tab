@@ -1,0 +1,69 @@
+create table HRBZLS.REPORT2
+(
+  report_id     VARCHAR2(54) not null,
+  object_name   VARCHAR2(10) not null,
+  bandrpt       VARCHAR2(10) not null,
+  xrpt          NUMBER(5),
+  yrpt          NUMBER(5),
+  x2rpt         NUMBER(5),
+  y2rpt         NUMBER(5),
+  height        NUMBER(5),
+  width         NUMBER(5),
+  borderrpt     VARCHAR2(1),
+  color         VARCHAR2(10),
+  font_name     VARCHAR2(12),
+  font_size     VARCHAR2(4),
+  select_label  VARCHAR2(1),
+  expr          VARCHAR2(255),
+  expr_english  VARCHAR2(255),
+  alignment_rpt VARCHAR2(1),
+  format_rpt    VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.REPORT2_X on HRBZLS.REPORT2 (REPORT_ID, OBJECT_NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.REPORT_2_OBJECT_NAME on HRBZLS.REPORT2 (OBJECT_NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.REPORT_2_REPORT_ID on HRBZLS.REPORT2 (REPORT_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

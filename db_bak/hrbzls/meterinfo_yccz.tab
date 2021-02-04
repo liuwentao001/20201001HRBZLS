@@ -1,0 +1,118 @@
+create table HRBZLS.METERINFO_YCCZ
+(
+  ycid       VARCHAR2(10) not null,
+  ycmonth    VARCHAR2(7),
+  ycmfid     VARCHAR2(10),
+  ycmibfid   VARCHAR2(10),
+  ycmid      VARCHAR2(10) not null,
+  ycminame   VARCHAR2(64),
+  ycmisaving NUMBER(13,3),
+  yccredate  DATE,
+  yccreuser  VARCHAR2(64),
+  ycfinflag  CHAR(1),
+  ycfindate  DATE,
+  ycfinuser  VARCHAR2(64),
+  ycfinpid   VARCHAR2(10),
+  ycnote     VARCHAR2(500),
+  ycinvflag  CHAR(1),
+  ycinvno    VARCHAR2(10),
+  yctype     CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERINFO_YCCZ
+  is '预存冲正设定范围';
+comment on column HRBZLS.METERINFO_YCCZ.ycid
+  is '预存退款批次';
+comment on column HRBZLS.METERINFO_YCCZ.ycmonth
+  is '预存退款月份';
+comment on column HRBZLS.METERINFO_YCCZ.ycmfid
+  is '营销公司';
+comment on column HRBZLS.METERINFO_YCCZ.ycmibfid
+  is '表册';
+comment on column HRBZLS.METERINFO_YCCZ.ycmid
+  is '水表编号';
+comment on column HRBZLS.METERINFO_YCCZ.ycminame
+  is '产权名';
+comment on column HRBZLS.METERINFO_YCCZ.ycmisaving
+  is '预存退款余额';
+comment on column HRBZLS.METERINFO_YCCZ.yccredate
+  is '预存退款设定时间';
+comment on column HRBZLS.METERINFO_YCCZ.yccreuser
+  is '预存退款设定人员';
+comment on column HRBZLS.METERINFO_YCCZ.ycfinflag
+  is '预存退款完成注记';
+comment on column HRBZLS.METERINFO_YCCZ.ycfindate
+  is '预存退款完成时间';
+comment on column HRBZLS.METERINFO_YCCZ.ycfinuser
+  is '预存退款完成人员';
+comment on column HRBZLS.METERINFO_YCCZ.ycfinpid
+  is '预存退款实收单据号(与payment.PBATCH)对应';
+comment on column HRBZLS.METERINFO_YCCZ.ycnote
+  is '预存退款备注';
+comment on column HRBZLS.METERINFO_YCCZ.ycinvflag
+  is '预存退款开票注记';
+comment on column HRBZLS.METERINFO_YCCZ.ycinvno
+  is '预存退款开票号码';
+comment on column HRBZLS.METERINFO_YCCZ.yctype
+  is '预存退款类别(1-单笔预存余额退费 2-单用户撤表预存余额退费)';
+create index HRBZLS.IDX_METERINFO_YCCZ_MFID on HRBZLS.METERINFO_YCCZ (YCMFID, YCMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERINFO_YCCZ_MID on HRBZLS.METERINFO_YCCZ (YCMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERINFO_YCCZ_MONTH on HRBZLS.METERINFO_YCCZ (YCMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERINFO_YCCZ
+  add constraint PK_METERINFO_YCCZ primary key (YCID, YCMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

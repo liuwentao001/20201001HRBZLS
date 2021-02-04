@@ -1,0 +1,83 @@
+create table HRBZLS.METERPICTURE
+(
+  mpmiid      VARCHAR2(10) not null,
+  pmsize      NUMBER,
+  pmpath      VARCHAR2(400) not null,
+  pmtime      DATE,
+  pmbz        VARCHAR2(100),
+  pmper       VARCHAR2(10),
+  pmpname     VARCHAR2(30),
+  ciid        VARCHAR2(10),
+  pmfact_path VARCHAR2(400),
+  tspmtime    DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERPICTURE
+  is '水表图片信息表【PM】';
+comment on column HRBZLS.METERPICTURE.mpmiid
+  is '水表编号（meterinfo.miid）';
+comment on column HRBZLS.METERPICTURE.pmsize
+  is '图片大小';
+comment on column HRBZLS.METERPICTURE.pmpath
+  is '路径';
+comment on column HRBZLS.METERPICTURE.pmtime
+  is '上传时间';
+comment on column HRBZLS.METERPICTURE.pmbz
+  is '备注';
+comment on column HRBZLS.METERPICTURE.pmper
+  is '营销员编号';
+comment on column HRBZLS.METERPICTURE.pmpname
+  is '姓名';
+comment on column HRBZLS.METERPICTURE.ciid
+  is '客户编号';
+comment on column HRBZLS.METERPICTURE.pmfact_path
+  is '真实路径';
+comment on column HRBZLS.METERPICTURE.tspmtime
+  is '图片上传';
+create index HRBZLS.IDXS_MPMIID on HRBZLS.METERPICTURE (MPMIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERPICTURE on HRBZLS.METERPICTURE (TO_CHAR(PMTIME,'yyyy.mm'))
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERPICTURE_PMPER on HRBZLS.METERPICTURE (PMPER)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

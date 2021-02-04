@@ -1,0 +1,31 @@
+create table HRBZLS.冲正标志表
+(
+  m50_id   NUMBER not null,
+  m50_name VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.冲正标志表
+  add constraint PRI_M50 primary key (M50_ID, M50_NAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

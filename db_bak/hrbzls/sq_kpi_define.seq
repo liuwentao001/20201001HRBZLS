@@ -1,0 +1,7 @@
+create sequence HRBZLS.SQ_KPI_DEFINE
+minvalue 1
+maxvalue 999999999
+start with 321
+increment by 1
+cache 50;
+

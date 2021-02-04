@@ -1,0 +1,44 @@
+create table HRBZLS.INVOUT
+(
+  ioid       NUMBER(10) not null,
+  iotype     CHAR(1),
+  iodate     DATE,
+  iosender   VARCHAR2(10),
+  ioreceiver VARCHAR2(10),
+  iobcno     VARCHAR2(12),
+  iosno      VARCHAR2(12),
+  ioeno      VARCHAR2(12),
+  iosmfid    VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVOUT
+  is '票据出库记录【IO】';
+comment on column HRBZLS.INVOUT.ioid
+  is '出库流水';
+comment on column HRBZLS.INVOUT.iotype
+  is '票据类型';
+comment on column HRBZLS.INVOUT.iodate
+  is '出库日期';
+comment on column HRBZLS.INVOUT.iosender
+  is '出库人';
+comment on column HRBZLS.INVOUT.ioreceiver
+  is '入库人';
+comment on column HRBZLS.INVOUT.iobcno
+  is '批号';
+comment on column HRBZLS.INVOUT.iosno
+  is '起号';
+comment on column HRBZLS.INVOUT.ioeno
+  is '止号';
+comment on column HRBZLS.INVOUT.iosmfid
+  is '出库单位';
+alter table HRBZLS.INVOUT
+  add constraint PK_INVOUT primary key (IOID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

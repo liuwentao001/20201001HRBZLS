@@ -1,0 +1,135 @@
+create table HRBZLS.HIS_YEARLYPAID
+(
+  ypid          NUMBER not null,
+  ypyear        VARCHAR2(4) not null,
+  yprecmonth    VARCHAR2(7) not null,
+  ypsmfid       VARCHAR2(10) not null,
+  ypmlb         CHAR(1),
+  yppiid        CHAR(2) not null,
+  yppfid        VARCHAR2(10),
+  yprtid        CHAR(1),
+  yprper        VARCHAR2(10),
+  yprectrans    CHAR(1),
+  ypsafid       VARCHAR2(10),
+  ypcaliber     NUMBER(3),
+  ypmtype       CHAR(1),
+  ypchargetype  CHAR(1),
+  yptrans       CHAR(1) not null,
+  ypchargepoint VARCHAR2(10) not null,
+  ypqcsscnt     NUMBER(12) not null,
+  ypqcsssl      NUMBER(14) not null,
+  ypqcssje      NUMBER(14,2) not null,
+  ypqczncnt     NUMBER(12) not null,
+  ypqcznje      NUMBER(14,2) not null,
+  ypbqsscntde   NUMBER(12) not null,
+  ypbqssslde    NUMBER(14) not null,
+  ypbqssjede    NUMBER(14,2) not null,
+  ypbqsscntcr   NUMBER(12) not null,
+  ypbqssslcr    NUMBER(14) not null,
+  ypbqssjecr    NUMBER(14,2) not null,
+  ypbqzncntde   NUMBER(12) not null,
+  ypbqznjede    NUMBER(14,2) not null,
+  ypbqzncntcr   NUMBER(12) not null,
+  ypbqznjecr    NUMBER(14,2) not null,
+  ypqmsscnt     NUMBER(12) not null,
+  ypqmsssl      NUMBER(14) not null,
+  ypqmssje      NUMBER(14,2) not null,
+  ypqmzncnt     NUMBER(12) not null,
+  ypqmznje      NUMBER(14,2) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.HIS_YEARLYPAID
+  is '实收年结存【YP】';
+comment on column HRBZLS.HIS_YEARLYPAID.ypid
+  is '流水号';
+comment on column HRBZLS.HIS_YEARLYPAID.ypyear
+  is '实收年份';
+comment on column HRBZLS.HIS_YEARLYPAID.yprecmonth
+  is '应收月份';
+comment on column HRBZLS.HIS_YEARLYPAID.ypsmfid
+  is '营业所';
+comment on column HRBZLS.HIS_YEARLYPAID.ypmlb
+  is '水表类别';
+comment on column HRBZLS.HIS_YEARLYPAID.yppiid
+  is '费用项目';
+comment on column HRBZLS.HIS_YEARLYPAID.yppfid
+  is '用水类别';
+comment on column HRBZLS.HIS_YEARLYPAID.yprtid
+  is '抄表方式';
+comment on column HRBZLS.HIS_YEARLYPAID.yprper
+  is '抄表员';
+comment on column HRBZLS.HIS_YEARLYPAID.yprectrans
+  is '应收事务';
+comment on column HRBZLS.HIS_YEARLYPAID.ypsafid
+  is '区域';
+comment on column HRBZLS.HIS_YEARLYPAID.ypcaliber
+  is '口径';
+comment on column HRBZLS.HIS_YEARLYPAID.ypmtype
+  is '水表类型';
+comment on column HRBZLS.HIS_YEARLYPAID.ypchargetype
+  is '收费方式';
+comment on column HRBZLS.HIS_YEARLYPAID.yptrans
+  is '实收事务';
+comment on column HRBZLS.HIS_YEARLYPAID.ypchargepoint
+  is '缴费点';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqcsscnt
+  is '期初销帐笔数';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqcsssl
+  is '期初销帐水量';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqcssje
+  is '期初销帐金额';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqczncnt
+  is '期初违约金笔数';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqcznje
+  is '期初违约金金额';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqsscntde
+  is '本期销帐笔数借方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqssslde
+  is '本期销帐水量借方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqssjede
+  is '本期销帐金额借方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqsscntcr
+  is '本期销帐笔数贷方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqssslcr
+  is '本期销帐水量贷方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqssjecr
+  is '本期销帐金额贷方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqzncntde
+  is '本期违约金笔数借方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqznjede
+  is '本期违约金金额借方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqzncntcr
+  is '本期违约金笔数贷方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypbqznjecr
+  is '本期违约金金额贷方';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqmsscnt
+  is '期末销帐笔数';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqmsssl
+  is '期末销帐水量';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqmssje
+  is '期末销帐金额';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqmzncnt
+  is '期末违约金笔数';
+comment on column HRBZLS.HIS_YEARLYPAID.ypqmznje
+  is '期末违约金金额';
+create index HRBZLS.IDX_HIS_YEARLYPAID on HRBZLS.HIS_YEARLYPAID (YPYEAR, YPRECMONTH, YPSMFID, YPMLB, YPPIID, YPPFID, YPRTID, YPRPER, YPRECTRANS, YPSAFID, YPCALIBER, YPMTYPE, YPCHARGETYPE, YPTRANS, YPCHARGEPOINT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_HIS_YEARLYPAID_DMS on HRBZLS.HIS_YEARLYPAID (YPYEAR, YPRECMONTH, YPSMFID, YPPIID, YPTRANS, YPCHARGEPOINT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.HIS_YEARLYPAID
+  add constraint PK_HIS_YEARLYPAID primary key (YPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

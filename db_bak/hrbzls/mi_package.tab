@@ -1,0 +1,26 @@
+create table HRBZLS.MI_PACKAGE
+(
+  pk_id     NUMBER,
+  pk_code   VARCHAR2(10),
+  pk_method VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MI_PACKAGE
+  is '交易包定义';
+comment on column HRBZLS.MI_PACKAGE.pk_id
+  is '序号';
+comment on column HRBZLS.MI_PACKAGE.pk_code
+  is '交易代码';
+comment on column HRBZLS.MI_PACKAGE.pk_method
+  is '处理程序';
+

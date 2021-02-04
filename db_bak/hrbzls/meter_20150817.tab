@@ -1,0 +1,20 @@
+create table HRBZLS.METER_20150817
+(
+  names    VARCHAR2(4000),
+  meterno  VARCHAR2(16),
+  micolumn VARCHAR2(100),
+  miname   VARCHAR2(64),
+  ciname   VARCHAR2(64)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

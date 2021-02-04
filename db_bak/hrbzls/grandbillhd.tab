@@ -1,0 +1,50 @@
+create table HRBZLS.GRANDBILLHD
+(
+  gbhid         VARCHAR2(10) not null,
+  gbhbh         VARCHAR2(10) not null,
+  gbhlb         CHAR(1) not null,
+  gbhsource     CHAR(1) not null,
+  gbhsmfid      VARCHAR2(10) not null,
+  gbhdept       VARCHAR2(10) not null,
+  gbhcreatedate DATE not null,
+  gbhcreateper  VARCHAR2(10) not null,
+  gbhshdate     DATE,
+  gbhshper      VARCHAR2(10),
+  gbhshflag     CHAR(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.GRANDBILLHD
+  is '信用评定单头';
+comment on column HRBZLS.GRANDBILLHD.gbhid
+  is '单据流水号';
+comment on column HRBZLS.GRANDBILLHD.gbhbh
+  is '单据编号';
+comment on column HRBZLS.GRANDBILLHD.gbhlb
+  is '单据类别';
+comment on column HRBZLS.GRANDBILLHD.gbhsource
+  is '单据来源';
+comment on column HRBZLS.GRANDBILLHD.gbhsmfid
+  is '营销公司';
+comment on column HRBZLS.GRANDBILLHD.gbhdept
+  is '部门';
+comment on column HRBZLS.GRANDBILLHD.gbhcreatedate
+  is '创建日期';
+comment on column HRBZLS.GRANDBILLHD.gbhcreateper
+  is '创建人员';
+comment on column HRBZLS.GRANDBILLHD.gbhshdate
+  is '审核日期';
+comment on column HRBZLS.GRANDBILLHD.gbhshper
+  is '审核人员';
+comment on column HRBZLS.GRANDBILLHD.gbhshflag
+  is '审核标志';
+alter table HRBZLS.GRANDBILLHD
+  add constraint PK_GRANDBILLHD primary key (GBHID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

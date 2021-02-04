@@ -1,0 +1,32 @@
+create table HRBZLS.REPORT_FROMWHERE
+(
+  report_id   VARCHAR2(54) not null,
+  from_expr   VARCHAR2(254),
+  where_expr  VARCHAR2(254),
+  sort_expr   VARCHAR2(254),
+  filter_expr VARCHAR2(254)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.REPORT_FROMWHERE_X on HRBZLS.REPORT_FROMWHERE (REPORT_ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

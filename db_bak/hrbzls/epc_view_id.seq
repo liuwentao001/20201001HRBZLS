@@ -1,0 +1,7 @@
+create sequence HRBZLS.EPC_VIEW_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 540
+increment by 1
+cache 50;
+

@@ -1,0 +1,69 @@
+create table HRBZLS.BS_MODI_LOG
+(
+  id        VARCHAR2(10) not null,
+  tpdate    DATE,
+  operator  VARCHAR2(100),
+  modi_type VARCHAR2(200),
+  custid    VARCHAR2(10),
+  meterno   VARCHAR2(16),
+  cust_name VARCHAR2(80),
+  value_o   VARCHAR2(400),
+  remark_o  VARCHAR2(128),
+  value_n   VARCHAR2(400),
+  remark_n  VARCHAR2(128),
+  modi_host VARCHAR2(30),
+  item      VARCHAR2(20),
+  reason    VARCHAR2(128),
+  remark    VARCHAR2(128),
+  micolumn  VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.BS_MODI_LOG.tpdate
+  is '修改时间';
+comment on column HRBZLS.BS_MODI_LOG.operator
+  is '修改人员';
+comment on column HRBZLS.BS_MODI_LOG.modi_type
+  is '修改类型';
+comment on column HRBZLS.BS_MODI_LOG.custid
+  is '用户编号';
+comment on column HRBZLS.BS_MODI_LOG.value_o
+  is '修改前';
+comment on column HRBZLS.BS_MODI_LOG.value_n
+  is '修改后';
+comment on column HRBZLS.BS_MODI_LOG.item
+  is '修改对象';
+create index HRBZLS.BS_MODI_LOG_MID on HRBZLS.BS_MODI_LOG (METERNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.BS_MODI_LOG_X on HRBZLS.BS_MODI_LOG (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,23 @@
+create table HRBZLS.KPI_DAY
+(
+  tpdate    DATE,
+  tpday     VARCHAR2(8),
+  area      VARCHAR2(20),
+  operator  VARCHAR2(20),
+  kpi_value NUMBER(10,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.KPI_DAY.tpdate
+  is '计算时间';
+comment on column HRBZLS.KPI_DAY.tpday
+  is '日期';
+comment on column HRBZLS.KPI_DAY.area
+  is '区域';
+comment on column HRBZLS.KPI_DAY.operator
+  is '相关人员';
+comment on column HRBZLS.KPI_DAY.kpi_value
+  is '值';
+

@@ -1,0 +1,31 @@
+create table HRBZLS.SETUP
+(
+  tbl_name VARCHAR2(60) not null,
+  value    FLOAT not null,
+  prefix   VARCHAR2(10),
+  cname    VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.SETUP_X on HRBZLS.SETUP (TBL_NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

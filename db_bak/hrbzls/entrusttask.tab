@@ -1,0 +1,44 @@
+create table HRBZLS.ENTRUSTTASK
+(
+  etbnakid    VARCHAR2(10) not null,
+  etmon       CHAR(1) default 'N',
+  ettues      CHAR(1) default 'N',
+  etwed       CHAR(1) default 'N',
+  etthurs     CHAR(1) default 'N',
+  etfriday    CHAR(1) default 'N',
+  etsat       CHAR(1) default 'N',
+  etsud       CHAR(1) default 'N',
+  etcycledays NUMBER default 1
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ENTRUSTTASK
+  is '代扣工作任务表[ET]';
+comment on column HRBZLS.ENTRUSTTASK.etbnakid
+  is '银行编号';
+comment on column HRBZLS.ENTRUSTTASK.etmon
+  is '星期一';
+comment on column HRBZLS.ENTRUSTTASK.ettues
+  is '星期二';
+comment on column HRBZLS.ENTRUSTTASK.etwed
+  is '星期三';
+comment on column HRBZLS.ENTRUSTTASK.etthurs
+  is '星期四';
+comment on column HRBZLS.ENTRUSTTASK.etfriday
+  is '星期五';
+comment on column HRBZLS.ENTRUSTTASK.etsat
+  is '星期六';
+comment on column HRBZLS.ENTRUSTTASK.etsud
+  is '星期日';
+comment on column HRBZLS.ENTRUSTTASK.etcycledays
+  is '代扣文件接收天数';
+alter table HRBZLS.ENTRUSTTASK
+  add constraint PK_ENTRUSTTASK primary key (ETBNAKID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

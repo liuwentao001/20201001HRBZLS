@@ -1,0 +1,35 @@
+create table HRBZLS.METERPLANSLDT
+(
+  mpsdbfid  VARCHAR2(10),
+  mpsdsmfid VARCHAR2(10),
+  mpsdmonth VARCHAR2(7),
+  mpsdsl    NUMBER(10),
+  mpsdsje   NUMBER(12,2),
+  mpsddate  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERPLANSLDT
+  is '计划抄表水量明细[MPSD]';
+comment on column HRBZLS.METERPLANSLDT.mpsdbfid
+  is '表册';
+comment on column HRBZLS.METERPLANSLDT.mpsdsmfid
+  is '营业所';
+comment on column HRBZLS.METERPLANSLDT.mpsdmonth
+  is '抄表月份';
+comment on column HRBZLS.METERPLANSLDT.mpsdsl
+  is '水量';
+comment on column HRBZLS.METERPLANSLDT.mpsdsje
+  is '水费金额';
+comment on column HRBZLS.METERPLANSLDT.mpsddate
+  is '生成时间';
+alter table HRBZLS.METERPLANSLDT
+  add constraint AK_PK_METERPLANSLDT_METERPLA unique (MPSDBFID, MPSDSMFID, MPSDMONTH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

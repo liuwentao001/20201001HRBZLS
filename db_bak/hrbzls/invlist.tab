@@ -1,0 +1,38 @@
+create table HRBZLS.INVLIST
+(
+  执行序号     NUMBER(10),
+  购货方省份    VARCHAR2(10),
+  开票方电子档案号 VARCHAR2(50),
+  开票方名称    VARCHAR2(200),
+  开票方识别号   VARCHAR2(50),
+  平台编码     VARCHAR2(50),
+  企业税号     VARCHAR2(50),
+  税务机构代码   VARCHAR2(50),
+  销货方地址    VARCHAR2(200),
+  销货方电话    VARCHAR2(50),
+  销货方名称    VARCHAR2(200),
+  销货方识别号   VARCHAR2(50),
+  销货方银行账号  VARCHAR2(50),
+  账户id     VARCHAR2(50),
+  中间件ip地址  VARCHAR2(50),
+  中间件端口号   VARCHAR2(50),
+  租户id     VARCHAR2(50),
+  有效标志     VARCHAR2(10),
+  营业所      VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.INVLIST.销货方识别号
+  is '用于识别税盘';
+comment on column HRBZLS.INVLIST.营业所
+  is '预留按营业所分发';
+

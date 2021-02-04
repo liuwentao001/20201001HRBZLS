@@ -1,0 +1,16 @@
+create table HRBZLS.PAYPOINTS_WS
+(
+  ppid VARCHAR2(12),
+  wsid VARCHAR2(12)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAYPOINTS_WS
+  is '缴费点对应工作站';
+comment on column HRBZLS.PAYPOINTS_WS.ppid
+  is '缴费点id';
+comment on column HRBZLS.PAYPOINTS_WS.wsid
+  is '工作站id';
+

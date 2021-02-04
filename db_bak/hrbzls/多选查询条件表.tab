@@ -1,0 +1,38 @@
+create table HRBZLS.多选查询条件表
+(
+  bmname  VARCHAR2(100) not null,
+  bmtree  VARCHAR2(1) default 'N',
+  bmlimit NUMBER default 0
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.多选查询条件表.bmname
+  is '报表名';
+comment on column HRBZLS.多选查询条件表.bmtree
+  is '是否树结构';
+comment on column HRBZLS.多选查询条件表.bmlimit
+  is '限制显示列';
+alter table HRBZLS.多选查询条件表
+  add constraint PRI_BMNAME primary key (BMNAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

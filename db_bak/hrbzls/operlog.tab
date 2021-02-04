@@ -1,0 +1,49 @@
+create table HRBZLS.OPERLOG
+(
+  olseqno       VARCHAR2(8) not null,
+  oloperid      VARCHAR2(8) not null,
+  olworkstation VARCHAR2(255),
+  oldatetime    DATE,
+  olfuncid      VARCHAR2(10),
+  oldesc        VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERLOG
+  is '操作员工作记录日志';
+comment on column HRBZLS.OPERLOG.olseqno
+  is '操作日志流水号';
+comment on column HRBZLS.OPERLOG.oloperid
+  is '操作员代码';
+comment on column HRBZLS.OPERLOG.olworkstation
+  is '工作站IP';
+comment on column HRBZLS.OPERLOG.oldatetime
+  is '操作完成时间';
+comment on column HRBZLS.OPERLOG.olfuncid
+  is '操作的功能号';
+comment on column HRBZLS.OPERLOG.oldesc
+  is '操作内容描述';
+alter table HRBZLS.OPERLOG
+  add constraint PK_OPERLOG primary key (OLSEQNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

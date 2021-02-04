@@ -1,0 +1,22 @@
+create table HRBZLS.OS_CURRENTOWNER
+(
+  id     NUMBER,
+  roleid VARCHAR2(10),
+  smfid  VARCHAR2(10),
+  empid  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_CURRENTOWNER
+  is '当前步骤所有者';
+comment on column HRBZLS.OS_CURRENTOWNER.id
+  is '流水号';
+comment on column HRBZLS.OS_CURRENTOWNER.roleid
+  is '角色';
+comment on column HRBZLS.OS_CURRENTOWNER.smfid
+  is '部门';
+comment on column HRBZLS.OS_CURRENTOWNER.empid
+  is '员工';
+

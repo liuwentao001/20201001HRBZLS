@@ -1,0 +1,43 @@
+create table HRBZLS.OPERFAVORITEFUNC
+(
+  offoaid  VARCHAR2(10) not null,
+  offfid   VARCHAR2(10) not null,
+  offdate  DATE not null,
+  offorder NUMBER(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERFAVORITEFUNC
+  is '用户收藏功能';
+comment on column HRBZLS.OPERFAVORITEFUNC.offoaid
+  is '操作员ID';
+comment on column HRBZLS.OPERFAVORITEFUNC.offfid
+  is '功能编码';
+comment on column HRBZLS.OPERFAVORITEFUNC.offdate
+  is '添加日期';
+comment on column HRBZLS.OPERFAVORITEFUNC.offorder
+  is '收藏夹内次序';
+alter table HRBZLS.OPERFAVORITEFUNC
+  add constraint PK_OPERFAVORITEFUNC primary key (OFFOAID, OFFFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

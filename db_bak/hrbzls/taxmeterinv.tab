@@ -1,0 +1,44 @@
+create table HRBZLS.TAXMETERINV
+(
+  timid     VARCHAR2(10),
+  tiname    VARCHAR2(200),
+  tibank    VARCHAR2(200),
+  tibankacc VARCHAR2(50),
+  titaxcode VARCHAR2(50),
+  tiaddr    VARCHAR2(200),
+  titel     VARCHAR2(50),
+  timtel    VARCHAR2(50),
+  tiemail   VARCHAR2(50),
+  titype    VARCHAR2(2),
+  timemo    VARCHAR2(200),
+  tifptno   VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.TAXMETERINV.timid
+  is '用户号';
+comment on column HRBZLS.TAXMETERINV.tiname
+  is '购货方名称';
+comment on column HRBZLS.TAXMETERINV.tibank
+  is '购货方开户行';
+comment on column HRBZLS.TAXMETERINV.tibankacc
+  is '购货方账号';
+comment on column HRBZLS.TAXMETERINV.titaxcode
+  is '购货方纳税人识别号';
+comment on column HRBZLS.TAXMETERINV.tiaddr
+  is '购货方地址';
+comment on column HRBZLS.TAXMETERINV.titel
+  is '购货方电话';
+comment on column HRBZLS.TAXMETERINV.timtel
+  is '购货方手机';
+comment on column HRBZLS.TAXMETERINV.tiemail
+  is '购货方邮箱';
+comment on column HRBZLS.TAXMETERINV.titype
+  is '购货方类型，01：企业 02：机关事业单位 03：个人 04：其它';
+comment on column HRBZLS.TAXMETERINV.timemo
+  is '备注';
+comment on column HRBZLS.TAXMETERINV.tifptno
+  is '发票通账号';
+

@@ -1,0 +1,43 @@
+create table HRBZLS.SYSFUNCSET
+(
+  sid    VARCHAR2(10) not null,
+  swname VARCHAR2(100),
+  ssrd   VARCHAR2(200),
+  smemo  VARCHAR2(2000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSFUNCSET
+  is '功能参数模版设置';
+comment on column HRBZLS.SYSFUNCSET.sid
+  is 'ID';
+comment on column HRBZLS.SYSFUNCSET.swname
+  is '窗体名称';
+comment on column HRBZLS.SYSFUNCSET.ssrd
+  is 'srd路径';
+comment on column HRBZLS.SYSFUNCSET.smemo
+  is '备注';
+alter table HRBZLS.SYSFUNCSET
+  add constraint PK_SYSFUNCSET_SID primary key (SID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

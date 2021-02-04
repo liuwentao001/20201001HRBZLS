@@ -1,0 +1,22 @@
+create table HRBZLS.OPERRFMETHOD_EXHIS
+(
+  verid          NUMBER,
+  orfmrid        VARCHAR2(5) not null,
+  orfmfid        VARCHAR2(10) not null,
+  orfmethod      CHAR(1) not null,
+  orfmstartdate  DATE,
+  orfmexpirydate DATE not null,
+  orfmmaindate   DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

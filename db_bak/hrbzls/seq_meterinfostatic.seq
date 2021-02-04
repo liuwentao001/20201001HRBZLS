@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_METERINFOSTATIC
+minvalue 0
+maxvalue 9999999999
+start with 5706759
+increment by 1
+cache 50
+order;
+

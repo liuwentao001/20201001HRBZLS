@@ -1,0 +1,82 @@
+create table HRBZLS.FLOW_EXCLOG
+(
+  billid     VARCHAR2(30) not null,
+  billtype   VARCHAR2(2),
+  flowstatus VARCHAR2(100),
+  billstatus VARCHAR2(30),
+  zrr        VARCHAR2(100),
+  fqr        VARCHAR2(300),
+  fqdate     DATE,
+  wcdate     DATE,
+  smfid      VARCHAR2(10),
+  tjr        VARCHAR2(100),
+  column1    VARCHAR2(10),
+  column2    VARCHAR2(10),
+  column3    VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FLOW_EXCLOG
+  is '流程日志';
+comment on column HRBZLS.FLOW_EXCLOG.billid
+  is '工单流水号';
+comment on column HRBZLS.FLOW_EXCLOG.billtype
+  is '工单类型';
+comment on column HRBZLS.FLOW_EXCLOG.flowstatus
+  is '流程状态';
+comment on column HRBZLS.FLOW_EXCLOG.billstatus
+  is '工单状态';
+comment on column HRBZLS.FLOW_EXCLOG.zrr
+  is '责任人';
+comment on column HRBZLS.FLOW_EXCLOG.fqr
+  is '发起人';
+comment on column HRBZLS.FLOW_EXCLOG.fqdate
+  is '发起日期';
+comment on column HRBZLS.FLOW_EXCLOG.wcdate
+  is '完成日期';
+comment on column HRBZLS.FLOW_EXCLOG.smfid
+  is '营业所';
+comment on column HRBZLS.FLOW_EXCLOG.tjr
+  is '提交人';
+comment on column HRBZLS.FLOW_EXCLOG.column1
+  is '预留字段1';
+comment on column HRBZLS.FLOW_EXCLOG.column2
+  is '预留字段2';
+comment on column HRBZLS.FLOW_EXCLOG.column3
+  is '预留字段3';
+create index HRBZLS.IDX_FLOW_EXCLOG_01 on HRBZLS.FLOW_EXCLOG (BILLID, BILLTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.FLOW_EXCLOG
+  add constraint PK_FLOW_EXCLOG primary key (BILLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

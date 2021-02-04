@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_CID
+minvalue 1000000000
+maxvalue 9999999999
+start with 1005934875
+increment by 1
+cache 50
+order;
+

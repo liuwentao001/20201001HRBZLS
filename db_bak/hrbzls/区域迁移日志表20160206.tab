@@ -1,0 +1,28 @@
+create table HRBZLS.区域迁移日志表20160206
+(
+  area_id    NUMBER not null,
+  re_mismfid VARCHAR2(10),
+  po_mismfid VARCHAR2(10),
+  re_area    VARCHAR2(10),
+  po_area    VARCHAR2(10),
+  re_mibfid  VARCHAR2(10),
+  po_mibfid  VARCHAR2(10),
+  re_zkh     VARCHAR2(50),
+  po_zkh     VARCHAR2(50),
+  miid       VARCHAR2(10),
+  opdate     DATE,
+  opuser     VARCHAR2(20),
+  misaving   NUMBER(12,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

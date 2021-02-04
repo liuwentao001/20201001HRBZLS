@@ -1,0 +1,65 @@
+create table HRBZLS.BILLDEFINE
+(
+  bdbillid     CHAR(3) not null,
+  bdid         NUMBER(4),
+  bdcolname    VARCHAR2(40) not null,
+  bdlabel      VARCHAR2(40),
+  bdx          VARCHAR2(8),
+  bdy          VARCHAR2(8),
+  bdvisible    CHAR(1),
+  bdlabvisible CHAR(1),
+  bdothers     VARCHAR2(2000),
+  bdmode       CHAR(1) not null,
+  bdsys        CHAR(1),
+  bdtab        NUMBER(8)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLDEFINE
+  is '系统单据模式定义【BD】';
+comment on column HRBZLS.BILLDEFINE.bdbillid
+  is '单据类别编码';
+comment on column HRBZLS.BILLDEFINE.bdid
+  is '编号';
+comment on column HRBZLS.BILLDEFINE.bdcolname
+  is '列名';
+comment on column HRBZLS.BILLDEFINE.bdlabel
+  is '标题';
+comment on column HRBZLS.BILLDEFINE.bdx
+  is '水平位置';
+comment on column HRBZLS.BILLDEFINE.bdy
+  is '垂直位置';
+comment on column HRBZLS.BILLDEFINE.bdvisible
+  is '列可视';
+comment on column HRBZLS.BILLDEFINE.bdlabvisible
+  is '列标题可视';
+comment on column HRBZLS.BILLDEFINE.bdothers
+  is '自定义变化参数';
+comment on column HRBZLS.BILLDEFINE.bdmode
+  is '单据部分';
+comment on column HRBZLS.BILLDEFINE.bdtab
+  is 'TAB值';
+alter table HRBZLS.BILLDEFINE
+  add constraint PK_BILLDEFINE primary key (BDBILLID, BDCOLNAME, BDMODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

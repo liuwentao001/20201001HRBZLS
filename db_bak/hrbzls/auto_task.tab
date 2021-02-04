@@ -1,0 +1,55 @@
+create table HRBZLS.AUTO_TASK
+(
+  taskid     VARCHAR2(10) not null,
+  taskname   VARCHAR2(30),
+  progname   VARCHAR2(30),
+  para       VARCHAR2(30),
+  taskdays   VARCHAR2(40),
+  peroid     VARCHAR2(1),
+  run_timing VARCHAR2(8),
+  result     VARCHAR2(1),
+  runflag    VARCHAR2(1),
+  progtype   VARCHAR2(3),
+  isvalid    VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.AUTO_TASK
+  is '银行自动事务调度';
+comment on column HRBZLS.AUTO_TASK.taskid
+  is '任务id';
+comment on column HRBZLS.AUTO_TASK.taskname
+  is '任务名称';
+comment on column HRBZLS.AUTO_TASK.progname
+  is '运行文件';
+comment on column HRBZLS.AUTO_TASK.para
+  is '参数';
+comment on column HRBZLS.AUTO_TASK.taskdays
+  is '运行日（每一位代表一天，1--运行，0--不运行）';
+comment on column HRBZLS.AUTO_TASK.peroid
+  is '周期(D-日，W-周，M-月，Y-年)';
+comment on column HRBZLS.AUTO_TASK.run_timing
+  is '运行时机';
+comment on column HRBZLS.AUTO_TASK.result
+  is '最近一次运行结果';
+comment on column HRBZLS.AUTO_TASK.runflag
+  is '运行标志';
+comment on column HRBZLS.AUTO_TASK.progtype
+  is '运行方式（EXE, DBS）';
+comment on column HRBZLS.AUTO_TASK.isvalid
+  is '是否有效';
+create index HRBZLS.IDX_AUTO_TASK_PROGNAME on HRBZLS.AUTO_TASK (PROGNAME, PARA)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.AUTO_TASK
+  add constraint PK_AUTO_TASK primary key (TASKID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

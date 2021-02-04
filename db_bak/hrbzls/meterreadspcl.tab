@@ -1,0 +1,325 @@
+create table HRBZLS.METERREADSPCL
+(
+  mrid            VARCHAR2(10) not null,
+  mrmonth         VARCHAR2(7),
+  mrsmfid         VARCHAR2(10),
+  mrbfid          VARCHAR2(10),
+  mrbatch         NUMBER(2),
+  mrday           DATE,
+  mrrorder        NUMBER(10),
+  mrcid           VARCHAR2(10),
+  mrccode         VARCHAR2(10),
+  mrmid           VARCHAR2(10),
+  mrmcode         VARCHAR2(10),
+  mrstid          VARCHAR2(10),
+  mrmpid          VARCHAR2(10),
+  mrmclass        NUMBER,
+  mrmflag         CHAR(1),
+  mrcreadate      DATE,
+  mrinputdate     DATE,
+  mrreadok        CHAR(1),
+  mrrdate         DATE,
+  mrrper          VARCHAR2(15),
+  mrprdate        DATE,
+  mrscode         NUMBER(10),
+  mrecode         NUMBER(10),
+  mrsl            NUMBER(10),
+  mrface          VARCHAR2(2),
+  mrifsubmit      CHAR(1),
+  mrifhalt        CHAR(1),
+  mrdatasource    CHAR(1),
+  mrifignoreminsl CHAR(1),
+  mrpdardate      DATE,
+  mroutflag       CHAR(1) default 'N',
+  mroutid         VARCHAR2(10),
+  mroutdate       DATE,
+  mrinorder       NUMBER(4),
+  mrindate        DATE,
+  mrrpid          VARCHAR2(3),
+  mrmemo          VARCHAR2(120),
+  mrifgu          CHAR(1),
+  mrifrec         CHAR(1),
+  mrrecdate       DATE,
+  mrrecsl         NUMBER(10),
+  mraddsl         NUMBER(10),
+  mrcarrysl       NUMBER(10),
+  mrctrl1         VARCHAR2(10),
+  mrctrl2         VARCHAR2(10),
+  mrctrl3         VARCHAR2(10),
+  mrctrl4         VARCHAR2(10),
+  mrctrl5         VARCHAR2(10),
+  mrchkflag       CHAR(1) default 'N',
+  mrchkdate       DATE,
+  mrchkper        VARCHAR2(10),
+  mrchkscode      NUMBER(10),
+  mrchkecode      NUMBER(10),
+  mrchksl         NUMBER(10),
+  mrchkaddsl      NUMBER(10),
+  mrchkcarrysl    NUMBER(10),
+  mrchkrdate      DATE,
+  mrchkface       VARCHAR2(2),
+  mrchkresult     VARCHAR2(100),
+  mrchkresultmemo VARCHAR2(100),
+  mrprimid        VARCHAR2(200),
+  mrprimflag      CHAR(1),
+  mrlb            CHAR(1),
+  mrnewflag       CHAR(1),
+  mrface2         VARCHAR2(2),
+  mrface3         VARCHAR2(2),
+  mrface4         VARCHAR2(2),
+  mrscodechar     VARCHAR2(10),
+  mrecodechar     VARCHAR2(10),
+  mrprivilegeflag VARCHAR2(1),
+  mrprivilegeper  VARCHAR2(10),
+  mrprivilegememo VARCHAR2(200),
+  mrprivilegedate DATE,
+  mrsafid         VARCHAR2(10),
+  mriftrans       CHAR(1),
+  mrrequisition   NUMBER(2),
+  mrifchk         CHAR(1),
+  mrinputper      VARCHAR2(10),
+  mrpfid          VARCHAR2(10),
+  mrcaliber       NUMBER(10),
+  mrside          VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERREADSPCL
+  is '抄表库(专班)';
+comment on column HRBZLS.METERREADSPCL.mrid
+  is '流水号';
+comment on column HRBZLS.METERREADSPCL.mrmonth
+  is '抄表月份';
+comment on column HRBZLS.METERREADSPCL.mrsmfid
+  is '营销公司';
+comment on column HRBZLS.METERREADSPCL.mrbfid
+  is '表册';
+comment on column HRBZLS.METERREADSPCL.mrbatch
+  is '抄表批次';
+comment on column HRBZLS.METERREADSPCL.mrday
+  is '计划抄表日';
+comment on column HRBZLS.METERREADSPCL.mrrorder
+  is '抄表次序';
+comment on column HRBZLS.METERREADSPCL.mrcid
+  is '用户编号';
+comment on column HRBZLS.METERREADSPCL.mrccode
+  is '用户号';
+comment on column HRBZLS.METERREADSPCL.mrmid
+  is '水表编号';
+comment on column HRBZLS.METERREADSPCL.mrmcode
+  is '水表手工编号';
+comment on column HRBZLS.METERREADSPCL.mrstid
+  is '行业分类';
+comment on column HRBZLS.METERREADSPCL.mrmpid
+  is '上级水表';
+comment on column HRBZLS.METERREADSPCL.mrmclass
+  is '水表级次';
+comment on column HRBZLS.METERREADSPCL.mrmflag
+  is '末级标志';
+comment on column HRBZLS.METERREADSPCL.mrcreadate
+  is '创建日期';
+comment on column HRBZLS.METERREADSPCL.mrinputdate
+  is '编辑日期';
+comment on column HRBZLS.METERREADSPCL.mrreadok
+  is '抄见标志';
+comment on column HRBZLS.METERREADSPCL.mrrdate
+  is '抄表日期';
+comment on column HRBZLS.METERREADSPCL.mrrper
+  is '抄表员';
+comment on column HRBZLS.METERREADSPCL.mrprdate
+  is '上次抄见日期';
+comment on column HRBZLS.METERREADSPCL.mrscode
+  is '上期抄见';
+comment on column HRBZLS.METERREADSPCL.mrecode
+  is '本期抄见';
+comment on column HRBZLS.METERREADSPCL.mrsl
+  is '本期水量';
+comment on column HRBZLS.METERREADSPCL.mrface
+  is '水表故障';
+comment on column HRBZLS.METERREADSPCL.mrifsubmit
+  is '是否提交计费';
+comment on column HRBZLS.METERREADSPCL.mrifhalt
+  is '系统停算';
+comment on column HRBZLS.METERREADSPCL.mrdatasource
+  is '抄表结果来源';
+comment on column HRBZLS.METERREADSPCL.mrifignoreminsl
+  is '停算最低抄量';
+comment on column HRBZLS.METERREADSPCL.mrpdardate
+  is '抄表机抄表时间';
+comment on column HRBZLS.METERREADSPCL.mroutflag
+  is '发出到抄表机标志';
+comment on column HRBZLS.METERREADSPCL.mroutid
+  is '发出到抄表机流水号';
+comment on column HRBZLS.METERREADSPCL.mroutdate
+  is '发出到抄表机日期';
+comment on column HRBZLS.METERREADSPCL.mrinorder
+  is '抄表机接收次序';
+comment on column HRBZLS.METERREADSPCL.mrindate
+  is '抄表机接受日期';
+comment on column HRBZLS.METERREADSPCL.mrrpid
+  is '计件类型';
+comment on column HRBZLS.METERREADSPCL.mrmemo
+  is '抄表备注';
+comment on column HRBZLS.METERREADSPCL.mrifgu
+  is '估表标志';
+comment on column HRBZLS.METERREADSPCL.mrifrec
+  is '已计费';
+comment on column HRBZLS.METERREADSPCL.mrrecdate
+  is '计费日期';
+comment on column HRBZLS.METERREADSPCL.mrrecsl
+  is '应收水量';
+comment on column HRBZLS.METERREADSPCL.mraddsl
+  is '余量';
+comment on column HRBZLS.METERREADSPCL.mrcarrysl
+  is '进位水量';
+comment on column HRBZLS.METERREADSPCL.mrctrl1
+  is '抄表机控制位1';
+comment on column HRBZLS.METERREADSPCL.mrctrl2
+  is '抄表机控制位2';
+comment on column HRBZLS.METERREADSPCL.mrctrl3
+  is '抄表机控制位3';
+comment on column HRBZLS.METERREADSPCL.mrctrl4
+  is '抄表机控制位4';
+comment on column HRBZLS.METERREADSPCL.mrctrl5
+  is '抄表机控制位5';
+comment on column HRBZLS.METERREADSPCL.mrchkflag
+  is '复核标志';
+comment on column HRBZLS.METERREADSPCL.mrchkdate
+  is '复核日期';
+comment on column HRBZLS.METERREADSPCL.mrchkper
+  is '复核人员';
+comment on column HRBZLS.METERREADSPCL.mrchkscode
+  is '原起数';
+comment on column HRBZLS.METERREADSPCL.mrchkecode
+  is '原止数';
+comment on column HRBZLS.METERREADSPCL.mrchksl
+  is '原水量';
+comment on column HRBZLS.METERREADSPCL.mrchkaddsl
+  is '原余量';
+comment on column HRBZLS.METERREADSPCL.mrchkcarrysl
+  is '原进位水量';
+comment on column HRBZLS.METERREADSPCL.mrchkrdate
+  is '原抄见日期';
+comment on column HRBZLS.METERREADSPCL.mrchkface
+  is '原表况';
+comment on column HRBZLS.METERREADSPCL.mrchkresult
+  is '检查结果类型';
+comment on column HRBZLS.METERREADSPCL.mrchkresultmemo
+  is '检查结果说明';
+comment on column HRBZLS.METERREADSPCL.mrprimid
+  is '合收表主表';
+comment on column HRBZLS.METERREADSPCL.mrprimflag
+  is '合收表标志';
+comment on column HRBZLS.METERREADSPCL.mrlb
+  is '水表类别';
+comment on column HRBZLS.METERREADSPCL.mrnewflag
+  is '新表标志';
+comment on column HRBZLS.METERREADSPCL.mrface2
+  is '抄见故障';
+comment on column HRBZLS.METERREADSPCL.mrface3
+  is '非常计量';
+comment on column HRBZLS.METERREADSPCL.mrface4
+  is '表井设施说明';
+comment on column HRBZLS.METERREADSPCL.mrscodechar
+  is '上期抄见';
+comment on column HRBZLS.METERREADSPCL.mrecodechar
+  is '本期抄见';
+comment on column HRBZLS.METERREADSPCL.mrprivilegeflag
+  is '特权标志(Y/N)';
+comment on column HRBZLS.METERREADSPCL.mrprivilegeper
+  is '特权操作人';
+comment on column HRBZLS.METERREADSPCL.mrprivilegememo
+  is '特权操作备注';
+comment on column HRBZLS.METERREADSPCL.mrprivilegedate
+  is '特权操作时间';
+comment on column HRBZLS.METERREADSPCL.mrsafid
+  is '管理区域';
+comment on column HRBZLS.METERREADSPCL.mriftrans
+  is '转办工单标志';
+comment on column HRBZLS.METERREADSPCL.mrrequisition
+  is '通知单打印次数';
+comment on column HRBZLS.METERREADSPCL.mrifchk
+  is '考核表';
+comment on column HRBZLS.METERREADSPCL.mrinputper
+  is '入账人员';
+comment on column HRBZLS.METERREADSPCL.mrpfid
+  is '用水类别';
+comment on column HRBZLS.METERREADSPCL.mrcaliber
+  is '口径';
+comment on column HRBZLS.METERREADSPCL.mrside
+  is '表位';
+create index HRBZLS.IDX_MRBFIDSPCL on HRBZLS.METERREADSPCL (MRBFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMACHINEOUTFLAGSPCL on HRBZLS.METERREADSPCL (MROUTFLAG)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMACHINEOUTIDSPCL on HRBZLS.METERREADSPCL (MROUTID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMCODESPCL on HRBZLS.METERREADSPCL (MRMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMFACESPCL on HRBZLS.METERREADSPCL (MRFACE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMIDSPCL on HRBZLS.METERREADSPCL (MRMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMONTHSPCL on HRBZLS.METERREADSPCL (MRMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMPIDSPCL on HRBZLS.METERREADSPCL (MRMPID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRMSORTSPCL on HRBZLS.METERREADSPCL (MRSTID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRREADOKSPCL on HRBZLS.METERREADSPCL (MRREADOK)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRREADPRICESPCL on HRBZLS.METERREADSPCL (MRRPID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRSMFIDSPCL on HRBZLS.METERREADSPCL (MRSMFID, MRLB, MRBFID, MRINPUTDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_MRSPCL1 on HRBZLS.METERREADSPCL (MRSMFID, MRBFID, MRREADOK, MRSL, MRFACE, MROUTFLAG, MROUTID, MRADDSL, MRCARRYSL)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.METERREADSPCL
+  add constraint PK_METERREADSPCL primary key (MRID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

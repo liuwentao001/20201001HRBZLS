@@ -1,0 +1,77 @@
+create table HRBZLS.BILLFLOWPOINT
+(
+  bfpno       VARCHAR2(10) not null,
+  bfpbftid    NUMBER(10) not null,
+  bfprow      NUMBER(10) not null,
+  bfpbillno   VARCHAR2(30),
+  bfpbillfun  VARCHAR2(200),
+  bfprelation VARCHAR2(100),
+  bfpchkflag  VARCHAR2(100),
+  bfpfun1     VARCHAR2(200),
+  bfpfun2     VARCHAR2(200),
+  bfpparm1    VARCHAR2(200),
+  bfpparm2    VARCHAR2(200),
+  bfpparm3    VARCHAR2(200),
+  bfpparm4    VARCHAR2(200),
+  bfpparm5    VARCHAR2(200),
+  bfpparm6    VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLFLOWPOINT
+  is '流程节点信息[BFP]';
+comment on column HRBZLS.BILLFLOWPOINT.bfpno
+  is '流程类别';
+comment on column HRBZLS.BILLFLOWPOINT.bfpbftid
+  is '流程步骤ID';
+comment on column HRBZLS.BILLFLOWPOINT.bfprow
+  is '序号';
+comment on column HRBZLS.BILLFLOWPOINT.bfpbillno
+  is '单据序列';
+comment on column HRBZLS.BILLFLOWPOINT.bfpbillfun
+  is '单据功能';
+comment on column HRBZLS.BILLFLOWPOINT.bfprelation
+  is '关系1,2,3
+';
+comment on column HRBZLS.BILLFLOWPOINT.bfpchkflag
+  is '传递检查';
+comment on column HRBZLS.BILLFLOWPOINT.bfpfun1
+  is '流程流向函数';
+comment on column HRBZLS.BILLFLOWPOINT.bfpfun2
+  is '传递函数';
+comment on column HRBZLS.BILLFLOWPOINT.bfpparm1
+  is '参数1';
+comment on column HRBZLS.BILLFLOWPOINT.bfpparm2
+  is '参数2';
+comment on column HRBZLS.BILLFLOWPOINT.bfpparm3
+  is '参数3';
+comment on column HRBZLS.BILLFLOWPOINT.bfpparm4
+  is '参数4';
+comment on column HRBZLS.BILLFLOWPOINT.bfpparm5
+  is '参数5';
+comment on column HRBZLS.BILLFLOWPOINT.bfpparm6
+  is '参数6';
+alter table HRBZLS.BILLFLOWPOINT
+  add constraint PK_BILLFLOWPOINT primary key (BFPNO, BFPBFTID, BFPROW)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

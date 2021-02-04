@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_CHK_METERREAD
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 91
+increment by 1
+cache 50;
+

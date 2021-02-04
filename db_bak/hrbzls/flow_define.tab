@@ -1,0 +1,76 @@
+create table HRBZLS.FLOW_DEFINE
+(
+  fid         VARCHAR2(10) not null,
+  fno         NUMBER not null,
+  fname       VARCHAR2(20),
+  fpara1      VARCHAR2(200),
+  fpara2      VARCHAR2(200),
+  fpara3      VARCHAR2(200),
+  fpara4      VARCHAR2(200),
+  fpara5      VARCHAR2(200),
+  fmemo       VARCHAR2(200),
+  fbillstatus VARCHAR2(2),
+  fchktype    VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FLOW_DEFINE
+  is '流程定议';
+comment on column HRBZLS.FLOW_DEFINE.fid
+  is '流程id';
+comment on column HRBZLS.FLOW_DEFINE.fno
+  is '流程号';
+comment on column HRBZLS.FLOW_DEFINE.fname
+  is '流程名称';
+comment on column HRBZLS.FLOW_DEFINE.fpara1
+  is '参数1';
+comment on column HRBZLS.FLOW_DEFINE.fpara2
+  is '参数2';
+comment on column HRBZLS.FLOW_DEFINE.fpara3
+  is '参数3';
+comment on column HRBZLS.FLOW_DEFINE.fpara4
+  is '参数4';
+comment on column HRBZLS.FLOW_DEFINE.fpara5
+  is '参数5';
+comment on column HRBZLS.FLOW_DEFINE.fmemo
+  is '备注';
+comment on column HRBZLS.FLOW_DEFINE.fbillstatus
+  is '工单状态';
+comment on column HRBZLS.FLOW_DEFINE.fchktype
+  is '查检类别';
+create index HRBZLS.IDX_FLOW_DEFINE_01 on HRBZLS.FLOW_DEFINE (FID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.FLOW_DEFINE
+  add constraint PK_FL_01 primary key (FID, FNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

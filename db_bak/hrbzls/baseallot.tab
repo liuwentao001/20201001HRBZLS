@@ -1,0 +1,133 @@
+create table HRBZLS.BASEALLOT
+(
+  baid         NUMBER not null,
+  bacid        VARCHAR2(10),
+  basmfid      VARCHAR2(10),
+  bamonth      VARCHAR2(7),
+  bapfid       VARCHAR2(10),
+  baprice      NUMBER(10,2) default 0,
+  baallotsl    NUMBER(10,2) default 0,
+  baallotsum   NUMBER(10,2) default 0,
+  bapid        VARCHAR2(10),
+  barlid       VARCHAR2(10),
+  barlsl       NUMBER(10,2),
+  bapaidje     NUMBER(10,2),
+  baoperid     VARCHAR2(10),
+  baoperdate   DATE,
+  bastatus     CHAR(1),
+  bacanceloper VARCHAR2(10),
+  bacanceldate DATE,
+  bamemo       VARCHAR2(500)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BASEALLOT
+  is '基建水费收入调拨记录BA';
+comment on column HRBZLS.BASEALLOT.baid
+  is '调拨流水号';
+comment on column HRBZLS.BASEALLOT.bacid
+  is '客户编号';
+comment on column HRBZLS.BASEALLOT.basmfid
+  is '营业所Id';
+comment on column HRBZLS.BASEALLOT.bamonth
+  is '调拨月份';
+comment on column HRBZLS.BASEALLOT.bapfid
+  is '价格分类(priceframe)';
+comment on column HRBZLS.BASEALLOT.baprice
+  is '水费价格';
+comment on column HRBZLS.BASEALLOT.baallotsl
+  is '调拨水量 ';
+comment on column HRBZLS.BASEALLOT.baallotsum
+  is '调拨金额';
+comment on column HRBZLS.BASEALLOT.bapid
+  is '付款流水号（对应payment中pid）';
+comment on column HRBZLS.BASEALLOT.barlid
+  is '应收流水号';
+comment on column HRBZLS.BASEALLOT.barlsl
+  is '原应收水量';
+comment on column HRBZLS.BASEALLOT.bapaidje
+  is '预存总金额';
+comment on column HRBZLS.BASEALLOT.baoperid
+  is '调拨操作员';
+comment on column HRBZLS.BASEALLOT.baoperdate
+  is '调拨时间';
+comment on column HRBZLS.BASEALLOT.bastatus
+  is '当前状态 Y-正常 N-取消';
+comment on column HRBZLS.BASEALLOT.bacanceloper
+  is '调拨取消人员Id';
+comment on column HRBZLS.BASEALLOT.bacanceldate
+  is '调拨取消日期';
+comment on column HRBZLS.BASEALLOT.bamemo
+  is '备注 ';
+create index HRBZLS.IDX_BASEALLOT_BARLID on HRBZLS.BASEALLOT (BARLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_BASEALLOT_BDCID on HRBZLS.BASEALLOT (BACID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_BASEALLOT_MONTH on HRBZLS.BASEALLOT (BAMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_BASEALLOT_SMFID on HRBZLS.BASEALLOT (BASMFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.BASEALLOT
+  add constraint PK_BASEALLOT primary key (BAID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

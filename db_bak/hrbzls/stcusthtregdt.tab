@@ -1,0 +1,44 @@
+create table HRBZLS.STCUSTHTREGDT
+(
+  dno        VARCHAR2(10),
+  drowno     NUMBER(6),
+  qfh        VARCHAR2(40),
+  storeid    VARCHAR2(10),
+  miid       VARCHAR2(20),
+  status     VARCHAR2(2),
+  statusdate DATE,
+  cycchkdate DATE,
+  stockdate  DATE,
+  dflag      CHAR(1),
+  cgoper     VARCHAR2(10),
+  ifsubmit   CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.STCUSTHTREGDT.dno
+  is '单据号';
+comment on column HRBZLS.STCUSTHTREGDT.drowno
+  is '行号';
+comment on column HRBZLS.STCUSTHTREGDT.qfh
+  is '合同编号';
+comment on column HRBZLS.STCUSTHTREGDT.storeid
+  is '仓库编号';
+comment on column HRBZLS.STCUSTHTREGDT.miid
+  is '用户编号';
+comment on column HRBZLS.STCUSTHTREGDT.status
+  is '合同状态';
+comment on column HRBZLS.STCUSTHTREGDT.statusdate
+  is '合同状态发生日期';
+comment on column HRBZLS.STCUSTHTREGDT.cycchkdate
+  is '合同起算日';
+comment on column HRBZLS.STCUSTHTREGDT.stockdate
+  is '新购合同入库日期';
+comment on column HRBZLS.STCUSTHTREGDT.dflag
+  is '审核标志';
+comment on column HRBZLS.STCUSTHTREGDT.cgoper
+  is '采购人员';
+comment on column HRBZLS.STCUSTHTREGDT.ifsubmit
+  is '是否提交';
+

@@ -1,0 +1,112 @@
+create table HRBZLS.BILLFLOWLIST
+(
+  bflnum       NUMBER(10) not null,
+  bflworkid    VARCHAR2(10) not null,
+  bflid        NUMBER(10) not null,
+  bflorder     NUMBER(10) not null,
+  bflrow       NUMBER(10) not null,
+  bfltype      VARCHAR2(10) not null,
+  bflpid       NUMBER(10),
+  bflrecoper   VARCHAR2(10),
+  bflrectype   VARCHAR2(2),
+  bflrecdate   DATE,
+  bfltreatdate DATE,
+  bfloper      VARCHAR2(10),
+  bfltreatnote VARCHAR2(1000),
+  bfltreatflag VARCHAR2(2),
+  bflno        VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLFLOWLIST
+  is '工作流明细[BFL]';
+comment on column HRBZLS.BILLFLOWLIST.bflnum
+  is '流水号';
+comment on column HRBZLS.BILLFLOWLIST.bflworkid
+  is '工作流水号';
+comment on column HRBZLS.BILLFLOWLIST.bflid
+  is '节点ID';
+comment on column HRBZLS.BILLFLOWLIST.bflorder
+  is '流程步骤ID';
+comment on column HRBZLS.BILLFLOWLIST.bflrow
+  is '序号';
+comment on column HRBZLS.BILLFLOWLIST.bfltype
+  is '流程类别';
+comment on column HRBZLS.BILLFLOWLIST.bflpid
+  is '父节点ID';
+comment on column HRBZLS.BILLFLOWLIST.bflrecoper
+  is '接收人';
+comment on column HRBZLS.BILLFLOWLIST.bflrectype
+  is '接收人员类别';
+comment on column HRBZLS.BILLFLOWLIST.bflrecdate
+  is '接收日期';
+comment on column HRBZLS.BILLFLOWLIST.bfltreatdate
+  is '处理日期';
+comment on column HRBZLS.BILLFLOWLIST.bfloper
+  is '实际处理人';
+comment on column HRBZLS.BILLFLOWLIST.bfltreatnote
+  is '处理意见';
+comment on column HRBZLS.BILLFLOWLIST.bfltreatflag
+  is '处理标志';
+comment on column HRBZLS.BILLFLOWLIST.bflno
+  is '单据流水号';
+create index HRBZLS.BILLFLOWLIST_IDX001 on HRBZLS.BILLFLOWLIST (BFLWORKID, BFLID, BFLTYPE, BFLORDER, BFLROW)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.BILLFLOWLIST_IDX002 on HRBZLS.BILLFLOWLIST (BFLNO, BFLTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.BILLFLOWLIST_IDX003 on HRBZLS.BILLFLOWLIST (BFLRECOPER, BFLRECTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.BILLFLOWLIST
+  add constraint PK_BILLFLOWLIST primary key (BFLNUM)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

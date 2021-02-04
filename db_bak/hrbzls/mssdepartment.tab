@@ -1,0 +1,29 @@
+create table HRBZLS.MSSDEPARTMENT
+(
+  mdpid       VARCHAR2(5),
+  mdpname     VARCHAR2(30),
+  mdpnote     VARCHAR2(50),
+  mdpgrouping VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MSSDEPARTMENT
+  is '短信平台通讯录部门';
+comment on column HRBZLS.MSSDEPARTMENT.mdpid
+  is '部门编号';
+comment on column HRBZLS.MSSDEPARTMENT.mdpname
+  is '部门名称';
+comment on column HRBZLS.MSSDEPARTMENT.mdpnote
+  is '备注';
+comment on column HRBZLS.MSSDEPARTMENT.mdpgrouping
+  is '分组';
+

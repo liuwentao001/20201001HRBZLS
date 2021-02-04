@@ -1,0 +1,114 @@
+create table HRBZLS.HIS_YEARLYREC
+(
+  yrid         NUMBER not null,
+  yryear       VARCHAR2(4) not null,
+  yrsmfid      VARCHAR2(10) not null,
+  yrmlb        CHAR(1),
+  yrpiid       CHAR(2) not null,
+  yrpfid       VARCHAR2(10) not null,
+  yrclass      NUMBER(1) not null,
+  yrrtid       CHAR(1),
+  yrrper       VARCHAR2(10),
+  yrcper       VARCHAR2(10),
+  yrtrans      CHAR(1) not null,
+  yrsafid      VARCHAR2(10),
+  yrcaliber    NUMBER(3),
+  yrmtype      CHAR(1),
+  yrchargetype CHAR(1) not null,
+  yrscrtrans   CHAR(1),
+  yrscrmonth   VARCHAR2(7),
+  yrqccnt      NUMBER(12) not null,
+  yrqcsl       NUMBER(14) not null,
+  yrqcje       NUMBER(14,2) not null,
+  yrbqcntde    NUMBER(12) not null,
+  yrbqslde     NUMBER(14) not null,
+  yrbqjede     NUMBER(14,2) not null,
+  yrbqcntcr    NUMBER(12) not null,
+  yrbqslcr     NUMBER(14) not null,
+  yrbqjecr     NUMBER(14,2) not null,
+  yrqmcnt      NUMBER(12) not null,
+  yrqmsl       NUMBER(14) not null,
+  yrqmje       NUMBER(14,2) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.HIS_YEARLYREC
+  is '应收月结存【YR】';
+comment on column HRBZLS.HIS_YEARLYREC.yrid
+  is '流水号';
+comment on column HRBZLS.HIS_YEARLYREC.yryear
+  is '应收年份';
+comment on column HRBZLS.HIS_YEARLYREC.yrsmfid
+  is '营业所';
+comment on column HRBZLS.HIS_YEARLYREC.yrmlb
+  is '水表类别';
+comment on column HRBZLS.HIS_YEARLYREC.yrpiid
+  is '费用项目';
+comment on column HRBZLS.HIS_YEARLYREC.yrpfid
+  is '用水类别';
+comment on column HRBZLS.HIS_YEARLYREC.yrclass
+  is '阶梯级别';
+comment on column HRBZLS.HIS_YEARLYREC.yrrtid
+  is '抄表方式';
+comment on column HRBZLS.HIS_YEARLYREC.yrrper
+  is '抄表员';
+comment on column HRBZLS.HIS_YEARLYREC.yrcper
+  is '收费员';
+comment on column HRBZLS.HIS_YEARLYREC.yrtrans
+  is '应收事务';
+comment on column HRBZLS.HIS_YEARLYREC.yrsafid
+  is '区域';
+comment on column HRBZLS.HIS_YEARLYREC.yrcaliber
+  is '口径';
+comment on column HRBZLS.HIS_YEARLYREC.yrmtype
+  is '水表类型';
+comment on column HRBZLS.HIS_YEARLYREC.yrchargetype
+  is '收费方式';
+comment on column HRBZLS.HIS_YEARLYREC.yrscrtrans
+  is '原应收事务';
+comment on column HRBZLS.HIS_YEARLYREC.yrscrmonth
+  is '原应收月份';
+comment on column HRBZLS.HIS_YEARLYREC.yrqccnt
+  is '期初笔数';
+comment on column HRBZLS.HIS_YEARLYREC.yrqcsl
+  is '期初水量';
+comment on column HRBZLS.HIS_YEARLYREC.yrqcje
+  is '期初金额';
+comment on column HRBZLS.HIS_YEARLYREC.yrbqcntde
+  is '本期笔数借方';
+comment on column HRBZLS.HIS_YEARLYREC.yrbqslde
+  is '本期水量借方';
+comment on column HRBZLS.HIS_YEARLYREC.yrbqjede
+  is '本期金额借方';
+comment on column HRBZLS.HIS_YEARLYREC.yrbqcntcr
+  is '本期笔数贷方';
+comment on column HRBZLS.HIS_YEARLYREC.yrbqslcr
+  is '本期水量贷方';
+comment on column HRBZLS.HIS_YEARLYREC.yrbqjecr
+  is '本期金额贷方';
+comment on column HRBZLS.HIS_YEARLYREC.yrqmcnt
+  is '期末笔数';
+comment on column HRBZLS.HIS_YEARLYREC.yrqmsl
+  is '期末水量';
+comment on column HRBZLS.HIS_YEARLYREC.yrqmje
+  is '期末金额';
+create index HRBZLS.IDX_HIS_YEARLYREC on HRBZLS.HIS_YEARLYREC (YRYEAR, YRSMFID, YRMLB, YRPIID, YRPFID, YRCLASS, YRRTID, YRRPER, YRCPER, YRTRANS, YRSAFID, YRCALIBER, YRMTYPE, YRCHARGETYPE, YRSCRTRANS, YRSCRMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_HIS_YEARLYREC_DMS on HRBZLS.HIS_YEARLYREC (YRYEAR, YRSMFID, YRPIID, YRPFID, YRCLASS, YRTRANS, YRCHARGETYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.HIS_YEARLYREC
+  add constraint PK_HIS_YEARLYREC primary key (YRID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

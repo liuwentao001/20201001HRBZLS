@@ -1,0 +1,7 @@
+create sequence HRBZLS.SQ_FLOW_DEFINED
+minvalue 1
+maxvalue 999999999
+start with 880
+increment by 1
+cache 50;
+

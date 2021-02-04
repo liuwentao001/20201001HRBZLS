@@ -1,0 +1,110 @@
+create table HRBZLS.CUSTREGDT
+(
+  crdno         VARCHAR2(10) not null,
+  crdrowno      NUMBER(6) not null,
+  ciid          VARCHAR2(10),
+  cicode        VARCHAR2(10),
+  ciconid       VARCHAR2(20),
+  cismfid       VARCHAR2(10),
+  cipid         VARCHAR2(10),
+  ciclass       NUMBER,
+  ciflag        CHAR(1),
+  ciname        VARCHAR2(64),
+  ciname2       VARCHAR2(64),
+  ciadr         VARCHAR2(64),
+  cistatus      VARCHAR2(2),
+  cistatusdate  DATE,
+  cistatustrans CHAR(1),
+  cinewdate     DATE,
+  ciidentitylb  CHAR(1),
+  ciidentityno  VARCHAR2(60),
+  cimtel        VARCHAR2(30),
+  citel1        VARCHAR2(30),
+  citel2        VARCHAR2(30),
+  citel3        VARCHAR2(30),
+  ciconnectper  VARCHAR2(60),
+  ciconnecttel  VARCHAR2(30),
+  ciifinv       CHAR(1),
+  ciifsms       CHAR(1),
+  ciifzn        CHAR(1),
+  ciprojno      VARCHAR2(15),
+  cifileno      VARCHAR2(20),
+  cimemo        VARCHAR2(120),
+  cideptid      VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.CUSTREGDT
+  is '立户单体【CRD】';
+comment on column HRBZLS.CUSTREGDT.crdno
+  is '单据流水号';
+comment on column HRBZLS.CUSTREGDT.crdrowno
+  is '行号';
+comment on column HRBZLS.CUSTREGDT.ciid
+  is '用户编号';
+comment on column HRBZLS.CUSTREGDT.cicode
+  is '用户号';
+comment on column HRBZLS.CUSTREGDT.ciconid
+  is '报装合同编号';
+comment on column HRBZLS.CUSTREGDT.cismfid
+  is '营销公司';
+comment on column HRBZLS.CUSTREGDT.cipid
+  is '上级用户编号';
+comment on column HRBZLS.CUSTREGDT.ciclass
+  is '用户级次';
+comment on column HRBZLS.CUSTREGDT.ciflag
+  is '末级标志';
+comment on column HRBZLS.CUSTREGDT.ciname
+  is '用户名称';
+comment on column HRBZLS.CUSTREGDT.ciname2
+  is '曾用名';
+comment on column HRBZLS.CUSTREGDT.ciadr
+  is '用户地址';
+comment on column HRBZLS.CUSTREGDT.cistatus
+  is '用户状态';
+comment on column HRBZLS.CUSTREGDT.cistatusdate
+  is '状态日期';
+comment on column HRBZLS.CUSTREGDT.cistatustrans
+  is '状态表务';
+comment on column HRBZLS.CUSTREGDT.cinewdate
+  is '立户日期';
+comment on column HRBZLS.CUSTREGDT.ciidentitylb
+  is '证件类型';
+comment on column HRBZLS.CUSTREGDT.ciidentityno
+  is '证件号码';
+comment on column HRBZLS.CUSTREGDT.cimtel
+  is '移动电话';
+comment on column HRBZLS.CUSTREGDT.citel1
+  is '固定电话1';
+comment on column HRBZLS.CUSTREGDT.citel2
+  is '固定电话2';
+comment on column HRBZLS.CUSTREGDT.citel3
+  is '固定电话3';
+comment on column HRBZLS.CUSTREGDT.ciconnectper
+  is '联系人';
+comment on column HRBZLS.CUSTREGDT.ciconnecttel
+  is '联系电话';
+comment on column HRBZLS.CUSTREGDT.ciifinv
+  is '是否普票';
+comment on column HRBZLS.CUSTREGDT.ciifsms
+  is '是否提供短信服务';
+comment on column HRBZLS.CUSTREGDT.ciifzn
+  is '是否滞纳金';
+comment on column HRBZLS.CUSTREGDT.ciprojno
+  is '工程编号';
+comment on column HRBZLS.CUSTREGDT.cifileno
+  is '档案号';
+comment on column HRBZLS.CUSTREGDT.cimemo
+  is '备注信息';
+comment on column HRBZLS.CUSTREGDT.cideptid
+  is '立户部门';
+alter table HRBZLS.CUSTREGDT
+  add constraint PK_CUSTREGDT primary key (CRDNO, CRDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

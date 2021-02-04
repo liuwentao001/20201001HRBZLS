@@ -1,0 +1,12 @@
+create global temporary table HRBZLS.REC_YCJC
+(
+  v_rlid     VARCHAR2(10),
+  v_rlje     NUMBER(13,3),
+  v_znj      NUMBER(13,3),
+  v_n        NUMBER(13,3),
+  v_nisaving NUMBER(13,3),
+  v_yc       NUMBER(13,3),
+  v_flag     VARCHAR2(2)
+)
+on commit delete rows;
+

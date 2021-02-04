@@ -1,0 +1,545 @@
+create table HRBZLS.TDETAIL
+(
+  ccdno           VARCHAR2(10) not null,
+  ccdrowno        NUMBER(6) not null,
+  ciid            VARCHAR2(10),
+  cicode          VARCHAR2(10),
+  ciconid         VARCHAR2(20),
+  cismfid         VARCHAR2(10),
+  cipid           VARCHAR2(10),
+  ciclass         NUMBER,
+  ciflag          CHAR(1),
+  ciname          VARCHAR2(64),
+  ciname2         VARCHAR2(64),
+  ciadr           VARCHAR2(64),
+  cistatus        VARCHAR2(2),
+  cistatusdate    DATE,
+  cistatustrans   CHAR(1),
+  cinewdate       DATE,
+  ciidentitylb    CHAR(1),
+  ciidentityno    VARCHAR2(60),
+  cimtel          VARCHAR2(30),
+  citel1          VARCHAR2(30),
+  citel2          VARCHAR2(30),
+  citel3          VARCHAR2(30),
+  ciconnectper    VARCHAR2(60),
+  ciconnecttel    VARCHAR2(30),
+  ciifinv         CHAR(1),
+  ciifsms         CHAR(1),
+  ciifzn          CHAR(1),
+  ciprojno        VARCHAR2(25),
+  cifileno        VARCHAR2(20),
+  cimemo          VARCHAR2(120),
+  cideptid        VARCHAR2(10),
+  micid           VARCHAR2(10),
+  miid            VARCHAR2(10),
+  miadr           VARCHAR2(64),
+  misafid         VARCHAR2(10),
+  micode          VARCHAR2(10),
+  mismfid         VARCHAR2(10),
+  miprmon         VARCHAR2(7),
+  mirmon          VARCHAR2(7),
+  mibfid          VARCHAR2(10),
+  mirorder        NUMBER,
+  mipid           VARCHAR2(10),
+  miclass         NUMBER,
+  miflag          CHAR(1),
+  mirtid          CHAR(1),
+  miifmp          CHAR(1),
+  miifsp          CHAR(1),
+  mistid          VARCHAR2(10),
+  mipfid          VARCHAR2(10),
+  mistatus        VARCHAR2(2),
+  mistatusdate    DATE,
+  mistatustrans   CHAR(1),
+  miface          VARCHAR2(2),
+  mirpid          VARCHAR2(3),
+  miside          VARCHAR2(100),
+  miposition      VARCHAR2(64),
+  miinscode       NUMBER(10),
+  miinsdate       DATE,
+  miinsper        VARCHAR2(64),
+  mireinscode     NUMBER(10),
+  mireinsdate     DATE,
+  mireinsper      VARCHAR2(64),
+  mitype          CHAR(1),
+  mircode         NUMBER(10),
+  mirecdate       DATE,
+  mirecsl         NUMBER(10),
+  miifcharge      CHAR(1),
+  miifsl          CHAR(1),
+  miifchk         CHAR(1),
+  miifwatch       CHAR(1),
+  miicno          VARCHAR2(40),
+  mimemo          VARCHAR2(120),
+  mipriid         VARCHAR2(10),
+  mipriflag       CHAR(1),
+  miusenum        NUMBER(4),
+  michargetype    CHAR(1),
+  misaving        NUMBER(13,3),
+  milb            CHAR(1),
+  minewflag       CHAR(1),
+  micper          VARCHAR2(10),
+  miiftax         CHAR(1),
+  mitaxno         VARCHAR2(20),
+  pmdcid          VARCHAR2(10),
+  pmdmid          VARCHAR2(10),
+  pmdid           NUMBER,
+  pmdpfid         VARCHAR2(10),
+  pmdscale        NUMBER(10,2),
+  mdmid           VARCHAR2(10),
+  mdno            VARCHAR2(40),
+  mdcaliber       NUMBER(10),
+  mdbrand         VARCHAR2(2),
+  mdmodel         VARCHAR2(2),
+  mdstatus        VARCHAR2(8),
+  mdstatusdate    DATE,
+  mamid           VARCHAR2(10),
+  mano            VARCHAR2(64),
+  manoname        VARCHAR2(60),
+  mabankid        VARCHAR2(20),
+  maaccountno     VARCHAR2(32),
+  maaccountname   VARCHAR2(64),
+  matsbankid      VARCHAR2(12),
+  matsbankname    VARCHAR2(64),
+  maifxezf        CHAR(1),
+  pmdid2          NUMBER,
+  pmdpfid2        VARCHAR2(10),
+  pmdscale2       NUMBER(10,2),
+  pmdid3          NUMBER,
+  pmdpfid3        VARCHAR2(10),
+  pmdscale3       NUMBER(10,2),
+  pmdid4          NUMBER,
+  pmdpfid4        VARCHAR2(10),
+  pmdscale4       NUMBER(10,2),
+  ccdshflag       CHAR(1),
+  ccdshdate       DATE,
+  ccdshper        VARCHAR2(10),
+  miifckf         CHAR(1),
+  migps           VARCHAR2(60),
+  miqfh           VARCHAR2(20),
+  mibox           VARCHAR2(10),
+  ccdappnote      VARCHAR2(400),
+  ccdfilashnote   VARCHAR2(400),
+  ccdmemo         VARCHAR2(400),
+  maregdate       DATE,
+  miname          VARCHAR2(64),
+  miname2         VARCHAR2(64),
+  accessoryflag01 CHAR(1),
+  accessoryflag02 CHAR(1),
+  accessoryflag03 CHAR(1),
+  accessoryflag04 CHAR(1),
+  accessoryflag05 CHAR(1),
+  accessoryflag06 CHAR(1),
+  accessoryflag07 CHAR(1),
+  accessoryflag08 CHAR(1),
+  accessoryflag09 CHAR(1),
+  accessoryflag10 CHAR(1),
+  accessoryflag11 CHAR(1),
+  accessoryflag12 CHAR(1),
+  mabankcode      VARCHAR2(64),
+  mabankname      VARCHAR2(64),
+  miseqno         VARCHAR2(10),
+  mijfkrow        NUMBER(10),
+  miuiid          VARCHAR2(10),
+  micommunity     VARCHAR2(10),
+  miremoteno      VARCHAR2(20),
+  miremotehubno   VARCHAR2(20),
+  miemail         VARCHAR2(64),
+  miemailflag     CHAR(1),
+  micolumn1       NUMBER(12,2),
+  micolumn2       VARCHAR2(10),
+  micolumn3       VARCHAR2(64),
+  micolumn4       DATE,
+  pmdtype         VARCHAR2(2),
+  pmdcolumn1      VARCHAR2(10),
+  pmdcolumn2      VARCHAR2(10),
+  pmdcolumn3      VARCHAR2(10),
+  pmdtype2        VARCHAR2(2),
+  pmdcolumn12     VARCHAR2(10),
+  pmdcolumn22     VARCHAR2(10),
+  pmdcolumn32     VARCHAR2(10),
+  pmdtype3        VARCHAR2(2),
+  pmdcolumn13     VARCHAR2(10),
+  pmdcolumn23     VARCHAR2(10),
+  pmdcolumn33     VARCHAR2(10),
+  pmdtype4        VARCHAR2(2),
+  pmdcolumn14     VARCHAR2(10),
+  pmdcolumn24     VARCHAR2(10),
+  pmdcolumn34     VARCHAR2(10),
+  mipaymentid     VARCHAR2(10),
+  micolumn5       NUMBER,
+  lh              VARCHAR2(120),
+  dyh             VARCHAR2(120),
+  mph             VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.TDETAIL.ccdno
+  is '单据流水号';
+comment on column HRBZLS.TDETAIL.ccdrowno
+  is '行号';
+comment on column HRBZLS.TDETAIL.ciid
+  is '用户编号';
+comment on column HRBZLS.TDETAIL.cicode
+  is '用户号';
+comment on column HRBZLS.TDETAIL.ciconid
+  is '报装合同编号';
+comment on column HRBZLS.TDETAIL.cismfid
+  is '营销公司';
+comment on column HRBZLS.TDETAIL.cipid
+  is '上级用户编号';
+comment on column HRBZLS.TDETAIL.ciclass
+  is '用户级次';
+comment on column HRBZLS.TDETAIL.ciflag
+  is '末级标志';
+comment on column HRBZLS.TDETAIL.ciname
+  is '产权名';
+comment on column HRBZLS.TDETAIL.ciname2
+  is '曾用名';
+comment on column HRBZLS.TDETAIL.ciadr
+  is '用户地址';
+comment on column HRBZLS.TDETAIL.cistatus
+  is '用户状态';
+comment on column HRBZLS.TDETAIL.cistatusdate
+  is '状态日期';
+comment on column HRBZLS.TDETAIL.cistatustrans
+  is '状态表务';
+comment on column HRBZLS.TDETAIL.cinewdate
+  is '立户日期';
+comment on column HRBZLS.TDETAIL.ciidentitylb
+  is '证件类型';
+comment on column HRBZLS.TDETAIL.ciidentityno
+  is '证件号码';
+comment on column HRBZLS.TDETAIL.cimtel
+  is '移动电话';
+comment on column HRBZLS.TDETAIL.citel1
+  is '固定电话1';
+comment on column HRBZLS.TDETAIL.citel2
+  is '固定电话2';
+comment on column HRBZLS.TDETAIL.citel3
+  is '固定电话3';
+comment on column HRBZLS.TDETAIL.ciconnectper
+  is '联系人';
+comment on column HRBZLS.TDETAIL.ciconnecttel
+  is '联系电话';
+comment on column HRBZLS.TDETAIL.ciifinv
+  is '是否普票';
+comment on column HRBZLS.TDETAIL.ciifsms
+  is '是否提供短信服务';
+comment on column HRBZLS.TDETAIL.ciifzn
+  is '是否滞纳金';
+comment on column HRBZLS.TDETAIL.ciprojno
+  is '工程编号';
+comment on column HRBZLS.TDETAIL.cifileno
+  is '档案号';
+comment on column HRBZLS.TDETAIL.cimemo
+  is '备注信息';
+comment on column HRBZLS.TDETAIL.cideptid
+  is '立户部门';
+comment on column HRBZLS.TDETAIL.micid
+  is '用户编号';
+comment on column HRBZLS.TDETAIL.miid
+  is '水表编号';
+comment on column HRBZLS.TDETAIL.miadr
+  is '表地址';
+comment on column HRBZLS.TDETAIL.misafid
+  is '区域';
+comment on column HRBZLS.TDETAIL.micode
+  is '水表手工编号';
+comment on column HRBZLS.TDETAIL.mismfid
+  is '营销公司';
+comment on column HRBZLS.TDETAIL.miprmon
+  is '上期抄表月份';
+comment on column HRBZLS.TDETAIL.mirmon
+  is '本期抄表月份';
+comment on column HRBZLS.TDETAIL.mibfid
+  is '表册';
+comment on column HRBZLS.TDETAIL.mirorder
+  is '抄表次序';
+comment on column HRBZLS.TDETAIL.mipid
+  is '上级水表编号';
+comment on column HRBZLS.TDETAIL.miclass
+  is '水表级次';
+comment on column HRBZLS.TDETAIL.miflag
+  is '末级标志';
+comment on column HRBZLS.TDETAIL.mirtid
+  is '抄表方式';
+comment on column HRBZLS.TDETAIL.miifmp
+  is '混合用水标志';
+comment on column HRBZLS.TDETAIL.miifsp
+  is '例外单价标志';
+comment on column HRBZLS.TDETAIL.mistid
+  is '行业分类';
+comment on column HRBZLS.TDETAIL.mipfid
+  is '价格分类';
+comment on column HRBZLS.TDETAIL.mistatus
+  is '状态';
+comment on column HRBZLS.TDETAIL.mistatusdate
+  is '状态日期';
+comment on column HRBZLS.TDETAIL.mistatustrans
+  is '状态表务';
+comment on column HRBZLS.TDETAIL.miface
+  is '表况';
+comment on column HRBZLS.TDETAIL.mirpid
+  is '计件类型';
+comment on column HRBZLS.TDETAIL.miside
+  is '表位';
+comment on column HRBZLS.TDETAIL.miposition
+  is '水表接水地址';
+comment on column HRBZLS.TDETAIL.miinscode
+  is '新装起度';
+comment on column HRBZLS.TDETAIL.miinsdate
+  is '装日期';
+comment on column HRBZLS.TDETAIL.miinsper
+  is '安装人';
+comment on column HRBZLS.TDETAIL.mireinscode
+  is '换表起度';
+comment on column HRBZLS.TDETAIL.mireinsdate
+  is '换表日期';
+comment on column HRBZLS.TDETAIL.mireinsper
+  is '换表人';
+comment on column HRBZLS.TDETAIL.mitype
+  is '类型';
+comment on column HRBZLS.TDETAIL.mircode
+  is '本期读数';
+comment on column HRBZLS.TDETAIL.mirecdate
+  is '本期抄见日期';
+comment on column HRBZLS.TDETAIL.mirecsl
+  is '本期抄见水量';
+comment on column HRBZLS.TDETAIL.miifcharge
+  is '是否计费';
+comment on column HRBZLS.TDETAIL.miifsl
+  is '是否计量';
+comment on column HRBZLS.TDETAIL.miifchk
+  is '垃圾费户数';
+comment on column HRBZLS.TDETAIL.miifwatch
+  is '是否节水';
+comment on column HRBZLS.TDETAIL.miicno
+  is 'IC卡号';
+comment on column HRBZLS.TDETAIL.mimemo
+  is '备注信息';
+comment on column HRBZLS.TDETAIL.mipriid
+  is '合收表主表号';
+comment on column HRBZLS.TDETAIL.mipriflag
+  is '合收表标志';
+comment on column HRBZLS.TDETAIL.miusenum
+  is '户籍人数';
+comment on column HRBZLS.TDETAIL.michargetype
+  is '收费方式';
+comment on column HRBZLS.TDETAIL.misaving
+  is '预存款余额';
+comment on column HRBZLS.TDETAIL.milb
+  is '水表类别';
+comment on column HRBZLS.TDETAIL.minewflag
+  is '新表标志';
+comment on column HRBZLS.TDETAIL.micper
+  is '收费员';
+comment on column HRBZLS.TDETAIL.miiftax
+  is '是否税票';
+comment on column HRBZLS.TDETAIL.mitaxno
+  is '增值税号（增）';
+comment on column HRBZLS.TDETAIL.pmdcid
+  is '用户编号';
+comment on column HRBZLS.TDETAIL.pmdmid
+  is '水表编号';
+comment on column HRBZLS.TDETAIL.pmdid
+  is '分组号';
+comment on column HRBZLS.TDETAIL.pmdpfid
+  is '价格类别';
+comment on column HRBZLS.TDETAIL.pmdscale
+  is '比例';
+comment on column HRBZLS.TDETAIL.mdmid
+  is '水表号';
+comment on column HRBZLS.TDETAIL.mdno
+  is '表身码';
+comment on column HRBZLS.TDETAIL.mdcaliber
+  is '表口径';
+comment on column HRBZLS.TDETAIL.mdbrand
+  is '表厂家';
+comment on column HRBZLS.TDETAIL.mdmodel
+  is '表型号';
+comment on column HRBZLS.TDETAIL.mdstatus
+  is '表状态';
+comment on column HRBZLS.TDETAIL.mdstatusdate
+  is '表状态发生时间';
+comment on column HRBZLS.TDETAIL.mamid
+  is '水表资料号';
+comment on column HRBZLS.TDETAIL.mano
+  is '委托授权号';
+comment on column HRBZLS.TDETAIL.manoname
+  is '签约户名';
+comment on column HRBZLS.TDETAIL.mabankid
+  is '开户行（代托）';
+comment on column HRBZLS.TDETAIL.maaccountno
+  is '开户帐号（代托）';
+comment on column HRBZLS.TDETAIL.maaccountname
+  is '开户名（代托）';
+comment on column HRBZLS.TDETAIL.matsbankid
+  is '接收行号（托）';
+comment on column HRBZLS.TDETAIL.matsbankname
+  is '凭证银行（托）';
+comment on column HRBZLS.TDETAIL.maifxezf
+  is '小额支付（托）';
+comment on column HRBZLS.TDETAIL.pmdid2
+  is '分组号';
+comment on column HRBZLS.TDETAIL.pmdpfid2
+  is '价格类别';
+comment on column HRBZLS.TDETAIL.pmdscale2
+  is '比例';
+comment on column HRBZLS.TDETAIL.pmdid3
+  is '分组号';
+comment on column HRBZLS.TDETAIL.pmdpfid3
+  is '价格类别';
+comment on column HRBZLS.TDETAIL.pmdscale3
+  is '比例';
+comment on column HRBZLS.TDETAIL.pmdid4
+  is '分组号';
+comment on column HRBZLS.TDETAIL.pmdpfid4
+  is '价格类别';
+comment on column HRBZLS.TDETAIL.pmdscale4
+  is '比例';
+comment on column HRBZLS.TDETAIL.ccdshflag
+  is '行审核标志';
+comment on column HRBZLS.TDETAIL.ccdshdate
+  is '行审核日期';
+comment on column HRBZLS.TDETAIL.ccdshper
+  is '行审核人';
+comment on column HRBZLS.TDETAIL.miifckf
+  is '垃圾费户数';
+comment on column HRBZLS.TDETAIL.migps
+  is 'GPS地址';
+comment on column HRBZLS.TDETAIL.miqfh
+  is '铅封号';
+comment on column HRBZLS.TDETAIL.mibox
+  is '表箱规格';
+comment on column HRBZLS.TDETAIL.ccdappnote
+  is '申请说明';
+comment on column HRBZLS.TDETAIL.ccdfilashnote
+  is '领导意见';
+comment on column HRBZLS.TDETAIL.ccdmemo
+  is '备注';
+comment on column HRBZLS.TDETAIL.maregdate
+  is '签约日期';
+comment on column HRBZLS.TDETAIL.miname
+  is '票据名称';
+comment on column HRBZLS.TDETAIL.miname2
+  is '招牌名称';
+comment on column HRBZLS.TDETAIL.accessoryflag01
+  is '原户主身份证复印件';
+comment on column HRBZLS.TDETAIL.accessoryflag02
+  is '新户主身份证复印件';
+comment on column HRBZLS.TDETAIL.accessoryflag03
+  is '代办人身份证复印件';
+comment on column HRBZLS.TDETAIL.accessoryflag04
+  is '水费担保书';
+comment on column HRBZLS.TDETAIL.accessoryflag05
+  is '赁合同复印件';
+comment on column HRBZLS.TDETAIL.accessoryflag06
+  is '房产证或购房合同复印件';
+comment on column HRBZLS.TDETAIL.accessoryflag07
+  is '企业法人营业执照（或组织机构代码证）复印件一份';
+comment on column HRBZLS.TDETAIL.accessoryflag08
+  is '其他';
+comment on column HRBZLS.TDETAIL.accessoryflag09
+  is '身份证复印件';
+comment on column HRBZLS.TDETAIL.accessoryflag10
+  is '用户申请书';
+comment on column HRBZLS.TDETAIL.accessoryflag11
+  is '附件标志11';
+comment on column HRBZLS.TDETAIL.accessoryflag12
+  is '附件标志12';
+comment on column HRBZLS.TDETAIL.mabankcode
+  is '用户行号（托）';
+comment on column HRBZLS.TDETAIL.mabankname
+  is '用户行名（托）';
+comment on column HRBZLS.TDETAIL.miseqno
+  is '户号（初始化时册号+序号）';
+comment on column HRBZLS.TDETAIL.mijfkrow
+  is '消防底度';
+comment on column HRBZLS.TDETAIL.miuiid
+  is '合收单位编号';
+comment on column HRBZLS.TDETAIL.micommunity
+  is '小区';
+comment on column HRBZLS.TDETAIL.miremoteno
+  is '远传表号';
+comment on column HRBZLS.TDETAIL.miremotehubno
+  is '远传表HUB号';
+comment on column HRBZLS.TDETAIL.miemail
+  is '电子邮件';
+comment on column HRBZLS.TDETAIL.miemailflag
+  is '发账是否发邮件';
+comment on column HRBZLS.TDETAIL.micolumn1
+  is '备用字段1';
+comment on column HRBZLS.TDETAIL.micolumn2
+  is '备用字段2';
+comment on column HRBZLS.TDETAIL.micolumn3
+  is '备用字段3';
+comment on column HRBZLS.TDETAIL.micolumn4
+  is '备用字段4';
+comment on column HRBZLS.TDETAIL.pmdtype
+  is '混合类别(01比例，02定量)';
+comment on column HRBZLS.TDETAIL.pmdcolumn1
+  is '备用字段1';
+comment on column HRBZLS.TDETAIL.pmdcolumn2
+  is '备用字段2';
+comment on column HRBZLS.TDETAIL.pmdcolumn3
+  is '备用字段3';
+comment on column HRBZLS.TDETAIL.pmdtype2
+  is '混合类别(01比例，02定量)';
+comment on column HRBZLS.TDETAIL.pmdcolumn12
+  is '备用字段1';
+comment on column HRBZLS.TDETAIL.pmdcolumn22
+  is '备用字段2';
+comment on column HRBZLS.TDETAIL.pmdcolumn32
+  is '备用字段3';
+comment on column HRBZLS.TDETAIL.pmdtype3
+  is '混合类别(01比例，02定量)';
+comment on column HRBZLS.TDETAIL.pmdcolumn13
+  is '备用字段1';
+comment on column HRBZLS.TDETAIL.pmdcolumn23
+  is '备用字段2';
+comment on column HRBZLS.TDETAIL.pmdcolumn33
+  is '备用字段3';
+comment on column HRBZLS.TDETAIL.pmdtype4
+  is '混合类别(01比例，02定量)';
+comment on column HRBZLS.TDETAIL.pmdcolumn14
+  is '备用字段1';
+comment on column HRBZLS.TDETAIL.pmdcolumn24
+  is '备用字段2';
+comment on column HRBZLS.TDETAIL.pmdcolumn34
+  is '备用字段3';
+comment on column HRBZLS.TDETAIL.mipaymentid
+  is '最近一次实收流水';
+comment on column HRBZLS.TDETAIL.micolumn5
+  is '备用字段5';
+comment on column HRBZLS.TDETAIL.lh
+  is '楼号';
+comment on column HRBZLS.TDETAIL.dyh
+  is '单元号';
+comment on column HRBZLS.TDETAIL.mph
+  is '门牌号';
+alter table HRBZLS.TDETAIL
+  add constraint PK_TDETAIL primary key (CCDNO, CCDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

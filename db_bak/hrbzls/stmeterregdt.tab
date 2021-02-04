@@ -1,0 +1,56 @@
+create table HRBZLS.STMETERREGDT
+(
+  dno        VARCHAR2(10) not null,
+  drowno     NUMBER(6) not null,
+  qfh        VARCHAR2(40),
+  storeid    VARCHAR2(10) not null,
+  miid       VARCHAR2(20),
+  caliber    NUMBER(10),
+  brand      VARCHAR2(30),
+  model      VARCHAR2(3),
+  status     VARCHAR2(2),
+  statusdate DATE,
+  cycchkdate DATE,
+  stockdate  DATE,
+  dflag      CHAR(1),
+  cgoper     VARCHAR2(10),
+  dzsbm      VARCHAR2(40),
+  bsm        VARCHAR2(40) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.STMETERREGDT.dno
+  is '单据流水号';
+comment on column HRBZLS.STMETERREGDT.drowno
+  is '行号';
+comment on column HRBZLS.STMETERREGDT.qfh
+  is '铅封号';
+comment on column HRBZLS.STMETERREGDT.storeid
+  is '仓库编号';
+comment on column HRBZLS.STMETERREGDT.miid
+  is '用户编号';
+comment on column HRBZLS.STMETERREGDT.caliber
+  is '口径';
+comment on column HRBZLS.STMETERREGDT.brand
+  is '品牌';
+comment on column HRBZLS.STMETERREGDT.model
+  is '表型号';
+comment on column HRBZLS.STMETERREGDT.status
+  is '表状态';
+comment on column HRBZLS.STMETERREGDT.statusdate
+  is '表状态发生周期';
+comment on column HRBZLS.STMETERREGDT.cycchkdate
+  is '周检起算日';
+comment on column HRBZLS.STMETERREGDT.stockdate
+  is '新购入库日期';
+comment on column HRBZLS.STMETERREGDT.dflag
+  is '审核标志';
+comment on column HRBZLS.STMETERREGDT.cgoper
+  is '采购人员';
+comment on column HRBZLS.STMETERREGDT.dzsbm
+  is '电子识别码';
+comment on column HRBZLS.STMETERREGDT.bsm
+  is '表身码';
+

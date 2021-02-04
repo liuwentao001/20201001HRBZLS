@@ -1,0 +1,22 @@
+create global temporary table HRBZLS.PAY_PARA_TMP
+(
+  mid   VARCHAR2(10) not null,
+  plids VARCHAR2(1280),
+  rlje  NUMBER(10,2),
+  rlsxf NUMBER(10,2),
+  rlznj NUMBER(10,2)
+)
+on commit delete rows;
+comment on column HRBZLS.PAY_PARA_TMP.mid
+  is '水表号';
+comment on column HRBZLS.PAY_PARA_TMP.plids
+  is '应收流水号列表';
+comment on column HRBZLS.PAY_PARA_TMP.rlje
+  is '应收总金额';
+comment on column HRBZLS.PAY_PARA_TMP.rlsxf
+  is '手续费';
+comment on column HRBZLS.PAY_PARA_TMP.rlznj
+  is '违约金';
+alter table HRBZLS.PAY_PARA_TMP
+  add constraint PK_PAY_PARA_TMP primary key (MID);
+

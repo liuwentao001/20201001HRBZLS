@@ -1,0 +1,55 @@
+create table HRBZLS.RPT_WBS_CHK_SUM
+(
+  u_month        VARCHAR2(10) not null,
+  meterno        VARCHAR2(10) not null,
+  chkmeter       VARCHAR2(10),
+  wbs            VARCHAR2(60),
+  disp_order     NUMBER(5),
+  wbs_level      NUMBER(5),
+  sid            VARCHAR2(255),
+  sum_s          NUMBER(15,2),
+  sum_child      NUMBER(15,2),
+  sum_charge     NUMBER(15,2),
+  sum_all_charge NUMBER(15,2),
+  c_charge       NUMBER(15,2),
+  c_chk          NUMBER(15,2),
+  c_all_charge   NUMBER(15,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.RPT_WBS_CHK_SUM.u_month
+  is '月份';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.meterno
+  is '水表号码';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.chkmeter
+  is '上级考核';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.wbs
+  is 'wbs';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.disp_order
+  is '显示次序';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.wbs_level
+  is '级次';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.sid
+  is 'SID';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.sum_s
+  is '本表量';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.sum_child
+  is '子表量';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.sum_charge
+  is '直接收费表量';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.sum_all_charge
+  is '所有收费表量';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.c_charge
+  is '直接收费表数';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.c_chk
+  is '考核子表数';
+comment on column HRBZLS.RPT_WBS_CHK_SUM.c_all_charge
+  is '所有收费表数';
+create unique index HRBZLS.RPT_WBS_CHK_SUM_X on HRBZLS.RPT_WBS_CHK_SUM (U_MONTH, METERNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

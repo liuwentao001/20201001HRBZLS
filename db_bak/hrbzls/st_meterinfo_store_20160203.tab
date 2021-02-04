@@ -1,0 +1,34 @@
+create table HRBZLS.ST_METERINFO_STORE_20160203
+(
+  qfh         VARCHAR2(40),
+  storeid     VARCHAR2(10) not null,
+  miid        VARCHAR2(20),
+  caliber     NUMBER(10),
+  brand       VARCHAR2(30),
+  model       VARCHAR2(3),
+  status      VARCHAR2(2),
+  statusdate  DATE,
+  cycchkdate  DATE,
+  stockdate   DATE,
+  bsm         VARCHAR2(40) not null,
+  rkbatch     VARCHAR2(20),
+  rkdno       VARCHAR2(20),
+  storeroomid VARCHAR2(10),
+  rkman       VARCHAR2(20),
+  mainman     VARCHAR2(20),
+  maindate    DATE,
+  rfid        VARCHAR2(20),
+  mainstatus  VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

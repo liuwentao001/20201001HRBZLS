@@ -1,0 +1,82 @@
+create table HRBZLS.WYJADJUSTHD
+(
+  wyhno         VARCHAR2(10) not null,
+  wyhbh         VARCHAR2(10) not null,
+  wyhlb         CHAR(1) not null,
+  wyhsource     CHAR(1) not null,
+  wyhsmfid      VARCHAR2(10) not null,
+  wyhdept       VARCHAR2(10) not null,
+  wyhcreatedate DATE not null,
+  wyhcreateper  VARCHAR2(10) not null,
+  wyhshdate     DATE,
+  wyhshper      VARCHAR2(10),
+  wyhshflag     CHAR(1) not null,
+  wyhmid        VARCHAR2(10),
+  wyhmcode      VARCHAR2(10),
+  wydpiid       CHAR(2) not null,
+  wydmethod     CHAR(1) not null,
+  wydvalue      NUMBER(12,2),
+  wydzndate     DATE,
+  wydcname      VARCHAR2(64),
+  wydmname      VARCHAR2(64),
+  wydmadr       VARCHAR2(64)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.WYJADJUSTHD
+  is '滞纳金减免单头【WYH】';
+comment on column HRBZLS.WYJADJUSTHD.wyhno
+  is '单据流水号';
+comment on column HRBZLS.WYJADJUSTHD.wyhbh
+  is '单据编号';
+comment on column HRBZLS.WYJADJUSTHD.wyhlb
+  is '单据类别';
+comment on column HRBZLS.WYJADJUSTHD.wyhsource
+  is '单据来源';
+comment on column HRBZLS.WYJADJUSTHD.wyhsmfid
+  is '营销公司';
+comment on column HRBZLS.WYJADJUSTHD.wyhdept
+  is '部门';
+comment on column HRBZLS.WYJADJUSTHD.wyhcreatedate
+  is '创建日期';
+comment on column HRBZLS.WYJADJUSTHD.wyhcreateper
+  is '创建人员';
+comment on column HRBZLS.WYJADJUSTHD.wyhshdate
+  is '审核日期';
+comment on column HRBZLS.WYJADJUSTHD.wyhshper
+  is '审核人员';
+comment on column HRBZLS.WYJADJUSTHD.wyhshflag
+  is '审核标志';
+comment on column HRBZLS.WYJADJUSTHD.wyhmid
+  is '水表编号';
+comment on column HRBZLS.WYJADJUSTHD.wyhmcode
+  is '资料号';
+comment on column HRBZLS.WYJADJUSTHD.wydpiid
+  is '减免费用项目（全部为NA）';
+comment on column HRBZLS.WYJADJUSTHD.wydmethod
+  is '减免方法（1、目标金额减免；2、比例金额减免；3、差额减免；4、调整起算日期）';
+comment on column HRBZLS.WYJADJUSTHD.wydvalue
+  is '减免金额/比例值';
+comment on column HRBZLS.WYJADJUSTHD.wydzndate
+  is '减免目标起算日';
+comment on column HRBZLS.WYJADJUSTHD.wydcname
+  is '产权名';
+comment on column HRBZLS.WYJADJUSTHD.wydmname
+  is '票据名';
+comment on column HRBZLS.WYJADJUSTHD.wydmadr
+  is '用水地址';
+create index HRBZLS.IDX_WYHMCODE on HRBZLS.WYJADJUSTHD (WYHMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.WYJADJUSTHD
+  add constraint PK_WYJADJUSTHD primary key (WYHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

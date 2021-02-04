@@ -1,0 +1,39 @@
+create table HRBZLS.FRA_SRD
+(
+  id        VARCHAR2(10) not null,
+  pbl       VARCHAR2(60),
+  dw_name_o VARCHAR2(60),
+  dw_name_n VARCHAR2(60),
+  w_name    VARCHAR2(100),
+  tab_name  VARCHAR2(100),
+  func_name VARCHAR2(60),
+  modi_time DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FRA_SRD
+  is '数据窗口srd存储';
+comment on column HRBZLS.FRA_SRD.pbl
+  is 'pbl';
+comment on column HRBZLS.FRA_SRD.dw_name_o
+  is '原数据窗口名称';
+comment on column HRBZLS.FRA_SRD.dw_name_n
+  is '新数据窗口新名(相对路径)';
+comment on column HRBZLS.FRA_SRD.w_name
+  is '相关数据名称';
+comment on column HRBZLS.FRA_SRD.tab_name
+  is '相关表名';
+comment on column HRBZLS.FRA_SRD.func_name
+  is '功能名称';
+comment on column HRBZLS.FRA_SRD.modi_time
+  is '修改时间';
+

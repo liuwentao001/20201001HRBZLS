@@ -1,0 +1,52 @@
+create table HRBZLS.ZNJPARME
+(
+  zptype  VARCHAR2(10) not null,
+  zpsmfid VARCHAR2(10) not null,
+  zpgroup NUMBER(10) not null,
+  zpvalue NUMBER(13,3),
+  zpday   NUMBER(10),
+  zpflag  VARCHAR2(1),
+  zpmemo  VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ZNJPARME
+  is '滞纳金参数表【ZP】';
+comment on column HRBZLS.ZNJPARME.zptype
+  is '滞纳金类别';
+comment on column HRBZLS.ZNJPARME.zpsmfid
+  is '营业所';
+comment on column HRBZLS.ZNJPARME.zpgroup
+  is '应收帐组';
+comment on column HRBZLS.ZNJPARME.zpvalue
+  is '滞纳金比例';
+comment on column HRBZLS.ZNJPARME.zpday
+  is '滞纳金宽限天数';
+comment on column HRBZLS.ZNJPARME.zpflag
+  is '有效标志';
+comment on column HRBZLS.ZNJPARME.zpmemo
+  is '备注';
+alter table HRBZLS.ZNJPARME
+  add constraint PK_ZNJPARME primary key (ZPTYPE, ZPSMFID, ZPGROUP)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

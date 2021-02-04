@@ -1,0 +1,50 @@
+create table HRBZLS.STCUSTHTCHANGEDT
+(
+  dno        VARCHAR2(10),
+  drowno     NUMBER(6),
+  qfh        VARCHAR2(40),
+  miid       VARCHAR2(20),
+  storeido   VARCHAR2(10),
+  storeidn   VARCHAR2(10),
+  statuso    VARCHAR2(2),
+  statusn    VARCHAR2(2),
+  statusdate DATE,
+  cycchkdate DATE,
+  stockdate  DATE,
+  dflag      CHAR(1),
+  ifsubmit   CHAR(1),
+  cgoper     VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.STCUSTHTCHANGEDT.dno
+  is '单据号';
+comment on column HRBZLS.STCUSTHTCHANGEDT.drowno
+  is '行号';
+comment on column HRBZLS.STCUSTHTCHANGEDT.qfh
+  is '合同编号';
+comment on column HRBZLS.STCUSTHTCHANGEDT.miid
+  is '用户编号';
+comment on column HRBZLS.STCUSTHTCHANGEDT.storeido
+  is '仓库编号';
+comment on column HRBZLS.STCUSTHTCHANGEDT.storeidn
+  is '新仓库编号';
+comment on column HRBZLS.STCUSTHTCHANGEDT.statuso
+  is '合同状态';
+comment on column HRBZLS.STCUSTHTCHANGEDT.statusn
+  is '新合同状态';
+comment on column HRBZLS.STCUSTHTCHANGEDT.statusdate
+  is '合同状态发生周期';
+comment on column HRBZLS.STCUSTHTCHANGEDT.cycchkdate
+  is '合同起算日';
+comment on column HRBZLS.STCUSTHTCHANGEDT.stockdate
+  is '新购合同入库日期';
+comment on column HRBZLS.STCUSTHTCHANGEDT.dflag
+  is '审核标志';
+comment on column HRBZLS.STCUSTHTCHANGEDT.ifsubmit
+  is '是否提交';
+comment on column HRBZLS.STCUSTHTCHANGEDT.cgoper
+  is '合同领用人员';
+

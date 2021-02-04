@@ -1,0 +1,62 @@
+create table HRBZLS.DYNDWPRINT
+(
+  dydpid       NUMBER(10) not null,
+  dydpdwname   VARCHAR2(60) not null,
+  dydptitle    VARCHAR2(120),
+  dydpheight   NUMBER(5,1),
+  dydpwidth    NUMBER(5,1),
+  dydplastpage INTEGER,
+  dydpcolumns  INTEGER,
+  dydpdwblod   BLOB,
+  marginleft   NUMBER(4,1),
+  marginright  NUMBER(4,1),
+  margintop    NUMBER(4,1),
+  marginbottom NUMBER(4,1),
+  dydfalg      VARCHAR2(1) default 'Y',
+  dydptype     VARCHAR2(10),
+  dydpflag     VARCHAR2(1) default 'Y'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.DYNDWPRINT
+  is '自定义数据窗口[DYDP]';
+comment on column HRBZLS.DYNDWPRINT.dydpid
+  is '编号';
+comment on column HRBZLS.DYNDWPRINT.dydpdwname
+  is '数据窗口名';
+comment on column HRBZLS.DYNDWPRINT.dydptitle
+  is '标题名称';
+comment on column HRBZLS.DYNDWPRINT.dydpheight
+  is '纸张高度mm';
+comment on column HRBZLS.DYNDWPRINT.dydpwidth
+  is '纸张宽度mm';
+comment on column HRBZLS.DYNDWPRINT.dydplastpage
+  is '末页走纸1/0';
+comment on column HRBZLS.DYNDWPRINT.dydpcolumns
+  is '分栏数';
+comment on column HRBZLS.DYNDWPRINT.dydpdwblod
+  is '数据窗口格式文件';
+comment on column HRBZLS.DYNDWPRINT.marginleft
+  is '左边距mm';
+comment on column HRBZLS.DYNDWPRINT.marginright
+  is '右边距mm';
+comment on column HRBZLS.DYNDWPRINT.margintop
+  is '上边距mm';
+comment on column HRBZLS.DYNDWPRINT.marginbottom
+  is '上边距mm';
+comment on column HRBZLS.DYNDWPRINT.dydfalg
+  is '是否启用页面设置';
+comment on column HRBZLS.DYNDWPRINT.dydptype
+  is '模板类别';
+comment on column HRBZLS.DYNDWPRINT.dydpflag
+  is '是否有效';
+alter table HRBZLS.DYNDWPRINT
+  add constraint AK_PK_DYNDWPRINT_DYNDWPRI unique (DYDPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

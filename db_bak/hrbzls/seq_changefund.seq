@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_CHANGEFUND
+minvalue 1
+maxvalue 99999999999999999999
+start with 3754
+increment by 1
+cache 50
+order;
+

@@ -1,0 +1,127 @@
+create table HRBZLS.METERDOC
+(
+  mdmid        VARCHAR2(10),
+  mdid         VARCHAR2(10) not null,
+  mdno         VARCHAR2(40),
+  mdcaliber    NUMBER(10),
+  mdbrand      VARCHAR2(2),
+  mdmodel      VARCHAR2(2),
+  mdstatus     VARCHAR2(2),
+  mdstatusdate DATE,
+  mdcycchkdate DATE,
+  mdstockdate  DATE,
+  mdstore      VARCHAR2(10),
+  sfh          VARCHAR2(40),
+  dqsfh        VARCHAR2(40),
+  dqgfh        VARCHAR2(40),
+  jcgfh        VARCHAR2(40),
+  qfh          VARCHAR2(40),
+  qfqh         VARCHAR2(40),
+  dqsfqh       VARCHAR2(40),
+  lfh          VARCHAR2(40),
+  lfqh         VARCHAR2(40),
+  jcgfqh       VARCHAR2(40),
+  barcode      VARCHAR2(20),
+  rfid         VARCHAR2(20),
+  ifdzsb       VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERDOC
+  is '水表档案[MDC]';
+comment on column HRBZLS.METERDOC.mdmid
+  is '资料号';
+comment on column HRBZLS.METERDOC.mdid
+  is '水表档案编号';
+comment on column HRBZLS.METERDOC.mdno
+  is '表身码';
+comment on column HRBZLS.METERDOC.mdcaliber
+  is '表口径(METERCALIBER)，表耗';
+comment on column HRBZLS.METERDOC.mdbrand
+  is '表厂家(meterbrand)';
+comment on column HRBZLS.METERDOC.mdmodel
+  is '表型号(metermodel)';
+comment on column HRBZLS.METERDOC.mdstatus
+  is '表状态';
+comment on column HRBZLS.METERDOC.mdstatusdate
+  is '表状态发生时间';
+comment on column HRBZLS.METERDOC.mdcycchkdate
+  is '周检起算日';
+comment on column HRBZLS.METERDOC.mdstockdate
+  is '新购入库日期';
+comment on column HRBZLS.METERDOC.mdstore
+  is '库存位置';
+comment on column HRBZLS.METERDOC.sfh
+  is '首封号（暂不填）';
+comment on column HRBZLS.METERDOC.dqsfh
+  is '地区塑封号（对应S_NO）';
+comment on column HRBZLS.METERDOC.dqgfh
+  is '地区钢封号（对应G_NO）';
+comment on column HRBZLS.METERDOC.jcgfh
+  is '稽查刚封号（对应C_NO）';
+comment on column HRBZLS.METERDOC.qfh
+  is '铅封号（对应Q_NO）';
+comment on column HRBZLS.METERDOC.qfqh
+  is '铅封钳号（对应Q_PIN_NO）';
+comment on column HRBZLS.METERDOC.dqsfqh
+  is '塑封钳号（对应S_PIN_NO）';
+comment on column HRBZLS.METERDOC.lfh
+  is '锁封号（对应L_NO）';
+comment on column HRBZLS.METERDOC.lfqh
+  is '锁封钳号（对应L_PIN_NO）';
+comment on column HRBZLS.METERDOC.jcgfqh
+  is '稽查封钳号（对应C_PIN_NO）';
+comment on column HRBZLS.METERDOC.barcode
+  is '条形码（迁移水账标识号CLT_NO）';
+comment on column HRBZLS.METERDOC.rfid
+  is '电子标签';
+comment on column HRBZLS.METERDOC.ifdzsb
+  is '是否倒表（倒表=Y 正常表=''N''）';
+create unique index HRBZLS.IDX_MDMID on HRBZLS.METERDOC (MDMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MDNO on HRBZLS.METERDOC (MDNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERDOC
+  add constraint PK_METERDOC primary key (MDID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

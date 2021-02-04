@@ -1,0 +1,65 @@
+create table HRBZLS.DISTRICTINFO
+(
+  diid     VARCHAR2(10) not null,
+  diname   VARCHAR2(100) not null,
+  dicreper VARCHAR2(15),
+  didate   DATE,
+  dijm     VARCHAR2(20) not null,
+  dimemo   VARCHAR2(264),
+  dimfid   VARCHAR2(20),
+  distmid  VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.DISTRICTINFO.diid
+  is '小区编号';
+comment on column HRBZLS.DISTRICTINFO.diname
+  is '小区名称';
+comment on column HRBZLS.DISTRICTINFO.dicreper
+  is '创建人';
+comment on column HRBZLS.DISTRICTINFO.didate
+  is '创建时间';
+comment on column HRBZLS.DISTRICTINFO.dijm
+  is '拼音简码';
+comment on column HRBZLS.DISTRICTINFO.dimemo
+  is '备注';
+comment on column HRBZLS.DISTRICTINFO.dimfid
+  is '营业所';
+comment on column HRBZLS.DISTRICTINFO.distmid
+  is '街道ID（关联STREETMANAGE.STMID）';
+create index HRBZLS.IDX_DISTRICTINFO_01 on HRBZLS.DISTRICTINFO (DISTMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.DISTRICTINFO
+  add constraint PK_DISTRICTINFO primary key (DIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

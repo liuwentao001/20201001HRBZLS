@@ -1,0 +1,169 @@
+create table HRBZLS.LSYSXXGLDT
+(
+  cmrdno        VARCHAR2(10) not null,
+  cmrdrowno     NUMBER(6) not null,
+  lsjjid        VARCHAR2(16),
+  lssqdw        VARCHAR2(64),
+  llsqsj        DATE,
+  lsjbr         VARCHAR2(10),
+  lsphone       VARCHAR2(20),
+  lsstructure   VARCHAR2(16),
+  lsstruarea    NUMBER(12,2),
+  houseunitnum  NUMBER(3),
+  floor         NUMBER(3),
+  lszhs         NUMBER(5),
+  lsconstrdate  DATE,
+  usewater      NUMBER(4),
+  waternumber   NUMBER(8),
+  approsdate    DATE,
+  approedate    DATE,
+  dealpeople    VARCHAR2(10),
+  dealdate      DATE,
+  lsxmname      VARCHAR2(64),
+  lsplace       VARCHAR2(128),
+  lsunits       VARCHAR2(32),
+  plannumber    NUMBER(12,2),
+  lstotalarea   NUMBER(12,2),
+  networkstreet VARCHAR2(32),
+  networkbore   NUMBER(4),
+  lsinbore      NUMBER(4),
+  lsinnumbers   NUMBER(5),
+  cardid        VARCHAR2(20),
+  zspzr         VARCHAR2(10),
+  pzdate        DATE,
+  stdate        DATE,
+  eddate        DATE,
+  ksaddr        VARCHAR2(60),
+  lspzid        VARCHAR2(10),
+  jfxyid        VARCHAR2(10),
+  jfqddate      DATE,
+  approver      VARCHAR2(10),
+  qcpel         VARCHAR2(10),
+  qcdate        DATE,
+  gjlen         NUMBER(4),
+  gdlen         NUMBER(4),
+  planner       VARCHAR2(10),
+  gpdate        DATE,
+  lsdj          NUMBER(12,2),
+  normal        NUMBER(12,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.LSYSXXGLDT
+  is '临时用水信息管理单体';
+comment on column HRBZLS.LSYSXXGLDT.cmrdno
+  is '单据流水号';
+comment on column HRBZLS.LSYSXXGLDT.cmrdrowno
+  is '行号';
+comment on column HRBZLS.LSYSXXGLDT.lsjjid
+  is '基建编号';
+comment on column HRBZLS.LSYSXXGLDT.lssqdw
+  is '申请单位';
+comment on column HRBZLS.LSYSXXGLDT.llsqsj
+  is '申请时间';
+comment on column HRBZLS.LSYSXXGLDT.lsjbr
+  is '经办人';
+comment on column HRBZLS.LSYSXXGLDT.lsphone
+  is '电话';
+comment on column HRBZLS.LSYSXXGLDT.lsstructure
+  is '楼房结构';
+comment on column HRBZLS.LSYSXXGLDT.lsstruarea
+  is '建筑面积';
+comment on column HRBZLS.LSYSXXGLDT.houseunitnum
+  is '栋数，单元';
+comment on column HRBZLS.LSYSXXGLDT.floor
+  is '层';
+comment on column HRBZLS.LSYSXXGLDT.lszhs
+  is '总户数';
+comment on column HRBZLS.LSYSXXGLDT.lsconstrdate
+  is '施工日期';
+comment on column HRBZLS.LSYSXXGLDT.usewater
+  is '施工用水';
+comment on column HRBZLS.LSYSXXGLDT.waternumber
+  is '用水点个数';
+comment on column HRBZLS.LSYSXXGLDT.approsdate
+  is '起始批准日期';
+comment on column HRBZLS.LSYSXXGLDT.approedate
+  is '截止批准日期';
+comment on column HRBZLS.LSYSXXGLDT.dealpeople
+  is '客服中心经办人';
+comment on column HRBZLS.LSYSXXGLDT.dealdate
+  is '客服中心经办日期';
+comment on column HRBZLS.LSYSXXGLDT.lsxmname
+  is '项目名称';
+comment on column HRBZLS.LSYSXXGLDT.lsplace
+  is '建设地点';
+comment on column HRBZLS.LSYSXXGLDT.lsunits
+  is '建设单位';
+comment on column HRBZLS.LSYSXXGLDT.plannumber
+  is '规划许可证编号';
+comment on column HRBZLS.LSYSXXGLDT.lstotalarea
+  is '总建筑面积';
+comment on column HRBZLS.LSYSXXGLDT.networkstreet
+  is '市政管网街道';
+comment on column HRBZLS.LSYSXXGLDT.networkbore
+  is '市政管网管径';
+comment on column HRBZLS.LSYSXXGLDT.lsinbore
+  is '临时用水接入管径';
+comment on column HRBZLS.LSYSXXGLDT.lsinnumbers
+  is '临时用水接入数量';
+comment on column HRBZLS.LSYSXXGLDT.cardid
+  is '卡片图号';
+comment on column HRBZLS.LSYSXXGLDT.zspzr
+  is '正式批准人';
+comment on column HRBZLS.LSYSXXGLDT.pzdate
+  is '批准日期';
+comment on column HRBZLS.LSYSXXGLDT.stdate
+  is '开始日期';
+comment on column HRBZLS.LSYSXXGLDT.eddate
+  is '结束日期';
+comment on column HRBZLS.LSYSXXGLDT.ksaddr
+  is '规划许可证编号1';
+comment on column HRBZLS.LSYSXXGLDT.lspzid
+  is '临时用水批准编号';
+comment on column HRBZLS.LSYSXXGLDT.jfxyid
+  is '缴费协议编号';
+comment on column HRBZLS.LSYSXXGLDT.jfqddate
+  is '缴费协议签订日期';
+comment on column HRBZLS.LSYSXXGLDT.approver
+  is '批准人';
+comment on column HRBZLS.LSYSXXGLDT.qcpel
+  is '质检人';
+comment on column HRBZLS.LSYSXXGLDT.qcdate
+  is '质检日期';
+comment on column HRBZLS.LSYSXXGLDT.gjlen
+  is '管径长度';
+comment on column HRBZLS.LSYSXXGLDT.gdlen
+  is '管道长度';
+comment on column HRBZLS.LSYSXXGLDT.planner
+  is '规划审批人';
+comment on column HRBZLS.LSYSXXGLDT.gpdate
+  is '管线规划日期';
+comment on column HRBZLS.LSYSXXGLDT.lsdj
+  is '单价';
+comment on column HRBZLS.LSYSXXGLDT.normal
+  is '标准';
+alter table HRBZLS.LSYSXXGLDT
+  add constraint PK_LSYSXXGLDT primary key (CMRDNO, CMRDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

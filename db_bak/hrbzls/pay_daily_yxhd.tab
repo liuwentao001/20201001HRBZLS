@@ -1,0 +1,47 @@
+create table HRBZLS.PAY_DAILY_YXHD
+(
+  pddid VARCHAR2(20),
+  pdhid VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PAY_DAILY_YXHD
+  is '财务对账中间表';
+comment on column HRBZLS.PAY_DAILY_YXHD.pddid
+  is '营销单号';
+comment on column HRBZLS.PAY_DAILY_YXHD.pdhid
+  is '财务单号';
+create index HRBZLS.IDX_YXHD_PDDID on HRBZLS.PAY_DAILY_YXHD (PDDID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_YXHD_PDHID on HRBZLS.PAY_DAILY_YXHD (PDHID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

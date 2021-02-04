@@ -1,0 +1,41 @@
+create table HRBZLS.OS_PROPERTYENTRY
+(
+  global_key   VARCHAR2(255) not null,
+  item_key     VARCHAR2(255) not null,
+  item_type    NUMBER,
+  string_value VARCHAR2(255),
+  date_value   DATE,
+  data_value   BLOB,
+  float_value  FLOAT,
+  number_value NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OS_PROPERTYENTRY
+  is '流程属性';
+comment on column HRBZLS.OS_PROPERTYENTRY.global_key
+  is '全局变量名';
+comment on column HRBZLS.OS_PROPERTYENTRY.item_key
+  is '局部变量名';
+comment on column HRBZLS.OS_PROPERTYENTRY.item_type
+  is '数据值类型';
+comment on column HRBZLS.OS_PROPERTYENTRY.string_value
+  is '字符值';
+comment on column HRBZLS.OS_PROPERTYENTRY.date_value
+  is '日期值';
+comment on column HRBZLS.OS_PROPERTYENTRY.data_value
+  is '大数据值';
+comment on column HRBZLS.OS_PROPERTYENTRY.float_value
+  is '浮点值';
+comment on column HRBZLS.OS_PROPERTYENTRY.number_value
+  is '数字值';
+alter table HRBZLS.OS_PROPERTYENTRY
+  add primary key (GLOBAL_KEY, ITEM_KEY)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION HRBZLS."FGETERRORID"
+  RETURN VARCHAR2
+AS
+  lid    VARCHAR2(8);
+BEGIN
+   SELECT TRIM(TO_CHAR(seq_errorid.NEXTVAL,'00000000'))
+      INTO lid
+     FROM dual;
+   Return lid;
+END;
+/
+

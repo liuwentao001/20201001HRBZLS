@@ -1,0 +1,79 @@
+create table HRBZLS.FILEIMP
+(
+  fimpid             VARCHAR2(10) not null,
+  fimptype           VARCHAR2(2),
+  fimpname           VARCHAR2(64),
+  fimpdwname         VARCHAR2(40),
+  fimpftype          VARCHAR2(10),
+  fimpframe          VARCHAR2(4000),
+  fimpchkspname      VARCHAR2(40),
+  fimpupdatespname   VARCHAR2(40),
+  fimpsavefspname    VARCHAR2(40),
+  fimprollbackspname VARCHAR2(40),
+  fimpsave           CHAR(1),
+  fimpfpath          VARCHAR2(200),
+  fimpfname          VARCHAR2(64),
+  fimpproperty1      VARCHAR2(4000),
+  fimpproperty2      VARCHAR2(4000),
+  fimpproperty3      VARCHAR2(4000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.FILEIMP
+  is '文件导入功能清单[FIMP]';
+comment on column HRBZLS.FILEIMP.fimpid
+  is '流水';
+comment on column HRBZLS.FILEIMP.fimptype
+  is '类型';
+comment on column HRBZLS.FILEIMP.fimpname
+  is '名称';
+comment on column HRBZLS.FILEIMP.fimpdwname
+  is '导入数据窗口名';
+comment on column HRBZLS.FILEIMP.fimpftype
+  is '导入文件类型';
+comment on column HRBZLS.FILEIMP.fimpframe
+  is '文件导入格式';
+comment on column HRBZLS.FILEIMP.fimpchkspname
+  is '检查过程名';
+comment on column HRBZLS.FILEIMP.fimpupdatespname
+  is '导入过程名';
+comment on column HRBZLS.FILEIMP.fimpsavefspname
+  is '文档保存过程名';
+comment on column HRBZLS.FILEIMP.fimprollbackspname
+  is '撤销过程名';
+comment on column HRBZLS.FILEIMP.fimpsave
+  is '是否保存文档到数据库';
+comment on column HRBZLS.FILEIMP.fimpfpath
+  is '文档存放路径';
+comment on column HRBZLS.FILEIMP.fimpfname
+  is '文档存放名';
+comment on column HRBZLS.FILEIMP.fimpproperty1
+  is '属性1';
+comment on column HRBZLS.FILEIMP.fimpproperty2
+  is '属性2';
+comment on column HRBZLS.FILEIMP.fimpproperty3
+  is '属性3';
+alter table HRBZLS.FILEIMP
+  add constraint PK_FILEIMP primary key (FIMPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

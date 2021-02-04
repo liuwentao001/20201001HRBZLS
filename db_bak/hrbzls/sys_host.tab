@@ -1,0 +1,45 @@
+create table HRBZLS.SYS_HOST
+(
+  ip         VARCHAR2(24) not null,
+  login_user VARCHAR2(100),
+  host_name  VARCHAR2(100),
+  log_date   DATE,
+  ip1        VARCHAR2(24),
+  os_user    VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.SYS_HOST.ip
+  is 'SID';
+comment on column HRBZLS.SYS_HOST.login_user
+  is '登入用户名';
+comment on column HRBZLS.SYS_HOST.host_name
+  is '主机名';
+comment on column HRBZLS.SYS_HOST.log_date
+  is '登入时间';
+comment on column HRBZLS.SYS_HOST.ip1
+  is 'IP地址';
+comment on column HRBZLS.SYS_HOST.os_user
+  is 'OS_USER';
+create unique index HRBZLS.SYS_HOST_X on HRBZLS.SYS_HOST (IP)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

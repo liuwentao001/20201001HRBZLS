@@ -1,0 +1,65 @@
+create table HRBZLS.METERTGLHD
+(
+  mthno      VARCHAR2(10) not null,
+  mthbh      VARCHAR2(10) not null,
+  mthlb      CHAR(2),
+  mthsource  CHAR(1),
+  mthsmfid   VARCHAR2(10),
+  mthdept    VARCHAR2(10),
+  mthcredate DATE not null,
+  mthcreper  VARCHAR2(10) not null,
+  mthshflag  CHAR(1) not null,
+  mthshdate  DATE,
+  mthshper   VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERTGLHD
+  is '推估量维护单头【MTH】';
+comment on column HRBZLS.METERTGLHD.mthno
+  is '单据流水号';
+comment on column HRBZLS.METERTGLHD.mthbh
+  is '单据编号';
+comment on column HRBZLS.METERTGLHD.mthlb
+  is '单据类别';
+comment on column HRBZLS.METERTGLHD.mthsource
+  is '单据来源';
+comment on column HRBZLS.METERTGLHD.mthsmfid
+  is '营销公司';
+comment on column HRBZLS.METERTGLHD.mthdept
+  is '受理部门';
+comment on column HRBZLS.METERTGLHD.mthcredate
+  is '受理日期';
+comment on column HRBZLS.METERTGLHD.mthcreper
+  is '受理人员';
+comment on column HRBZLS.METERTGLHD.mthshflag
+  is '审核标志';
+comment on column HRBZLS.METERTGLHD.mthshdate
+  is '审核日期';
+comment on column HRBZLS.METERTGLHD.mthshper
+  is '审核人员';
+create index HRBZLS.IDX_METERTGLHD_01 on HRBZLS.METERTGLHD (MTHBH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_METERTGLHD_02 on HRBZLS.METERTGLHD (MTHNO, MTHLB)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_METERTGLHD_03 on HRBZLS.METERTGLHD (MTHBH, MTHLB)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.METERTGLHD
+  add constraint PK_METERTGLHD primary key (MTHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

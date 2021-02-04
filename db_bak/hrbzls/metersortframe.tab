@@ -1,0 +1,52 @@
+create table HRBZLS.METERSORTFRAME
+(
+  msfid     VARCHAR2(10) not null,
+  msfname   VARCHAR2(20) not null,
+  msfpid    VARCHAR2(10),
+  msfclass  NUMBER not null,
+  msfflag   CHAR(1) not null,
+  msfstatus CHAR(1) not null,
+  msfmemo   VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERSORTFRAME
+  is '水表分类架构【MSF】';
+comment on column HRBZLS.METERSORTFRAME.msfid
+  is '编码';
+comment on column HRBZLS.METERSORTFRAME.msfname
+  is '名称';
+comment on column HRBZLS.METERSORTFRAME.msfpid
+  is '上级编码';
+comment on column HRBZLS.METERSORTFRAME.msfclass
+  is '级次';
+comment on column HRBZLS.METERSORTFRAME.msfflag
+  is '末级标志';
+comment on column HRBZLS.METERSORTFRAME.msfstatus
+  is '状态';
+comment on column HRBZLS.METERSORTFRAME.msfmemo
+  is '备注';
+alter table HRBZLS.METERSORTFRAME
+  add constraint PK_METERFRAME primary key (MSFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

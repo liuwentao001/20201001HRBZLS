@@ -1,0 +1,74 @@
+create global temporary table HRBZLS.FCRECDETAIL
+(
+  fcrdid       VARCHAR2(10),
+  fcrdpmdid    NUMBER,
+  fcrdpiid     CHAR(2),
+  fcrdpfid     VARCHAR2(10),
+  fcrdpscid    NUMBER,
+  fcrdclass    NUMBER,
+  fcrddj       NUMBER(13,3),
+  fcrdsl       NUMBER(12,2),
+  fcrdje       NUMBER(13,3),
+  fcrddj1      NUMBER(13,3),
+  fcrdsl1      NUMBER(12,2),
+  fcrdje1      NUMBER(13,3),
+  fcrddj2      NUMBER(13,3),
+  fcrdsl2      NUMBER(12,2),
+  fcrdje2      NUMBER(13,3),
+  fcrdmethod   CHAR(3),
+  fcrdpmdscale NUMBER(12,2),
+  fcrdilid     VARCHAR2(20)
+)
+on commit delete rows;
+comment on table HRBZLS.FCRECDETAIL
+  is '分析应收明细表[FCRD]';
+comment on column HRBZLS.FCRECDETAIL.fcrdid
+  is '流水号';
+comment on column HRBZLS.FCRECDETAIL.fcrdpmdid
+  is '混合用水分组
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdpiid
+  is '费用项目
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdpfid
+  is '费率
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdpscid
+  is '费率明细方案
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdclass
+  is '阶梯级别';
+comment on column HRBZLS.FCRECDETAIL.fcrddj
+  is '实收单价
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdsl
+  is '实收水量
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdje
+  is '实收金额
+';
+comment on column HRBZLS.FCRECDETAIL.fcrddj1
+  is '实收单价1
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdsl1
+  is '实收水量1
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdje1
+  is '实收金额1
+';
+comment on column HRBZLS.FCRECDETAIL.fcrddj2
+  is '实收单价2
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdsl2
+  is '实收水量2
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdje2
+  is '实收金额2
+';
+comment on column HRBZLS.FCRECDETAIL.fcrdmethod
+  is '计费方法';
+comment on column HRBZLS.FCRECDETAIL.fcrdpmdscale
+  is '混合比例';
+comment on column HRBZLS.FCRECDETAIL.fcrdilid
+  is '票据流水';
+

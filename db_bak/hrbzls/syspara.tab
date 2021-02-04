@@ -1,0 +1,55 @@
+create table HRBZLS.SYSPARA
+(
+  spid         CHAR(4) not null,
+  sptitle      VARCHAR2(80) not null,
+  spisvisible  CHAR(1) default 'Y',
+  spisedit     CHAR(1) default 'Y',
+  spdatatype   VARCHAR2(16) default 'CHAR',
+  spvalue      VARCHAR2(2000),
+  spblob       BLOB,
+  spreferrence VARCHAR2(80)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSPARA
+  is '全局系统参数表';
+comment on column HRBZLS.SYSPARA.spid
+  is '参数代码';
+comment on column HRBZLS.SYSPARA.sptitle
+  is '参数内容描述';
+comment on column HRBZLS.SYSPARA.spisvisible
+  is '是否显示';
+comment on column HRBZLS.SYSPARA.spisedit
+  is '参数内容是否允许修改';
+comment on column HRBZLS.SYSPARA.spdatatype
+  is '数据类型';
+comment on column HRBZLS.SYSPARA.spvalue
+  is '参数值';
+comment on column HRBZLS.SYSPARA.spblob
+  is '参数值';
+comment on column HRBZLS.SYSPARA.spreferrence
+  is '参数参考值';
+alter table HRBZLS.SYSPARA
+  add constraint PK_SYSPARA primary key (SPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_ETLPZNO
+minvalue 401
+maxvalue 999999
+start with 4668
+increment by 1
+cache 50
+order;
+

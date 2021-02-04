@@ -1,0 +1,97 @@
+create table HRBZLS.BILLMAIN
+(
+  bmid         CHAR(3) not null,
+  bmstatus     CHAR(1),
+  bmname       VARCHAR2(40),
+  bmtype       VARCHAR2(10) not null,
+  bmstru       NUMBER,
+  bmseq        NUMBER,
+  bmuserobject VARCHAR2(40),
+  bmdwpkey     VARCHAR2(40),
+  bmlistdw     VARCHAR2(40),
+  bmdwhd       VARCHAR2(40),
+  bmdwdt       VARCHAR2(40),
+  bmdwex       VARCHAR2(40),
+  bmdwdt2      VARCHAR2(40),
+  bmdwex2      VARCHAR2(40),
+  bmdwdtft     VARCHAR2(40),
+  bmbmp        BLOB,
+  bmbmpname    VARCHAR2(100),
+  bmmemo       VARCHAR2(40),
+  bmflag1      VARCHAR2(2000),
+  bmflag2      VARCHAR2(2000),
+  bmflag3      VARCHAR2(2000),
+  bmflag4      VARCHAR2(2000),
+  bmflag5      VARCHAR2(2000),
+  bmflag6      VARCHAR2(2000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLMAIN
+  is '[BILL]单据管理的主体信息';
+comment on column HRBZLS.BILLMAIN.bmid
+  is '代码';
+comment on column HRBZLS.BILLMAIN.bmstatus
+  is '状态';
+comment on column HRBZLS.BILLMAIN.bmname
+  is '名称';
+comment on column HRBZLS.BILLMAIN.bmtype
+  is '类型';
+comment on column HRBZLS.BILLMAIN.bmstru
+  is '单据结构';
+comment on column HRBZLS.BILLMAIN.bmseq
+  is '单据流水号';
+comment on column HRBZLS.BILLMAIN.bmuserobject
+  is '单据对象';
+comment on column HRBZLS.BILLMAIN.bmdwpkey
+  is '单据主键';
+comment on column HRBZLS.BILLMAIN.bmlistdw
+  is '列表数据对象';
+comment on column HRBZLS.BILLMAIN.bmdwhd
+  is '单头';
+comment on column HRBZLS.BILLMAIN.bmdwdt
+  is 'grid单体';
+comment on column HRBZLS.BILLMAIN.bmdwex
+  is 'free单体';
+comment on column HRBZLS.BILLMAIN.bmbmp
+  is '单据背景图片';
+comment on column HRBZLS.BILLMAIN.bmbmpname
+  is '单据背景图片名';
+comment on column HRBZLS.BILLMAIN.bmmemo
+  is '备注';
+comment on column HRBZLS.BILLMAIN.bmflag1
+  is '属性1';
+comment on column HRBZLS.BILLMAIN.bmflag2
+  is '流程定义，对应flow_define';
+comment on column HRBZLS.BILLMAIN.bmflag3
+  is '属性3';
+comment on column HRBZLS.BILLMAIN.bmflag4
+  is '属性4';
+comment on column HRBZLS.BILLMAIN.bmflag5
+  is '属性5';
+comment on column HRBZLS.BILLMAIN.bmflag6
+  is '属性6';
+alter table HRBZLS.BILLMAIN
+  add constraint PK_BILLMAIN primary key (BMID, BMTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

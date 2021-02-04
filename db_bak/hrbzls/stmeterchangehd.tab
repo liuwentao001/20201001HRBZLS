@@ -1,0 +1,43 @@
+create table HRBZLS.STMETERCHANGEHD
+(
+  hno     VARCHAR2(10),
+  hbh     VARCHAR2(10),
+  hlb     VARCHAR2(2),
+  hsource CHAR(1),
+  hsmfid  VARCHAR2(10),
+  hdept   VARCHAR2(10),
+  hedate  DATE,
+  heper   VARCHAR2(10),
+  hshdate DATE,
+  hshper  VARCHAR2(10),
+  hshflag CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.STMETERCHANGEHD
+  is '立户单头【H】';
+comment on column HRBZLS.STMETERCHANGEHD.hno
+  is '单据流水号';
+comment on column HRBZLS.STMETERCHANGEHD.hbh
+  is '单据编号';
+comment on column HRBZLS.STMETERCHANGEHD.hlb
+  is '单据类别';
+comment on column HRBZLS.STMETERCHANGEHD.hsource
+  is '单据来源';
+comment on column HRBZLS.STMETERCHANGEHD.hsmfid
+  is '营销公司';
+comment on column HRBZLS.STMETERCHANGEHD.hdept
+  is '创建部门';
+comment on column HRBZLS.STMETERCHANGEHD.hedate
+  is '创建日期';
+comment on column HRBZLS.STMETERCHANGEHD.heper
+  is '创建人员';
+comment on column HRBZLS.STMETERCHANGEHD.hshdate
+  is '审核日期';
+comment on column HRBZLS.STMETERCHANGEHD.hshper
+  is '审核人员';
+comment on column HRBZLS.STMETERCHANGEHD.hshflag
+  is '审核标志';
+

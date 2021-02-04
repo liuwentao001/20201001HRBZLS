@@ -1,0 +1,76 @@
+create table HRBZLS.PRICEFRAME_VER
+(
+  pfid      VARCHAR2(10) not null,
+  pfname    VARCHAR2(60) not null,
+  pfpid     VARCHAR2(10),
+  pfclass   NUMBER not null,
+  pfflag    CHAR(1) not null,
+  pfstatus  CHAR(1) not null,
+  pfhandles NUMBER,
+  pfprice   NUMBER(12,3),
+  pfmemo    VARCHAR2(60),
+  pfsmfid   VARCHAR2(10),
+  verid     NUMBER not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEFRAME_VER
+  is '归档费率结构信息【PF】';
+comment on column HRBZLS.PRICEFRAME_VER.pfid
+  is '编码';
+comment on column HRBZLS.PRICEFRAME_VER.pfname
+  is '名称';
+comment on column HRBZLS.PRICEFRAME_VER.pfpid
+  is '上级编码';
+comment on column HRBZLS.PRICEFRAME_VER.pfclass
+  is '级次';
+comment on column HRBZLS.PRICEFRAME_VER.pfflag
+  is '末级标志';
+comment on column HRBZLS.PRICEFRAME_VER.pfstatus
+  is '有效状态';
+comment on column HRBZLS.PRICEFRAME_VER.pfhandles
+  is '下级数量';
+comment on column HRBZLS.PRICEFRAME_VER.pfprice
+  is '综合价格';
+comment on column HRBZLS.PRICEFRAME_VER.pfmemo
+  is '备注';
+comment on column HRBZLS.PRICEFRAME_VER.pfsmfid
+  is '公司';
+comment on column HRBZLS.PRICEFRAME_VER.verid
+  is '版本号';
+create index HRBZLS.IDX_PRICEFRAME_VER_PFMEMO on HRBZLS.PRICEFRAME_VER (PFMEMO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.PRICEFRAME_VER
+  add constraint PK_PRICEFRAME_VER primary key (PFID, VERID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

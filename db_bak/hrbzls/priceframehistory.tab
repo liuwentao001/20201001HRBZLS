@@ -1,0 +1,73 @@
+create table HRBZLS.PRICEFRAMEHISTORY
+(
+  pfid      VARCHAR2(10) not null,
+  pfname    VARCHAR2(60) not null,
+  pfpid     VARCHAR2(10),
+  pfclass   NUMBER not null,
+  pfflag    CHAR(1) not null,
+  pfstatus  CHAR(1) not null,
+  pfhandles NUMBER,
+  pfprice   NUMBER(12,3),
+  pfmemo    VARCHAR2(60),
+  pfsmfid   VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEFRAMEHISTORY
+  is '费率结构信息【PF】';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfid
+  is '编码';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfname
+  is '名称';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfpid
+  is '上级编码';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfclass
+  is '级次';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfflag
+  is '末级标志';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfstatus
+  is '有效状态';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfhandles
+  is '下级数量';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfprice
+  is '综合价格';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfmemo
+  is '备注';
+comment on column HRBZLS.PRICEFRAMEHISTORY.pfsmfid
+  is '公司';
+create index HRBZLS.IDX_PRICEFRAMEHISTORY_PFMEMO on HRBZLS.PRICEFRAMEHISTORY (PFMEMO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.PRICEFRAMEHISTORY
+  add constraint PK_PRICEFRAMEHISTORY primary key (PFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

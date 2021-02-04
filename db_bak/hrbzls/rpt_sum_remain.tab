@@ -1,0 +1,45 @@
+create table HRBZLS.RPT_SUM_REMAIN
+(
+  tpdate    DATE not null,
+  u_month   VARCHAR2(7) not null,
+  miid      VARCHAR2(10) not null,
+  remain    NUMBER(13,3),
+  rsmeain   NUMBER(13,3),
+  discharge NUMBER(13,3)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.RPT_SUM_REMAIN.tpdate
+  is '生成时间';
+comment on column HRBZLS.RPT_SUM_REMAIN.u_month
+  is '账务月份';
+comment on column HRBZLS.RPT_SUM_REMAIN.miid
+  is '水表编号';
+comment on column HRBZLS.RPT_SUM_REMAIN.remain
+  is '预存金额';
+comment on column HRBZLS.RPT_SUM_REMAIN.rsmeain
+  is '上次预存';
+comment on column HRBZLS.RPT_SUM_REMAIN.discharge
+  is '欠费';
+create unique index HRBZLS.RPT_SUM_REMAIN_X on HRBZLS.RPT_SUM_REMAIN (U_MONTH, MIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

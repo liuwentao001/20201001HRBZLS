@@ -1,0 +1,9 @@
+create table HRBZLS.INFO_MSG
+(
+  miid VARCHAR2(4000) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

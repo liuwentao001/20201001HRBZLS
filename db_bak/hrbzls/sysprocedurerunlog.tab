@@ -1,0 +1,50 @@
+create table HRBZLS.SYSPROCEDURERUNLOG
+(
+  sprlid          VARCHAR2(10) not null,
+  sprlbegdate     DATE,
+  sprlenddate     DATE not null,
+  sprlspname      VARCHAR2(60) not null,
+  sprlokflag      CHAR(1) default 'N' not null,
+  sprlerrmsg      VARCHAR2(255),
+  sprlothmsg      VARCHAR2(255),
+  sprlip          VARCHAR2(20) not null,
+  sprlosuser      VARCHAR2(25),
+  sprlmachine     VARCHAR2(25),
+  sprlsessionuser VARCHAR2(25)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.SYSPROCEDURERUNLOG
+  is '过程运行记录';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlid
+  is '流水号';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlbegdate
+  is '开始时间';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlenddate
+  is '结束时间';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlspname
+  is '存储过程名称';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlokflag
+  is '成功标志';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlerrmsg
+  is '错误信息';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlothmsg
+  is '其他信息';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlip
+  is 'IP地址';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlosuser
+  is 'OS用户名';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlmachine
+  is '机器名';
+comment on column HRBZLS.SYSPROCEDURERUNLOG.sprlsessionuser
+  is '数据库用户名';
+alter table HRBZLS.SYSPROCEDURERUNLOG
+  add constraint PK_SYS_PROCEDURE_RUNLOG primary key (SPRLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

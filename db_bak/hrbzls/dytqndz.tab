@@ -1,0 +1,48 @@
+create table HRBZLS.DYTQNDZ
+(
+  mismfid VARCHAR2(20),
+  micper  VARCHAR2(50),
+  mibfid  VARCHAR2(50),
+  rlmonth VARCHAR2(20),
+  zhdj    NUMBER(20,2),
+  rlsl    NUMBER(20,2),
+  rlje    NUMBER(20,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.DYTQNDZ
+  is '当月同去年当月对比';
+create index HRBZLS.IDX_ENTRUSTFILE_X01 on HRBZLS.DYTQNDZ (RLMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.IDX_ENTRUSTFILE_X02 on HRBZLS.DYTQNDZ (MISMFID, MICPER, MIBFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

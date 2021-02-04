@@ -1,0 +1,57 @@
+create table HRBZLS.OPERGROUPMOD
+(
+  ogmid    VARCHAR2(10) not null,
+  ogmname  VARCHAR2(40),
+  ogmpid   VARCHAR2(10) not null,
+  ogmgid   VARCHAR2(10) not null,
+  ogmmid   VARCHAR2(10) not null,
+  ogmclass NUMBER default 1 not null,
+  ogmflag  CHAR(1) default 'N' not null,
+  isactive CHAR(1) default 'Y',
+  x        NUMBER,
+  y        NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERGROUPMOD
+  is '用户功能模块分组';
+comment on column HRBZLS.OPERGROUPMOD.ogmid
+  is '序号';
+comment on column HRBZLS.OPERGROUPMOD.ogmname
+  is '说明';
+comment on column HRBZLS.OPERGROUPMOD.ogmpid
+  is '上级代码';
+comment on column HRBZLS.OPERGROUPMOD.ogmgid
+  is '组代码';
+comment on column HRBZLS.OPERGROUPMOD.ogmmid
+  is '模块代码';
+comment on column HRBZLS.OPERGROUPMOD.ogmclass
+  is '级次';
+comment on column HRBZLS.OPERGROUPMOD.ogmflag
+  is '标志，Y-功能，N-模块';
+comment on column HRBZLS.OPERGROUPMOD.isactive
+  is '是否注册';
+alter table HRBZLS.OPERGROUPMOD
+  add constraint PK_OGMID primary key (OGMID, OGMPID, OGMGID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

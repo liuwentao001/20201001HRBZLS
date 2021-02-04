@@ -1,0 +1,17 @@
+create table HRBZLS.ST_BSMBFH
+(
+  bsm VARCHAR2(40),
+  bfh VARCHAR2(40)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

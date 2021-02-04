@@ -1,0 +1,60 @@
+create table HRBZLS.ST_METERSTORE_LOG
+(
+  id       VARCHAR2(10) not null,
+  qfh      VARCHAR2(40),
+  do_type  VARCHAR2(400),
+  storeid  VARCHAR2(20),
+  miid     VARCHAR2(20),
+  operator VARCHAR2(40),
+  do_date  DATE,
+  bsm      VARCHAR2(40),
+  item     VARCHAR2(40),
+  value_o  VARCHAR2(40),
+  value_n  VARCHAR2(40)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.ST_METERSTORE_LOG.id
+  is '编号';
+comment on column HRBZLS.ST_METERSTORE_LOG.qfh
+  is '铅封号';
+comment on column HRBZLS.ST_METERSTORE_LOG.do_type
+  is '执行操作';
+comment on column HRBZLS.ST_METERSTORE_LOG.storeid
+  is '仓库编号';
+comment on column HRBZLS.ST_METERSTORE_LOG.miid
+  is '用户编号';
+comment on column HRBZLS.ST_METERSTORE_LOG.operator
+  is '操作员';
+comment on column HRBZLS.ST_METERSTORE_LOG.do_date
+  is '操作日期';
+comment on column HRBZLS.ST_METERSTORE_LOG.bsm
+  is '表身码';
+comment on column HRBZLS.ST_METERSTORE_LOG.item
+  is '变更对象';
+comment on column HRBZLS.ST_METERSTORE_LOG.value_o
+  is '修改前';
+comment on column HRBZLS.ST_METERSTORE_LOG.value_n
+  is '修改后';
+create unique index HRBZLS.METERSTORE_LOG_X_ST on HRBZLS.ST_METERSTORE_LOG (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

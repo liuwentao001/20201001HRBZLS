@@ -1,0 +1,75 @@
+create table HRBZLS.RECADJUSTDDT
+(
+  raddno       VARCHAR2(10) not null,
+  raddrowno    NUMBER(6) not null,
+  raddrowno2   NUMBER(6) not null,
+  raddpmdid    NUMBER not null,
+  raddpiid     VARCHAR2(2) not null,
+  raddpfid     VARCHAR2(10) not null,
+  raddpscid    NUMBER not null,
+  raddyssl     NUMBER(10) not null,
+  raddysdj     NUMBER(12,2) not null,
+  raddysje     NUMBER(12,2) not null,
+  raddsl       NUMBER(10) not null,
+  radddj       NUMBER(12,2) not null,
+  raddje       NUMBER(12,2) not null,
+  raddadjsl    NUMBER(10) not null,
+  raddadjdj    NUMBER(12,2) not null,
+  raddadjje    NUMBER(12,2) not null,
+  raddscale    NUMBER(10,2),
+  raddchkflag  CHAR(10) not null,
+  raddpaidflag CHAR(10),
+  radrdclass   CHAR(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.RECADJUSTDDT
+  is '应收调整单体【RADD】';
+comment on column HRBZLS.RECADJUSTDDT.raddno
+  is '单据流水号';
+comment on column HRBZLS.RECADJUSTDDT.raddrowno
+  is '行号';
+comment on column HRBZLS.RECADJUSTDDT.raddrowno2
+  is '行号';
+comment on column HRBZLS.RECADJUSTDDT.raddpmdid
+  is '混合用水分组';
+comment on column HRBZLS.RECADJUSTDDT.raddpiid
+  is '费用项目';
+comment on column HRBZLS.RECADJUSTDDT.raddpfid
+  is '价格类别';
+comment on column HRBZLS.RECADJUSTDDT.raddpscid
+  is '费率明细方案';
+comment on column HRBZLS.RECADJUSTDDT.raddyssl
+  is '应收水量';
+comment on column HRBZLS.RECADJUSTDDT.raddysdj
+  is '应收单价';
+comment on column HRBZLS.RECADJUSTDDT.raddysje
+  is '应收金额';
+comment on column HRBZLS.RECADJUSTDDT.raddsl
+  is '水量';
+comment on column HRBZLS.RECADJUSTDDT.radddj
+  is '单价';
+comment on column HRBZLS.RECADJUSTDDT.raddje
+  is '金额';
+comment on column HRBZLS.RECADJUSTDDT.raddadjsl
+  is '调整水量';
+comment on column HRBZLS.RECADJUSTDDT.raddadjdj
+  is '调整单价';
+comment on column HRBZLS.RECADJUSTDDT.raddadjje
+  is '调整金额';
+comment on column HRBZLS.RECADJUSTDDT.raddscale
+  is '混合比例';
+comment on column HRBZLS.RECADJUSTDDT.raddchkflag
+  is '选择减退标志';
+comment on column HRBZLS.RECADJUSTDDT.raddpaidflag
+  is '原销帐标志';
+alter table HRBZLS.RECADJUSTDDT
+  add constraint PK_RECADJUSTDDT primary key (RADDNO, RADDROWNO, RADDROWNO2)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

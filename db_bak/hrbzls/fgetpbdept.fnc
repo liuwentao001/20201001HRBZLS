@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION HRBZLS."FGETPBDEPT" RETURN VARCHAR2
+IS
+ ret VARCHAR2(10);
+BEGIN
+select fgetoperdept(login_user) INTO ret  from sys_host t WHERE t.ip=SYS_CONTEXT('USERENV','sid');
+return ret;
+EXCEPTION
+   WHEN OTHERS THEN
+        RETURN NULL;
+END;
+/
+

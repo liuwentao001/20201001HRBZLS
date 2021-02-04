@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_BILLSEQNO
+minvalue 3000000000
+maxvalue 9999999999
+start with 5001335133
+increment by 1
+cache 50
+order;
+

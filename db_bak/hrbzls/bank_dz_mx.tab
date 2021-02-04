@@ -1,0 +1,61 @@
+create table HRBZLS.BANK_DZ_MX
+(
+  id           VARCHAR2(10) not null,
+  chargeno     VARCHAR2(20) not null,
+  money_local  NUMBER(10,2),
+  money_bank   NUMBER(10,2),
+  error_remark VARCHAR2(2000),
+  meterno      VARCHAR2(20) not null,
+  trandate     DATE,
+  chkdate      DATE,
+  cz_flag      VARCHAR2(1),
+  dz_flag      VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BANK_DZ_MX
+  is '对账结果明细';
+comment on column HRBZLS.BANK_DZ_MX.id
+  is '流水号';
+comment on column HRBZLS.BANK_DZ_MX.chargeno
+  is '实收帐流水号';
+comment on column HRBZLS.BANK_DZ_MX.money_local
+  is '本地金额';
+comment on column HRBZLS.BANK_DZ_MX.money_bank
+  is '银行金额';
+comment on column HRBZLS.BANK_DZ_MX.error_remark
+  is '错误信息';
+comment on column HRBZLS.BANK_DZ_MX.meterno
+  is '水表号码';
+comment on column HRBZLS.BANK_DZ_MX.trandate
+  is '交易时间';
+comment on column HRBZLS.BANK_DZ_MX.chkdate
+  is '对账时间';
+comment on column HRBZLS.BANK_DZ_MX.cz_flag
+  is '平帐标志';
+comment on column HRBZLS.BANK_DZ_MX.dz_flag
+  is '对帐标志，0正确，1银行单边帐，2自来单边帐，3金额不平 4-银行模拟缴费';
+alter table HRBZLS.BANK_DZ_MX
+  add constraint PK_BANK_DZ_MX primary key (ID, CHARGENO, METERNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

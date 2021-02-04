@@ -1,0 +1,31 @@
+create table HRBZLS.METERSTATUS
+(
+  sid   VARCHAR2(10) not null,
+  sname VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERSTATUS
+  add constraint PK_METERSTATUS primary key (SID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

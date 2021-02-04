@@ -1,0 +1,5 @@
+CREATE OR REPLACE FORCE VIEW HRBZLS.VIEW_RL_DIS AS
+SELECT RLMID,  NVL(SUM(RLJE), 0) dis_je, COUNT(RLID) dis_c, min(rlmonth) dis_m
+      FROM RECLIST     WHERE  RLPAIDFLAG = 'N'        AND RLJE > 0       AND RLREVERSEFLAG = 'N'       AND RLBADFLAG = 'N'
+   group by RLMID;
+

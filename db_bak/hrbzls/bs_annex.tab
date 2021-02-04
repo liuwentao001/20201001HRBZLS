@@ -1,0 +1,38 @@
+create table HRBZLS.BS_ANNEX
+(
+  bano    VARCHAR2(50),
+  reno    VARCHAR2(50),
+  baclass VARCHAR2(50),
+  baname  VARCHAR2(50),
+  bapath  VARCHAR2(200),
+  badate  DATE,
+  baper   VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 128K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BS_ANNEX
+  is '附件管理';
+comment on column HRBZLS.BS_ANNEX.bano
+  is '序号';
+comment on column HRBZLS.BS_ANNEX.reno
+  is '单据流水号';
+comment on column HRBZLS.BS_ANNEX.baclass
+  is '附件分类';
+comment on column HRBZLS.BS_ANNEX.baname
+  is '附件名称';
+comment on column HRBZLS.BS_ANNEX.bapath
+  is '附件地址';
+comment on column HRBZLS.BS_ANNEX.badate
+  is '上传时间';
+comment on column HRBZLS.BS_ANNEX.baper
+  is '上传人员';
+

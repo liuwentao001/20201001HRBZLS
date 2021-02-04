@@ -1,0 +1,70 @@
+create table HRBZLS.RECADJUSTHD
+(
+  rahno      VARCHAR2(10) not null,
+  rahbh      VARCHAR2(10) not null,
+  rahlb      CHAR(1) not null,
+  rahsource  CHAR(1) not null,
+  rahsmfid   VARCHAR2(10) not null,
+  rahdept    VARCHAR2(10) not null,
+  rahcredate DATE not null,
+  rahcreper  VARCHAR2(10) not null,
+  rahshdate  DATE,
+  rahshper   VARCHAR2(10),
+  rahshflag  CHAR(1) not null,
+  rahmid     VARCHAR2(10) not null,
+  rahmcode   VARCHAR2(10) not null,
+  rahcname   VARCHAR2(64),
+  rahmadr    VARCHAR2(64),
+  rahmemo    VARCHAR2(200),
+  rahdetails VARCHAR2(600),
+  rahmonth   VARCHAR2(10),
+  rahemonth  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.RECADJUSTHD
+  is '应收调整单头【RAH】';
+comment on column HRBZLS.RECADJUSTHD.rahno
+  is '单据流水号';
+comment on column HRBZLS.RECADJUSTHD.rahbh
+  is '单据编号';
+comment on column HRBZLS.RECADJUSTHD.rahlb
+  is '单据类别';
+comment on column HRBZLS.RECADJUSTHD.rahsource
+  is '单据来源';
+comment on column HRBZLS.RECADJUSTHD.rahsmfid
+  is '营业所';
+comment on column HRBZLS.RECADJUSTHD.rahdept
+  is '创建部门';
+comment on column HRBZLS.RECADJUSTHD.rahcredate
+  is '创建日期';
+comment on column HRBZLS.RECADJUSTHD.rahcreper
+  is '创建人员';
+comment on column HRBZLS.RECADJUSTHD.rahshdate
+  is '审核日期';
+comment on column HRBZLS.RECADJUSTHD.rahshper
+  is '审核人员';
+comment on column HRBZLS.RECADJUSTHD.rahshflag
+  is '审核标志';
+comment on column HRBZLS.RECADJUSTHD.rahmid
+  is '水表编号';
+comment on column HRBZLS.RECADJUSTHD.rahmcode
+  is '资料号';
+comment on column HRBZLS.RECADJUSTHD.rahcname
+  is '产权名';
+comment on column HRBZLS.RECADJUSTHD.rahmadr
+  is '用水地址';
+comment on column HRBZLS.RECADJUSTHD.rahmemo
+  is '减退原因';
+comment on column HRBZLS.RECADJUSTHD.rahdetails
+  is '减退详情';
+alter table HRBZLS.RECADJUSTHD
+  add constraint PK_RECADJUSTHD primary key (RAHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

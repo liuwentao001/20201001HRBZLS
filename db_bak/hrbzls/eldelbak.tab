@@ -1,0 +1,120 @@
+create table HRBZLS.ELDELBAK
+(
+  eloper        VARCHAR2(10),
+  eldeldate     DATE,
+  elbatch       VARCHAR2(10) not null,
+  elbankid      VARCHAR2(30),
+  elchargetype  CHAR(1),
+  eloutoer      VARCHAR2(10),
+  eloutdate     DATE,
+  eloutrows     NUMBER(10),
+  eloutmoney    NUMBER(12,2),
+  elchkdate     DATE,
+  elchkrows     NUMBER(10),
+  elchkje       NUMBER(12,2),
+  elschkdate    DATE,
+  elsrows       NUMBER(10),
+  elsje         NUMBER(12,2),
+  elfchkdate    DATE,
+  elfrows       NUMBER(10),
+  elfje         NUMBER(12,2),
+  elpaiddate    DATE,
+  elpaidrows    NUMBER(10),
+  elpaidje      NUMBER(12,2),
+  elchknum      NUMBER(10),
+  elchkend      CHAR(1),
+  elstatus      CHAR(1),
+  elsmfid       VARCHAR2(10),
+  eltstype      CHAR(1),
+  elplanimpdate DATE,
+  elimptype     CHAR(1),
+  elrecmonth    VARCHAR2(7),
+  elimflag      VARCHAR2(1),
+  elmemo        VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.ELDELBAK
+  is '托收代扣总帐日志【EL】';
+comment on column HRBZLS.ELDELBAK.elbatch
+  is '托收代扣批号';
+comment on column HRBZLS.ELDELBAK.elbankid
+  is '代扣文档银行';
+comment on column HRBZLS.ELDELBAK.elchargetype
+  is '收费方式';
+comment on column HRBZLS.ELDELBAK.eloutoer
+  is '发出操作员';
+comment on column HRBZLS.ELDELBAK.eloutdate
+  is '发出日期';
+comment on column HRBZLS.ELDELBAK.eloutrows
+  is '发出条数';
+comment on column HRBZLS.ELDELBAK.eloutmoney
+  is '发出金额';
+comment on column HRBZLS.ELDELBAK.elchkdate
+  is '对账日期';
+comment on column HRBZLS.ELDELBAK.elchkrows
+  is '对账总条数';
+comment on column HRBZLS.ELDELBAK.elchkje
+  is '对账总金额';
+comment on column HRBZLS.ELDELBAK.elschkdate
+  is '成功文件导入日期';
+comment on column HRBZLS.ELDELBAK.elsrows
+  is '银行成功条数';
+comment on column HRBZLS.ELDELBAK.elsje
+  is '银行成功金额';
+comment on column HRBZLS.ELDELBAK.elfchkdate
+  is '失败文件导入日期';
+comment on column HRBZLS.ELDELBAK.elfrows
+  is '银行失败条数';
+comment on column HRBZLS.ELDELBAK.elfje
+  is '银行失败金额';
+comment on column HRBZLS.ELDELBAK.elpaiddate
+  is '本地销帐日期';
+comment on column HRBZLS.ELDELBAK.elpaidrows
+  is '本地已销帐条数';
+comment on column HRBZLS.ELDELBAK.elpaidje
+  is '本地已销帐金额';
+comment on column HRBZLS.ELDELBAK.elchknum
+  is '本地对账次数';
+comment on column HRBZLS.ELDELBAK.elchkend
+  is '本地对账截止标志';
+comment on column HRBZLS.ELDELBAK.elstatus
+  is '有效状态';
+comment on column HRBZLS.ELDELBAK.elsmfid
+  is '营业所';
+comment on column HRBZLS.ELDELBAK.eltstype
+  is '托收类型（1批量托收,2零托）';
+comment on column HRBZLS.ELDELBAK.elplanimpdate
+  is '计划导入日期';
+comment on column HRBZLS.ELDELBAK.elimptype
+  is '文件导入类型1：未处理，2：手工，3：自动';
+comment on column HRBZLS.ELDELBAK.elrecmonth
+  is '应收帐月份';
+comment on column HRBZLS.ELDELBAK.elimflag
+  is '对账文件是否导入';
+comment on column HRBZLS.ELDELBAK.elmemo
+  is '备注';
+alter table HRBZLS.ELDELBAK
+  add constraint PK_ELDELBAK primary key (ELBATCH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

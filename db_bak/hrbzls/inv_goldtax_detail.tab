@@ -1,0 +1,43 @@
+create global temporary table HRBZLS.INV_GOLDTAX_DETAIL
+(
+  ivid      VARCHAR2(10),
+  line      NUMBER,
+  goodsname VARCHAR2(50),
+  taxitem   VARCHAR2(10),
+  standard  VARCHAR2(50),
+  unit      VARCHAR2(10),
+  num       NUMBER,
+  price     NUMBER,
+  amount    NUMBER,
+  pricekind NUMBER,
+  taxamount NUMBER,
+  taxrate   NUMBER
+)
+on commit delete rows;
+comment on table HRBZLS.INV_GOLDTAX_DETAIL
+  is '税票明细信息';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.ivid
+  is '关联金税开票记录';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.line
+  is '行号';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.goodsname
+  is '商品或劳务名称';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.taxitem
+  is '税目，4位数字，商品所属类别';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.standard
+  is '规格型号';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.unit
+  is '计量单位';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.num
+  is '数量';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.price
+  is '单价';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.amount
+  is '金额';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.pricekind
+  is '含税价标志，0不含税价1含税价';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.taxamount
+  is '税额';
+comment on column HRBZLS.INV_GOLDTAX_DETAIL.taxrate
+  is '税率';
+

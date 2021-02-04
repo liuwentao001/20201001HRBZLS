@@ -1,0 +1,52 @@
+create table HRBZLS.METERINFO_SJCBUP
+(
+  miid      VARCHAR2(10) not null,
+  ciid      VARCHAR2(10),
+  update_mk CHAR(1) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERINFO_SJCBUP
+  is '手机抄表更新资料档';
+comment on column HRBZLS.METERINFO_SJCBUP.miid
+  is '水表编号';
+comment on column HRBZLS.METERINFO_SJCBUP.ciid
+  is '用户编号';
+comment on column HRBZLS.METERINFO_SJCBUP.update_mk
+  is '更新注记(1-新增 2-更新)';
+create index HRBZLS.IDX_METERINFO_SJCBUP on HRBZLS.METERINFO_SJCBUP (MIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERINFO_SJCBUP
+  add constraint PK_METERINFO_SJCBUP primary key (MIID, UPDATE_MK)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,37 @@
+create table HRBZLS.RPT_FIELDTYPE
+(
+  ftid   VARCHAR2(32) not null,
+  ftname VARCHAR2(32)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RPT_FIELDTYPE
+  is '查询参数类型字典';
+comment on column HRBZLS.RPT_FIELDTYPE.ftid
+  is '类型ID';
+comment on column HRBZLS.RPT_FIELDTYPE.ftname
+  is '类型名称';
+alter table HRBZLS.RPT_FIELDTYPE
+  add constraint FTID primary key (FTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

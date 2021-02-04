@@ -1,0 +1,86 @@
+create table HRBZLS.MV_RECLIST_CHARGE_02
+(
+  c           NUMBER,
+  rdsl_c      NUMBER,
+  rdje_c      NUMBER,
+  rddj_c      NUMBER,
+  rddj_s      NUMBER,
+  rdid        VARCHAR2(10) not null,
+  rdpfid      VARCHAR2(10) not null,
+  meterno     VARCHAR2(10),
+  wateruse_s  NUMBER,
+  wateruse    NUMBER,
+  wssl        NUMBER,
+  chargetotal NUMBER,
+  dj          NUMBER,
+  charge1     NUMBER,
+  charge2     NUMBER,
+  charge3     NUMBER,
+  charge4     NUMBER,
+  charge5     NUMBER,
+  charge6     NUMBER,
+  charge7     NUMBER,
+  charge8     NUMBER,
+  charge9     NUMBER,
+  charge10    NUMBER,
+  charge11    NUMBER,
+  charge12    NUMBER,
+  charge13    NUMBER,
+  user_dj1    NUMBER,
+  user_dj2    NUMBER,
+  user_dj3    NUMBER,
+  use_r1      NUMBER,
+  use_r2      NUMBER,
+  use_r3      NUMBER,
+  charge_r1   NUMBER,
+  charge_r2   NUMBER,
+  charge_r3   NUMBER,
+  c_charge    NUMBER,
+  dj1         NUMBER,
+  dj2         NUMBER,
+  dj3         NUMBER,
+  dj4         NUMBER,
+  dj5         NUMBER,
+  dj6         NUMBER,
+  dj7         NUMBER,
+  dj8         NUMBER,
+  dj9         NUMBER,
+  dj10        NUMBER,
+  dj11        NUMBER,
+  rdsl1       NUMBER,
+  rdsl2       NUMBER,
+  rdsl3       NUMBER,
+  rdsl4       NUMBER,
+  rdsl5       NUMBER,
+  rdsl6       NUMBER,
+  rdsl7       NUMBER,
+  rdsl8       NUMBER,
+  rdsl9       NUMBER,
+  rdsl10      NUMBER,
+  rdsl11      NUMBER,
+  t           NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MV_RDID on HRBZLS.MV_RECLIST_CHARGE_02 (RDID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

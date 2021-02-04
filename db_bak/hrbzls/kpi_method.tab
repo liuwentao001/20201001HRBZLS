@@ -1,0 +1,52 @@
+create table HRBZLS.KPI_METHOD
+(
+  kt_id      VARCHAR2(10) not null,
+  kt_proc    VARCHAR2(40),
+  proc_lnk   VARCHAR2(200),
+  proc_para1 VARCHAR2(2000),
+  proc_para2 VARCHAR2(2000),
+  proc_para3 VARCHAR2(2000),
+  remark     VARCHAR2(500)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.KPI_METHOD
+  is '指标方法表';
+comment on column HRBZLS.KPI_METHOD.kt_id
+  is '指标id';
+comment on column HRBZLS.KPI_METHOD.kt_proc
+  is '指标方法';
+comment on column HRBZLS.KPI_METHOD.proc_lnk
+  is '调用方法说明';
+comment on column HRBZLS.KPI_METHOD.proc_para1
+  is '方法参数1';
+comment on column HRBZLS.KPI_METHOD.proc_para2
+  is '方法参数2';
+comment on column HRBZLS.KPI_METHOD.proc_para3
+  is '方法参数3';
+comment on column HRBZLS.KPI_METHOD.remark
+  is '备注';
+alter table HRBZLS.KPI_METHOD
+  add constraint PK_KPIM_01 primary key (KT_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

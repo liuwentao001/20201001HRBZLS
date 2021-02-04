@@ -1,0 +1,53 @@
+create table HRBZLS.MSSDICT
+(
+  msid     VARCHAR2(20) not null,
+  msname   VARCHAR2(20) not null,
+  msobject VARCHAR2(20),
+  msmemo   VARCHAR2(120),
+  mspid    VARCHAR2(20) not null,
+  msclass  NUMBER not null,
+  msstatus CHAR(1) not null,
+  msflag   CHAR(1) not null,
+  mspic    VARCHAR2(60),
+  msfunc   VARCHAR2(20),
+  msdw     VARCHAR2(60),
+  msunique VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MSSDICT
+  is '短信数据字典【SD】';
+comment on column HRBZLS.MSSDICT.msid
+  is '编码';
+comment on column HRBZLS.MSSDICT.msname
+  is '名称';
+comment on column HRBZLS.MSSDICT.msobject
+  is '窗口对象';
+comment on column HRBZLS.MSSDICT.msmemo
+  is '描述';
+comment on column HRBZLS.MSSDICT.mspid
+  is '上级编码';
+comment on column HRBZLS.MSSDICT.msclass
+  is '级次';
+comment on column HRBZLS.MSSDICT.msstatus
+  is '状态';
+comment on column HRBZLS.MSSDICT.msflag
+  is '末级';
+comment on column HRBZLS.MSSDICT.mspic
+  is '图标';
+comment on column HRBZLS.MSSDICT.msfunc
+  is '功能方法';
+comment on column HRBZLS.MSSDICT.msdw
+  is '编辑数据窗口';
+comment on column HRBZLS.MSSDICT.msunique
+  is '重复校验';
+

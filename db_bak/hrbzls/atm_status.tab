@@ -1,0 +1,43 @@
+create table HRBZLS.ATM_STATUS
+(
+  asatmid          VARCHAR2(20),
+  astime           DATE,
+  assys_status     VARCHAR2(100),
+  ascasher_status  VARCHAR2(100),
+  asprinter_status VARCHAR2(100),
+  ascasher_count   NUMBER(10),
+  ascasher_amount  NUMBER(16,2),
+  ascharge_count   NUMBER(10),
+  ascharge_amount  NUMBER(16,2),
+  ascollect_count  NUMBER(10),
+  ascollect_amount NUMBER(16,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ATM_STATUS
+  is 'ATM机状态记录';
+comment on column HRBZLS.ATM_STATUS.asatmid
+  is '设备编号';
+comment on column HRBZLS.ATM_STATUS.astime
+  is '报告时间';
+comment on column HRBZLS.ATM_STATUS.assys_status
+  is '系统状态';
+comment on column HRBZLS.ATM_STATUS.ascasher_status
+  is '纸币接收模块状态';
+comment on column HRBZLS.ATM_STATUS.asprinter_status
+  is '凭条打印机状态';
+comment on column HRBZLS.ATM_STATUS.ascasher_count
+  is '钞箱纸币总张数';
+comment on column HRBZLS.ATM_STATUS.ascasher_amount
+  is '钞箱纸币总金额';
+comment on column HRBZLS.ATM_STATUS.ascharge_count
+  is '当日缴费成功总笔数';
+comment on column HRBZLS.ATM_STATUS.ascharge_amount
+  is '当日缴费成功总金额';
+comment on column HRBZLS.ATM_STATUS.ascollect_count
+  is '当日吞钞总笔数';
+comment on column HRBZLS.ATM_STATUS.ascollect_amount
+  is '当日吞钞总金额';
+

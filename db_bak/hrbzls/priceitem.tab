@@ -1,0 +1,43 @@
+create table HRBZLS.PRICEITEM
+(
+  piid    CHAR(2) not null,
+  piname  VARCHAR2(30),
+  pitype  VARCHAR2(2),
+  pigroup NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEITEM
+  is '费率项目【PI】';
+comment on column HRBZLS.PRICEITEM.piid
+  is '费用项目代码';
+comment on column HRBZLS.PRICEITEM.piname
+  is '费用项目名称';
+comment on column HRBZLS.PRICEITEM.pitype
+  is '费用项目类别';
+comment on column HRBZLS.PRICEITEM.pigroup
+  is '应收帐分组';
+alter table HRBZLS.PRICEITEM
+  add constraint PK_PRICEITEM primary key (PIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

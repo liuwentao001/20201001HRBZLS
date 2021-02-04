@@ -1,0 +1,25 @@
+create table HRBZLS.BANK_DZ_MX20181203
+(
+  id           VARCHAR2(10) not null,
+  chargeno     VARCHAR2(20),
+  money_local  NUMBER(10,2),
+  money_bank   NUMBER(10,2),
+  error_remark VARCHAR2(2000),
+  meterno      VARCHAR2(20) not null,
+  trandate     DATE,
+  chkdate      DATE,
+  cz_flag      VARCHAR2(1),
+  dz_flag      VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

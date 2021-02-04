@@ -1,0 +1,75 @@
+create table HRBZLS.INVOICELIST
+(
+  ilid         NUMBER not null,
+  iltype       CHAR(1),
+  ilcd         CHAR(2),
+  ilbcno       VARCHAR2(32),
+  ilno         VARCHAR2(12),
+  ilmonth      VARCHAR2(7),
+  ildate       DATE,
+  ilper        VARCHAR2(10),
+  ilje         NUMBER(12,2),
+  ilstatus     CHAR(1),
+  ilstatusdate DATE,
+  ilsmfid      VARCHAR2(10),
+  ilstatusper  VARCHAR2(10),
+  ilrlid       VARCHAR2(100),
+  ilrdpiid     VARCHAR2(100),
+  ildatetime   DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVOICELIST
+  is '已出发票流水【IL】';
+comment on column HRBZLS.INVOICELIST.ilid
+  is '票据流水号';
+comment on column HRBZLS.INVOICELIST.iltype
+  is '票据类型';
+comment on column HRBZLS.INVOICELIST.ilcd
+  is '借贷类型';
+comment on column HRBZLS.INVOICELIST.ilbcno
+  is '票据年号';
+comment on column HRBZLS.INVOICELIST.ilno
+  is '票据号码';
+comment on column HRBZLS.INVOICELIST.ilmonth
+  is '票务月份';
+comment on column HRBZLS.INVOICELIST.ildate
+  is '票务日期';
+comment on column HRBZLS.INVOICELIST.ilper
+  is '出票人';
+comment on column HRBZLS.INVOICELIST.ilje
+  is '开票金额';
+comment on column HRBZLS.INVOICELIST.ilstatus
+  is '票据状态';
+comment on column HRBZLS.INVOICELIST.ilstatusdate
+  is '状态日期';
+comment on column HRBZLS.INVOICELIST.ilsmfid
+  is '分公司';
+comment on column HRBZLS.INVOICELIST.ilstatusper
+  is '状态变更人';
+comment on column HRBZLS.INVOICELIST.ilrlid
+  is '应收流水';
+comment on column HRBZLS.INVOICELIST.ilrdpiid
+  is '应收明细费用项目';
+comment on column HRBZLS.INVOICELIST.ildatetime
+  is '票务日期时间';
+create index HRBZLS.IDX_ILDATE on HRBZLS.INVOICELIST (ILDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_ILRLID on HRBZLS.INVOICELIST (ILRLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.INVOICELIST
+  add constraint PK_INVOICELIST primary key (ILID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

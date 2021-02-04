@@ -1,0 +1,8 @@
+create or replace force view hrbzls.v_cust_meter_info as
+select ci."CIID",ci."CICODE",ci."CICONID",ci."CISMFID",ci."CIPID",ci."CICLASS",ci."CIFLAG",ci."CINAME",ci."CINAME2",ci."CIADR",ci."CISTATUS",ci."CISTATUSDATE",ci."CISTATUSTRANS",ci."CINEWDATE",ci."CIIDENTITYLB",ci."CIIDENTITYNO",ci."CIMTEL",ci."CITEL1",ci."CITEL2",ci."CITEL3",ci."CICONNECTPER",ci."CICONNECTTEL",ci."CIIFINV",ci."CIIFSMS",ci."CIIFZN",ci."CIPROJNO",ci."CIFILENO",ci."CIMEMO",ci."CIDEPTID",mi."MICID",mi."MIID",mi."MIADR",mi."MISAFID",mi."MICODE",mi."MISMFID",mi."MIPRMON",mi."MIRMON",mi."MIBFID",mi."MIRORDER",mi."MIPID",mi."MICLASS",mi."MIFLAG",mi."MIRTID",mi."MIIFMP",mi."MIIFSP",mi."MISTID",mi."MIPFID",mi."MISTATUS",mi."MISTATUSDATE",mi."MISTATUSTRANS",mi."MIFACE",mi."MIRPID",mi."MISIDE",mi."MIPOSITION",mi."MIINSCODE",mi."MIINSDATE",mi."MIINSPER",mi."MIREINSCODE",mi."MIREINSDATE",mi."MIREINSPER",mi."MITYPE",mi."MIRCODE",mi."MIRECDATE",mi."MIRECSL",mi."MIIFCHARGE",mi."MIIFSL",mi."MIIFCHK",mi."MIIFWATCH",mi."MIICNO",mi."MIMEMO",mi."MIPRIID",mi."MIPRIFLAG",mi."MIUSENUM",mi."MICHARGETYPE",mi."MISAVING",mi."MILB",mi."MINEWFLAG",mi."MICPER",mi."MIIFTAX",mi."MITAXNO",mi."MIUNINSCODE",mi."MIUNINSDATE",mi."MIUNINSPER",mi."MIFACE2",mi."MIFACE3",mi."MIFACE4",mi."MIRCODECHAR",mi."MIIFCKF",mi."MIGPS",mi."MIQFH",mi."MIBOX",mi."MIJFKROW",mi."MINAME",mi."MINAME2",mi."MISEQNO",mi."MINEWDATE",md."MDMID",md."MDID",md."MDNO",md."MDCALIBER",md."MDBRAND",md."MDMODEL",md."MDSTATUS",md."MDSTATUSDATE",md."MDCYCCHKDATE",md."MDSTOCKDATE",md."MDSTORE"
+from custinfo ci,
+     meterinfo mi,
+     meterdoc md
+where ci.ciid=mi.micid
+and   mi.miid=md.mdmid;
+

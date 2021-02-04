@@ -1,0 +1,100 @@
+create table HRBZLS.METERTRANSROLLBACK
+(
+  mtrbid           VARCHAR2(10) not null,
+  mtrbrowno        NUMBER(5) not null,
+  mtrbdate         DATE,
+  mtrbstatus       VARCHAR2(2),
+  mtrbstatusdate   DATE,
+  mtrbstatustrans  CHAR(1),
+  mtrbrcode        NUMBER(10),
+  mtrbadr          VARCHAR2(64),
+  mtrbside         VARCHAR2(100),
+  mtrbposition     VARCHAR2(64),
+  mtrbinscode      NUMBER(10),
+  mtrbreinscode    NUMBER(10),
+  mtrbreinsdate    DATE,
+  mtrbreinsper     VARCHAR2(64),
+  mtrbcstatus      VARCHAR2(2),
+  mtrbcstatusdate  DATE,
+  mtrbcstatustrans CHAR(1),
+  mtrbno           VARCHAR2(40),
+  mtrbcaliber      VARCHAR2(4),
+  mtrbbrand        VARCHAR2(2),
+  mtrbmodel        VARCHAR2(2),
+  mtrbmstatus      VARCHAR2(8),
+  mtrbmstatusdate  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERTRANSROLLBACK
+  is '工单回滚[MTRB]';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbid
+  is '单据流水';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbrowno
+  is '行号';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbdate
+  is '回滚备份日期';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbstatus
+  is '状态';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbstatusdate
+  is '状态日期';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbstatustrans
+  is '状态表务';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbrcode
+  is '本期读数';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbadr
+  is '表地址';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbside
+  is '表位';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbposition
+  is '水表接水地址';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbinscode
+  is '新装起度';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbreinscode
+  is '换表起度';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbreinsdate
+  is '换表日期';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbreinsper
+  is '换表人';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbcstatus
+  is '用户状态';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbcstatusdate
+  is '状态日期';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbcstatustrans
+  is '状态表务';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbno
+  is '表身码';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbcaliber
+  is '表口径';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbbrand
+  is '表厂家';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbmodel
+  is '表型号';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbmstatus
+  is '表状态';
+comment on column HRBZLS.METERTRANSROLLBACK.mtrbmstatusdate
+  is '表状态发生时间';
+alter table HRBZLS.METERTRANSROLLBACK
+  add constraint PK_METERTRANSROLLBACK primary key (MTRBID, MTRBROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

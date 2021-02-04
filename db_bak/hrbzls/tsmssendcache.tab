@@ -1,0 +1,79 @@
+create table HRBZLS.TSMSSENDCACHE
+(
+  id           NUMBER(10,2) not null,
+  ssender      VARCHAR2(20),
+  dbegintime   DATE,
+  ntimingtag   CHAR(1) default 1,
+  dtimingtime  DATE,
+  ncontenttype NUMBER(38) default 101,
+  exnumber     VARCHAR2(20),
+  ssendno      VARCHAR2(1000),
+  ssmsmessage  VARCHAR2(200),
+  cflag        VARCHAR2(1),
+  returnflag   VARCHAR2(1000),
+  ismgstatus   VARCHAR2(1000),
+  statustime   VARCHAR2(1000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TSMSSENDCACHE
+  is '短信发送(定时)（HF）';
+comment on column HRBZLS.TSMSSENDCACHE.id
+  is '记录编号
+';
+comment on column HRBZLS.TSMSSENDCACHE.ssender
+  is '发送者标识';
+comment on column HRBZLS.TSMSSENDCACHE.dbegintime
+  is '请求时间
+';
+comment on column HRBZLS.TSMSSENDCACHE.ntimingtag
+  is '定时标志(1即时，2定时)';
+comment on column HRBZLS.TSMSSENDCACHE.dtimingtime
+  is '定时发送时间
+';
+comment on column HRBZLS.TSMSSENDCACHE.ncontenttype
+  is '短信类型
+';
+comment on column HRBZLS.TSMSSENDCACHE.exnumber
+  is '扩展号码
+';
+comment on column HRBZLS.TSMSSENDCACHE.ssendno
+  is '接收号码
+';
+comment on column HRBZLS.TSMSSENDCACHE.ssmsmessage
+  is '发送信息';
+comment on column HRBZLS.TSMSSENDCACHE.cflag
+  is '处理标志';
+comment on column HRBZLS.TSMSSENDCACHE.returnflag
+  is '发送结果
+';
+comment on column HRBZLS.TSMSSENDCACHE.ismgstatus
+  is '网管返回值
+';
+comment on column HRBZLS.TSMSSENDCACHE.statustime
+  is '网管响应状态
+';
+alter table HRBZLS.TSMSSENDCACHE
+  add constraint TSMSSENDCACHE_PK primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

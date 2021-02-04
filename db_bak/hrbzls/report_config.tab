@@ -1,0 +1,16 @@
+create table HRBZLS.REPORT_CONFIG
+(
+  id    VARCHAR2(80) not null,
+  title VARCHAR2(80),
+  value VARCHAR2(80)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+create unique index HRBZLS.REPORT_CONFIG_X on HRBZLS.REPORT_CONFIG (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

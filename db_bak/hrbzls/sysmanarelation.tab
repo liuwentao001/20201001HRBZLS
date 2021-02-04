@@ -1,0 +1,37 @@
+create table HRBZLS.SYSMANARELATION
+(
+  smrpkey VARCHAR2(20) not null,
+  smrfkey VARCHAR2(20) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSMANARELATION
+  is '管理架构内部关系表【SMC】';
+comment on column HRBZLS.SYSMANARELATION.smrpkey
+  is '主键';
+comment on column HRBZLS.SYSMANARELATION.smrfkey
+  is '友键';
+alter table HRBZLS.SYSMANARELATION
+  add constraint PK_SYSMANARELATION primary key (SMRPKEY, SMRFKEY)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

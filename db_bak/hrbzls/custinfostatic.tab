@@ -1,0 +1,125 @@
+create table HRBZLS.CUSTINFOSTATIC
+(
+  cistaticdate  DATE not null,
+  ciid          VARCHAR2(10) not null,
+  cicode        VARCHAR2(10),
+  ciconid       VARCHAR2(20),
+  cismfid       VARCHAR2(10),
+  cipid         VARCHAR2(10),
+  ciclass       NUMBER,
+  ciflag        CHAR(1),
+  ciname        VARCHAR2(64),
+  ciname2       VARCHAR2(64),
+  ciadr         VARCHAR2(100),
+  cistatus      VARCHAR2(2),
+  cistatusdate  DATE,
+  cistatustrans CHAR(1),
+  cinewdate     DATE,
+  ciidentitylb  CHAR(1),
+  ciidentityno  VARCHAR2(60),
+  cimtel        VARCHAR2(30),
+  citel1        VARCHAR2(30),
+  citel2        VARCHAR2(30),
+  citel3        VARCHAR2(30),
+  ciconnectper  VARCHAR2(60),
+  ciconnecttel  VARCHAR2(30),
+  ciifinv       CHAR(1),
+  ciifsms       CHAR(1),
+  ciifzn        CHAR(1),
+  ciprojno      VARCHAR2(25),
+  cifileno      VARCHAR2(20),
+  cimemo        VARCHAR2(120),
+  cideptid      VARCHAR2(10),
+  cisid         VARCHAR2(10) not null,
+  cistaticflag  CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CUSTINFOSTATIC
+  is '用户信息表【CI】';
+comment on column HRBZLS.CUSTINFOSTATIC.ciid
+  is '用户编号';
+comment on column HRBZLS.CUSTINFOSTATIC.cicode
+  is '用户号';
+comment on column HRBZLS.CUSTINFOSTATIC.ciconid
+  is '报装合同编号';
+comment on column HRBZLS.CUSTINFOSTATIC.cismfid
+  is '营销公司';
+comment on column HRBZLS.CUSTINFOSTATIC.cipid
+  is '上级用户编号';
+comment on column HRBZLS.CUSTINFOSTATIC.ciclass
+  is '用户级次';
+comment on column HRBZLS.CUSTINFOSTATIC.ciflag
+  is '末级标志';
+comment on column HRBZLS.CUSTINFOSTATIC.ciname
+  is '产权名';
+comment on column HRBZLS.CUSTINFOSTATIC.ciname2
+  is '曾用名';
+comment on column HRBZLS.CUSTINFOSTATIC.ciadr
+  is '用户地址';
+comment on column HRBZLS.CUSTINFOSTATIC.cistatus
+  is '用户状态';
+comment on column HRBZLS.CUSTINFOSTATIC.cistatusdate
+  is '状态日期';
+comment on column HRBZLS.CUSTINFOSTATIC.cistatustrans
+  is '状态表务';
+comment on column HRBZLS.CUSTINFOSTATIC.cinewdate
+  is '立户日期';
+comment on column HRBZLS.CUSTINFOSTATIC.ciidentitylb
+  is '证件类型';
+comment on column HRBZLS.CUSTINFOSTATIC.ciidentityno
+  is '证件号码';
+comment on column HRBZLS.CUSTINFOSTATIC.cimtel
+  is '移动电话';
+comment on column HRBZLS.CUSTINFOSTATIC.citel1
+  is '固定电话1';
+comment on column HRBZLS.CUSTINFOSTATIC.citel2
+  is '固定电话2';
+comment on column HRBZLS.CUSTINFOSTATIC.citel3
+  is '固定电话3';
+comment on column HRBZLS.CUSTINFOSTATIC.ciconnectper
+  is '联系人';
+comment on column HRBZLS.CUSTINFOSTATIC.ciconnecttel
+  is '联系电话';
+comment on column HRBZLS.CUSTINFOSTATIC.ciifinv
+  is '是否普票';
+comment on column HRBZLS.CUSTINFOSTATIC.ciifsms
+  is '是否提供短信服务';
+comment on column HRBZLS.CUSTINFOSTATIC.ciifzn
+  is '是否滞纳金';
+comment on column HRBZLS.CUSTINFOSTATIC.ciprojno
+  is '工程编号';
+comment on column HRBZLS.CUSTINFOSTATIC.cifileno
+  is '档案号';
+comment on column HRBZLS.CUSTINFOSTATIC.cimemo
+  is '备注信息';
+comment on column HRBZLS.CUSTINFOSTATIC.cideptid
+  is '立户部门';
+comment on column HRBZLS.CUSTINFOSTATIC.cisid
+  is 'static ID';
+comment on column HRBZLS.CUSTINFOSTATIC.cistaticflag
+  is '（立销户标志）0 立户，1销户';
+alter table HRBZLS.CUSTINFOSTATIC
+  add constraint PK_CIS primary key (CISID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_PRINTTEMPLATEHD
+minvalue 287
+maxvalue 999999999999999999999999999
+start with 25487
+increment by 1
+cache 50
+order;
+

@@ -1,0 +1,18 @@
+create global temporary table HRBZLS.HRBCBJ
+(
+  c1  VARCHAR2(20),
+  c2  VARCHAR2(20),
+  c3  VARCHAR2(20),
+  c4  VARCHAR2(20),
+  c5  VARCHAR2(20),
+  c6  VARCHAR2(20),
+  c7  VARCHAR2(20),
+  c8  VARCHAR2(20),
+  c9  VARCHAR2(20),
+  c10 VARCHAR2(20)
+)
+on commit delete rows;
+comment on table HRBZLS.HRBCBJ
+  is '【哈尔滨】抄表机下装用户';
+create index HRBZLS.INDEX_C1 on HRBZLS.HRBCBJ (C1);
+

@@ -1,0 +1,40 @@
+create table HRBZLS.BANKDATE
+(
+  bdbankno  VARCHAR2(10) not null,
+  bddate    DATE,
+  bdsysdate DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BANKDATE
+  is '银行帐务周期结束确认[BD]';
+comment on column HRBZLS.BANKDATE.bdbankno
+  is '银行号';
+comment on column HRBZLS.BANKDATE.bddate
+  is '周期日期';
+comment on column HRBZLS.BANKDATE.bdsysdate
+  is '发生时间';
+alter table HRBZLS.BANKDATE
+  add constraint PK_BANKDATA primary key (BDBANKNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

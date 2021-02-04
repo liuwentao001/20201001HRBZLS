@@ -1,0 +1,143 @@
+create table HRBZLS.HIS_DAILYPAID
+(
+  dpid          NUMBER not null,
+  dpdate        DATE not null,
+  dpmonth       VARCHAR2(7) not null,
+  dprecmonth    VARCHAR2(7) not null,
+  dpsmfid       VARCHAR2(10) not null,
+  dpmlb         CHAR(1),
+  dppiid        CHAR(2) not null,
+  dppfid        VARCHAR2(10),
+  dprtid        CHAR(1),
+  dprper        VARCHAR2(10),
+  dprectrans    CHAR(1),
+  dpsafid       VARCHAR2(10),
+  dpcaliber     NUMBER(3),
+  dpmtype       CHAR(1),
+  dpchargetype  CHAR(1),
+  dptrans       CHAR(1) not null,
+  dpchargepoint VARCHAR2(10) not null,
+  dpqcsscnt     NUMBER(12) not null,
+  dpqcsssl      NUMBER(14) not null,
+  dpqcssje      NUMBER(14,2) not null,
+  dpqczncnt     NUMBER(12) not null,
+  dpqcznje      NUMBER(14,2) not null,
+  dpbqsscntde   NUMBER(12) not null,
+  dpbqssslde    NUMBER(14) not null,
+  dpbqssjede    NUMBER(14,2) not null,
+  dpbqsscntcr   NUMBER(12) not null,
+  dpbqssslcr    NUMBER(14) not null,
+  dpbqssjecr    NUMBER(14,2) not null,
+  dpbqzncntde   NUMBER(12) not null,
+  dpbqznjede    NUMBER(14,2) not null,
+  dpbqzncntcr   NUMBER(12) not null,
+  dpbqznjecr    NUMBER(14,2) not null,
+  dpqmsscnt     NUMBER(12) not null,
+  dpqmsssl      NUMBER(14) not null,
+  dpqmssje      NUMBER(14,2) not null,
+  dpqmzncnt     NUMBER(12) not null,
+  dpqmznje      NUMBER(14,2) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.HIS_DAILYPAID
+  is '实收日结存【DP】';
+comment on column HRBZLS.HIS_DAILYPAID.dpid
+  is '流水号';
+comment on column HRBZLS.HIS_DAILYPAID.dpdate
+  is '实收日期';
+comment on column HRBZLS.HIS_DAILYPAID.dpmonth
+  is '实收月份';
+comment on column HRBZLS.HIS_DAILYPAID.dprecmonth
+  is '应收月份';
+comment on column HRBZLS.HIS_DAILYPAID.dpsmfid
+  is '营业所';
+comment on column HRBZLS.HIS_DAILYPAID.dpmlb
+  is '水表类别';
+comment on column HRBZLS.HIS_DAILYPAID.dppiid
+  is '费用项目';
+comment on column HRBZLS.HIS_DAILYPAID.dppfid
+  is '用水类别';
+comment on column HRBZLS.HIS_DAILYPAID.dprtid
+  is '抄表方式';
+comment on column HRBZLS.HIS_DAILYPAID.dprper
+  is '抄表员';
+comment on column HRBZLS.HIS_DAILYPAID.dprectrans
+  is '应收事务';
+comment on column HRBZLS.HIS_DAILYPAID.dpsafid
+  is '区域';
+comment on column HRBZLS.HIS_DAILYPAID.dpcaliber
+  is '口径';
+comment on column HRBZLS.HIS_DAILYPAID.dpmtype
+  is '水表类型';
+comment on column HRBZLS.HIS_DAILYPAID.dpchargetype
+  is '收费方式';
+comment on column HRBZLS.HIS_DAILYPAID.dptrans
+  is '实收事务';
+comment on column HRBZLS.HIS_DAILYPAID.dpchargepoint
+  is '缴费点';
+comment on column HRBZLS.HIS_DAILYPAID.dpqcsscnt
+  is '期初销帐笔数';
+comment on column HRBZLS.HIS_DAILYPAID.dpqcsssl
+  is '期初销帐水量';
+comment on column HRBZLS.HIS_DAILYPAID.dpqcssje
+  is '期初销帐金额';
+comment on column HRBZLS.HIS_DAILYPAID.dpqczncnt
+  is '期初违约金笔数';
+comment on column HRBZLS.HIS_DAILYPAID.dpqcznje
+  is '期初违约金金额';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqsscntde
+  is '本期销帐笔数借方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqssslde
+  is '本期销帐水量借方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqssjede
+  is '本期销帐金额借方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqsscntcr
+  is '本期销帐笔数贷方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqssslcr
+  is '本期销帐水量贷方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqssjecr
+  is '本期销帐金额贷方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqzncntde
+  is '本期违约金笔数借方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqznjede
+  is '本期违约金金额借方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqzncntcr
+  is '本期违约金笔数贷方';
+comment on column HRBZLS.HIS_DAILYPAID.dpbqznjecr
+  is '本期违约金金额贷方';
+comment on column HRBZLS.HIS_DAILYPAID.dpqmsscnt
+  is '期末销帐笔数';
+comment on column HRBZLS.HIS_DAILYPAID.dpqmsssl
+  is '期末销帐水量';
+comment on column HRBZLS.HIS_DAILYPAID.dpqmssje
+  is '期末销帐金额';
+comment on column HRBZLS.HIS_DAILYPAID.dpqmzncnt
+  is '期末违约金笔数';
+comment on column HRBZLS.HIS_DAILYPAID.dpqmznje
+  is '期末违约金金额';
+create index HRBZLS.IDX_HIS_DAILYPAID on HRBZLS.HIS_DAILYPAID (DPDATE, DPMONTH, DPRECMONTH, DPSMFID, DPMLB, DPPIID, DPPFID, DPRTID, DPRPER, DPRECTRANS, DPSAFID, DPCALIBER, DPMTYPE, DPCHARGETYPE, DPTRANS, DPCHARGEPOINT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_HIS_DAILYPAID_DMS on HRBZLS.HIS_DAILYPAID (DPDATE, DPMONTH, DPRECMONTH, DPSMFID, DPPIID, DPTRANS, DPCHARGEPOINT)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_HIS_DAILYPAID_DPSMFID on HRBZLS.HIS_DAILYPAID (DPMONTH, DPSMFID, DPPIID, DPRECTRANS)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.HIS_DAILYPAID
+  add constraint PK_HIS_DAILYPAID primary key (DPID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

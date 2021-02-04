@@ -1,0 +1,40 @@
+create table HRBZLS.METERBRAND
+(
+  mbid   VARCHAR2(2) not null,
+  mbname VARCHAR2(20),
+  mbmemo VARCHAR2(120)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERBRAND
+  is '±íÆ·ÅÆ¡¾MB¡¿';
+comment on column HRBZLS.METERBRAND.mbid
+  is '±àÂë';
+comment on column HRBZLS.METERBRAND.mbname
+  is 'Ãû³Æ';
+comment on column HRBZLS.METERBRAND.mbmemo
+  is 'ÃèÊö';
+alter table HRBZLS.METERBRAND
+  add constraint PK_METERBRAND primary key (MBID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

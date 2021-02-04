@@ -1,0 +1,44 @@
+create table HRBZLS.PRICEMULTIDETAIL
+(
+  pmdcid     VARCHAR2(10) not null,
+  pmdmid     VARCHAR2(10) not null,
+  pmdid      NUMBER not null,
+  pmdpfid    VARCHAR2(10) not null,
+  pmdscale   NUMBER(10,2) not null,
+  pmdtype    VARCHAR2(2) default '01',
+  pmdcolumn1 VARCHAR2(10),
+  pmdcolumn2 VARCHAR2(10),
+  pmdcolumn3 VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PRICEMULTIDETAIL
+  is '混合用水明细【PMD】';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdcid
+  is '用户编号';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdmid
+  is '水表编号';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdid
+  is '分组号';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdpfid
+  is '价格类别';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdscale
+  is '比例';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdtype
+  is '混合类别(00比例，01定量)';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdcolumn1
+  is '备用字段1';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdcolumn2
+  is '备用字段2';
+comment on column HRBZLS.PRICEMULTIDETAIL.pmdcolumn3
+  is '备用字段3';
+alter table HRBZLS.PRICEMULTIDETAIL
+  add constraint PK_PRICEMULTIDETAIL primary key (PMDCID, PMDMID, PMDID, PMDPFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

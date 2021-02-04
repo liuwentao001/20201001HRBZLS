@@ -1,0 +1,47 @@
+create table HRBZLS.欠费中间表
+(
+  rlsmfid       VARCHAR2(10),
+  rlmonth       VARCHAR2(7),
+  rlsl          NUMBER(10),
+  rlje          NUMBER(13,3),
+  michargetype  CHAR(2),
+  rlreverseflag CHAR(2),
+  rlbadflag     CHAR(2),
+  rltrans       CHAR(2),
+  rlpfid        VARCHAR2(10),
+  charg1        NUMBER(13,3),
+  charg2        NUMBER(13,3),
+  charg3        NUMBER(13,3),
+  misaving      NUMBER(13,3)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.欠费中间表.rlsmfid
+  is '营业所';
+comment on column HRBZLS.欠费中间表.rlmonth
+  is '账务月份';
+comment on column HRBZLS.欠费中间表.rlsl
+  is '应收水量';
+comment on column HRBZLS.欠费中间表.rlje
+  is '应收金额';
+comment on column HRBZLS.欠费中间表.michargetype
+  is '收费方式(M-总表 走收 X-户表 坐收)';
+comment on column HRBZLS.欠费中间表.rlreverseflag
+  is '冲正标志';
+comment on column HRBZLS.欠费中间表.rlbadflag
+  is '呆账呆志';
+comment on column HRBZLS.欠费中间表.rltrans
+  is '应收事务';
+comment on column HRBZLS.欠费中间表.rlpfid
+  is '价格类别';
+comment on column HRBZLS.欠费中间表.charg1
+  is '水费';
+comment on column HRBZLS.欠费中间表.charg2
+  is '污水费';
+comment on column HRBZLS.欠费中间表.charg3
+  is '附加费';
+comment on column HRBZLS.欠费中间表.misaving
+  is '预存款余额';
+

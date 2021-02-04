@@ -1,0 +1,14 @@
+create table HRBZLS.BOOKFRAMETENMP
+(
+  bfid     VARCHAR2(10) not null,
+  bfsmfid  VARCHAR2(10),
+  bfname   VARCHAR2(60),
+  bfpid    VARCHAR2(10),
+  bfstatus CHAR(1),
+  bfflag   CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

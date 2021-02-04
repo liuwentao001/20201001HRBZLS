@@ -1,0 +1,49 @@
+create table HRBZLS.SYSSEQLIST
+(
+  ssltblname VARCHAR2(60) not null,
+  sslseqname VARCHAR2(60) not null,
+  sslprefix  VARCHAR2(10),
+  sslwidth   NUMBER(2) not null,
+  sslcname   VARCHAR2(60),
+  sslstartno NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSSEQLIST
+  is '序列列表【SSL】';
+comment on column HRBZLS.SYSSEQLIST.ssltblname
+  is '表名';
+comment on column HRBZLS.SYSSEQLIST.sslseqname
+  is '序列名';
+comment on column HRBZLS.SYSSEQLIST.sslprefix
+  is '前缀';
+comment on column HRBZLS.SYSSEQLIST.sslwidth
+  is '序列宽度';
+comment on column HRBZLS.SYSSEQLIST.sslcname
+  is '中文名称';
+comment on column HRBZLS.SYSSEQLIST.sslstartno
+  is '初始值';
+alter table HRBZLS.SYSSEQLIST
+  add constraint PK_SYSSEQLIST primary key (SSLTBLNAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

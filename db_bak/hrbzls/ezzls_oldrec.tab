@@ -1,0 +1,63 @@
+create table HRBZLS.EZZLS_OLDREC
+(
+  eono       VARCHAR2(10) not null,
+  eoname     VARCHAR2(50),
+  eocode     VARCHAR2(200),
+  eomoneysf  NUMBER(13,3),
+  eomoneyfj  NUMBER(13,3),
+  eomoneysz  NUMBER(13,3),
+  eomoneyps  NUMBER(13,3),
+  eomoneypw  NUMBER(13,3),
+  eomoneyzw  NUMBER(13,3),
+  eomoneyqt  NUMBER(13,3),
+  eomoneyhj  NUMBER(13,3),
+  eomemo1    VARCHAR2(300),
+  eomemo2    VARCHAR2(50),
+  eopaidflag CHAR(1),
+  eopaidtime DATE,
+  eopaidper  VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.EZZLS_OLDREC.eono
+  is '编号';
+comment on column HRBZLS.EZZLS_OLDREC.eoname
+  is '户名';
+comment on column HRBZLS.EZZLS_OLDREC.eocode
+  is '户号';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneysf
+  is '水费';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneyfj
+  is '附加费';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneysz
+  is '水资费';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneyps
+  is '排水费';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneypw
+  is '排污费';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneyzw
+  is '治污费';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneyqt
+  is '其他';
+comment on column HRBZLS.EZZLS_OLDREC.eomoneyhj
+  is '合计';
+comment on column HRBZLS.EZZLS_OLDREC.eomemo1
+  is '备注1';
+comment on column HRBZLS.EZZLS_OLDREC.eomemo2
+  is '备注2';
+comment on column HRBZLS.EZZLS_OLDREC.eopaidflag
+  is '是否销帐';
+comment on column HRBZLS.EZZLS_OLDREC.eopaidtime
+  is '销帐时间';
+comment on column HRBZLS.EZZLS_OLDREC.eopaidper
+  is '销帐人';
+

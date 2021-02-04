@@ -1,0 +1,29 @@
+create table HRBZLS.REPORT_FUNC
+(
+  func_english VARCHAR2(18) not null,
+  func_china   VARCHAR2(16) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.REPORT_FUNC_X on HRBZLS.REPORT_FUNC (FUNC_ENGLISH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

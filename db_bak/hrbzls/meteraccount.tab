@@ -1,0 +1,100 @@
+create table HRBZLS.METERACCOUNT
+(
+  mamid         VARCHAR2(10),
+  mano          VARCHAR2(64),
+  manoname      VARCHAR2(60),
+  mabankid      VARCHAR2(30),
+  maaccountno   VARCHAR2(32),
+  maaccountname VARCHAR2(64),
+  matsbankid    VARCHAR2(30),
+  matsbankname  VARCHAR2(64),
+  maifxezf      CHAR(1),
+  maregdate     DATE,
+  mamicode      VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERACCOUNT
+  is '户表银行信息【MA】';
+comment on column HRBZLS.METERACCOUNT.mamid
+  is '水表资料号';
+comment on column HRBZLS.METERACCOUNT.mano
+  is '委托授权号';
+comment on column HRBZLS.METERACCOUNT.manoname
+  is '签约户名';
+comment on column HRBZLS.METERACCOUNT.mabankid
+  is '开户行（代托）';
+comment on column HRBZLS.METERACCOUNT.maaccountno
+  is '开户帐号（代托）';
+comment on column HRBZLS.METERACCOUNT.maaccountname
+  is '开户名（代托）';
+comment on column HRBZLS.METERACCOUNT.matsbankid
+  is '接收行号（托）';
+comment on column HRBZLS.METERACCOUNT.matsbankname
+  is '凭证银行（托）';
+comment on column HRBZLS.METERACCOUNT.maifxezf
+  is '小额支付（托）';
+comment on column HRBZLS.METERACCOUNT.maregdate
+  is '签约日期';
+comment on column HRBZLS.METERACCOUNT.mamicode
+  is '资料号';
+create index HRBZLS.IDX_MAACCOUNTNO on HRBZLS.METERACCOUNT (MAACCOUNTNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MAMICODE on HRBZLS.METERACCOUNT (MAMICODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERACCOUNT_001 on HRBZLS.METERACCOUNT (MABANKID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERACCOUNT
+  add constraint AK_PK_METERACCOUNT_METERACC unique (MAMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

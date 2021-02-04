@@ -1,0 +1,88 @@
+create global temporary table HRBZLS.INV_GOLDTAX_TEMP
+(
+  id         VARCHAR2(32) not null,
+  cname      VARCHAR2(100),
+  ctaxcode   VARCHAR2(50),
+  caddrphone VARCHAR2(100),
+  cbankacc   VARCHAR2(100),
+  goodsname  VARCHAR2(400),
+  standard   VARCHAR2(400),
+  unit       VARCHAR2(400),
+  num        VARCHAR2(400),
+  price      VARCHAR2(400),
+  amount     VARCHAR2(400),
+  taxrate    VARCHAR2(400),
+  taxamount  VARCHAR2(400),
+  jehj       NUMBER(13,3),
+  sehj       NUMBER(13,3),
+  jshj       NUMBER(13,3),
+  sname      VARCHAR2(100),
+  staxcode   VARCHAR2(50),
+  saddrphone VARCHAR2(100),
+  sbankacc   VARCHAR2(100),
+  taxnotes   VARCHAR2(1000),
+  invoicer   VARCHAR2(10),
+  checker    VARCHAR2(10),
+  cashier    VARCHAR2(10),
+  ispcisno   VARCHAR2(50),
+  kind       NUMBER,
+  invprdate  DATE
+)
+on commit delete rows;
+comment on table HRBZLS.INV_GOLDTAX_TEMP
+  is '金税开票预览';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.id
+  is '序号';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.cname
+  is '购方名称';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.ctaxcode
+  is '购方税号';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.caddrphone
+  is '购方地址电话';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.cbankacc
+  is '购方开户行及账号';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.goodsname
+  is '商品或劳务名称';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.standard
+  is '规格型号';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.unit
+  is '计量单位';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.num
+  is '数量';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.price
+  is '单价';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.amount
+  is '金额';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.taxrate
+  is '税率';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.taxamount
+  is '税额';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.jehj
+  is '合计金额';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.sehj
+  is '合计税额';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.jshj
+  is '价税合计';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.sname
+  is '销方名称';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.staxcode
+  is '销方税号';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.saddrphone
+  is '销方地址电话';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.sbankacc
+  is '销方开户行及账号';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.taxnotes
+  is '备注';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.invoicer
+  is '开票人';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.checker
+  is '复核人';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.cashier
+  is '收款人';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.ispcisno
+  is '发票号';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.kind
+  is '发票种类0专用发票2普通发票';
+comment on column HRBZLS.INV_GOLDTAX_TEMP.invprdate
+  is '开票日期';
+

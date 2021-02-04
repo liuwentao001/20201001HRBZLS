@@ -1,0 +1,24 @@
+create table HRBZLS.ERPFUNCTIONPARAŒ€ÀÆ≥¨±Í
+(
+  efid      VARCHAR2(10) not null,
+  efname    VARCHAR2(40),
+  efevent   VARCHAR2(64) not null,
+  eftype    VARCHAR2(64) not null,
+  efrow     VARCHAR2(3) not null,
+  efrunpara VARCHAR2(4000),
+  efmemo    VARCHAR2(256),
+  efno      VARCHAR2(20),
+  efflag    VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

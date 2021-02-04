@@ -1,0 +1,32 @@
+create table HRBZLS.RPT_SUM_RECLIST
+(
+  rlid    VARCHAR2(10) not null,
+  rlmonth VARCHAR2(10) not null,
+  rltype  CHAR(2) not null,
+  rlnote  VARCHAR2(600)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.RPT_SUM_RECLIST.rlid
+  is '应收流水号';
+comment on column HRBZLS.RPT_SUM_RECLIST.rlmonth
+  is '应收月份';
+comment on column HRBZLS.RPT_SUM_RECLIST.rltype
+  is '中间表类别';
+comment on column HRBZLS.RPT_SUM_RECLIST.rlnote
+  is '中间表说明';
+create index HRBZLS.IDX_RPT_SUM_RECLIST on HRBZLS.RPT_SUM_RECLIST (RLMONTH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.RPT_SUM_RECLIST
+  add constraint RPT_SUM_RECLIST primary key (RLID, RLMONTH, RLTYPE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

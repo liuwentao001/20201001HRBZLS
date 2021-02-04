@@ -1,0 +1,35 @@
+create table HRBZLS.PRICEVER
+(
+  id     NUMBER,
+  emonth VARCHAR2(7),
+  oper   VARCHAR2(10),
+  odate  DATE,
+  smonth VARCHAR2(7),
+  memo   VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRICEVER
+  is '价格归档';
+comment on column HRBZLS.PRICEVER.id
+  is '版本号';
+comment on column HRBZLS.PRICEVER.emonth
+  is '归档终止月份';
+comment on column HRBZLS.PRICEVER.oper
+  is '归档人';
+comment on column HRBZLS.PRICEVER.odate
+  is '归档时间';
+comment on column HRBZLS.PRICEVER.smonth
+  is '归档起始月份';
+comment on column HRBZLS.PRICEVER.memo
+  is '备注';
+

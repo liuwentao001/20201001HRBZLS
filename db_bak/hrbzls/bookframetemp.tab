@@ -1,0 +1,21 @@
+create table HRBZLS.BOOKFRAMETEMP
+(
+  bfid     VARCHAR2(10) not null,
+  bfsmfid  VARCHAR2(10),
+  bfname   VARCHAR2(60),
+  bfpid    VARCHAR2(10),
+  bfstatus CHAR(1),
+  bfflag   CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

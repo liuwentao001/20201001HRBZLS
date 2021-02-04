@@ -1,0 +1,37 @@
+create table HRBZLS.INVSTOCKDETAIL
+(
+  idid        NUMBER(10),
+  idtype      VARCHAR2(2),
+  idprintid   VARCHAR2(2000),
+  isprintpiid VARCHAR2(2000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVSTOCKDETAIL
+  is '票据库存【ID】';
+comment on column HRBZLS.INVSTOCKDETAIL.idid
+  is '票据流水号';
+comment on column HRBZLS.INVSTOCKDETAIL.idtype
+  is '打印类别（01现金，02代扣，03托收，04入户直收，01打预存）';
+comment on column HRBZLS.INVSTOCKDETAIL.idprintid
+  is '对应流水号';
+comment on column HRBZLS.INVSTOCKDETAIL.isprintpiid
+  is '费用项目';
+create index HRBZLS.INVSTOCKDETAIL_IDX001 on HRBZLS.INVSTOCKDETAIL (IDPRINTID, ISPRINTPIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 167;
+create index HRBZLS.INVSTOCKDETAIL_IDX002 on HRBZLS.INVSTOCKDETAIL (IDTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.INVSTOCKDETAIL_IDX003 on HRBZLS.INVSTOCKDETAIL (IDID, IDPRINTID, ISPRINTPIID, IDTYPE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 166;
+

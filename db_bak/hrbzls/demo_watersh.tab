@@ -1,0 +1,51 @@
+create table HRBZLS.DEMO_WATERSH
+(
+  crhno      VARCHAR2(10),
+  crhbh      VARCHAR2(10),
+  crhlb      CHAR(1),
+  crhsource  CHAR(1),
+  crhsmfid   VARCHAR2(10),
+  crhdept    VARCHAR2(10),
+  crhcredate DATE,
+  crhcreper  VARCHAR2(10),
+  crhshdate  DATE,
+  crhshper   VARCHAR2(10),
+  crhshflag  CHAR(1),
+  crhwfid    NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.DEMO_WATERSH.crhno
+  is '单据流水号';
+comment on column HRBZLS.DEMO_WATERSH.crhbh
+  is '单据编号';
+comment on column HRBZLS.DEMO_WATERSH.crhlb
+  is '单据类别';
+comment on column HRBZLS.DEMO_WATERSH.crhsource
+  is '单据来源';
+comment on column HRBZLS.DEMO_WATERSH.crhsmfid
+  is '营销公司';
+comment on column HRBZLS.DEMO_WATERSH.crhdept
+  is '立户部门';
+comment on column HRBZLS.DEMO_WATERSH.crhcredate
+  is '创建日期';
+comment on column HRBZLS.DEMO_WATERSH.crhcreper
+  is '创建人员';
+comment on column HRBZLS.DEMO_WATERSH.crhshdate
+  is '审核日期';
+comment on column HRBZLS.DEMO_WATERSH.crhshper
+  is '审核人员';
+comment on column HRBZLS.DEMO_WATERSH.crhshflag
+  is '审核标志';
+comment on column HRBZLS.DEMO_WATERSH.crhwfid
+  is '工作流实例';
+

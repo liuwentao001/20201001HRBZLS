@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_FLOWID
+minvalue 1000000000
+maxvalue 9999999999
+start with 3000001301
+increment by 1
+cache 50;
+

@@ -1,0 +1,54 @@
+create table HRBZLS.BS_METERDOC_BAK
+(
+  id             VARCHAR2(10) not null,
+  mdid           VARCHAR2(10),
+  mdno           VARCHAR2(40),
+  mdcaliber      NUMBER(10),
+  mdbrand        VARCHAR2(30),
+  mdmodel        VARCHAR2(2),
+  mdstatus       VARCHAR2(2),
+  mdstatusdate   DATE,
+  mdcycchkdate   DATE,
+  mdstockdate    DATE,
+  mdstore        VARCHAR2(10),
+  sfh            VARCHAR2(40),
+  dqsfh          VARCHAR2(40),
+  dqgfh          VARCHAR2(40),
+  jcgfh          VARCHAR2(40),
+  qfh            VARCHAR2(40),
+  mdfq1          VARCHAR2(40),
+  mdfq2          VARCHAR2(40),
+  mdfq3          VARCHAR2(40),
+  mdfq4          VARCHAR2(40),
+  mdfq5          VARCHAR2(40),
+  barcode        VARCHAR2(20),
+  rfid           VARCHAR2(20),
+  ifdzsb         VARCHAR2(2),
+  concentratorid VARCHAR2(50),
+  readmetercode  VARCHAR2(50),
+  transferstype  VARCHAR2(50),
+  collenttype    VARCHAR2(20),
+  iscontrol      VARCHAR2(20),
+  readtype       VARCHAR2(20),
+  rkbatch        VARCHAR2(20),
+  rkdno          VARCHAR2(20),
+  storeroomid    VARCHAR2(10),
+  rkman          VARCHAR2(20),
+  mainman        VARCHAR2(20),
+  maindate       DATE,
+  sjdate         DATE,
+  mdmode         VARCHAR2(50),
+  portno         VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 288M
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

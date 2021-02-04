@@ -1,0 +1,35 @@
+create table HRBZLS.MACHINEFILEFORMAT
+(
+  mffid       VARCHAR2(10) not null,
+  mfmid       VARCHAR2(2),
+  mfformat    CLOB,
+  mffilename  VARCHAR2(100),
+  mfprocedure VARCHAR2(50),
+  mfdatatype  VARCHAR2(1),
+  mfcoltemp   NUMBER,
+  mfparse     VARCHAR2(4000),
+  mfflag      VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on column HRBZLS.MACHINEFILEFORMAT.mffid
+  is '主键ID';
+comment on column HRBZLS.MACHINEFILEFORMAT.mfmid
+  is '抄表机型号ID';
+comment on column HRBZLS.MACHINEFILEFORMAT.mfformat
+  is '抄表机格式SQL';
+comment on column HRBZLS.MACHINEFILEFORMAT.mffilename
+  is '文件名';
+comment on column HRBZLS.MACHINEFILEFORMAT.mfprocedure
+  is '存储过程名';
+comment on column HRBZLS.MACHINEFILEFORMAT.mfdatatype
+  is '导出E/导出I';
+comment on column HRBZLS.MACHINEFILEFORMAT.mfcoltemp
+  is '导入临时表数据的列号，取值范围为1-100之间的整数';
+comment on column HRBZLS.MACHINEFILEFORMAT.mfparse
+  is 'DBF文件转换为TXT文件的语法格式SQL';
+comment on column HRBZLS.MACHINEFILEFORMAT.mfflag
+  is '是否在PB前台中处理该文件格式';
+

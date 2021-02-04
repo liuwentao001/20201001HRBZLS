@@ -1,0 +1,32 @@
+create table HRBZLS.行业分类对应关系表
+(
+  hy_id       NUMBER not null,
+  hy_name     VARCHAR2(20) not null,
+  hy_together VARCHAR2(20) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.行业分类对应关系表
+  add constraint PRI_HY primary key (HY_ID, HY_NAME, HY_TOGETHER)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

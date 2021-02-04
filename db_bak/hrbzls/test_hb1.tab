@@ -1,0 +1,18 @@
+create table HRBZLS.TEST_HB1
+(
+  miid VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.TEST_HB1
+  is 'test_hb1';
+

@@ -1,0 +1,7 @@
+create sequence HRBZLS.SMP_VBO_REPORT_ID_SEQ
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 61
+increment by 1
+cache 50;
+

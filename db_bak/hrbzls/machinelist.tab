@@ -1,0 +1,44 @@
+create table HRBZLS.MACHINELIST
+(
+  mlmachinetype CHAR(2) not null,
+  mlmachineid   VARCHAR2(60) not null,
+  mlbatchid     VARCHAR2(10),
+  mloper        VARCHAR2(15),
+  mloutdate     DATE,
+  mloutoper     VARCHAR2(15),
+  mlindate      DATE,
+  mlinoper      VARCHAR2(15),
+  mlcurstate    CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.MACHINELIST
+  is '抄表机清单【ML】';
+comment on column HRBZLS.MACHINELIST.mlmachinetype
+  is '抄表机型号';
+comment on column HRBZLS.MACHINELIST.mlmachineid
+  is '抄表机编号';
+comment on column HRBZLS.MACHINELIST.mlbatchid
+  is '当前数据批次';
+comment on column HRBZLS.MACHINELIST.mloper
+  is '抄表机领用人员';
+comment on column HRBZLS.MACHINELIST.mloutdate
+  is '最近发送日期';
+comment on column HRBZLS.MACHINELIST.mloutoper
+  is '最近发送操作员';
+comment on column HRBZLS.MACHINELIST.mlindate
+  is '最近接收日期';
+comment on column HRBZLS.MACHINELIST.mlinoper
+  is '最近接收操作员';
+comment on column HRBZLS.MACHINELIST.mlcurstate
+  is '最近状态';
+alter table HRBZLS.MACHINELIST
+  add constraint PK_MACHINELIST primary key (MLMACHINETYPE, MLMACHINEID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

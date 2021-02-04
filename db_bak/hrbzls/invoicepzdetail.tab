@@ -1,0 +1,21 @@
+create table HRBZLS.INVOICEPZDETAIL
+(
+  ipdid   NUMBER,
+  ipdilid NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVOICEPZDETAIL
+  is '凭证总帐明细【IPD】';
+comment on column HRBZLS.INVOICEPZDETAIL.ipdid
+  is '凭证流水';
+comment on column HRBZLS.INVOICEPZDETAIL.ipdilid
+  is '票据流水';
+create index HRBZLS.IDX_IPDID on HRBZLS.INVOICEPZDETAIL (IPDID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

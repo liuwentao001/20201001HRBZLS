@@ -1,0 +1,52 @@
+create table HRBZLS.OPEROPENFUN
+(
+  oofoaid  VARCHAR2(10) not null,
+  oofefid  VARCHAR2(10) not null,
+  ooforder NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPEROPENFUN
+  is '操作员进入系统默认打开功能[ OOF ]';
+comment on column HRBZLS.OPEROPENFUN.oofoaid
+  is '操作员ID';
+comment on column HRBZLS.OPEROPENFUN.oofefid
+  is '功能';
+comment on column HRBZLS.OPEROPENFUN.ooforder
+  is '打开顺序';
+create index HRBZLS.OPEROPENFUN_IDX001 on HRBZLS.OPEROPENFUN (OOFOAID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.OPEROPENFUN
+  add constraint PK_OPEROPENFUN primary key (OOFOAID, OOFEFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

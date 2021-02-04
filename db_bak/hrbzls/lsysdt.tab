@@ -1,0 +1,67 @@
+create table HRBZLS.LSYSDT
+(
+  crhno      VARCHAR2(10) not null,
+  crhbh      VARCHAR2(10),
+  crhlb      VARCHAR2(2),
+  crhsource  CHAR(1),
+  crhsmfid   VARCHAR2(10),
+  crhdept    VARCHAR2(10),
+  crhcredate DATE,
+  crhcreper  VARCHAR2(10),
+  crhshdate  DATE,
+  crhshper   VARCHAR2(10),
+  crhshflag  CHAR(1),
+  crhwfid    NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.LSYSDT
+  is '临时用水单头';
+comment on column HRBZLS.LSYSDT.crhno
+  is '单据流水号';
+comment on column HRBZLS.LSYSDT.crhbh
+  is '单据编号';
+comment on column HRBZLS.LSYSDT.crhlb
+  is '单据类别';
+comment on column HRBZLS.LSYSDT.crhsource
+  is '单据来源';
+comment on column HRBZLS.LSYSDT.crhsmfid
+  is '营销公司';
+comment on column HRBZLS.LSYSDT.crhdept
+  is '立户部门';
+comment on column HRBZLS.LSYSDT.crhcredate
+  is '创建日期';
+comment on column HRBZLS.LSYSDT.crhcreper
+  is '创建人员';
+comment on column HRBZLS.LSYSDT.crhshdate
+  is '审核日期';
+comment on column HRBZLS.LSYSDT.crhshper
+  is '审核人员';
+comment on column HRBZLS.LSYSDT.crhshflag
+  is '审核标志';
+comment on column HRBZLS.LSYSDT.crhwfid
+  is '工作流实例';
+alter table HRBZLS.LSYSDT
+  add constraint PK_LSYSDT_CRHNO primary key (CRHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

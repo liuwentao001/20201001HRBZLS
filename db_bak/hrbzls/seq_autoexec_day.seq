@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_AUTOEXEC_DAY
+minvalue 1
+maxvalue 99999999
+start with 92051
+increment by 1
+cache 50;
+

@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_METERSTOCK
+minvalue 1000000000
+maxvalue 9999999999
+start with 1000000001
+increment by 1
+cache 50;
+

@@ -1,0 +1,12 @@
+create table HRBZLS.TEST_44
+(
+  a CHAR(100),
+  b CHAR(100),
+  c CHAR(100),
+  d CHAR(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

@@ -1,0 +1,47 @@
+create table HRBZLS.PAIDADJUSTDDT
+(
+  paddno      VARCHAR2(10) not null,
+  paddrowno   NUMBER(6) not null,
+  paddrowno2  NUMBER(6) not null,
+  paddpdid    VARCHAR2(10) not null,
+  paddpdpiid  CHAR(2) not null,
+  paddpdsl    NUMBER(12,2),
+  paddpddj    NUMBER(13,3),
+  paddpdje    NUMBER(13,3) not null,
+  paddpdznj   NUMBER(12,2),
+  paddchkflag CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.PAIDADJUSTDDT
+  is '实收冲正单体【PADD】';
+comment on column HRBZLS.PAIDADJUSTDDT.paddno
+  is '单据流水号';
+comment on column HRBZLS.PAIDADJUSTDDT.paddrowno
+  is '行号';
+comment on column HRBZLS.PAIDADJUSTDDT.paddrowno2
+  is '行号';
+comment on column HRBZLS.PAIDADJUSTDDT.paddpdid
+  is '流水号';
+comment on column HRBZLS.PAIDADJUSTDDT.paddpdpiid
+  is '费用项目';
+comment on column HRBZLS.PAIDADJUSTDDT.paddpdsl
+  is '实收水量';
+comment on column HRBZLS.PAIDADJUSTDDT.paddpddj
+  is '实收单价';
+comment on column HRBZLS.PAIDADJUSTDDT.paddpdje
+  is '实收金额';
+comment on column HRBZLS.PAIDADJUSTDDT.paddpdznj
+  is '实收违约金';
+comment on column HRBZLS.PAIDADJUSTDDT.paddchkflag
+  is '选择冲正标志';
+alter table HRBZLS.PAIDADJUSTDDT
+  add constraint PK_PAIDADJUSTDDT primary key (PADDNO, PADDROWNO, PADDROWNO2)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

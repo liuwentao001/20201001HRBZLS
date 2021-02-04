@@ -1,0 +1,43 @@
+create table HRBZLS.MIS_AUDIT
+(
+  id             CHAR(10) not null,
+  cname          VARCHAR2(100),
+  name           VARCHAR2(100),
+  sql            VARCHAR2(4000),
+  qty            NUMBER(10),
+  las_audit_date DATE,
+  disp_order     NUMBER(5),
+  sql_type       VARCHAR2(20),
+  update_file    VARCHAR2(128),
+  update_op      VARCHAR2(20),
+  update_date    DATE,
+  update_type    VARCHAR2(10),
+  this_proj      VARCHAR2(2),
+  is_sum         NUMBER(5),
+  sample         NVARCHAR2(128),
+  proj           NVARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.MIS_AUDIT_X on HRBZLS.MIS_AUDIT (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

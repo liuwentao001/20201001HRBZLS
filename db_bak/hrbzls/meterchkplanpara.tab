@@ -1,0 +1,26 @@
+create table HRBZLS.METERCHKPLANPARA
+(
+  mcppsort    VARCHAR2(10),
+  mcppcaliber NUMBER(10) not null,
+  mcppcyc     INTEGER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERCHKPLANPARA
+  is '周检条件参数【MCPP】';
+comment on column HRBZLS.METERCHKPLANPARA.mcppsort
+  is '水表类别';
+comment on column HRBZLS.METERCHKPLANPARA.mcppcaliber
+  is '水表口径';
+comment on column HRBZLS.METERCHKPLANPARA.mcppcyc
+  is '周检年限';
+alter table HRBZLS.METERCHKPLANPARA
+  add constraint PK_METERCHKPLANPARA primary key (MCPPCALIBER)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

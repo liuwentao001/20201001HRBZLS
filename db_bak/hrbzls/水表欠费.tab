@@ -1,0 +1,110 @@
+create table HRBZLS.水表欠费
+(
+  qfmiid VARCHAR2(10),
+  资料号    VARCHAR2(10) not null,
+  水费     NUMBER(12,2) default 0 not null,
+  污水费    NUMBER(12,2) default 0 not null,
+  水资源费   NUMBER(12,2) default 0 not null,
+  垃圾处理费  NUMBER(12,2) default 0 not null,
+  费5     NUMBER(12,2) default 0 not null,
+  费6     NUMBER(12,2) default 0 not null,
+  费7     NUMBER(12,2) default 0 not null,
+  费8     NUMBER(12,2) default 0 not null,
+  合计欠费   NUMBER(12,2) default 0 not null,
+  去年费5   NUMBER(12,2) default 0 not null,
+  去年费6   NUMBER(12,2) default 0 not null,
+  去年费7   NUMBER(12,2) default 0 not null,
+  去年费8   NUMBER(12,2) default 0 not null,
+  最后更新日期 DATE,
+  欠费期数   NUMBER(10),
+  最久欠费日期 DATE,
+  最近欠费日期 DATE,
+  当月费1   NUMBER(12,2) default 0 not null,
+  当月费2   NUMBER(12,2) default 0 not null,
+  当月费3   NUMBER(12,2) default 0 not null,
+  当月费4   NUMBER(12,2) default 0 not null,
+  当月费5   NUMBER(12,2) default 0 not null,
+  当月费6   NUMBER(12,2) default 0 not null,
+  当月费7   NUMBER(12,2) default 0 not null,
+  当月费8   NUMBER(12,2) default 0 not null,
+  当月合计欠费 NUMBER(12,2) default 0 not null,
+  用户名称   VARCHAR2(200),
+  用户地址   VARCHAR2(200),
+  滞纳金    NUMBER(12,2) default 0,
+  预存     NUMBER(12,2) default 0,
+  本年费1   NUMBER(12,2) default 0 not null,
+  本年费2   NUMBER(12,2) default 0 not null,
+  本年费3   NUMBER(12,2) default 0 not null,
+  本年费4   NUMBER(12,2) default 0 not null,
+  本年费5   NUMBER(12,2) default 0 not null,
+  本年费6   NUMBER(12,2) default 0 not null,
+  本年费7   NUMBER(12,2) default 0 not null,
+  本年费8   NUMBER(12,2) default 0 not null,
+  本年合计   NUMBER(12,2) default 0 not null,
+  去年合计   NUMBER(12,2) default 0 not null,
+  去年费1   NUMBER(12,2) default 0 not null,
+  去年费2   NUMBER(12,2) default 0 not null,
+  去年费3   NUMBER(12,2) default 0 not null,
+  去年费4   NUMBER(12,2) default 0 not null,
+  总水量    NUMBER(10) default 0 not null,
+  当月水量   NUMBER(10) default 0 not null,
+  本年水量   NUMBER(10) default 0 not null,
+  去年水量   NUMBER(10) default 0 not null,
+  欠费笔数   NUMBER(10) default 0 not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.水表欠费.本年费1
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年费2
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年费3
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年费4
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年费5
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年费6
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年费7
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年费8
+  is '不包含本月';
+comment on column HRBZLS.水表欠费.本年合计
+  is '不包含本月';
+create index HRBZLS.IDX_水表欠费4 on HRBZLS.水表欠费 (QFMIID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.水表欠费
+  add constraint PK_SBQF_ZLH primary key (资料号)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

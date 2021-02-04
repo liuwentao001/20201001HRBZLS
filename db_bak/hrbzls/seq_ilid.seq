@@ -1,0 +1,9 @@
+create sequence HRBZLS.SEQ_ILID
+minvalue 1
+maxvalue 9999999999
+start with 648755
+increment by 1
+cache 50
+cycle
+order;
+

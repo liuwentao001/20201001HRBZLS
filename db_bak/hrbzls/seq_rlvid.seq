@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_RLVID
+minvalue 1
+maxvalue 9999999999
+start with 1004850460
+increment by 1
+cache 50
+order;
+

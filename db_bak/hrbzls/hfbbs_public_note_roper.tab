@@ -1,0 +1,29 @@
+create table HRBZLS.HFBBS_PUBLIC_NOTE_ROPER
+(
+  wpnr_id         VARCHAR2(10) not null,
+  wpnr_wpnid      VARCHAR2(10),
+  wpnr_operator   VARCHAR2(6),
+  wpnr_flagreaded CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.HFBBS_PUBLIC_NOTE_ROPER
+  is '系统公告版查阅情况';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE_ROPER.wpnr_id
+  is '流水号';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE_ROPER.wpnr_wpnid
+  is '公告流水号';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE_ROPER.wpnr_operator
+  is '操作员编码';
+comment on column HRBZLS.HFBBS_PUBLIC_NOTE_ROPER.wpnr_flagreaded
+  is '是否已经阅读';
+alter table HRBZLS.HFBBS_PUBLIC_NOTE_ROPER
+  add constraint PK_PUBLIC_NOTE_ROPER1 primary key (WPNR_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

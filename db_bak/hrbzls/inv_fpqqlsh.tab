@@ -1,0 +1,116 @@
+create table HRBZLS.INV_FPQQLSH
+(
+  fpqqlsh    VARCHAR2(100) not null,
+  tpdate     DATE,
+  tpdatetime DATE,
+  tpmid      VARCHAR2(20),
+  tpname     VARCHAR2(200),
+  tpinvtype  VARCHAR2(2),
+  tpinvje    NUMBER(12,3),
+  tpstutas   VARCHAR2(2),
+  tpdpdate   DATE,
+  tpcrcode   VARCHAR2(10),
+  tpcrmsg    VARCHAR2(400),
+  tpflag     VARCHAR2(2),
+  tpflag1    VARCHAR2(2),
+  tppdate    DATE,
+  tpbdm      VARCHAR2(50),
+  tpbhm      VARCHAR2(50),
+  tprdm      VARCHAR2(50),
+  tprhm      VARCHAR2(50),
+  tpcrflag   VARCHAR2(2),
+  fpqqlsh1   VARCHAR2(100),
+  tppmsg     VARCHAR2(400)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.INV_FPQQLSH.fpqqlsh
+  is '商品流水号';
+comment on column HRBZLS.INV_FPQQLSH.tpdate
+  is '申请日期';
+comment on column HRBZLS.INV_FPQQLSH.tpdatetime
+  is '申请时间';
+comment on column HRBZLS.INV_FPQQLSH.tpmid
+  is '用户号';
+comment on column HRBZLS.INV_FPQQLSH.tpname
+  is '票据名';
+comment on column HRBZLS.INV_FPQQLSH.tpinvtype
+  is '票据类型（1蓝票2红票）';
+comment on column HRBZLS.INV_FPQQLSH.tpinvje
+  is '开票金额';
+comment on column HRBZLS.INV_FPQQLSH.tpstutas
+  is '开票状态(1成功2水司单边3电票单边4失败5重复开票)';
+comment on column HRBZLS.INV_FPQQLSH.tpdpdate
+  is '对票日期';
+comment on column HRBZLS.INV_FPQQLSH.tpcrcode
+  is '对票返回代码';
+comment on column HRBZLS.INV_FPQQLSH.tpcrmsg
+  is '对票信息';
+comment on column HRBZLS.INV_FPQQLSH.tpflag
+  is '对票标志';
+comment on column HRBZLS.INV_FPQQLSH.tpflag1
+  is '平票标志';
+comment on column HRBZLS.INV_FPQQLSH.tppdate
+  is '平票日期';
+comment on column HRBZLS.INV_FPQQLSH.tpbdm
+  is '蓝票代码';
+comment on column HRBZLS.INV_FPQQLSH.tpbhm
+  is '蓝票号码';
+comment on column HRBZLS.INV_FPQQLSH.tprdm
+  is '红票代码';
+comment on column HRBZLS.INV_FPQQLSH.tprhm
+  is '红票号码';
+comment on column HRBZLS.INV_FPQQLSH.tpcrflag
+  is '被冲标志';
+comment on column HRBZLS.INV_FPQQLSH.fpqqlsh1
+  is '红票商品流水号';
+comment on column HRBZLS.INV_FPQQLSH.tppmsg
+  is '平票信息';
+create index HRBZLS.IDX_FPQQLSH_FPH on HRBZLS.INV_FPQQLSH (TPBDM, TPBHM)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_FPQQLSH_TPDATE on HRBZLS.INV_FPQQLSH (TPDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.INV_FPQQLSH
+  add constraint PK_INV_FPQQLSH primary key (FPQQLSH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

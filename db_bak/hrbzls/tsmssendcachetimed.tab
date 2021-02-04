@@ -1,0 +1,23 @@
+create table HRBZLS.TSMSSENDCACHETIMED
+(
+  id           NUMBER(10,2) not null,
+  ssender      VARCHAR2(20),
+  dbegintime   DATE,
+  ntimingtag   CHAR(1) default 0,
+  dtimingtime  DATE,
+  ncontenttype NUMBER(38) default 101,
+  exnumber     VARCHAR2(20),
+  ssendno      VARCHAR2(1000),
+  ssmsmessage  VARCHAR2(200),
+  cflag        VARCHAR2(1),
+  returnflag   VARCHAR2(5),
+  ismgstatus   VARCHAR2(20),
+  statustime   VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.TSMSSENDCACHETIMED
+  is '短信发送(定时)（HF）';
+

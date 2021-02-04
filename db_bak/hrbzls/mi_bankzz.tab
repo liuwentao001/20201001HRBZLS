@@ -1,0 +1,46 @@
+create table HRBZLS.MI_BANKZZ
+(
+  bankid VARCHAR2(10) not null,
+  zzdate DATE not null,
+  czdate DATE,
+  dzno   VARCHAR2(20),
+  zzfrom VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.MI_BANKZZ
+  is '银行扎帐单';
+comment on column HRBZLS.MI_BANKZZ.bankid
+  is '银行编码';
+comment on column HRBZLS.MI_BANKZZ.zzdate
+  is '扎帐日期';
+comment on column HRBZLS.MI_BANKZZ.czdate
+  is '操作时间';
+comment on column HRBZLS.MI_BANKZZ.dzno
+  is '对账编号';
+comment on column HRBZLS.MI_BANKZZ.zzfrom
+  is '扎帐来源（B=银行自扎，S=系统补扎）';
+alter table HRBZLS.MI_BANKZZ
+  add constraint HRBZLS primary key (BANKID, ZZDATE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

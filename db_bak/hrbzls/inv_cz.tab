@@ -1,0 +1,34 @@
+create table HRBZLS.INV_CZ
+(
+  disp_str VARCHAR2(255),
+  page     NUMBER(10),
+  g        NUMBER(10),
+  id       NUMBER(10) not null,
+  is_print NUMBER(10),
+  disp_id  NUMBER(10),
+  do       NUMBER(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.RCS_TEXT_X on HRBZLS.INV_CZ (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

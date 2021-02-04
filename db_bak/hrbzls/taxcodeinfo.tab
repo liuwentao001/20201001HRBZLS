@@ -1,0 +1,56 @@
+create table HRBZLS.TAXCODEINFO
+(
+  tiid      VARCHAR2(10) not null,
+  tismfid   VARCHAR2(10) not null,
+  tiname    VARCHAR2(200),
+  tibank    VARCHAR2(200),
+  tibankacc VARCHAR2(50),
+  titaxcode VARCHAR2(50),
+  tiaddr    VARCHAR2(200),
+  titel     VARCHAR2(50),
+  timtel    VARCHAR2(50),
+  tiemail   VARCHAR2(50),
+  titype    VARCHAR2(2),
+  timemo    VARCHAR2(200),
+  tifptno   VARCHAR2(50)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.TAXCODEINFO
+  is '增值税税号信息';
+comment on column HRBZLS.TAXCODEINFO.tiid
+  is '编号';
+comment on column HRBZLS.TAXCODEINFO.tismfid
+  is '营业所';
+comment on column HRBZLS.TAXCODEINFO.tiname
+  is '购货方名称';
+comment on column HRBZLS.TAXCODEINFO.tibank
+  is '购货方开户行';
+comment on column HRBZLS.TAXCODEINFO.tibankacc
+  is '购货方账号';
+comment on column HRBZLS.TAXCODEINFO.titaxcode
+  is '购货方纳税人识别号';
+comment on column HRBZLS.TAXCODEINFO.tiaddr
+  is '购货方地址';
+comment on column HRBZLS.TAXCODEINFO.titel
+  is '购货方电话';
+comment on column HRBZLS.TAXCODEINFO.timtel
+  is '购货方手机';
+comment on column HRBZLS.TAXCODEINFO.tiemail
+  is '购货方邮箱';
+comment on column HRBZLS.TAXCODEINFO.titype
+  is '购货方类型，01：企业 02：机关事业单位 03：个人 04：其它';
+comment on column HRBZLS.TAXCODEINFO.timemo
+  is '备注';
+comment on column HRBZLS.TAXCODEINFO.tifptno
+  is '发票通账号';
+alter table HRBZLS.TAXCODEINFO
+  add constraint PK_TAXCODEINFO primary key (TIID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

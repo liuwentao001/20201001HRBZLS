@@ -1,0 +1,43 @@
+create table HRBZLS.METERCHKPLANHD
+(
+  mcphno      VARCHAR2(10) not null,
+  mcphbh      VARCHAR2(10),
+  mcphcredate DATE,
+  mcphcreper  VARCHAR2(10),
+  mcphyear    INTEGER,
+  mcphsmfid   VARCHAR2(10),
+  mcphmemo    VARCHAR2(60)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERCHKPLANHD
+  is '周检计划【MCPH】';
+comment on column HRBZLS.METERCHKPLANHD.mcphno
+  is '计划流水号';
+comment on column HRBZLS.METERCHKPLANHD.mcphbh
+  is '计划自定义编号';
+comment on column HRBZLS.METERCHKPLANHD.mcphcredate
+  is '创建日期';
+comment on column HRBZLS.METERCHKPLANHD.mcphcreper
+  is '创建人员';
+comment on column HRBZLS.METERCHKPLANHD.mcphyear
+  is '到检年';
+comment on column HRBZLS.METERCHKPLANHD.mcphsmfid
+  is '分公司';
+comment on column HRBZLS.METERCHKPLANHD.mcphmemo
+  is '备注';
+create unique index HRBZLS.IDX_MCPHYEAR on HRBZLS.METERCHKPLANHD (MCPHYEAR, MCPHSMFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.METERCHKPLANHD
+  add constraint PK_METERCHKPLANHD primary key (MCPHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

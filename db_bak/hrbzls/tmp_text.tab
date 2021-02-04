@@ -1,0 +1,9 @@
+create table HRBZLS.TMP_TEXT
+(
+  out_str NVARCHAR2(1000)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+

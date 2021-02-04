@@ -1,0 +1,460 @@
+create table HRBZLS.RECLISTHIS
+(
+  rlid            VARCHAR2(10) not null,
+  rlsmfid         VARCHAR2(10),
+  rlmonth         VARCHAR2(7),
+  rldate          DATE,
+  rlcid           VARCHAR2(10),
+  rlmid           VARCHAR2(10),
+  rlmsmfid        VARCHAR2(10),
+  rlcsmfid        VARCHAR2(10),
+  rlccode         VARCHAR2(10),
+  rlchargeper     VARCHAR2(15),
+  rlcpid          VARCHAR2(10),
+  rlcclass        NUMBER,
+  rlcflag         CHAR(1),
+  rlusenum        NUMBER,
+  rlcname         VARCHAR2(64),
+  rlcadr          VARCHAR2(64),
+  rlmadr          VARCHAR2(64),
+  rlcstatus       VARCHAR2(2),
+  rlmtel          VARCHAR2(30),
+  rltel           VARCHAR2(30),
+  rlbankid        VARCHAR2(10),
+  rltsbankid      VARCHAR2(10),
+  rlaccountno     VARCHAR2(32),
+  rlaccountname   VARCHAR2(64),
+  rliftax         CHAR(1),
+  rltaxno         VARCHAR2(30),
+  rlifinv         CHAR(1),
+  rlmcode         VARCHAR2(10),
+  rlmpid          VARCHAR2(10),
+  rlmclass        NUMBER,
+  rlmflag         CHAR(1),
+  rlmsfid         VARCHAR2(10),
+  rlday           DATE,
+  rlbfid          VARCHAR2(10),
+  rlprdate        DATE,
+  rlrdate         DATE,
+  rlzndate        DATE,
+  rlcaliber       NUMBER(10),
+  rlrtid          CHAR(1),
+  rlmstatus       VARCHAR2(2),
+  rlmtype         CHAR(1),
+  rlmno           VARCHAR2(40),
+  rlscode         NUMBER(10),
+  rlecode         NUMBER(10),
+  rlreadsl        NUMBER(10),
+  rlinvmemo       VARCHAR2(256),
+  rlentrustbatch  VARCHAR2(10),
+  rlentrustseqno  VARCHAR2(10),
+  rloutflag       CHAR(1),
+  rltrans         CHAR(1),
+  rlcd            CHAR(2),
+  rlyschargetype  CHAR(1),
+  rlsl            NUMBER(10),
+  rlje            NUMBER(13,3),
+  rladdsl         NUMBER(10),
+  rlscrrlid       VARCHAR2(10),
+  rlscrrltrans    CHAR(1),
+  rlscrrlmonth    VARCHAR2(7),
+  rlpaidje        NUMBER(13,3),
+  rlpaidflag      CHAR(1),
+  rlpaidper       VARCHAR2(20),
+  rlpaiddate      DATE,
+  rlmrid          VARCHAR2(100),
+  rlmemo          VARCHAR2(200),
+  rlznj           NUMBER(13,3),
+  rllb            CHAR(1),
+  rlcname2        VARCHAR2(64),
+  rlpfid          VARCHAR2(10),
+  rldatetime      DATE,
+  rlscrrldate     DATE,
+  rlprimcode      VARCHAR2(200),
+  rlpriflag       CHAR(1),
+  rlrper          VARCHAR2(10),
+  rlsafid         VARCHAR2(10),
+  rlscodechar     VARCHAR2(10),
+  rlecodechar     VARCHAR2(10),
+  rlilid          VARCHAR2(40),
+  rlmiuiid        VARCHAR2(10),
+  rlgroup         NUMBER(2),
+  rlpid           VARCHAR2(10),
+  rlpbatch        VARCHAR2(10),
+  rlsavingqc      NUMBER(12,2),
+  rlsavingbq      NUMBER(12,2),
+  rlsavingqm      NUMBER(12,2),
+  rlreverseflag   VARCHAR2(1),
+  rlbadflag       VARCHAR2(1),
+  rlznjreducflag  VARCHAR2(1),
+  rlmistid        VARCHAR2(10),
+  rlminame        VARCHAR2(64),
+  rlsxf           NUMBER(12,2),
+  rlmiface2       VARCHAR2(2),
+  rlmiface3       VARCHAR2(2),
+  rlmiface4       VARCHAR2(2),
+  rlmiifckf       CHAR(1),
+  rlmigps         VARCHAR2(60),
+  rlmiqfh         VARCHAR2(20),
+  rlmibox         VARCHAR2(10),
+  rlminame2       VARCHAR2(64),
+  rlmiseqno       VARCHAR2(50),
+  rlmisaving      NUMBER(13,3),
+  rlpriorje       NUMBER(13,3),
+  rlmicommunity   VARCHAR2(10),
+  rlmiremoteno    VARCHAR2(20),
+  rlmiremotehubno VARCHAR2(20),
+  rlmiemail       VARCHAR2(64),
+  rlmiemailflag   CHAR(1),
+  rlmicolumn1     NUMBER(12,2),
+  rlmicolumn2     VARCHAR2(10),
+  rlmicolumn3     VARCHAR2(64),
+  rlmicolumn4     VARCHAR2(10),
+  rlpaidmonth     VARCHAR2(7),
+  rlmicolumn5     DATE,
+  rlcolumn9       VARCHAR2(10),
+  rlcolumn10      VARCHAR2(7),
+  rlcolumn11      VARCHAR2(7),
+  rljtmk          CHAR(1),
+  rljtsrq         VARCHAR2(20),
+  rlcolumn12      VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.RECLISTHIS
+  is '应收总帐明细历史【RL】';
+comment on column HRBZLS.RECLISTHIS.rlid
+  is '流水号';
+comment on column HRBZLS.RECLISTHIS.rlsmfid
+  is '营销公司';
+comment on column HRBZLS.RECLISTHIS.rlmonth
+  is '帐务月份';
+comment on column HRBZLS.RECLISTHIS.rldate
+  is '帐务日期';
+comment on column HRBZLS.RECLISTHIS.rlcid
+  is '用户编号';
+comment on column HRBZLS.RECLISTHIS.rlmid
+  is '水表编号';
+comment on column HRBZLS.RECLISTHIS.rlmsmfid
+  is '水表公司';
+comment on column HRBZLS.RECLISTHIS.rlcsmfid
+  is '用户公司';
+comment on column HRBZLS.RECLISTHIS.rlccode
+  is '资料号';
+comment on column HRBZLS.RECLISTHIS.rlchargeper
+  is '收费员';
+comment on column HRBZLS.RECLISTHIS.rlcpid
+  is '上级用户编号';
+comment on column HRBZLS.RECLISTHIS.rlcclass
+  is '用户级次';
+comment on column HRBZLS.RECLISTHIS.rlcflag
+  is '末级标志';
+comment on column HRBZLS.RECLISTHIS.rlusenum
+  is '户用水人数';
+comment on column HRBZLS.RECLISTHIS.rlcname
+  is '用户名称';
+comment on column HRBZLS.RECLISTHIS.rlcadr
+  is '用户地址';
+comment on column HRBZLS.RECLISTHIS.rlmadr
+  is '水表地址';
+comment on column HRBZLS.RECLISTHIS.rlcstatus
+  is '用户状态';
+comment on column HRBZLS.RECLISTHIS.rlmtel
+  is '移动电话';
+comment on column HRBZLS.RECLISTHIS.rltel
+  is '固定电话';
+comment on column HRBZLS.RECLISTHIS.rlbankid
+  is '代扣银行';
+comment on column HRBZLS.RECLISTHIS.rltsbankid
+  is '托收银行';
+comment on column HRBZLS.RECLISTHIS.rlaccountno
+  is '开户帐号';
+comment on column HRBZLS.RECLISTHIS.rlaccountname
+  is '开户名称';
+comment on column HRBZLS.RECLISTHIS.rliftax
+  is '是否税票';
+comment on column HRBZLS.RECLISTHIS.rltaxno
+  is '增殖税号';
+comment on column HRBZLS.RECLISTHIS.rlifinv
+  is '是否普票';
+comment on column HRBZLS.RECLISTHIS.rlmcode
+  is '水表手工编号';
+comment on column HRBZLS.RECLISTHIS.rlmpid
+  is '上级水表';
+comment on column HRBZLS.RECLISTHIS.rlmclass
+  is '水表级次';
+comment on column HRBZLS.RECLISTHIS.rlmflag
+  is '末级标志';
+comment on column HRBZLS.RECLISTHIS.rlmsfid
+  is '水表类别';
+comment on column HRBZLS.RECLISTHIS.rlday
+  is '抄表日';
+comment on column HRBZLS.RECLISTHIS.rlbfid
+  is '表册';
+comment on column HRBZLS.RECLISTHIS.rlprdate
+  is '上次抄表日期';
+comment on column HRBZLS.RECLISTHIS.rlrdate
+  is '本次抄表日期';
+comment on column HRBZLS.RECLISTHIS.rlzndate
+  is '违约金起算日';
+comment on column HRBZLS.RECLISTHIS.rlcaliber
+  is '表口径';
+comment on column HRBZLS.RECLISTHIS.rlrtid
+  is '抄表方式';
+comment on column HRBZLS.RECLISTHIS.rlmstatus
+  is '状态';
+comment on column HRBZLS.RECLISTHIS.rlmtype
+  is '类型';
+comment on column HRBZLS.RECLISTHIS.rlmno
+  is '表身码';
+comment on column HRBZLS.RECLISTHIS.rlscode
+  is '起数';
+comment on column HRBZLS.RECLISTHIS.rlecode
+  is '止数';
+comment on column HRBZLS.RECLISTHIS.rlreadsl
+  is '抄见水量';
+comment on column HRBZLS.RECLISTHIS.rlinvmemo
+  is '发票备注';
+comment on column HRBZLS.RECLISTHIS.rlentrustbatch
+  is '托收代扣批号';
+comment on column HRBZLS.RECLISTHIS.rlentrustseqno
+  is '托收代扣流水号';
+comment on column HRBZLS.RECLISTHIS.rloutflag
+  is '发出标志';
+comment on column HRBZLS.RECLISTHIS.rltrans
+  is '应收事务';
+comment on column HRBZLS.RECLISTHIS.rlcd
+  is '借贷方向';
+comment on column HRBZLS.RECLISTHIS.rlyschargetype
+  is '应收方式';
+comment on column HRBZLS.RECLISTHIS.rlsl
+  is '应收水量';
+comment on column HRBZLS.RECLISTHIS.rlje
+  is '应收金额';
+comment on column HRBZLS.RECLISTHIS.rladdsl
+  is '加调水量';
+comment on column HRBZLS.RECLISTHIS.rlscrrlid
+  is '原应收帐流水';
+comment on column HRBZLS.RECLISTHIS.rlscrrltrans
+  is '原应收帐事务';
+comment on column HRBZLS.RECLISTHIS.rlscrrlmonth
+  is '原应收帐月份';
+comment on column HRBZLS.RECLISTHIS.rlpaidje
+  is '销帐金额';
+comment on column HRBZLS.RECLISTHIS.rlpaidflag
+  is '销帐标志(Y:Y，N:N，X:X，V:Y/N，T:Y/X，K:N/X，W:Y/N/X)';
+comment on column HRBZLS.RECLISTHIS.rlpaidper
+  is '销帐人员';
+comment on column HRBZLS.RECLISTHIS.rlpaiddate
+  is '销帐日期';
+comment on column HRBZLS.RECLISTHIS.rlmrid
+  is '抄表流水';
+comment on column HRBZLS.RECLISTHIS.rlmemo
+  is '备注';
+comment on column HRBZLS.RECLISTHIS.rlznj
+  is '违约金';
+comment on column HRBZLS.RECLISTHIS.rllb
+  is '类别';
+comment on column HRBZLS.RECLISTHIS.rlcname2
+  is '曾用名';
+comment on column HRBZLS.RECLISTHIS.rlpfid
+  is '主价格类别';
+comment on column HRBZLS.RECLISTHIS.rldatetime
+  is '发生日期';
+comment on column HRBZLS.RECLISTHIS.rlscrrldate
+  is '原帐务日期';
+comment on column HRBZLS.RECLISTHIS.rlprimcode
+  is '合收表主表号';
+comment on column HRBZLS.RECLISTHIS.rlpriflag
+  is '合收表标志';
+comment on column HRBZLS.RECLISTHIS.rlrper
+  is '抄表员';
+comment on column HRBZLS.RECLISTHIS.rlsafid
+  is '区域';
+comment on column HRBZLS.RECLISTHIS.rlscodechar
+  is '上期抄表（带表位）';
+comment on column HRBZLS.RECLISTHIS.rlecodechar
+  is '本期抄表（带表位）';
+comment on column HRBZLS.RECLISTHIS.rlilid
+  is '发票流水号';
+comment on column HRBZLS.RECLISTHIS.rlmiuiid
+  is '合收单位编号';
+comment on column HRBZLS.RECLISTHIS.rlgroup
+  is '应收帐分组';
+comment on column HRBZLS.RECLISTHIS.rlpid
+  is '实收流水（与payment.pid对应）';
+comment on column HRBZLS.RECLISTHIS.rlpbatch
+  is '缴费交易批次（与payment.PBATCH对应）';
+comment on column HRBZLS.RECLISTHIS.rlsavingqc
+  is '期初预存（销帐时产生）';
+comment on column HRBZLS.RECLISTHIS.rlsavingbq
+  is '本期预存发生（销帐时产生）';
+comment on column HRBZLS.RECLISTHIS.rlsavingqm
+  is '期末预存（销帐时产生）';
+comment on column HRBZLS.RECLISTHIS.rlreverseflag
+  is '  冲正标志（N为正常，Y为冲正）';
+comment on column HRBZLS.RECLISTHIS.rlbadflag
+  is '呆帐标志（Y :呆坏帐，O:呆坏帐审批中，N:正常帐）';
+comment on column HRBZLS.RECLISTHIS.rlznjreducflag
+  is '滞纳金减免标志,未减免时为N，销帐时滞纳金直接计算；减免后为Y,销帐时滞纳金直接取rlznj';
+comment on column HRBZLS.RECLISTHIS.rlmistid
+  is '行业分类';
+comment on column HRBZLS.RECLISTHIS.rlminame
+  is '票据名称';
+comment on column HRBZLS.RECLISTHIS.rlsxf
+  is '手续费';
+comment on column HRBZLS.RECLISTHIS.rlmiface2
+  is '抄见故障';
+comment on column HRBZLS.RECLISTHIS.rlmiface3
+  is '非常计量';
+comment on column HRBZLS.RECLISTHIS.rlmiface4
+  is '表井设施说明';
+comment on column HRBZLS.RECLISTHIS.rlmiifckf
+  is '垃圾费户数';
+comment on column HRBZLS.RECLISTHIS.rlmigps
+  is '是否合票';
+comment on column HRBZLS.RECLISTHIS.rlmiqfh
+  is '铅封号';
+comment on column HRBZLS.RECLISTHIS.rlmibox
+  is '消防水价（增值税水价，襄阳需求）';
+comment on column HRBZLS.RECLISTHIS.rlminame2
+  is '招牌名称(小区名，襄阳需求）';
+comment on column HRBZLS.RECLISTHIS.rlmiseqno
+  is '户号（初始化时册号+序号）';
+comment on column HRBZLS.RECLISTHIS.rlmisaving
+  is '算费时预存';
+comment on column HRBZLS.RECLISTHIS.rlpriorje
+  is '算费之前欠费';
+comment on column HRBZLS.RECLISTHIS.rlmicommunity
+  is '小区';
+comment on column HRBZLS.RECLISTHIS.rlmiremoteno
+  is '远传表号';
+comment on column HRBZLS.RECLISTHIS.rlmiremotehubno
+  is '远传HUB号';
+comment on column HRBZLS.RECLISTHIS.rlmiemail
+  is '电子邮件';
+comment on column HRBZLS.RECLISTHIS.rlmiemailflag
+  is '发票类别';
+comment on column HRBZLS.RECLISTHIS.rlmicolumn1
+  is '备用字段1';
+comment on column HRBZLS.RECLISTHIS.rlmicolumn2
+  is '备用字段2(预开票打印批次)';
+comment on column HRBZLS.RECLISTHIS.rlmicolumn3
+  is '备用字段3';
+comment on column HRBZLS.RECLISTHIS.rlmicolumn4
+  is '备用字段3';
+comment on column HRBZLS.RECLISTHIS.rlpaidmonth
+  is '销账月份';
+comment on column HRBZLS.RECLISTHIS.rlmicolumn5
+  is '上次应帐帐日期';
+comment on column HRBZLS.RECLISTHIS.rlcolumn9
+  is '上次应收帐流水';
+comment on column HRBZLS.RECLISTHIS.rlcolumn10
+  is '上次应收帐月份';
+comment on column HRBZLS.RECLISTHIS.rlcolumn11
+  is '上次应收帐事务';
+create index HRBZLS.IDX_DK_01 on HRBZLS.RECLISTHIS (RLENTRUSTBATCH, RLENTRUSTSEQNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_ENTRSEQ_01 on HRBZLS.RECLISTHIS (RLENTRUSTSEQNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RECLISTHIS_001 on HRBZLS.RECLISTHIS (RLPID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RECLISTHIS_002 on HRBZLS.RECLISTHIS (RLMIEMAIL, RLMIEMAILFLAG)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLBFID_01 on HRBZLS.RECLISTHIS (RLBFID, RLDATE, RLMID, RLTRANS, RLPAIDFLAG)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLCCODE_01 on HRBZLS.RECLISTHIS (RLCCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLCID_01 on HRBZLS.RECLISTHIS (RLCID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLDATE_01 on HRBZLS.RECLISTHIS (RLDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLGROUP_01 on HRBZLS.RECLISTHIS (RLGROUP)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLILID_01 on HRBZLS.RECLISTHIS (RLILID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLMCODE_01 on HRBZLS.RECLISTHIS (RLMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLMID_01 on HRBZLS.RECLISTHIS (RLMID, RLMONTH, RLTRANS, RLPAIDFLAG, RLCD)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLMONTH_01 on HRBZLS.RECLISTHIS (RLMONTH, RLSMFID, RLRPER, RLTRANS, RLBFID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLMRID_01 on HRBZLS.RECLISTHIS (RLMRID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLPAIDDATE_01 on HRBZLS.RECLISTHIS (RLPAIDDATE, RLSMFID, RLSAFID, RLBFID, RLRPER, RLTRANS)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLPBATCH_01 on HRBZLS.RECLISTHIS (RLPBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLPRIMCODE_01 on HRBZLS.RECLISTHIS (RLPRIMCODE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLREADDATE_01 on HRBZLS.RECLISTHIS (RLRDATE, RLMICOLUMN2)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+create index HRBZLS.IDX_RLSMFID_01 on HRBZLS.RECLISTHIS (RLSMFID, RLSAFID, RLLB, RLRPER)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.RECLISTHIS
+  add constraint PK_RECLISTHIS primary key (RLID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

@@ -1,0 +1,49 @@
+create table HRBZLS.RPT_FUNCTION_QUERYFIELD
+(
+  fqid    VARCHAR2(32) not null,
+  fqtype  VARCHAR2(32) not null,
+  fqsql   VARCHAR2(4000),
+  fqname  VARCHAR2(32) not null,
+  fqlabel VARCHAR2(32),
+  fqorder NUMBER(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RPT_FUNCTION_QUERYFIELD
+  is '报表查询参数';
+comment on column HRBZLS.RPT_FUNCTION_QUERYFIELD.fqid
+  is '功能ID';
+comment on column HRBZLS.RPT_FUNCTION_QUERYFIELD.fqtype
+  is '查询参数类型';
+comment on column HRBZLS.RPT_FUNCTION_QUERYFIELD.fqsql
+  is '查询参数取值sql';
+comment on column HRBZLS.RPT_FUNCTION_QUERYFIELD.fqname
+  is '查询参数变量名';
+comment on column HRBZLS.RPT_FUNCTION_QUERYFIELD.fqlabel
+  is '查询参数标签';
+comment on column HRBZLS.RPT_FUNCTION_QUERYFIELD.fqorder
+  is '查询参数次序';
+alter table HRBZLS.RPT_FUNCTION_QUERYFIELD
+  add constraint FQID_FQNAME primary key (FQID, FQNAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

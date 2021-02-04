@@ -1,0 +1,8 @@
+CREATE OR REPLACE PACKAGE HRBZLS."PG_EWIDE_TEMPYWB_01" is
+--具体项目特殊业务临时包
+
+  PROCEDURE test;
+
+end;
+/
+

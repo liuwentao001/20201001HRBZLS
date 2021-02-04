@@ -1,0 +1,145 @@
+create table HRBZLS.METERREADSLHIS
+(
+  mrmid     VARCHAR2(10) not null,
+  mrmonth   VARCHAR2(7),
+  mrrdate1  DATE,
+  mrecode1  NUMBER(10),
+  mrsl1     NUMBER(12,2),
+  mrrdate2  DATE,
+  mrecode2  NUMBER(10),
+  mrsl2     NUMBER(12,2),
+  mrrdate3  DATE,
+  mrecode3  NUMBER(10),
+  mrsl3     NUMBER(12,2),
+  mrrdate4  DATE,
+  mrecode4  NUMBER(10),
+  mrsl4     NUMBER(12,2),
+  mrrdate5  DATE,
+  mrecode5  NUMBER(10),
+  mrsl5     NUMBER(12,2),
+  mrrdate6  DATE,
+  mrecode6  NUMBER(10),
+  mrsl6     NUMBER(12,2),
+  mrrdate7  DATE,
+  mrecode7  NUMBER(10),
+  mrsl7     NUMBER(12,2),
+  mrrdate8  DATE,
+  mrecode8  NUMBER(10),
+  mrsl8     NUMBER(12,2),
+  mrrdate9  DATE,
+  mrecode9  NUMBER(10),
+  mrsl9     NUMBER(12,2),
+  mrrdate10 DATE,
+  mrecode10 NUMBER(10),
+  mrsl10    NUMBER(12,2),
+  mrrdate11 DATE,
+  mrecode11 NUMBER(10),
+  mrsl11    NUMBER(12,2),
+  mrrdate12 DATE,
+  mrecode12 NUMBER(10),
+  mrsl12    NUMBER(12,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERREADSLHIS
+  is '抄表历史库【MRSH】';
+comment on column HRBZLS.METERREADSLHIS.mrmid
+  is '水表编号';
+comment on column HRBZLS.METERREADSLHIS.mrmonth
+  is '结转抄表月份';
+comment on column HRBZLS.METERREADSLHIS.mrrdate1
+  is '1月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode1
+  is '1月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl1
+  is '1月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate2
+  is '2月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode2
+  is '2月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl2
+  is '2月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate3
+  is '3月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode3
+  is '3月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl3
+  is '3月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate4
+  is '4月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode4
+  is '4月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl4
+  is '4月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate5
+  is '5月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode5
+  is '5月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl5
+  is '5月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate6
+  is '6月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode6
+  is '6月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl6
+  is '6月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate7
+  is '7月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode7
+  is '7月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl7
+  is '7月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate8
+  is '8月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode8
+  is '8月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl8
+  is '8月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate9
+  is '9月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode9
+  is '9月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl9
+  is '9月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate10
+  is '10月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode10
+  is '10月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl10
+  is '10月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate11
+  is '11月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode11
+  is '11月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl11
+  is '11月前水量';
+comment on column HRBZLS.METERREADSLHIS.mrrdate12
+  is '12月前抄表日期';
+comment on column HRBZLS.METERREADSLHIS.mrecode12
+  is '12月前止度';
+comment on column HRBZLS.METERREADSLHIS.mrsl12
+  is '12月前水量';
+alter table HRBZLS.METERREADSLHIS
+  add constraint PK_METERREADSLHIS primary key (MRMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

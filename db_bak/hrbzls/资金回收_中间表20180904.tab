@@ -1,0 +1,30 @@
+create table HRBZLS.资金回收_中间表20180904
+(
+  营业所    VARCHAR2(10),
+  月份     VARCHAR2(8),
+  坐收金额   NUMBER,
+  走收金额   NUMBER,
+  基补     NUMBER,
+  大厅票面   NUMBER,
+  地区售水大厅 NUMBER,
+  银行票面   NUMBER,
+  银行     NUMBER,
+  售水大厅污水 NUMBER,
+  银行污水   NUMBER,
+  坐收污水费  NUMBER,
+  走收污水费  NUMBER,
+  基建票面金额 NUMBER,
+  基建划拨金额 NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

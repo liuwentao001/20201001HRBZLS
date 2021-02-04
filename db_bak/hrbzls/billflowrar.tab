@@ -1,0 +1,37 @@
+create table HRBZLS.BILLFLOWRAR
+(
+  bfrid    NUMBER(10) not null,
+  bfrcont  BLOB,
+  bfrbflno VARCHAR2(10),
+  bfrbflid NUMBER(10),
+  bfrdata  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.BILLFLOWRAR
+  is '工作流附件[BFR]';
+comment on column HRBZLS.BILLFLOWRAR.bfrid
+  is '附件ID';
+comment on column HRBZLS.BILLFLOWRAR.bfrcont
+  is '附件内容';
+comment on column HRBZLS.BILLFLOWRAR.bfrbflno
+  is '单据号';
+comment on column HRBZLS.BILLFLOWRAR.bfrbflid
+  is '节点号';
+comment on column HRBZLS.BILLFLOWRAR.bfrdata
+  is '上传时间';
+create index HRBZLS.BILLFLOWRAR_IDX001 on HRBZLS.BILLFLOWRAR (BFRBFLNO, BFRBFLID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.BILLFLOWRAR
+  add constraint PK_BILLFLOWRAR primary key (BFRID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

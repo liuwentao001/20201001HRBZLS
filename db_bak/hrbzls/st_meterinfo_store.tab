@@ -1,0 +1,86 @@
+create table HRBZLS.ST_METERINFO_STORE
+(
+  qfh         VARCHAR2(40),
+  storeid     VARCHAR2(10) not null,
+  miid        VARCHAR2(20),
+  caliber     NUMBER(10),
+  brand       VARCHAR2(30),
+  model       VARCHAR2(3),
+  status      VARCHAR2(2),
+  statusdate  DATE,
+  cycchkdate  DATE,
+  stockdate   DATE,
+  bsm         VARCHAR2(40) not null,
+  rkbatch     VARCHAR2(20),
+  rkdno       VARCHAR2(20),
+  storeroomid VARCHAR2(10),
+  rkman       VARCHAR2(20),
+  mainman     VARCHAR2(20),
+  maindate    DATE,
+  rfid        VARCHAR2(20),
+  mainstatus  VARCHAR2(2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.ST_METERINFO_STORE.qfh
+  is '铅封号';
+comment on column HRBZLS.ST_METERINFO_STORE.storeid
+  is '仓库编号';
+comment on column HRBZLS.ST_METERINFO_STORE.miid
+  is '用户编号';
+comment on column HRBZLS.ST_METERINFO_STORE.caliber
+  is '口径';
+comment on column HRBZLS.ST_METERINFO_STORE.brand
+  is '品牌';
+comment on column HRBZLS.ST_METERINFO_STORE.model
+  is '表型号';
+comment on column HRBZLS.ST_METERINFO_STORE.status
+  is '表状态   1、一级库 2、二级库3、已安装4、旧表5、返修6、作废7、出库';
+comment on column HRBZLS.ST_METERINFO_STORE.statusdate
+  is '表状态发生周期';
+comment on column HRBZLS.ST_METERINFO_STORE.cycchkdate
+  is '周检起算日';
+comment on column HRBZLS.ST_METERINFO_STORE.stockdate
+  is '新购入库日期';
+comment on column HRBZLS.ST_METERINFO_STORE.bsm
+  is '表身码';
+comment on column HRBZLS.ST_METERINFO_STORE.rkbatch
+  is '入库批次';
+comment on column HRBZLS.ST_METERINFO_STORE.rkdno
+  is '入库单号';
+comment on column HRBZLS.ST_METERINFO_STORE.storeroomid
+  is '库房编号';
+comment on column HRBZLS.ST_METERINFO_STORE.rkman
+  is '入库人员';
+comment on column HRBZLS.ST_METERINFO_STORE.mainman
+  is '维护人员';
+comment on column HRBZLS.ST_METERINFO_STORE.maindate
+  is '维护时间';
+comment on column HRBZLS.ST_METERINFO_STORE.rfid
+  is 'rfid编码';
+comment on column HRBZLS.ST_METERINFO_STORE.mainstatus
+  is '上次水表状态';
+alter table HRBZLS.ST_METERINFO_STORE
+  add constraint PK_METERINFO_STORE primary key (BSM)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

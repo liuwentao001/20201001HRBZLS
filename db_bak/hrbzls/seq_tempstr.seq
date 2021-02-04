@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_TEMPSTR
+minvalue 1
+maxvalue 9999999999
+start with 1199999999
+increment by 1
+cache 50
+cycle;
+

@@ -1,0 +1,29 @@
+create table HRBZLS.REPORT_TABLE
+(
+  table_english VARCHAR2(80) not null,
+  table_chinese VARCHAR2(80) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.REPORT_TABLE_X on HRBZLS.REPORT_TABLE (TABLE_ENGLISH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

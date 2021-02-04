@@ -1,0 +1,43 @@
+create table HRBZLS.SYSUPDATEZIP
+(
+  sufilename VARCHAR2(60) not null,
+  sufilepath VARCHAR2(255) not null,
+  sufileblob BLOB,
+  suedition  VARCHAR2(14) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.SYSUPDATEZIP
+  is '版本发布表（压缩版）';
+comment on column HRBZLS.SYSUPDATEZIP.sufilename
+  is '文件名称';
+comment on column HRBZLS.SYSUPDATEZIP.sufilepath
+  is '相对路径';
+comment on column HRBZLS.SYSUPDATEZIP.sufileblob
+  is '二进制文件';
+comment on column HRBZLS.SYSUPDATEZIP.suedition
+  is '版本';
+alter table HRBZLS.SYSUPDATEZIP
+  add constraint PK_SYSUPDATEZIP primary key (SUFILEPATH, SUFILENAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

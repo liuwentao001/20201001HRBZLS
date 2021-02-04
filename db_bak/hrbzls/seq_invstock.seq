@@ -1,0 +1,9 @@
+create sequence HRBZLS.SEQ_INVSTOCK
+minvalue 1
+maxvalue 9999999999
+start with 8190636
+increment by 1
+cache 50
+cycle
+order;
+

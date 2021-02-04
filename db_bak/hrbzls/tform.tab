@@ -1,0 +1,65 @@
+create table HRBZLS.TFORM
+(
+  cchno      VARCHAR2(10) not null,
+  cchbh      VARCHAR2(10),
+  cchlb      CHAR(1),
+  cchsource  CHAR(1),
+  cchsmfid   VARCHAR2(10),
+  cchdept    VARCHAR2(10),
+  cchcredate DATE,
+  cchcreper  VARCHAR2(10),
+  cchshdate  DATE,
+  cchshper   VARCHAR2(10),
+  cchshflag  CHAR(1),
+  cchwfid    NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.TFORM.cchno
+  is '单据流水号';
+comment on column HRBZLS.TFORM.cchbh
+  is '单据编号';
+comment on column HRBZLS.TFORM.cchlb
+  is '单据类别';
+comment on column HRBZLS.TFORM.cchsource
+  is '单据来源';
+comment on column HRBZLS.TFORM.cchsmfid
+  is '营销公司';
+comment on column HRBZLS.TFORM.cchdept
+  is '受理部门';
+comment on column HRBZLS.TFORM.cchcredate
+  is '受理日期';
+comment on column HRBZLS.TFORM.cchcreper
+  is '受理人员';
+comment on column HRBZLS.TFORM.cchshdate
+  is '审核日期';
+comment on column HRBZLS.TFORM.cchshper
+  is '审核人员';
+comment on column HRBZLS.TFORM.cchshflag
+  is '审核标志';
+comment on column HRBZLS.TFORM.cchwfid
+  is '工作流实例';
+alter table HRBZLS.TFORM
+  add constraint PK_TFORM primary key (CCHNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

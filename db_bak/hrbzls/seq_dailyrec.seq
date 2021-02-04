@@ -1,0 +1,7 @@
+create sequence HRBZLS.SEQ_DAILYREC
+minvalue 1
+maxvalue 9999999999
+start with 3327866
+increment by 1
+cache 50;
+

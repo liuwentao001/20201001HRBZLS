@@ -1,0 +1,40 @@
+create table HRBZLS.INVCANCEL
+(
+  icid    NUMBER(10) not null,
+  ictype  CHAR(1) not null,
+  icdate  DATE not null,
+  icper   VARCHAR2(10) not null,
+  icno    VARCHAR2(12) not null,
+  icsmfid VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVCANCEL
+  is '票据作废';
+comment on column HRBZLS.INVCANCEL.icid
+  is '作废流水';
+comment on column HRBZLS.INVCANCEL.ictype
+  is '票据类型';
+comment on column HRBZLS.INVCANCEL.icdate
+  is '作废日期';
+comment on column HRBZLS.INVCANCEL.icper
+  is '作废人员';
+comment on column HRBZLS.INVCANCEL.icno
+  is '票据号码';
+comment on column HRBZLS.INVCANCEL.icsmfid
+  is '作废单位';
+create index HRBZLS.IDX_ICDATE on HRBZLS.INVCANCEL (ICDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table HRBZLS.INVCANCEL
+  add constraint PK_INVCANCEL primary key (ICID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

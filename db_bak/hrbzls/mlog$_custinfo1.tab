@@ -1,0 +1,15 @@
+create table HRBZLS.MLOG$_CUSTINFO1
+(
+  ciid            VARCHAR2(10),
+  snaptime$$      DATE,
+  dmltype$$       VARCHAR2(1),
+  old_new$$       VARCHAR2(1),
+  change_vector$$ RAW(255)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.MLOG$_CUSTINFO1
+  is 'snapshot log for master table LYGZLS.CUSTINFO';
+

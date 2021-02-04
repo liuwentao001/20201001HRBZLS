@@ -1,0 +1,16 @@
+create table HRBZLS.ADRESSLISTPERMISSIONS
+(
+  alpid   VARCHAR2(6),
+  alpoper VARCHAR2(15)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.ADRESSLISTPERMISSIONS
+  is '通讯录权限';
+comment on column HRBZLS.ADRESSLISTPERMISSIONS.alpid
+  is '通讯录ID';
+comment on column HRBZLS.ADRESSLISTPERMISSIONS.alpoper
+  is '拥有者ID';
+

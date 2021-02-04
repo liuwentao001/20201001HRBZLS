@@ -1,0 +1,56 @@
+create table HRBZLS.区域迁移日志表2
+(
+  area_id    NUMBER not null,
+  re_mismfid VARCHAR2(10),
+  po_mismfid VARCHAR2(10),
+  re_area    VARCHAR2(10),
+  po_area    VARCHAR2(10),
+  re_mibfid  VARCHAR2(10),
+  po_mibfid  VARCHAR2(10),
+  re_zkh     VARCHAR2(50),
+  po_zkh     VARCHAR2(50),
+  miid       VARCHAR2(10),
+  opdate     DATE,
+  opuser     VARCHAR2(20),
+  misaving   NUMBER(12,2)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.区域迁移日志表2
+  is '区域迁移日志表2(不要删除)';
+comment on column HRBZLS.区域迁移日志表2.area_id
+  is '序列号';
+comment on column HRBZLS.区域迁移日志表2.re_mismfid
+  is '源营业所';
+comment on column HRBZLS.区域迁移日志表2.po_mismfid
+  is '目的营业所';
+comment on column HRBZLS.区域迁移日志表2.re_area
+  is '源代号';
+comment on column HRBZLS.区域迁移日志表2.po_area
+  is '目的代号';
+comment on column HRBZLS.区域迁移日志表2.re_mibfid
+  is '源表册';
+comment on column HRBZLS.区域迁移日志表2.po_mibfid
+  is '目的表册';
+comment on column HRBZLS.区域迁移日志表2.re_zkh
+  is '源帐卡号';
+comment on column HRBZLS.区域迁移日志表2.po_zkh
+  is '目的帐卡号';
+comment on column HRBZLS.区域迁移日志表2.miid
+  is '用户编号';
+comment on column HRBZLS.区域迁移日志表2.opdate
+  is '操作时间';
+comment on column HRBZLS.区域迁移日志表2.opuser
+  is '操作员';
+comment on column HRBZLS.区域迁移日志表2.misaving
+  is '预存余额';
+alter table HRBZLS.区域迁移日志表2
+  add constraint PRI_区域迁移2 primary key (AREA_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

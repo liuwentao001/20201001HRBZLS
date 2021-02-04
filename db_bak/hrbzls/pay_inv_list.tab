@@ -1,0 +1,145 @@
+create table HRBZLS.PAY_INV_LIST
+(
+  id       VARCHAR2(20),
+  pid      VARCHAR2(20),
+  pbatch   VARCHAR2(20),
+  miid     VARCHAR2(20),
+  rlid     VARCHAR2(20),
+  kpje     NUMBER(12,3),
+  fpqqlsh  VARCHAR2(20),
+  fp_dm    VARCHAR2(20),
+  fp_hm    VARCHAR2(20),
+  kpzt     VARCHAR2(10),
+  dpzt     VARCHAR2(10),
+  dpmemo   VARCHAR2(400),
+  ispcisno VARCHAR2(50),
+  rn       NUMBER,
+  pdate    DATE,
+  iid      VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.PAY_INV_LIST.pid
+  is '实收流水号';
+comment on column HRBZLS.PAY_INV_LIST.pbatch
+  is '实收批次号';
+comment on column HRBZLS.PAY_INV_LIST.miid
+  is '用户号';
+comment on column HRBZLS.PAY_INV_LIST.rlid
+  is '应收流水号';
+comment on column HRBZLS.PAY_INV_LIST.kpje
+  is '开票金额';
+comment on column HRBZLS.PAY_INV_LIST.fpqqlsh
+  is '商品流水号';
+comment on column HRBZLS.PAY_INV_LIST.fp_dm
+  is '发票代码';
+comment on column HRBZLS.PAY_INV_LIST.fp_hm
+  is '发票号码';
+comment on column HRBZLS.PAY_INV_LIST.kpzt
+  is '1已开票2未开票3开票中4开票失败5多张票6未回调7待冲红8多张票失败';
+comment on column HRBZLS.PAY_INV_LIST.dpzt
+  is '对票状态';
+comment on column HRBZLS.PAY_INV_LIST.dpmemo
+  is '对票说明';
+comment on column HRBZLS.PAY_INV_LIST.ispcisno
+  is '发票批号';
+comment on column HRBZLS.PAY_INV_LIST.rn
+  is '开票序号';
+comment on column HRBZLS.PAY_INV_LIST.pdate
+  is '缴费日期';
+comment on column HRBZLS.PAY_INV_LIST.iid
+  is '发票流水号';
+create index HRBZLS.PIL_INDEX_FPQQLSH on HRBZLS.PAY_INV_LIST (FPQQLSH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.PIL_INDEX_ID on HRBZLS.PAY_INV_LIST (ID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PIL_INDEX_IID on HRBZLS.PAY_INV_LIST (IID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PIL_INDEX_ISPCISNO on HRBZLS.PAY_INV_LIST (ISPCISNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PIL_INDEX_PBATCH on HRBZLS.PAY_INV_LIST (PBATCH)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PIL_INDEX_PDATE on HRBZLS.PAY_INV_LIST (PDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.PIL_INDEX_PID on HRBZLS.PAY_INV_LIST (PID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,71 @@
+create table HRBZLS.METERDOCSTATIC
+(
+  mdstaticdate DATE not null,
+  mdmid        VARCHAR2(10),
+  mdid         VARCHAR2(10) not null,
+  mdno         VARCHAR2(40),
+  mdcaliber    NUMBER(10),
+  mdbrand      VARCHAR2(2),
+  mdmodel      VARCHAR2(2),
+  mdstatus     VARCHAR2(2),
+  mdstatusdate DATE,
+  mdcycchkdate DATE,
+  mdstockdate  DATE,
+  mdstore      VARCHAR2(10),
+  mdsid        VARCHAR2(10) not null,
+  mdstaticflag CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERDOCSTATIC
+  is '水表档案[MDC]';
+comment on column HRBZLS.METERDOCSTATIC.mdmid
+  is '资料号';
+comment on column HRBZLS.METERDOCSTATIC.mdid
+  is '水表档案编号';
+comment on column HRBZLS.METERDOCSTATIC.mdno
+  is '表身码';
+comment on column HRBZLS.METERDOCSTATIC.mdcaliber
+  is '表口径';
+comment on column HRBZLS.METERDOCSTATIC.mdbrand
+  is '表厂家';
+comment on column HRBZLS.METERDOCSTATIC.mdmodel
+  is '表型号';
+comment on column HRBZLS.METERDOCSTATIC.mdstatus
+  is '表状态';
+comment on column HRBZLS.METERDOCSTATIC.mdstatusdate
+  is '表状态发生时间';
+comment on column HRBZLS.METERDOCSTATIC.mdcycchkdate
+  is '周检起算日';
+comment on column HRBZLS.METERDOCSTATIC.mdstockdate
+  is '新购入库日期';
+comment on column HRBZLS.METERDOCSTATIC.mdstore
+  is '库存位置';
+comment on column HRBZLS.METERDOCSTATIC.mdsid
+  is 'static ID';
+comment on column HRBZLS.METERDOCSTATIC.mdstaticflag
+  is '（立销户标志）0 立户，1销户';
+alter table HRBZLS.METERDOCSTATIC
+  add constraint PK_MDS primary key (MDSID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

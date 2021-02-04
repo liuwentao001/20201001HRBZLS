@@ -1,0 +1,355 @@
+create table HRBZLS.METERTRANSDT
+(
+  mtdno            VARCHAR2(10) not null,
+  mtdrowno         NUMBER(5) not null,
+  mtdsmfid         VARCHAR2(10),
+  mtdrequdate      DATE,
+  mtdtel           VARCHAR2(30),
+  mtdconper        VARCHAR2(64),
+  mtdcontel        VARCHAR2(90),
+  mtdmid           VARCHAR2(10),
+  mtdmcode         VARCHAR2(10),
+  mtdcname         VARCHAR2(64),
+  mtdpfid          VARCHAR2(10),
+  mtdchargetype    CHAR(1),
+  mtdsentdept      VARCHAR2(10),
+  mtdsentdate      DATE,
+  mtdsentper       VARCHAR2(15),
+  mtdshdate        DATE,
+  mtdshper         VARCHAR2(15),
+  mtdflag          CHAR(1) default 'N',
+  mtdchkper        VARCHAR2(15),
+  mtdchkdate       DATE,
+  mtdchkmemo       VARCHAR2(100),
+  mtdmdido         VARCHAR2(10),
+  mtdmdidn         VARCHAR2(10),
+  mtdsideo         VARCHAR2(64),
+  mtdsiden         VARCHAR2(64),
+  mtdpositiono     VARCHAR2(64),
+  mtdpositionn     VARCHAR2(64),
+  mtdmadro         VARCHAR2(64),
+  mtdmadrn         VARCHAR2(64),
+  mtdcalibero      NUMBER,
+  mtdcalibern      NUMBER,
+  mtdbrando        VARCHAR2(10),
+  mtdbrandn        VARCHAR2(10),
+  mtdmodelo        VARCHAR2(10),
+  mtdmodeln        VARCHAR2(10),
+  mtdmnoo          VARCHAR2(20),
+  mtdmnon          VARCHAR2(20),
+  mtdmtypeo        CHAR(1),
+  mtdmtypen        CHAR(1),
+  mtduninsper      VARCHAR2(15),
+  mtduninsdate     DATE,
+  mtdscode         NUMBER(10),
+  mtdecode         NUMBER(10),
+  mtdaddsl         NUMBER(10),
+  mtdreinsper      VARCHAR2(15),
+  mtdreinsdate     DATE,
+  mtdreinscode     NUMBER(10),
+  mtdreinsdateo    DATE,
+  mtdmstatuso      VARCHAR2(2),
+  mtdappnote       VARCHAR2(400),
+  mtdfilashnote    VARCHAR2(400),
+  mtdmemo          VARCHAR2(400),
+  mtdfloor         NUMBER,
+  mtdccount        NUMBER,
+  mtdmcount        NUMBER,
+  mtdifzysb        CHAR(1),
+  mtdifsx          CHAR(1),
+  mtdwmcount       NUMBER,
+  mtdmpid          VARCHAR2(10),
+  mtbk1            CHAR(1),
+  mtbk2            CHAR(1),
+  mtbk3            CHAR(1),
+  mtbk4            VARCHAR2(10),
+  mtface1          VARCHAR2(2),
+  mtface2          VARCHAR2(2),
+  miface4          VARCHAR2(2),
+  mtdscodechar     VARCHAR2(10),
+  mtdecodechar     VARCHAR2(10),
+  mtdreinscodechar VARCHAR2(10),
+  mtbk5            CHAR(1),
+  mtbk6            CHAR(1),
+  mtbk7            CHAR(1),
+  mtbk8            CHAR(1),
+  mtdprn           NUMBER(2) default 0,
+  mtdprndate       DATE,
+  mtdycchkdate     DATE,
+  mtdmemobak       VARCHAR2(400),
+  mtdcl            NUMBER,
+  mtdper1          VARCHAR2(10),
+  mtdper2          VARCHAR2(10),
+  mtdper3          VARCHAR2(10),
+  mtdper4          VARCHAR2(10),
+  mtdper5          VARCHAR2(10),
+  mtdqfho          VARCHAR2(40),
+  mtdqfhn          VARCHAR2(40),
+  mtddqsfho        VARCHAR2(40),
+  mtddqsfhn        VARCHAR2(40),
+  mtdlfho          VARCHAR2(40),
+  mtdlfhn          VARCHAR2(40),
+  mtdsl            VARCHAR2(40),
+  mtddcsj          DATE,
+  mtdhsr           VARCHAR2(10),
+  mtdbg            VARCHAR2(10),
+  mtcarrysl        NUMBER(10),
+  mtdmiyl9         NUMBER,
+  mtdmirtid        CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.METERTRANSDT
+  is '表务工单体【MTD】';
+comment on column HRBZLS.METERTRANSDT.mtdno
+  is '单据流水';
+comment on column HRBZLS.METERTRANSDT.mtdrowno
+  is '行号';
+comment on column HRBZLS.METERTRANSDT.mtdsmfid
+  is '营业所';
+comment on column HRBZLS.METERTRANSDT.mtdrequdate
+  is '要求完成时间';
+comment on column HRBZLS.METERTRANSDT.mtdtel
+  is '电话';
+comment on column HRBZLS.METERTRANSDT.mtdconper
+  is '联系人';
+comment on column HRBZLS.METERTRANSDT.mtdcontel
+  is '联系电话';
+comment on column HRBZLS.METERTRANSDT.mtdmid
+  is '水表编号';
+comment on column HRBZLS.METERTRANSDT.mtdmcode
+  is '客户代码';
+comment on column HRBZLS.METERTRANSDT.mtdcname
+  is '原产权名';
+comment on column HRBZLS.METERTRANSDT.mtdpfid
+  is '用水类别';
+comment on column HRBZLS.METERTRANSDT.mtdchargetype
+  is '收费方式';
+comment on column HRBZLS.METERTRANSDT.mtdsentdept
+  is '派工部门';
+comment on column HRBZLS.METERTRANSDT.mtdsentdate
+  is '派工时间';
+comment on column HRBZLS.METERTRANSDT.mtdsentper
+  is '派工人员';
+comment on column HRBZLS.METERTRANSDT.mtdshdate
+  is '完工日期';
+comment on column HRBZLS.METERTRANSDT.mtdshper
+  is '完工人员';
+comment on column HRBZLS.METERTRANSDT.mtdflag
+  is '完工标志';
+comment on column HRBZLS.METERTRANSDT.mtdchkper
+  is '验收收人';
+comment on column HRBZLS.METERTRANSDT.mtdchkdate
+  is '验收日期';
+comment on column HRBZLS.METERTRANSDT.mtdchkmemo
+  is '验收结果';
+comment on column HRBZLS.METERTRANSDT.mtdmdido
+  is '原表档案号';
+comment on column HRBZLS.METERTRANSDT.mtdmdidn
+  is '新表档案号';
+comment on column HRBZLS.METERTRANSDT.mtdsideo
+  is '原表位';
+comment on column HRBZLS.METERTRANSDT.mtdsiden
+  is '新表位';
+comment on column HRBZLS.METERTRANSDT.mtdpositiono
+  is '原接水地址';
+comment on column HRBZLS.METERTRANSDT.mtdpositionn
+  is '新接水地址';
+comment on column HRBZLS.METERTRANSDT.mtdmadro
+  is '原用水地址';
+comment on column HRBZLS.METERTRANSDT.mtdmadrn
+  is '新用水地址';
+comment on column HRBZLS.METERTRANSDT.mtdcalibero
+  is '原表口径';
+comment on column HRBZLS.METERTRANSDT.mtdcalibern
+  is '新表口径';
+comment on column HRBZLS.METERTRANSDT.mtdbrando
+  is '原表厂家';
+comment on column HRBZLS.METERTRANSDT.mtdbrandn
+  is '新表厂家';
+comment on column HRBZLS.METERTRANSDT.mtdmodelo
+  is '原表型号';
+comment on column HRBZLS.METERTRANSDT.mtdmodeln
+  is '新表型号';
+comment on column HRBZLS.METERTRANSDT.mtdmnoo
+  is '原表身号';
+comment on column HRBZLS.METERTRANSDT.mtdmnon
+  is '新表身号';
+comment on column HRBZLS.METERTRANSDT.mtdmtypeo
+  is '原表类型';
+comment on column HRBZLS.METERTRANSDT.mtdmtypen
+  is '新表类型';
+comment on column HRBZLS.METERTRANSDT.mtduninsper
+  is '拆表员';
+comment on column HRBZLS.METERTRANSDT.mtduninsdate
+  is '拆表日期';
+comment on column HRBZLS.METERTRANSDT.mtdscode
+  is '上期读数';
+comment on column HRBZLS.METERTRANSDT.mtdecode
+  is '拆表底数';
+comment on column HRBZLS.METERTRANSDT.mtdaddsl
+  is '余量';
+comment on column HRBZLS.METERTRANSDT.mtdreinsper
+  is '换表员';
+comment on column HRBZLS.METERTRANSDT.mtdreinsdate
+  is '换表日期';
+comment on column HRBZLS.METERTRANSDT.mtdreinscode
+  is '新表起数';
+comment on column HRBZLS.METERTRANSDT.mtdreinsdateo
+  is '回滚换表日期';
+comment on column HRBZLS.METERTRANSDT.mtdmstatuso
+  is '回滚水表状态';
+comment on column HRBZLS.METERTRANSDT.mtdappnote
+  is '申请说明';
+comment on column HRBZLS.METERTRANSDT.mtdfilashnote
+  is '核实意见';
+comment on column HRBZLS.METERTRANSDT.mtdmemo
+  is '材料使用情况';
+comment on column HRBZLS.METERTRANSDT.mtdfloor
+  is '楼层';
+comment on column HRBZLS.METERTRANSDT.mtdccount
+  is '户数';
+comment on column HRBZLS.METERTRANSDT.mtdmcount
+  is '表数';
+comment on column HRBZLS.METERTRANSDT.mtdifzysb
+  is '转压设施';
+comment on column HRBZLS.METERTRANSDT.mtdifsx
+  is '水箱';
+comment on column HRBZLS.METERTRANSDT.mtdwmcount
+  is '完工表数';
+comment on column HRBZLS.METERTRANSDT.mtdmpid
+  is '考核表号';
+comment on column HRBZLS.METERTRANSDT.mtbk1
+  is '封签完好';
+comment on column HRBZLS.METERTRANSDT.mtbk2
+  is '人为动表痕迹';
+comment on column HRBZLS.METERTRANSDT.mtbk3
+  is '水表倒装';
+comment on column HRBZLS.METERTRANSDT.mtbk4
+  is '其他';
+comment on column HRBZLS.METERTRANSDT.mtface1
+  is '水表故障';
+comment on column HRBZLS.METERTRANSDT.mtface2
+  is '抄见故障';
+comment on column HRBZLS.METERTRANSDT.miface4
+  is '表井故障';
+comment on column HRBZLS.METERTRANSDT.mtdscodechar
+  is '上期读数型';
+comment on column HRBZLS.METERTRANSDT.mtdecodechar
+  is '拆表底数型';
+comment on column HRBZLS.METERTRANSDT.mtdreinscodechar
+  is '新表起数型';
+comment on column HRBZLS.METERTRANSDT.mtbk5
+  is '是否维修阀门';
+comment on column HRBZLS.METERTRANSDT.mtbk6
+  is '是否更换阀门';
+comment on column HRBZLS.METERTRANSDT.mtbk7
+  is '是否更换表接头';
+comment on column HRBZLS.METERTRANSDT.mtbk8
+  is '单据类别';
+comment on column HRBZLS.METERTRANSDT.mtdprn
+  is '工单打印次数';
+comment on column HRBZLS.METERTRANSDT.mtdprndate
+  is '工单最后打印日期';
+comment on column HRBZLS.METERTRANSDT.mtdycchkdate
+  is '周检换表日期(周检起算日)';
+comment on column HRBZLS.METERTRANSDT.mtdmemobak
+  is '材料返回情况';
+comment on column HRBZLS.METERTRANSDT.mtdcl
+  is '与提表指针差量';
+comment on column HRBZLS.METERTRANSDT.mtdper1
+  is '调查科长';
+comment on column HRBZLS.METERTRANSDT.mtdper2
+  is '督查科长';
+comment on column HRBZLS.METERTRANSDT.mtdper3
+  is '营销主任';
+comment on column HRBZLS.METERTRANSDT.mtdper4
+  is '主管经理';
+comment on column HRBZLS.METERTRANSDT.mtdper5
+  is '经理';
+comment on column HRBZLS.METERTRANSDT.mtdqfho
+  is '旧铅封号';
+comment on column HRBZLS.METERTRANSDT.mtdqfhn
+  is '新铅封号';
+comment on column HRBZLS.METERTRANSDT.mtddqsfho
+  is '旧塑封号';
+comment on column HRBZLS.METERTRANSDT.mtddqsfhn
+  is '新塑封号';
+comment on column HRBZLS.METERTRANSDT.mtdlfho
+  is '旧锁封号';
+comment on column HRBZLS.METERTRANSDT.mtdlfhn
+  is '新锁封号';
+comment on column HRBZLS.METERTRANSDT.mtdsl
+  is '月量';
+comment on column HRBZLS.METERTRANSDT.mtddcsj
+  is '督查核实时间';
+comment on column HRBZLS.METERTRANSDT.mtdhsr
+  is '核实人';
+comment on column HRBZLS.METERTRANSDT.mtdbg
+  is '表工';
+comment on column HRBZLS.METERTRANSDT.mtcarrysl
+  is '调整水量（对应meterreadhis的mrcarrysl）';
+comment on column HRBZLS.METERTRANSDT.mtdmiyl9
+  is '水表最大量程';
+comment on column HRBZLS.METERTRANSDT.mtdmirtid
+  is '抄表方式【sysreadtype】(5对话式抄表机/1人工抄表/2手持抄表机/3有线远传/4无线远传 6-视频直读表 7-集抄)';
+create index HRBZLS.IDX_METERTRANSDT_MTDMNON on HRBZLS.METERTRANSDT (MTDMNON)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_METERTRANSDT_MTDNO on HRBZLS.METERTRANSDT (MTDNO)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create index HRBZLS.IDX_MTDMID on HRBZLS.METERTRANSDT (MTDMID)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.METERTRANSDT
+  add constraint PK_CUSTMETERREQ primary key (MTDNO, MTDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

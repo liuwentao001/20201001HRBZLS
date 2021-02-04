@@ -1,0 +1,46 @@
+create table HRBZLS.OPERSEACHRANGE
+(
+  osroaid     VARCHAR2(10) not null,
+  osrid       VARCHAR2(20) not null,
+  osrtypelist VARCHAR2(20) not null,
+  osrsort     VARCHAR2(2),
+  osrbfsmfid  VARCHAR2(20) default '1' not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.OPERSEACHRANGE
+  is '用户数据范围';
+comment on column HRBZLS.OPERSEACHRANGE.osroaid
+  is '用户';
+comment on column HRBZLS.OPERSEACHRANGE.osrid
+  is '数据范围';
+comment on column HRBZLS.OPERSEACHRANGE.osrtypelist
+  is '数据权限';
+comment on column HRBZLS.OPERSEACHRANGE.osrsort
+  is '权限类别(S营业所B表册)';
+comment on column HRBZLS.OPERSEACHRANGE.osrbfsmfid
+  is '表册所在营业所';
+alter table HRBZLS.OPERSEACHRANGE
+  add constraint PK_OPERSEACHRANGE primary key (OSROAID, OSRID, OSRBFSMFID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

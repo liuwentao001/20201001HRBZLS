@@ -1,0 +1,19 @@
+create table HRBZLS.OPERFIRSTFUNLIST
+(
+  ofloaid  VARCHAR2(10),
+  oflefid  VARCHAR2(10),
+  oflorder NUMBER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.OPERFIRSTFUNLIST
+  is '操作员默认打开功能[ofl]';
+comment on column HRBZLS.OPERFIRSTFUNLIST.ofloaid
+  is '操作用员ID';
+comment on column HRBZLS.OPERFIRSTFUNLIST.oflefid
+  is '功能编号';
+comment on column HRBZLS.OPERFIRSTFUNLIST.oflorder
+  is '打印序号';
+

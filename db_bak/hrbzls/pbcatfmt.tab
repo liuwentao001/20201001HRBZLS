@@ -1,0 +1,31 @@
+create table HRBZLS.PBCATFMT
+(
+  pbf_name VARCHAR2(60),
+  pbf_frmt VARCHAR2(254),
+  pbf_type INTEGER not null,
+  pbf_cntr INTEGER
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+create unique index HRBZLS.PBSYSCATFRMTS_IDX on HRBZLS.PBCATFMT (PBF_NAME)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

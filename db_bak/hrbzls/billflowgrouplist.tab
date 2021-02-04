@@ -1,0 +1,33 @@
+create table HRBZLS.BILLFLOWGROUPLIST
+(
+  bglid   VARCHAR2(10) not null,
+  bgloaid VARCHAR2(10) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.BILLFLOWGROUPLIST
+  is '人员组名[BGL]';
+alter table HRBZLS.BILLFLOWGROUPLIST
+  add constraint PK_BILLFLOWGROUPLIST primary key (BGLID, BGLOAID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

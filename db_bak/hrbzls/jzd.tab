@@ -1,0 +1,77 @@
+create table HRBZLS.JZD
+(
+  billno       VARCHAR2(10) not null,
+  billnewoper  VARCHAR2(10),
+  billnewdate  DATE,
+  billmodioper VARCHAR2(10),
+  billmodidate DATE,
+  billcnt      NUMBER(8),
+  billje       NUMBER(13,3),
+  billcnt1     NUMBER(8),
+  billje1      NUMBER(13,3),
+  billcnt2     NUMBER(8),
+  billje2      NUMBER(13,3),
+  billflag     CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.JZD.billno
+  is '进账单号';
+comment on column HRBZLS.JZD.billnewoper
+  is '创建人';
+comment on column HRBZLS.JZD.billnewdate
+  is '创建日期';
+comment on column HRBZLS.JZD.billmodioper
+  is '修改人';
+comment on column HRBZLS.JZD.billmodidate
+  is '最后修改日期';
+comment on column HRBZLS.JZD.billcnt
+  is '交易笔数';
+comment on column HRBZLS.JZD.billje
+  is '交易金额';
+comment on column HRBZLS.JZD.billcnt1
+  is '现金笔数';
+comment on column HRBZLS.JZD.billje1
+  is '现金金额';
+comment on column HRBZLS.JZD.billcnt2
+  is '支票笔数';
+comment on column HRBZLS.JZD.billje2
+  is '支票金额';
+comment on column HRBZLS.JZD.billflag
+  is '结账标志（YN）';
+create index HRBZLS.PK_JZD_DATE on HRBZLS.JZD (BILLNEWDATE)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.JZD
+  add constraint PK_JZD primary key (BILLNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

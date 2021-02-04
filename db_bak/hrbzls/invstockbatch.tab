@@ -1,0 +1,47 @@
+create table HRBZLS.INVSTOCKBATCH
+(
+  batch  VARCHAR2(32) not null,
+  ckdate DATE,
+  ckoper VARCHAR2(10),
+  indate DATE,
+  inoper VARCHAR2(10),
+  sinvno VARCHAR2(12),
+  einvno VARCHAR2(12),
+  invnum NUMBER,
+  memo   VARCHAR2(60),
+  istype VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.INVSTOCKBATCH
+  is '发票库存批次';
+comment on column HRBZLS.INVSTOCKBATCH.batch
+  is '发票批次号';
+comment on column HRBZLS.INVSTOCKBATCH.ckdate
+  is '发票购入时间';
+comment on column HRBZLS.INVSTOCKBATCH.ckoper
+  is '发票购入人员';
+comment on column HRBZLS.INVSTOCKBATCH.indate
+  is '入库时间';
+comment on column HRBZLS.INVSTOCKBATCH.inoper
+  is '入库人员';
+comment on column HRBZLS.INVSTOCKBATCH.sinvno
+  is '发票起始号码';
+comment on column HRBZLS.INVSTOCKBATCH.einvno
+  is '发票终止号码';
+comment on column HRBZLS.INVSTOCKBATCH.invnum
+  is '发票张数';
+comment on column HRBZLS.INVSTOCKBATCH.memo
+  is '备注信息';
+comment on column HRBZLS.INVSTOCKBATCH.istype
+  is '发票类别';
+alter table HRBZLS.INVSTOCKBATCH
+  add constraint PK_INVSTOCKBATCH primary key (BATCH)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

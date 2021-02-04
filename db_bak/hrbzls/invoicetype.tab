@@ -1,0 +1,58 @@
+create table HRBZLS.INVOICETYPE
+(
+  itid        CHAR(1) not null,
+  itname      VARCHAR2(20),
+  itmemo      VARCHAR2(60),
+  itproperty1 VARCHAR2(500),
+  itproperty2 VARCHAR2(500),
+  itproperty3 VARCHAR2(500),
+  itproperty4 VARCHAR2(500),
+  itproperty5 VARCHAR2(500),
+  itflag      VARCHAR2(1) default 'Y'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.INVOICETYPE
+  is '票据类型【IT】';
+comment on column HRBZLS.INVOICETYPE.itid
+  is '编号';
+comment on column HRBZLS.INVOICETYPE.itname
+  is '名称';
+comment on column HRBZLS.INVOICETYPE.itmemo
+  is '描述';
+comment on column HRBZLS.INVOICETYPE.itproperty1
+  is '属性';
+comment on column HRBZLS.INVOICETYPE.itproperty2
+  is '属性';
+comment on column HRBZLS.INVOICETYPE.itproperty3
+  is '属性';
+comment on column HRBZLS.INVOICETYPE.itproperty4
+  is '属性';
+comment on column HRBZLS.INVOICETYPE.itproperty5
+  is '属性';
+comment on column HRBZLS.INVOICETYPE.itflag
+  is '是否显示';
+alter table HRBZLS.INVOICETYPE
+  add constraint PK_INVOICETYPE primary key (ITID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

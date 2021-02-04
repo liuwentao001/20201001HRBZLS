@@ -1,0 +1,67 @@
+create table HRBZLS.PRINTTEMPLATEHD
+(
+  pthid          NUMBER not null,
+  pthname        VARCHAR2(64),
+  pthitid        CHAR(1) not null,
+  pthpaperheight NUMBER(4,1),
+  pthpaperwidth  NUMBER(4,1),
+  lastpage       INTEGER default 0,
+  columns        INTEGER default 1,
+  marginleft     NUMBER(4,1),
+  marginright    NUMBER(4,1),
+  margintop      NUMBER(4,1),
+  marginbottom   NUMBER(4,1),
+  pthflag        VARCHAR2(1) default 'Y'
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.PRINTTEMPLATEHD
+  is '打印模板【PTH】';
+comment on column HRBZLS.PRINTTEMPLATEHD.pthid
+  is '模板编号';
+comment on column HRBZLS.PRINTTEMPLATEHD.pthname
+  is '模板命名';
+comment on column HRBZLS.PRINTTEMPLATEHD.pthitid
+  is '票据类型';
+comment on column HRBZLS.PRINTTEMPLATEHD.pthpaperheight
+  is '纸张高度mm';
+comment on column HRBZLS.PRINTTEMPLATEHD.pthpaperwidth
+  is '纸张宽度mm';
+comment on column HRBZLS.PRINTTEMPLATEHD.lastpage
+  is '末页走纸1/0';
+comment on column HRBZLS.PRINTTEMPLATEHD.columns
+  is '分栏数';
+comment on column HRBZLS.PRINTTEMPLATEHD.marginleft
+  is '左边距mm';
+comment on column HRBZLS.PRINTTEMPLATEHD.marginright
+  is '右边距mm';
+comment on column HRBZLS.PRINTTEMPLATEHD.margintop
+  is '上边距mm';
+comment on column HRBZLS.PRINTTEMPLATEHD.marginbottom
+  is '下边据mm';
+comment on column HRBZLS.PRINTTEMPLATEHD.pthflag
+  is '是否有效';
+alter table HRBZLS.PRINTTEMPLATEHD
+  add constraint PK_PRINTTEMPLATEHD primary key (PTHID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

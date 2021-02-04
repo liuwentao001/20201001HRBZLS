@@ -1,0 +1,40 @@
+create table HRBZLS.IMP_SYS_RELATION
+(
+  imp_sys_relationid    NUMBER(10) not null,
+  important_user_infoid NUMBER(8) not null,
+  clt_no                VARCHAR2(19) not null,
+  flag                  CHAR(1),
+  crt_man               CHAR(6),
+  crt_date              DATE,
+  main_man              CHAR(6),
+  main_date             DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.IMP_SYS_RELATION
+  add constraint PK_IMP_SYS_RELATION primary key (IMP_SYS_RELATIONID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.IMP_SYS_RELATION
+  add constraint REFIMPORTANT_USER_INFO2 foreign key (IMPORTANT_USER_INFOID)
+  references HRBZLS.IMPORTANT_USER_INFO (IMPORTANT_USER_INFOID);
+

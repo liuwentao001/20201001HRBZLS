@@ -1,0 +1,8 @@
+create sequence HRBZLS.SEQ_OPERACCNTROLE
+minvalue 100
+maxvalue 9999999999
+start with 260
+increment by 1
+cache 50
+order;
+

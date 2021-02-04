@@ -1,0 +1,52 @@
+create table HRBZLS.RECTRANS
+(
+  rtid    VARCHAR2(5) not null,
+  rtname  VARCHAR2(20) not null,
+  rtanid  CHAR(1),
+  rtmemo  VARCHAR2(120),
+  rtpid   CHAR(1),
+  rtclass NUMBER,
+  rtflag  CHAR(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.RECTRANS
+  is '应收帐务事务列表【RT】';
+comment on column HRBZLS.RECTRANS.rtid
+  is '事务编码';
+comment on column HRBZLS.RECTRANS.rtname
+  is '事务名称';
+comment on column HRBZLS.RECTRANS.rtanid
+  is '帐套';
+comment on column HRBZLS.RECTRANS.rtmemo
+  is '描述';
+comment on column HRBZLS.RECTRANS.rtpid
+  is '上级编码';
+comment on column HRBZLS.RECTRANS.rtclass
+  is '级次';
+comment on column HRBZLS.RECTRANS.rtflag
+  is '末级标志';
+alter table HRBZLS.RECTRANS
+  add constraint PK_RECTRANS primary key (RTID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

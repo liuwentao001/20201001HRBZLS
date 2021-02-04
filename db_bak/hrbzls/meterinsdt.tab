@@ -1,0 +1,91 @@
+create table HRBZLS.METERINSDT
+(
+  midno        VARCHAR2(10) not null,
+  midrowno     NUMBER(6) not null,
+  midrowno2    NUMBER(6),
+  meterno      CHAR(10),
+  ofagent      CHAR(2),
+  caliber      VARCHAR2(10),
+  brand        VARCHAR2(20),
+  nameplate    VARCHAR2(15),
+  metermodel   VARCHAR2(2),
+  watertypeid  VARCHAR2(10),
+  isindividual VARCHAR2(2),
+  usekind      VARCHAR2(2),
+  readtype     VARCHAR2(2),
+  conninfo     VARCHAR2(60),
+  readperiod   NUMBER,
+  chkmeter     CHAR(10),
+  ischeck      VARCHAR2(2),
+  metertype    VARCHAR2(2),
+  installdate  DATE,
+  isbatchsale  VARCHAR2(2),
+  wsflag       VARCHAR2(2),
+  area         CHAR(2),
+  installop    VARCHAR2(100),
+  is_old       NUMBER(10),
+  true_id      CHAR(10),
+  address      VARCHAR2(80),
+  isprint      VARCHAR2(2),
+  currcode     VARCHAR2(10),
+  pri_flag     VARCHAR2(1),
+  pri_meterno  VARCHAR2(10),
+  pricetypeid  VARCHAR2(10),
+  usenum       NUMBER(4)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+comment on table HRBZLS.METERINSDT
+  is '户表报装单体【MID】';
+comment on column HRBZLS.METERINSDT.midno
+  is '单据流水号';
+comment on column HRBZLS.METERINSDT.midrowno
+  is '主明细行号';
+comment on column HRBZLS.METERINSDT.midrowno2
+  is '行号';
+comment on column HRBZLS.METERINSDT.meterno
+  is '临时编号';
+comment on column HRBZLS.METERINSDT.ofagent
+  is '营业所编号';
+comment on column HRBZLS.METERINSDT.caliber
+  is '水表口径';
+comment on column HRBZLS.METERINSDT.brand
+  is '品牌';
+comment on column HRBZLS.METERINSDT.nameplate
+  is '铭牌号码';
+comment on column HRBZLS.METERINSDT.metermodel
+  is '水表型式';
+comment on column HRBZLS.METERINSDT.watertypeid
+  is '用水类别';
+comment on column HRBZLS.METERINSDT.usekind
+  is '用水性质';
+comment on column HRBZLS.METERINSDT.readtype
+  is '抄表方式';
+comment on column HRBZLS.METERINSDT.conninfo
+  is '表位';
+comment on column HRBZLS.METERINSDT.readperiod
+  is '抄表员';
+comment on column HRBZLS.METERINSDT.chkmeter
+  is '考核表';
+comment on column HRBZLS.METERINSDT.ischeck
+  is '考核表标志';
+comment on column HRBZLS.METERINSDT.true_id
+  is '分配水表资料号';
+comment on column HRBZLS.METERINSDT.pri_flag
+  is '合收标记';
+comment on column HRBZLS.METERINSDT.pri_meterno
+  is '合收主编号';
+comment on column HRBZLS.METERINSDT.pricetypeid
+  is '价格类别ID';
+comment on column HRBZLS.METERINSDT.usenum
+  is '使用人数';
+alter table HRBZLS.METERINSDT
+  add constraint PK_METERINSDT primary key (MIDNO, MIDROWNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+

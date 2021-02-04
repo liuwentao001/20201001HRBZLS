@@ -1,0 +1,59 @@
+create table HRBZLS.AUTOEXEC_LOG
+(
+  id       NUMBER(10) not null,
+  o_type   VARCHAR2(60),
+  o_time_1 DATE,
+  o_time_2 DATE,
+  o_result VARCHAR2(40),
+  err_msg  VARCHAR2(600)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on column HRBZLS.AUTOEXEC_LOG.id
+  is '流水号';
+comment on column HRBZLS.AUTOEXEC_LOG.o_type
+  is '任务内容';
+comment on column HRBZLS.AUTOEXEC_LOG.o_time_1
+  is '开始时间';
+comment on column HRBZLS.AUTOEXEC_LOG.o_time_2
+  is '结束时间';
+comment on column HRBZLS.AUTOEXEC_LOG.o_result
+  is '结果';
+comment on column HRBZLS.AUTOEXEC_LOG.err_msg
+  is '异常信息';
+create index HRBZLS.IND_AUTOEXEC_LOG1 on HRBZLS.AUTOEXEC_LOG (O_TIME_1)
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table HRBZLS.AUTOEXEC_LOG
+  add constraint PK_AUTOEXEC_LOG primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+

@@ -1,0 +1,97 @@
+create table HRBZLS.CUSTDWDM
+(
+  cdmid           VARCHAR2(10) not null,
+  cdmname         VARCHAR2(60) not null,
+  cdremained      NUMBER(12,2) not null,
+  cdmifusered     CHAR(1) default 'Y' not null,
+  cdmdefvalue     CHAR(1) default 'N' not null,
+  cdmfpcode       VARCHAR2(10),
+  cdmano          VARCHAR2(64),
+  cdmanoname      VARCHAR2(60),
+  cdmabankid      VARCHAR2(30),
+  cdmaaccountno   VARCHAR2(32),
+  cdmaaccountname VARCHAR2(64),
+  cdmatsbankid    VARCHAR2(30),
+  cdmatsbankname  VARCHAR2(64),
+  cdmaifxezf      CHAR(1),
+  cdmaregdate     DATE,
+  cdiftax         CHAR(1),
+  cdtaxno         VARCHAR2(32),
+  cdtxdz          VARCHAR2(200),
+  cdifhp          CHAR(1),
+  cdmemo          VARCHAR2(200),
+  cdonnectper     VARCHAR2(60),
+  cdconnecttel    VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+comment on table HRBZLS.CUSTDWDM
+  is '单位代码';
+comment on column HRBZLS.CUSTDWDM.cdmid
+  is '单位编号';
+comment on column HRBZLS.CUSTDWDM.cdmname
+  is '单位名称';
+comment on column HRBZLS.CUSTDWDM.cdremained
+  is '预存余额';
+comment on column HRBZLS.CUSTDWDM.cdmifusered
+  is '是否有效';
+comment on column HRBZLS.CUSTDWDM.cdmdefvalue
+  is '默认值';
+comment on column HRBZLS.CUSTDWDM.cdmfpcode
+  is '管辖公司';
+comment on column HRBZLS.CUSTDWDM.cdmano
+  is '委托授权号';
+comment on column HRBZLS.CUSTDWDM.cdmanoname
+  is '签约户名';
+comment on column HRBZLS.CUSTDWDM.cdmabankid
+  is '开户行（代托）';
+comment on column HRBZLS.CUSTDWDM.cdmaaccountno
+  is '开户帐号（代托）';
+comment on column HRBZLS.CUSTDWDM.cdmaaccountname
+  is '开户名（代托）';
+comment on column HRBZLS.CUSTDWDM.cdmatsbankid
+  is '接收行号（托）';
+comment on column HRBZLS.CUSTDWDM.cdmatsbankname
+  is '凭证银行（托）';
+comment on column HRBZLS.CUSTDWDM.cdmaifxezf
+  is '小额支付（托）';
+comment on column HRBZLS.CUSTDWDM.cdmaregdate
+  is '签约日期';
+comment on column HRBZLS.CUSTDWDM.cdiftax
+  is '是否税票';
+comment on column HRBZLS.CUSTDWDM.cdtaxno
+  is '税票号码';
+comment on column HRBZLS.CUSTDWDM.cdtxdz
+  is '注册地址';
+comment on column HRBZLS.CUSTDWDM.cdifhp
+  is '是否合票';
+comment on column HRBZLS.CUSTDWDM.cdmemo
+  is '备注';
+comment on column HRBZLS.CUSTDWDM.cdonnectper
+  is '联系人';
+comment on column HRBZLS.CUSTDWDM.cdconnecttel
+  is '联系电话';
+alter table HRBZLS.CUSTDWDM
+  add constraint AK_KEY_CDMID_CUSTDWDM unique (CDMID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
