@@ -1,0 +1,62 @@
+﻿create table CHKOUT_USER_DETAIL
+(
+  reno         VARCHAR2(10),
+  fpid         VARCHAR2(10),
+  zpid         VARCHAR2(10),
+  cid          VARCHAR2(10),
+  ciname       VARCHAR2(100),
+  ciadr        VARCHAR2(100),
+  pdate        DATE,
+  ppayway      VARCHAR2(6),
+  preverseflag CHAR(1),
+  psavingqc    NUMBER,
+  psavingbq    NUMBER,
+  psavingqm    NUMBER,
+  je           NUMBER,
+  je_sf        NUMBER,
+  je_wsf       NUMBER,
+  je_fjf       NUMBER,
+  je_wyj       NUMBER,
+  batch        VARCHAR2(10),
+  pid          VARCHAR2(10)
+)
+;
+comment on column CHKOUT_USER_DETAIL.reno
+  is '单据号';
+comment on column CHKOUT_USER_DETAIL.fpid
+  is '发票号';
+comment on column CHKOUT_USER_DETAIL.zpid
+  is '支票号';
+comment on column CHKOUT_USER_DETAIL.cid
+  is '用户号';
+comment on column CHKOUT_USER_DETAIL.ciname
+  is '用户名';
+comment on column CHKOUT_USER_DETAIL.ciadr
+  is '用户地址';
+comment on column CHKOUT_USER_DETAIL.pdate
+  is '账务日期';
+comment on column CHKOUT_USER_DETAIL.ppayway
+  is '付款方式';
+comment on column CHKOUT_USER_DETAIL.preverseflag
+  is '是否冲账';
+comment on column CHKOUT_USER_DETAIL.psavingqc
+  is '期初预存';
+comment on column CHKOUT_USER_DETAIL.psavingbq
+  is '预存发生';
+comment on column CHKOUT_USER_DETAIL.psavingqm
+  is '期末预存';
+comment on column CHKOUT_USER_DETAIL.je
+  is '收款金额';
+comment on column CHKOUT_USER_DETAIL.je_sf
+  is '水费';
+comment on column CHKOUT_USER_DETAIL.je_wsf
+  is '污水费';
+comment on column CHKOUT_USER_DETAIL.je_fjf
+  is '附加费';
+comment on column CHKOUT_USER_DETAIL.je_wyj
+  is '违约金';
+comment on column CHKOUT_USER_DETAIL.batch
+  is '批次号';
+comment on column CHKOUT_USER_DETAIL.pid
+  is '缴费流水号';
+

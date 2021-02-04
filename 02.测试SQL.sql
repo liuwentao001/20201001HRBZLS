@@ -179,14 +179,28 @@ select * from bs_payment where pcid='0100172364';
 
 ---出票
 truncate table pj_inv_info
-
 select * from pj_inv_info
-      
 select * from bs_reclist where rlreverseflag<>'Y' and rlpaidflag <> 'Y' and rlreadsl>0
-
 select * from bs_payment where pid <= '0000248146' order by pid desc 
       
+--收费员结账
+update sys_user set chk_date = null where user_id = '1';
+truncate table chkout_user_list;
+truncate table chkout_user_detail;
+commit;
+
+update bs_payment set ppayway = 'XJ' where ppayee='1';
+commit;
+
+select * from sys_user where user_id = '1';
+
+select * from chkout_user_list;
+
+select * from chkout_user_detail;
+
+select * from bs_reclist rl where rl.rlcid = '2200000470';
       
-      
-      
-      
+select * from bs_recdetail rd where rdid in (select rlid from bs_reclist rl where rl.rlcid = '2200000470') ;
+
+select * from bs_payment where ppayee='1';
+

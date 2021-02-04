@@ -19,7 +19,8 @@
   create_time DATE,
   update_by   VARCHAR2(64) default '',
   update_time DATE,
-  remark      VARCHAR2(500) default ''
+  remark      VARCHAR2(500) default '',
+  chk_date    DATE
 )
 ;
 comment on table SYS_USER
@@ -64,6 +65,8 @@ comment on column SYS_USER.update_time
   is '更新时间';
 comment on column SYS_USER.remark
   is '备注';
+comment on column SYS_USER.chk_date
+  is '收费员最后结账日期';
 alter table SYS_USER
   add constraint PK_SYS_USER primary key (USER_ID);
 

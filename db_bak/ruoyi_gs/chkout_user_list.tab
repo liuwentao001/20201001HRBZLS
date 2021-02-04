@@ -1,0 +1,131 @@
+﻿create table CHKOUT_USER_LIST
+(
+  reno         VARCHAR2(10),
+  createdate   DATE,
+  createuserid VARCHAR2(10),
+  je_sk        NUMBER,
+  je_sj        NUMBER,
+  je_cz        NUMBER,
+  num_sj       NUMBER,
+  num_dz       NUMBER,
+  num_cz       NUMBER,
+  sf_je        NUMBER,
+  wsf_je       NUMBER,
+  wyj_num      NUMBER,
+  wyj_je       NUMBER,
+  sxf_num      NUMBER,
+  sxf_je       NUMBER,
+  xj_num       NUMBER,
+  xj_num_sj    NUMBER,
+  xj_num_cz    NUMBER,
+  xj_je        NUMBER,
+  xj_je_sj     NUMBER,
+  xj_je_cz     NUMBER,
+  zp_num       NUMBER,
+  zp_num_sj    NUMBER,
+  zp_num_cz    NUMBER,
+  zp_je        NUMBER,
+  zp_je_sj     NUMBER,
+  zp_je_cz     NUMBER,
+  dc_num       NUMBER,
+  dc_num_sj    NUMBER,
+  dc_num_cz    NUMBER,
+  dc_je        NUMBER,
+  dc_je_sj     NUMBER,
+  dc_je_cz     NUMBER,
+  mz_num       NUMBER,
+  mz_num_sj    NUMBER,
+  mz_num_cz    NUMBER,
+  mz_je        NUMBER,
+  mz_je_sj     NUMBER,
+  mz_je_cz     NUMBER,
+  pj_num       NUMBER,
+  pj_num_zf    NUMBER,
+  pj_num_yx    NUMBER
+)
+;
+comment on column CHKOUT_USER_LIST.reno
+  is '单据号';
+comment on column CHKOUT_USER_LIST.createdate
+  is '创建日期';
+comment on column CHKOUT_USER_LIST.createuserid
+  is '创建人员';
+comment on column CHKOUT_USER_LIST.je_sk
+  is '收款总金额';
+comment on column CHKOUT_USER_LIST.je_sj
+  is '实际总金额';
+comment on column CHKOUT_USER_LIST.je_cz
+  is '冲正总金额';
+comment on column CHKOUT_USER_LIST.num_sj
+  is '实际总笔数';
+comment on column CHKOUT_USER_LIST.num_dz
+  is '对账总笔数';
+comment on column CHKOUT_USER_LIST.num_cz
+  is '冲正总笔数';
+comment on column CHKOUT_USER_LIST.sf_je
+  is '水费';
+comment on column CHKOUT_USER_LIST.wsf_je
+  is '污水费';
+comment on column CHKOUT_USER_LIST.wyj_num
+  is '违约金笔数';
+comment on column CHKOUT_USER_LIST.wyj_je
+  is '违约金';
+comment on column CHKOUT_USER_LIST.sxf_num
+  is '手续费笔数';
+comment on column CHKOUT_USER_LIST.sxf_je
+  is '手续费';
+comment on column CHKOUT_USER_LIST.xj_num
+  is '现金笔数';
+comment on column CHKOUT_USER_LIST.xj_num_sj
+  is '现金实际笔数';
+comment on column CHKOUT_USER_LIST.xj_num_cz
+  is '现金冲正笔数';
+comment on column CHKOUT_USER_LIST.xj_je
+  is '现金总金额';
+comment on column CHKOUT_USER_LIST.xj_je_sj
+  is '现金实际金额';
+comment on column CHKOUT_USER_LIST.xj_je_cz
+  is '现金冲正金额';
+comment on column CHKOUT_USER_LIST.zp_num
+  is '支票总笔数';
+comment on column CHKOUT_USER_LIST.zp_num_sj
+  is '支票实际笔数';
+comment on column CHKOUT_USER_LIST.zp_num_cz
+  is '支票冲正笔数';
+comment on column CHKOUT_USER_LIST.zp_je
+  is '支票总金额';
+comment on column CHKOUT_USER_LIST.zp_je_sj
+  is '支票实际金额';
+comment on column CHKOUT_USER_LIST.zp_je_cz
+  is '支票冲正金';
+comment on column CHKOUT_USER_LIST.dc_num
+  is '倒存总笔数';
+comment on column CHKOUT_USER_LIST.dc_num_sj
+  is '倒存实际笔数';
+comment on column CHKOUT_USER_LIST.dc_num_cz
+  is '倒存冲正笔数';
+comment on column CHKOUT_USER_LIST.dc_je
+  is '倒存总金额';
+comment on column CHKOUT_USER_LIST.dc_je_sj
+  is '倒存实际金额';
+comment on column CHKOUT_USER_LIST.dc_je_cz
+  is '倒存冲正金额';
+comment on column CHKOUT_USER_LIST.mz_num
+  is '抹账总笔数';
+comment on column CHKOUT_USER_LIST.mz_num_sj
+  is '抹账实际笔数';
+comment on column CHKOUT_USER_LIST.mz_num_cz
+  is '抹账冲正笔数';
+comment on column CHKOUT_USER_LIST.mz_je
+  is '抹账总金额';
+comment on column CHKOUT_USER_LIST.mz_je_sj
+  is '抹账实际金额';
+comment on column CHKOUT_USER_LIST.mz_je_cz
+  is '抹账冲正金额';
+comment on column CHKOUT_USER_LIST.pj_num
+  is '票据张数';
+comment on column CHKOUT_USER_LIST.pj_num_zf
+  is '作废发票数';
+comment on column CHKOUT_USER_LIST.pj_num_yx
+  is '有效发票数';
+
