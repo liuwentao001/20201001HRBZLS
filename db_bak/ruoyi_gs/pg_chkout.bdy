@@ -1,128 +1,150 @@
 ﻿create or replace package body pg_chkout is
   --对账处理程序包
   
-  --收费员结账
-  procedure chkout_by_user(p_userid varchar2) is
+  --生成建账工单        收费员结账
+  procedure ins_jzgd(p_userid varchar2) is
     v_chkdate date;
+    v_deptid varchar2(20); 
     v_reno varchar2(10);
   begin
-    v_reno := seq_chkout_user.nextval;
+    v_reno := seq_jzgd.nextval;
     
     --获取操作员最后对账时间
-    select chk_date into v_chkdate from sys_user where user_id = p_userid;
-
-    --生成对账信息
-    insert into chkout_user_list(reno, createdate, createuserid,
-                                 je_sk, je_sj, je_cz, num_sj, num_dz, num_cz, 
-                                 sf_je, wsf_je, wyj_num, wyj_je, sxf_num, sxf_je,
-                                 xj_num, xj_num_sj, xj_num_cz,  xj_je, xj_je_sj, xj_je_cz,
-                                 zp_num, zp_num_sj, zp_num_cz, zp_je, zp_je_sj, zp_je_cz,
-                                 dc_num, dc_num_sj, dc_num_cz, dc_je, dc_je_sj, dc_je_cz,
-                                 mz_num, mz_num_sj, mz_num_cz, mz_je, mz_je_sj, mz_je_cz,
-                                 pj_num, pj_num_zf, pj_num_yx
-                                 )
-    select v_reno reno, sysdate createdate, p_userid createuserid,
+    select chk_date, dept_id into v_chkdate, v_deptid from sys_user where user_id = p_userid;
     
-           sum(ppayment) je_sk, 
-           sum(case when preverseflag = 'N' then ppayment else 0 end) je_sj, 
-           sum(case when preverseflag = 'Y' then ppayment else 0 end) je_cz, 
-           sum(1) num_sj, 
-           sum(case when preverseflag = 'N' then 1 else 0 end) num_dz, 
-           sum(case when preverseflag = 'Y' then 1 else 0 end) num_cz, 
+    --生成对账信息
+    insert into request_jzgd(reno, resmfid,
+                             hcount, hje, hqc, hfs,  hqm,
+                             hsf, hwsf, hljf, hznj, hfpsl,
+                             hauditflag, hauditdate, hauditper,  hauditno,
+                             hxjje, hzpje, hcolumn1,  hcolumn2, hcolumn3,  hcolumn4,
+                             hcolumn5,  hcolumn6, hcolumn7,
+                             hcolumn8,  hcolumn9, hcolumn10, hcolumn11, hcolumn12, hcolumn13,
+                             hcolumn14, hcolumn15, hcolumn16, hcolumn17,
+                             hcolumn18, hcolumn19,
+                             hcolumn20, hcolumn21, hcolumn22, hcolumn23, hcolumn24, hcolumn25,
+                             hcolumn26, hcolumn27, hcolumn28, hcolumn29, hcolumn30, hcolumn31,
+                             hcolumn32, hcolumn33, hcolumn34, hcolumn35, hcolumn36, hcolumn37,
+                             reappnote, restaus, reper, reflag,
+                             enabled,
+                             sortcode,  deletemark, createdate,  createuserid, createusername,
+                             modifydate,  modifyuserid, modifyusername,
+                             remark,  workno,  workbatch
+    )
+    select v_reno reno, v_deptid resmfid,
+    
+           sum(case when ppayway in ('XJ','ZP') then 1 else 0 end) hcount,         --收款总笔数（=现金总笔数+支票总笔数）
+           sum(case when ppayway in ('XJ','ZP') then ppayment else 0 end) hje,   --收款总金额（=现金总金额+支票总金额）
+           null hqc,             --期初预存
+           null hfs,             --预存发生
+           null hqm,            --期末预存
            
-           null sf_je, 
-           null wsf_je,
-           null wyj_num, 
-           null wyj_je, 
-           null sxf_num, 
-           null sxf_je,
+           null hsf,              --水费
+           null hwsf,             --污水费
+           null hljf,             --垃圾费
+           null hznj,             --违约金
+           null hfpsl,            --票据张数（=有效发票数+作废发票数）
+           null hauditflag,       --发出标志(总财务)
+           null hauditdate,       --发出时间(总财务)
+           null hauditper,        --发出人(总财务)
+           null hauditno,         --发出单号
            
-           sum(case when ppayway = 'XJ' then 1 else 0 end) xj_num, 
-           sum(case when ppayway = 'XJ' and preverseflag = 'N' then 1 else 0 end) xj_num_sj, 
-           sum(case when ppayway = 'XJ' and preverseflag = 'Y' then 1 else 0 end) xj_num_cz, 
-           sum(case when ppayway = 'XJ' then ppayment else 0 end) xj_je,
-           sum(case when ppayway = 'XJ' and preverseflag = 'N' then ppayment else 0 end) xj_je_sj, 
-           sum(case when ppayway = 'XJ' and preverseflag = 'Y' then ppayment else 0 end) xj_je_cz,
+           sum(case when ppayway = 'XJ' then ppayment else 0 end) hxjje,       --现金总金额（=现金实际金额+现金冲正金额）
+           sum(case when ppayway = 'ZP' then ppayment else 0 end) hzpje,       --支票总金额（=支票实际金额+支票冲正金额）
+           sum(case when ppayway = 'XJ' and preverseflag = 'N' then ppayment else 0 end) hcolumn1,    --现金实际金额
+           sum(case when ppayway = 'XJ' and preverseflag = 'Y' then ppayment else 0 end) hcolumn2,    --现金冲正金额
+           sum(case when ppayway = 'ZP' and preverseflag = 'N' then ppayment else 0 end) hcolumn3,    --支票实际金额
+           sum(case when ppayway = 'ZP' and preverseflag = 'Y' then ppayment else 0 end) hcolumn4,    --支票冲正金额
            
-           sum(case when ppayway = 'ZP' then 1 else 0 end) zp_num,
-           sum(case when ppayway = 'ZP' and preverseflag = 'N' then 1 else 0 end) zp_num_sj, 
-           sum(case when ppayway = 'ZP' and preverseflag = 'Y' then 1 else 0 end) zp_num_cz, 
-           sum(case when ppayway = 'ZP' then ppayment else 0 end) zp_je, 
-           sum(case when ppayway = 'ZP' and preverseflag = 'N' then ppayment else 0 end)  zp_je_sj, 
-           sum(case when ppayway = 'ZP' and preverseflag = 'Y' then ppayment else 0 end) zp_je_cz,
+           null hcolumn5,        --违约金笔数
+           null hcolumn6,        --手续费笔数
+           null hcolumn7,        --手续费
            
-           sum(case when ppayway = 'DC' then 1 else 0 end) dc_num, 
-           sum(case when ppayway = 'DC' and preverseflag = 'N' then 1 else 0 end) dc_num_sj, 
-           sum(case when ppayway = 'DC' and preverseflag = 'Y' then 1 else 0 end) dc_num_cz, 
-           sum(case when ppayway = 'DC' then ppayment else 0 end) dc_je, 
-           sum(case when ppayway = 'DC' and preverseflag = 'N' then ppayment else 0 end) dc_je_sj, 
-           sum(case when ppayway = 'DC' and preverseflag = 'Y' then ppayment else 0 end) dc_je_cz,
+           sum(case when ppayway = 'XJ' then 1 else 0 end) hcolumn8,             --现金总笔数（=现金实际笔数-现金冲正笔数）
+           sum(case when ppayway = 'ZP' then 1 else 0 end) hcolumn9,             --支票总笔数（=支票实际笔数-支票冲正笔数）
+           sum(case when ppayway = 'XJ' and preverseflag = 'N' then 1 else 0 end) hcolumn10,    --现金实际笔数
+           sum(case when ppayway = 'XJ' and preverseflag = 'Y' then 1 else 0 end) hcolumn11,    --现金冲正笔数
+           sum(case when ppayway = 'ZP' and preverseflag = 'N' then 1 else 0 end) hcolumn12,    --支票实际笔数
+           sum(case when ppayway = 'ZP' and preverseflag = 'Y' then 1 else 0 end) hcolumn13,    --支票冲正笔数
            
-           sum(case when ppayway = 'MZ' then 1 else 0 end) mz_num, 
-           sum(case when ppayway = 'MZ' and preverseflag = 'N' then 1 else 0 end) mz_num_sj, 
-           sum(case when ppayway = 'MZ' and preverseflag = 'Y' then 1 else 0 end) mz_num_cz, 
-           sum(case when ppayway = 'MZ' then ppayment else 0 end) mz_je, 
-           sum(case when ppayway = 'MZ' and preverseflag = 'N' then ppayment else 0 end) mz_je_sj, 
-           sum(case when ppayway = 'MZ' and preverseflag = 'Y' then ppayment else 0 end) mz_je_cz,
+           sum(case when preverseflag = 'N' then 1 else 0 end) hcolumn14,           --实际总笔数（=现金实际笔数+支票实际笔数）
+           sum(case when preverseflag = 'N' then ppayment else 0 end) hcolumn15,    --实际总金额（=现金实际金额+支票实际金额）
+           sum(case when preverseflag = 'Y' then 1 else 0 end) hcolumn16,           --冲正总笔数（=现金冲正笔数+支票冲正笔数）
+           sum(case when preverseflag = 'Y' then ppayment else 0 end) hcolumn17,    --冲正总金额（=现金冲正金额+支票冲正金额）
            
-           null pj_num, 
-           null pj_num_zf, 
-           null pj_num_yx
+           null hcolumn18,            --有效发票数
+           null hcolumn19,            --作废发票数
+           
+           sum(case when ppayway = 'DC' then 1 else 0 end) hcolumn20,                                        --倒存总笔数（=倒存实际总笔数-倒存冲正总笔数） 
+           sum(case when ppayway = 'DC' and preverseflag = 'N' then 1 else 0 end) hcolumn21,                 --倒存实际总笔数
+           sum(case when ppayway = 'DC' and preverseflag = 'Y' then 1 else 0 end) hcolumn22,                 --倒存冲正总笔数
+           sum(case when ppayway = 'DC' then ppayment else 0 end) hcolumn23,                                 --倒存总金额（=倒存实际总金额-倒存冲正总金额）
+           sum(case when ppayway = 'DC' and preverseflag = 'N' then ppayment else 0 end) hcolumn24,          --倒存实际总金额 
+           sum(case when ppayway = 'DC' and preverseflag = 'Y' then ppayment else 0 end) hcolumn25,          --倒存冲正总金额
+           
+           sum(case when ppayway = 'MZ' then 1 else 0 end) hcolumn26,                                        --抹账总笔数（=抹账实际总笔数-抹账冲正总笔数）
+           sum(case when ppayway = 'MZ' and preverseflag = 'N' then 1 else 0 end) hcolumn27,                 --抹账实际总笔数
+           sum(case when ppayway = 'MZ' and preverseflag = 'Y' then 1 else 0 end) hcolumn28,                 --抹账冲正总笔数
+           sum(case when ppayway = 'MZ' then ppayment else 0 end) hcolumn29,                                 --抹账总金额（=抹账实际总金额-抹账冲正总金额）
+           sum(case when ppayway = 'MZ' and preverseflag = 'N' then ppayment else 0 end) hcolumn30,          --抹账实际总金额 
+           sum(case when ppayway = 'MZ' and preverseflag = 'Y' then ppayment else 0 end) hcolumn31,          --抹账冲正总金额
+           
+           sum(case when ppayway = 'POS' then ppayment else 0 end) hcolumn32,                                        --POS总金额（=POS实际金额+POS冲正金额）
+           sum(case when ppayway = 'POS' and preverseflag = 'N' then ppayment else 0 end) hcolumn33,                 --POS实际金额
+           sum(case when ppayway = 'POS' and preverseflag = 'Y' then ppayment else 0 end) hcolumn34,                 --POS冲正金额pos实际笔数 
+           sum(case when ppayway = 'POS' then 1 else 0 end) hcolumn35,                                               --POS总笔数（=POS实际笔数-POS冲正笔数）
+           sum(case when ppayway = 'POS' and preverseflag = 'N' then 1 else 0 end) hcolumn36,                        --POS实际笔数 
+           sum(case when ppayway = 'POS' and preverseflag = 'Y' then 1 else 0 end) hcolumn37,                        --POS冲正笔数
+           
+           null reappnote, null restaus, null reper, null reflag,
+           null enabled,
+           null sortcode, null deletemark, sysdate createdate, p_userid createuserid, null createusername,
+           null modifydate, null modifyuserid, null modifyusername,
+           null remark, null workno, null workbatch
     from bs_payment
     where ppayee = p_userid
           and (pdatetime >= v_chkdate or v_chkdate is null) and pdatetime <= sysdate
           and pchkno is null
           and (preverseflag = 'N' or (preverseflag = 'Y' and ppayment > 0)) ;
     
-    --生成对账信息明细
-    insert into chkout_user_detail(reno, fpid, zpid, cid, ciname, ciadr,
-                                   pdate, ppayway, preverseflag, psavingqc, psavingbq, psavingqm,
-                                   je, je_sf, je_wsf, je_fjf, je_wyj,
-                                   batch, pid
-                                   )
-    with je as(
-      select  rl.rlpid id, 
-              sum(rd.rdje) je,
-              sum(case when rd.rdpiid = '01' then rd.rdje end) je_sf ,
-              sum(case when rd.rdpiid = '02' then rd.rdje end) je_wsf,
-              sum(case when rd.rdpiid = '03' then rd.rdje end) je_fjf
-      from bs_reclist rl 
-           left join bs_recdetail rd on rl.rlid = rd.rdid
-      where rl.rlpid in (select pid 
-                         from  bs_payment 
-                         where ppayee = p_userid
-                               and (pdatetime >= v_chkdate or v_chkdate is null) and pdatetime <= sysdate
-                               and pchkno is null)
-      group by rl.rlpid
-    )
-    select v_reno reno, null fpid, null zpid, pcid cid, null ciname, null ciadr,
-           pdate, ppayway, preverseflag, psavingqc, psavingbq, psavingqm,
-           je, je_sf, je_wsf, je_fjf, null je_wyj,
-           v_reno batch, pid
-    from bs_payment 
-         left join je on bs_payment.pid = je.id
-    where ppayee = p_userid
-      and (pdatetime >= v_chkdate or v_chkdate is null) and pdatetime <= sysdate
-      and pchkno is null;
-    
-    
     --更新对账信息水费，污水费
-    update chkout_user_list 
-    set (sf_je,wsf_je) = (select sum(je_sf), sum(je_wsf) from chkout_user_detail where reno = v_reno)
+    update request_jzgd 
+    set (hsf,hwsf,hljf) = (select 
+                                sum(case when rd.rdpiid = '01' then rd.rdje end) je_sf ,
+                                sum(case when rd.rdpiid = '02' then rd.rdje end) je_wsf,
+                                sum(case when rd.rdpiid = '03' then rd.rdje end) je_fjf
+                            from bs_reclist rl 
+                                 left join bs_recdetail rd on rl.rlid = rd.rdid
+                            where rl.rlpid in (select pid 
+                                               from  bs_payment 
+                                               where ppayee = p_userid
+                                                     and (pdatetime >= v_chkdate or v_chkdate is null) and pdatetime <= sysdate
+                                                     and pchkno is null)
+    )
     where reno = v_reno;
+    
+    --更新期初、期末
+    update request_jzgd
+    set (hqc, hfs, hqm) = (select sum(hqc),sum(hqm) - sum(hqc),sum(hqm)
+                               from (select distinct pcid, 
+                                            first_value(psavingqc) over (partition by pcid order by pdatetime) hqc,
+                                            first_value(psavingqc) over (partition by pcid order by pdatetime desc) hqm
+                                       from bs_payment
+                                      where ppayee = p_userid
+                                            and (pdatetime >= v_chkdate or v_chkdate is null) and pdatetime <= sysdate
+                                            and pchkno is null) t );
     
     --更新交易信息
     update bs_payment 
     set pchkno = v_reno 
     where ppayee = p_userid
-          and pdatetime >= v_chkdate and pdatetime <= sysdate
+          and (pdatetime >= v_chkdate or v_chkdate is null) and pdatetime <= sysdate
           and pchkno is null;
     
     --更新操作员信息
     update sys_user set chk_date = sysdate where user_id = p_userid;
     
     commit;
-    
   exception
     when others then rollback;
   end;

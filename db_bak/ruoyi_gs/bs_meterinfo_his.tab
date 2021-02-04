@@ -249,5 +249,5 @@ comment on column BS_METERINFO_HIS.gdsj
   is '工单时间';
 create index IDX_METERINFO_HIS_MICODE on BS_METERINFO_HIS (MICODE);
 create index INDEX_METERINFO_HIS_MIBFID on BS_METERINFO_HIS (MIBFID);
-create unique index PK_METERINFO_HIS on BS_METERINFO_HIS (MIID);
+create index PK_METERINFO_HIS on BS_METERINFO_HIS (MIID);
 
