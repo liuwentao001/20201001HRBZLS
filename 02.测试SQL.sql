@@ -201,5 +201,3 @@ select * from bs_reclist rl where rl.rlcid = '2200000470';
 select * from bs_recdetail rd where rdid in (select rlid from bs_reclist rl where rl.rlcid = '2200000470') ;
 
 select * from bs_payment where ppayee='1';
-
-select distinct pcid, first_value(psavingqc) over (order by pdate)

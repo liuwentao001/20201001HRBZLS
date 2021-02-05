@@ -1,7 +1,11 @@
 ﻿create or replace package body pg_chkout is
   --对账处理程序包
   
-  --生成建账工单        收费员结账
+  /*
+  生成建账工单        
+  收费员结账   收费员可对自己自上次结账到当前时间的收费记录进行结账的功能。
+  参数：  p_userid        收费员编码
+  */
   procedure ins_jzgd(p_userid varchar2) is
     v_chkdate date;
     v_deptid varchar2(20); 
@@ -14,22 +18,22 @@
     
     --生成对账信息
     insert into request_jzgd(reno, resmfid,
-                             hcount, hje, hqc, hfs,  hqm,
-                             hsf, hwsf, hljf, hznj, hfpsl,
-                             hauditflag, hauditdate, hauditper,  hauditno,
-                             hxjje, hzpje, hcolumn1,  hcolumn2, hcolumn3,  hcolumn4,
-                             hcolumn5,  hcolumn6, hcolumn7,
-                             hcolumn8,  hcolumn9, hcolumn10, hcolumn11, hcolumn12, hcolumn13,
-                             hcolumn14, hcolumn15, hcolumn16, hcolumn17,
-                             hcolumn18, hcolumn19,
-                             hcolumn20, hcolumn21, hcolumn22, hcolumn23, hcolumn24, hcolumn25,
-                             hcolumn26, hcolumn27, hcolumn28, hcolumn29, hcolumn30, hcolumn31,
-                             hcolumn32, hcolumn33, hcolumn34, hcolumn35, hcolumn36, hcolumn37,
-                             reappnote, restaus, reper, reflag,
-                             enabled,
-                             sortcode,  deletemark, createdate,  createuserid, createusername,
-                             modifydate,  modifyuserid, modifyusername,
-                             remark,  workno,  workbatch
+           hcount, hje, hqc, hfs,  hqm,
+           hsf, hwsf, hljf, hznj, hfpsl,
+           hauditflag, hauditdate, hauditper,  hauditno,
+           hxjje, hzpje, hcolumn1,  hcolumn2, hcolumn3,  hcolumn4,
+           hcolumn5,  hcolumn6, hcolumn7,
+           hcolumn8,  hcolumn9, hcolumn10, hcolumn11, hcolumn12, hcolumn13,
+           hcolumn14, hcolumn15, hcolumn16, hcolumn17,
+           hcolumn18, hcolumn19,
+           hcolumn20, hcolumn21, hcolumn22, hcolumn23, hcolumn24, hcolumn25,
+           hcolumn26, hcolumn27, hcolumn28, hcolumn29, hcolumn30, hcolumn31,
+           hcolumn32, hcolumn33, hcolumn34, hcolumn35, hcolumn36, hcolumn37,
+           reappnote, restaus, reper, reflag,
+           enabled,
+           sortcode,  deletemark, createdate,  createuserid, createusername,
+           modifydate,  modifyuserid, modifyusername,
+           remark,  workno,  workbatch, st_sdate, st_edate
     )
     select v_reno reno, v_deptid resmfid,
     
@@ -100,7 +104,7 @@
            null enabled,
            null sortcode, null deletemark, sysdate createdate, p_userid createuserid, null createusername,
            null modifydate, null modifyuserid, null modifyusername,
-           null remark, null workno, null workbatch
+           null remark, null workno, null workbatch, v_chkdate st_sdate, sysdate st_edate
     from bs_payment
     where ppayee = p_userid
           and (pdatetime >= v_chkdate or v_chkdate is null) and pdatetime <= sysdate
@@ -144,6 +148,99 @@
     --更新操作员信息
     update sys_user set chk_date = sysdate where user_id = p_userid;
     
+    commit;
+  exception
+    when others then rollback;
+  end;
+  
+  /*
+  删除建账工单
+  收费员结账   收费员可对自己自上次结账到当前时间的收费记录进行结账的功能。
+  参数     p_reno      建账工单编码
+  */
+  procedure del_jzgd(p_reno varchar2) is
+    v_chkdate date;
+    v_userid varchar2(50);
+  begin
+    select st_sdate, createuserid into v_chkdate, v_userid from request_jzgd where reno = p_reno;
+    --更新操作员信息
+    update sys_user set chk_date = v_chkdate where user_id = v_userid;
+    --更新交易信息
+    update bs_payment set pchkno = null where pchkno = p_reno;
+    --删除建账工单
+    delete from request_jzgd where reno = p_reno;
+    commit;
+  exception
+    when others then rollback;
+  end;
+  
+  /*
+  生成对账工单        
+  对账管理   地区财务对各收费员结账的汇总管理功能，汇总后可发给集团财务。
+  参数     p_deptid    机构编码
+  */
+  procedure ins_dzgd(p_deptid varchar2) is
+    v_reno varchar2(10);
+  begin
+    v_reno := seq_jzgd.nextval;
+    --生成对账信息
+    insert into request_dzgd(reno, resmfid,
+           hcount, hje, hqc, hfs,  hqm,
+           hsf, hwsf, hljf, hznj, hfpsl,
+           hxjje, hzpje, hcolumn1,  hcolumn2, hcolumn3,  hcolumn4,
+           hcolumn5,  hcolumn6, hcolumn7,
+           hcolumn8,  hcolumn9, hcolumn10, hcolumn11, hcolumn12, hcolumn13,
+           hcolumn14, hcolumn15, hcolumn16, hcolumn17,
+           hcolumn18, hcolumn19,
+           hcolumn20, hcolumn21, hcolumn22, hcolumn23, hcolumn24, hcolumn25,
+           hcolumn26, hcolumn27, hcolumn28, hcolumn29, hcolumn30, hcolumn31,
+           hcolumn32, hcolumn33, hcolumn34, hcolumn35, hcolumn36, hcolumn37,
+           reappnote, restaus, reper, reflag,
+           enabled,
+           sortcode,  deletemark, createdate,  createuserid, createusername,
+           modifydate,  modifyuserid, modifyusername,
+           remark,  workno,  workbatch)
+    select v_reno reno, resmfid,
+           sum(hcount), sum(hje), sum(hqc), sum(hfs), sum(hqm),
+           sum(hsf), sum(hwsf), sum(hljf), sum(hznj), sum(hfpsl),
+           sum(hxjje), sum(hzpje), sum(hcolumn1),  sum(hcolumn2), sum(hcolumn3),  sum(hcolumn4),
+           sum(hcolumn5),  sum(hcolumn6), sum(hcolumn7),
+           sum(hcolumn8),  sum(hcolumn9), sum(hcolumn10), sum(hcolumn11), sum(hcolumn12), sum(hcolumn13),
+           sum(hcolumn14), sum(hcolumn15), sum(hcolumn16), sum(hcolumn17),
+           sum(hcolumn18), sum(hcolumn19),
+           sum(hcolumn20), sum(hcolumn21), sum(hcolumn22), sum(hcolumn23), sum(hcolumn24), sum(hcolumn25),
+           sum(hcolumn26), sum(hcolumn27), sum(hcolumn28), sum(hcolumn29), sum(hcolumn30), sum(hcolumn31),
+           sum(hcolumn32), sum(hcolumn33), sum(hcolumn34), sum(hcolumn35), sum(hcolumn36), sum(hcolumn37),
+           null reappnote,null  restaus, null reper, null reflag,
+           null enabled,
+           null sortcode,  null deletemark, null createdate,  null createuserid, null createusername,
+           null modifydate, null  modifyuserid, null modifyusername,
+           null remark,  null workno,  null workbatch
+    from request_jzgd 
+    where resmfid = p_deptid and reshbz = 'Y' and rewcbz <> 'Y'
+    group by resmfid;
+    
+    --更新建账信息
+    update request_jzgd 
+    set   dzgd_no = v_reno, rewcbz = 'Y'
+    where resmfid = p_deptid and reshbz = 'Y' and rewcbz <> 'Y';
+    
+    commit;
+  exception
+    when others then rollback;
+  end;
+  
+  /*
+  删除对账工单        
+  对账管理   地区财务对各收费员结账的汇总管理功能，汇总后可发给集团财务。
+  参数     p_reno    对账工单  编码
+  */  
+  procedure del_dzgd(p_reno varchar2) is
+  begin
+    --更新建账信息
+    update request_jzgd set dzgd_no = null, rewcbz = 'N' where dzgd_no = p_reno;
+    --删除对账工单
+    delete from request_dzgd where reno = p_reno;
     commit;
   exception
     when others then rollback;

@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@221.212.191.142:32771/ORCL
-prompt Created by xss on 2021年2月4日
+prompt Created by xss on 2021年2月5日
 set define off
 spool ruoyi_gs.log
 
@@ -893,6 +893,11 @@ prompt Creating sequence SEQ_BS_METERFH_STORE
 prompt ======================================
 prompt
 @@seq_bs_meterfh_store.seq
+prompt
+prompt Creating sequence SEQ_DZGD
+prompt ==========================
+prompt
+@@seq_dzgd.seq
 prompt
 prompt Creating sequence SEQ_EVENT_BK
 prompt ==============================
