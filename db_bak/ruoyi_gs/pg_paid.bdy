@@ -489,12 +489,8 @@
                     p_memo        in varchar2,
                     p_pid         out varchar2,
                     o_remainafter out number) is
-    cursor c_ci(vciid varchar2) is
-        select * from bs_custinfo where ciid = vciid for update nowait; --若被锁直接抛出异常
-    cursor c_mi(vmiid varchar2) is
-        select * from bs_meterinfo where micode = vmiid for update nowait; --若被锁直接抛出异常
+    cursor c_ci(vciid varchar2) is select * from bs_custinfo where ciid = vciid for update nowait; --若被锁直接抛出异常
     p bs_payment%rowtype;
-    mi bs_meterinfo%rowtype;
     ci bs_custinfo%rowtype;
   begin
     --1、实参校验、必要变量准备
@@ -505,19 +501,12 @@
       if c_ci%notfound or c_ci%notfound is null then
         raise_application_error(errcode,'用户编码【' || p_yhid || '】不存在！');
       end if;
-      --取水表信息
-      open c_mi(ci.ciid);
-      fetch c_mi into mi;
-      if c_mi%notfound or c_mi%notfound is null then
-        raise_application_error(errcode, '这个用户编码没对应水表！' || p_yhid);
-      end if;
     --2、记录实收
       select trim(to_char(seq_paidment.nextval, '0000000000'))
         into p_pid
         from dual;
       p.pid := p_pid;             --流水号
       p.pcid := ci.ciid;          --用户编号
-      p.pmid := mi.miid;          --水表编号
       p.pdate := trunc(sysdate);  --帐务日期
       p.pdatetime := sysdate;     --发生日期
       p.pmonth := to_char(sysdate,'yyyy-mm');        --缴费月份
@@ -553,11 +542,9 @@
       commit;
 
       close c_ci;
-      close c_mi;
   exception
     when others then
       if c_ci%isopen then close c_ci; end if;
-      if c_mi%isopen then close c_mi; end if;
       rollback;
       raise_application_error(errcode, sqlerrm);
   end;
@@ -711,9 +698,6 @@
   procedure pay_back_by_pid(p_payid in varchar2, p_oper in varchar2, p_recflag in varchar2, o_pid_reverse out varchar2) is
     cursor c_p(vpid varchar2) is
       select * from bs_payment where pid = vpid and preverseflag <> 'Y' for update nowait;
-    cursor c_mi(vmiid varchar2) is
-      select * from bs_meterinfo where miid = vmiid for update nowait;
-    mi        bs_meterinfo%rowtype;
     p_source  bs_payment%rowtype;
     p_reverse bs_payment%rowtype;
     v_call number;
@@ -723,11 +707,6 @@
     open c_p(p_payid);
     fetch c_p into p_source;
     if c_p%found then
-      open c_mi(p_source.pmid);
-      fetch c_mi into mi;
-      if c_mi%notfound or c_mi%notfound is null then
-        raise_application_error(errcode, '无效的用户编号');
-      end if;
       select trim(to_char(seq_paidment.nextval, '0000000000')) into o_pid_reverse from dual;
       p_reverse.pid        := o_pid_reverse;
       p_reverse.pcid       := p_source.pcid;
@@ -848,11 +827,9 @@
     update bs_custinfo set misaving = p_reverse.psavingqm where ciid = p_source.pcid;
     commit;
     close c_p;
-    close c_mi;
   exception
     when others then
       if c_p%isopen then close c_p; end if;
-      if c_mi%isopen then close c_mi; end if;
       rollback;
       raise_application_error(errcode, sqlerrm);
   end;

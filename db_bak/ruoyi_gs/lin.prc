@@ -33,7 +33,8 @@ BEGIN
                B.MISTATUS,
                D.BFNRMONTH,
                B.MIBFID,
-               B.MIRECSL
+               B.MIRECSL,
+               B.MIENEED
           FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
          WHERE A.CIID = B.MICODE
            AND B.MIID = S.MDID
@@ -88,7 +89,8 @@ BEGIN
              B.MISTATUS,
              D.BFNRMONTH,
              B.MIBFID,
-             MIRECSL
+             B.MIRECSL,
+             B.MIENEED
         FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
        WHERE A.CIID = B.MICODE
          AND B.MIID = S.MDID

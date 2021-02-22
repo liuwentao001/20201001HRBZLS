@@ -8,7 +8,7 @@
   badate  DATE,
   baper   VARCHAR2(10)
 )
-;
+nologging;
 comment on table BS_ANNEX
   is '附件管理';
 comment on column BS_ANNEX.bano

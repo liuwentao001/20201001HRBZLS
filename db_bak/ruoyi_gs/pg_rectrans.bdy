@@ -4,7 +4,7 @@
   --p_gdtype: ZLSF  追量收费,  BJSF  补缴收费
   --追量收费：request_zlsf
   --
-  procedure rectrans_gd(p_reno request_zlsf.reno%type, p_gdtype varchar2, o_log out varchar2) is
+  procedure rectrans_gd(p_reno varchar2, p_gdtype varchar2, o_log out varchar2) is
     v_gdtype_name varchar(10);
     v_miid varchar(20);
     v_mrscode number;

@@ -83,9 +83,9 @@
   p_cply      出票来源：SMSF 上门收费 BJSF 补缴收费
   */
   procedure pj_sf(p_rlids varchar2, p_fkfs varchar2, p_cply varchar2)is
-    v_pj_id varchar2(10);
+    --v_pj_id varchar2(10);
   begin
-    v_pj_id := seq_paidbatch.nextval;
+    --v_pj_id := seq_paidbatch.nextval;
 
     insert into pj_inv_info(id, dyfs, status, cplx, fkfs, month, mcode, rlcname, rlcadr,  scode, ecode, sl, kpje, rlid ,cpje01, cpje02, cpje03, cply)
     with rd as (
@@ -97,12 +97,14 @@
          where rdid in (select regexp_substr(p_rlids, '[^,]+', 1, level) pid from dual connect by level <= length(p_rlids) - length(replace(p_rlids, ',', '')) + 1)
          group by rdid
     )
-    select v_pj_id, '0', '0','L', p_fkfs, max(rlmonth), rlcid , rlcname, rlcadr, min(rlscode) , max(rlecode), sum(rlsl) ,sum(rlje), p_rlids, sum(je01), sum(je02), sum(je03), p_cply
+    --select v_pj_id, '0', '0','L', p_fkfs, max(rlmonth), rlcid , rlcname, rlcadr, min(rlscode) , max(rlecode), sum(rlsl) ,sum(rlje), p_rlids, sum(je01), sum(je02), sum(je03), p_cply
+    select seq_paidbatch.nextval, '0', '0','L', p_fkfs, rlmonth, rlcid , rlcname, rlcadr, rlscode , rlecode, rlsl, rlje, p_rlids, je01, je02, je03, p_cply
     from bs_reclist rl left join rd on rl.rlid = rd.rdid
     where rlid in (select regexp_substr(p_rlids, '[^,]+', 1, level) pid from dual connect by level <= length(p_rlids) - length(replace(p_rlids, ',', '')) + 1)
           and rlpaidflag <> 'Y'
           and rlreverseflag <> 'Y'
-    group by v_pj_id, rlcid ,rlcname, rlcadr, p_rlids;
+    --group by v_pj_id, rlcid ,rlcname, rlcadr, p_rlids
+    ;
 
     --更新出票标志
     update bs_reclist 

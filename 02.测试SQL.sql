@@ -110,6 +110,38 @@ select * from bs_pricestep where pspfid='A0103' order by pspfid ,pspiid, psclass
 select * from bs_payment where pcid='0100172364'
 
 
+select * from request_bjsf where reno='00F224A227A9434D855F5BC124792308' for update;
+
+开始执行补缴收费工单。工单编号：00F224A227A9434D855F5BC124792308
+开始执行工单。生成抄表记录：生成抄表记录成功2377621192
+开始执行补缴收费工单。算费：
+补缴收费工单完成。工单编号：00F224A227A9434D855F5BC124792308
+
+select * from bs_meterinfo where miid='8091680891'
+select * from bs_meterread where mrid = '2377621192'
+select * from bs_reclist where rlmrid='2377621192'
+select * from bs_recdetail where rdid='1000202123'
+select * from bs_priceframe where pfid='A0103';
+select * from bs_pricestep where pspfid='A0103' order by pspfid ,pspiid, psclass;
+select * from bs_pricedetail where pdpfid='A0103'
+--929	1015	86 86	774.000
+select 1015-929,774/86 from dual
+--9
+
+
+
+
+
+select * from bs_priceframe order by pfid;
+select * from bs_pricestep order by pspfid ,pspiid, psclass;
+select * from bs_pricedetail order by pdpfid;
+
+
+
+
+
+
+
 
 --追量收费正向调整测试
 update request_zlsf set reshbz = 'Y',rewcbz='N' where reno='ee060c46-efc4-49c5-8fe8-7afed7195a09';
@@ -201,3 +233,6 @@ select * from bs_reclist rl where rl.rlcid = '2200000470';
 select * from bs_recdetail rd where rdid in (select rlid from bs_reclist rl where rl.rlcid = '2200000470') ;
 
 select * from bs_payment where ppayee='1';
+
+
+

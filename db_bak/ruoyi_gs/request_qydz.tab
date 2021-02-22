@@ -27,15 +27,15 @@
 )
 ;
 comment on table REQUEST_QYDZ
-  is '区域调整工单';
+  is '跨区域调整工单';
 comment on column REQUEST_QYDZ.reno
   is '单据流水号';
 comment on column REQUEST_QYDZ.resmfid
   is '营销公司';
 comment on column REQUEST_QYDZ.ybfid
-  is '源册号';
+  is '源表册号';
 comment on column REQUEST_QYDZ.mbfid
-  is '目的册号';
+  is '目的表册号';
 comment on column REQUEST_QYDZ.reappnote
   is '申请说明';
 comment on column REQUEST_QYDZ.restaus

@@ -78,6 +78,7 @@
   micardno       VARCHAR2(50),
   mitwono        VARCHAR2(50),
   midmano        VARCHAR2(50),
+  mieneed        NUMBER(10),
   gdlx           VARCHAR2(50),
   gdid           VARCHAR2(50),
   gdsj           DATE default SYSDATE
@@ -241,6 +242,8 @@ comment on column BS_METERINFO_HIS.mitwono
   is '二次供水编码';
 comment on column BS_METERINFO_HIS.midmano
   is 'DMA分区计量编码';
+comment on column BS_METERINFO_HIS.mieneed
+  is '等针水量';
 comment on column BS_METERINFO_HIS.gdlx
   is '工单类型';
 comment on column BS_METERINFO_HIS.gdid

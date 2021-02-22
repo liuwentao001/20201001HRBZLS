@@ -9,7 +9,7 @@
   pkg_req   VARCHAR2(4000),
   pkg_ans   VARCHAR2(4000)
 )
-;
+nologging;
 comment on column BANK_CHARGE_TRAN_LOG.id
   is '唯一标识';
 comment on column BANK_CHARGE_TRAN_LOG.tran_code

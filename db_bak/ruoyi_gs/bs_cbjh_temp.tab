@@ -21,7 +21,8 @@
   mistatus  VARCHAR2(2),
   bfnrmonth VARCHAR2(7),
   mibfid    VARCHAR2(10),
-  mirecsl   NUMBER(10)
+  mirecsl   NUMBER(10),
+  mieneed   NUMBER(10)
 )
 on commit preserve rows;
 

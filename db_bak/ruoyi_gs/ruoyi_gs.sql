@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@221.212.191.142:32771/ORCL
-prompt Created by xss on 2021年2月5日
+prompt Created by xss on 2021年2月22日
 set define off
 spool ruoyi_gs.log
 
@@ -183,6 +183,11 @@ prompt Creating table BS_STOREROOM
 prompt ===========================
 prompt
 @@bs_storeroom.tab
+prompt
+prompt Creating table BS_ZWBFRPER
+prompt ==========================
+prompt
+@@bs_zwbfrper.tab
 prompt
 prompt Creating table CHK_METERREAD
 prompt ============================
@@ -394,6 +399,11 @@ prompt ====================================
 prompt
 @@qrtz_simprop_triggers.tab
 prompt
+prompt Creating table RELATION_PAYMENT_JZGD
+prompt ====================================
+prompt
+@@relation_payment_jzgd.tab
+prompt
 prompt Creating table REQUEST_BJSF
 prompt ===========================
 prompt
@@ -403,6 +413,11 @@ prompt Creating table REQUEST_CB
 prompt =========================
 prompt
 @@request_cb.tab
+prompt
+prompt Creating table REQUEST_CJDY
+prompt ===========================
+prompt
+@@request_cjdy.tab
 prompt
 prompt Creating table REQUEST_DHGL
 prompt ===========================
@@ -1144,6 +1159,11 @@ prompt =====================================
 prompt
 @@pg_ewide_raedplan_01.spc
 prompt
+prompt Creating package PG_INSERT
+prompt ==========================
+prompt
+@@pg_insert.spc
+prompt
 prompt Creating package PG_METERTRANS
 prompt ==============================
 prompt
@@ -1334,6 +1354,11 @@ prompt ==========================================
 prompt
 @@pg_ewide_raedplan_01.bdy
 prompt
+prompt Creating package body PG_INSERT
+prompt ===============================
+prompt
+@@pg_insert.bdy
+prompt
 prompt Creating package body PG_METERTRANS
 prompt ===================================
 prompt
@@ -1378,11 +1403,6 @@ prompt Creating type body CONNSTRIMPL
 prompt ==============================
 prompt
 @@connstrimpl.tpb
-prompt
-prompt Creating trigger INCREASE_SEQ_METERREAD
-prompt =======================================
-prompt
-@@increase_seq_meterread.trg
 prompt
 prompt Creating trigger SMS_SEND_INSERT
 prompt ================================
