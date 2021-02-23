@@ -1148,7 +1148,7 @@
     rd.rdsl     := 0; --水量
     rd.rdje     := 0; --金额
     rd.rdmethod   := pd.pdmethod; --计费方法
-    if pd.pdmethod = '01' or (pd.pdmethod = '02' and p_rl.rlifstep = 'N' ) then
+    if pd.pdmethod = '01' /*or (pd.pdmethod = '02' and p_rl.rlifstep = 'N' )*/ then
     --case pd.pdmethod
     --  when '01' then
         --固定单价  默认方式，与抄量有关  哈尔滨都是dj1
@@ -1336,7 +1336,7 @@
     -- 第一次算费不进入阶梯
     -- 2016年1月起（含一月）首次抄表不计入阶梯
 
-    if p_rl.rljtmk = 'Y' or p_rl.rltrans in('14', '21') or v_rlscrrlmonth = 'a' or v_rlmonth <='2015.12'
+    if p_rl.rljtmk = 'Y' or p_rl.rltrans in('14', '21') or v_rlscrrlmonth = 'a' or v_rlmonth <='2015.12' or p_rl.rlifstep = 'N'
       then
       v_rljtmk := 'Y';
     else

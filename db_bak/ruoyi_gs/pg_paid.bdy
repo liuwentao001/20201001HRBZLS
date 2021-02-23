@@ -312,7 +312,7 @@
         --rlid in (select regexp_substr(p_arstr, '[^,]+', 1, level) column_value from dual connect by level <= length(p_arstr) - length(replace(p_arstr, ',', '')) + 1);
     sumrlpaidje number(13, 3) := 0; --累计实收金额（应收金额+实收违约金+实收其他非系统费项123）
     p_remaind   number(13, 3);      --期初预存累减器
-    v_rlid varchar2(20);
+    --v_rlid varchar2(20);
   begin
     --期初预存累减器初始化
     p_remaind := p_remainbefore;
@@ -340,12 +340,12 @@
           rl.rlpaidmonth := p_paidmonth;          --销账月份
           rl.rlpid := p_pid;                      --实收流水（与payment.pid对应）
           rl.rlpbatch := p_batch;                 --缴费交易批次（与payment.pbatch对应）
-          rl.rlpaidje := rl.rlje + rl.rlsavingbq; --销帐金额（实收金额=应收金额+预存发生）
+          rl.rlpaidje := rl.rlje ; --销帐金额（实收金额=应收金额+预存发生）
           rl.rlpaidper := p_oper;                 --销账人员
           --中间变量运算
           sumrlpaidje := sumrlpaidje + rl.rlpaidje;
           --记录末条销帐记录
-          v_rlid := rl.rlid;
+          --v_rlid := rl.rlid;
           --反馈实收记录
           o_sum_arje  := o_sum_arje + rl.rlje;
           p_remaind   := p_remaind + rl.rlsavingbq;
@@ -365,7 +365,7 @@
       end loop;
       close c_rl;
       --末条销帐记录处理，销帐溢出的实收金额计入末笔销帐记录的预存发生中！！！
-      update bs_reclist set rlsavingbq = rlsavingbq + (p_payment - sumrlpaidje) where rlid = v_rlid;
+      --update bs_reclist set rlsavingbq = rlsavingbq + (p_payment - sumrlpaidje) where rlid = v_rlid;
     end if;
   exception
     when others then

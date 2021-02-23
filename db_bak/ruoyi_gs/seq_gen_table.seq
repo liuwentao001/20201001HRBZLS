@@ -1,7 +1,7 @@
 ﻿create sequence SEQ_GEN_TABLE
 minvalue 1
 maxvalue 9999999999999999999999999999
-start with 1124
+start with 1144
 increment by 1
 cache 20;
 

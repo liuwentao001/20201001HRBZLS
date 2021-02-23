@@ -326,7 +326,7 @@
      WHERE BFSMFID = P_MANAGE_NO
        AND BFID = P_BOOK_NO;
     
-    WHILE TO_DATE(TO_CHAR(SYSDATE, 'yyyy.mm'), 'yyyy.mm') >= V_DATE LOOP
+    WHILE TO_DATE(TO_CHAR(SYSDATE, 'yyyy.mm'),'yyyy.mm') >= V_DATE LOOP
       UPDATE BS_BOOKFRAME K
          SET BFNRMONTH = TO_CHAR(ADD_MONTHS(TO_DATE(BFNRMONTH, 'yyyy.mm'),
                                             BFRCYC),
