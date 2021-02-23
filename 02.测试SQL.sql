@@ -175,9 +175,9 @@ select * from request_bjsf where reno='00F224A227A9434D855F5BC124792308';
 
 
 select * from bs_meterinfo where miid='8091680891';
-select * from bs_meterread where mrid = '2377621192';
-select * from bs_reclist where rlmrid='2377621192';
-select * from bs_recdetail where rdid='1000202123';
+select * from bs_meterread where mrid = '2377621495';
+select * from bs_reclist where rlmrid='2377621495';
+select * from bs_recdetail where rdid='1000202134';
 select * from bs_priceframe where pfid='A0103';
 select * from bs_pricestep where pspfid='A0103' order by pspfid ,pspiid, psclass;
 select * from bs_pricedetail where pdpfid='A0103';

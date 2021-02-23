@@ -659,7 +659,7 @@
       o_pid_reverse := v_pid_reverse;
     elsif v_ptrans = 'P' and v_misaving < v_ppayment then
       null;
-      /*  --自动销账
+      --自动销账
       for i in (select p.pid ,rl.rlje
                   from bs_payment p
                        left join bs_reclist rl on p.pid = rl.rlpid
@@ -682,7 +682,6 @@
 
       pay_back_by_pid(p_pid, p_oper, '', v_pid_reverse);
       o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
-      */
     end if;
   exception
     when others then
