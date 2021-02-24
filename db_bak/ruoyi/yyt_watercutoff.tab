@@ -2,8 +2,8 @@
 (
   cut_id      VARCHAR2(50) default SYS_GUID(),
   publishtime DATE default sysdate,
-  content     VARCHAR2(4000),
-  sources     VARCHAR2(20),
+  content     LONG,
+  sources     VARCHAR2(50),
   create_by   VARCHAR2(64),
   create_time DATE,
   update_by   VARCHAR2(64),

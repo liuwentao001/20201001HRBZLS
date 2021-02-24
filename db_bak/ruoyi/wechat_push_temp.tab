@@ -1,0 +1,55 @@
+﻿create table WECHAT_PUSH_TEMP
+(
+  guid       VARCHAR2(50) default SYS_GUID(),
+  id         VARCHAR2(50),
+  first      VARCHAR2(500),
+  keyword1   VARCHAR2(500),
+  keyword2   VARCHAR2(500),
+  keyword3   VARCHAR2(500),
+  keyword4   VARCHAR2(500),
+  keyword5   VARCHAR2(500),
+  keyword6   VARCHAR2(500),
+  keyword7   VARCHAR2(500),
+  keyword8   VARCHAR2(500),
+  content    LONG,
+  remark     VARCHAR2(500),
+  pushobject VARCHAR2(50),
+  pushtime   DATE default sysdate,
+  pushuser   VARCHAR2(50)
+)
+;
+comment on table WECHAT_PUSH_TEMP
+  is '微信推送模板内容关联';
+comment on column WECHAT_PUSH_TEMP.guid
+  is '主键';
+comment on column WECHAT_PUSH_TEMP.id
+  is '与通知关联ID';
+comment on column WECHAT_PUSH_TEMP.first
+  is '标题';
+comment on column WECHAT_PUSH_TEMP.keyword1
+  is '关键字1';
+comment on column WECHAT_PUSH_TEMP.keyword2
+  is '关键字2';
+comment on column WECHAT_PUSH_TEMP.keyword3
+  is '关键字3';
+comment on column WECHAT_PUSH_TEMP.keyword4
+  is '关键字4';
+comment on column WECHAT_PUSH_TEMP.keyword5
+  is '关键字5';
+comment on column WECHAT_PUSH_TEMP.keyword6
+  is '关键字6';
+comment on column WECHAT_PUSH_TEMP.keyword7
+  is '关键字7';
+comment on column WECHAT_PUSH_TEMP.keyword8
+  is '关键字8';
+comment on column WECHAT_PUSH_TEMP.content
+  is '内容关键字';
+comment on column WECHAT_PUSH_TEMP.remark
+  is '备注';
+comment on column WECHAT_PUSH_TEMP.pushobject
+  is '推送对象（全部、管理员）';
+comment on column WECHAT_PUSH_TEMP.pushtime
+  is '创建时间';
+comment on column WECHAT_PUSH_TEMP.pushuser
+  is '创建人';
+

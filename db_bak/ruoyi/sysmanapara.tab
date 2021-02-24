@@ -8,7 +8,7 @@
 )
 ;
 comment on table SYSMANAPARA
-  is '管理架构参数【SMP】找到类似功能表后删除';
+  is '管理架构参数【SMP】';
 comment on column SYSMANAPARA.smpid
   is '管理架构编码';
 comment on column SYSMANAPARA.smppid

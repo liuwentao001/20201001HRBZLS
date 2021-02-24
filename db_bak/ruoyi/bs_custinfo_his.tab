@@ -1,0 +1,205 @@
+﻿create table BS_CUSTINFO_HIS
+(
+  ciid            VARCHAR2(10) not null,
+  cismfid         VARCHAR2(10),
+  cipid           VARCHAR2(10),
+  ciclass         NUMBER,
+  ciflag          CHAR(1),
+  ciname          VARCHAR2(100),
+  ciadr           VARCHAR2(100),
+  cistatus        VARCHAR2(2),
+  cistatusdate    DATE,
+  cistatustrans   VARCHAR2(3),
+  cinewdate       DATE,
+  ciidentitylb    CHAR(1),
+  ciidentityno    VARCHAR2(60),
+  cimtel          VARCHAR2(30),
+  citel1          VARCHAR2(30),
+  citel2          VARCHAR2(30),
+  citel3          VARCHAR2(30),
+  ciconnectper    VARCHAR2(60),
+  ciconnecttel    VARCHAR2(30),
+  ciifinv         CHAR(1),
+  ciifsms         CHAR(1),
+  ciprojno        VARCHAR2(25),
+  cifileno        VARCHAR2(20),
+  cimemo          VARCHAR2(120),
+  michargetype    CHAR(1),
+  misaving        NUMBER(13,3),
+  miemail         VARCHAR2(64),
+  miemailflag     CHAR(1),
+  miyhpj          VARCHAR2(10),
+  mistarlevel     NUMBER(12,3),
+  iscontractflag  VARCHAR2(10),
+  waterpw         VARCHAR2(40),
+  ladderwaterdate DATE,
+  cihtbh          VARCHAR2(50),
+  cihtzq          VARCHAR2(50),
+  cirqxz          VARCHAR2(50),
+  htdate          DATE,
+  zfdate          DATE,
+  jzdate          DATE,
+  signper         VARCHAR2(10),
+  signid          VARCHAR2(20),
+  pocid           VARCHAR2(50),
+  cibankname      VARCHAR2(100),
+  cibankno        VARCHAR2(50),
+  ciname2         VARCHAR2(100),
+  ciname1         VARCHAR2(100),
+  citaxno         VARCHAR2(20),
+  ciadr1          VARCHAR2(100),
+  citel4          VARCHAR2(30),
+  cicolumn11      VARCHAR2(10),
+  citkzjh         VARCHAR2(64),
+  cicolumn2       VARCHAR2(10),
+  cidbzjh         VARCHAR2(64),
+  cicolumn1       NUMBER(12,2),
+  cicolumn3       VARCHAR2(64),
+  cipassword      VARCHAR2(40),
+  ciusenum        NUMBER(10),
+  ciamount        NUMBER(10),
+  cidbbs          CHAR(1),
+  ciltid          VARCHAR2(20),
+  ciwxno          VARCHAR2(50),
+  cicqno          VARCHAR2(50),
+  reflag          VARCHAR2(10) default 'N',
+  gdlx            VARCHAR2(50),
+  gdid            VARCHAR2(50),
+  gdsj            DATE default SYSDATE
+)
+;
+comment on table BS_CUSTINFO_HIS
+  is '用户信息表';
+comment on column BS_CUSTINFO_HIS.ciid
+  is '用户号';
+comment on column BS_CUSTINFO_HIS.cismfid
+  is '营销公司';
+comment on column BS_CUSTINFO_HIS.cipid
+  is '上级用户编号';
+comment on column BS_CUSTINFO_HIS.ciclass
+  is '用户级次';
+comment on column BS_CUSTINFO_HIS.ciflag
+  is '末级标志';
+comment on column BS_CUSTINFO_HIS.ciname
+  is '用户名';
+comment on column BS_CUSTINFO_HIS.ciadr
+  is '用户地址';
+comment on column BS_CUSTINFO_HIS.cistatus
+  is '用户状态【syscuststatus】';
+comment on column BS_CUSTINFO_HIS.cistatusdate
+  is '状态日期';
+comment on column BS_CUSTINFO_HIS.cistatustrans
+  is '状态表务';
+comment on column BS_CUSTINFO_HIS.cinewdate
+  is '立户日期';
+comment on column BS_CUSTINFO_HIS.ciidentitylb
+  is '证件类型';
+comment on column BS_CUSTINFO_HIS.ciidentityno
+  is '证件号码';
+comment on column BS_CUSTINFO_HIS.cimtel
+  is '移动电话';
+comment on column BS_CUSTINFO_HIS.citel1
+  is '电话1';
+comment on column BS_CUSTINFO_HIS.citel2
+  is '电话2';
+comment on column BS_CUSTINFO_HIS.citel3
+  is '电话3';
+comment on column BS_CUSTINFO_HIS.ciconnectper
+  is '联系人';
+comment on column BS_CUSTINFO_HIS.ciconnecttel
+  is '联系电话';
+comment on column BS_CUSTINFO_HIS.ciifinv
+  is '是否普票（迁移数据时同步bs_meterinfo.MIIFTAX(是否税票)）';
+comment on column BS_CUSTINFO_HIS.ciifsms
+  is '是否提供短信服务';
+comment on column BS_CUSTINFO_HIS.ciprojno
+  is '工程编号(老系统水账标识号)';
+comment on column BS_CUSTINFO_HIS.cifileno
+  is '档案号(老系统供水合同号)';
+comment on column BS_CUSTINFO_HIS.cimemo
+  is '备注信息';
+comment on column BS_CUSTINFO_HIS.michargetype
+  is '类型（1=坐收，2=走收,收费方式）';
+comment on column BS_CUSTINFO_HIS.misaving
+  is '预存款余额';
+comment on column BS_CUSTINFO_HIS.miemail
+  is '电子邮件';
+comment on column BS_CUSTINFO_HIS.miemailflag
+  is '发账是否发邮件';
+comment on column BS_CUSTINFO_HIS.miyhpj
+  is '用户信用评级';
+comment on column BS_CUSTINFO_HIS.mistarlevel
+  is '星级等级';
+comment on column BS_CUSTINFO_HIS.iscontractflag
+  is '是否签订供用水合同';
+comment on column BS_CUSTINFO_HIS.waterpw
+  is '用户水表密码(限定6位,默为用户号后6位）';
+comment on column BS_CUSTINFO_HIS.ladderwaterdate
+  is '阶梯开始日期';
+comment on column BS_CUSTINFO_HIS.cihtbh
+  is '合同编号';
+comment on column BS_CUSTINFO_HIS.cihtzq
+  is '周期（合同用）';
+comment on column BS_CUSTINFO_HIS.cirqxz
+  is '日期限制（合同用）';
+comment on column BS_CUSTINFO_HIS.htdate
+  is '合同签订日期';
+comment on column BS_CUSTINFO_HIS.zfdate
+  is '合同作废日期';
+comment on column BS_CUSTINFO_HIS.jzdate
+  is '合同签订截止日期';
+comment on column BS_CUSTINFO_HIS.signper
+  is '签订人';
+comment on column BS_CUSTINFO_HIS.signid
+  is '签订人身份证号';
+comment on column BS_CUSTINFO_HIS.pocid
+  is '房产证号';
+comment on column BS_CUSTINFO_HIS.cibankname
+  is '开户行名称(电票)';
+comment on column BS_CUSTINFO_HIS.cibankno
+  is '开户行账号(电票)';
+comment on column BS_CUSTINFO_HIS.ciname2
+  is '招牌名称';
+comment on column BS_CUSTINFO_HIS.ciname1
+  is '票据名称';
+comment on column BS_CUSTINFO_HIS.citaxno
+  is '税号';
+comment on column BS_CUSTINFO_HIS.ciadr1
+  is '票据地址';
+comment on column BS_CUSTINFO_HIS.citel4
+  is '票据电话';
+comment on column BS_CUSTINFO_HIS.cicolumn11
+  is '特困标志';
+comment on column BS_CUSTINFO_HIS.citkzjh
+  is '特困证件号';
+comment on column BS_CUSTINFO_HIS.cicolumn2
+  is '低保用户标志';
+comment on column BS_CUSTINFO_HIS.cidbzjh
+  is '低保证件号';
+comment on column BS_CUSTINFO_HIS.cicolumn1
+  is '低保减免水量';
+comment on column BS_CUSTINFO_HIS.cicolumn3
+  is '低保截止月份';
+comment on column BS_CUSTINFO_HIS.cipassword
+  is '用户密码';
+comment on column BS_CUSTINFO_HIS.ciusenum
+  is '户籍人数';
+comment on column BS_CUSTINFO_HIS.ciamount
+  is '户数';
+comment on column BS_CUSTINFO_HIS.cidbbs
+  is '是否一户多表';
+comment on column BS_CUSTINFO_HIS.ciltid
+  is '老户号';
+comment on column BS_CUSTINFO_HIS.ciwxno
+  is '微信号码';
+comment on column BS_CUSTINFO_HIS.cicqno
+  is '产权证号';
+comment on column BS_CUSTINFO_HIS.reflag
+  is '工单状态(Y:存在审批过程中的工单-N:不存在)';
+comment on column BS_CUSTINFO_HIS.gdlx
+  is '工单类型';
+comment on column BS_CUSTINFO_HIS.gdid
+  is '工单流水号';
+comment on column BS_CUSTINFO_HIS.gdsj
+  is '工单时间';
+

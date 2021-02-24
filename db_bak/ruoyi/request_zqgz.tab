@@ -65,7 +65,8 @@
   modifyusername VARCHAR2(50),
   remark         VARCHAR2(200),
   workno         VARCHAR2(30),
-  workbatch      VARCHAR2(30)
+  workbatch      VARCHAR2(30),
+  mtdflag        CHAR(1) default 'N'
 )
 ;
 comment on table REQUEST_ZQGZ
@@ -200,4 +201,6 @@ comment on column REQUEST_ZQGZ.workno
   is '单据编号';
 comment on column REQUEST_ZQGZ.workbatch
   is '批次号';
+comment on column REQUEST_ZQGZ.mtdflag
+  is '完工标志';
 

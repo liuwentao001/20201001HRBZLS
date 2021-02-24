@@ -121,5 +121,6 @@ comment on column BS_METERDOC.mdmode
   is '基电转换方式';
 comment on column BS_METERDOC.portno
   is '上传端口号';
-create index PK_METERDOC on BS_METERDOC (MDID);
+create index IDX_METERDOC_MDID on BS_METERDOC (MDID);
+create index IDX_METERDOC_MDNO on BS_METERDOC (MDNO);
 

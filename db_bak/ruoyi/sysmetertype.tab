@@ -9,4 +9,22 @@
   smtifcharge  CHAR(1) not null
 )
 ;
+comment on table SYSMETERTYPE
+  is '水表类型【SMT】';
+comment on column SYSMETERTYPE.smtid
+  is '编码';
+comment on column SYSMETERTYPE.smtname
+  is '名称';
+comment on column SYSMETERTYPE.smtifdefault
+  is '默认';
+comment on column SYSMETERTYPE.smtifread
+  is '是否抄表';
+comment on column SYSMETERTYPE.smtmemo
+  is '描述';
+comment on column SYSMETERTYPE.smtifsl
+  is '是否计量';
+comment on column SYSMETERTYPE.smtifcharge
+  is '是否计费';
+alter table SYSMETERTYPE
+  add constraint PK_SYSMETERTYPE primary key (SMTID);
 

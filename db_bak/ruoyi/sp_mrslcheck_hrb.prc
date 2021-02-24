@@ -3,10 +3,10 @@
                            O_SUBCOMMIT OUT VARCHAR2) AS
   V_TYPE        VARCHAR2(10);
   V_SCALE_H     NUMBER(10);
-  V_SCALE_L     NUMBER(10);  
-  V_USE_H       NUMBER(10); 
+  V_SCALE_L     NUMBER(10);
+  V_USE_H       NUMBER(10);
   V_USE_L       NUMBER(10);
-  V_TOTAL_H     NUMBER(10);
+ -- V_TOTAL_H     NUMBER(10);
   V_TOTAL_L     NUMBER(10);
   V_PFID        VARCHAR2(10); --用水类别
   V_THREEMONAVG NUMBER(10);

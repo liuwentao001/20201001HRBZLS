@@ -1,0 +1,9 @@
+﻿create table LINB
+(
+  kssj      DATE,
+  dept_code VARCHAR2(100),
+  bfid      VARCHAR2(100),
+  sl        VARCHAR2(100)
+)
+;
+

@@ -76,7 +76,4 @@ comment on column BS_BOOKFRAME.bfpper
   is '收费员';
 comment on column BS_BOOKFRAME.bfjtsny
   is '阶梯开始月';
-create index IDX_BS_BOOKFRAME_BFNRMONTH on BS_BOOKFRAME (BFNRMONTH);
-alter table BS_BOOKFRAME
-  add constraint PK_BS_BOOKFRAME primary key (BFID, BFSMFID);
 

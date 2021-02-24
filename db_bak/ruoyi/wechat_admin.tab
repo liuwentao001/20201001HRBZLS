@@ -1,0 +1,16 @@
+﻿create table WECHAT_ADMIN
+(
+  id       VARCHAR2(50) default SYS_GUID(),
+  usercode VARCHAR2(50),
+  username VARCHAR2(50)
+)
+;
+comment on table WECHAT_ADMIN
+  is '微信公众号管理员，用于预推送通知';
+comment on column WECHAT_ADMIN.id
+  is '主键';
+comment on column WECHAT_ADMIN.usercode
+  is '用户号码';
+comment on column WECHAT_ADMIN.username
+  is '管理员姓名';
+

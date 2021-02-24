@@ -30,7 +30,12 @@
   modifyusername VARCHAR2(50),
   remark         VARCHAR2(200),
   workno         VARCHAR2(30),
-  workbatch      VARCHAR2(30)
+  workbatch      VARCHAR2(30),
+  reshbz         CHAR(1),
+  rewcbz         CHAR(1),
+  rerlid         VARCHAR2(2000),
+  rerlid_rev     VARCHAR2(2000),
+  rercodeflag    CHAR(1) default 'Y'
 )
 ;
 comment on table REQUEST_YSCZ
@@ -95,4 +100,14 @@ comment on column REQUEST_YSCZ.workno
   is '单据编号';
 comment on column REQUEST_YSCZ.workbatch
   is '批次号';
+comment on column REQUEST_YSCZ.reshbz
+  is '审核标志，Y审核完成';
+comment on column REQUEST_YSCZ.rewcbz
+  is '完成标志，Y冲正完成';
+comment on column REQUEST_YSCZ.rerlid
+  is '应收账流水号';
+comment on column REQUEST_YSCZ.rerlid_rev
+  is '应收账流水号 负账';
+comment on column REQUEST_YSCZ.rercodeflag
+  is '重置抄表信息';
 

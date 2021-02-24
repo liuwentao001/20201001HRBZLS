@@ -1,12 +1,22 @@
-﻿create or replace function fchkmeterneedcharge(vmstatus in varchar2,vifchk in varchar2,vmtype in varchar2) return char as
-lret char(1);
-begin
-   if vifchk='Y' then return 'N'; end if;
-   select smtifcharge into lret from sysmetertype where smtid=vmtype;
-   if lret='N' then  return 'N'; end if;
-   return 'Y';
-exception when others then
-   return 'N';
-end;
+﻿CREATE OR REPLACE FUNCTION FCHKMETERNEEDCHARGE
+   (VMSTATUS IN VARCHAR2,
+    VIFCHK IN VARCHAR2,
+    VMTYPE IN VARCHAR2)
+   RETURN CHAR
+AS
+   LRET CHAR(1);
+BEGIN
+  --【哈尔滨】20140306 允许销户拆表余度量算费（计划内抄表、追量等在哈尔滨本身就不会对销户状态的用户做操作）
+   IF VIFCHK='Y' THEN
+      RETURN 'N';
+   END IF;
+   SELECT SMTIFCHARGE INTO LRET FROM SYSMETERTYPE WHERE SMTID=VMTYPE;
+   IF LRET='N' THEN
+      RETURN 'N';
+   END IF;
+   RETURN 'Y';
+EXCEPTION WHEN OTHERS THEN
+   RETURN 'N';
+END;
 /
 

@@ -61,7 +61,8 @@
   cidbbs          CHAR(1),
   ciltid          VARCHAR2(20),
   ciwxno          VARCHAR2(50),
-  cicqno          VARCHAR2(50)
+  cicqno          VARCHAR2(50),
+  reflag          VARCHAR2(10) default 'N'
 )
 ;
 comment on table BS_CUSTINFO
@@ -190,5 +191,7 @@ comment on column BS_CUSTINFO.ciwxno
   is '微信号码';
 comment on column BS_CUSTINFO.cicqno
   is '产权证号';
+comment on column BS_CUSTINFO.reflag
+  is '工单状态(Y:存在审批过程中的工单；N:不存在)';
 create unique index PK_CUSTINFO on BS_CUSTINFO (CIID);
 

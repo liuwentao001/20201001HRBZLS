@@ -1,19 +1,20 @@
 ﻿create table SYS_DICT_DATA
 (
-  dict_code   NUMBER(20) not null,
-  dict_sort   NUMBER(4) default 0,
-  dict_label  VARCHAR2(100) default '',
-  dict_value  VARCHAR2(100) default '',
-  dict_type   VARCHAR2(100) default '',
-  css_class   VARCHAR2(100),
-  list_class  VARCHAR2(100),
-  is_default  CHAR(1) default 'N',
-  status      CHAR(1) default '0',
-  create_by   VARCHAR2(64) default '',
-  create_time DATE,
-  update_by   VARCHAR2(64) default '',
-  update_time DATE,
-  remark      VARCHAR2(500)
+  dict_code      NUMBER(20) not null,
+  dict_sort      NUMBER(4) default 0,
+  dict_type      VARCHAR2(100) default '',
+  dict_type_name VARCHAR2(100),
+  dict_value     VARCHAR2(100) default '',
+  dict_label     VARCHAR2(100) default '',
+  css_class      VARCHAR2(100),
+  list_class     VARCHAR2(100),
+  is_default     CHAR(1) default 'N',
+  status         CHAR(1) default '0',
+  create_by      VARCHAR2(64) default '',
+  create_time    DATE,
+  update_by      VARCHAR2(64) default '',
+  update_time    DATE,
+  remark         VARCHAR2(500)
 )
 ;
 comment on table SYS_DICT_DATA
@@ -22,12 +23,14 @@ comment on column SYS_DICT_DATA.dict_code
   is '字典主键seq_sys_dict_data.nextval';
 comment on column SYS_DICT_DATA.dict_sort
   is '字典排序';
-comment on column SYS_DICT_DATA.dict_label
-  is '字典标签';
-comment on column SYS_DICT_DATA.dict_value
-  is '字典键值';
 comment on column SYS_DICT_DATA.dict_type
   is '字典类型';
+comment on column SYS_DICT_DATA.dict_type_name
+  is '字典类型名称';
+comment on column SYS_DICT_DATA.dict_value
+  is '字典键值';
+comment on column SYS_DICT_DATA.dict_label
+  is '字典标签';
 comment on column SYS_DICT_DATA.css_class
   is '样式属性（其他样式扩展）';
 comment on column SYS_DICT_DATA.list_class

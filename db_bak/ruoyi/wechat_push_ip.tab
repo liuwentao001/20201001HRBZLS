@@ -1,0 +1,19 @@
+﻿create table WECHAT_PUSH_IP
+(
+  guid       VARCHAR2(50) default SYS_GUID(),
+  ip         VARCHAR2(50),
+  createuser VARCHAR2(50),
+  createtime DATE default sysdate
+)
+;
+comment on table WECHAT_PUSH_IP
+  is '微信推送接口合法IP';
+comment on column WECHAT_PUSH_IP.guid
+  is '主键';
+comment on column WECHAT_PUSH_IP.ip
+  is '合法IP';
+comment on column WECHAT_PUSH_IP.createuser
+  is '创建人';
+comment on column WECHAT_PUSH_IP.createtime
+  is '创建时间';
+

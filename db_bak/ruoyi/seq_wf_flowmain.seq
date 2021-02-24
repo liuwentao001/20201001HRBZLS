@@ -1,0 +1,7 @@
+﻿create sequence SEQ_WF_FLOWMAIN
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 50
+increment by 1
+cache 20;
+

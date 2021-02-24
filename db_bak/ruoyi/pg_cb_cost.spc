@@ -3,13 +3,13 @@
   --应收明细包
   subtype rd_type is bs_recdetail%rowtype;
   type rd_table is table of rd_type;
-  
-  
+
+
   --错误返回码
   errcode constant integer := -20012;
-  
+
 	procedure wlog(p_txt in varchar2);
-  
+
   procedure autosubmit;
   --计划内抄表提交算费
   procedure submit(p_mrbfids in varchar2, log out varchar2);
@@ -20,13 +20,15 @@
              o_mrrecje02 out bs_meterread.mrrecje02%type,
              o_mrrecje03 out bs_meterread.mrrecje03%type,
              o_mrrecje04 out bs_meterread.mrrecje04%type,
+             o_mrsumje   out number,
              err_log out varchar2);
   --计划抄表单笔算费
   procedure calculate(p_mrid in bs_meterread.mrid%type);
   -- 自来水单笔算费，提供外部调用
   procedure calculate(mr      in out bs_meterread%rowtype,
                       p_trans in char,
-                      p_ny    in varchar2);
+                      p_ny    in varchar2,
+                      p_rec_cal in varchar2);
   --自来水单笔算费，只用于记账不计费（哈尔滨）
   procedure calculatenp(mr      in out bs_meterread%rowtype,
                         p_trans in char,
@@ -41,14 +43,23 @@
                     p_sl       in number,
                     pd         in bs_pricedetail%rowtype,
                     rdtab      in out rd_table);
-                        
+
   procedure insrd(rd in rd_table);
-  
-  --应收冲正
-  procedure yscz(p_reno   in varchar2, --单据编号
-                 p_per    in varchar2, --完结人
+
+  --应收冲正_按工单
+  procedure yscz_gd(p_reno   in varchar2,--工单流水号
+                 p_oper    in varchar2,--完结人
                  p_memo   in varchar2 --备注
                  );
+                 
+  --应收冲正_按应收账流水
+  
+  procedure yscz_rl(p_rlid   in varchar2, --应收账流水号
+                 p_oper    in varchar2,    --完结人
+                 p_memo   in varchar2,    --备注
+                 o_rlcrid out varchar2    --返回负应收账流水号
+                 );
+  
 end;
 /
 

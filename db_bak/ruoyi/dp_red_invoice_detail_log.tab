@@ -38,7 +38,9 @@ comment on column DP_RED_INVOICE_DETAIL_LOG.withtaxflag
 comment on column DP_RED_INVOICE_DETAIL_LOG.price
   is '单价(含税)；数量、单 价必须都不填，或者 都必填，不可只填一 个；当数量、单价都 不填时，商品金额(不 含税)、商品税额都必 填。 建议保留小数点后 8 位';
 comment on column DP_RED_INVOICE_DETAIL_LOG.taxexcludedprice
-  is '单价(不含税)；数量、 单价必须都不填，或 者都必填，不可只填 一个；当数量、单价 都不填时，商品金额16 (不含税)、商品税额都 必填。 建议保留小数点后 8 位';
+  is '单价(不含税)；数量、 单价必须都不填，或 者都必填，不可只填 一个；当数量、单价 都不填时，商品金额
+16 
+(不含税)、商品税额都 必填。 建议保留小数点后 8 位';
 comment on column DP_RED_INVOICE_DETAIL_LOG.taxexcludedamount
   is '商品金额(不含税)';
 comment on column DP_RED_INVOICE_DETAIL_LOG.taxamount

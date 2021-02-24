@@ -10,7 +10,8 @@
   create_time DATE,
   update_by   VARCHAR2(64),
   update_time DATE,
-  dt          VARCHAR2(50)
+  dt          VARCHAR2(50),
+  phone       VARCHAR2(50)
 )
 ;
 comment on table YYT_BUSINESSMAP
@@ -37,6 +38,8 @@ comment on column YYT_BUSINESSMAP.update_time
   is '更新时间';
 comment on column YYT_BUSINESSMAP.dt
   is '售水大厅';
+comment on column YYT_BUSINESSMAP.phone
+  is '电话';
 alter table YYT_BUSINESSMAP
   add constraint MAP_PK primary key (M_ID);
 

@@ -1,21 +1,21 @@
 ﻿CREATE OR REPLACE PACKAGE BODY "PG_RAEDPLAN" IS
 
-/*  \*
+  /*
   进行生成抄码表
   参数：P_MANAGE_NO： 临时表类型(PBPARMTEMP.C1)，存放调段后目标表册中所有水表编号C1,抄表次序C2
         P_MONTH: 目标营业所
-        P_BOOK_NO:  目标表册 
+        P_BOOK_NO:  目标表册
   处理：生成抄表资料
   输出：返回  0  执行成功
         返回 -1 执行失败
-  *\
+  */
 
-  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, \*营销公司*\
-                     P_MONTH     IN VARCHAR2, \*抄表月份*\
-                     P_BOOK_NO   IN VARCHAR2, \*表册*\
-                     O_STATE     OUT VARCHAR2) \*执行状态*\
+  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
+                     P_MONTH     IN VARCHAR2, /*抄表月份*/
+                     P_BOOK_NO   IN VARCHAR2, /*表册*/
+                     O_STATE     OUT VARCHAR2) /*执行状态*/
    IS
-    \*表册*\
+    /*表册*/
     YH  BS_CUSTINFO%ROWTYPE;
     SB  BS_METERINFO%ROWTYPE;
     MD  BS_METERDOC%ROWTYPE;
@@ -49,7 +49,8 @@
              MIIFCHK,
              MDCALIBER,
              MISIDE,
-             B.MISTATUS
+             B.MISTATUS,
+             B.MIRECSL
         FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
        WHERE A.CIID = B.MICODE
          AND B.MIID = S.MDID
@@ -57,8 +58,8 @@
          AND B.MIBFID = D.BFID
          AND B.MISMFID = P_MANAGE_NO
          AND B.MIBFID = P_BOOK_NO
-         AND D.BFNRMONTH = P_MONTH 
-         \*AND FCHKCBMK(B.MRMID) = 'Y'*\;
+         AND D.BFNRMONTH = P_MONTH
+         AND A.CISTATUS = '1';
   BEGIN
     OPEN C_BKSB;
     LOOP
@@ -81,7 +82,8 @@
              SB.MIIFCHK,
              MD.MDCALIBER,
              SB.MISIDE,
-             SB.MISTATUS;
+             SB.MISTATUS,
+             SB.MIRECSL;
       EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
       --判断是否存在重复抄表计划
       OPEN C_CB(SB.MIID);
@@ -112,7 +114,7 @@
         SBR.MRECODE       := NULL; --本期抄见
         SBR.MRSL          := NULL; --本期水量
         SBR.MRFACE        := NULL; --表况
-        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFSUBMIT    := 'N'; --是否提交计费
         SBR.MRIFHALT      := 'N'; --系统停算
         SBR.MRDATASOURCE  := 1; --抄表结果来源
         SBR.MRMEMO        := NULL; --抄表备注
@@ -130,49 +132,50 @@
         SBR.MRIFCHK       := SB.MIIFCHK; --考核表标志
         SBR.MRINPUTPER    := NULL; --入账人员
         SBR.MRCALIBER     := MD.MDCALIBER; --口径
-        SBR.MRSIDE        := SB.MISIDE; --表位      
+        SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRLASTSL      := SB.MIRECSL;  --上次抄表水量
         SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
-      
+
         --上次水费   至  去年度次均量
         GETMRHIS(SBR.MRID,
                  SBR.MRMONTH,
                  SBR.MRTHREESL,
                  SBR.MRLASTSL,
                  SBR.MRYEARSL);
-      
+
         INSERT INTO BS_METERREAD VALUES SBR;
-      
+
         UPDATE BS_METERINFO
            SET MIPRMON = MIRMON, MIRMON = P_MONTH
          WHERE MIID = SB.MIID;
       END IF;
     END LOOP;
     CLOSE C_BKSB;
-  
+
     UPDATE BS_BOOKFRAME K
        SET BFNRMONTH = TO_CHAR(ADD_MONTHS(TO_DATE(BFNRMONTH, 'yyyy.mm'),
                                           BFRCYC),
                                'yyyy.mm')
      WHERE BFSMFID = P_MANAGE_NO
        AND BFID = P_BOOK_NO;
-  
+
     COMMIT;
     O_STATE := '0';
   EXCEPTION
     WHEN OTHERS THEN
       O_STATE := '-1';
-  END;*/
+  END;
   /*
   进行生成抄码表
   参数：P_MANAGE_NO： 临时表类型(PBPARMTEMP.C1)，存放调段后目标表册中所有水表编号C1,抄表次序C2
         P_MONTH: 目标营业所
-        P_BOOK_NO:  目标表册 
+        P_BOOK_NO:  目标表册
   处理：生成抄表资料
   输出：返回  0  执行成功
         返回 -1 执行失败
   */
 
-  PROCEDURE CREATECB(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
+  PROCEDURE CREATECB2(P_MANAGE_NO IN VARCHAR2, /*营销公司*/
                      P_MONTH     IN VARCHAR2, /*抄表月份*/
                      P_BOOK_NO   IN VARCHAR2, /*表册*/
                      O_STATE     OUT VARCHAR2) /*执行状态*/
@@ -211,12 +214,12 @@
              MIIFCHK,
              MDCALIBER,
              MISIDE,
-             MISTATUS
+             MISTATUS,
+             MIRECSL
         FROM BS_CBJH_TEMP A
        WHERE A.MIBFID = P_BOOK_NO
          AND A.MISMFID = P_MANAGE_NO
-         AND A.BFNRMONTH = P_MONTH 
-         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
+         AND A.BFNRMONTH = P_MONTH;
   BEGIN
     OPEN C_BKSB;
     LOOP
@@ -239,7 +242,8 @@
              SB.MIIFCHK,
              MD.MDCALIBER,
              SB.MISIDE,
-             SB.MISTATUS;
+             SB.MISTATUS,
+             SB.MIRECSL;
       EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
       --判断是否存在重复抄表计划
       OPEN C_CB(SB.MIID);
@@ -270,7 +274,7 @@
         SBR.MRECODE       := NULL; --本期抄见
         SBR.MRSL          := NULL; --本期水量
         SBR.MRFACE        := NULL; --表况
-        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFSUBMIT    := 'N'; --是否提交计费
         SBR.MRIFHALT      := 'N'; --系统停算
         SBR.MRDATASOURCE  := 1; --抄表结果来源
         SBR.MRMEMO        := NULL; --抄表备注
@@ -288,18 +292,19 @@
         SBR.MRIFCHK       := SB.MIIFCHK; --考核表标志
         SBR.MRINPUTPER    := NULL; --入账人员
         SBR.MRCALIBER     := MD.MDCALIBER; --口径
-        SBR.MRSIDE        := SB.MISIDE; --表位      
+        SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRLASTSL      := SB.MIRECSL;  --上次抄表水量
         SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
-      
+
         --上次水费   至  去年度次均量
         GETMRHIS(SBR.MRID,
                  SBR.MRMONTH,
                  SBR.MRTHREESL,
                  SBR.MRLASTSL,
                  SBR.MRYEARSL);
-      
+
         INSERT INTO BS_METERREAD VALUES SBR;
-      
+
         UPDATE BS_METERINFO
            SET MIPRMON = MIRMON, MIRMON = P_MONTH
          WHERE MIID = SB.MIID;
@@ -307,13 +312,11 @@
       END IF;
     END LOOP;
     CLOSE C_BKSB;
-  
     UPDATE BS_BOOKFRAME K
-       SET BFNRMONTH = TO_CHAR(ADD_MONTHS(TO_DATE(BFNRMONTH, 'yyyy.mm'),
+       SET BFNRMONTH = TO_CHAR(ADD_MONTHS(TO_DATE(BFNRMONTH, 'YYYY.MM'),
                                           BFRCYC),
-                               'yyyy.mm')
+                               'YYYY.MM')
      WHERE BFID = P_BOOK_NO;
-  
     COMMIT;
     O_STATE := '0';
   EXCEPTION
@@ -324,8 +327,8 @@
   /*
   单户月初
   进行生成抄码表
-  参数：P_MANAGE_NO：营业所
-        P_MONTH: 
+  参数：P_MONTH:抄表月份
+        P_SBID:水表档案编号
   处理：生成抄表资料
   输出：返回 0  执行成功
         返回 -1 执行失败
@@ -369,14 +372,15 @@
              S.MDCALIBER, --表口径(METERCALIBER)
              B.MISIDE,
              B.MIBFID,
-             B.MISTATUS
+             B.MISTATUS,
+             B.MIRECSL
         FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
        WHERE A.CIID = B.MICODE
          AND B.MIID = S.MDID
          AND B.MISMFID = D.BFSMFID
          AND B.MIBFID = D.BFID
          AND B.MIID = P_SBID
-         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
+         AND A.CISTATUS = '1';
   BEGIN
     OPEN C_BKSB;
     LOOP
@@ -401,7 +405,8 @@
              MD.MDCALIBER,
              SB.MISIDE,
              SB.MIBFID,
-             SB.MISTATUS;
+             SB.MISTATUS,
+             SB.MIRECSL;
       EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
       --判断是否存在重复抄表计划
       OPEN C_CB(SB.MIID);
@@ -432,7 +437,7 @@
         SBR.MRECODE       := NULL; --本期抄见
         SBR.MRSL          := NULL; --本期水量
         SBR.MRFACE        := NULL; --表况
-        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFSUBMIT    := 'N'; --是否提交计费
         SBR.MRIFHALT      := 'N'; --系统停算
         SBR.MRDATASOURCE  := 1; --抄表结果来源
         SBR.MRMEMO        := NULL; --抄表备注
@@ -451,17 +456,18 @@
         SBR.MRINPUTPER    := NULL; --入账人员
         SBR.MRCALIBER     := MD.MDCALIBER; --口径
         SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRLASTSL      := SB.MIRECSL;  --上次抄表水量
         SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
-      
+
         --上次水费   至  去年度次均量
         GETMRHIS(SBR.MRID,
                  SBR.MRMONTH,
                  SBR.MRTHREESL,
                  SBR.MRLASTSL,
                  SBR.MRYEARSL);
-      
+
         INSERT INTO BS_METERREAD VALUES SBR;
-      
+
         UPDATE BS_METERINFO
            SET MIPRMON = MIRMON, MIRMON = P_MONTH
          WHERE MIID = SB.MIID;
@@ -599,16 +605,17 @@
               MRDZCURCODE,
               MRDZTGL,
               MRZKH,
-              MRSFFS
+              MRSFFS,
+              MRGDID
          FROM BS_METERREAD T
         WHERE T.MRSMFID = P_SMFID
           AND T.MRMONTH = P_MONTH);
-  
+
     --删除当前抄表库信息
     DELETE BS_METERREAD T
      WHERE T.MRSMFID = P_SMFID
        AND T.MRMONTH = P_MONTH;
-  
+
     /*    --历史均量计算
     UPDATEMRSLHIS(P_SMFID, P_MONTH);*/
     --提交标志
@@ -649,7 +656,7 @@
       WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(ERRCODE, '无效的抄表记录');*/
     END;
-  
+
     UPDATE BS_METERREAD
        SET MRIFSUBMIT = 'Y',
            MRCHKFLAG  = 'Y', --复核标志
@@ -675,7 +682,7 @@
                                 '退回重入帐'
                              END) --检查结果说明
      WHERE MRID = P_MRID;
-  
+
     IF P_FLAG = '-1' THEN
       --审批不通过
       UPDATE BS_METERREAD
@@ -721,7 +728,7 @@
             /*AND MRSL > 0*/
          AND (MRDATASOURCE <> '9' OR MRDATASOURCE IS NULL)
        ORDER BY MRRDATE DESC;
-  
+
     MRH BS_METERREAD_HIS%ROWTYPE;
     N1  INTEGER := 0;
     N2  INTEGER := 0;
@@ -744,52 +751,182 @@
         N1            := N1 + 1;
         MRH.MRTHREESL := NVL(MRH.MRTHREESL, 0) + MRH.MRSL; --前N次均量
       END IF;
-    
+
       IF C_MRH%ROWCOUNT = 1 THEN
         N2           := N2 + 1;
         MRH.MRLASTSL := NVL(MRH.MRLASTSL, 0) + MRH.MRSL; --上次水量
       END IF;
-    
+
       IF MRH.MRMONTH = TO_CHAR(TO_NUMBER(SUBSTR(P_MONTH, 1, 4)) - 1) || '.' ||
          SUBSTR(P_MONTH, 6, 2) THEN
         N3           := N3 + 1;
         MRH.MRYEARSL := NVL(MRH.MRYEARSL, 0) + MRH.MRSL; --去年同期水量
       END IF;
-    
+
       IF MRH.MRSL > 0 AND TO_NUMBER(SUBSTR(MRH.MRMONTH, 1, 4)) =
          TO_NUMBER(SUBSTR(P_MONTH, 1, 4)) - 1 THEN
         N4 := N4 + 1;
       END IF;
     END LOOP;
-  
+
     O_SL_1 := (CASE
                 WHEN N1 = 0 THEN
                  0
                 ELSE
                  ROUND(MRH.MRTHREESL / N1, 0)
               END);
-  
+
     O_SL_2 := (CASE
                 WHEN N2 = 0 THEN
                  0
                 ELSE
                  ROUND(MRH.MRLASTSL / N2, 0)
               END);
-  
+
     O_SL_3 := (CASE
                 WHEN N3 = 0 THEN
                  0
                 ELSE
                  ROUND(MRH.MRYEARSL / N3, 0)
               END);
-  
+
   EXCEPTION
     WHEN OTHERS THEN
       IF C_MRH%ISOPEN THEN
         CLOSE C_MRH;
       END IF;
   END GETMRHIS;
+  /*
+  工单抄表库回写
+  处理：生成抄表资料
+  输出：返回 0  执行成功
+        返回 -1 执行失败
+  */
+  PROCEDURE CREATECBGD(P_SBID  IN VARCHAR2, /*水表档案编号*/
+                       O_STATE OUT VARCHAR2) /*执行状态*/
+   IS
+    YH   BS_CUSTINFO%ROWTYPE;
+    SB   BS_METERINFO%ROWTYPE;
+    MD   BS_METERDOC%ROWTYPE;
+    BC   BS_BOOKFRAME%ROWTYPE;
+    SBR  BS_METERREAD%ROWTYPE;
+    
+    --计划
+    CURSOR C_BKSB IS
+      SELECT A.CIID,    --用户号
+             B.MIID,    --水表档案编号
+             B.MISMFID, --营销公司
+             B.MIRORDER, --抄表次序
+             B.MISTID, --行业分类
+             B.MIPID,    --上级水表编号
+             B.MICLASS,  --水表级次
+             B.MIFLAG, --末级标志
+             B.MIRECDATE, --本期抄见日期
+             B.MIRCODE, --本期读数
+             S.MDMODEL, --计量方式
+             B.MIPRIFLAG,  --合收表标志
+             D.BFBATCH, --抄表批次
+             D.BFRPER,  --抄表员
+             B.MIRMON,  --本期抄表月份
+             B.MISAFID, --区域
+             B.MIIFCHK, --是否考核表(Y-是,N-否 )
+             S.MDCALIBER, --表口径(METERCALIBER)
+             B.MISIDE,
+             B.MIBFID,
+             B.MISTATUS
+        FROM BS_CUSTINFO A, BS_METERINFO B, BS_METERDOC S, BS_BOOKFRAME D
+       WHERE A.CIID = B.MICODE
+         AND B.MIID = S.MDID
+         AND B.MISMFID = D.BFSMFID
+         AND B.MIBFID = D.BFID
+         AND B.MIID = P_SBID
+         /*AND FCHKCBMK(B.MRMID) = 'Y'*/;
+  BEGIN
+    OPEN C_BKSB;
+    LOOP
+      FETCH C_BKSB
+        INTO YH.CIID,
+             SB.MIID,
+             SB.MISMFID,
+             SB.MIRORDER,
+             SB.MISTID,
+             SB.MIPID,
+             SB.MICLASS,
+             SB.MIFLAG,
+             SB.MIRECDATE,
+             SB.MIRCODE,
+             MD.MDMODEL,
+             SB.MIPRIFLAG,
+             BC.BFBATCH,
+             BC.BFRPER,
+             SB.MIRMON,
+             SB.MISAFID,
+             SB.MIIFCHK,
+             MD.MDCALIBER,
+             SB.MISIDE,
+             SB.MIBFID,
+             SB.MISTATUS;
+      EXIT WHEN C_BKSB%NOTFOUND OR C_BKSB%NOTFOUND IS NULL;
 
+        SBR.MRID          := FGETSEQUENCE('METERREAD'); --流水号
+        SBR.MRMONTH       := TO_CHAR(SYSDATE,'YYYY.MM'); --当前月份
+        SBR.MRSMFID       := SB.MISMFID; --管辖公司
+        SBR.MRBFID        := SB.MIBFID; --表册
+        SBR.MRBATCH       := BC.BFBATCH; --抄表批次
+        SBR.MRRPER        := BC.BFRPER; --抄表员
+        SBR.MRRORDER      := SB.MIRORDER; --抄表次序号
+        SBR.MRCCODE       := YH.CIID; --用户编号
+        SBR.MRMID         := SB.MIID; --水表编号
+        SBR.MRSTID        := SB.MISTID; --行业分类
+        SBR.MRMPID        := SB.MIPID; --上级水表
+        SBR.MRMCLASS      := SB.MICLASS; --水表级次
+        SBR.MRMFLAG       := SB.MIFLAG; --末级标志
+        SBR.MRCREADATE    := SYSDATE; --创建日期
+        SBR.MRINPUTDATE   := NULL; --编辑日期
+        SBR.MRREADOK      := 'N'; --抄见标志
+        SBR.MRRDATE       := NULL; --抄表日期
+        SBR.MRPRDATE      := SB.MIRECDATE; --上次抄见日期(取上次有效抄表日期)
+        SBR.MRSCODE       := SB.MIRCODE; --上期抄见
+        SBR.MRECODE       := NULL; --本期抄见
+        SBR.MRSL          := NULL; --本期水量
+        SBR.MRFACE        := NULL; --表况
+        SBR.MRIFSUBMIT    := 'Y'; --是否提交计费
+        SBR.MRIFHALT      := 'N'; --系统停算
+        SBR.MRDATASOURCE  := 1; --抄表结果来源
+        SBR.MRMEMO        := NULL; --抄表备注
+        SBR.MRIFGU        := 'N'; --估表标志
+        SBR.MRIFREC       := 'N'; --已计费
+        SBR.MRRECDATE     := NULL; --计费日期
+        SBR.MRRECSL       := NULL; --应收水量
+        SBR.MRADDSL       := 0; --余量
+        SBR.MRCHKFLAG     := 'N'; --复核标志
+        SBR.MRCHKDATE     := NULL; --复核日期
+        SBR.MRCHKPER      := NULL; --复核人员
+        SBR.MRPRIMFLAG    := SB.MIPRIFLAG; --  合收表标志
+        SBR.MRFACE2       := NULL; --抄见故障
+        SBR.MRREQUISITION := 0; --通知单打印次数
+        SBR.MRIFCHK       := SB.MIIFCHK; --考核表标志
+        SBR.MRINPUTPER    := NULL; --入账人员
+        SBR.MRCALIBER     := MD.MDCALIBER; --口径
+        SBR.MRSIDE        := SB.MISIDE; --表位
+        SBR.MRIFMCH       :=CASE WHEN SB.MISTATUS IN ('29','30') THEN 'Y' ELSE 'N'END; --是否免抄户(Y-是 N-否)固定量
+
+        --上次水费   至  去年度次均量
+        GETMRHIS(SBR.MRID,
+                 SBR.MRMONTH,
+                 SBR.MRTHREESL,
+                 SBR.MRLASTSL,
+                 SBR.MRYEARSL);
+
+        INSERT INTO BS_METERREAD VALUES SBR;
+    END LOOP;
+    CLOSE C_BKSB;
+    COMMIT;
+    O_STATE := '0';
+  EXCEPTION
+    WHEN OTHERS THEN
+      O_STATE := '-1';
+  END;
 END;
 /
 

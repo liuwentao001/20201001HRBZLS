@@ -48,7 +48,7 @@
   iscontrol      VARCHAR2(20),
   readtype       VARCHAR2(20),
   portno         VARCHAR2(50),
-  mipfid         VARCHAR2(50),
+  mipfid         VARCHAR2(30),
   mipid          VARCHAR2(10),
   miclass        NUMBER,
   redbbs         CHAR(1),

@@ -3,7 +3,7 @@
   -- Author  : ADMIN
   -- Created : 2020-12-23 15:34:59
   -- Purpose : 抄表
-  
+
   --手工抄表，重抄操作
   PROCEDURE METERREAD_RE(
             --mrid IN VARCHAR2,  --meterread表当前流水号
@@ -12,7 +12,7 @@
             RES IN OUT INTEGER);
 
 
-            
+
 end PG_METER_READ;
 /
 

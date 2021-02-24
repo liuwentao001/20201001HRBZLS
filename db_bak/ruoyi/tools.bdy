@@ -5,8 +5,8 @@
     --抄表月份
     RETURN FPARA(P_SMFID, '000009');
   END;
-  
-    --取当前系统年月日'YYYY/MM/DD'
+
+  --取当前系统年月日'YYYY/MM/DD'
   FUNCTION FGETSYSDATE RETURN DATE AS
     XTRQ DATE;
   BEGIN
@@ -15,27 +15,25 @@
       FROM DUAL;
     RETURN XTRQ;
   END;
-  
-  function  getmax(n1 in number,n2 in number) return number
-  is
-  begin
-      if nvl(n1,0) >= nvl(n2,0) then
-         return nvl(n1,0);
-      else
-         return nvl(n2,0);
-      end if;
-  end getmax;
-  
-  function  getmin(n1 in number,n2 in number) return number
-  is
-  begin
-      if nvl(n1,0) <= nvl(n2,0) then
-         return nvl(n1,0);
-      else
-         return nvl(n2,0);
-      end if;
-  end getmin;
-  
+
+  FUNCTION GETMAX(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER IS
+  BEGIN
+    IF NVL(N1, 0) >= NVL(N2, 0) THEN
+      RETURN NVL(N1, 0);
+    ELSE
+      RETURN NVL(N2, 0);
+    END IF;
+  END GETMAX;
+
+  FUNCTION GETMIN(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER IS
+  BEGIN
+    IF NVL(N1, 0) <= NVL(N2, 0) THEN
+      RETURN NVL(N1, 0);
+    ELSE
+      RETURN NVL(N2, 0);
+    END IF;
+  END GETMIN;
+
 END TOOLS;
 /
 

@@ -1,7 +1,7 @@
 ﻿create sequence SEQMESTERDOCID
-minvalue 3000000
-maxvalue 9999999
-start with 3000020
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 2917251
 increment by 1
-cache 20;
+cache 10;
 

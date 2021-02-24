@@ -34,7 +34,9 @@
   modifyusername VARCHAR2(50),
   remark         VARCHAR2(200),
   workno         VARCHAR2(30),
-  workbatch      VARCHAR2(30)
+  workbatch      VARCHAR2(30),
+  reshbz         CHAR(1),
+  rewcbz         CHAR(1)
 )
 ;
 comment on table REQUEST_ZLSF
@@ -107,4 +109,8 @@ comment on column REQUEST_ZLSF.workno
   is '单据编号';
 comment on column REQUEST_ZLSF.workbatch
   is '批次号';
+comment on column REQUEST_ZLSF.reshbz
+  is '审核标志，Y审核完成';
+comment on column REQUEST_ZLSF.rewcbz
+  is '完成标志，Y冲正完成';
 

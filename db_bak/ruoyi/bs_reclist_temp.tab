@@ -1,4 +1,4 @@
-﻿create global temporary table BS_RECLIST_TEMP
+﻿create table BS_RECLIST_TEMP
 (
   rlid           VARCHAR2(10) not null,
   rlsmfid        VARCHAR2(10),
@@ -58,9 +58,10 @@
   rljtmk         CHAR(1),
   rljtsrq        VARCHAR2(20),
   rlcolumn12     VARCHAR2(20),
-  isprintfp      CHAR(1)
+  isprintfp      CHAR(1),
+  rlifstep       CHAR(1)
 )
-on commit delete rows;
+nologging;
 comment on table BS_RECLIST_TEMP
   is '应收总帐明细临时表';
 comment on column BS_RECLIST_TEMP.rlid
@@ -181,4 +182,6 @@ comment on column BS_RECLIST_TEMP.rlcolumn12
   is '年度累计量';
 comment on column BS_RECLIST_TEMP.isprintfp
   is '是否打印发票';
+comment on column BS_RECLIST_TEMP.rlifstep
+  is '是否纳入阶梯,数据来源：追量收费表request_zlsf';
 

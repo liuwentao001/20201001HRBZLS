@@ -1,7 +1,7 @@
 ﻿create sequence SEQ_SYS_JOB
 minvalue 1
 maxvalue 9999999999999999999999999999
-start with 140
+start with 120
 increment by 1
 cache 20;
 

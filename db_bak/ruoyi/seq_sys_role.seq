@@ -1,7 +1,7 @@
 ﻿create sequence SEQ_SYS_ROLE
 minvalue 1
 maxvalue 9999999999999999999999999999
-start with 100
+start with 240
 increment by 1
 cache 20;
 

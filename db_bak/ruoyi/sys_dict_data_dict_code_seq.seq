@@ -1,0 +1,7 @@
+﻿create sequence SYS_DICT_DATA_DICT_CODE_SEQ
+minvalue 1
+maxvalue 999999999
+start with 441
+increment by 1
+cache 20;
+
