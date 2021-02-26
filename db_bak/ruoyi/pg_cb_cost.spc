@@ -8,11 +8,19 @@
   --错误返回码
   errcode constant integer := -20012;
 
-	procedure wlog(p_txt in varchar2);
+  procedure wlog(p_txt in varchar2);
 
   procedure autosubmit;
   --计划内抄表提交算费
   procedure submit(p_mrbfids in varchar2, log out varchar2);
+  
+--简单算费，仅供抄表时参考
+  procedure calculate_simp(p_mrid in bs_meterread.mrid%type,
+             o_mrrecje01 out number,
+             o_mrrecje02 out number,
+             o_mrrecje03 out number,
+             o_mrrecje04 out number,
+             o_mrsumje   out number) ;
   --算费前虚拟算费，供月抄表明细调用
   procedure calculatebf(p_mrid in bs_meterread.mrid%type,
              p_caltype in varchar2,    -- 01 虚拟算费; 02 正式算费
@@ -51,15 +59,15 @@
                  p_oper    in varchar2,--完结人
                  p_memo   in varchar2 --备注
                  );
-                 
+
   --应收冲正_按应收账流水
-  
+
   procedure yscz_rl(p_rlid   in varchar2, --应收账流水号
                  p_oper    in varchar2,    --完结人
                  p_memo   in varchar2,    --备注
                  o_rlcrid out varchar2    --返回负应收账流水号
                  );
-  
+
 end;
 /
 

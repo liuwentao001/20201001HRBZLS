@@ -1,0 +1,8 @@
+﻿create table DR$TEMP_CONTENT$K
+(
+  docid   NUMBER(38),
+  textkey ROWID not null,
+  primary key (TEXTKEY)
+)
+organization index;
+

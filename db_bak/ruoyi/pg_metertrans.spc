@@ -6,8 +6,8 @@
 
   -- Public type declarations
   ERRCODE CONSTANT INTEGER := -20012;
-  
-  
+
+
   --2、在装水表状态
   M立户       CONSTANT VARCHAR2(2) := '1'; --【分公司】用户正在使用
   M销户       CONSTANT VARCHAR2(2) := '7'; --【分公司】销户拆表后如果没有送检，则处于销户
@@ -15,7 +15,7 @@
   BT拆表           CONSTANT CHAR(1) := 'F';
   BT故障换表       CONSTANT CHAR(1) := 'K';
   BT周期换表       CONSTANT CHAR(1) := 'L';
-                          
+
    --周期换表、拆表、故障换表
   PROCEDURE SP_CHEBIAOTRANS(P_TYPE   IN VARCHAR2, --操作类型
                           P_MTHNO  IN VARCHAR2, --批次流水

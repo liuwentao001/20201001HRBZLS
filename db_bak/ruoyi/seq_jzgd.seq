@@ -1,0 +1,7 @@
+﻿create sequence SEQ_JZGD
+minvalue 1000000000
+maxvalue 9999999999999999999999999999
+start with 1000000000
+increment by 1
+nocache;
+

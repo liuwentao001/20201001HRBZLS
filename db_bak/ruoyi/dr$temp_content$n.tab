@@ -1,0 +1,8 @@
+﻿create table DR$TEMP_CONTENT$N
+(
+  nlt_docid NUMBER(38) not null,
+  nlt_mark  CHAR(1) not null,
+  primary key (NLT_DOCID)
+)
+organization index;
+

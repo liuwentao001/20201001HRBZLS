@@ -1,0 +1,42 @@
+﻿create table SYS_GUIDE
+(
+  guide_id         NUMBER(20) not null,
+  guide_title      VARCHAR2(50) not null,
+  guide_moudleid   VARCHAR2(100),
+  guide_moudleurl  VARCHAR2(100),
+  guide_moudlename VARCHAR2(100),
+  guide_content    VARCHAR2(2000),
+  create_by        VARCHAR2(64) default '',
+  create_time      DATE,
+  update_by        VARCHAR2(64) default '',
+  update_time      DATE,
+  remark           VARCHAR2(255)
+)
+;
+comment on table SYS_GUIDE
+  is '指南表';
+comment on column SYS_GUIDE.guide_id
+  is '指南主键seq_sys_guide.nextval';
+comment on column SYS_GUIDE.guide_title
+  is '指南标题';
+comment on column SYS_GUIDE.guide_moudleid
+  is '模块ID';
+comment on column SYS_GUIDE.guide_moudleurl
+  is '模块URL';
+comment on column SYS_GUIDE.guide_moudlename
+  is '模块名称';
+comment on column SYS_GUIDE.guide_content
+  is '指南内容';
+comment on column SYS_GUIDE.create_by
+  is '创建者';
+comment on column SYS_GUIDE.create_time
+  is '创建时间';
+comment on column SYS_GUIDE.update_by
+  is '更新者';
+comment on column SYS_GUIDE.update_time
+  is '更新时间';
+comment on column SYS_GUIDE.remark
+  is '备注';
+alter table SYS_GUIDE
+  add constraint PK_SYS_GUIDE primary key (GUIDE_ID);
+

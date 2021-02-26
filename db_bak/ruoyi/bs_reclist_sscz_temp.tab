@@ -59,9 +59,12 @@
   rljtsrq        VARCHAR2(20),
   rlcolumn12     VARCHAR2(20),
   isprintfp      CHAR(1),
-  rlifstep       CHAR(1)
+  rlifstep       CHAR(1),
+  rldatasource   CHAR(1)
 )
 on commit delete rows;
 comment on column BS_RECLIST_SSCZ_TEMP.rlifstep
   is '是否纳入阶梯,数据来源：追量收费表request_zlsf';
+comment on column BS_RECLIST_SSCZ_TEMP.rldatasource
+  is '来源(1-手工,5-抄表器,9-手机抄表,K-故障换表,L-周期换表,Z-追量  I-智能表接口，6-视频直读，7-集抄)';
 

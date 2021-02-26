@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE PACKAGE "PG_RAEDPLAN" IS
+﻿CREATE OR REPLACE PACKAGE PG_RAEDPLAN IS
 
   -- AUTHOR  : ADMIN
   -- CREATED : 2020-12-22
@@ -56,7 +56,7 @@
                      O_SL_1  OUT NUMBER,
                      O_SL_2  OUT NUMBER,
                      O_SL_3  OUT NUMBER);
-                     
+
   --工单抄表库回写
   --返回 0  执行成功
   --返回 -1 执行失败

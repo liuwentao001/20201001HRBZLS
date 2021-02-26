@@ -2,15 +2,19 @@
   --错误返回码
   errcode constant integer := -20012;
   --常量参数
+  /*
   paytrans_pos      constant char(1) := 'P'; --自来水柜台缴费
+  paytrans_预存抵扣 constant char(1) := 'U'; --算费过程即时预存抵扣
+  paytrans_sav      constant char(1) := 'S'; --自来水柜台独立预存
+  paytrans_预存退费 constant char(1) := 'y'; --预存退费，全部退
+
+  
   paytrans_ds       constant char(1) := 'B'; --银行实时代收
   paytrans_bsav     constant char(1) := 'W'; --银行实时单缴预存
   paytrans_dsde     constant char(1) := 'E'; --银行实时代收单边帐补销（对帐结果补销隔日发起）
   paytrans_dk       constant char(1) := 'D'; --代扣销帐
   paytrans_ts       constant char(1) := 'T'; --托收票据销帐
-  paytrans_sav      constant char(1) := 'S'; --自来水柜台独立预存
   paytrans_inv      constant char(1) := 'I'; --走收票据销帐
-  paytrans_预存抵扣 constant char(1) := 'U'; --算费过程即时预存抵扣
   paytrans_ycdb     constant char(1) := 'K'; --预存调拨
   paytrans_cr     constant char(1) := 'C'; --其它所有未独立业务冲销（销帐冲正单据发起）
   paytrans_bankcr constant char(1) := 'X'; --实时代收冲销（银行当日冲销发起）
@@ -23,6 +27,36 @@
   paytrans_工程款 constant char(1) := 'G'; --工程款
   paytrans_价差   constant char(1) := 'J'; --价差
   paytrans_水损   constant char(1) := 'K'; --水损
+  */
+
+  /*
+  --按票据销账 批量
+  p_pjida         票据编码,多个票据按逗号分隔
+  p_cply          出票来源：SMSF 上门收费 BJSF 补缴收费
+  p_oper          销帐员，柜台缴费时销帐人员与收款员统一
+  p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
+  p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
+  p_pid           返回交易流水号
+  */
+  procedure poscustforys_pj_pl(p_pjids varchar2,
+             p_cply     varchar2,
+             p_oper     varchar2,
+             o_log      out varchar2);
+
+  /*
+  --按票据销账
+  p_pjid          票据编码
+  p_cply          出票来源：SMSF 上门收费 BJSF 补缴收费
+  p_oper          销帐员，柜台缴费时销帐人员与收款员统一
+  p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
+  p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
+  p_pid           返回交易流水号
+  */
+  procedure poscustforys_pj(p_pjid varchar2,
+             p_cply     varchar2,
+             p_oper     in varchar2,
+             o_log      out varchar2);
+
   --缴费入口
   /*
   p_yhid          用户编码
@@ -37,7 +71,10 @@
              p_payway   in varchar2,
              p_payment  in varchar2,
              p_pid      out varchar2);
-
+             
+  --单用户，按应收账日期逐条销账
+   procedure paycust_by_yh(p_yhid in varchar2,p_oper in varchar2,p_payway varchar2, o_log out varchar2);
+    
   --一水表多应收销帐
   procedure paycust(p_yhid     in varchar2,
              p_arstr    in varchar2,
@@ -83,7 +120,7 @@
                     p_oper        in varchar2,
                     p_memo        in varchar2,
                     o_log         out varchar2);
-                                    
+
   --预存充值
   procedure precust(p_yhid        in varchar2,
                     p_position    in varchar2,
@@ -98,10 +135,10 @@
 
   --实收冲正，按工单
   procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
-    
+
   --实收冲正，多流水号批量冲正，只冲正缴费交易，不冲正抵扣交易
   procedure pay_back_by_pids(p_payids in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
-  
+
   --实收冲正，按缴费批次
   procedure pay_back_by_pbatch(p_pbatch in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
 
@@ -109,7 +146,7 @@
   --  1.事务为U 或 事务为P且预存金额大于退费金额，直接冲正当条实收
   --  2.事务为P且预存金额小于退费金额，按收费时间倒序冲正事务为U的实收，直到预存金额大于退费金额，然后冲正事务为P的当条实收
   procedure pay_back_by_pdate_desc(p_pid in varchar2, p_oper in varchar2, o_pid_reverse out varchar2);
-    
+
   --实收冲正
   --  p_payid  实收流水号
   --  p_oper   操作员编码
@@ -132,6 +169,7 @@
 参数：pm 负实收 。
 *******************************************************************************************/
   function f_set_cr_reclist(pm in bs_payment%rowtype) return number;
+
 
 
 end;

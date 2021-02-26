@@ -1,0 +1,13 @@
+﻿create table DR$TEMP_CONTENT$I
+(
+  token_text  VARCHAR2(64) not null,
+  token_type  NUMBER(10) not null,
+  token_first NUMBER(10) not null,
+  token_last  NUMBER(10) not null,
+  token_count NUMBER(10) not null,
+  token_info  BLOB
+)
+;
+create index DR$TEMP_CONTENT$X on DR$TEMP_CONTENT$I (TOKEN_TEXT, TOKEN_TYPE, TOKEN_FIRST, TOKEN_LAST, TOKEN_COUNT)
+  compress 2;
+

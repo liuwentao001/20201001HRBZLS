@@ -13,6 +13,14 @@
                                              U_RKDNO        IN VARCHAR2, --入库单号
                                              U_MDSTOCKDATE  IN DATE, --表状态发生时间
                                              U_RKMAN        IN VARCHAR2, --入库人员
+                                             I_MDMODE       IN VARCHAR2, --基电转换方式
+                                             I_MIRTID       IN VARCHAR2, --采集类型
+                                             I_CONCENTRATORID IN VARCHAR2, --集中器ID
+                                             I_READMETERCODE  IN VARCHAR2, --抄表序号
+                                             I_PORTNO       IN VARCHAR2, --上传端口号
+                                             I_TRANSFERSTYPE  IN VARCHAR2, --传输类型
+                                             I_READTYPE     IN VARCHAR2, --读数方式
+                                             I_ISCONTROL    IN VARCHAR2, --阀控否
                                              U_RETURN       OUT VARCHAR2, --返回重复编号
                                              U_RESULT       OUT NUMBER) IS  --返回执行状态或数量
   V_SL     VARCHAR2(100);
@@ -45,7 +53,15 @@ BEGIN
          RKDNO,
          MDSTOCKDATE,
          RKMAN,
-         MDSTORE)
+         MDSTORE,
+         MDMODE,
+         MIRTID,
+         CONCENTRATORID,
+         READMETERCODE,
+         PORTNO,
+         TRANSFERSTYPE,
+         READTYPE,
+         ISCONTROL)
       VALUES
         (SEQMESTERDOCID.NEXTVAL,
          V_SL,
@@ -61,7 +77,15 @@ BEGIN
          U_RKDNO,
          U_MDSTOCKDATE,
          U_RKMAN,
-         U_MDSTORE);
+         U_MDSTORE,
+         I_MDMODE,
+         I_MIRTID,
+         I_CONCENTRATORID,
+         I_READMETERCODE,
+         I_PORTNO,
+         I_TRANSFERSTYPE,
+         I_READTYPE,
+         I_ISCONTROL);
       V_SL     := V_SL + 1;
       U_RESULT := TO_NUMBER(U_MDNO2 - U_MDNO1 + 1);
     END LOOP;
@@ -69,7 +93,7 @@ BEGIN
   ELSE
     U_RESULT := '-1';
   END IF;
-  IF LENGTH(U_RETURN)<>0 THEN 
+  IF LENGTH(U_RETURN)<>0 THEN
     U_RETURN := SUBSTR(U_RETURN,1,LENGTH(U_RETURN)-1);
     END IF;
 END;

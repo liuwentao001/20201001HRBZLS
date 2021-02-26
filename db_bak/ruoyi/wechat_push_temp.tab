@@ -52,4 +52,6 @@ comment on column WECHAT_PUSH_TEMP.pushtime
   is '创建时间';
 comment on column WECHAT_PUSH_TEMP.pushuser
   is '创建人';
+create index TEMP_CONTENT on WECHAT_PUSH_TEMP (CONTENT)
+  indextype is CTXSYS.CONTEXT;
 

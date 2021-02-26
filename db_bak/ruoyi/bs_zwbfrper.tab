@@ -1,0 +1,10 @@
+﻿create table BS_ZWBFRPER
+(
+  bfrper    NVARCHAR2(10),
+  zuzhangid NVARCHAR2(10),
+  creattime DATE
+)
+;
+comment on table BS_ZWBFRPER
+  is '抄表员与组长的关系';
+

@@ -23,7 +23,8 @@
   bfedate   DATE,
   bfmonth   VARCHAR2(7),
   bfpper    VARCHAR2(15),
-  bfjtsny   VARCHAR2(15)
+  bfjtsny   VARCHAR2(15),
+  bftype    VARCHAR2(15) default 0
 )
 ;
 comment on table BS_BOOKFRAME
@@ -76,4 +77,6 @@ comment on column BS_BOOKFRAME.bfpper
   is '收费员';
 comment on column BS_BOOKFRAME.bfjtsny
   is '阶梯开始月';
+comment on column BS_BOOKFRAME.bftype
+  is '表册状态（正常0，待转移1，转移完成2）';
 

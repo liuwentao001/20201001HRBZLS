@@ -1,19 +1,22 @@
-﻿CREATE OR REPLACE PACKAGE "TOOLS" IS
-
-  -- AUTHOR  : 江浩
-  -- CREATED : 2008-01-08 16:34:39
-  -- PURPOSE : JH
+﻿create or replace package "TOOLS" is
 
   --抄表月份
-  FUNCTION FGETREADMONTH(P_SMFID IN VARCHAR2) RETURN VARCHAR2;
+  function fgetreadmonth(p_smfid in varchar2) return varchar2;
 
   --取当前系统年月日'YYYY/MM/DD'
-  FUNCTION FGETSYSDATE RETURN DATE;
+  function fgetsysdate return date;
 
-  FUNCTION GETMAX(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER;
+  function getmax(n1 in number, n2 in number) return number;
+  function getmin(n1 in number, n2 in number) return number;
 
-  FUNCTION GETMIN(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER;
-
-END TOOLS;
+  --创建用户编码，验证历史库中是否存在，如存在则重新生成
+  procedure seq_gen_custinfo_chk(o_seq out varchar2);
+  --创建用户表编码
+  --用户表编码规则，2位年 + 2位月(可扩展：如13也代表1月) + 5位自动生产编码 + 1位校验位
+  procedure seq_gen_custinfo(o_seq out varchar2);
+  --设置seq值
+  procedure seq_set(seq_name varchar2, seq_num number);
+  
+end tools;
 /
 

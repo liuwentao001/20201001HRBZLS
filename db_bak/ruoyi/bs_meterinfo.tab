@@ -77,7 +77,8 @@
   miwcode        NUMBER(10),
   micardno       VARCHAR2(50),
   mitwono        VARCHAR2(50),
-  midmano        VARCHAR2(50)
+  midmano        VARCHAR2(50),
+  mieneed        NUMBER(10)
 )
 ;
 comment on table BS_METERINFO
@@ -238,6 +239,8 @@ comment on column BS_METERINFO.mitwono
   is '二次供水编码';
 comment on column BS_METERINFO.midmano
   is 'DMA分区计量编码';
+comment on column BS_METERINFO.mieneed
+  is '等针水量';
 create index IDX_MICODE on BS_METERINFO (MICODE);
 create unique index PK_METERINFO on BS_METERINFO (MIID);
 create index index_MIBFID on BS_METERINFO (MIBFID);

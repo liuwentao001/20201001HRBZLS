@@ -16,9 +16,9 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(V_FLAGC);
     SELECT COUNT(1) INTO V_FLAGM FROM BS_METERINFO WHERE MIID = JZGL.MIID;
     DBMS_OUTPUT.PUT_LINE(V_FLAGM);
-		SELECT COUNT(1) INTO V_CIDBBS FROM REQUEST_JZGL WHERE CIID = JZGL.CIID;
+    SELECT COUNT(1) INTO V_CIDBBS FROM REQUEST_JZGL WHERE CIID = JZGL.CIID;
     DBMS_OUTPUT.PUT_LINE(V_CIDBBS);
-  
+
     -----BS_CUSTINFO
     IF V_FLAGC = 0 THEN
       INSERT INTO BS_CUSTINFO
@@ -41,7 +41,14 @@ BEGIN
          CIDBBS,  --是否一户多表
          CIUSENUM,  --户籍人数
          CIAMOUNT,  --户数
-         CIPASSWORD)  --用户密码
+         CIPASSWORD,  --用户密码
+         CITAXNO,  --税号
+         CIBANKNAME,  --开户行名称(电票)
+         CIBANKNO,  --开户行账号(电票)
+         CIADR1,  --票据地址
+         CITEL4,  --票据电话
+         CIWXNO,  --微信号码
+         CICQNO）  --产权证号
         SELECT CIMTEL,  --移动电话
                CITEL1,  --电话1
                CICONNECTPER,  --联系人
@@ -58,10 +65,17 @@ BEGIN
                RESMFID,  --营销公司
                SYSDATE,  --立户日期
                MODIFYDATE,  --修改时间
-               CASE WHEN V_CIDBBS='1' THEN 'N' ELSE 'Y' END,  --是否一户多表
+               CASE WHEN V_CIDBBS='1' THEN 'N' ELSE 'Y' END REDBBS,  --是否一户多表
                CIUSENUM,  --户籍人数
                CIAMOUNT,  --户数
-               '123456'  --用户密码
+               '123456',  --用户密码
+               CINAME1,  --税号
+               CIBANKNAME,  --开户行名称(电票)
+               CIBANKNO,  --开户行账号(电票)
+               CIADR1,  --票据地址
+               CITEL4,  --票据电话
+               CIWXNO,  --微信号码
+               CICQNO  --产权证号
           FROM REQUEST_JZGL
          WHERE RENO = JZGL.RENO;
     END IF;
@@ -138,7 +152,7 @@ BEGIN
               FROM REQUEST_JZGL C
              WHERE C.MDNO = B.MDNO
                AND C.RENO = JZGL.RENO);
-  
+
     -----BS_METERFH_STORE 更新表身码及状态
     UPDATE BS_METERFH_STORE B
        SET BSM     =
@@ -166,7 +180,7 @@ BEGIN
               FROM REQUEST_JZGL C
              WHERE C.DQGFH = B.METERFH
                AND C.RENO = JZGL.RENO);
-  
+
   END LOOP;
   V_MIRORDER := '0';
   COMMIT;

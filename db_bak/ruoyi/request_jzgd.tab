@@ -70,7 +70,12 @@
   modifyusername VARCHAR2(50),
   remark         VARCHAR2(200),
   workno         VARCHAR2(30),
-  workbatch      VARCHAR2(30)
+  workbatch      VARCHAR2(30),
+  reshbz         CHAR(1),
+  rewcbz         CHAR(1),
+  dzgd_no        VARCHAR2(50),
+  st_sdate       DATE,
+  st_edate       DATE
 )
 ;
 comment on table REQUEST_JZGD
@@ -215,4 +220,14 @@ comment on column REQUEST_JZGD.workno
   is '单据编号';
 comment on column REQUEST_JZGD.workbatch
   is '批次号';
+comment on column REQUEST_JZGD.reshbz
+  is '审核标志，Y审核完成';
+comment on column REQUEST_JZGD.rewcbz
+  is '完成标志，Y对账完成';
+comment on column REQUEST_JZGD.dzgd_no
+  is '对账工单流水号，生成对账工单回写';
+comment on column REQUEST_JZGD.st_sdate
+  is '统计开始时间';
+comment on column REQUEST_JZGD.st_edate
+  is '统计结束时间 ';
 

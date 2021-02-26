@@ -230,4 +230,73 @@ select * from bs_recdetail rd where rdid in (select rlid from bs_reclist rl wher
 select * from bs_payment where ppayee='1';
 
 
+--实收冲正工单
+select * from request_sscz order by createdate desc;
+1D63B99CE820448EBEB70E2BC64ED608
+0000248090,0000248020,0000248016
+
+select * from bs_payment where pid in ('0000248090','0000248020','0000248016');
+select * from bs_payment order by pid desc;
+
+
+
+select * from bs_payment where pcid = '0100172364' order by pid desc;
+
+0000248223
+0000248205
+0000248204
+0000248203
+
+select * from bs_reclist where rlid='0000248185'
+select * from bs_recdetail where rdid='0000248185'
+
+
+---实收冲正测试
+select misaving, t.* from bs_custinfo t where ciid=3126163958;
+select * from bs_payment where pcid='3126163958'order by pid desc;
+
+
+
+
+
+
+select rlje,t.* from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N' and rlje>0  order by rldate desc;
+--1 13.700  1000202096  0201  2021.01 2021年1月21日 14:30:34 3101033508  3101033508  010583  左志伟 安定街12号1单元404  安定街12号1单元404  1 15645688434 15146609598     N 3101033508  1 Y 1   01305202  625 630 5 1   5 13.700  1000202096  1 2021.01 0.000 N     2373062593     [0000.00历史单价]  A0103 2021年1月21日 14:30:34 2021年1月21日 14:30:34 N 1     0.00  0.00  0.00  N N   0.000     1000202096  Y 2020.02 0   Y 
+
+
+select * from bs_custinfo where ciid='7031434363';
+
+select * from bs_payment where pcid='7031434363';
+
+select rlid, rlje from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje <> 0 and rlcid = '7031434363' order by rlday;
+
+update bs_payment set psavingbq_abs = abs(psavingbq);
+
+
+select mrscode,mrecode,t.* from bs_meterread t
+select * from bs_meterinfo
+
+select mr.mrscode, mr.mrecode, mi.mipfid, pd.pdpiid, pd.pddj
+from bs_meterread mr 
+     left join bs_meterinfo mi on mr.mrmid = mi.miid 
+     left join bs_pricedetail pd on mi.mipfid = pd.pdpfid
+where mr.mrid = '2372463708';
+
+
+select sum((mr.mrecode - mr.mrscode) * pd.pddj),
+       sum(case when pd.pdpiid = '01' then (mr.mrecode - mr.mrscode) * pd.pddj else 0 end),
+       sum(case when pd.pdpiid = '02' then (mr.mrecode - mr.mrscode) * pd.pddj else 0 end),
+       sum(case when pd.pdpiid = '03' then (mr.mrecode - mr.mrscode) * pd.pddj else 0 end)
+from bs_meterread mr 
+     left join bs_meterinfo mi on mr.mrmid = mi.miid 
+     left join bs_pricedetail pd on mi.mipfid = pd.pdpfid
+where mr.mrid = '2372463708';
+
+
+select * from bs_priceframe;
+select * from bs_pricedetail;
+select * from bs_pricestep;
+
+
+
 

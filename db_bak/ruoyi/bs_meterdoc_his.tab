@@ -41,7 +41,8 @@
   portno         VARCHAR2(50),
   gdlx           VARCHAR2(50),
   gdid           VARCHAR2(50),
-  gdsj           DATE default SYSDATE
+  gdsj           DATE default SYSDATE,
+  mirtid         CHAR(1)
 )
 ;
 comment on table BS_METERDOC_HIS
@@ -130,6 +131,8 @@ comment on column BS_METERDOC_HIS.gdid
   is '工单流水号';
 comment on column BS_METERDOC_HIS.gdsj
   is '工单时间';
+comment on column BS_METERDOC_HIS.mirtid
+  is '采集类型（原抄表方式【sysreadtype】）';
 create bitmap index IDX_METERDOC_HIS_IFOLD on BS_METERDOC_HIS (GDLX);
 create index IDX_METERDOC_HIS_MDID on BS_METERDOC_HIS (MDID);
 

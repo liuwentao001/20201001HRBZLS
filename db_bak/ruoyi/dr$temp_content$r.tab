@@ -1,0 +1,9 @@
+﻿create table DR$TEMP_CONTENT$R
+(
+  row_no NUMBER(3) not null,
+  data   BLOB
+)
+;
+alter table DR$TEMP_CONTENT$R
+  add constraint DRC$TEMP_CONTENT$R primary key (ROW_NO);
+

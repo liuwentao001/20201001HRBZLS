@@ -1,0 +1,7 @@
+﻿create sequence SEQ_CUSTINFO
+minvalue 1
+maxvalue 999999999
+start with 210200041
+increment by 1
+cache 20;
+

@@ -1,0 +1,16 @@
+﻿create table RELATION_PAYMENT_JZGD
+(
+  id   VARCHAR2(50) not null,
+  pid  VARCHAR2(50),
+  reno VARCHAR2(50)
+)
+;
+comment on column RELATION_PAYMENT_JZGD.id
+  is '结账工单与实收关联主键';
+comment on column RELATION_PAYMENT_JZGD.pid
+  is '实收流水';
+comment on column RELATION_PAYMENT_JZGD.reno
+  is '结账工单流水';
+alter table RELATION_PAYMENT_JZGD
+  add constraint RELATION_PAY_JZGD primary key (ID);
+
