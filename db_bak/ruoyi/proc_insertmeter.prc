@@ -2,10 +2,11 @@
                                              U_MDNO2        IN VARCHAR, --结束水表号
                                              U_STOREROOMID  IN VARCHAR, --库房编号
                                              U_MDSTORE      IN VARCHAR, --库存位置
-                                             U_QFH          IN VARCHAR, --铅封号
+                                           /*  U_QFH          IN VARCHAR, --铅封号*/
                                              U_MDCALIBER    IN NUMBER, --表口径
                                              U_MDBRAND      IN VARCHAR2, --表厂家
-                                             U_MDMODEL      IN VARCHAR2, --计量方式
+                                             U_MIRTID       IN VARCHAR2, --采集类型
+                                            /* U_MDMODEL      IN VARCHAR2, --计量方式*/
                                              U_MDSTATUS     IN VARCHAR2, --表状态
                                              U_MDSTATUSDATE IN DATE, --表状态发生时间
                                              U_MDCYCCHKDATE IN DATE, --周检起算日
@@ -13,14 +14,13 @@
                                              U_RKDNO        IN VARCHAR2, --入库单号
                                              U_MDSTOCKDATE  IN DATE, --表状态发生时间
                                              U_RKMAN        IN VARCHAR2, --入库人员
-                                             I_MDMODE       IN VARCHAR2, --基电转换方式
-                                             I_MIRTID       IN VARCHAR2, --采集类型
+                                             /*I_MDMODE       IN VARCHAR2, --基电转换方式
                                              I_CONCENTRATORID IN VARCHAR2, --集中器ID
                                              I_READMETERCODE  IN VARCHAR2, --抄表序号
                                              I_PORTNO       IN VARCHAR2, --上传端口号
                                              I_TRANSFERSTYPE  IN VARCHAR2, --传输类型
                                              I_READTYPE     IN VARCHAR2, --读数方式
-                                             I_ISCONTROL    IN VARCHAR2, --阀控否
+                                             I_ISCONTROL    IN VARCHAR2, --阀控否*/
                                              U_RETURN       OUT VARCHAR2, --返回重复编号
                                              U_RESULT       OUT NUMBER) IS  --返回执行状态或数量
   V_SL     VARCHAR2(100);
@@ -42,10 +42,10 @@ BEGIN
         (ID,
          MDNO,
          STOREROOMID,
-         QFH,
+         --QFH,
          MDCALIBER,
          MDBRAND,
-         MDMODEL,
+         --MDMODEL,
          MDSTATUS,
          MDSTATUSDATE,
          MDCYCCHKDATE,
@@ -54,22 +54,23 @@ BEGIN
          MDSTOCKDATE,
          RKMAN,
          MDSTORE,
-         MDMODE,
-         MIRTID,
-         CONCENTRATORID,
-         READMETERCODE,
-         PORTNO,
-         TRANSFERSTYPE,
-         READTYPE,
-         ISCONTROL)
+         --MDMODE,
+         MIRTID--,
+         --CONCENTRATORID,
+         --READMETERCODE,
+         --PORTNO,
+         --TRANSFERSTYPE,
+         --READTYPE,
+         --ISCONTROL
+         )
       VALUES
         (SEQMESTERDOCID.NEXTVAL,
          V_SL,
          U_STOREROOMID,
-         U_QFH,
+         --U_QFH,
          U_MDCALIBER,
          U_MDBRAND,
-         U_MDMODEL,
+         --U_MDMODEL,
          U_MDSTATUS,
          U_MDSTATUSDATE,
          U_MDCYCCHKDATE,
@@ -78,14 +79,15 @@ BEGIN
          U_MDSTOCKDATE,
          U_RKMAN,
          U_MDSTORE,
-         I_MDMODE,
-         I_MIRTID,
-         I_CONCENTRATORID,
-         I_READMETERCODE,
-         I_PORTNO,
-         I_TRANSFERSTYPE,
-         I_READTYPE,
-         I_ISCONTROL);
+         --I_MDMODE,
+         U_MIRTID--,
+         --I_CONCENTRATORID,
+         --I_READMETERCODE,
+         --I_PORTNO,
+         --I_TRANSFERSTYPE,
+         --I_READTYPE,
+         --I_ISCONTROL
+         );
       V_SL     := V_SL + 1;
       U_RESULT := TO_NUMBER(U_MDNO2 - U_MDNO1 + 1);
     END LOOP;

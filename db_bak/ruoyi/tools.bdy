@@ -1,4 +1,4 @@
-﻿create or replace package body "TOOLS" is
+﻿create or replace package body tools is
 
   function fgetreadmonth(p_smfid in varchar2) return varchar2 is
   begin

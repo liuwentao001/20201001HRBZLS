@@ -102,9 +102,9 @@ comment on column REQUEST_DHGL.workno
 comment on column REQUEST_DHGL.workbatch
   is '批次号';
 comment on column REQUEST_DHGL.rlid
-  is '应收账流水号，多个按逗号分隔';
+  is '应收账流水号';
 comment on column REQUEST_DHGL.reshbz
   is '审核标志，Y审核完成';
 comment on column REQUEST_DHGL.rewcbz
-  is '完成标志，Y冲正完成';
+  is '完成标志，Y完成';
 

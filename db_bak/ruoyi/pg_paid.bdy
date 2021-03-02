@@ -12,11 +12,12 @@
   */
   procedure poscustforys_pj_pl(p_pjids varchar2,
              p_cply     varchar2,
+             p_payway   varchar2,
              p_oper     varchar2,
              o_log      out varchar2) is
   begin
     for i in (select regexp_substr(p_pjids, '[^,]+', 1, level) id from dual connect by level <= length(p_pjids) - length(replace(p_pjids, ',', '')) + 1) loop
-      poscustforys_pj(i.id , p_cply, p_oper , o_log);
+      poscustforys_pj(i.id , p_cply, p_payway, p_oper , o_log);
     end loop;
   exception
     when others then
@@ -34,13 +35,13 @@
   */
   procedure poscustforys_pj(p_pjid varchar2,
              p_cply     varchar2,
+             p_payway   varchar2,
              p_oper     varchar2,
              o_log      out varchar2) is
     v_pbatch varchar2(10);  --缴费交易批次
     v_ptrans char(1);       --缴费事务
     v_position varchar(32); --缴费机构
     v_yhid varchar2(10);    --用户编码
-    v_fkfs varchar2(2);     --付款方式
     v_arstr varchar2(2000); --应收账流水号，多个按逗号分隔
     v_kpje number;          --开票金额
     v_cply varchar2(10);
@@ -55,7 +56,7 @@
     end if;
 
     begin
-      select mcode, fkfs, rlid, kpje, cply into v_yhid ,v_fkfs, v_arstr, v_kpje, v_cply from pj_inv_info where id = p_pjid;
+      select mcode, rlid, kpje, cply into v_yhid ,v_arstr, v_kpje, v_cply from pj_inv_info where id = p_pjid;
     exception
       when no_data_found then raise_application_error(errcode, '无效的票据编码！' || p_pjid);
       return;
@@ -74,16 +75,16 @@
     end if;
 
     --1. 先单缴预存
-    precust(p_yhid        => v_yhid,
-            p_position    => v_position,
-            p_pbatch      => v_pbatch,
-            p_trans       => v_ptrans,
-            p_oper        => p_oper,
-            p_payway      => v_fkfs,
-            p_payment     => v_kpje,
-            p_memo        => null,
-            p_pid         => v_pid,
-            o_remainafter => v_remainafter);
+    precust(v_yhid,
+            v_position,
+            v_pbatch,
+            v_ptrans,
+            p_oper,
+            p_payway,
+            v_kpje,
+            null,
+            v_pid,
+            v_remainafter);
     --2. 按照抄表日期逐条扣费
     select reflag into v_reflag from bs_custinfo where ciid = v_yhid;
     --存在审批过程中的工单不进行抵扣
@@ -95,7 +96,7 @@
                v_position,
                v_ptrans,
                p_oper,
-               v_fkfs,
+               p_payway,
                0,
                null,
                v_pid,
@@ -110,30 +111,43 @@
 
 
 
-  --柜台缴费入口
+  --缴费入口
   /*
   p_yhid          用户编码
-  p_arstr         （已废弃）欠费流水号，多个流水号用逗号分隔，例如：0000012726,70105341
   p_oper          销帐员，柜台缴费时销帐人员与收款员统一
   p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
   p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
-  p_pid           返回交易流水号
+  p_pmzph         支票号或倒存号
+  p_pmzpje        支票金额
+  p_pmkhname      开户行名称
+  p_pmkhaccont    开户行账号
+  p_pmkhadr       开户行地址
+  o_log           输出日志
+  o_status        执行状态（000 失败，999 成功）
+
   1. 先单缴预存
-  2. 按照抄表日期扣费
+  2. 支票、倒存类型 生成付款交易明细
   */
   procedure poscustforys(p_yhid     in varchar2,
-             p_arstr    in varchar2,
              p_oper     in varchar2,
              p_payway   in varchar2,
              p_payment  in varchar2,
-             p_pid      out varchar2) is
-  v_remainafter number;
-  v_payment number;
-  v_position varchar(32);
-  v_pbatch varchar2(10);
-  --v_misaving number;
-  --v_reflag varchar2(10);
+             p_pmzph    in varchar2,
+             p_pmzpje   in varchar2,
+             p_pmkhname in varchar2,
+             p_pmkhaccont  in varchar2,
+             p_pmkhadr  in varchar2,
+             o_log      out varchar2,
+             o_status   out varchar2) is
+    v_remainafter  number;
+    v_payment      number;
+    v_position     varchar(32);
+    v_pbatch       varchar2(10);
+    v_pid          varchar2(12);
+    v_pmzpje       number;
+    v_pmdid        varchar2(50);
   begin
+    o_log := o_log || '开始执行 - 缴费过程，用户编码：'|| p_yhid || chr(10);
     
     select trim(to_char(seq_paidbatch.nextval,'0000000000')) into v_pbatch from dual; --缴费交易批次
 
@@ -152,35 +166,32 @@
               p_payway      => p_payway,
               p_payment     => v_payment,
               p_memo        => null,
-              p_pid         => p_pid,
+              p_pid         => v_pid,
               o_remainafter => v_remainafter);
+      o_log := o_log || '已生成付款交易，交易流水号：'|| v_pid || chr(10);
     end if;
-    --2. 按照抄表日期逐条扣费 
-    /*--20210224 客户决定缴费时不实时进行抵扣，每晚定时抵扣，或按下抵扣按钮时抵扣
-      select misaving, reflag into v_misaving, v_reflag from bs_custinfo where ciid = p_yhid;
-      --存在审批过程中的工单不进行抵扣
-      if v_reflag <> 'Y' or v_reflag is null then
-        for i in (select rlid, rlje from bs_reclist t where rlpaidflag = 'N' and rlreverseflag = 'N'and rlje <> 0 and rlcid = p_yhid order by rlday) loop
-          exit when v_misaving < i.rlje;
-          paycust(p_yhid,
-                 i.rlid,
-                 v_pbatch,
-                 v_position,
-                 'U',  --缴费事务   柜台缴费
-                 p_oper,
-                 p_payway,
-                 0,
-                 null,
-                 p_pid,
-                 v_remainafter);
-          v_misaving := v_misaving - i.rlje;
-        end loop;
-      end if;
-    --20210224 客户决定缴费时不实时进行抵扣，每晚定时抵扣，或按下抵扣按钮时抵扣 结束*/
     
+    --2.支票、倒存类型 生成付款交易明细
+    if p_payway = 'ZP' then
+      v_pmzpje := to_number(p_pmzpje);
+      v_pmdid := sys_guid();
+      --支票 生成付款交易明细
+      insert into bs_pmdetail(pmdid, pmdiid, pmddj, pmzph, pmzpje, pmjyls, pmkhname, pmkhaccont, pmkhadr)
+        values (v_pmdid, p_payway, v_payment, p_pmzph, v_pmzpje, v_pid, p_pmkhname, p_pmkhaccont, p_pmkhadr);
+      o_log := o_log || '已生成付款交易明细，交易流水号：'|| v_pmdid || chr(10);
+    elsif p_payway = 'DC' or p_payway = 'JTDC' then
+      v_pmdid := sys_guid();
+      --倒存 生成付款交易明细
+      insert into bs_pmdetail(pmdid, pmdiid, pmddj, pmzph, pmzpje, pmjyls, pmkhname, pmkhaccont, pmkhadr)
+        values (v_pmdid, p_payway, v_payment, p_pmzph, null, v_pid, null, null, null);
+      o_log := o_log || '已生成付款交易明细，交易流水号：'|| v_pmdid || chr(10);
+    end if;
     commit;
+    o_log := o_log || '执行完成 - 缴费过程，用户编码：'|| p_yhid || chr(10);
+    o_status := '999';
   exception
     when others then
+      o_status := '000';
       rollback;
       raise_application_error(errcode, sqlerrm);
   end;

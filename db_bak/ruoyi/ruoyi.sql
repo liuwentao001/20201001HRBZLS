@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export User Objects for user SF_USER@10.10.10.72/YSDB
-prompt Created by xss on 2021年2月26日
+prompt Created by xss on 2021年3月2日
 set define off
 spool ruoyi.log
 
@@ -423,6 +423,11 @@ prompt Creating table QRTZ_SIMPROP_TRIGGERS
 prompt ====================================
 prompt
 @@qrtz_simprop_triggers.tab
+prompt
+prompt Creating table RELATION_JZGD_DZGD
+prompt =================================
+prompt
+@@relation_jzgd_dzgd.tab
 prompt
 prompt Creating table RELATION_PAYMENT_JZGD
 prompt ====================================
@@ -939,6 +944,11 @@ prompt ===========================
 prompt
 @@sequserno.seq
 prompt
+prompt Creating sequence SEQ_BS_CUSTINFO
+prompt =================================
+prompt
+@@seq_bs_custinfo.seq
+prompt
 prompt Creating sequence SEQ_BS_IMPORTUSERS
 prompt ====================================
 prompt
@@ -1293,6 +1303,11 @@ prompt Creating function FGET调整单价
 prompt ==========================
 prompt
 @@fget调整单价.fnc
+prompt
+prompt Creating function FN_GET_CIID
+prompt =============================
+prompt
+@@fn_get_ciid.fnc
 prompt
 prompt Creating function FPARA
 prompt =======================

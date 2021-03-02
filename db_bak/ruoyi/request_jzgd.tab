@@ -229,5 +229,5 @@ comment on column REQUEST_JZGD.dzgd_no
 comment on column REQUEST_JZGD.st_sdate
   is '统计开始时间';
 comment on column REQUEST_JZGD.st_edate
-  is '统计结束时间 ';
+  is '统计结束时间';
 

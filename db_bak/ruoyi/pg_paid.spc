@@ -40,6 +40,7 @@
   */
   procedure poscustforys_pj_pl(p_pjids varchar2,
              p_cply     varchar2,
+             p_payway   varchar2,
              p_oper     varchar2,
              o_log      out varchar2);
 
@@ -54,26 +55,44 @@
   */
   procedure poscustforys_pj(p_pjid varchar2,
              p_cply     varchar2,
+             p_payway   varchar2,
              p_oper     in varchar2,
              o_log      out varchar2);
 
   --缴费入口
   /*
   p_yhid          用户编码
-  p_arstr          欠费流水号，多个流水号用逗号分隔，例如：0000012726,70105341
   p_oper          销帐员，柜台缴费时销帐人员与收款员统一
   p_payway        付款方式(XJ-现金 ZP-支票 MZ-抹账 DC-倒存)
   p_payment       实收，即为（付款-找零），付款与找零在前台计算和校验
-  p_pid           返回交易流水号*/
+  p_pmzph         支票号或倒存号
+  p_pmzpje        支票金额
+  p_pmkhname      开户行名称
+  p_pmkhaccont    开户行账号
+  p_pmkhadr       开户行地址
+  o_log          输出日志
+  o_status     执行状态（000 失败，999 成功）
+
+  1. 先单缴预存
+  2. 按照抄表日期扣费
+  */
   procedure poscustforys(p_yhid     in varchar2,
-             p_arstr    in varchar2,
              p_oper     in varchar2,
              p_payway   in varchar2,
              p_payment  in varchar2,
-             p_pid      out varchar2);
+             p_pmzph    in varchar2,
+             p_pmzpje   in varchar2,
+             p_pmkhname in varchar2,
+             p_pmkhaccont  in varchar2,
+             p_pmkhadr  in varchar2,
+             o_log      out varchar2,
+             o_status   out varchar2);
              
   --单用户，按应收账日期逐条销账
-   procedure paycust_by_yh(p_yhid in varchar2,p_oper in varchar2,p_payway varchar2, o_log out varchar2);
+   procedure paycust_by_yh(p_yhid in varchar2,
+             p_oper in varchar2,
+             p_payway varchar2, 
+             o_log out varchar2);
     
   --一水表多应收销帐
   procedure paycust(p_yhid     in varchar2,

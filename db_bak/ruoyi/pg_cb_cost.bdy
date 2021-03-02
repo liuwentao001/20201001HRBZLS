@@ -412,7 +412,9 @@
     end if;
     -----------------------------------------------------------------------------
     --判断一表多户 分表按比例分摊水量
-    if /*mi.micolumn9 = 'Y'*/ 1>1 then
+    if /*mi.micolumn9 = 'Y'*/ 1>1 then 
+      null;
+      /*
       open c_mr_pr(mr.mrmid);
       v_tempsl := mr.mrsl;
       v_row    := 1;
@@ -455,6 +457,7 @@
       if c_mr_pr%isopen then
         close c_mr_pr;
       end if;
+      */
     else
       if mr.mrifrec = 'N' and --mr.mrifsubmit = 'Y' and
          mr.mrifhalt = 'N' and
@@ -466,45 +469,31 @@
         calculate(mr, '1', '0000.00', v_rec_cal);
       elsif mi.miifcharge = 'N' or mr.mrifhalt = 'Y' then
         --计量不计费,将数据记录到费用库
-        calculatenp(mr, '1', '0000.00');
+        calculatenp(mr, '1', '0000.00'); 
         mr.mrifrec := 'N';
       end if;
     end if;
     -----------------------------------------------------------------------------
-
-
     --更新当前抄表记录
-    if 是否审批算费 = 'N' then
-      update bs_meterread
-         set mrifrec   = mr.mrifrec,
-             mrrecdate = mr.mrrecdate,
-             mrsl      = mr.mrsl,
-             mrrecsl   = mr.mrrecsl,
-             mrrecje01 = mr.mrrecje01,
-             mrrecje02 = mr.mrrecje02,
-             mrrecje03 = mr.mrrecje03,
-             mrrecje04 = mr.mrrecje04
-       where current of c_mr;
-    else
-      update bs_meterread
-         set mrrecdate = mr.mrrecdate,
-             mrsl      = mr.mrsl,
-             mrrecsl   = mr.mrrecsl,
-             mrrecje01 = mr.mrrecje01,
-             mrrecje02 = mr.mrrecje02,
-             mrrecje03 = mr.mrrecje03,
-             mrrecje04 = mr.mrrecje04
-       where current of c_mr;
-    end if;
+    update bs_meterread
+       set mrifrec   = mr.mrifrec,
+           mrrecdate = mr.mrrecdate,
+           mrsl      = mr.mrsl,
+           mrrecsl   = mr.mrrecsl,
+           mrrecje01 = mr.mrrecje01,
+           mrrecje02 = mr.mrrecje02,
+           mrrecje03 = mr.mrrecje03,
+           mrrecje04 = mr.mrrecje04
+     where current of c_mr;
     close c_mr;
     commit;
-
-      if c_mr_pr%isopen then close c_mr_pr; end if;
-      if c_mr_pri%isopen then close c_mr_pri; end if;
-      if c_mr_child%isopen then close c_mr_child; end if;
-      if c_mr%isopen then close c_mr; end if;
-      if c_mi%isopen then close c_mi; end if;
-      if c_mi_class%isopen then close c_mi_class; end if;
+    
+    if c_mr_pr%isopen then close c_mr_pr; end if;
+    if c_mr_pri%isopen then close c_mr_pri; end if;
+    if c_mr_child%isopen then close c_mr_child; end if;
+    if c_mr%isopen then close c_mr; end if;
+    if c_mi%isopen then close c_mi; end if;
+    if c_mi_class%isopen then close c_mi_class; end if;
   exception
     when others then
       if c_mr_pr%isopen then close c_mr_pr; end if;

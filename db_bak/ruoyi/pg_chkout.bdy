@@ -2,7 +2,7 @@
   --对账处理程序包
 
   /*
-  生成建账工单
+  生成结账工单
   收费员结账   收费员可对自己自上次结账到当前时间的收费记录进行结账的功能。
   参数：  p_userid        收费员编码
   */
@@ -154,7 +154,7 @@
   end;
 
   /*
-  删除建账工单
+  删除结账工单
   收费员结账   收费员可对自己自上次结账到当前时间的收费记录进行结账的功能。
   参数     p_reno      建账工单编码
   */
@@ -246,6 +246,110 @@
     when others then rollback;
   end;
 
+  /*
+  结账工单审批
+  结账工单审批通过后回写  扎帐日期（收费员结账后回写审核日期） payment.pchkdate 
+  参数    p_reno 结账工单单号request_jzgd.reno
+  */
+  procedure jzgd_sp(p_reno varchar2, o_log out varchar2, o_status out varchar2) is
+    v_reshbz char(1);
+    v_rewcbz char(1);
+    v_createdate date;
+  begin
+    
+    begin
+      select reshbz, rewcbz, createdate into v_reshbz, v_rewcbz, v_createdate from request_jzgd where reno = p_reno;
+    exception
+      when no_data_found then o_log := o_log || p_reno || '：无效的工单号' || chr(10);
+      o_status := '000';
+      return;
+    end;
+    
+    if v_reshbz <> 'Y' or v_reshbz is null then
+      o_log := o_log || p_reno || '：工单未完成审核，无法提交' || chr(10);
+      o_status := '000';
+      return;
+    elsif v_rewcbz = 'Y' then
+      o_log := o_log || p_reno || '：工单已完成，无法重复提交'|| chr(10);
+      o_status := '000';
+      return;
+    end if;
+    
+    o_log := o_log || p_reno || '：工单开始执行'|| chr(10);
+
+    --更新交易信息
+    update bs_payment
+    set pchkdate = v_createdate
+    where pid in (select pid from relation_jzgd_dzgd where jz_reno = p_reno);
+    
+    --更新工单信息
+    update request_jzgd set rewcbz = 'Y' where reno = p_reno;
+    
+    commit;
+    
+    o_log := o_log || p_reno || '：工单执行完成'|| chr(10);
+    o_status := '999';
+    
+  exception
+    when others then
+      o_log := o_log || p_reno || '：无效的工单号' ;
+      o_status := '000';
+      rollback;
+  end;
+  
+   /*
+  对账工单审批
+  对账工单审批通过后回写  pdzdate	财务对账日期（财务对账审核后回写）
+  参数    p_reno 结账工单单号request_jzgd.reno
+          p_oper       操作员编码
+          o_log         输出日志
+  */
+  procedure dzgd_sp(p_reno varchar2, o_log out varchar2, o_status out varchar2) is 
+    v_reshbz char(1);
+    v_rewcbz char(1);
+    v_createdate date;
+  begin
+    begin
+      select reshbz, rewcbz, createdate into v_reshbz, v_rewcbz, v_createdate from request_dzgd where reno = p_reno;
+    exception
+      when no_data_found then o_log := o_log || p_reno || '：无效的工单号' || chr(10);
+      o_status := '000';
+      return;
+    end;
+    
+    if v_reshbz <> 'Y' or v_reshbz is null then
+      o_log := o_log || p_reno || '：工单未完成审核，无法提交' || chr(10);
+      o_status := '000';
+      return;
+    elsif v_rewcbz = 'Y' then
+      o_log := o_log || p_reno || '：工单已完成，无法重复提交'|| chr(10);
+      o_status := '000';
+      return;
+    end if;
+    
+    o_log := o_log || p_reno || '：工单开始执行'|| chr(10);
+    
+    --更新交易信息
+    update bs_payment
+    set pdzdate = v_createdate
+    where pid in (select rpj.pid 
+                  from relation_payment_jzgd rpj 
+                       left join relation_jzgd_dzgd rjd on rpj.reno = rjd.jz_reno
+                  where rjd.dz_reno = p_reno);
+    --更新工单信息
+    update request_jzgd set rewcbz = 'Y' where reno = p_reno;
+    
+    commit;
+    
+    o_log := o_log || p_reno || '：工单执行完成'|| chr(10);
+    o_status := '999';
+  exception
+    when others then
+      o_log := o_log || p_reno || '：无效的工单号' ;
+      o_status := '000';
+      rollback;
+  end;
+  
 end pg_chkout;
 /
 

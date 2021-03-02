@@ -190,19 +190,21 @@ select 1015-929,774/86 from dual
 
 
 --呆账坏账工单处理
-update request_dhgl set rlid = '1000202111,1000202112,1000202113',rewcbz = 'N' ,reshbz='Y'  where reno='dh1';
+update request_dhgl set rlid = '1000202097',rewcbz = 'N' ,reshbz='Y'  where reno='dh1';
+update request_dhgl set rlid = '1000202099,1000202098',rewcbz = 'N' ,reshbz='Y'  where reno='dh2';
+update request_dhgl set rewcbz = 'N' ,reshbz='Y'  where reno='B8A62AE9E63045878948B34145633390';
 commit;
 
-update bs_reclist set rlpaidflag = 'N' where rlcid='0100172364';
+update bs_reclist set rlbadflag = 'N',rlpaidflag = 'N' where rlid in ('1000202097','1000202099','1000202098');
 delete from bs_payment where pcid='0100172364';
 commit;
 
 
 select * from bs_reclist where rlcid='0100172364';
 select * from request_dhgl t;
-
 select * from bs_payment where pcid='0100172364';
 
+select * from bs_reclist where rlid = '0322031711'
 
 ---出票
 truncate table pj_inv_info
@@ -211,23 +213,31 @@ select * from bs_reclist where rlreverseflag<>'Y' and rlpaidflag <> 'Y' and rlre
 select * from bs_payment where pid <= '0000248146' order by pid desc 
       
 --收费员结账
+/*
 update sys_user set chk_date = null where user_id = '1';
 truncate table request_jzgd;
 update bs_payment set pchkno = null where ppayee = '1';
 commit;
-
 update bs_payment set ppayway = 'XJ' where ppayee='1';
 commit;
-
 select * from sys_user where user_id = '1';
+select * from request_jzgd;
+select * from bs_reclist rl where rl.rlcid = '2200000470';
+select * from bs_recdetail rd where rdid in (select rlid from bs_reclist rl where rl.rlcid = '2200000470') ;
+select * from bs_payment where ppayee='1';
+*/
+
+update request_jzgd set reshbz = 'Y', rewcbz = 'N' where reno = '1000000013';
+update request_dzgd set reshbz = 'Y', rewcbz = 'N',createdate = sysdate where reno = 'd1';
+insert into relation_payment_jzgd(id, pid, reno) values ('1','0000247664','1000000013');
+insert into relation_jzgd_dzgd(id, jz_reno, dz_reno) values ('1','1000000013','d1');
+commit;
 
 select * from request_jzgd;
-
-select * from bs_reclist rl where rl.rlcid = '2200000470';
-      
-select * from bs_recdetail rd where rdid in (select rlid from bs_reclist rl where rl.rlcid = '2200000470') ;
-
-select * from bs_payment where ppayee='1';
+select * from request_dzgd;
+select * from relation_jzgd_dzgd;
+select * from relation_payment_jzgd;
+select * from bs_payment where pid = '0000247664';
 
 
 --实收冲正工单
@@ -238,7 +248,8 @@ select * from request_sscz order by createdate desc;
 select * from bs_payment where pid in ('0000248090','0000248020','0000248016');
 select * from bs_payment order by pid desc;
 
-
+编写收费员结账 对账工单处理代码
+调整收费员结账 对账工单生成与删除代码
 
 select * from bs_payment where pcid = '0100172364' order by pid desc;
 
@@ -254,7 +265,6 @@ select * from bs_recdetail where rdid='0000248185'
 ---实收冲正测试
 select misaving, t.* from bs_custinfo t where ciid=3126163958;
 select * from bs_payment where pcid='3126163958'order by pid desc;
-
 
 
 
@@ -296,6 +306,17 @@ where mr.mrid = '2372463708';
 select * from bs_priceframe;
 select * from bs_pricedetail;
 select * from bs_pricestep;
+
+
+
+
+将修改后的的代码归档，并进行代码重审
+999 成功
+000 失败
+
+---------------------缴费
+select * from BS_PMDETAIL t
+
 
 
 

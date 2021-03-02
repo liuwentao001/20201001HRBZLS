@@ -1,4 +1,4 @@
-﻿create or replace package "TOOLS" is
+﻿create or replace package tools is
 
   --抄表月份
   function fgetreadmonth(p_smfid in varchar2) return varchar2;
