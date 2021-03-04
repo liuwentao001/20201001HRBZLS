@@ -74,6 +74,7 @@
       v_pid varchar2(100);
       v_rlje number;
       v_misaving number;
+      v_remainafter number;
     begin
       for i in (select regexp_substr(p_rlids, '[^,]+', 1, level) rlid from dual connect by level <= length(p_rlids) - length(replace(p_rlids, ',', '')) + 1) loop
 
@@ -92,7 +93,19 @@
            o_log := o_log || i.rlid ||  '用户余额不足无法销账' || chr(10);
            o_status := '000';
         else
-          pg_paid.poscustforys(v_rlcid, i.rlid, p_oper, p_payway, 0, v_pid);
+           pg_paid.paycust(
+                        p_yhid        => v_rlcid,    --用户编码
+                        p_arstr       => i.rlid,
+                        p_pbatch      => null,
+                        p_position    => null,
+                        p_trans       => 'U',
+                        p_oper        => p_oper,
+                        p_payway      => p_payway,
+                        p_payment     => 0,
+                        p_pid_source  => null,
+                        p_pid         => v_pid,
+                        o_remainafter => v_remainafter
+                        );
           o_log := o_log || i.rlid || '应收帐，销账完成'|| chr(10);
           o_status := '999';
         end if;

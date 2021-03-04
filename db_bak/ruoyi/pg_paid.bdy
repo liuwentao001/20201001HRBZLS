@@ -283,7 +283,6 @@
       p.ppayee := p_oper;         --销帐人员
       p.psavingqc := nvl(ci.misaving,0);        --期初预存余额
       p.psavingbq := p_payment;                 --本期发生预存金额
-      p.psavingbq_abs := abs(p.psavingbq);        --本期发生预存金额（用于前台页面显示）
       p.psavingqm := p.psavingqc + p.psavingbq; --期末预存余额
       p.ppayment := p_payment;                  --付款金额
       p.ppayway := p_payway;       --付款方式(xj-现金 zp-支票 mz-抹账 dc-倒存)
@@ -298,10 +297,10 @@
       p.pmemo := null;        --备注
       p.preverseflag := 'N';  --冲正标志
       if p_pid_source is null then
-        p.pscrid    := p.pid;     --原实收帐流水（应收冲实产生的负帐时payment.pscrid不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况payment.pscrid为空）
-        p.pscrtrans := p.ptrans;  --原实收缴费事务（实收冲正产生的负帐时payment.pscrtrans不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况payment.pscrtrans为空）
-        p.pscrmonth := p.pmonth; --原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：a用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）
-        p.pscrdate  := p.pdate;  --原实收日期
+        p.pscrid    := null;     --原实收帐流水（应收冲实产生的负帐时payment.pscrid不空，且为被冲实收帐流水号，用于关联冲与被冲的关联，其它情况payment.pscrid为空）
+        p.pscrtrans := null;  --原实收缴费事务（实收冲正产生的负帐时payment.pscrtrans不空，且为被冲应收帐事务，用于关联冲与被冲的关联，其它情况payment.pscrtrans为空）
+        p.pscrmonth := null; --原实收收月份（实收冲正（因冲帐产生负实收帐）：新生成负实收帐的原实收帐月份与被冲正实由帐月份相同（如：a用户2011年8月缴一笔水费，自来水公司在2011年9月发现这笔有问题，需要做实收冲正，做实收冲正时会产生一笔2011年9月负实帐，2011年9月负帐原实收帐月份为2011年8月）
+        p.pscrdate  := null;  --原实收日期
       else
         select pid, ptrans, pmonth, pdate
           into p.pscrid, p.pscrtrans, p.pscrmonth, p.pscrdate
@@ -312,7 +311,6 @@
     --4、销帐核心调用（应收记录处理、反馈实收数据）
     payzwarcore(p.pid,
                 p.pbatch,
-                p_payment,
                 ci.misaving,
                 p_oper,
                 p.pdate,
@@ -325,7 +323,6 @@
     --5、重算预存发生、预存期末、更新用户预存余额
     p.psavingqm := p.psavingqc + p_payment - v_pdspje - v_pdwyj - v_pdsxf;
     p.psavingbq := p.psavingqm - p.psavingqc;
-    p.psavingbq_abs := abs(p.psavingbq);
     update bs_custinfo set misaving = p.psavingqm where ciid = p_yhid;
     --6、返回预存余额
     o_remainafter := p.psavingqm;
@@ -345,7 +342,6 @@
   --实收销帐处理核心
   procedure payzwarcore(p_pid          in varchar2,
                         p_batch        in varchar2,
-                        p_payment      in number,
                         p_remainbefore in number,
                         p_oper         in varchar,
                         p_paiddate     in date,
@@ -410,6 +406,7 @@
                  rlpaiddate  = rl.rlpaiddate,
                  rlpaidmonth = rl.rlpaidmonth,
                  rlpaidje    = rl.rlpaidje,
+                 rlpaidper   = rl.rlpaidper,
                  rlpid       = rl.rlpid,
                  rlpbatch    = rl.rlpbatch
            where rlid = rl.rlid;
@@ -567,7 +564,6 @@
       p.ppayee := p_oper;         --销帐人员
       p.psavingqc := nvl(ci.misaving,0);        --期初预存余额
       p.psavingbq := p_payment;                 --本期发生预存金额
-      p.psavingbq_abs := abs(p.psavingbq);        --本期发生预存金额（用于前台页面显示）
       p.psavingqm := p.psavingqc + p.psavingbq; --期末预存余额
       p.ppayment := p_payment;                  --付款金额
       p.ppayway := p_payway;       --付款方式(xj-现金 zp-支票 mz-抹账 dc-倒存)
@@ -603,7 +599,6 @@
   end;
 
   --实收冲正，按工单
-
   procedure pay_back_gd(p_reno in varchar2, p_oper in varchar2, o_pid_reverse out varchar2) is
     v_payids varchar(100);
     v_pid_reverse varchar(100);
@@ -619,6 +614,8 @@
       else
          o_pid_reverse := o_pid_reverse || ',' || v_pid_reverse;
       end if;
+      update bs_payment set prevreno = p_reno where pid = i.pid;
+      update bs_payment set prevreno = p_reno where pid = v_pid_reverse;
     end loop;
 
     --更新工单状态
@@ -711,7 +708,6 @@
       pay_back_by_pid(p_pid, p_oper, '', v_pid_reverse);
       o_pid_reverse := v_pid_reverse;
     elsif v_ptrans in ('P','S') and v_misaving < v_ppayment then
-      null;
       --自动销账
       for i in (select p.pid ,rl.rlje
                   from bs_payment p
@@ -770,7 +766,6 @@
       p_reverse.ptrans     := p_source.ptrans;
       select misaving into p_reverse.psavingqc from bs_custinfo where ciid = p_source.pcid;      --期初预存余额
       p_reverse.psavingbq := -p_source.psavingbq;
-      p_reverse.psavingbq_abs := abs(p_reverse.psavingbq);        --本期发生预存金额（用于前台页面显示）
       p_reverse.psavingqm := p_reverse.psavingqc + p_reverse.psavingbq; --期末预存余额;
       p_reverse.ppayment  := -p_source.ppayment;
       p_reverse.ppayway   := p_source.ppayway;
@@ -816,7 +811,8 @@
 
       --冲正时应收帐负数据
       v_call := f_set_cr_reclist(p_reverse);
-
+      dbms_output.put_line( '冲正时应收帐' || v_call);
+      
       --将应收冲正负记录插入到应收总账中
       insert into bs_reclist t (select * from bs_reclist_sscz_temp);
 

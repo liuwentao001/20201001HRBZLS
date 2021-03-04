@@ -1,38 +1,38 @@
 ﻿create table BS_PAYMENT
 (
-  pid           VARCHAR2(10) not null,
-  pcid          VARCHAR2(10) not null,
-  pmid          VARCHAR2(10),
-  pdate         DATE,
-  pdatetime     DATE,
-  pmonth        VARCHAR2(7),
-  pposition     VARCHAR2(10),
-  ptrans        CHAR(1) not null,
-  psavingqc     NUMBER(12,2),
-  psavingbq     NUMBER(12,2),
-  psavingqm     NUMBER(12,2),
-  ppayment      NUMBER(12,2),
-  ppayway       VARCHAR2(6),
-  pbseqno       VARCHAR2(20),
-  pbdate        DATE,
-  pchkdate      DATE,
-  pbatch        VARCHAR2(10),
-  ppayee        VARCHAR2(20),
-  pmemo         VARCHAR2(200),
-  preverseflag  VARCHAR2(1),
-  pscrid        VARCHAR2(10),
-  pscrtrans     VARCHAR2(1),
-  pscrmonth     VARCHAR2(7),
-  pscrdate      DATE,
-  pchkno        VARCHAR2(10),
-  tchkdate      DATE,
-  pdzdate       DATE,
-  pcseqno       VARCHAR2(20),
-  pcchkflag     CHAR(1),
-  pcdate        DATE,
-  pwseqno       VARCHAR2(50),
-  pwdate        VARCHAR2(20),
-  psavingbq_abs NUMBER(12,2)
+  pid          VARCHAR2(10) not null,
+  pcid         VARCHAR2(10) not null,
+  pmid         VARCHAR2(10),
+  pdate        DATE,
+  pdatetime    DATE,
+  pmonth       VARCHAR2(7),
+  pposition    VARCHAR2(10),
+  ptrans       CHAR(1) not null,
+  psavingqc    NUMBER(12,2),
+  psavingbq    NUMBER(12,2),
+  psavingqm    NUMBER(12,2),
+  ppayment     NUMBER(12,2),
+  ppayway      VARCHAR2(6),
+  pbseqno      VARCHAR2(20),
+  pbdate       DATE,
+  pchkdate     DATE,
+  pbatch       VARCHAR2(10),
+  ppayee       VARCHAR2(20),
+  pmemo        VARCHAR2(200),
+  preverseflag VARCHAR2(1),
+  pscrid       VARCHAR2(10),
+  pscrtrans    VARCHAR2(1),
+  pscrmonth    VARCHAR2(7),
+  pscrdate     DATE,
+  pchkno       VARCHAR2(10),
+  tchkdate     DATE,
+  pdzdate      DATE,
+  pcseqno      VARCHAR2(20),
+  pcchkflag    CHAR(1),
+  pcdate       DATE,
+  pwseqno      VARCHAR2(50),
+  pwdate       VARCHAR2(20),
+  prevreno     VARCHAR2(50)
 )
 ;
 comment on table BS_PAYMENT
@@ -101,6 +101,6 @@ comment on column BS_PAYMENT.pwseqno
   is '微信流水';
 comment on column BS_PAYMENT.pwdate
   is '微信申请日期';
-comment on column BS_PAYMENT.psavingbq_abs
-  is '本期发生预存金额（用于前台页面显示）';
+comment on column BS_PAYMENT.prevreno
+  is '实收冲正工单流水号';
 

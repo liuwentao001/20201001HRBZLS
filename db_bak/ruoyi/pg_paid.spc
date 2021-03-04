@@ -110,7 +110,6 @@
   --实收销帐处理核心
   procedure payzwarcore(p_pid          in varchar2,
               p_batch        in varchar2,
-              p_payment      in number,
               p_remainbefore in number,
               p_oper         in varchar,
               p_paiddate     in date,

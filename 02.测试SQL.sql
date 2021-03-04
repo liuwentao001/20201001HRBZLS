@@ -72,7 +72,7 @@ with t as(
 select listagg(a,'|') within group(order by a) from t;
 
 -------------------------------------------------
---测试
+--算费测试
 
 update bs_custinfo set misaving='10000000' where ciid='0100172364';--预存
 update bs_meterinfo set mipfid='D0102' where miid='0100172364';--固定水价
@@ -88,6 +88,7 @@ update bs_meterread set mrrecje03=null where mrid='819260';
 update bs_reclist set rlscrrlmonth='2020.11' where rlmid='0100172364';
 update bs_reclist set rlmonth='2020.11' where rlmid='0100172364';
 commit;
+update bs_meterread set mrifrec = 'N' where mrccode='0100172364';
 delete from bs_reclist where rlcid='0100172364';
 delete from bs_payment where pcid='0100172364';
 commit;
@@ -243,10 +244,16 @@ select * from bs_payment where pid = '0000247664';
 --实收冲正工单
 select * from request_sscz order by createdate desc;
 1D63B99CE820448EBEB70E2BC64ED608
-0000248090,0000248020,0000248016
 
-select * from bs_payment where pid in ('0000248090','0000248020','0000248016');
-select * from bs_payment order by pid desc;
+update request_sscz set pid = '1433920080,1433954264',reshbz = 'Y' ,rewcbz = 'N' where reno = '1D63B99CE820448EBEB70E2BC64ED608';
+commit;
+
+0000248158,0000248159
+
+select * from bs_payment where preverseflag = 'N' ;
+
+select * from bs_payment where pid in ('1433920080','1433954264','0000248158','0000248159');
+
 
 编写收费员结账 对账工单处理代码
 调整收费员结账 对账工单生成与删除代码
@@ -316,8 +323,26 @@ select * from bs_pricestep;
 
 ---------------------缴费
 select * from BS_PMDETAIL t
+select sys_guid() from dual;
+
+select misaving,t.* from bs_custinfo t where ciid='3126163958';
+select * from bs_pmdetail
+
+select * from bs_reclist where rlcid='1308455200';
+select * from bs_meterread where mrid='2373062621';
+
+select * from bs_reclist where rlcid='1308455200' order by rlid;
+select * from bs_payment where pcid = '1308455200' order by pid;
 
 
+select * from bs_custinfo
 
+select * from bs_custinfo where ciid = '1308455200';
+
+select mipfid, t.* from bs_meterinfo t where micode = '1308455200' and rownum = 1;
+
+select * from bs_priceframe where pfid = 'A0103';
+
+select pfprice from bs_priceframe where pfid = (select mipfid from bs_meterinfo where micode = '1308455200' and rownum = 1);
 
 

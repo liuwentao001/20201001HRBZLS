@@ -1,7 +1,7 @@
 ﻿create table BS_PMDETAIL
 (
   pmdid      VARCHAR2(50),
-  pmdiid     CHAR(4) not null,
+  pmdiid     VARCHAR2(10) not null,
   pmddj      NUMBER(12,3),
   pmzph      VARCHAR2(10),
   pmzpje     NUMBER(12,3),
